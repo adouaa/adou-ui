@@ -1,6 +1,6 @@
 {
   "name": "adou-ui",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "main": "index.js",
   "dependencies": {
     "@babel/cli": "^7.24.1",
