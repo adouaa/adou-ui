@@ -1,5 +1,5 @@
 import { useRef, useState } from "react";
-
+import MultipleSelect from "./components/adou-multipleSelect";
 import Modal from "./components/adou-modal";
 import Button from "./components/adou-button";
 import Form from "./components/adou-form";
@@ -127,6 +127,7 @@ function App() {
 
   return (
     <div className="App p-3">
+      <MultipleSelect defaultValue={defaultMultipleSelectData} options={options}></MultipleSelect>
       <div className="operate my-2">
         <Button onClickOK={submit} type="primary">
           提交
