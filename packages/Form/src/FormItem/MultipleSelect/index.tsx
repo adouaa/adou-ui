@@ -8,17 +8,19 @@ import { useContext, useEffect, useRef, useState } from "react";
 import { SelectProps } from "../Select";
 import { FormContext } from "../../index";
 
-import { FormContextProps } from "../Input";
+import { FormContextProps } from "../../index";
 
 interface MultipleSelectProps extends SelectProps {
     onMultipleSelectChangeOK?: (selectedOptions: any[]) => void;
+    setFormItemValue?: (value: any) => void;
+
 }
 
 const MultipleSelect: React.FC<MultipleSelectProps> = (props: MultipleSelectProps) => {
 
 
 
-    const { defaultValue, options, size, className, disabled, onMultipleSelectChangeOK } = props;
+    const { defaultValue, options, size, className, disabled, onMultipleSelectChangeOK, setFormItemValue } = props;
 
     // 获取 `FormContext.Provider` 提供提供的 `value` 值
     const context: FormContextProps = useContext(FormContext);
@@ -61,6 +63,8 @@ const MultipleSelect: React.FC<MultipleSelectProps> = (props: MultipleSelectProp
         const selectedList = filterdOptions.filter(item => item.selected)
         onMultipleSelectChangeOK && onMultipleSelectChangeOK(selectedList);
         context.handleChange(context.name, selectedList)
+        setFormItemValue && setFormItemValue(selectedList)
+        
     }
 
     const handleInputClick = (e: any) => {
@@ -98,7 +102,11 @@ const MultipleSelect: React.FC<MultipleSelectProps> = (props: MultipleSelectProp
     useEffect(() => {
         let arr: any[] = [];
         if (defaultValue?.length) {
+            console.log("defaultValue = " , defaultValue);
+            
             context.formData[context.name as string] = defaultValue; // 让 Form里面对应的数据项有值
+            setFormItemValue && setFormItemValue(defaultValue);
+
             defaultValue?.map((item: any) => {
                 options.some(option => {
                     option.value === item.value && arr.push(item)

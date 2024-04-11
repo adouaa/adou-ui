@@ -1,7 +1,7 @@
 import { withTranslation } from "react-i18next";
 import classNames from "classnames";
 import { ChangeEvent, useContext, useEffect, useState } from "react";
-import { FormContextProps } from "../Input";
+import { FormContextProps } from "../../index";
 import { FormContext } from "../../index";
 
 import React from "react";
@@ -14,11 +14,12 @@ export interface SelectProps {
     className?: string;
     disabled?: boolean;
     onChangeOK?: (e?: ChangeEvent<HTMLSelectElement>, ...args: any) => void
+    setFormItemValue?: (value: any) => void;
 }
 
 const Select = (props: SelectProps) => {
 
-    const { defaultValue, options, placeholder, size, className, disabled, onChangeOK } = props;
+    const { defaultValue, options, placeholder, size, className, disabled, onChangeOK, setFormItemValue } = props;
 
     // 获取 `FormContext.Provider` 提供提供的 `value` 值
     const context: FormContextProps = useContext(FormContext);
@@ -36,7 +37,9 @@ const Select = (props: SelectProps) => {
         const selectedOption = options[selectedIndex];
         setValue(selectedOption);
         onChangeOK && onChangeOK(selectedOption);
-        context.handleChange(context.name, selectedOption)
+        context.handleChange(context.name, selectedOption);
+        setFormItemValue && setFormItemValue(selectedOption);
+
     }
 
     useEffect(() => {
@@ -53,6 +56,7 @@ const Select = (props: SelectProps) => {
             setValue(defaultValue); // 直接在判断有默认值的地方就给表单赋值，就不会出现数据闪动的现象
             // 这边不能直接用 context.handleChange(context.name, defaultValue)来赋默认值，会被置为空，并且失去 提交和重置功能
             context.formData[context.name as string] = defaultValue; // 让 Form里面对应的数据项有值
+            setFormItemValue && setFormItemValue(defaultValue);
         } else {
             // js默认的选择框好像只能这样写，不能写成 setValue=({})
             // 只能让它重置为选中第一个选项。。
@@ -61,12 +65,11 @@ const Select = (props: SelectProps) => {
     }, [defaultValue])
 
     return <>
-    {/* 这边不给 flex: 1的话，会把label标签的宽度给占走一点点 */}
-        <select style={{flex: 1}} value={value?.value} onChange={(e) => handleSelect(e)} className={cls} aria-label=".form-select-lg example" disabled={disabled}>
+        {/* 这边不给 flex: 1的话，会把label标签的宽度给占走一点点 */}
+        <select style={{ flex: 1 }} value={value?.value} onChange={(e) => handleSelect(e)} className={cls} aria-label=".form-select-lg example" disabled={disabled}>
             {options.map(item => <option disabled={item.disabled} key={item.value} value={item.value}>{item.label}</option>)}
         </select>
     </>;
 };
-
 
 export default withTranslation()(Select);

@@ -1901,7 +1901,7 @@ var classnames_default = /*#__PURE__*/__webpack_require__.n(classnames);
 
 
 const Input = props => {
-  var _ref, _context$formData, _context$formData3;
+  var _ref;
   // 获取 `FormContext.Provider` 提供提供的 `value` 值
   const context = (0,external_root_React_commonjs2_react_commonjs_react_amd_react_.useContext)(FormContext);
   const {
@@ -1917,11 +1917,11 @@ const Input = props => {
     onClickOK,
     onFocusOK,
     onBlurOK,
-    onChangeOK
+    setFormItemValue
   } = props;
 
   // 确保value不会是undefined，如果defaultValue或formData中相应的值是undefined，则将其设为空字符串
-  const [value, setValue] = (0,external_root_React_commonjs2_react_commonjs_react_amd_react_.useState)((_ref = defaultValue !== null && defaultValue !== void 0 ? defaultValue : (_context$formData = context.formData) === null || _context$formData === void 0 ? void 0 : _context$formData[context.name]) !== null && _ref !== void 0 ? _ref : '');
+  const [value, setValue] = (0,external_root_React_commonjs2_react_commonjs_react_amd_react_.useState)((_ref = defaultValue !== null && defaultValue !== void 0 ? defaultValue : context.formData[context.name]) !== null && _ref !== void 0 ? _ref : '');
   const cls = classnames_default()({
     "input-group": true,
     ["input-group-".concat(size)]: size,
@@ -1940,6 +1940,9 @@ const Input = props => {
     onFocusOK && onFocusOK(e, ...args);
   };
   const handleBlur = function (e) {
+    // 为了让父组件能拿到值，在点击确定按钮的时候，让Form调用每个表单项的检验方法
+    setFormItemValue && setFormItemValue(e.target.value);
+    context.checkValidate(e.target.value);
     for (var _len3 = arguments.length, args = new Array(_len3 > 1 ? _len3 - 1 : 0), _key3 = 1; _key3 < _len3; _key3++) {
       args[_key3 - 1] = arguments[_key3];
     }
@@ -1947,17 +1950,18 @@ const Input = props => {
   };
   const handleChange = function (e) {
     setValue(e.target.value);
+    setFormItemValue && setFormItemValue(e.target.value);
     // 根据 name 属性，更新 Form 中的数据源
     context.handleChange(context.name, e.target.value);
   };
   (0,external_root_React_commonjs2_react_commonjs_react_amd_react_.useEffect)(() => {
-    var _context$formData2;
-    setValue(((_context$formData2 = context.formData) === null || _context$formData2 === void 0 ? void 0 : _context$formData2[context.name]) || "");
-  }, [(_context$formData3 = context.formData) === null || _context$formData3 === void 0 ? void 0 : _context$formData3[context.name]]);
+    setValue(context.formData[context.name] || "");
+  }, [context.formData[context.name]]);
   (0,external_root_React_commonjs2_react_commonjs_react_amd_react_.useEffect)(() => {
-    console.log("input context = ", context);
     if (defaultValue) {
+      // 为了一上来就提交表单，这边有默认值也要给 父组件设置
       setValue(defaultValue);
+      setFormItemValue && setFormItemValue(defaultValue);
       // 这边不能直接用 context.handleChange(context.name, defaultValue)来赋默认值，会被置为空，并且失去 提交和重置功能
       context.formData[context.name] = defaultValue;
     }
@@ -2005,7 +2009,8 @@ const Select = props => {
     size,
     className,
     disabled,
-    onChangeOK
+    onChangeOK,
+    setFormItemValue
   } = props;
 
   // 获取 `FormContext.Provider` 提供提供的 `value` 值
@@ -2021,6 +2026,7 @@ const Select = props => {
     setValue(selectedOption);
     onChangeOK && onChangeOK(selectedOption);
     context.handleChange(context.name, selectedOption);
+    setFormItemValue && setFormItemValue(selectedOption);
   };
   (0,external_root_React_commonjs2_react_commonjs_react_amd_react_.useEffect)(() => {
     // 这边用判断来，如果表单的数据 context.formData[context.name as string]没有值（""）
@@ -2037,6 +2043,7 @@ const Select = props => {
       setValue(defaultValue); // 直接在判断有默认值的地方就给表单赋值，就不会出现数据闪动的现象
       // 这边不能直接用 context.handleChange(context.name, defaultValue)来赋默认值，会被置为空，并且失去 提交和重置功能
       context.formData[context.name] = defaultValue; // 让 Form里面对应的数据项有值
+      setFormItemValue && setFormItemValue(defaultValue);
     } else {
       // js默认的选择框好像只能这样写，不能写成 setValue=({})
       // 只能让它重置为选中第一个选项。。
@@ -2124,7 +2131,8 @@ const TextArea = props => {
     placeholder,
     disabled,
     defaultValue,
-    onChangeOK
+    onChangeOK,
+    setFormItemValue
   } = props;
 
   // 获取 `FormContext.Provider` 提供提供的 `value` 值
@@ -2132,6 +2140,7 @@ const TextArea = props => {
   const [value, setValue] = (0,external_root_React_commonjs2_react_commonjs_react_amd_react_.useState)((_ref = defaultValue !== null && defaultValue !== void 0 ? defaultValue : context.formData[context.name]) !== null && _ref !== void 0 ? _ref : '');
   const handleChange = function (e) {
     setValue(e.target.value); // 手动将表单的value值赋值
+    setFormItemValue && setFormItemValue(e.target.value);
     // 根据 name 属性，更新 Form 中的数据源
     context.formData[context.name] = e.target.value;
     // context.handleChange(context.name, e.target.value) // 这边不能直接用 handleChange来赋值，会出现赋值错误的情况
@@ -2141,13 +2150,12 @@ const TextArea = props => {
     onChangeOK && onChangeOK(e, ...args);
   };
   (0,external_root_React_commonjs2_react_commonjs_react_amd_react_.useEffect)(() => {
-    console.log("formData变化");
     setValue(context.formData[context.name] || "");
   }, [context.formData[context.name]]);
   (0,external_root_React_commonjs2_react_commonjs_react_amd_react_.useEffect)(() => {
-    console.log("默认值变了");
     if (defaultValue) {
       setValue(defaultValue);
+      setFormItemValue && setFormItemValue(defaultValue);
       // 这边不能直接用 context.handleChange(context.name, defaultValue)来赋默认值，会被置为空，并且失去 提交和重置功能
       context.formData[context.name] = defaultValue;
     }
@@ -2211,11 +2219,12 @@ const LiveSearchSelect_LiveSearchSelect = props => {
     size,
     className,
     disabled,
-    onChangeOK,
-    onSelectOK
+    onSelectOK,
+    setFormItemValue
   } = props;
   const context = (0,external_root_React_commonjs2_react_commonjs_react_amd_react_.useContext)(FormContext);
-  const [value, setValue] = (0,external_root_React_commonjs2_react_commonjs_react_amd_react_.useState)(""); // 给个 || ""就会让 input为受控状态，不能让它默认是 defaultValue，有可能不存在。。
+  const selectedValeRef = (0,external_root_React_commonjs2_react_commonjs_react_amd_react_.useRef)("");
+  // const [value, setValue] = useState(""); // 给个 || ""就会让 input为受控状态，不能让它默认是 defaultValue，有可能不存在。。
   // 注意！！！如果发现状态没有按预知的方向变化的话，就考虑用 xxxRef来替代。。。
   // prevSelectedValueRef.current 用来记录上一次正确选择的数据
   // 防止用户输入不正确，搜索不到对应数据，出现空的情况。先保存一下上次的数据，然后在出现意外的时候复制给要展示的数据
@@ -2228,16 +2237,25 @@ const LiveSearchSelect_LiveSearchSelect = props => {
     [className]: className
   });
   const handleSelect = (e, option) => {
-    setValue(option.label);
+    // setValue(option.label);
+    selectedValeRef.current = option.label;
     prevSelectedValueRef.current = option.label;
     onSelectOK && onSelectOK(option);
     context.handleChange(context.name, option);
+    console.log("option = ", option);
+    setFormItemValue && setFormItemValue(option);
   };
   const filterOptions = value => {
     setFilterdOptions(options.filter(option => option.label.includes(value)));
   };
+  const handleInputBlur = e => {
+    setTimeout(() => {
+      context.checkValidate(selectedValeRef.current);
+    }, 150);
+  };
   const handleInputClick = e => {
-    setValue("");
+    // setValue("");
+    selectedValeRef.current = "";
     searchValueRef.current = "";
     setShowOptions(true);
     // 这个时候也要重新过滤数据
@@ -2245,7 +2263,8 @@ const LiveSearchSelect_LiveSearchSelect = props => {
   };
   const handleInputChange = e => {
     let value = e.target.value;
-    setValue(value);
+    // setValue(value);
+    selectedValeRef.current = value;
     searchValueRef.current = value;
     // 输入改变的时候重新过滤
     filterOptions(searchValueRef.current);
@@ -2263,7 +2282,8 @@ const LiveSearchSelect_LiveSearchSelect = props => {
         return setShowOptions(true);
       } else if (optionItemRefs.some(ref => ref.current === e.target)) {} else {
         // 点击的是除了输入框和选项
-        setValue(prevSelectedValueRef.current);
+        // setValue(prevSelectedValueRef.current)
+        selectedValeRef.current = prevSelectedValueRef.current;
       }
       setShowOptions(false);
 
@@ -2287,16 +2307,18 @@ const LiveSearchSelect_LiveSearchSelect = props => {
     // 如果有默认值，让实时搜索框的值为默认值（没有做判断搜索列表是否存在该值）
     if (defaultValue !== null && defaultValue !== void 0 && defaultValue.value) {
       var _filterdOptions$find;
+      // 用 ref的话就不用加 定时器，用 state的话就要加定时器。。。（0秒即可）
       let label = (_filterdOptions$find = filterdOptions.find(option => option.label === defaultValue.label)) === null || _filterdOptions$find === void 0 ? void 0 : _filterdOptions$find.label;
-      setTimeout(() => {
-        context.formData[context.name] = defaultValue; // 让 Form里面对应的数据项有值
-        // 保存默认值，防止用户输入不正确
-        prevSelectedValueRef.current = label;
-        label && setValue(defaultValue.label);
-      }, 0);
+      context.formData[context.name] = defaultValue; // 让 Form里面对应的数据项有值
+      // 保存默认值，防止用户输入不正确
+      prevSelectedValueRef.current = label;
+      label && (selectedValeRef.current = defaultValue.label);
+      // 将默认值的label赋值给 FormItemValue，为了让校验通过
+      setFormItemValue && setFormItemValue(defaultValue.label);
     } else {
       // 如果没有默认值，也要记得把 prevSelectedValueRef置空
-      setValue("");
+      // setValue("");
+      selectedValeRef.current = "";
       prevSelectedValueRef.current = ""; // 记得把 prevSelectedValueRef置空
     }
   }, [defaultValue]);
@@ -2304,14 +2326,16 @@ const LiveSearchSelect_LiveSearchSelect = props => {
   // Form的formData发生变化，表单数据也要对应发生变化
   (0,external_root_React_commonjs2_react_commonjs_react_amd_react_.useEffect)(() => {
     if (!context.formData[context.name]) {
-      setValue("");
+      // setValue("");
+      selectedValeRef.current = "";
       prevSelectedValueRef.current = "";
     }
   }, [context.formData[context.name]]);
   return /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("div", {
     className: cls
   }, /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("input", {
-    value: value,
+    value: selectedValeRef.current,
+    onBlur: e => handleInputBlur(e),
     onChange: e => handleInputChange(e),
     onClick: handleInputClick,
     ref: inputRef,
@@ -2380,7 +2404,8 @@ const MultipleSelect_MultipleSelect = props => {
     size,
     className,
     disabled,
-    onMultipleSelectChangeOK
+    onMultipleSelectChangeOK,
+    setFormItemValue
   } = props;
 
   // 获取 `FormContext.Provider` 提供提供的 `value` 值
@@ -2423,6 +2448,7 @@ const MultipleSelect_MultipleSelect = props => {
     const selectedList = filterdOptions.filter(item => item.selected);
     onMultipleSelectChangeOK && onMultipleSelectChangeOK(selectedList);
     context.handleChange(context.name, selectedList);
+    setFormItemValue && setFormItemValue(selectedList);
   };
   const handleInputClick = e => {
     searchValueRef.current = "";
@@ -2458,7 +2484,9 @@ const MultipleSelect_MultipleSelect = props => {
   (0,external_root_React_commonjs2_react_commonjs_react_amd_react_.useEffect)(() => {
     let arr = [];
     if (defaultValue !== null && defaultValue !== void 0 && defaultValue.length) {
+      console.log("defaultValue = ", defaultValue);
       context.formData[context.name] = defaultValue; // 让 Form里面对应的数据项有值
+      setFormItemValue && setFormItemValue(defaultValue);
       defaultValue === null || defaultValue === void 0 || defaultValue.map(item => {
         options.some(option => {
           option.value === item.value && arr.push(item);
@@ -2558,7 +2586,8 @@ const Radio = props => {
     inline = true,
     options,
     defaultValue,
-    onChangeOK
+    onChangeOK,
+    setFormItemValue
   } = props;
 
   // 获取 `FormContext.Provider` 提供提供的 `value` 值
@@ -2581,11 +2610,13 @@ const Radio = props => {
         };
       });
     });
+    setFormItemValue && setFormItemValue(item);
     onChangeOK && onChangeOK(item);
   };
   (0,external_root_React_commonjs2_react_commonjs_react_amd_react_.useEffect)(() => {
     if (defaultValue !== null && defaultValue !== void 0 && defaultValue.value) {
       context.formData[context.name] = defaultValue;
+      setFormItemValue && setFormItemValue(defaultValue);
       setOptionsList(preArr => {
         return preArr.map(option => {
           if (defaultValue.value === option.value) {
@@ -2644,7 +2675,9 @@ const Checkbox = props => {
     inline = true,
     options,
     defaultValue,
-    onChangeOK
+    wrap = true,
+    onChangeOK,
+    setFormItemValue
   } = props;
   const [optionsList, setOptionsList] = (0,external_root_React_commonjs2_react_commonjs_react_amd_react_.useState)(options || []);
   const cls = classnames_default()({
@@ -2666,13 +2699,14 @@ const Checkbox = props => {
       }
     });
     context.formData[context.name] = updatedChheckboxData.filter(item => item.checked);
-    console.log("updatedChheckboxData = ", updatedChheckboxData);
     setOptionsList(updatedChheckboxData);
     onChangeOK && onChangeOK(updatedChheckboxData === null || updatedChheckboxData === void 0 ? void 0 : updatedChheckboxData.filter(v => v.checked));
+    setFormItemValue && setFormItemValue(updatedChheckboxData === null || updatedChheckboxData === void 0 ? void 0 : updatedChheckboxData.filter(v => v.checked));
   };
   (0,external_root_React_commonjs2_react_commonjs_react_amd_react_.useEffect)(() => {
     if (defaultValue.length) {
       context.formData[context.name] = defaultValue;
+      setFormItemValue && setFormItemValue(defaultValue);
       setOptionsList(preArr => {
         return preArr.map(option => {
           if (defaultValue.some(item => item.value === option.value)) {
@@ -2693,8 +2727,13 @@ const Checkbox = props => {
       });
     }
   }, [context.formData[context.name]]);
+  const divClasses = classnames_default()({
+    'checkbox-wrapper': true,
+    'd-flex': inline,
+    "flex-wrap": wrap
+  });
   return /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement((external_root_React_commonjs2_react_commonjs_react_amd_react_default()).Fragment, null, /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("div", {
-    className: "checkbox-wrapper ".concat(inline && "d-flex")
+    className: divClasses
   }, optionsList === null || optionsList === void 0 ? void 0 : optionsList.map(item => {
     return /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("div", {
       key: item.value,
@@ -2729,6 +2768,7 @@ const Checkbox = props => {
 
 
 const FormItem = props => {
+  // 获取 `FormContext.Provider` 提供提供的 `value` 值
   const context = (0,external_root_React_commonjs2_react_commonjs_react_amd_react_.useContext)(FormContext);
   const {
     children,
@@ -2741,16 +2781,40 @@ const FormItem = props => {
     validate,
     rule
   } = props;
-  const handleValidate = value => {
+  const [error, setError] = (0,external_root_React_commonjs2_react_commonjs_react_amd_react_.useState)("");
+  const checkValidate = value => {
     if (validate) {
-      console.log(rule);
-      console.log(name);
-      console.log(value);
+      var _rule$;
+      context.handleValidate(false); // 一开始进去先置为错误的，表单验证不通过
+      if (rule[0].required && !value) {
+        return setError(rule[0].message);
+      }
+      if ((_rule$ = rule[1]) !== null && _rule$ !== void 0 && _rule$.type) {
+        const type = rule[1].type;
+        switch (type) {
+          case "email":
+            if (!/^[a-zA-Z0-9_-]+@[a-zA-Z0-9_-]+(\.[a-zA-Z0-9_-]+)+$/.test(value)) {
+              return setError(rule[1].message);
+            }
+            break;
+          case "number":
+            if (!/^[0-9]*$/.test(value)) {
+              return setError(rule[1].message);
+            }
+        }
+      }
+      context.handleValidate(true); // 最后可以执行到这步的时候，说明 表单验证通过
+      setError("");
     }
   };
   const renderContent = () => {
-    // 子元素检查
+    const enhancedChildren = external_root_React_commonjs2_react_commonjs_react_amd_react_default().Children.map(props.children, child => {
+      return /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().cloneElement(child, {
+        setFormItemValue: handleSetFormItemValue // 把子元素的值设置到表单中
+      });
+    });
 
+    // 子元素检查
     if ( /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().isValidElement(children)) {
       return /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement((external_root_React_commonjs2_react_commonjs_react_amd_react_default()).Fragment, null, /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("div", {
         style: {
@@ -2766,22 +2830,68 @@ const FormItem = props => {
         style: {
           flex: 1
         }
-      }, children)), /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("div", {
-        className: "form-item-error",
+      }, enhancedChildren)), error && /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("div", {
+        className: "form-item-error text-danger small",
         style: {
-          textAlign: "center",
-          marginTop: "-10px"
+          textAlign: "left",
+          margin: "-15px 0 5px ".concat(label.length * labelWidth + "px")
         }
-      }, 555));
+      }, error));
     }
     return null;
   };
+
+  // Form自动校验逻辑
+  const newFormItemValue = (0,external_root_React_commonjs2_react_commonjs_react_amd_react_.useRef)();
+  const handleSetFormItemValue = value => {
+    newFormItemValue.current = value;
+  };
+  const handleValidate = formItemValue => {
+    if (validate) {
+      var _rule$2;
+      name === "multiple" && console.log("进来handleValidate = ", formItemValue);
+      let valid = true;
+      if (rule[0].required && !formItemValue) {
+        setError(rule[0].message);
+        valid = false;
+        return valid;
+      }
+      if ((_rule$2 = rule[1]) !== null && _rule$2 !== void 0 && _rule$2.type) {
+        const type = rule[1].type;
+        switch (type) {
+          case "email":
+            if (!/^[a-zA-Z0-9_-]+@[a-zA-Z0-9_-]+(\.[a-zA-Z0-9_-]+)+$/.test(formItemValue)) {
+              setError(rule[1].message);
+              valid = false;
+            }
+            break;
+          case "number":
+            if (!/^[0-9]*$/.test(formItemValue)) {
+              setError(rule[1].message);
+              valid = false;
+            }
+        }
+      }
+      if (valid) {
+        setError("");
+      }
+      return valid;
+    }
+  };
+  (0,external_root_React_commonjs2_react_commonjs_react_amd_react_.useEffect)(() => {
+    context.registerFormItem({
+      name,
+      validate,
+      handleValidate: () => handleValidate(newFormItemValue.current)
+    });
+    // 组件卸载时可能需要一个注销逻辑
+  }, []);
 
   // 复写 FormContext.Provider，增加 name 参数的传递
   return /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement(FormContext.Provider, {
     value: {
       ...context,
-      handleValidate,
+      checkValidate,
       name
     }
   }, renderContent());
@@ -2805,6 +2915,7 @@ const FormContext = /*#__PURE__*/(0,external_root_React_commonjs2_react_commonjs
 const Form = /*#__PURE__*/(0,external_root_React_commonjs2_react_commonjs_react_amd_react_.forwardRef)((props, formRef) => {
   // 统一管理表单数据源
   const [formData, setFormData] = (0,external_root_React_commonjs2_react_commonjs_react_amd_react_.useState)({});
+  const [validation, setValidation] = (0,external_root_React_commonjs2_react_commonjs_react_amd_react_.useState)(true);
 
   // 对外暴露的API
   (0,external_root_React_commonjs2_react_commonjs_react_amd_react_.useImperativeHandle)(formRef, () => ({
@@ -2813,6 +2924,15 @@ const Form = /*#__PURE__*/(0,external_root_React_commonjs2_react_commonjs_react_
       callback && callback({
         ...formData
       });
+    },
+    validate: callback => {
+      let isValid = true;
+      formItems.forEach(item => {
+        const validationResult = item.handleValidate();
+        console.log("validationResult = ", validationResult);
+        if (!validationResult && item.validate) isValid = false; // 假设validate方法返回false表示验证失败
+      });
+      callback && callback(isValid);
     },
     // 表单重置
     resetForm: () => {
@@ -2833,23 +2953,41 @@ const Form = /*#__PURE__*/(0,external_root_React_commonjs2_react_commonjs_react_
       [name]: value
     });
   };
+
+  // 提交表单判断是否通过验证
+  const handleValidate = validate => {
+    setValidation(validate);
+  };
+
+  // 添加一个状态来保存FormItem的引用或校验函数列表
+  const [formItems, setFormItems] = (0,external_root_React_commonjs2_react_commonjs_react_amd_react_.useState)([]);
+  const registerFormItem = item => {
+    setFormItems(prevArr => [...prevArr, item]);
+  };
   const renderContent = () => {
     const renderChildren = [];
-    external_root_React_commonjs2_react_commonjs_react_amd_react_default().Children.map(props.children, child => {
+    /* React.Children.map(props.children, (child) => {
       // child.type 子元素自身（FormItem），检查其静态属性 displayName 是否满足条件
       if (child.type.displayName === 'formItem') {
-        renderChildren.push(child);
+        renderChildren.push(child)
+      }
+      
+    }) */
+    props.children.forEach(item => {
+      if (item.type.displayName === "formItem") {
+        renderChildren.push(item);
       }
     });
     return renderChildren;
   };
-  console.log("FormContext = ", FormContext);
 
   // 传入数据源以及数据源的修改方法，子孙后代都可读取 value 中的值
   return /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement(FormContext.Provider, {
     value: {
       formData,
-      handleChange
+      handleChange,
+      handleValidate,
+      registerFormItem
     }
   }, renderContent());
 });

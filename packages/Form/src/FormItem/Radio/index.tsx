@@ -1,7 +1,7 @@
 import classNames from "classnames";
 import React, { useContext, useEffect, useState } from "react";
 import { withTranslation } from "react-i18next"
-import { FormContextProps } from "../Input";
+import { FormContextProps } from "../../index";
 import { FormContext } from "../../index";
 
 
@@ -16,16 +16,18 @@ interface RadioProps {
     options?: any[],
     inline?: boolean,
     onChangeOK?: (item: any) => void,
+    setFormItemValue?: (value: any) => void;
+
 }
 
 const Radio: React.FC<RadioProps> = (props: RadioProps) => {
 
-    const { className, inline = true, options, defaultValue, onChangeOK } = props;
-    
+    const { className, inline = true, options, defaultValue, onChangeOK, setFormItemValue } = props;
+
     // 获取 `FormContext.Provider` 提供提供的 `value` 值
     const context: FormContextProps = useContext(FormContext);
 
-     // 确保value不会是undefined，如果defaultValue或formData中相应的值是undefined，则将其设为空字符串
+    // 确保value不会是undefined，如果defaultValue或formData中相应的值是undefined，则将其设为空字符串
 
 
     const [optionsList, setOptionsList] = useState(options || []);
@@ -39,15 +41,19 @@ const Radio: React.FC<RadioProps> = (props: RadioProps) => {
         context.formData[context.name as string] = item;
         setOptionsList(preArr => {
             return preArr.map(option => {
-                return {...option, checked: option.value === item.value};
+                return { ...option, checked: option.value === item.value };
             })
         })
+        setFormItemValue && setFormItemValue(item);
+
         onChangeOK && onChangeOK(item);
     }
 
     useEffect(() => {
         if (defaultValue?.value) {
             context.formData[context.name as string] = defaultValue;
+            setFormItemValue && setFormItemValue(defaultValue);
+
             setOptionsList(preArr => {
                 return preArr.map(option => {
                     if (defaultValue.value === option.value) {
@@ -72,15 +78,15 @@ const Radio: React.FC<RadioProps> = (props: RadioProps) => {
 
 
     return <>
-       <div className={`radio-wrapper ${inline && `d-flex`}`}>
-       {optionsList?.map(item => {
-            return <div key={item.value} className="form-check" style={{ marginRight: "20px" }}>
-                <input disabled={item.disabled} className={cls} type="radio" name={item.name} id={item.id} checked={item.checked} onChange={() => handleChange(item)} value={item.value} />
-                <label className="form-check-label" htmlFor={item.id}>
-                    {item.label || "Default Radio"}
-                </label></div>
-        })}
-       </div>
+        <div className={`radio-wrapper ${inline && `d-flex`}`}>
+            {optionsList?.map(item => {
+                return <div key={item.value} className="form-check" style={{ marginRight: "20px" }}>
+                    <input disabled={item.disabled} className={cls} type="radio" name={item.name} id={item.id} checked={item.checked} onChange={() => handleChange(item)} value={item.value} />
+                    <label className="form-check-label" htmlFor={item.id}>
+                        {item.label || "Default Radio"}
+                    </label></div>
+            })}
+        </div>
     </>
 }
 

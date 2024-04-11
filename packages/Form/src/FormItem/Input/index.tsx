@@ -2,7 +2,7 @@
 import React, { useContext, useEffect, useState } from "react";
 import { withTranslation } from "react-i18next"
 import classNames from "classnames";
-import { FormContext } from "../../index";
+import { FormContext, FormContextProps } from "../../index";
 
 export interface InputProps {
     name?: string;
@@ -14,6 +14,7 @@ export interface InputProps {
     placeholder?: string;
     style?: any;
     disabled?: boolean;
+    setFormItemValue?: (value: any) => void;
     onClickOK?: (e: React.MouseEvent<HTMLInputElement, MouseEvent>, ...args: any) => void;
     onFocusOK?: (e: React.FocusEvent<HTMLInputElement, Element>, ...args: any) => void;
     onBlurOK?: (e: React.FocusEvent<HTMLInputElement, Element>, ...args: any) => void;
@@ -21,11 +22,6 @@ export interface InputProps {
 
 }
 
-export interface FormContextProps {
-    handleChange?: any;
-    name?: string,
-    formData?: any
-}
 
 const Input: React.FC<InputProps> = (props: InputProps) => {
 
@@ -33,12 +29,11 @@ const Input: React.FC<InputProps> = (props: InputProps) => {
     const context: FormContextProps = useContext(FormContext);
 
 
-
-    const { name, size, className, prefixContent, suffixContent, placeholder, style, disabled, defaultValue, onClickOK, onFocusOK, onBlurOK, onChangeOK } = props;
+    const { name, size, className, prefixContent, suffixContent, placeholder, style, disabled, defaultValue, onClickOK, onFocusOK, onBlurOK, setFormItemValue } = props;
 
 
     // 确保value不会是undefined，如果defaultValue或formData中相应的值是undefined，则将其设为空字符串
-    const [value, setValue] = useState(defaultValue ?? context.formData?.[context.name as string] ?? '');
+    const [value, setValue] = useState(defaultValue ?? context.formData[context.name as string] ?? '');
 
     const cls = classNames({
         "input-group": true,
@@ -53,24 +48,28 @@ const Input: React.FC<InputProps> = (props: InputProps) => {
         onFocusOK && onFocusOK(e, ...args);
     }
     const handleBlur = (e: React.FocusEvent<HTMLInputElement, Element>, ...args: any) => {
+        // 为了让父组件能拿到值，在点击确定按钮的时候，让Form调用每个表单项的检验方法
+        setFormItemValue && setFormItemValue(e.target.value);
+        context.checkValidate(e.target.value);
         onBlurOK && onBlurOK(e, ...args);
 
     }
     const handleChange = (e: React.ChangeEvent<HTMLInputElement>, ...args: any) => {
         setValue(e.target.value);
+        setFormItemValue && setFormItemValue(e.target.value); 
         // 根据 name 属性，更新 Form 中的数据源
         context.handleChange(context.name, e.target.value)
     }
 
     useEffect(() => {
-        setValue(context.formData?.[context.name as string] || "");
-    }, [context.formData?.[context.name as string]])
+        setValue(context.formData[context.name as string] || "");
+    }, [context.formData[context.name as string]])
 
     useEffect(() => {
-        console.log("input context = ", context);
-        
         if (defaultValue) {
+            // 为了一上来就提交表单，这边有默认值也要给 父组件设置
             setValue(defaultValue);
+            setFormItemValue && setFormItemValue(defaultValue); 
             // 这边不能直接用 context.handleChange(context.name, defaultValue)来赋默认值，会被置为空，并且失去 提交和重置功能
             context.formData[context.name as string] = defaultValue;
         }
@@ -78,7 +77,7 @@ const Input: React.FC<InputProps> = (props: InputProps) => {
 
     return (
         <>
-            <div className={cls} style={{flex: 1}}>
+            <div className={cls} style={{ flex: 1 }}>
                 {prefixContent && <span className="input-group-text" id="basic-addon1">{prefixContent}</span>}
                 <input name={name} value={value} disabled={disabled} style={style} placeholder={placeholder} onChange={handleChange} onBlur={(e) => handleBlur(e, "hello1", 5561)} onFocus={(e) => handleFocus(e, "hello1", 5561)} onClick={(e) => handleClick(e, "hello", 556)} type="text" className="form-control" aria-label="Username" aria-describedby="basic-addon1" />
                 {suffixContent && <span className="input-group-text" id="basic-addon2">{suffixContent}</span>}

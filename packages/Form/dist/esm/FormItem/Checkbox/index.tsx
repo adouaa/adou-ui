@@ -1,15 +1,16 @@
 import classNames from "classnames";
 import React, { useContext, useEffect, useState } from "react";
 import { withTranslation } from "react-i18next"
-import { FormContextProps } from "../Input";
-import { FormContext } from "../../index";
+import { FormContext, FormContextProps } from "../../index";
 
 interface CheckboxProps {
     defaultValue?: any;
     className?: string,
     options?: any[],
     inline?: boolean,
+    wrap?: boolean,
     onChangeOK?: (item: any) => void,
+    setFormItemValue?: (value: any) => void;
 }
 
 const Checkbox: React.FC<CheckboxProps> = (props: CheckboxProps) => {
@@ -17,7 +18,7 @@ const Checkbox: React.FC<CheckboxProps> = (props: CheckboxProps) => {
     // 获取 `FormContext.Provider` 提供提供的 `value` 值
     const context: FormContextProps = useContext(FormContext);
 
-    const { className, inline = true, options, defaultValue, onChangeOK } = props;
+    const { className, inline = true, options, defaultValue, wrap = true, onChangeOK, setFormItemValue } = props;
 
     const [optionsList, setOptionsList] = useState(options || []);
 
@@ -38,14 +39,16 @@ const Checkbox: React.FC<CheckboxProps> = (props: CheckboxProps) => {
             }
         });
         context.formData[context.name as string] = updatedChheckboxData.filter(item => item.checked);
-        console.log("updatedChheckboxData = ", updatedChheckboxData);
+
         setOptionsList(updatedChheckboxData!);
         onChangeOK && onChangeOK(updatedChheckboxData?.filter(v => v.checked));
+        setFormItemValue && setFormItemValue(updatedChheckboxData?.filter(v => v.checked))
     }
 
     useEffect(() => {
         if (defaultValue.length) {
             context.formData[context.name as string] = defaultValue;
+            setFormItemValue && setFormItemValue(defaultValue);
             setOptionsList(preArr => {
                 return preArr.map(option => {
                     if (defaultValue.some((item: any) => item.value === option.value)) {
@@ -68,9 +71,13 @@ const Checkbox: React.FC<CheckboxProps> = (props: CheckboxProps) => {
         }
     }, [context.formData[context.name as string]])
 
-
+    const divClasses = classNames({
+        'checkbox-wrapper': true,
+        'd-flex': inline,
+        "flex-wrap": wrap
+    })
     return <>
-        <div className={`checkbox-wrapper ${inline && `d-flex`}`}>
+        <div className={divClasses}>
             {optionsList?.map(item => {
                 return <div key={item.value} className="form-check" style={{ textAlign: "left", marginRight: "20px" }}>
                     <input className={cls} type="checkbox" name={item.name} id={item.id} checked={item.checked} onChange={() => handleChange(item)} value={item.value} />
