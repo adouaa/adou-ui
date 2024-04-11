@@ -2101,7 +2101,7 @@ var classnames_default = /*#__PURE__*/__webpack_require__.n(classnames);
 
 
 const Input = props => {
-  var _ref;
+  var _ref, _context$formData, _context$formData3;
   // 获取 `FormContext.Provider` 提供提供的 `value` 值
   const context = (0,external_root_React_commonjs2_react_commonjs_react_amd_react_.useContext)(cjs.FormContext);
   const {
@@ -2121,7 +2121,7 @@ const Input = props => {
   } = props;
 
   // 确保value不会是undefined，如果defaultValue或formData中相应的值是undefined，则将其设为空字符串
-  const [value, setValue] = (0,external_root_React_commonjs2_react_commonjs_react_amd_react_.useState)((_ref = defaultValue !== null && defaultValue !== void 0 ? defaultValue : context.formData[context.name]) !== null && _ref !== void 0 ? _ref : '');
+  const [value, setValue] = (0,external_root_React_commonjs2_react_commonjs_react_amd_react_.useState)((_ref = defaultValue !== null && defaultValue !== void 0 ? defaultValue : (_context$formData = context.formData) === null || _context$formData === void 0 ? void 0 : _context$formData[context.name]) !== null && _ref !== void 0 ? _ref : '');
   const cls = classnames_default()({
     "input-group": true,
     ["input-group-".concat(size)]: size,
@@ -2151,9 +2151,11 @@ const Input = props => {
     context.handleChange(context.name, e.target.value);
   };
   (0,external_root_React_commonjs2_react_commonjs_react_amd_react_.useEffect)(() => {
-    setValue(context.formData[context.name] || "");
-  }, [context.formData[context.name]]);
+    var _context$formData2;
+    setValue(((_context$formData2 = context.formData) === null || _context$formData2 === void 0 ? void 0 : _context$formData2[context.name]) || "");
+  }, [(_context$formData3 = context.formData) === null || _context$formData3 === void 0 ? void 0 : _context$formData3[context.name]]);
   (0,external_root_React_commonjs2_react_commonjs_react_amd_react_.useEffect)(() => {
+    console.log("input context = ", context);
     if (defaultValue) {
       setValue(defaultValue);
       // 这边不能直接用 context.handleChange(context.name, defaultValue)来赋默认值，会被置为空，并且失去 提交和重置功能

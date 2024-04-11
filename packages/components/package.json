@@ -2,7 +2,7 @@
   "author": "adou",
   "email": "1041137820@qq.com",
   "name": "adou-ui",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "React components using pure Bootstrap 5+ which does not contain any external style and script libraries.",
   "repository": {
     "type": "git",

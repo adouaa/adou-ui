@@ -38,7 +38,7 @@ const Input: React.FC<InputProps> = (props: InputProps) => {
 
 
     // 确保value不会是undefined，如果defaultValue或formData中相应的值是undefined，则将其设为空字符串
-    const [value, setValue] = useState(defaultValue ?? context.formData[context.name as string] ?? '');
+    const [value, setValue] = useState(defaultValue ?? context.formData?.[context.name as string] ?? '');
 
     const cls = classNames({
         "input-group": true,
@@ -63,10 +63,12 @@ const Input: React.FC<InputProps> = (props: InputProps) => {
     }
 
     useEffect(() => {
-        setValue(context.formData[context.name as string] || "");
-    }, [context.formData[context.name as string]])
+        setValue(context.formData?.[context.name as string] || "");
+    }, [context.formData?.[context.name as string]])
 
     useEffect(() => {
+        console.log("input context = ", context);
+        
         if (defaultValue) {
             setValue(defaultValue);
             // 这边不能直接用 context.handleChange(context.name, defaultValue)来赋默认值，会被置为空，并且失去 提交和重置功能
