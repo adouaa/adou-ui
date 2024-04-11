@@ -2026,7 +2026,14 @@ const Select = props => {
     setValue(selectedOption);
     onChangeOK && onChangeOK(selectedOption);
     context.handleChange(context.name, selectedOption);
+    context.checkValidate(selectedOption); // 选中的时候，要让他做校验
     setFormItemValue && setFormItemValue(selectedOption);
+  };
+  const handleBlur = () => {
+    console.log(5522, value.label);
+    setTimeout(() => {
+      context.checkValidate(value.label);
+    }, 150);
   };
   (0,external_root_React_commonjs2_react_commonjs_react_amd_react_.useEffect)(() => {
     // 这边用判断来，如果表单的数据 context.formData[context.name as string]没有值（""）
@@ -2058,6 +2065,7 @@ const Select = props => {
       flex: 1
     },
     value: value === null || value === void 0 ? void 0 : value.value,
+    onBlur: () => handleBlur(),
     onChange: e => handleSelect(e),
     className: cls,
     "aria-label": ".form-select-lg example",
@@ -2149,6 +2157,10 @@ const TextArea = props => {
     }
     onChangeOK && onChangeOK(e, ...args);
   };
+  const handleBlur = e => {
+    setFormItemValue && setFormItemValue(e.target.value);
+    context.checkValidate(e.target.value); // 失焦的时候也要立马让父组件执行 检验方法
+  };
   (0,external_root_React_commonjs2_react_commonjs_react_amd_react_.useEffect)(() => {
     setValue(context.formData[context.name] || "");
   }, [context.formData[context.name]]);
@@ -2167,6 +2179,7 @@ const TextArea = props => {
   }, label), /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("textarea", {
     value: value,
     disabled: disabled,
+    onBlur: e => handleBlur(e),
     onChange: e => handleChange(e),
     placeholder: placeholder,
     className: "form-control",
@@ -2249,6 +2262,7 @@ const LiveSearchSelect_LiveSearchSelect = props => {
     setFilterdOptions(options.filter(option => option.label.includes(value)));
   };
   const handleInputBlur = e => {
+    // 因为是先执行 Blur回调，必须要让它在 select之后再进行校验，所以要用定时器异步一下
     setTimeout(() => {
       context.checkValidate(selectedValeRef.current);
     }, 150);

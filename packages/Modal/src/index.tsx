@@ -47,9 +47,9 @@ const Modal: React.FC<ModalProps> = ({
     }
 
     const handleOnConfirm = () => {
-        setVisible(false);
         setTimeout(() => {
             onConfirm && onConfirm();
+
         }, 100);
     }
 

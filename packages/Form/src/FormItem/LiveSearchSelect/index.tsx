@@ -53,6 +53,8 @@ const LiveSearchSelect = (props: LiveSearchSelectProps) => {
     }
 
     const handleInputBlur = (e: React.FocusEvent<HTMLInputElement, Element>) => {
+
+        // 因为是先执行 Blur回调，必须要让它在 select之后再进行校验，所以要用定时器异步一下
         setTimeout(() => {
             context.checkValidate(selectedValeRef.current);
         }, 150);
@@ -152,6 +154,7 @@ const LiveSearchSelect = (props: LiveSearchSelectProps) => {
         </div>}
     </div>
 };
+
 
 
 export default withTranslation()(LiveSearchSelect);

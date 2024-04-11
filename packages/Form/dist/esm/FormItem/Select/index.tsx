@@ -38,8 +38,18 @@ const Select = (props: SelectProps) => {
         setValue(selectedOption);
         onChangeOK && onChangeOK(selectedOption);
         context.handleChange(context.name, selectedOption);
+        context.checkValidate(selectedOption); // 选中的时候，要让他做校验
         setFormItemValue && setFormItemValue(selectedOption);
 
+    }
+
+    const handleBlur = () => {
+        console.log(5522, value.label);
+        
+        setTimeout(() => {
+            context.checkValidate(value.label);
+        }, 150);
+        
     }
 
     useEffect(() => {
@@ -66,7 +76,7 @@ const Select = (props: SelectProps) => {
 
     return <>
         {/* 这边不给 flex: 1的话，会把label标签的宽度给占走一点点 */}
-        <select style={{ flex: 1 }} value={value?.value} onChange={(e) => handleSelect(e)} className={cls} aria-label=".form-select-lg example" disabled={disabled}>
+        <select style={{ flex: 1 }} value={value?.value} onBlur={() => handleBlur()} onChange={(e) => handleSelect(e)} className={cls} aria-label=".form-select-lg example" disabled={disabled}>
             {options.map(item => <option disabled={item.disabled} key={item.value} value={item.value}>{item.label}</option>)}
         </select>
     </>;

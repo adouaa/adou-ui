@@ -1361,7 +1361,6 @@ const Modal = _ref => {
     }, 100);
   };
   const handleOnConfirm = () => {
-    setVisible(false);
     setTimeout(() => {
       onConfirm && onConfirm();
     }, 100);

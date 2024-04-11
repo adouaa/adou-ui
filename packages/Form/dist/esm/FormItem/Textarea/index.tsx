@@ -36,6 +36,11 @@ const TextArea: React.FC<TextAreaProps> = (props: TextAreaProps) => {
         onChangeOK && onChangeOK(e, ...args);
     }
 
+    const handleBlur = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
+        setFormItemValue && setFormItemValue(e.target.value);
+        context.checkValidate(e.target.value); // 失焦的时候也要立马让父组件执行 检验方法
+    }
+
     useEffect(() => {
         setValue(context.formData[context.name as string] || "");
         }, [context.formData[context.name as string]])
@@ -52,7 +57,7 @@ const TextArea: React.FC<TextAreaProps> = (props: TextAreaProps) => {
     return <>
         <div className="textarea-warpper">
             {label && <span className="input-group-text">{label}</span>}
-            <textarea value={value} disabled={disabled} onChange={(e) => handleChange(e)} placeholder={placeholder} className="form-control" aria-label="With textarea"></textarea>
+            <textarea value={value} disabled={disabled} onBlur={(e) => handleBlur(e)} onChange={(e) => handleChange(e)} placeholder={placeholder} className="form-control" aria-label="With textarea"></textarea>
         </div>
     </>
 }
