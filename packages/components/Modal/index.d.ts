@@ -7,6 +7,7 @@ declare const _default: React.ComponentType<Omit<{
     cancelText?: string | undefined;
     maxHeight?: number | undefined;
     overflowY?: boolean | undefined;
+    width?: string | undefined;
     onCancel?: (() => void) | undefined;
     onClose?: (() => void) | undefined;
     onConfirm?: (() => void) | undefined;

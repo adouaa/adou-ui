@@ -1342,6 +1342,7 @@ const Modal = _ref => {
     cancelText,
     maxHeight,
     overflowY,
+    width,
     onCancel,
     onClose,
     onConfirm
@@ -1380,9 +1381,15 @@ const Modal = _ref => {
     "aria-labelledby": "exampleModalLabel",
     "aria-hidden": "true"
   }, /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("div", {
-    className: "modal-dialog"
+    className: "modal-dialog",
+    style: {
+      maxWidth: "fit-content"
+    }
   }, /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("div", {
-    className: "modal-content"
+    className: "modal-content",
+    style: {
+      width: width
+    }
   }, /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("div", {
     className: "modal-header"
   }, /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("h5", {

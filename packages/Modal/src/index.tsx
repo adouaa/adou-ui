@@ -11,6 +11,7 @@ interface ModalProps {
     cancelText?: string,
     maxHeight?: number;
     overflowY?: boolean;
+    width?: string;
     onCancel?: () => void;
     onClose?: () => void;
     onConfirm?: () => void;
@@ -23,6 +24,7 @@ const Modal: React.FC<ModalProps> = ({
     cancelText,
     maxHeight,
     overflowY,
+    width,
     onCancel,
     onClose,
     onConfirm
@@ -59,7 +61,7 @@ const Modal: React.FC<ModalProps> = ({
 
     return (
         <>
-        {/* 
+            {/* 
             注意：展示的时候要先让整个 modal先 display: block，先在html结构中存在，然后再给它一个 show的类名
                   关闭的的时候，要先 移除掉show的类名，然后再让整个 modal在结构中消失，即 display: none
                   并且，要用 父组件传递的show && 来判断是否展示整个 div，不能用 visible，不然就同步了
@@ -68,8 +70,8 @@ const Modal: React.FC<ModalProps> = ({
         */}
             {show && <div>
                 <div className={`modal fade ${visible ? "show " : ""}`} style={{ display: show ? "block" : "none" }} id="exampleModal" tabIndex={-1} aria-labelledby="exampleModalLabel" aria-hidden="true">
-                    <div className="modal-dialog">
-                        <div className="modal-content">
+                    <div className="modal-dialog" style={{maxWidth: "fit-content"}}>
+                        <div className="modal-content" style={{width: width}}>
                             <div className="modal-header">
                                 <h5 className="modal-title" id="exampleModalLabel">{title || "Modal title"}</h5>
                                 <button onClick={handleOnClose} type="button" className="btn-close" aria-label="Close"></button>

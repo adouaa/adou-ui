@@ -1,4 +1,6 @@
 import React from 'react';
+import FormItem from "./FormItem";
+export { FormItem };
 export declare const FormContext: React.Context<{}>;
 interface FormProps {
     children?: any;

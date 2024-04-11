@@ -1,7 +1,7 @@
 {
   "name": "adou-form",
   "version": "0.0.0",
-  "description": "Form组件",
+  "description": "Form组件，包含FormItem",
   "keywords": [
     "Form"
   ],

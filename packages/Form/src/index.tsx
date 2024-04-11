@@ -1,5 +1,9 @@
 import React, { createContext, forwardRef, useImperativeHandle, useState } from 'react'
 
+import FormItem from "./FormItem";
+
+export { FormItem };
+
 // 基于 FormContext 下发表单数据源以及修改方法
 export const FormContext = createContext({})
 
@@ -49,6 +53,10 @@ const Form = forwardRef((props: FormProps, formRef) => {
     })
     return renderChildren
   }
+
+  console.log("FormContext = ", FormContext);
+
+
   // 传入数据源以及数据源的修改方法，子孙后代都可读取 value 中的值
   return <FormContext.Provider value={{ formData, handleChange }}>{renderContent()}</FormContext.Provider>
 })
