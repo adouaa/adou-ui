@@ -1,9 +1,9 @@
 {
-  "name": "adou-button",
+  "name": "adou-form",
   "version": "0.0.0",
-  "description": "Button组件",
+  "description": "Form组件",
   "keywords": [
-    "Button"
+    "Form"
   ],
   "author": "郑英杰 <1041137820@qq.com>",
   "homepage": "https://github.com/adouaa/adou-ui#readme",
@@ -21,8 +21,7 @@
     "react-i18next": "12.2.0",
     "react-router-dom": "6.10.0",
     "save-dev": "^0.0.1-security",
-    "web-vitals": "^2.1.4",
-    "adou-modal": "*"
+    "web-vitals": "^2.1.4"
   },
   "devDependencies": {
     "@babel/core": "^7.24.4",
