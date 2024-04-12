@@ -16,21 +16,25 @@ export interface FormItemProps {
   width?: string;
   label: string;
   children: React.ReactNode;
-  labelPosition?: string
+  labelAlignX?: any
   labelWidth?: number
   inline?: boolean;
   validate?: boolean;
-  rule?: any
+  rule?: any;
+  maxLabelLength: number;
+  labelAlignY?: any
 }
 
 const FormItem = (props: FormItemProps) => {
   // 获取 `FormContext.Provider` 提供提供的 `value` 值
   const context: FormContextProps = useContext(FormContext);
 
-  const { children, width, name, inline = true, labelPosition = "center", label, labelWidth = 24, validate, rule } = props
+  const { children, width, name, inline = true, labelAlignY = "center", label, labelWidth = 24, validate, rule, maxLabelLength, labelAlignX = "right" } = props
 
   const [error, setError] = useState("");
 
+
+  // 用于失焦的时候来验证表单
   const checkValidate = (value: any) => {
     if (validate) {
       context.handleValidate(false); // 一开始进去先置为错误的，表单验证不通过
@@ -69,8 +73,8 @@ const FormItem = (props: FormItemProps) => {
     if (React.isValidElement(children)) {
       return (
         <>
-          {<div style={{ width: width }} className={`form-item mb-3 ${inline && `d-flex align-items-${labelPosition}`}`}>
-            <div className="form-item-label" style={{ minWidth: label.length * labelWidth + "px" }}>{label}：</div>
+          {<div style={{ width: width }} className={`form-item mb-3 ${inline && `d-flex align-items-${labelAlignY}`}`}>
+            <div className="form-item-label" style={{ minWidth: maxLabelLength * labelWidth + "px", textAlign: labelAlignX }}>{label}：</div>
             {/* 这边的 div是展示子组件内容的父级div，这里先 flex: 1先保证父级的宽度是剩下的全部 */}
             <div style={{ flex: 1 }}>{enhancedChildren}</div>
           </div>}
@@ -130,7 +134,6 @@ const FormItem = (props: FormItemProps) => {
   // 复写 FormContext.Provider，增加 name 参数的传递
   return <FormContext.Provider value={{ ...context, checkValidate, name }}>{renderContent()}</FormContext.Provider>
 }
-
 FormItem.displayName = 'formItem'
 
 FormItem.Input = Input;

@@ -13,15 +13,17 @@ export interface FormContextProps {
   formData?: any;
   handleValidate?: any;
   checkValidate?: any;
-  registerFormItem?: any
+  registerFormItem?: any;
 }
 
 interface FormProps {
   children?: any,
   name?: string
+  labelAlignX?: "left" | "right"
 }
 
 const Form = forwardRef((props: FormProps, formRef) => {
+  
   // 统一管理表单数据源
   const [formData, setFormData] = useState({})
 
@@ -73,25 +75,37 @@ const Form = forwardRef((props: FormProps, formRef) => {
     setFormItems((prevArr: any) => [...prevArr, item]);
   };
 
+  // 计算出最长的label
+  let maxLabelLength = 0;
+  props.children.forEach((item: any) => {
+    if (maxLabelLength < item.props.label.length) {
+      maxLabelLength = item.props.label.length;
+    }
+  })
+  
+
   const renderContent = () => {
     const renderChildren: any = []
-
-    // 这个方法可行
     React.Children.map(props.children, (child) => {
+      console.log(child.props.label);
+      
       // child.type 子元素自身（FormItem），检查其静态属性 displayName 是否满足条件
       if (child.type.displayName === 'formItem') {
-        renderChildren.push(child)
+        const enhancedChildren = React.cloneElement(child, {
+          maxLabelLength,
+          labelAlignX: "left",
+          key: child.props.name // 给每个组件一个 key
+        })
+        renderChildren.push(enhancedChildren)
       }
+      
     })
-    
-    // 这边不能直接用 props.children.forEach，会报错：props.children.forEach is not a function
-    // 具体原因不清楚，但是可以用上面那个的方法
-    /* props.children.forEach((item: any) => {
+    // props.children?.forEach((item: any) => {
 
-      if (item.type.displayName === "formItem") {
-        renderChildren.push(item)
-      }
-    }) */
+    //   if (item.type.displayName === "formItem") {
+    //     renderChildren.push(item)
+    //   }
+    // })
     return renderChildren
   }
 
