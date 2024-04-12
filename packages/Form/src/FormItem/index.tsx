@@ -16,7 +16,7 @@ export interface FormItemProps {
   width?: string;
   label: string;
   children: React.ReactNode;
-  labelAlignX?: any
+  labelAlignX?: "left" | "right";
   labelWidth?: number
   inline?: boolean;
   validate?: boolean;
@@ -29,9 +29,12 @@ const FormItem = (props: FormItemProps) => {
   // 获取 `FormContext.Provider` 提供提供的 `value` 值
   const context: FormContextProps = useContext(FormContext);
 
-  const { children, width, name, inline = true, labelAlignY = "center", label, labelWidth = 24, validate, rule, maxLabelLength, labelAlignX = "right" } = props
+  const { children, width, name, inline = true, labelAlignY = "center", label, labelWidth = 100, validate, rule, maxLabelLength, labelAlignX = "right" } = props
 
   const [error, setError] = useState("");
+
+  // 每个字体的width
+  const eachWordWidth = 24;
 
 
   // 用于失焦的时候来验证表单
@@ -74,9 +77,13 @@ const FormItem = (props: FormItemProps) => {
       return (
         <>
           {<div style={{ width: width }} className={`form-item mb-3 ${inline && `d-flex align-items-${labelAlignY}`}`}>
-            <div className="form-item-label" style={{ minWidth: maxLabelLength * labelWidth + "px", textAlign: labelAlignX }}>{label}：</div>
+            {/* 常哥指点了一下，要是某个label太长，就不能让再让它按最长label的长度来计算，而是应该固定一个最长值，让它自己挤到下边 */}
+            {/* <div className="form-item-label" style={{ minWidth: ((maxLabelLength * eachWordWidth > labelWidth) ? labelWidth : maxLabelLength * eachWordWidth) + "px", textAlign: labelAlignX }}>{label}：</div> */}
+            {/* <div className="form-item-label" style={{ minWidth: ((maxLabelLength * eachWordWidth > labelWidth) ? labelWidth : maxLabelLength * eachWordWidth) + "px", maxWidth: ((maxLabelLength * labelWidth > labelWidth) ? labelWidth : maxLabelLength * labelWidth) + "px", textAlign: labelAlignX }}>{label}:</div> */}
+            <div className="form-item-label" style={{ width: ((maxLabelLength * eachWordWidth > labelWidth) ? labelWidth : maxLabelLength * eachWordWidth) + "px", textAlign: labelAlignX }}>{label}:</div>
+
             {/* 这边的 div是展示子组件内容的父级div，这里先 flex: 1先保证父级的宽度是剩下的全部 */}
-            <div style={{ flex: 1 }}>{enhancedChildren}</div>
+            <div style={{ flex: 1, marginLeft: "15px" }}>{enhancedChildren}</div>
           </div>}
           {error && <div className="form-item-error text-danger small" style={{ textAlign: "left", margin: `-15px 0 5px ${label.length * labelWidth + "px"}` }}>{error}</div>}
         </>
@@ -134,6 +141,8 @@ const FormItem = (props: FormItemProps) => {
   // 复写 FormContext.Provider，增加 name 参数的传递
   return <FormContext.Provider value={{ ...context, checkValidate, name }}>{renderContent()}</FormContext.Provider>
 }
+
+
 FormItem.displayName = 'formItem'
 
 FormItem.Input = Input;

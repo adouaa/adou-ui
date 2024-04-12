@@ -2791,13 +2791,16 @@ const FormItem = props => {
     inline = true,
     labelAlignY = "center",
     label,
-    labelWidth = 24,
+    labelWidth = 100,
     validate,
     rule,
     maxLabelLength,
     labelAlignX = "right"
   } = props;
   const [error, setError] = (0,external_root_React_commonjs2_react_commonjs_react_amd_react_.useState)("");
+
+  // 每个字体的width
+  const eachWordWidth = 24;
 
   // 用于失焦的时候来验证表单
   const checkValidate = value => {
@@ -2842,12 +2845,13 @@ const FormItem = props => {
       }, /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("div", {
         className: "form-item-label",
         style: {
-          minWidth: maxLabelLength * labelWidth + "px",
+          width: (maxLabelLength * eachWordWidth > labelWidth ? labelWidth : maxLabelLength * eachWordWidth) + "px",
           textAlign: labelAlignX
         }
-      }, label, "\uFF1A"), /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("div", {
+      }, label, ":"), /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("div", {
         style: {
-          flex: 1
+          flex: 1,
+          marginLeft: "15px"
         }
       }, enhancedChildren)), error && /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("div", {
         className: "form-item-error text-danger small",
@@ -2932,6 +2936,14 @@ FormItem.Checkbox = FormItem_Checkbox;
 // 基于 FormContext 下发表单数据源以及修改方法
 const FormContext = /*#__PURE__*/(0,external_root_React_commonjs2_react_commonjs_react_amd_react_.createContext)({});
 const Form = /*#__PURE__*/(0,external_root_React_commonjs2_react_commonjs_react_amd_react_.forwardRef)((props, formRef) => {
+  const {
+    labelAlignX,
+    name,
+    labelWidth
+  } = props;
+  console.log("labelAlignX = ", props.labelAlignX);
+  console.log("name = ", name);
+
   // 统一管理表单数据源
   const [formData, setFormData] = (0,external_root_React_commonjs2_react_commonjs_react_amd_react_.useState)({});
   const [validation, setValidation] = (0,external_root_React_commonjs2_react_commonjs_react_amd_react_.useState)(true);
@@ -2993,21 +3005,24 @@ const Form = /*#__PURE__*/(0,external_root_React_commonjs2_react_commonjs_react_
   });
   const renderContent = () => {
     const renderChildren = [];
-    external_root_React_commonjs2_react_commonjs_react_amd_react_default().Children.map(props.children, child => {
-      console.log(child.props.label);
 
+    // 这个方法可行
+    external_root_React_commonjs2_react_commonjs_react_amd_react_default().Children.map(props.children, child => {
       // child.type 子元素自身（FormItem），检查其静态属性 displayName 是否满足条件
       if (child.type.displayName === 'formItem') {
         const enhancedChildren = /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().cloneElement(child, {
           maxLabelLength,
-          labelAlignX: "left",
+          labelAlignX,
+          labelWidth,
           key: child.props.name // 给每个组件一个 key
         });
         renderChildren.push(enhancedChildren);
       }
     });
-    // props.children?.forEach((item: any) => {
 
+    // 这边不能直接用 props.children.forEach，会报错：props.children.forEach is not a function
+    // 具体原因不清楚，但是可以用上面那个的方法
+    // props.children?.forEach((item: any) => {
     //   if (item.type.displayName === "formItem") {
     //     renderChildren.push(item)
     //   }
@@ -3023,7 +3038,7 @@ const Form = /*#__PURE__*/(0,external_root_React_commonjs2_react_commonjs_react_
       handleValidate,
       registerFormItem
     }
-  }, renderContent());
+  }, /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement((external_root_React_commonjs2_react_commonjs_react_amd_react_default()).Fragment, null, renderContent()));
 });
 Form.displayName = 'form';
 /* harmony default export */ const src = (Form);

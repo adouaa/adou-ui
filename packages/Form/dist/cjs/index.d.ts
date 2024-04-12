@@ -13,6 +13,7 @@ export interface FormContextProps {
 interface FormProps {
     children?: any;
     name?: string;
+    labelWidth?: number;
     labelAlignX?: "left" | "right";
 }
 declare const Form: React.ForwardRefExoticComponent<FormProps & React.RefAttributes<unknown>>;
