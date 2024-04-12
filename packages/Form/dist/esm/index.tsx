@@ -75,19 +75,23 @@ const Form = forwardRef((props: FormProps, formRef) => {
 
   const renderContent = () => {
     const renderChildren: any = []
-    /* React.Children.map(props.children, (child) => {
+
+    // 这个方法可行
+    React.Children.map(props.children, (child) => {
       // child.type 子元素自身（FormItem），检查其静态属性 displayName 是否满足条件
       if (child.type.displayName === 'formItem') {
         renderChildren.push(child)
       }
-      
-    }) */
-    props.children.forEach((item: any) => {
+    })
+    
+    // 这边不能直接用 props.children.forEach，会报错：props.children.forEach is not a function
+    // 具体原因不清楚，但是可以用上面那个的方法
+    /* props.children.forEach((item: any) => {
 
       if (item.type.displayName === "formItem") {
         renderChildren.push(item)
       }
-    })
+    }) */
     return renderChildren
   }
 
