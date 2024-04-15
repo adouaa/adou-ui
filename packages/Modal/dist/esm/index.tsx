@@ -4,6 +4,7 @@ import { withTranslation } from "react-i18next";
 // import "./index.css";
 
 interface ModalProps {
+    type?: string;
     title?: string;
     show: boolean;
     content?: string;
@@ -17,6 +18,7 @@ interface ModalProps {
     onConfirm?: () => void;
 }
 const Modal: React.FC<ModalProps> = ({
+    type,
     title,
     show,
     content,
@@ -70,7 +72,7 @@ const Modal: React.FC<ModalProps> = ({
         */}
             {show && <div>
                 <div className={`modal fade ${visible ? "show " : ""}`} style={{ display: show ? "block" : "none" }} id="exampleModal" tabIndex={-1} aria-labelledby="exampleModalLabel" aria-hidden="true">
-                    <div className="modal-dialog" style={{maxWidth: "fit-content"}}>
+                    <div className={`modal-dialog ${type === "tip" ? "modal-dialog-centered" : ""}`} style={{maxWidth: "fit-content"}}>
                         <div className="modal-content" style={{width: width}}>
                             <div className="modal-header">
                                 <h5 className="modal-title" id="exampleModalLabel">{title || "Modal title"}</h5>

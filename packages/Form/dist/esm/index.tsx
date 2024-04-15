@@ -84,7 +84,7 @@ const Form = forwardRef((props: FormProps, formRef) => {
   // 计算出最长的label
   let maxLabelLength = 0;
   props.children.forEach((item: any) => {
-    if (maxLabelLength < item.props.label.length) {
+    if (maxLabelLength < item?.props?.label?.length) {
       maxLabelLength = item.props.label.length;
     }
   })
@@ -96,7 +96,7 @@ const Form = forwardRef((props: FormProps, formRef) => {
     // 这个方法可行
     React.Children.map(props.children, (child) => {
       // child.type 子元素自身（FormItem），检查其静态属性 displayName 是否满足条件
-      if (child.type.displayName === 'formItem') {
+      if (child?.type?.displayName === 'formItem') {
         const enhancedChildren = React.cloneElement(child, {
           maxLabelLength,
           labelAlignX,

@@ -1,5 +1,6 @@
 import React from "react";
 declare const _default: React.ComponentType<Omit<{
+    type?: string | undefined;
     title?: string | undefined;
     show: boolean;
     content?: string | undefined;

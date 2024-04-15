@@ -1335,6 +1335,7 @@ var selectOrdinal = function selectOrdinal() {
 
 const Modal = _ref => {
   let {
+    type,
     title,
     show,
     content,
@@ -1380,7 +1381,7 @@ const Modal = _ref => {
     "aria-labelledby": "exampleModalLabel",
     "aria-hidden": "true"
   }, /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("div", {
-    className: "modal-dialog",
+    className: "modal-dialog ".concat(type === "tip" ? "modal-dialog-centered" : ""),
     style: {
       maxWidth: "fit-content"
     }

@@ -2999,7 +2999,8 @@ const Form = /*#__PURE__*/(0,external_root_React_commonjs2_react_commonjs_react_
   // 计算出最长的label
   let maxLabelLength = 0;
   props.children.forEach(item => {
-    if (maxLabelLength < item.props.label.length) {
+    var _item$props;
+    if (maxLabelLength < (item === null || item === void 0 || (_item$props = item.props) === null || _item$props === void 0 || (_item$props = _item$props.label) === null || _item$props === void 0 ? void 0 : _item$props.length)) {
       maxLabelLength = item.props.label.length;
     }
   });
@@ -3008,8 +3009,9 @@ const Form = /*#__PURE__*/(0,external_root_React_commonjs2_react_commonjs_react_
 
     // 这个方法可行
     external_root_React_commonjs2_react_commonjs_react_amd_react_default().Children.map(props.children, child => {
+      var _child$type;
       // child.type 子元素自身（FormItem），检查其静态属性 displayName 是否满足条件
-      if (child.type.displayName === 'formItem') {
+      if ((child === null || child === void 0 || (_child$type = child.type) === null || _child$type === void 0 ? void 0 : _child$type.displayName) === 'formItem') {
         const enhancedChildren = /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().cloneElement(child, {
           maxLabelLength,
           labelAlignX,
