@@ -24,6 +24,8 @@ const Select = (props: SelectProps) => {
     // 获取 `FormContext.Provider` 提供提供的 `value` 值
     const context: FormContextProps = useContext(FormContext);
 
+    const [newOptions, setNewOptions] = useState(options || []);
+
     const [value, setValue] = useState(defaultValue);
 
     const cls = classNames({
@@ -33,7 +35,7 @@ const Select = (props: SelectProps) => {
 
 
     const handleSelect = (e: ChangeEvent<HTMLSelectElement>) => {
-        const selectedIndex = e.target.selectedIndex;
+        const selectedIndex = e.target.selectedIndex - 1;
         const selectedOption = options[selectedIndex];
         setValue(selectedOption);
         onChangeOK && onChangeOK(selectedOption);
@@ -44,11 +46,9 @@ const Select = (props: SelectProps) => {
     }
 
     const handleBlur = () => {
-        
         setTimeout(() => {
-            context.checkValidate(value.label);
+            context.checkValidate(value.label === "请选择" ? "" : value.label); // 兼容默认值为空是 请选择的情况
         }, 150);
-        
     }
 
     useEffect(() => {
@@ -73,12 +73,23 @@ const Select = (props: SelectProps) => {
         }
     }, [defaultValue])
 
+    useEffect(() => {
+        // 创建一个新数组，将 "请选择" 选项添加在数组的开头
+        const enhancedOptions = [{ label: "请选择", value: "" }, ...options];
+        setNewOptions(enhancedOptions);
+        // 如果 defaultValue 未定义，则将选择设置为 "请选择" 选项
+        if (!defaultValue) {
+            setValue({ label: "请选择", value: "" });
+        }
+    }, [])
+
     return <>
         {/* 这边不给 flex: 1的话，会把label标签的宽度给占走一点点 */}
         <select style={{ flex: 1 }} value={value?.value} onBlur={() => handleBlur()} onChange={(e) => handleSelect(e)} className={cls} aria-label=".form-select-lg example" disabled={disabled}>
-            {options.map(item => <option disabled={item.disabled} key={item.value} value={item.value}>{item.label}</option>)}
+            {newOptions.map(item => <option disabled={item.disabled || !item.value} key={item.value} value={item.value}>{item.label}</option>)}
         </select>
     </>;
 };
+
 
 export default withTranslation()(Select);

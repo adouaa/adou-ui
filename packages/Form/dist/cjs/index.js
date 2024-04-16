@@ -2115,13 +2115,14 @@ const Select = props => {
 
   // 获取 `FormContext.Provider` 提供提供的 `value` 值
   const context = (0,external_root_React_commonjs2_react_commonjs_react_amd_react_.useContext)(FormContext);
+  const [newOptions, setNewOptions] = (0,external_root_React_commonjs2_react_commonjs_react_amd_react_.useState)(options || []);
   const [value, setValue] = (0,external_root_React_commonjs2_react_commonjs_react_amd_react_.useState)(defaultValue);
   const cls = classnames_default()({
     ["form-select form-select-".concat(size)]: true,
     [className]: className
   });
   const handleSelect = e => {
-    const selectedIndex = e.target.selectedIndex;
+    const selectedIndex = e.target.selectedIndex - 1;
     const selectedOption = options[selectedIndex];
     setValue(selectedOption);
     onChangeOK && onChangeOK(selectedOption);
@@ -2131,7 +2132,7 @@ const Select = props => {
   };
   const handleBlur = () => {
     setTimeout(() => {
-      context.checkValidate(value.label);
+      context.checkValidate(value.label === "请选择" ? "" : value.label); // 兼容默认值为空是 请选择的情况
     }, 150);
   };
   (0,external_root_React_commonjs2_react_commonjs_react_amd_react_.useEffect)(() => {
@@ -2159,6 +2160,21 @@ const Select = props => {
       });
     }
   }, [defaultValue]);
+  (0,external_root_React_commonjs2_react_commonjs_react_amd_react_.useEffect)(() => {
+    // 创建一个新数组，将 "请选择" 选项添加在数组的开头
+    const enhancedOptions = [{
+      label: "请选择",
+      value: ""
+    }, ...options];
+    setNewOptions(enhancedOptions);
+    // 如果 defaultValue 未定义，则将选择设置为 "请选择" 选项
+    if (!defaultValue) {
+      setValue({
+        label: "请选择",
+        value: ""
+      });
+    }
+  }, []);
   return /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement((external_root_React_commonjs2_react_commonjs_react_amd_react_default()).Fragment, null, /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("select", {
     style: {
       flex: 1
@@ -2169,8 +2185,8 @@ const Select = props => {
     className: cls,
     "aria-label": ".form-select-lg example",
     disabled: disabled
-  }, options.map(item => /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("option", {
-    disabled: item.disabled,
+  }, newOptions.map(item => /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("option", {
+    disabled: item.disabled || !item.value,
     key: item.value,
     value: item.value
   }, item.label))));
@@ -3035,7 +3051,7 @@ const Form = /*#__PURE__*/(0,external_root_React_commonjs2_react_commonjs_react_
     validate: callback => {
       let isValid = true;
       formItems.forEach(item => {
-        const validationResult = item.handleValidate();
+        const validationResult = item.handleValidate(formData);
         if (!validationResult && item.validate) isValid = false; // 假设validate方法返回false表示验证失败
       });
       callback && callback(isValid);
