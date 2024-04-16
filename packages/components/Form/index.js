@@ -2948,11 +2948,11 @@ const FormItem_FormItem = props => {
   const handleSetFormItemValue = value => {
     newFormItemValue.current = value;
   };
-  const handleValidate = formItemValue => {
+  const handleValidate = formData => {
     if (validate) {
       var _rule$2;
       let valid = true;
-      if (rule[0].required && !formItemValue) {
+      if (rule[0].required && !formData[name]) {
         setError(rule[0].message);
         valid = false;
         return valid;
@@ -2961,13 +2961,13 @@ const FormItem_FormItem = props => {
         const type = rule[1].type;
         switch (type) {
           case "email":
-            if (!/^[a-zA-Z0-9_-]+@[a-zA-Z0-9_-]+(\.[a-zA-Z0-9_-]+)+$/.test(formItemValue)) {
+            if (!/^[a-zA-Z0-9_-]+@[a-zA-Z0-9_-]+(\.[a-zA-Z0-9_-]+)+$/.test(formData[name])) {
               setError(rule[1].message);
               valid = false;
             }
             break;
           case "number":
-            if (!/^[0-9]*$/.test(formItemValue)) {
+            if (!/^[0-9]*$/.test(formData[name])) {
               setError(rule[1].message);
               valid = false;
             }
@@ -2983,7 +2983,7 @@ const FormItem_FormItem = props => {
     context.registerFormItem({
       name,
       validate,
-      handleValidate: () => handleValidate(newFormItemValue.current)
+      handleValidate: handleValidate
     });
     // 组件卸载时可能需要一个注销逻辑
   }, []);
@@ -3053,7 +3053,8 @@ const Form = /*#__PURE__*/(0,external_root_React_commonjs2_react_commonjs_react_
     // 表单重新验证
     reValidate: () => {
       formItems.forEach(item => {
-        item.handleValidate();
+        // 不知道为什么在 FormItem中无法通过 context.formData来获取数据，所以这边直接在父组件这里传递过去
+        item.handleValidate(formData);
       });
     }
   }));

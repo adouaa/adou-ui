@@ -61,7 +61,8 @@ const Form = forwardRef((props: FormProps, formRef) => {
     // 表单重新验证
     reValidate: () => {
       formItems.forEach(item => {
-        item.handleValidate();
+        // 不知道为什么在 FormItem中无法通过 context.formData来获取数据，所以这边直接在父组件这里传递过去
+        item.handleValidate(formData); 
       });
     }
   }))

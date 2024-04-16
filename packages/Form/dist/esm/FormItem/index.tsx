@@ -98,11 +98,11 @@ const FormItem = (props: FormItemProps) => {
   const handleSetFormItemValue = (value: string) => {
     newFormItemValue.current = value;
   }
-  const handleValidate = (formItemValue: any) => {
-
+  const handleValidate = (formData: any) => {
+    
     if (validate) {
       let valid = true;
-      if (rule[0].required && !formItemValue) {
+      if (rule[0].required && !formData[name]) {
         setError(rule[0].message);
         valid = false;
         return valid;
@@ -111,13 +111,13 @@ const FormItem = (props: FormItemProps) => {
         const type = rule[1].type;
         switch (type) {
           case "email":
-            if (!/^[a-zA-Z0-9_-]+@[a-zA-Z0-9_-]+(\.[a-zA-Z0-9_-]+)+$/.test(formItemValue)) {
+            if (!/^[a-zA-Z0-9_-]+@[a-zA-Z0-9_-]+(\.[a-zA-Z0-9_-]+)+$/.test(formData[name])) {
               setError(rule[1].message);
               valid = false;
             }
             break;
           case "number":
-            if (!/^[0-9]*$/.test(formItemValue)) {
+            if (!/^[0-9]*$/.test(formData[name])) {
               setError(rule[1].message);
               valid = false;
             }
@@ -133,7 +133,7 @@ const FormItem = (props: FormItemProps) => {
     context.registerFormItem({
       name,
       validate,
-      handleValidate: () => handleValidate(newFormItemValue.current)
+      handleValidate: handleValidate
     });
     // 组件卸载时可能需要一个注销逻辑
   }, []);
