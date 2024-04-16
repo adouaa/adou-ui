@@ -44,7 +44,6 @@ const Select = (props: SelectProps) => {
     }
 
     const handleBlur = () => {
-        console.log(5522, value.label);
         
         setTimeout(() => {
             context.checkValidate(value.label);

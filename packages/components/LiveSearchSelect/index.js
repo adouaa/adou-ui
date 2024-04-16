@@ -1895,8 +1895,6 @@ const LiveSearchSelect = props => {
     [className]: className
   });
   const handleSelect = (e, option) => {
-    console.log("e = ", e);
-    console.log("option = ", option);
     setValue(option.label);
     prevSelectedValueRef.current = option.label;
     onSelectOK && onSelectOK(option);

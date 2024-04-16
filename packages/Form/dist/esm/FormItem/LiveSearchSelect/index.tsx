@@ -43,7 +43,6 @@ const LiveSearchSelect = (props: LiveSearchSelectProps) => {
         prevSelectedValueRef.current = option.label;
         onSelectOK && onSelectOK(option);
         context.handleChange(context.name, option)
-        console.log("option = ", option);
         
         setFormItemValue && setFormItemValue(option);
     }

@@ -1,4 +1,4 @@
-import React, { createContext, forwardRef, useImperativeHandle, useState } from 'react'
+import React, { createContext, forwardRef, useImperativeHandle, useRef, useState } from 'react'
 
 import FormItem from "./FormItem";
 
@@ -27,13 +27,12 @@ const Form = forwardRef((props: FormProps, formRef) => {
 
   const { labelAlignX, name, labelWidth } = props;
   
-  console.log("labelAlignX = ", props.labelAlignX);
-  console.log("name = ", name);
   
   // 统一管理表单数据源
   const [formData, setFormData] = useState({})
 
   const [validation, setValidation] = useState(true);
+
 
   // 对外暴露的API
   useImperativeHandle(formRef, () => ({
@@ -45,7 +44,6 @@ const Form = forwardRef((props: FormProps, formRef) => {
       let isValid = true;
       formItems.forEach(item => {
         const validationResult = item.handleValidate();
-        console.log("validationResult = ", validationResult);
         
         if (!validationResult && item.validate) isValid = false; // 假设validate方法返回false表示验证失败
       });
@@ -57,8 +55,15 @@ const Form = forwardRef((props: FormProps, formRef) => {
       Object.keys(data).forEach((item) => {
         data[item] = "";
       })
-      setFormData(data)
+      setFormData(data);
     },
+
+    // 表单重新验证
+    reValidate: () => {
+      formItems.forEach(item => {
+        item.handleValidate();
+      });
+    }
   }))
 
   // Form表单内的表单项修改统一的赋值方法

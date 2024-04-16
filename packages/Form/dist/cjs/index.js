@@ -273,6 +273,57 @@ ___CSS_LOADER_EXPORT___.push([module.id, `.textarea-warpper {
 
 /***/ }),
 
+/***/ 900:
+/***/ ((module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   A: () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _node_modules_css_loader_dist_runtime_sourceMaps_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(73);
+/* harmony import */ var _node_modules_css_loader_dist_runtime_sourceMaps_js__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_css_loader_dist_runtime_sourceMaps_js__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(191);
+/* harmony import */ var _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_1__);
+// Imports
+
+
+var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_1___default()((_node_modules_css_loader_dist_runtime_sourceMaps_js__WEBPACK_IMPORTED_MODULE_0___default()));
+// Module
+___CSS_LOADER_EXPORT___.push([module.id, `@charset "UTF-8";
+/* 定义淡入动画 */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+/* 定义淡出动画 */
+@keyframes fadeOut {
+  from {
+    opacity: 1;
+  }
+  to {
+    opacity: 0;
+  }
+}
+/* 元素默认状态为隐藏 */
+/* 淡入效果 */
+.fadeIn {
+  animation: fadeIn 0.5s ease-in-out forwards;
+}
+
+/* 淡出效果 */
+.fadeOut {
+  animation: fadeOut 0.5s ease-in-out forwards;
+}`, "",{"version":3,"sources":["webpack://./src/FormItem/index.css"],"names":[],"mappings":"AAAA,gBAAgB;AAAhB,WAAA;AACA;EACI;IACE,UAAA;EAEJ;EAAE;IACE,UAAA;EAEJ;AACF;AACE,WAAA;AACA;EACE;IACE,UAAA;EACJ;EACE;IACE,UAAA;EACJ;AACF;AAEE,cAAA;AAGA,SAAA;AACA;EACE,2CAAA;AAFJ;;AAKE,SAAA;AACA;EACE,4CAAA;AAFJ","sourcesContent":["/* 定义淡入动画 */\r\n@keyframes fadeIn {\r\n    from {\r\n      opacity: 0;\r\n    }\r\n    to {\r\n      opacity: 1;\r\n    }\r\n  }\r\n  \r\n  /* 定义淡出动画 */\r\n  @keyframes fadeOut {\r\n    from {\r\n      opacity: 1;\r\n    }\r\n    to {\r\n      opacity: 0;\r\n    }\r\n  }\r\n  \r\n  /* 元素默认状态为隐藏 */\r\n\r\n  \r\n  /* 淡入效果 */\r\n  .fadeIn {\r\n    animation: fadeIn 0.5s ease-in-out forwards;\r\n  }\r\n  \r\n  /* 淡出效果 */\r\n  .fadeOut {\r\n    animation: fadeOut 0.5s ease-in-out forwards;\r\n  }\r\n  "],"sourceRoot":""}]);
+// Exports
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
+
+
+/***/ }),
+
 /***/ 591:
 /***/ ((module) => {
 
@@ -687,13 +738,62 @@ __webpack_require__.r(__webpack_exports__);
 // EXPORTS
 __webpack_require__.d(__webpack_exports__, {
   FormContext: () => (/* binding */ FormContext),
-  FormItem: () => (/* reexport */ src_FormItem),
+  FormItem: () => (/* reexport */ src_FormItem_0),
   "default": () => (/* binding */ src)
 });
 
 // EXTERNAL MODULE: external {"root":"React","commonjs2":"react","commonjs":"react","amd":"react"}
 var external_root_React_commonjs2_react_commonjs_react_amd_react_ = __webpack_require__(442);
 var external_root_React_commonjs2_react_commonjs_react_amd_react_default = /*#__PURE__*/__webpack_require__.n(external_root_React_commonjs2_react_commonjs_react_amd_react_);
+// EXTERNAL MODULE: ../../node_modules/style-loader/dist/runtime/injectStylesIntoStyleTag.js
+var injectStylesIntoStyleTag = __webpack_require__(591);
+var injectStylesIntoStyleTag_default = /*#__PURE__*/__webpack_require__.n(injectStylesIntoStyleTag);
+// EXTERNAL MODULE: ../../node_modules/style-loader/dist/runtime/styleDomAPI.js
+var styleDomAPI = __webpack_require__(740);
+var styleDomAPI_default = /*#__PURE__*/__webpack_require__.n(styleDomAPI);
+// EXTERNAL MODULE: ../../node_modules/style-loader/dist/runtime/insertBySelector.js
+var insertBySelector = __webpack_require__(128);
+var insertBySelector_default = /*#__PURE__*/__webpack_require__.n(insertBySelector);
+// EXTERNAL MODULE: ../../node_modules/style-loader/dist/runtime/setAttributesWithoutAttributes.js
+var setAttributesWithoutAttributes = __webpack_require__(855);
+var setAttributesWithoutAttributes_default = /*#__PURE__*/__webpack_require__.n(setAttributesWithoutAttributes);
+// EXTERNAL MODULE: ../../node_modules/style-loader/dist/runtime/insertStyleElement.js
+var insertStyleElement = __webpack_require__(51);
+var insertStyleElement_default = /*#__PURE__*/__webpack_require__.n(insertStyleElement);
+// EXTERNAL MODULE: ../../node_modules/style-loader/dist/runtime/styleTagTransform.js
+var styleTagTransform = __webpack_require__(656);
+var styleTagTransform_default = /*#__PURE__*/__webpack_require__.n(styleTagTransform);
+// EXTERNAL MODULE: ../../node_modules/css-loader/dist/cjs.js??ruleSet[1].rules[1].use[1]!../../node_modules/sass-loader/dist/cjs.js??ruleSet[1].rules[1].use[2]!./src/FormItem/index.css
+var FormItem = __webpack_require__(900);
+;// CONCATENATED MODULE: ./src/FormItem/index.css
+
+      
+      
+      
+      
+      
+      
+      
+      
+      
+
+var options = {};
+
+options.styleTagTransform = (styleTagTransform_default());
+options.setAttributes = (setAttributesWithoutAttributes_default());
+
+      options.insert = insertBySelector_default().bind(null, "head");
+    
+options.domAPI = (styleDomAPI_default());
+options.insertStyleElement = (insertStyleElement_default());
+
+var update = injectStylesIntoStyleTag_default()(FormItem/* default */.A, options);
+
+
+
+
+       /* harmony default export */ const src_FormItem = (FormItem/* default */.A && FormItem/* default */.A.locals ? FormItem/* default */.A.locals : undefined);
+
 // EXTERNAL MODULE: ../../node_modules/void-elements/index.js
 var void_elements = __webpack_require__(978);
 var void_elements_default = /*#__PURE__*/__webpack_require__.n(void_elements);
@@ -2030,7 +2130,6 @@ const Select = props => {
     setFormItemValue && setFormItemValue(selectedOption);
   };
   const handleBlur = () => {
-    console.log(5522, value.label);
     setTimeout(() => {
       context.checkValidate(value.label);
     }, 150);
@@ -2077,24 +2176,6 @@ const Select = props => {
   }, item.label))));
 };
 /* harmony default export */ const FormItem_Select = (withTranslation()(Select));
-// EXTERNAL MODULE: ../../node_modules/style-loader/dist/runtime/injectStylesIntoStyleTag.js
-var injectStylesIntoStyleTag = __webpack_require__(591);
-var injectStylesIntoStyleTag_default = /*#__PURE__*/__webpack_require__.n(injectStylesIntoStyleTag);
-// EXTERNAL MODULE: ../../node_modules/style-loader/dist/runtime/styleDomAPI.js
-var styleDomAPI = __webpack_require__(740);
-var styleDomAPI_default = /*#__PURE__*/__webpack_require__.n(styleDomAPI);
-// EXTERNAL MODULE: ../../node_modules/style-loader/dist/runtime/insertBySelector.js
-var insertBySelector = __webpack_require__(128);
-var insertBySelector_default = /*#__PURE__*/__webpack_require__.n(insertBySelector);
-// EXTERNAL MODULE: ../../node_modules/style-loader/dist/runtime/setAttributesWithoutAttributes.js
-var setAttributesWithoutAttributes = __webpack_require__(855);
-var setAttributesWithoutAttributes_default = /*#__PURE__*/__webpack_require__.n(setAttributesWithoutAttributes);
-// EXTERNAL MODULE: ../../node_modules/style-loader/dist/runtime/insertStyleElement.js
-var insertStyleElement = __webpack_require__(51);
-var insertStyleElement_default = /*#__PURE__*/__webpack_require__.n(insertStyleElement);
-// EXTERNAL MODULE: ../../node_modules/style-loader/dist/runtime/styleTagTransform.js
-var styleTagTransform = __webpack_require__(656);
-var styleTagTransform_default = /*#__PURE__*/__webpack_require__.n(styleTagTransform);
 // EXTERNAL MODULE: ../../node_modules/css-loader/dist/cjs.js??ruleSet[1].rules[1].use[1]!../../node_modules/sass-loader/dist/cjs.js??ruleSet[1].rules[1].use[2]!./src/FormItem/Textarea/index.css
 var Textarea = __webpack_require__(5);
 ;// CONCATENATED MODULE: ./src/FormItem/Textarea/index.css
@@ -2109,17 +2190,17 @@ var Textarea = __webpack_require__(5);
       
       
 
-var options = {};
+var Textarea_options = {};
 
-options.styleTagTransform = (styleTagTransform_default());
-options.setAttributes = (setAttributesWithoutAttributes_default());
+Textarea_options.styleTagTransform = (styleTagTransform_default());
+Textarea_options.setAttributes = (setAttributesWithoutAttributes_default());
 
-      options.insert = insertBySelector_default().bind(null, "head");
+      Textarea_options.insert = insertBySelector_default().bind(null, "head");
     
-options.domAPI = (styleDomAPI_default());
-options.insertStyleElement = (insertStyleElement_default());
+Textarea_options.domAPI = (styleDomAPI_default());
+Textarea_options.insertStyleElement = (insertStyleElement_default());
 
-var update = injectStylesIntoStyleTag_default()(Textarea/* default */.A, options);
+var Textarea_update = injectStylesIntoStyleTag_default()(Textarea/* default */.A, Textarea_options);
 
 
 
@@ -2255,7 +2336,6 @@ const LiveSearchSelect_LiveSearchSelect = props => {
     prevSelectedValueRef.current = option.label;
     onSelectOK && onSelectOK(option);
     context.handleChange(context.name, option);
-    console.log("option = ", option);
     setFormItemValue && setFormItemValue(option);
   };
   const filterOptions = value => {
@@ -2498,7 +2578,6 @@ const MultipleSelect_MultipleSelect = props => {
   (0,external_root_React_commonjs2_react_commonjs_react_amd_react_.useEffect)(() => {
     let arr = [];
     if (defaultValue !== null && defaultValue !== void 0 && defaultValue.length) {
-      console.log("defaultValue = ", defaultValue);
       context.formData[context.name] = defaultValue; // 让 Form里面对应的数据项有值
       setFormItemValue && setFormItemValue(defaultValue);
       defaultValue === null || defaultValue === void 0 || defaultValue.map(item => {
@@ -2533,7 +2612,6 @@ const MultipleSelect_MultipleSelect = props => {
   (0,external_root_React_commonjs2_react_commonjs_react_amd_react_.useEffect)(() => {
     // 把option后面打钩的选项置空（option后面都不打钩，即 selected置为false）
     if (!context.formData[context.name]) {
-      console.log("置空");
       setFilterdOptions(preArr => {
         return preArr === null || preArr === void 0 ? void 0 : preArr.map(item => {
           item.selected = false;
@@ -2781,7 +2859,8 @@ const Checkbox = props => {
 
 
 
-const FormItem = props => {
+
+const FormItem_FormItem = props => {
   // 获取 `FormContext.Provider` 提供提供的 `value` 值
   const context = (0,external_root_React_commonjs2_react_commonjs_react_amd_react_.useContext)(FormContext);
   const {
@@ -2854,10 +2933,10 @@ const FormItem = props => {
           marginLeft: "15px"
         }
       }, enhancedChildren)), error && /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("div", {
-        className: "form-item-error text-danger small",
+        className: "form-item-error text-danger small ".concat(error ? 'fadeIn' : 'fadeOut'),
         style: {
           textAlign: "left",
-          margin: "-15px 0 5px ".concat(label.length * labelWidth + "px")
+          margin: "-15px 0 5px ".concat((maxLabelLength * eachWordWidth > labelWidth ? labelWidth + 0.8 * eachWordWidth : (maxLabelLength + 0.8) * eachWordWidth) + "px")
         }
       }, error));
     }
@@ -2872,7 +2951,6 @@ const FormItem = props => {
   const handleValidate = formItemValue => {
     if (validate) {
       var _rule$2;
-      name === "multiple" && console.log("进来handleValidate = ", formItemValue);
       let valid = true;
       if (rule[0].required && !formItemValue) {
         setError(rule[0].message);
@@ -2919,15 +2997,15 @@ const FormItem = props => {
     }
   }, renderContent());
 };
-FormItem.displayName = 'formItem';
-FormItem.Input = FormItem_Input;
-FormItem.Select = FormItem_Select;
-FormItem.TextArea = src_FormItem_Textarea;
-FormItem.LiveSearchSelect = src_FormItem_LiveSearchSelect;
-FormItem.MultipleSelect = src_FormItem_MultipleSelect;
-FormItem.Radio = FormItem_Radio;
-FormItem.Checkbox = FormItem_Checkbox;
-/* harmony default export */ const src_FormItem = (FormItem);
+FormItem_FormItem.displayName = 'formItem';
+FormItem_FormItem.Input = FormItem_Input;
+FormItem_FormItem.Select = FormItem_Select;
+FormItem_FormItem.TextArea = src_FormItem_Textarea;
+FormItem_FormItem.LiveSearchSelect = src_FormItem_LiveSearchSelect;
+FormItem_FormItem.MultipleSelect = src_FormItem_MultipleSelect;
+FormItem_FormItem.Radio = FormItem_Radio;
+FormItem_FormItem.Checkbox = FormItem_Checkbox;
+/* harmony default export */ const src_FormItem_0 = (FormItem_FormItem);
 ;// CONCATENATED MODULE: ./src/index.tsx
 
 
@@ -2941,8 +3019,6 @@ const Form = /*#__PURE__*/(0,external_root_React_commonjs2_react_commonjs_react_
     name,
     labelWidth
   } = props;
-  console.log("labelAlignX = ", props.labelAlignX);
-  console.log("name = ", name);
 
   // 统一管理表单数据源
   const [formData, setFormData] = (0,external_root_React_commonjs2_react_commonjs_react_amd_react_.useState)({});
@@ -2960,7 +3036,6 @@ const Form = /*#__PURE__*/(0,external_root_React_commonjs2_react_commonjs_react_
       let isValid = true;
       formItems.forEach(item => {
         const validationResult = item.handleValidate();
-        console.log("validationResult = ", validationResult);
         if (!validationResult && item.validate) isValid = false; // 假设validate方法返回false表示验证失败
       });
       callback && callback(isValid);
@@ -2974,6 +3049,12 @@ const Form = /*#__PURE__*/(0,external_root_React_commonjs2_react_commonjs_react_
         data[item] = "";
       });
       setFormData(data);
+    },
+    // 表单重新验证
+    reValidate: () => {
+      formItems.forEach(item => {
+        item.handleValidate();
+      });
     }
   }));
 

@@ -102,7 +102,6 @@ const MultipleSelect: React.FC<MultipleSelectProps> = (props: MultipleSelectProp
     useEffect(() => {
         let arr: any[] = [];
         if (defaultValue?.length) {
-            console.log("defaultValue = " , defaultValue);
             
             context.formData[context.name as string] = defaultValue; // 让 Form里面对应的数据项有值
             setFormItemValue && setFormItemValue(defaultValue);
@@ -137,7 +136,6 @@ const MultipleSelect: React.FC<MultipleSelectProps> = (props: MultipleSelectProp
     useEffect(() => {
         // 把option后面打钩的选项置空（option后面都不打钩，即 selected置为false）
         if (!context.formData[context.name as string]) {
-            console.log("置空");
             setFilterdOptions(preArr => {
                 return preArr?.map(item => {
                     item.selected = false;
