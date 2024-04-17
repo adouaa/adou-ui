@@ -1,0 +1,13 @@
+.multiple-select-wrapper {
+    position: relative;
+    flex: 1;
+}
+.multiple-select-active {
+    background-color: rgba(25, 103, 210);
+}
+.multiple-select-option-wrapper {
+    padding: 14px;
+}
+.multiple-select-active::after {
+    content: "✔";
+}

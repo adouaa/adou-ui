@@ -10,10 +10,10 @@
 .multiple-select-active::after {
     content: "✔";
 }
-.selected-option {
+/* .selected-option {
     position: absolute;
     padding: 4px 10px;
     border-radius: 50%;
     background-color: #f0f0f0;
     top: 3px;
-}
+} */

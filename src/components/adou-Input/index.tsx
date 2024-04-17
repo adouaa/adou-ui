@@ -1,12 +1,12 @@
 import React, { useContext, useEffect, useState } from "react";
 import { withTranslation } from "react-i18next"
 import classNames from "classnames";
-import { InputProps } from "../adou-formItem/adou-formItem-input";
+import { InputProps } from "../adou-form/adou-formItem/adou-formItem-input";
 
 export interface FormContextProps {
     handleChange?: any;
     name?: string,
-    formData?: any
+    formData?: any,
 }
 
 const Input: React.FC<InputProps> = (props: InputProps) => {

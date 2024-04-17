@@ -4,9 +4,9 @@ import classNames from "classnames";
 import "./index.css";
 
 import { SelectProps } from "../adou-select";
-import Input, { FormContextProps } from "../adou-Input/index";
-import { LegacyRef, useContext, useEffect, useRef, useState } from "react";
-import { FormContext } from "../adou-form";
+import { useEffect, useRef, useState } from "react";
+import React from "react";
+
 
 interface LiveSearchSelectProps extends SelectProps {
     defaultValue?: any;
@@ -17,7 +17,6 @@ const LiveSearchSelect = (props: LiveSearchSelectProps) => {
 
     const { defaultValue, options, size, className, disabled, onChangeOK, onSelectOK } = props;
 
-    const context: FormContextProps = useContext(FormContext);
 
 
     const [value, setValue] = useState(""); // 给个 || ""就会让 input为受控状态，不能让它默认是 defaultValue，有可能不存在。。
@@ -36,13 +35,10 @@ const LiveSearchSelect = (props: LiveSearchSelectProps) => {
     })
 
     const handleSelect = (e: any, option: any) => {
-        console.log("e = ", e);
-        console.log("option = ", option);
 
         setValue(option.label);
         prevSelectedValueRef.current = option.label;
         onSelectOK && onSelectOK(option);
-        context.handleChange(context.name, option)
 
     }
 
@@ -68,7 +64,7 @@ const LiveSearchSelect = (props: LiveSearchSelectProps) => {
 
     // 选项的ref数组--巧妙
     // eslint-disable-next-line react-hooks/rules-of-hooks
-    const optionItemRefs = options.map(() => useRef<HTMLDivElement>(null));
+    const optionItemRefs = options?.map(() => useRef<HTMLDivElement>(null));
 
     // input输入框的ref
     const inputRef = useRef<HTMLInputElement>(null);
@@ -106,7 +102,6 @@ const LiveSearchSelect = (props: LiveSearchSelectProps) => {
 
             let label = filterdOptions.find(option => option.label === defaultValue.label)?.label
             setTimeout(() => {
-                context.formData[context.name as string] = defaultValue; // 让 Form里面对应的数据项有值
                 // 保存默认值，防止用户输入不正确
                 prevSelectedValueRef.current = label;
                 label && setValue(defaultValue.label);
@@ -116,14 +111,6 @@ const LiveSearchSelect = (props: LiveSearchSelectProps) => {
             prevSelectedValueRef.current = ""; // 记得把 prevSelectedValueRef置空
         }
     }, [defaultValue])
-
-    // Form的formData发生变化，表单数据也要对应发生变化
-    useEffect(() => {
-        if (!context.formData[context.name as string]) {
-            setValue("");
-            prevSelectedValueRef.current = "";
-        }
-    }, [context.formData[context.name as string]])
 
 
     return <div className={cls}>

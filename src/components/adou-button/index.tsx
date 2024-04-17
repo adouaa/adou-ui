@@ -4,7 +4,7 @@ import "./index.css"
 
 interface buttonProps {
     type?: "primary" | "default" | "danger" | "dashed" | "link" | "text" | undefined;
-    size?: "large" | "middle" | "small" | undefined;
+    size?: "large" | "small" | undefined;
     children?: ReactNode;
     className?: string;
     round?: boolean,

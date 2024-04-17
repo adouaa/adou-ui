@@ -5,6 +5,8 @@ import "./index.css";
 
 import { SelectProps } from "../adou-select";
 import { useContext, useEffect, useRef, useState } from "react";
+import React from "react";
+
 
 interface MultipleSelectProps extends SelectProps {
     onMultipleSelectChangeOK?: (selectedOptions: any[]) => void;
@@ -71,7 +73,7 @@ const MultipleSelect: React.FC<MultipleSelectProps> = (props: MultipleSelectProp
 
     // 选项的ref数组--巧妙
     // eslint-disable-next-line react-hooks/rules-of-hooks
-    const optionItemRefs = options.map(() => useRef<HTMLDivElement>(null));
+    const optionItemRefs = options?.map(() => useRef<HTMLDivElement>(null));
 
     // input输入框的ref
     const inputRef = useRef<HTMLInputElement>(null);
@@ -93,7 +95,7 @@ const MultipleSelect: React.FC<MultipleSelectProps> = (props: MultipleSelectProp
         let arr: any[] = [];
         if (defaultValue?.length) {
             defaultValue?.map((item: any) => {
-                options.some(option => {
+                options?.some(option => {
                    option.value === item.value && arr.push(item)
                    return false;
                });
@@ -112,7 +114,7 @@ const MultipleSelect: React.FC<MultipleSelectProps> = (props: MultipleSelectProp
            }
         } else {
             setSelectedOptions([]);
-            setFilterdOptions(options.map(item => {
+            setFilterdOptions(options?.map(item => {
                 item.selected = false;
                 return item;
             }))
