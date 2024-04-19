@@ -38,15 +38,17 @@ const Radio: React.FC<RadioProps> = (props: RadioProps) => {
     })
 
     const handleChange = (item: any) => {
-        context.formData[context.name as string] = item;
+        console.log(96);
+        
         setOptionsList(preArr => {
             return preArr.map(option => {
                 return { ...option, checked: option.value === item.value };
             })
         })
         setFormItemValue && setFormItemValue(item);
-
         onChangeOK && onChangeOK(item);
+        context.handleChange(context.name, item);
+        context.checkValidate(item);
     }
 
     useEffect(() => {

@@ -9,6 +9,7 @@ import LiveSearchSelect from "./LiveSearchSelect";
 import MultipleSelect from "./MultipleSelect";
 import Radio from "./Radio";
 import Checkbox from "./Checkbox";
+import TagInput from './TagInput';
 
 
 export interface FormItemProps {
@@ -101,11 +102,21 @@ const FormItem = (props: FormItemProps) => {
   const handleValidate = (formData: any) => {
     
     if (validate) {
+      console.log(name + "=", formData[name]);
+      
       let valid = true;
-      if (rule[0].required && !formData[name]) {
-        setError(rule[0].message);
-        valid = false;
-        return valid;
+      if (Array.isArray(formData[name])) {
+        if (rule[0].required && !formData[name].length) {
+          setError(rule[0].message);
+          valid = false;
+          return valid;
+        }
+      } else {
+        if (rule[0].required && !formData[name]) {
+          setError(rule[0].message);
+          valid = false;
+          return valid;
+        }
       }
       if (rule[1]?.type) {
         const type = rule[1].type;
@@ -151,5 +162,6 @@ FormItem.LiveSearchSelect = LiveSearchSelect;
 FormItem.MultipleSelect = MultipleSelect;
 FormItem.Radio = Radio;
 FormItem.Checkbox = Checkbox;
+FormItem.TagInput = TagInput;
 
 export default FormItem

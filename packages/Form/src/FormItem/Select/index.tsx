@@ -47,7 +47,7 @@ const Select = (props: SelectProps) => {
 
     const handleBlur = () => {
         setTimeout(() => {
-            context.checkValidate(value.label === "请选择" ? "" : value.label); // 兼容默认值为空是 请选择的情况
+            context.checkValidate(value.value); // 将value.label换成value.value，为了兼容默认值为空是 请选择的情况
         }, 150);
     }
 
@@ -81,7 +81,7 @@ const Select = (props: SelectProps) => {
         if (!defaultValue) {
             setValue({ label: "请选择", value: "" });
         }
-    }, [])
+    }, [options])
 
     return <>
         {/* 这边不给 flex: 1的话，会把label标签的宽度给占走一点点 */}
@@ -90,6 +90,5 @@ const Select = (props: SelectProps) => {
         </select>
     </>;
 };
-
 
 export default withTranslation()(Select);

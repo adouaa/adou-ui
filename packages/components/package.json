@@ -2,7 +2,7 @@
   "author": "adou",
   "email": "1041137820@qq.com",
   "name": "adou-ui",
-  "version": "0.0.18",
+  "version": "0.0.28",
   "description": "修复Modal无法正常关闭以及富文本和单选框失焦无法触发校验问题",
   "repository": {
     "type": "git",

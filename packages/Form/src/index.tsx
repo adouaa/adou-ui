@@ -1,4 +1,4 @@
-import React, { createContext, forwardRef, useImperativeHandle, useRef, useState } from 'react'
+import React, { createContext, forwardRef, useImperativeHandle, useState } from 'react'
 
 import FormItem from "./FormItem";
 
@@ -89,7 +89,14 @@ const Form = forwardRef((props: FormProps, formRef) => {
 
   // 计算出最长的label
   let maxLabelLength = 0;
-  props.children.forEach((item: any) => {
+  let array: any = [];
+  if (!props.children.length) {
+    array.push(props.children);
+  } else {
+    array = props.children;
+  }
+  
+  array.forEach((item: any) => {
     if (maxLabelLength < item?.props?.label?.length) {
       maxLabelLength = item.props.label.length;
     }

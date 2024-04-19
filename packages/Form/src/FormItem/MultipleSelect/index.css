@@ -1,7 +1,13 @@
 .multiple-select-wrapper {
+    display: flex !important;
     position: relative;
     flex: 1;
+    min-height: 38px;
+    cursor: text;
+    flex-wrap: wrap;
 }
+
+
 .multiple-select-active {
     background-color: rgba(25, 103, 210);
 }
@@ -11,10 +17,37 @@
 .multiple-select-active::after {
     content: "✔";
 }
+
+.select-list {
+    display: flex;
+    flex-wrap: wrap;   
+}
+
 .selected-option {
+    color: #7e8085;
+    font-size: 14px;
+    padding: 3px 22px 3px 12px;
+    border-radius: 13px;
+    background-color: #f4f4f5;
+    position: relative;
+    margin-right: 6px;
+    margin-bottom: 6px;
+}
+
+.option-icon {
+    color: #999ba1;
     position: absolute;
-    padding: 4px 10px;
-    border-radius: 50%;
-    background-color: #f0f0f0;
-    top: 3px;
+    right: 10px;
+    bottom: 4px;
+    cursor: pointer;
+}
+
+.input-control {
+    flex: 1;
+}
+.multiple-input {
+    min-width: 120px;
+    width: 100%;
+    outline: none;
+    border: none;
 }

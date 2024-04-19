@@ -32,8 +32,11 @@ const MultipleSelect: React.FC<MultipleSelectProps> = (props: MultipleSelectProp
     const [showOptions, setShowOptions] = useState(false);
     const [filterdOptions, setFilterdOptions] = useState(options); // 多选主要是靠这个来展示哪个选项被打钩
     // 是否展示选中的选项
-    const [selectedOptions, setSelectedOptions] = useState<any[]>([]); // 选中的选项展示在 input框中
+    const [selectedOptions, setSelectedOptions] = useState<any[]>([]); // 选中的选项展示在 框中
     const [showSelectedOptions, setShowSelectedOptions] = useState(false);
+
+    // 框高亮
+    const [isHighlighted, setIsHighlighted] = useState(false);
 
 
     const cls = classNames({
@@ -50,26 +53,29 @@ const MultipleSelect: React.FC<MultipleSelectProps> = (props: MultipleSelectProp
         setFilterdOptions(filterdOptions); // 这句竟然加和不加都可以。。。
     }
 
-    const handleSelect = (e: any, option: any) => {
-        // prevSelectedValueRef.current = option.label;
+    const handleSelect = (option: any) => {
         option.selected = true;
         let hasSelected = selectedOptions.some(item => item.label === option.label);
-        setSelectedOptions(hasSelected ? selectedOptions.filter(item => item.label !== option.label) : [...selectedOptions, { label: option.label, value: option.value }]);
+        const nowSelectedList = selectedOptions.filter(item => item.label !== option.label) ;
+        // 这句话写不写都可以，因为在下面的 useEffect中也为该变量赋值了
+        setSelectedOptions(hasSelected ? nowSelectedList: [...selectedOptions, option]);
         hasSelected && filterdOption(option);
         setShowSelectedOptions(true);
         // 这里不能直接用 selectedOptions这个状态，会有延迟
         // 要用原来所有的状态，去过滤掉没选上的，再传递给父组件
-        // onMultipleSelectChangeOK && onMultipleSelectChangeOK(selectedOptions); 
-        const selectedList = filterdOptions.filter(item => item.selected)
+        const selectedList = (hasSelected ? nowSelectedList : [...selectedOptions, option])
         onMultipleSelectChangeOK && onMultipleSelectChangeOK(selectedList);
         context.handleChange(context.name, selectedList)
         setFormItemValue && setFormItemValue(selectedList)
+        const length = hasSelected ? nowSelectedList.length : 1;
+        console.log("length = ", length);
         
+        setTimeout(() => {
+            context.checkValidate(length);
+        }, 100); // 选择或者取消选择的时候也要进行校验
     }
 
     const handleInputClick = (e: any) => {
-        searchValueRef.current = "";
-        setShowOptions(true);
         // 这个时候也要重新过滤数据
     }
 
@@ -83,17 +89,51 @@ const MultipleSelect: React.FC<MultipleSelectProps> = (props: MultipleSelectProp
     // eslint-disable-next-line react-hooks/rules-of-hooks
     const optionItemRefs = options.map(() => useRef<HTMLDivElement>(null));
 
-    // input输入框的ref
-    const inputRef = useRef<HTMLInputElement>(null);
+
+    const handleDeleteItem = (item: any) => {
+        console.log(item);
+        
+        const selectedList = selectedOptions.filter(option => option !== item);
+        setSelectedOptions(selectedList);
+        setFilterdOptions(filterdOptions.map((v: any) => {
+            if (v.label === item.label) {
+                v.selected = false;
+            }
+            return v;
+        }))
+
+        context.checkValidate(selectedList.length);
+        context.handleChange(context.name, selectedList);
+    }
+
+    const handleFocus = () => {
+        setIsHighlighted(true);
+    }
+
+    const handleBlur = () => {
+        context.checkValidate(selectedOptions.length);
+    }
+
     useEffect(() => {
-        window.addEventListener("click", (e) => {
-            if (e.target === inputRef.current) {
+        window.addEventListener("click", (e: any) => {
+            // 用类名方便
+            let classNames = ["multiple-input", "select-list", "selected-option", "multiple-select-wrapper form-control ", "multiple-select-wrapper form-control focus"];
+            /* if (e.target === wrapperRef.current || e.target === .current) {
+                return setShowOptions(true);
+            } */
+
+            if (classNames.includes(e.target.className)) {
                 return setShowOptions(true);
             }
+
             // --巧妙
             // 点的不是 input框，也不是 选项，则将 active类名去掉，并且隐藏 选项
             if (!optionItemRefs.some(ref => ref.current === e.target)) {
+                setIsHighlighted(false);
                 return setShowOptions(false);
+
+            } else {
+                setIsHighlighted(true);
             }
         })
     }, [])
@@ -102,7 +142,6 @@ const MultipleSelect: React.FC<MultipleSelectProps> = (props: MultipleSelectProp
     useEffect(() => {
         let arr: any[] = [];
         if (defaultValue?.length) {
-            
             context.formData[context.name as string] = defaultValue; // 让 Form里面对应的数据项有值
             setFormItemValue && setFormItemValue(defaultValue);
 
@@ -147,34 +186,31 @@ const MultipleSelect: React.FC<MultipleSelectProps> = (props: MultipleSelectProp
         setSelectedOptions(context.formData[context.name as string] || []);
     }, [context.formData[context.name as string]])
 
-    // 计算每个项的宽度和间距
-  const itemWidth = 100 / options.length; 
-  const gapWidth = 1; // 设置间距大小，单位为像素
+    return <>
+        <div tabIndex={0} onFocus={handleFocus} onBlur={handleBlur} onClick={() => setShowOptions(true)} className={`multiple-select-wrapper form-control ${isHighlighted ? "focus" : ""}`}>
+            <div className="select-list">
+                {showSelectedOptions && selectedOptions?.map((option) => {
+                    return <div className="selected-option" key={option.value} style={{
+                    }}>
+                        {option.label}
+                        <span onClick={() => handleDeleteItem(option)} className="option-icon">x</span>
+                    </div>
+                })}
+            </div>
+            <div className="input-control">
+                <input placeholder="输入关键词" onChange={(e) => handleInputChange(e)} onClick={handleInputClick} disabled={disabled} type="text" className="multiple-input" aria-label="Username" aria-describedby="basic-addon1" />
+            </div>
 
-    return <div className="multiple-select-wrapper">
-        {showSelectedOptions && selectedOptions?.map((option, index) => {
-            // index * 80 + 10 这边的10 要与第一个距离左边的距离相等！！！不能不加，也不能加太多，否则就会与第一个太靠近或者与第一个距离太远！！！
-            return <span className="selected-option" key={option.value} style={{
-                left: `${index * (itemWidth + gapWidth)}%`, // 考虑到间距
-                width: `${itemWidth}%`,
-                textAlign: 'center',
-                whiteSpace: 'nowrap',
-                overflow: 'hidden',
-                textOverflow: 'ellipsis',
-            }}>
-                {option.label}
-            </span>
-        })}
-        <input readOnly onChange={(e) => handleInputChange(e)} onClick={handleInputClick} ref={inputRef} disabled={disabled} type="text" className="form-control" aria-label="Username" aria-describedby="basic-addon1" />
+        </div>
         {showOptions && <div className="option-wrapper multiple-select-option-wrapper">
             {filterdOptions?.map((option: any, index: number) => {
                 // --巧妙
-                return <div ref={optionItemRefs[index]} key={index} onClick={(e) => handleSelect(e, option)} className={`option-item ${option.selected && "multiple-select-active"}`}>
+                return <div ref={optionItemRefs[index]} key={index} onClick={() => handleSelect(option)} className={`option-item ${option.selected && "multiple-select-active"}`}>
                     {option.label}
                 </div>
             })}
         </div>}
-    </div>
+    </>
 
 }
 

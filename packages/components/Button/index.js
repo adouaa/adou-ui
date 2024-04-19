@@ -142,102 +142,7 @@ module.exports = function (item) {
 
 var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_1___default()((_node_modules_css_loader_dist_runtime_sourceMaps_js__WEBPACK_IMPORTED_MODULE_0___default()));
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, `.ant-btn {
-  line-height: 1.5715;
-  position: relative;
-  display: inline-block;
-  font-weight: 400;
-  white-space: nowrap;
-  text-align: center;
-  background-image: none;
-  border: 1px solid transparent;
-  box-shadow: 0 2px 0 rgba(0, 0, 0, 0.015);
-  cursor: pointer;
-  transition: all 0.3s cubic-bezier(0.645, 0.045, 0.355, 1);
-  -webkit-user-select: none;
-  -moz-user-select: none;
-  -ms-user-select: none;
-  user-select: none;
-  touch-action: manipulation;
-  height: 32px;
-  padding: 4px 15px;
-  font-size: 14px;
-  border-radius: 2px;
-  color: rgba(0, 0, 0, 0.85);
-  border-color: #d9d9d9;
-  background: #fff;
-}
-
-.ant-btn-primary {
-  color: #fff;
-  border-color: #1890ff;
-  background: #1890ff;
-  text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.12);
-  box-shadow: 0 2px 0 rgba(0, 0, 0, 0.045);
-}
-
-.ant-btn-danger {
-  color: #fff;
-  border-color: #ff4d4f;
-  background: #ff4d4f;
-  text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.12);
-  box-shadow: 0 2px 0 rgba(0, 0, 0, 0.045);
-}
-
-.ant-btn-larg {
-  height: 40px;
-  padding: 4.9px 0;
-  font-size: 18px;
-  border-radius: 2px;
-}
-
-.ant-btn-larg > * {
-  font-size: 18px;
-}
-
-.ant-btn-small {
-  height: 24px;
-  padding: 4.9px;
-  font-size: 14px;
-  border-radius: 2px;
-}
-
-.ant-btn-small > * {
-  font-size: 14px;
-}
-
-.ant-btn-primary:hover {
-  color: #40a9ff;
-  border-color: #40a9ff;
-  background: #fff;
-}
-
-.ant-btn-danger:hover {
-  color: #ff4d4f;
-  border-color: #ff4d4f;
-  background: #fff;
-}
-
-.ant-btn-round {
-  height: 32px;
-  padding: 4px 16px;
-  font-size: 14px;
-  border-radius: 32px;
-}
-
-.ant-btn-round.ant-btn-lg {
-  height: 40px;
-  padding: 6.4px 20px;
-  font-size: 16px;
-  border-radius: 40px;
-}
-
-.ant-btn-round.ant-btn-sm {
-  height: 24px;
-  padding: 0px 12px;
-  font-size: 14px;
-  border-radius: 24px;
-}`, "",{"version":3,"sources":["webpack://./src/index.css"],"names":[],"mappings":"AAAA;EACE,mBAAA;EACA,kBAAA;EACA,qBAAA;EACA,gBAAA;EACA,mBAAA;EACA,kBAAA;EACA,sBAAA;EACA,6BAAA;EACA,wCAAA;EACA,eAAA;EACA,yDAAA;EACA,yBAAA;EACA,sBAAA;EACA,qBAAA;EACA,iBAAA;EACA,0BAAA;EACA,YAAA;EACA,iBAAA;EACA,eAAA;EACA,kBAAA;EACA,0BAAA;EACA,qBAAA;EACA,gBAAA;AACF;;AAEA;EACE,WAAA;EACA,qBAAA;EACA,mBAAA;EACA,yCAAA;EACA,wCAAA;AACF;;AAEA;EACE,WAAA;EACA,qBAAA;EACA,mBAAA;EACA,yCAAA;EACA,wCAAA;AACF;;AAEA;EACE,YAAA;EACA,gBAAA;EACA,eAAA;EACA,kBAAA;AACF;;AACA;EACE,eAAA;AAEF;;AAAA;EACE,YAAA;EACA,cAAA;EACA,eAAA;EACA,kBAAA;AAGF;;AADA;EACE,eAAA;AAIF;;AAFA;EACE,cAAA;EACA,qBAAA;EACA,gBAAA;AAKF;;AAFA;EACE,cAAA;EACA,qBAAA;EACA,gBAAA;AAKF;;AADA;EACE,YAAA;EACA,iBAAA;EACA,eAAA;EACA,mBAAA;AAIF;;AAFA;EACE,YAAA;EACA,mBAAA;EACA,eAAA;EACA,mBAAA;AAKF;;AAHA;EACE,YAAA;EACA,iBAAA;EACA,eAAA;EACA,mBAAA;AAMF","sourcesContent":[".ant-btn {\n  line-height: 1.5715;\n  position: relative;\n  display: inline-block;\n  font-weight: 400;\n  white-space: nowrap;\n  text-align: center;\n  background-image: none;\n  border: 1px solid transparent;\n  box-shadow: 0 2px 0 rgba(0, 0, 0, 0.015);\n  cursor: pointer;\n  transition: all 0.3s cubic-bezier(0.645, 0.045, 0.355, 1);\n  -webkit-user-select: none;\n  -moz-user-select: none;\n  -ms-user-select: none;\n  user-select: none;\n  touch-action: manipulation;\n  height: 32px;\n  padding: 4px 15px;\n  font-size: 14px;\n  border-radius: 2px;\n  color: rgba(0, 0, 0, 0.85);\n  border-color: #d9d9d9;\n  background: #fff;\n}\n\n.ant-btn-primary {\n  color: #fff;\n  border-color: #1890ff;\n  background: #1890ff;\n  text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.12);\n  box-shadow: 0 2px 0 rgba(0, 0, 0, 0.045);\n}\n\n.ant-btn-danger {\n  color: #fff;\n  border-color: #ff4d4f;\n  background: #ff4d4f;\n  text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.12);\n  box-shadow: 0 2px 0 rgba(0, 0, 0, 0.045);\n}\n\n.ant-btn-larg {\n  height: 40px;\n  padding: 4.9px 0;\n  font-size: 18px;\n  border-radius: 2px;\n}\n.ant-btn-larg > * {\n  font-size: 18px;\n}\n.ant-btn-small {\n  height: 24px;\n  padding: 4.9px;\n  font-size: 14px;\n  border-radius: 2px;\n}\n.ant-btn-small > * {\n  font-size: 14px;\n}\n.ant-btn-primary:hover {\n  color: #40a9ff;\n  border-color: #40a9ff;\n  background: #fff;\n}\n\n.ant-btn-danger:hover {\n  color: #ff4d4f;\n  border-color: #ff4d4f;\n  background: #fff;\n}\n\n\n.ant-btn-round {\n  height: 32px;\n  padding: 4px 16px;\n  font-size: 14px;\n  border-radius: 32px;\n}\n.ant-btn-round.ant-btn-lg {\n  height: 40px;\n  padding: 6.4px 20px;\n  font-size: 16px;\n  border-radius: 40px;\n}\n.ant-btn-round.ant-btn-sm {\n  height: 24px;\n  padding: 0px 12px;\n  font-size: 14px;\n  border-radius: 24px;\n}\n"],"sourceRoot":""}]);
+___CSS_LOADER_EXPORT___.push([module.id, ``, "",{"version":3,"sources":[],"names":[],"mappings":"","sourceRoot":""}]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 
@@ -726,26 +631,45 @@ const Button = props => {
     size,
     className,
     round,
+    textColor,
+    disabled,
+    outlineColor,
     onClickOK
   } = props;
   const handleOnClick = () => {
     onClickOK && onClickOK();
   };
   const cls = classnames_default()({
-    "ant-btn": true,
-    ["ant-btn-".concat(type)]: type,
+    "btn": true,
+    ["btn-".concat(type)]: type,
     // 是 true就会加上这个类名
-    ["ant-btn-".concat(size)]: size,
-    ["ant-btn-round"]: round,
+    ["btn-".concat(size)]: size,
+    ["rounded"]: round,
+    ["text-".concat(textColor)]: textColor,
+    ["btn-outline-".concat(outlineColor)]: outlineColor,
+    disabled,
     [className]: className
   });
+  const applyStylesToChildren = () => {
+    return external_root_React_commonjs2_react_commonjs_react_amd_react_default().Children.map(children, child => {
+      if ( /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().isValidElement(child)) {
+        console.log(child);
+        const enhancedChild = /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().cloneElement(child, {
+          style: {
+            //    [`${size === "sm" ? "fontSize" : ""}`]: "12px" ,
+          }
+        });
+        return enhancedChild;
+      }
+    });
+  };
   return /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("button", {
     style: {
       cursor: "pointer"
     },
     onClick: handleOnClick,
     className: cls
-  }, children);
+  }, applyStylesToChildren());
 };
 /* harmony default export */ const src_0 = (Button);
 })();

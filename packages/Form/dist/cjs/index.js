@@ -219,8 +219,12 @@ var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBP
 // Module
 ___CSS_LOADER_EXPORT___.push([module.id, `@charset "UTF-8";
 .multiple-select-wrapper {
+  display: flex !important;
   position: relative;
   flex: 1;
+  min-height: 38px;
+  cursor: text;
+  flex-wrap: wrap;
 }
 
 .multiple-select-active {
@@ -235,13 +239,109 @@ ___CSS_LOADER_EXPORT___.push([module.id, `@charset "UTF-8";
   content: "✔";
 }
 
+.select-list {
+  display: flex;
+  flex-wrap: wrap;
+}
+
 .selected-option {
+  color: #7e8085;
+  font-size: 14px;
+  padding: 3px 22px 3px 12px;
+  border-radius: 13px;
+  background-color: #f4f4f5;
+  position: relative;
+  margin-right: 6px;
+  margin-bottom: 6px;
+}
+
+.option-icon {
+  color: #999ba1;
   position: absolute;
-  padding: 4px 10px;
-  border-radius: 50%;
-  background-color: #f0f0f0;
-  top: 3px;
-}`, "",{"version":3,"sources":["webpack://./src/FormItem/MultipleSelect/index.css"],"names":[],"mappings":"AAAA,gBAAgB;AAAhB;EACI,kBAAA;EACA,OAAA;AAEJ;;AAAA;EACI,mCAAA;AAGJ;;AADA;EACI,aAAA;AAIJ;;AAFA;EACI,YAAA;AAKJ;;AAHA;EACI,kBAAA;EACA,iBAAA;EACA,kBAAA;EACA,yBAAA;EACA,QAAA;AAMJ","sourcesContent":[".multiple-select-wrapper {\r\n    position: relative;\r\n    flex: 1;\r\n}\r\n.multiple-select-active {\r\n    background-color: rgba(25, 103, 210);\r\n}\r\n.multiple-select-option-wrapper {\r\n    padding: 14px;\r\n}\r\n.multiple-select-active::after {\r\n    content: \"✔\";\r\n}\r\n.selected-option {\r\n    position: absolute;\r\n    padding: 4px 10px;\r\n    border-radius: 50%;\r\n    background-color: #f0f0f0;\r\n    top: 3px;\r\n}"],"sourceRoot":""}]);
+  right: 10px;
+  bottom: 4px;
+  cursor: pointer;
+}
+
+.input-control {
+  flex: 1;
+}
+
+.multiple-input {
+  min-width: 120px;
+  width: 100%;
+  outline: none;
+  border: none;
+}`, "",{"version":3,"sources":["webpack://./src/FormItem/MultipleSelect/index.css"],"names":[],"mappings":"AAAA,gBAAgB;AAAhB;EACI,wBAAA;EACA,kBAAA;EACA,OAAA;EACA,gBAAA;EACA,YAAA;EACA,eAAA;AAEJ;;AAEA;EACI,mCAAA;AACJ;;AACA;EACI,aAAA;AAEJ;;AAAA;EACI,YAAA;AAGJ;;AAAA;EACI,aAAA;EACA,eAAA;AAGJ;;AAAA;EACI,cAAA;EACA,eAAA;EACA,0BAAA;EACA,mBAAA;EACA,yBAAA;EACA,kBAAA;EACA,iBAAA;EACA,kBAAA;AAGJ;;AAAA;EACI,cAAA;EACA,kBAAA;EACA,WAAA;EACA,WAAA;EACA,eAAA;AAGJ;;AAAA;EACI,OAAA;AAGJ;;AADA;EACI,gBAAA;EACA,WAAA;EACA,aAAA;EACA,YAAA;AAIJ","sourcesContent":[".multiple-select-wrapper {\r\n    display: flex !important;\r\n    position: relative;\r\n    flex: 1;\r\n    min-height: 38px;\r\n    cursor: text;\r\n    flex-wrap: wrap;\r\n}\r\n\r\n\r\n.multiple-select-active {\r\n    background-color: rgba(25, 103, 210);\r\n}\r\n.multiple-select-option-wrapper {\r\n    padding: 14px;\r\n}\r\n.multiple-select-active::after {\r\n    content: \"✔\";\r\n}\r\n\r\n.select-list {\r\n    display: flex;\r\n    flex-wrap: wrap;   \r\n}\r\n\r\n.selected-option {\r\n    color: #7e8085;\r\n    font-size: 14px;\r\n    padding: 3px 22px 3px 12px;\r\n    border-radius: 13px;\r\n    background-color: #f4f4f5;\r\n    position: relative;\r\n    margin-right: 6px;\r\n    margin-bottom: 6px;\r\n}\r\n\r\n.option-icon {\r\n    color: #999ba1;\r\n    position: absolute;\r\n    right: 10px;\r\n    bottom: 4px;\r\n    cursor: pointer;\r\n}\r\n\r\n.input-control {\r\n    flex: 1;\r\n}\r\n.multiple-input {\r\n    min-width: 120px;\r\n    width: 100%;\r\n    outline: none;\r\n    border: none;\r\n}"],"sourceRoot":""}]);
+// Exports
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
+
+
+/***/ }),
+
+/***/ 818:
+/***/ ((module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   A: () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _node_modules_css_loader_dist_runtime_sourceMaps_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(73);
+/* harmony import */ var _node_modules_css_loader_dist_runtime_sourceMaps_js__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_css_loader_dist_runtime_sourceMaps_js__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(191);
+/* harmony import */ var _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_1__);
+// Imports
+
+
+var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_1___default()((_node_modules_css_loader_dist_runtime_sourceMaps_js__WEBPACK_IMPORTED_MODULE_0___default()));
+// Module
+___CSS_LOADER_EXPORT___.push([module.id, `@charset "UTF-8";
+.tag-input-wrapper {
+  height: 100%;
+  margin-top: 10px;
+}
+.tag-input-wrapper .tag-input-content {
+  display: flex;
+  flex-wrap: wrap;
+}
+.tag-input-wrapper .tag-input-content .tag-input-list {
+  padding: 0;
+  margin-bottom: 0;
+  display: flex;
+  flex-wrap: wrap;
+}
+.tag-input-wrapper .tag-input-content .tag-input-list .list-item {
+  color: #7e8085;
+  list-style-type: none;
+  font-size: 14px;
+  padding: 3px 22px 3px 12px;
+  border-radius: 13px;
+  background-color: #f4f4f5;
+  position: relative;
+  margin-right: 6px;
+  margin-bottom: 6px;
+}
+.tag-input-wrapper .tag-input-content .tag-input-list .list-item .item-icon {
+  color: #999ba1;
+  position: absolute;
+  right: 10px;
+  bottom: 4px;
+  cursor: pointer;
+}
+.tag-input-wrapper .tag-input-control {
+  flex: 1;
+}
+.tag-input-wrapper .tag-input-control .input {
+  min-width: 120px;
+  width: 100%;
+  outline: none;
+  border: none;
+}
+
+.focus {
+  border-color: #80bdff; /* 设置输入框获得焦点时的边框颜色 */
+  box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.313); /* 设置输入框获得焦点时的阴影效果 */
+}`, "",{"version":3,"sources":["webpack://./src/FormItem/TagInput/index.scss"],"names":[],"mappings":"AAAA,gBAAgB;AAAhB;EACI,YAAA;EACA,gBAAA;AAEJ;AAAI;EACI,aAAA;EACA,eAAA;AAER;AAAQ;EACI,UAAA;EACA,gBAAA;EACA,aAAA;EACA,eAAA;AAEZ;AAAY;EACI,cAAA;EACA,qBAAA;EACA,eAAA;EACA,0BAAA;EACA,mBAAA;EACA,yBAAA;EACA,kBAAA;EACA,iBAAA;EACA,kBAAA;AAEhB;AAAgB;EACI,cAAA;EACA,kBAAA;EACA,WAAA;EACA,WAAA;EACA,eAAA;AAEpB;AAII;EACI,OAAA;AAFR;AAGQ;EACI,gBAAA;EACA,WAAA;EACA,aAAA;EACA,YAAA;AADZ;;AAMA;EACI,qBAAA,EAAA,oBAAA;EACA,iDAAA,EAAA,oBAAA;AAHJ","sourcesContent":[".tag-input-wrapper {\r\n    height: 100%;\r\n    margin-top: 10px;\r\n\r\n    .tag-input-content {\r\n        display: flex;\r\n        flex-wrap: wrap;\r\n\r\n        .tag-input-list {\r\n            padding: 0;\r\n            margin-bottom: 0;\r\n            display: flex;\r\n            flex-wrap: wrap; // 不写这个太窄的话会挤在一起\r\n\r\n            .list-item {\r\n                color: #7e8085;\r\n                list-style-type: none;\r\n                font-size: 14px;\r\n                padding: 3px 22px 3px 12px;\r\n                border-radius: 13px;\r\n                background-color: #f4f4f5;\r\n                position: relative;\r\n                margin-right: 6px;\r\n                margin-bottom: 6px;\r\n\r\n                .item-icon {\r\n                    color: #999ba1;\r\n                    position: absolute;\r\n                    right: 10px;\r\n                    bottom: 4px;\r\n                    cursor: pointer;\r\n                }\r\n            }\r\n        }\r\n    }\r\n\r\n    .tag-input-control {\r\n        flex: 1;\r\n        .input {\r\n            min-width: 120px;\r\n            width: 100%;\r\n            outline: none;\r\n            border: none;\r\n        }\r\n    }\r\n}\r\n\r\n.focus {\r\n    border-color: #80bdff; /* 设置输入框获得焦点时的边框颜色 */\r\n    box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.313); /* 设置输入框获得焦点时的阴影效果 */\r\n}\r\n"],"sourceRoot":""}]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 
@@ -2132,7 +2232,7 @@ const Select = props => {
   };
   const handleBlur = () => {
     setTimeout(() => {
-      context.checkValidate(value.label === "请选择" ? "" : value.label); // 兼容默认值为空是 请选择的情况
+      context.checkValidate(value.value); // 将value.label换成value.value，为了兼容默认值为空是 请选择的情况
     }, 150);
   };
   (0,external_root_React_commonjs2_react_commonjs_react_amd_react_.useEffect)(() => {
@@ -2174,7 +2274,7 @@ const Select = props => {
         value: ""
       });
     }
-  }, []);
+  }, [options]);
   return /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement((external_root_React_commonjs2_react_commonjs_react_amd_react_default()).Fragment, null, /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("select", {
     style: {
       flex: 1
@@ -2528,8 +2628,11 @@ const MultipleSelect_MultipleSelect = props => {
   const [showOptions, setShowOptions] = (0,external_root_React_commonjs2_react_commonjs_react_amd_react_.useState)(false);
   const [filterdOptions, setFilterdOptions] = (0,external_root_React_commonjs2_react_commonjs_react_amd_react_.useState)(options); // 多选主要是靠这个来展示哪个选项被打钩
   // 是否展示选中的选项
-  const [selectedOptions, setSelectedOptions] = (0,external_root_React_commonjs2_react_commonjs_react_amd_react_.useState)([]); // 选中的选项展示在 input框中
+  const [selectedOptions, setSelectedOptions] = (0,external_root_React_commonjs2_react_commonjs_react_amd_react_.useState)([]); // 选中的选项展示在 框中
   const [showSelectedOptions, setShowSelectedOptions] = (0,external_root_React_commonjs2_react_commonjs_react_amd_react_.useState)(false);
+
+  // 框高亮
+  const [isHighlighted, setIsHighlighted] = (0,external_root_React_commonjs2_react_commonjs_react_amd_react_.useState)(false);
   const cls = classnames_default()({
     ["form-select form-select-".concat(size, " mb-3")]: true,
     [className]: className
@@ -2542,27 +2645,27 @@ const MultipleSelect_MultipleSelect = props => {
     });
     setFilterdOptions(filterdOptions); // 这句竟然加和不加都可以。。。
   };
-  const handleSelect = (e, option) => {
-    // prevSelectedValueRef.current = option.label;
+  const handleSelect = option => {
     option.selected = true;
     let hasSelected = selectedOptions.some(item => item.label === option.label);
-    setSelectedOptions(hasSelected ? selectedOptions.filter(item => item.label !== option.label) : [...selectedOptions, {
-      label: option.label,
-      value: option.value
-    }]);
+    const nowSelectedList = selectedOptions.filter(item => item.label !== option.label);
+    // 这句话写不写都可以，因为在下面的 useEffect中也为该变量赋值了
+    setSelectedOptions(hasSelected ? nowSelectedList : [...selectedOptions, option]);
     hasSelected && filterdOption(option);
     setShowSelectedOptions(true);
     // 这里不能直接用 selectedOptions这个状态，会有延迟
     // 要用原来所有的状态，去过滤掉没选上的，再传递给父组件
-    // onMultipleSelectChangeOK && onMultipleSelectChangeOK(selectedOptions); 
-    const selectedList = filterdOptions.filter(item => item.selected);
+    const selectedList = hasSelected ? nowSelectedList : [...selectedOptions, option];
     onMultipleSelectChangeOK && onMultipleSelectChangeOK(selectedList);
     context.handleChange(context.name, selectedList);
     setFormItemValue && setFormItemValue(selectedList);
+    const length = hasSelected ? nowSelectedList.length : 1;
+    console.log("length = ", length);
+    setTimeout(() => {
+      context.checkValidate(length);
+    }, 100); // 选择或者取消选择的时候也要进行校验
   };
   const handleInputClick = e => {
-    searchValueRef.current = "";
-    setShowOptions(true);
     // 这个时候也要重新过滤数据
   };
   const handleInputChange = e => {
@@ -2574,18 +2677,44 @@ const MultipleSelect_MultipleSelect = props => {
   // 选项的ref数组--巧妙
   // eslint-disable-next-line react-hooks/rules-of-hooks
   const optionItemRefs = options.map(() => (0,external_root_React_commonjs2_react_commonjs_react_amd_react_.useRef)(null));
-
-  // input输入框的ref
-  const inputRef = (0,external_root_React_commonjs2_react_commonjs_react_amd_react_.useRef)(null);
+  const handleDeleteItem = item => {
+    console.log(item);
+    const selectedList = selectedOptions.filter(option => option !== item);
+    setSelectedOptions(selectedList);
+    setFilterdOptions(filterdOptions.map(v => {
+      if (v.label === item.label) {
+        v.selected = false;
+      }
+      return v;
+    }));
+    context.checkValidate(selectedList.length);
+    context.handleChange(context.name, selectedList);
+  };
+  const handleFocus = () => {
+    setIsHighlighted(true);
+  };
+  const handleBlur = () => {
+    context.checkValidate(selectedOptions.length);
+  };
   (0,external_root_React_commonjs2_react_commonjs_react_amd_react_.useEffect)(() => {
     window.addEventListener("click", e => {
-      if (e.target === inputRef.current) {
+      // 用类名方便
+      let classNames = ["multiple-input", "select-list", "selected-option", "multiple-select-wrapper form-control ", "multiple-select-wrapper form-control focus"];
+      /* if (e.target === wrapperRef.current || e.target === .current) {
+          return setShowOptions(true);
+      } */
+
+      if (classNames.includes(e.target.className)) {
         return setShowOptions(true);
       }
+
       // --巧妙
       // 点的不是 input框，也不是 选项，则将 active类名去掉，并且隐藏 选项
       if (!optionItemRefs.some(ref => ref.current === e.target)) {
+        setIsHighlighted(false);
         return setShowOptions(false);
+      } else {
+        setIsHighlighted(true);
       }
     });
   }, []);
@@ -2638,46 +2767,42 @@ const MultipleSelect_MultipleSelect = props => {
     // 把展示在input的选项置空，即没有选中的选项
     setSelectedOptions(context.formData[context.name] || []);
   }, [context.formData[context.name]]);
-
-  // 计算每个项的宽度和间距
-  const itemWidth = 100 / options.length;
-  const gapWidth = 1; // 设置间距大小，单位为像素
-
-  return /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("div", {
-    className: "multiple-select-wrapper"
-  }, showSelectedOptions && (selectedOptions === null || selectedOptions === void 0 ? void 0 : selectedOptions.map((option, index) => {
-    // index * 80 + 10 这边的10 要与第一个距离左边的距离相等！！！不能不加，也不能加太多，否则就会与第一个太靠近或者与第一个距离太远！！！
-    return /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("span", {
+  return /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement((external_root_React_commonjs2_react_commonjs_react_amd_react_default()).Fragment, null, /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("div", {
+    tabIndex: 0,
+    onFocus: handleFocus,
+    onBlur: handleBlur,
+    onClick: () => setShowOptions(true),
+    className: "multiple-select-wrapper form-control ".concat(isHighlighted ? "focus" : "")
+  }, /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("div", {
+    className: "select-list"
+  }, showSelectedOptions && (selectedOptions === null || selectedOptions === void 0 ? void 0 : selectedOptions.map(option => {
+    return /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("div", {
       className: "selected-option",
       key: option.value,
-      style: {
-        left: "".concat(index * (itemWidth + gapWidth), "%"),
-        // 考虑到间距
-        width: "".concat(itemWidth, "%"),
-        textAlign: 'center',
-        whiteSpace: 'nowrap',
-        overflow: 'hidden',
-        textOverflow: 'ellipsis'
-      }
-    }, option.label);
-  })), /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("input", {
-    readOnly: true,
+      style: {}
+    }, option.label, /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("span", {
+      onClick: () => handleDeleteItem(option),
+      className: "option-icon"
+    }, "x"));
+  }))), /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("div", {
+    className: "input-control"
+  }, /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("input", {
+    placeholder: "\u8F93\u5165\u5173\u952E\u8BCD",
     onChange: e => handleInputChange(e),
     onClick: handleInputClick,
-    ref: inputRef,
     disabled: disabled,
     type: "text",
-    className: "form-control",
+    className: "multiple-input",
     "aria-label": "Username",
     "aria-describedby": "basic-addon1"
-  }), showOptions && /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("div", {
+  }))), showOptions && /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("div", {
     className: "option-wrapper multiple-select-option-wrapper"
   }, filterdOptions === null || filterdOptions === void 0 ? void 0 : filterdOptions.map((option, index) => {
     // --巧妙
     return /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("div", {
       ref: optionItemRefs[index],
       key: index,
-      onClick: e => handleSelect(e, option),
+      onClick: () => handleSelect(option),
       className: "option-item ".concat(option.selected && "multiple-select-active")
     }, option.label);
   })));
@@ -2709,7 +2834,7 @@ const Radio = props => {
     [className]: className
   });
   const handleChange = item => {
-    context.formData[context.name] = item;
+    console.log(96);
     setOptionsList(preArr => {
       return preArr.map(option => {
         return {
@@ -2720,6 +2845,8 @@ const Radio = props => {
     });
     setFormItemValue && setFormItemValue(item);
     onChangeOK && onChangeOK(item);
+    context.handleChange(context.name, item);
+    context.checkValidate(item);
   };
   (0,external_root_React_commonjs2_react_commonjs_react_amd_react_.useEffect)(() => {
     if (defaultValue !== null && defaultValue !== void 0 && defaultValue.value) {
@@ -2811,6 +2938,11 @@ const Checkbox = props => {
     onChangeOK && onChangeOK(updatedChheckboxData === null || updatedChheckboxData === void 0 ? void 0 : updatedChheckboxData.filter(v => v.checked));
     setFormItemValue && setFormItemValue(updatedChheckboxData === null || updatedChheckboxData === void 0 ? void 0 : updatedChheckboxData.filter(v => v.checked));
   };
+  const handleBlur = () => {
+    const checkedList = optionsList.filter(item => item.checked);
+    context.handleChange(context.name, checkedList);
+    context.checkValidate(checkedList.length);
+  };
   (0,external_root_React_commonjs2_react_commonjs_react_amd_react_.useEffect)(() => {
     if (defaultValue.length) {
       context.formData[context.name] = defaultValue;
@@ -2851,6 +2983,7 @@ const Checkbox = props => {
         marginRight: "20px"
       }
     }, /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("input", {
+      onBlur: handleBlur,
       className: cls,
       type: "checkbox",
       name: item.name,
@@ -2865,7 +2998,126 @@ const Checkbox = props => {
   })));
 };
 /* harmony default export */ const FormItem_Checkbox = (withTranslation()(Checkbox));
+// EXTERNAL MODULE: ../../node_modules/css-loader/dist/cjs.js??ruleSet[1].rules[1].use[1]!../../node_modules/sass-loader/dist/cjs.js??ruleSet[1].rules[1].use[2]!./src/FormItem/TagInput/index.scss
+var TagInput = __webpack_require__(818);
+;// CONCATENATED MODULE: ./src/FormItem/TagInput/index.scss
+
+      
+      
+      
+      
+      
+      
+      
+      
+      
+
+var TagInput_options = {};
+
+TagInput_options.styleTagTransform = (styleTagTransform_default());
+TagInput_options.setAttributes = (setAttributesWithoutAttributes_default());
+
+      TagInput_options.insert = insertBySelector_default().bind(null, "head");
+    
+TagInput_options.domAPI = (styleDomAPI_default());
+TagInput_options.insertStyleElement = (insertStyleElement_default());
+
+var TagInput_update = injectStylesIntoStyleTag_default()(TagInput/* default */.A, TagInput_options);
+
+
+
+
+       /* harmony default export */ const FormItem_TagInput = (TagInput/* default */.A && TagInput/* default */.A.locals ? TagInput/* default */.A.locals : undefined);
+
+;// CONCATENATED MODULE: ./src/FormItem/TagInput/index.tsx
+
+
+
+
+const TagInput_TagInput = props => {
+  const {
+    defaultValue = []
+  } = props;
+  const context = (0,external_root_React_commonjs2_react_commonjs_react_amd_react_.useContext)(FormContext);
+  const [inputList, setInputList] = (0,external_root_React_commonjs2_react_commonjs_react_amd_react_.useState)(defaultValue || context.formData[context.name] || []);
+  const [inputValue, setInputValue] = (0,external_root_React_commonjs2_react_commonjs_react_amd_react_.useState)("");
+  const [isHighlighted, setIsHighlighted] = (0,external_root_React_commonjs2_react_commonjs_react_amd_react_.useState)(false);
+  const addInput = () => {
+    setInputList([...inputList, inputValue]);
+    setInputValue("");
+    context.checkValidate(1);
+  };
+  const handleInputChange = e => {
+    setInputValue(e.target.value);
+  };
+  const handleKeyDown = event => {
+    const value = event.target.value.trim(); // 会有一个空格存在，要去掉
+    if (!value) return;
+    let flag = false;
+    if (event.keyCode === 32 || event.keyCode === 13) {
+      event.preventDefault(); // 阻止默认行为，防止提交表单或失去焦点
+      flag = inputList.length > 0 && inputList.some(item => item === value);
+      !flag && addInput();
+    }
+  };
+  const handleDeleteItem = item => {
+    const tagList = inputList.filter(value => item !== value);
+    setInputList(tagList);
+    // 注意，这边不能直接用 inputList给 formData赋值，会出现不一致的情况
+
+    context.handleChange(context.name, tagList);
+    context.checkValidate(inputList.filter(v => v !== item).length);
+  };
+  const handleBlur = () => {
+    // 注意，这边要在 inpuut失焦的时候触发，不能在 input change的时候触发，不然会出现校验错误
+    context.handleChange(context.name, inputList);
+    context.checkValidate(inputList.length);
+    setIsHighlighted(false);
+  };
+  const handleFocus = () => {
+    setIsHighlighted(true);
+  };
+  (0,external_root_React_commonjs2_react_commonjs_react_amd_react_.useEffect)(() => {
+    if (defaultValue.length) {
+      setInputList(defaultValue);
+      context.formData[context.name] = defaultValue;
+    }
+  }, [defaultValue]);
+  (0,external_root_React_commonjs2_react_commonjs_react_amd_react_.useEffect)(() => {
+    console.log("变化了", context.formData[context.name]);
+    setInputList(context.formData[context.name] || "");
+  }, [context.formData[context.name]]);
+  return /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement((external_root_React_commonjs2_react_commonjs_react_amd_react_default()).Fragment, null, /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("div", {
+    className: "tag-input-wrapper form-control ".concat(isHighlighted && "focus")
+  }, /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("div", {
+    className: "tag-input-content"
+  }, /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("ul", {
+    className: "tag-input-list"
+  }, inputList.length > 0 && inputList.map(item => {
+    return /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("li", {
+      className: "list-item",
+      key: item
+    }, item, /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("span", {
+      onClick: () => handleDeleteItem(item),
+      className: "item-icon"
+    }, "x"));
+  })), /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("div", {
+    className: "tag-input-control"
+  }, /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("input", {
+    value: inputValue,
+    autoComplete: "off",
+    onFocus: handleFocus,
+    onBlur: handleBlur,
+    onChange: e => handleInputChange(e),
+    onKeyDown: handleKeyDown,
+    placeholder: "\u7A7A\u683C\u6216\u56DE\u8F66\u5206\u5272",
+    type: "text",
+    className: "input"
+  })))));
+};
+/* harmony default export */ const src_FormItem_TagInput = (withTranslation()(TagInput_TagInput));
 ;// CONCATENATED MODULE: ./src/FormItem/index.tsx
+
 
 
 
@@ -2967,11 +3219,20 @@ const FormItem_FormItem = props => {
   const handleValidate = formData => {
     if (validate) {
       var _rule$2;
+      console.log(name + "=", formData[name]);
       let valid = true;
-      if (rule[0].required && !formData[name]) {
-        setError(rule[0].message);
-        valid = false;
-        return valid;
+      if (Array.isArray(formData[name])) {
+        if (rule[0].required && !formData[name].length) {
+          setError(rule[0].message);
+          valid = false;
+          return valid;
+        }
+      } else {
+        if (rule[0].required && !formData[name]) {
+          setError(rule[0].message);
+          valid = false;
+          return valid;
+        }
       }
       if ((_rule$2 = rule[1]) !== null && _rule$2 !== void 0 && _rule$2.type) {
         const type = rule[1].type;
@@ -3021,6 +3282,7 @@ FormItem_FormItem.LiveSearchSelect = src_FormItem_LiveSearchSelect;
 FormItem_FormItem.MultipleSelect = src_FormItem_MultipleSelect;
 FormItem_FormItem.Radio = FormItem_Radio;
 FormItem_FormItem.Checkbox = FormItem_Checkbox;
+FormItem_FormItem.TagInput = src_FormItem_TagInput;
 /* harmony default export */ const src_FormItem_0 = (FormItem_FormItem);
 ;// CONCATENATED MODULE: ./src/index.tsx
 
@@ -3096,7 +3358,13 @@ const Form = /*#__PURE__*/(0,external_root_React_commonjs2_react_commonjs_react_
 
   // 计算出最长的label
   let maxLabelLength = 0;
-  props.children.forEach(item => {
+  let array = [];
+  if (!props.children.length) {
+    array.push(props.children);
+  } else {
+    array = props.children;
+  }
+  array.forEach(item => {
     var _item$props;
     if (maxLabelLength < (item === null || item === void 0 || (_item$props = item.props) === null || _item$props === void 0 || (_item$props = _item$props.label) === null || _item$props === void 0 ? void 0 : _item$props.length)) {
       maxLabelLength = item.props.label.length;
