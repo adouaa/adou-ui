@@ -2,7 +2,7 @@ import classNames from "classnames";
 import React, { useEffect, useState } from "react";
 import { withTranslation } from "react-i18next"
 import EditableTableCell from "./adou-editableTableCell";
-export {EditableTableCell}
+export { EditableTableCell }
 
 interface TableProps {
     eidtable?: boolean,
@@ -20,7 +20,11 @@ interface TableProps {
     captionPosition?: "top" | "bottom",
     tableResponsive?: "sm" | "md" | "lg" | "xl" | "xxl",
     children?: any,
-
+    headSticky?: boolean,
+    headTextColor?: string,
+    headBGC?: any,
+    divider?: boolean,
+    maxHeight?: any,
     onEditOK?: (data: any) => void,
 }
 
@@ -41,6 +45,11 @@ const Table = (props: TableProps) => {
         captionPosition = "top",
         tableResponsive = "xxl",
         eidtable = false,
+        headSticky = true,
+        headTextColor = "white",
+        headBGC = "#2782d7",
+        divider,
+        maxHeight
     } = props;
 
     const cls = classNames({
@@ -50,7 +59,7 @@ const Table = (props: TableProps) => {
         "table-bordered": tableBorderd,
         "table-borderless": tableBorderless,
         [`table-${size}`]: true,
-        [`caption-${captionPosition}`]: true,
+        // [`caption-${captionPosition}`]: true,
         [`table-${headColor}`]: true,
     })
 
@@ -58,38 +67,50 @@ const Table = (props: TableProps) => {
 
     // 控制渲染的子组件
     const renderChildren = () => {
+
         // 兼容，不知道为什么children只有一个的话会被当做是 对象来处理。。
         let array: any = [];
         if (!props.children.length) {
-          array.push(props.children);
+            array.push(props.children);
         } else {
-          array = props.children;
+            array = props.children;
         }
-        
+        // 收集子组件的宽度属性、text位置属性、vertical-align属性
+        const widthObject: any = {};
+        const textPositionObject: any = {};
+        const verticalAlignObject: any = {};
+        array.forEach((item: any) => {
+            widthObject[item.props.prop] = item.props.width;
+            textPositionObject[item.props.prop] = item.props.textPosition;
+            verticalAlignObject[item.props.prop] = item.props.verticalAlign;
+        })
+
+
         return <>
-            <thead className={`${headColor} && table-${headColor}`}>
+            <thead style={{ position: headSticky ? "sticky" : "unset", top: 0, backgroundColor: `${headBGC}`, zIndex: 999 }} className={`text-${headTextColor}`}>
                 <tr>
                     {/* 头部 */}
-                    {array && array.map((child: any) => {
-                        return <th scope="col" key={child.props.label}>{child.props.label}</th>
+                    {array && array.map((child: any, rowIndex: number) => {
+                        return <th className={`${"text-" + textPositionObject[child.props.prop]}`} scope="col" key={child.props.label}>{child.props.label}</th>
                     })}
                 </tr>
 
             </thead>
-            <tbody className="table-group-divider">
+            <tbody className={`${divider && "table-group-divider"}`}>
                 {tabelData.map((data: any, rowIndex: number) => {
                     return <tr key={rowIndex}>
                         {React.Children.map(array, (child, colIndex) => {
+                            let prop = (child as React.ReactElement).props.prop;
                             if (React.isValidElement(child)) {
                                 const enhancedChild = React.cloneElement(child, {
-                                    value: data[`${(child as React.ReactElement).props.prop}`],
+                                    value: data[`${prop}`],
                                     rowData: data,
                                     eidtable,
-                                    prop: (child as React.ReactElement).props.prop,
+                                    prop: prop,
                                     rowIndex: rowIndex,
                                     colIndex: colIndex
                                 } as React.Attributes);
-                                return <td key={colIndex}>{enhancedChild}</td>;
+                                return <td className={`${"text-" + textPositionObject[prop]}`} style={{ verticalAlign: verticalAlignObject[prop], width: widthObject[(child as React.ReactElement).props.prop], overflowWrap: "break-word", wordWrap: "break-word", wordBreak: "break-word" }} key={colIndex}>{enhancedChild}</td>;
                             }
                         })}
                     </tr>
@@ -109,7 +130,7 @@ const Table = (props: TableProps) => {
     }
 
     const handleEditOK = (rowIndex: number, prop: string, value: string) => {
-       
+
     }
 
     useEffect(() => {
@@ -117,9 +138,13 @@ const Table = (props: TableProps) => {
     }, [data])
 
     return <>
-        <div className={`table-wrapper ${`table-responsive${"-" + tableResponsive}`}`}>
+        <div style={{ maxHeight, overflow: "auto" }} className={`table-wrapper ${`table-responsive${"-" + tableResponsive}`}`}>
+            {/* 不能这里边写东西了，因为 Table下的thead是用 sticky定位，
+              粘性效果top: 0是相对于它的最近滚动祖先容器，即上边的div
+              如果没给 上边的div 设置垂直滚动的话，就会去找往上找有 垂直滚动的祖先元素。。
+              当滚动到特定位置 top: 0时变为固定定位，否则保持在正常流中
+           */}
             <table className={cls}>
-                <caption>{captionContent}</caption>
                 {renderChildren()}
             </table>
         </div>

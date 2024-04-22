@@ -3,7 +3,7 @@ declare const _default: React.ComponentType<Omit<{
     type?: string | undefined;
     title?: string | undefined;
     show: boolean;
-    content?: string | undefined;
+    content?: any;
     confirmText?: string | undefined;
     cancelText?: string | undefined;
     maxHeight?: number | undefined;

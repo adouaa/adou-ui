@@ -653,7 +653,6 @@ const Button = props => {
   const applyStylesToChildren = () => {
     return external_root_React_commonjs2_react_commonjs_react_amd_react_default().Children.map(children, child => {
       if ( /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().isValidElement(child)) {
-        console.log(child);
         const enhancedChild = /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().cloneElement(child, {
           style: {
             //    [`${size === "sm" ? "fontSize" : ""}`]: "12px" ,

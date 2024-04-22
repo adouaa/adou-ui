@@ -9,6 +9,7 @@ export interface InputProps {
     placeholder?: string;
     style?: any;
     disabled?: boolean;
+    setFormItemValue?: (value: any) => void;
     onClickOK?: (e: React.MouseEvent<HTMLInputElement, MouseEvent>, ...args: any) => void;
     onFocusOK?: (e: React.FocusEvent<HTMLInputElement, Element>, ...args: any) => void;
     onBlurOK?: (e: React.FocusEvent<HTMLInputElement, Element>, ...args: any) => void;
@@ -29,6 +30,7 @@ declare const _default: React.ComponentType<Omit<{
     suffixContent?: any;
     placeholder?: string | undefined;
     disabled?: boolean | undefined;
+    setFormItemValue?: ((value: any) => void) | undefined;
     onClickOK?: ((e: React.MouseEvent<HTMLInputElement, MouseEvent>, ...args: any) => void) | undefined;
     onFocusOK?: ((e: React.FocusEvent<HTMLInputElement, Element>, ...args: any) => void) | undefined;
     onBlurOK?: ((e: React.FocusEvent<HTMLInputElement, Element>, ...args: any) => void) | undefined;

@@ -14,9 +14,14 @@ declare const _default: React.ComponentType<Omit<{
     tableBorderd?: boolean | undefined;
     tableBorderless?: boolean | undefined;
     headColor?: "light" | "dark" | undefined;
-    align?: "top" | "middle" | "bottom" | undefined;
+    align?: "middle" | "top" | "bottom" | undefined;
     captionContent?: any;
     captionPosition?: "top" | "bottom" | undefined;
     tableResponsive?: "lg" | "sm" | "md" | "xl" | "xxl" | undefined;
+    headSticky?: boolean | undefined;
+    headTextColor?: string | undefined;
+    headBGC?: any;
+    divider?: boolean | undefined;
+    maxHeight?: any;
 }, keyof import("react-i18next").WithTranslation<N, undefined>> & import("react-i18next").WithTranslationProps>;
 export default _default;

@@ -12,6 +12,7 @@ export interface InputProps {
     placeholder?: string;
     style?: any;
     disabled?: boolean;
+    setFormItemValue?: (value: any) => void;
     onClickOK?: (e: React.MouseEvent<HTMLInputElement, MouseEvent>, ...args: any) => void;
     onFocusOK?: (e: React.FocusEvent<HTMLInputElement, Element>, ...args: any) => void;
     onBlurOK?: (e: React.FocusEvent<HTMLInputElement, Element>, ...args: any) => void;
@@ -19,11 +20,10 @@ export interface InputProps {
 
 }
 
-
 export interface FormContextProps {
     handleChange?: any;
     name?: string,
-    formData?: any
+    formData?: any,
 }
 
 const Input: React.FC<InputProps> = (props: InputProps) => {
@@ -55,12 +55,15 @@ const Input: React.FC<InputProps> = (props: InputProps) => {
     const handleChange = (e: React.ChangeEvent<HTMLInputElement>, ...args: any) => {
         setValue(e.target.value);
         // 根据 name 属性，更新 Form 中的数据源
+
+        onChangeOK && onChangeOK(e);
     }
 
     useEffect(() => {
         if (defaultValue) {
             setValue(defaultValue);
-            // 这边不能直接用 context.handleChange(context.name, defaultValue)来赋默认值，会被置为空，并且失去 提交和重置功能
+        } else {
+            setValue("");
         }
     }, [defaultValue])
 

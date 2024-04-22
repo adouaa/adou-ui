@@ -1461,11 +1461,14 @@ module.exports = {
         const handleChange = function (e) {
           setValue(e.target.value);
           // 根据 name 属性，更新 Form 中的数据源
+
+          onChangeOK && onChangeOK(e);
         };
         (0, external_root_React_commonjs2_react_commonjs_react_amd_react_.useEffect)(() => {
           if (defaultValue) {
             setValue(defaultValue);
-            // 这边不能直接用 context.handleChange(context.name, defaultValue)来赋默认值，会被置为空，并且失去 提交和重置功能
+          } else {
+            setValue("");
           }
         }, [defaultValue]);
         return /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement(external_root_React_commonjs2_react_commonjs_react_amd_react_default().Fragment, null, /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("div", {
@@ -2882,6 +2885,7 @@ const EditableTableCell = props => {
     colIndex,
     value,
     eidtable,
+    textPosition = "center",
     onChange,
     onEditCancel,
     onEditOK
@@ -2901,7 +2905,14 @@ const EditableTableCell = props => {
     }
   };
   const handleChange = e => {};
-  return /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement((external_root_React_commonjs2_react_commonjs_react_amd_react_default()).Fragment, null, render ? render(value, rowData, rowIndex, prop, colIndex) : /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("div", {
+
+  // 这边必须要写一个监听传递过来的value的钩子函数，因为cell展示的值是 editValue
+  // 当传递过来的value发生变化时，将它重新赋值给cell要展示的值
+  // 如果cell要展示的值是 value，就可以不用写
+  (0,external_root_React_commonjs2_react_commonjs_react_amd_react_.useEffect)(() => {
+    setEditedValue(value);
+  }, [value]);
+  return /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement((external_root_React_commonjs2_react_commonjs_react_amd_react_default()).Fragment, null, render ? render(editedValue, rowData, rowIndex, prop, colIndex) : /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("div", {
     className: "edit-able-table-cell-wrapper",
     style: {
       display: 'inline-block',
@@ -2946,7 +2957,12 @@ const Table = props => {
     captionContent,
     captionPosition = "top",
     tableResponsive = "xxl",
-    eidtable = false
+    eidtable = false,
+    headSticky = true,
+    headTextColor = "white",
+    headBGC = "#2782d7",
+    divider,
+    maxHeight
   } = props;
   const cls = classnames_default()({
     "table": true,
@@ -2955,7 +2971,7 @@ const Table = props => {
     "table-bordered": tableBorderd,
     "table-borderless": tableBorderless,
     ["table-".concat(size)]: true,
-    ["caption-".concat(captionPosition)]: true,
+    // [`caption-${captionPosition}`]: true,
     ["table-".concat(headColor)]: true
   });
   const [tabelData, setTableData] = (0,external_root_React_commonjs2_react_commonjs_react_amd_react_.useState)(data || []);
@@ -2969,29 +2985,54 @@ const Table = props => {
     } else {
       array = props.children;
     }
+    // 收集子组件的宽度属性、text位置属性、vertical-align属性
+    const widthObject = {};
+    const textPositionObject = {};
+    const verticalAlignObject = {};
+    array.forEach(item => {
+      widthObject[item.props.prop] = item.props.width;
+      textPositionObject[item.props.prop] = item.props.textPosition;
+      verticalAlignObject[item.props.prop] = item.props.verticalAlign;
+    });
     return /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement((external_root_React_commonjs2_react_commonjs_react_amd_react_default()).Fragment, null, /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("thead", {
-      className: "".concat(headColor, " && table-").concat(headColor)
-    }, /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("tr", null, array && array.map(child => {
+      style: {
+        position: headSticky ? "sticky" : "unset",
+        top: 0,
+        backgroundColor: "".concat(headBGC),
+        zIndex: 999
+      },
+      className: "text-".concat(headTextColor)
+    }, /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("tr", null, array && array.map((child, rowIndex) => {
       return /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("th", {
+        className: "".concat("text-" + textPositionObject[child.props.prop]),
         scope: "col",
         key: child.props.label
       }, child.props.label);
     }))), /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("tbody", {
-      className: "table-group-divider"
+      className: "".concat(divider && "table-group-divider")
     }, tabelData.map((data, rowIndex) => {
       return /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("tr", {
         key: rowIndex
       }, external_root_React_commonjs2_react_commonjs_react_amd_react_default().Children.map(array, (child, colIndex) => {
+        let prop = child.props.prop;
         if ( /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().isValidElement(child)) {
           const enhancedChild = /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().cloneElement(child, {
-            value: data["".concat(child.props.prop)],
+            value: data["".concat(prop)],
             rowData: data,
             eidtable,
-            prop: child.props.prop,
+            prop: prop,
             rowIndex: rowIndex,
             colIndex: colIndex
           });
           return /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("td", {
+            className: "".concat("text-" + textPositionObject[prop]),
+            style: {
+              verticalAlign: verticalAlignObject[prop],
+              width: widthObject[child.props.prop],
+              overflowWrap: "break-word",
+              wordWrap: "break-word",
+              wordBreak: "break-word"
+            },
             key: colIndex
           }, enhancedChild);
         }
@@ -3005,10 +3046,14 @@ const Table = props => {
     setTableData(data);
   }, [data]);
   return /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement((external_root_React_commonjs2_react_commonjs_react_amd_react_default()).Fragment, null, /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("div", {
+    style: {
+      maxHeight,
+      overflow: "auto"
+    },
     className: "table-wrapper ".concat("table-responsive".concat("-" + tableResponsive))
   }, /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("table", {
     className: cls
-  }, /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("caption", null, captionContent), renderChildren())));
+  }, renderChildren())));
 };
 Table.EditableTableCell = adou_editableTableCell;
 /* harmony default export */ const src = (withTranslation()(Table));

@@ -35,8 +35,6 @@ const Button: React.FC<buttonProps> = (props: buttonProps) => {
     const applyStylesToChildren = () => {
         return React.Children.map(children, (child) => {
             if (React.isValidElement(child)) {
-                console.log(child);
-                
                 const enhancedChild = React.cloneElement(child, {
                     style: {
                     //    [`${size === "sm" ? "fontSize" : ""}`]: "12px" ,
