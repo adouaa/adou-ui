@@ -1417,16 +1417,25 @@ const Select = props => {
   // 获取 `FormContext.Provider` 提供提供的 `value` 值
 
   const [value, setValue] = (0,external_root_React_commonjs2_react_commonjs_react_amd_react_.useState)(defaultValue);
+  const [newOptions, setNewOptions] = (0,external_root_React_commonjs2_react_commonjs_react_amd_react_.useState)(options || []);
   const cls = classnames_default()({
-    ["form-select form-select-".concat(size, " mb-3")]: true,
+    ["form-select form-select-".concat(size)]: true,
     [className]: className
   });
   const handleSelect = e => {
     const selectedIndex = e.target.selectedIndex;
-    const selectedOption = options[selectedIndex];
+    const selectedOption = newOptions[selectedIndex];
     setValue(selectedOption);
     onChangeOK && onChangeOK(selectedOption);
   };
+  (0,external_root_React_commonjs2_react_commonjs_react_amd_react_.useEffect)(() => {
+    // 创建一个新数组，将 "请选择" 选项添加在数组的开头
+    const enhancedOptions = [{
+      label: "请选择",
+      value: ""
+    }, ...options];
+    setNewOptions(enhancedOptions);
+  }, [options]);
   (0,external_root_React_commonjs2_react_commonjs_react_amd_react_.useEffect)(() => {
     if (defaultValue !== null && defaultValue !== void 0 && defaultValue.value) {
       setValue(defaultValue); // 直接在判断有默认值的地方就给表单赋值，就不会出现数据闪动的现象
@@ -1446,8 +1455,8 @@ const Select = props => {
     className: cls,
     "aria-label": ".form-select-lg example",
     disabled: disabled
-  }, options === null || options === void 0 ? void 0 : options.map(item => /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("option", {
-    disabled: item.disabled,
+  }, newOptions === null || newOptions === void 0 ? void 0 : newOptions.map(item => /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("option", {
+    disabled: item.disabled || !item.value,
     key: item.value,
     value: item.value
   }, item.label))));

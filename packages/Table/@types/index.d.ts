@@ -1,0 +1,27 @@
+import React from "react";
+import EditableTableCell from "./adou-editableTableCell";
+export { EditableTableCell };
+declare const _default: React.ComponentType<Omit<{
+    data: any;
+    children?: any;
+    eidtable?: boolean | undefined;
+    onEditOK?: ((data: any) => void) | undefined;
+    size?: "lg" | "sm" | undefined;
+    headLabels?: any;
+    propsData?: any;
+    tableHover?: boolean | undefined;
+    tableStriped?: boolean | undefined;
+    tableBorderd?: boolean | undefined;
+    tableBorderless?: boolean | undefined;
+    headColor?: "light" | "dark" | undefined;
+    align?: "middle" | "top" | "bottom" | undefined;
+    captionContent?: any;
+    captionPosition?: "top" | "bottom" | undefined;
+    tableResponsive?: "lg" | "sm" | "md" | "xl" | "xxl" | undefined;
+    headSticky?: boolean | undefined;
+    headTextColor?: string | undefined;
+    headBGC?: any;
+    divider?: boolean | undefined;
+    maxHeight?: any;
+}, keyof import("react-i18next").WithTranslation<N, undefined>> & import("react-i18next").WithTranslationProps>;
+export default _default;

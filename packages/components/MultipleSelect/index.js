@@ -11,122 +11,7 @@
 return /******/ (() => { // webpackBootstrap
 /******/ 	var __webpack_modules__ = ({
 
-/***/ 191:
-/***/ ((module) => {
-
-"use strict";
-
-
-/*
-  MIT License http://www.opensource.org/licenses/mit-license.php
-  Author Tobias Koppers @sokra
-*/
-module.exports = function (cssWithMappingToString) {
-  var list = [];
-
-  // return the list of modules as css string
-  list.toString = function toString() {
-    return this.map(function (item) {
-      var content = "";
-      var needLayer = typeof item[5] !== "undefined";
-      if (item[4]) {
-        content += "@supports (".concat(item[4], ") {");
-      }
-      if (item[2]) {
-        content += "@media ".concat(item[2], " {");
-      }
-      if (needLayer) {
-        content += "@layer".concat(item[5].length > 0 ? " ".concat(item[5]) : "", " {");
-      }
-      content += cssWithMappingToString(item);
-      if (needLayer) {
-        content += "}";
-      }
-      if (item[2]) {
-        content += "}";
-      }
-      if (item[4]) {
-        content += "}";
-      }
-      return content;
-    }).join("");
-  };
-
-  // import a list of modules into the list
-  list.i = function i(modules, media, dedupe, supports, layer) {
-    if (typeof modules === "string") {
-      modules = [[null, modules, undefined]];
-    }
-    var alreadyImportedModules = {};
-    if (dedupe) {
-      for (var k = 0; k < this.length; k++) {
-        var id = this[k][0];
-        if (id != null) {
-          alreadyImportedModules[id] = true;
-        }
-      }
-    }
-    for (var _k = 0; _k < modules.length; _k++) {
-      var item = [].concat(modules[_k]);
-      if (dedupe && alreadyImportedModules[item[0]]) {
-        continue;
-      }
-      if (typeof layer !== "undefined") {
-        if (typeof item[5] === "undefined") {
-          item[5] = layer;
-        } else {
-          item[1] = "@layer".concat(item[5].length > 0 ? " ".concat(item[5]) : "", " {").concat(item[1], "}");
-          item[5] = layer;
-        }
-      }
-      if (media) {
-        if (!item[2]) {
-          item[2] = media;
-        } else {
-          item[1] = "@media ".concat(item[2], " {").concat(item[1], "}");
-          item[2] = media;
-        }
-      }
-      if (supports) {
-        if (!item[4]) {
-          item[4] = "".concat(supports);
-        } else {
-          item[1] = "@supports (".concat(item[4], ") {").concat(item[1], "}");
-          item[4] = supports;
-        }
-      }
-      list.push(item);
-    }
-  };
-  return list;
-};
-
-/***/ }),
-
-/***/ 73:
-/***/ ((module) => {
-
-"use strict";
-
-
-module.exports = function (item) {
-  var content = item[1];
-  var cssMapping = item[3];
-  if (!cssMapping) {
-    return content;
-  }
-  if (typeof btoa === "function") {
-    var base64 = btoa(unescape(encodeURIComponent(JSON.stringify(cssMapping))));
-    var data = "sourceMappingURL=data:application/json;charset=utf-8;base64,".concat(base64);
-    var sourceMapping = "/*# ".concat(data, " */");
-    return [content].concat([sourceMapping]).join("\n");
-  }
-  return [content].join("\n");
-};
-
-/***/ }),
-
-/***/ 597:
+/***/ 978:
 /***/ ((module) => {
 
 /**
@@ -150,307 +35,6 @@ module.exports = {
   "track": true,
   "wbr": true
 };
-
-/***/ }),
-
-/***/ 888:
-/***/ ((module, __webpack_exports__, __webpack_require__) => {
-
-"use strict";
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   A: () => (__WEBPACK_DEFAULT_EXPORT__)
-/* harmony export */ });
-/* harmony import */ var _node_modules_css_loader_dist_runtime_sourceMaps_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(73);
-/* harmony import */ var _node_modules_css_loader_dist_runtime_sourceMaps_js__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_css_loader_dist_runtime_sourceMaps_js__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(191);
-/* harmony import */ var _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_1__);
-// Imports
-
-
-var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_1___default()((_node_modules_css_loader_dist_runtime_sourceMaps_js__WEBPACK_IMPORTED_MODULE_0___default()));
-// Module
-___CSS_LOADER_EXPORT___.push([module.id, `@charset "UTF-8";
-.multiple-select-wrapper {
-  position: relative;
-}
-
-.multiple-select-active {
-  background-color: rgb(25, 103, 210);
-}
-
-.multiple-select-option-wrapper {
-  padding: 14px;
-}
-
-.multiple-select-active::after {
-  content: "✔";
-}
-
-.selected-option {
-  position: absolute;
-  padding: 4px 10px;
-  border-radius: 50%;
-  background-color: #f0f0f0;
-  top: 3px;
-}`, "",{"version":3,"sources":["webpack://./src/index.css"],"names":[],"mappings":"AAAA,gBAAgB;AAAhB;EACI,kBAAA;AAEJ;;AAAA;EACI,mCAAA;AAGJ;;AADA;EACI,aAAA;AAIJ;;AAFA;EACI,YAAA;AAKJ;;AAHA;EACI,kBAAA;EACA,iBAAA;EACA,kBAAA;EACA,yBAAA;EACA,QAAA;AAMJ","sourcesContent":[".multiple-select-wrapper {\r\n    position: relative;\r\n}\r\n.multiple-select-active {\r\n    background-color: rgba(25, 103, 210);\r\n}\r\n.multiple-select-option-wrapper {\r\n    padding: 14px;\r\n}\r\n.multiple-select-active::after {\r\n    content: \"✔\";\r\n}\r\n.selected-option {\r\n    position: absolute;\r\n    padding: 4px 10px;\r\n    border-radius: 50%;\r\n    background-color: #f0f0f0;\r\n    top: 3px;\r\n}"],"sourceRoot":""}]);
-// Exports
-/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
-
-
-/***/ }),
-
-/***/ 591:
-/***/ ((module) => {
-
-"use strict";
-
-
-var stylesInDOM = [];
-function getIndexByIdentifier(identifier) {
-  var result = -1;
-  for (var i = 0; i < stylesInDOM.length; i++) {
-    if (stylesInDOM[i].identifier === identifier) {
-      result = i;
-      break;
-    }
-  }
-  return result;
-}
-function modulesToDom(list, options) {
-  var idCountMap = {};
-  var identifiers = [];
-  for (var i = 0; i < list.length; i++) {
-    var item = list[i];
-    var id = options.base ? item[0] + options.base : item[0];
-    var count = idCountMap[id] || 0;
-    var identifier = "".concat(id, " ").concat(count);
-    idCountMap[id] = count + 1;
-    var indexByIdentifier = getIndexByIdentifier(identifier);
-    var obj = {
-      css: item[1],
-      media: item[2],
-      sourceMap: item[3],
-      supports: item[4],
-      layer: item[5]
-    };
-    if (indexByIdentifier !== -1) {
-      stylesInDOM[indexByIdentifier].references++;
-      stylesInDOM[indexByIdentifier].updater(obj);
-    } else {
-      var updater = addElementStyle(obj, options);
-      options.byIndex = i;
-      stylesInDOM.splice(i, 0, {
-        identifier: identifier,
-        updater: updater,
-        references: 1
-      });
-    }
-    identifiers.push(identifier);
-  }
-  return identifiers;
-}
-function addElementStyle(obj, options) {
-  var api = options.domAPI(options);
-  api.update(obj);
-  var updater = function updater(newObj) {
-    if (newObj) {
-      if (newObj.css === obj.css && newObj.media === obj.media && newObj.sourceMap === obj.sourceMap && newObj.supports === obj.supports && newObj.layer === obj.layer) {
-        return;
-      }
-      api.update(obj = newObj);
-    } else {
-      api.remove();
-    }
-  };
-  return updater;
-}
-module.exports = function (list, options) {
-  options = options || {};
-  list = list || [];
-  var lastIdentifiers = modulesToDom(list, options);
-  return function update(newList) {
-    newList = newList || [];
-    for (var i = 0; i < lastIdentifiers.length; i++) {
-      var identifier = lastIdentifiers[i];
-      var index = getIndexByIdentifier(identifier);
-      stylesInDOM[index].references--;
-    }
-    var newLastIdentifiers = modulesToDom(newList, options);
-    for (var _i = 0; _i < lastIdentifiers.length; _i++) {
-      var _identifier = lastIdentifiers[_i];
-      var _index = getIndexByIdentifier(_identifier);
-      if (stylesInDOM[_index].references === 0) {
-        stylesInDOM[_index].updater();
-        stylesInDOM.splice(_index, 1);
-      }
-    }
-    lastIdentifiers = newLastIdentifiers;
-  };
-};
-
-/***/ }),
-
-/***/ 128:
-/***/ ((module) => {
-
-"use strict";
-
-
-var memo = {};
-
-/* istanbul ignore next  */
-function getTarget(target) {
-  if (typeof memo[target] === "undefined") {
-    var styleTarget = document.querySelector(target);
-
-    // Special case to return head of iframe instead of iframe itself
-    if (window.HTMLIFrameElement && styleTarget instanceof window.HTMLIFrameElement) {
-      try {
-        // This will throw an exception if access to iframe is blocked
-        // due to cross-origin restrictions
-        styleTarget = styleTarget.contentDocument.head;
-      } catch (e) {
-        // istanbul ignore next
-        styleTarget = null;
-      }
-    }
-    memo[target] = styleTarget;
-  }
-  return memo[target];
-}
-
-/* istanbul ignore next  */
-function insertBySelector(insert, style) {
-  var target = getTarget(insert);
-  if (!target) {
-    throw new Error("Couldn't find a style target. This probably means that the value for the 'insert' parameter is invalid.");
-  }
-  target.appendChild(style);
-}
-module.exports = insertBySelector;
-
-/***/ }),
-
-/***/ 51:
-/***/ ((module) => {
-
-"use strict";
-
-
-/* istanbul ignore next  */
-function insertStyleElement(options) {
-  var element = document.createElement("style");
-  options.setAttributes(element, options.attributes);
-  options.insert(element, options.options);
-  return element;
-}
-module.exports = insertStyleElement;
-
-/***/ }),
-
-/***/ 855:
-/***/ ((module, __unused_webpack_exports, __webpack_require__) => {
-
-"use strict";
-
-
-/* istanbul ignore next  */
-function setAttributesWithoutAttributes(styleElement) {
-  var nonce =  true ? __webpack_require__.nc : 0;
-  if (nonce) {
-    styleElement.setAttribute("nonce", nonce);
-  }
-}
-module.exports = setAttributesWithoutAttributes;
-
-/***/ }),
-
-/***/ 740:
-/***/ ((module) => {
-
-"use strict";
-
-
-/* istanbul ignore next  */
-function apply(styleElement, options, obj) {
-  var css = "";
-  if (obj.supports) {
-    css += "@supports (".concat(obj.supports, ") {");
-  }
-  if (obj.media) {
-    css += "@media ".concat(obj.media, " {");
-  }
-  var needLayer = typeof obj.layer !== "undefined";
-  if (needLayer) {
-    css += "@layer".concat(obj.layer.length > 0 ? " ".concat(obj.layer) : "", " {");
-  }
-  css += obj.css;
-  if (needLayer) {
-    css += "}";
-  }
-  if (obj.media) {
-    css += "}";
-  }
-  if (obj.supports) {
-    css += "}";
-  }
-  var sourceMap = obj.sourceMap;
-  if (sourceMap && typeof btoa !== "undefined") {
-    css += "\n/*# sourceMappingURL=data:application/json;base64,".concat(btoa(unescape(encodeURIComponent(JSON.stringify(sourceMap)))), " */");
-  }
-
-  // For old IE
-  /* istanbul ignore if  */
-  options.styleTagTransform(css, styleElement, options.options);
-}
-function removeStyleElement(styleElement) {
-  // istanbul ignore if
-  if (styleElement.parentNode === null) {
-    return false;
-  }
-  styleElement.parentNode.removeChild(styleElement);
-}
-
-/* istanbul ignore next  */
-function domAPI(options) {
-  if (typeof document === "undefined") {
-    return {
-      update: function update() {},
-      remove: function remove() {}
-    };
-  }
-  var styleElement = options.insertStyleElement(options);
-  return {
-    update: function update(obj) {
-      apply(styleElement, options, obj);
-    },
-    remove: function remove() {
-      removeStyleElement(styleElement);
-    }
-  };
-}
-module.exports = domAPI;
-
-/***/ }),
-
-/***/ 656:
-/***/ ((module) => {
-
-"use strict";
-
-
-/* istanbul ignore next  */
-function styleTagTransform(css, styleElement) {
-  if (styleElement.styleSheet) {
-    styleElement.styleSheet.cssText = css;
-  } else {
-    while (styleElement.firstChild) {
-      styleElement.removeChild(styleElement.firstChild);
-    }
-    styleElement.appendChild(document.createTextNode(css));
-  }
-}
-module.exports = styleTagTransform;
 
 /***/ }),
 
@@ -544,7 +128,7 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/*!
 /******/ 		}
 /******/ 		// Create a new module (and put it into the cache)
 /******/ 		var module = __webpack_module_cache__[moduleId] = {
-/******/ 			id: moduleId,
+/******/ 			// no module.id needed
 /******/ 			// no module.loaded needed
 /******/ 			exports: {}
 /******/ 		};
@@ -597,11 +181,6 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/*!
 /******/ 		};
 /******/ 	})();
 /******/ 	
-/******/ 	/* webpack/runtime/nonce */
-/******/ 	(() => {
-/******/ 		__webpack_require__.nc = undefined;
-/******/ 	})();
-/******/ 	
 /************************************************************************/
 var __webpack_exports__ = {};
 // This entry need to be wrapped in an IIFE because it need to be in strict mode.
@@ -612,14 +191,14 @@ __webpack_require__.r(__webpack_exports__);
 
 // EXPORTS
 __webpack_require__.d(__webpack_exports__, {
-  "default": () => (/* binding */ src_0)
+  "default": () => (/* binding */ src)
 });
 
 // EXTERNAL MODULE: external {"root":"React","commonjs2":"react","commonjs":"react","amd":"react"}
 var external_root_React_commonjs2_react_commonjs_react_amd_react_ = __webpack_require__(442);
 var external_root_React_commonjs2_react_commonjs_react_amd_react_default = /*#__PURE__*/__webpack_require__.n(external_root_React_commonjs2_react_commonjs_react_amd_react_);
 // EXTERNAL MODULE: ../../node_modules/void-elements/index.js
-var void_elements = __webpack_require__(597);
+var void_elements = __webpack_require__(978);
 var void_elements_default = /*#__PURE__*/__webpack_require__.n(void_elements);
 ;// CONCATENATED MODULE: ../../node_modules/html-parse-stringify/dist/html-parse-stringify.module.js
 
@@ -1819,57 +1398,7 @@ var selectOrdinal = function selectOrdinal() {
 // EXTERNAL MODULE: ../../../node_modules/classnames/index.js
 var classnames = __webpack_require__(650);
 var classnames_default = /*#__PURE__*/__webpack_require__.n(classnames);
-// EXTERNAL MODULE: ../../node_modules/style-loader/dist/runtime/injectStylesIntoStyleTag.js
-var injectStylesIntoStyleTag = __webpack_require__(591);
-var injectStylesIntoStyleTag_default = /*#__PURE__*/__webpack_require__.n(injectStylesIntoStyleTag);
-// EXTERNAL MODULE: ../../node_modules/style-loader/dist/runtime/styleDomAPI.js
-var styleDomAPI = __webpack_require__(740);
-var styleDomAPI_default = /*#__PURE__*/__webpack_require__.n(styleDomAPI);
-// EXTERNAL MODULE: ../../node_modules/style-loader/dist/runtime/insertBySelector.js
-var insertBySelector = __webpack_require__(128);
-var insertBySelector_default = /*#__PURE__*/__webpack_require__.n(insertBySelector);
-// EXTERNAL MODULE: ../../node_modules/style-loader/dist/runtime/setAttributesWithoutAttributes.js
-var setAttributesWithoutAttributes = __webpack_require__(855);
-var setAttributesWithoutAttributes_default = /*#__PURE__*/__webpack_require__.n(setAttributesWithoutAttributes);
-// EXTERNAL MODULE: ../../node_modules/style-loader/dist/runtime/insertStyleElement.js
-var insertStyleElement = __webpack_require__(51);
-var insertStyleElement_default = /*#__PURE__*/__webpack_require__.n(insertStyleElement);
-// EXTERNAL MODULE: ../../node_modules/style-loader/dist/runtime/styleTagTransform.js
-var styleTagTransform = __webpack_require__(656);
-var styleTagTransform_default = /*#__PURE__*/__webpack_require__.n(styleTagTransform);
-// EXTERNAL MODULE: ../../node_modules/css-loader/dist/cjs.js??ruleSet[1].rules[1].use[1]!../../node_modules/sass-loader/dist/cjs.js??ruleSet[1].rules[1].use[2]!./src/index.css
-var cjs_ruleSet_1_rules_1_use_2_src = __webpack_require__(888);
-;// CONCATENATED MODULE: ./src/index.css
-
-      
-      
-      
-      
-      
-      
-      
-      
-      
-
-var options = {};
-
-options.styleTagTransform = (styleTagTransform_default());
-options.setAttributes = (setAttributesWithoutAttributes_default());
-
-      options.insert = insertBySelector_default().bind(null, "head");
-    
-options.domAPI = (styleDomAPI_default());
-options.insertStyleElement = (insertStyleElement_default());
-
-var update = injectStylesIntoStyleTag_default()(cjs_ruleSet_1_rules_1_use_2_src/* default */.A, options);
-
-
-
-
-       /* harmony default export */ const src = (cjs_ruleSet_1_rules_1_use_2_src/* default */.A && cjs_ruleSet_1_rules_1_use_2_src/* default */.A.locals ? cjs_ruleSet_1_rules_1_use_2_src/* default */.A.locals : undefined);
-
 ;// CONCATENATED MODULE: ./src/index.tsx
-
 
 
 
@@ -1881,7 +1410,7 @@ const MultipleSelect = props => {
     size,
     className,
     disabled,
-    onMultipleSelectChangeOK
+    onChangeOK
   } = props;
 
   // 获取 `FormContext.Provider` 提供提供的 `value` 值
@@ -1890,11 +1419,17 @@ const MultipleSelect = props => {
   // 注意！！！如果发现状态没有按预知的方向变化的话，就考虑用 xxxRef来替代。。。
   // const prevSelectedValueRef = useRef<string>(defaultValue || "");
   const searchValueRef = (0,external_root_React_commonjs2_react_commonjs_react_amd_react_.useRef)(defaultValue || "");
+  const [tempOptions, setTempOptions] = (0,external_root_React_commonjs2_react_commonjs_react_amd_react_.useState)(options || []);
   const [showOptions, setShowOptions] = (0,external_root_React_commonjs2_react_commonjs_react_amd_react_.useState)(false);
   const [filterdOptions, setFilterdOptions] = (0,external_root_React_commonjs2_react_commonjs_react_amd_react_.useState)(options); // 多选主要是靠这个来展示哪个选项被打钩
   // 是否展示选中的选项
-  const [selectedOptions, setSelectedOptions] = (0,external_root_React_commonjs2_react_commonjs_react_amd_react_.useState)([]); // 选中的选项展示在 input框中
+  const [selectedOptions, setSelectedOptions] = (0,external_root_React_commonjs2_react_commonjs_react_amd_react_.useState)([]); // 选中的选项展示在 框中
   const [showSelectedOptions, setShowSelectedOptions] = (0,external_root_React_commonjs2_react_commonjs_react_amd_react_.useState)(false);
+  let selectedOptionRefs = [];
+  let optionItemRefs = [];
+
+  // 框高亮
+  const [isHighlighted, setIsHighlighted] = (0,external_root_React_commonjs2_react_commonjs_react_amd_react_.useState)(false);
   const cls = classnames_default()({
     ["form-select form-select-".concat(size, " mb-3")]: true,
     [className]: className
@@ -1907,25 +1442,20 @@ const MultipleSelect = props => {
     });
     setFilterdOptions(filterdOptions); // 这句竟然加和不加都可以。。。
   };
-  const handleSelect = (e, option) => {
-    // prevSelectedValueRef.current = option.label;
+  const handleSelect = option => {
     option.selected = true;
     let hasSelected = selectedOptions.some(item => item.label === option.label);
-    setSelectedOptions(hasSelected ? selectedOptions.filter(item => item.label !== option.label) : [...selectedOptions, {
-      label: option.label,
-      value: option.value
-    }]);
+    const nowSelectedList = selectedOptions.filter(item => item.label !== option.label);
+    // 这句话写不写都可以，因为在下面的 useEffect中也为该变量赋值了
+    setSelectedOptions(hasSelected ? nowSelectedList : [...selectedOptions, option]);
     hasSelected && filterdOption(option);
     setShowSelectedOptions(true);
     // 这里不能直接用 selectedOptions这个状态，会有延迟
     // 要用原来所有的状态，去过滤掉没选上的，再传递给父组件
-    // onMultipleSelectChangeOK && onMultipleSelectChangeOK(selectedOptions); 
-    const selectedList = filterdOptions.filter(item => item.selected);
-    onMultipleSelectChangeOK && onMultipleSelectChangeOK(selectedList);
+    const selectedList = hasSelected ? nowSelectedList : [...selectedOptions, option];
+    onChangeOK && onChangeOK(selectedList);
   };
   const handleInputClick = e => {
-    searchValueRef.current = "";
-    setShowOptions(true);
     // 这个时候也要重新过滤数据
   };
   const handleInputChange = e => {
@@ -1936,19 +1466,55 @@ const MultipleSelect = props => {
 
   // 选项的ref数组--巧妙
   // eslint-disable-next-line react-hooks/rules-of-hooks
-  const optionItemRefs = options.map(() => (0,external_root_React_commonjs2_react_commonjs_react_amd_react_.useRef)(null));
 
-  // input输入框的ref
-  const inputRef = (0,external_root_React_commonjs2_react_commonjs_react_amd_react_.useRef)(null);
+  const handleDeleteItem = item => {
+    const selectedList = selectedOptions.filter(option => option !== item);
+    setSelectedOptions(selectedList);
+    setFilterdOptions(filterdOptions.map(v => {
+      if (v.label === item.label) {
+        v.selected = false;
+      }
+      return v;
+    }));
+    onChangeOK && onChangeOK(selectedList);
+  };
+  const handleFocus = () => {
+    setIsHighlighted(true);
+  };
+  const handleBlur = () => {};
+
+  // 一些用来判断选项是否展示的的Ref
+  const multipleInputRef = (0,external_root_React_commonjs2_react_commonjs_react_amd_react_.useRef)();
+  const selectListRef = (0,external_root_React_commonjs2_react_commonjs_react_amd_react_.useRef)();
+  // 巧妙
+  // eslint-disable-next-line react-hooks/rules-of-hooks
+
+  const multipleSelectWrapperFormControlRef = (0,external_root_React_commonjs2_react_commonjs_react_amd_react_.useRef)();
   (0,external_root_React_commonjs2_react_commonjs_react_amd_react_.useEffect)(() => {
     window.addEventListener("click", e => {
-      if (e.target === inputRef.current) {
+      // 用类名方便
+      // let classNames = ["multiple-input", "select-list", "selected-option", "multiple-select-wrapper form-control ", "multiple-select-wrapper form-control focus"];
+      // let classNames = ["multiple-input", "select-list", "selected-option", "multiple-select-wrapper form-control ", "multiple-select-wrapper form-control focus"];
+      if (e.target === multipleInputRef.current || e.target === selectListRef.current || e.target === multipleSelectWrapperFormControlRef.current) {
+        return setShowOptions(true);
+      }
+
+      /* if (classNames.includes(e.target.className)) {
+          return setShowOptions(true);
+      } */
+
+      // --巧妙
+      // 点的是被选中的选项
+      if (selectedOptionRefs.some(ref => ref.current === e.target)) {
         return setShowOptions(true);
       }
       // --巧妙
       // 点的不是 input框，也不是 选项，则将 active类名去掉，并且隐藏 选项
       if (!optionItemRefs.some(ref => ref.current === e.target)) {
+        setIsHighlighted(false);
         return setShowOptions(false);
+      } else {
+        setIsHighlighted(true);
       }
     });
   }, []);
@@ -1956,9 +1522,10 @@ const MultipleSelect = props => {
   // 让多选框默认展示父组件传递过来的值
   (0,external_root_React_commonjs2_react_commonjs_react_amd_react_.useEffect)(() => {
     let arr = [];
+    let tempFilterdOptions = [];
     if (defaultValue !== null && defaultValue !== void 0 && defaultValue.length) {
       defaultValue === null || defaultValue === void 0 || defaultValue.map(item => {
-        options.some(option => {
+        tempOptions.some(option => {
           option.value === item.value && arr.push(item);
           return false;
         });
@@ -1967,59 +1534,75 @@ const MultipleSelect = props => {
       if (arr !== null && arr !== void 0 && arr.length) {
         setSelectedOptions(arr);
         setShowSelectedOptions(true);
-        setFilterdOptions(preArr => {
-          let filterdOptions = [];
-          preArr.forEach(item => {
-            filterdOptions.push({
-              ...item,
-              selected: arr.some(i => i.value === item.value)
+        setTimeout(() => {
+          setFilterdOptions(preArr => {
+            preArr.forEach(item => {
+              tempFilterdOptions.push({
+                ...item,
+                selected: arr.some(i => i.value === item.value)
+              });
             });
+            return tempFilterdOptions;
           });
-          return filterdOptions;
-        });
+        }, 0);
       }
     } else {
       setSelectedOptions([]);
-      setFilterdOptions(options.map(item => {
+      setFilterdOptions(options === null || options === void 0 ? void 0 : options.map(item => {
         item.selected = false;
         return item;
       }));
     }
-  }, [defaultValue]);
-  return /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("div", {
-    className: "multiple-select-wrapper"
+  }, [defaultValue, tempOptions, options]);
+  (0,external_root_React_commonjs2_react_commonjs_react_amd_react_.useEffect)(() => {
+    setTempOptions(options);
+    setFilterdOptions(options);
+  }, [options]);
+  return /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement((external_root_React_commonjs2_react_commonjs_react_amd_react_default()).Fragment, null, /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("div", {
+    ref: multipleSelectWrapperFormControlRef,
+    tabIndex: 0,
+    onFocus: handleFocus,
+    onBlur: handleBlur,
+    onClick: () => setShowOptions(true),
+    className: "multiple-select-wrapper form-control ".concat(isHighlighted ? "focus" : "")
+  }, /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("div", {
+    ref: selectListRef,
+    className: "select-list"
   }, showSelectedOptions && (selectedOptions === null || selectedOptions === void 0 ? void 0 : selectedOptions.map((option, index) => {
-    // index * 80 + 10 这边的10 要与第一个距离左边的距离相等！！！不能不加，也不能加太多，否则就会与第一个太靠近或者与第一个距离太远！！！
-    return /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("span", {
+    return /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("div", {
+      ref: selectedOptionRefs[index],
       className: "selected-option",
       key: option.value,
-      style: {
-        left: "".concat(index === 0 ? 10 : index * 60 + 10, "px")
-      }
-    }, option.label);
-  })), /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("input", {
-    readOnly: true,
+      style: {}
+    }, option.label, /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("span", {
+      onClick: () => handleDeleteItem(option),
+      className: "option-icon"
+    }, "x"));
+  }))), /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("div", {
+    className: "input-control"
+  }, /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("input", {
+    ref: multipleInputRef,
+    placeholder: "\u8F93\u5165\u5173\u952E\u8BCD",
     onChange: e => handleInputChange(e),
     onClick: handleInputClick,
-    ref: inputRef,
     disabled: disabled,
     type: "text",
-    className: "form-control",
+    className: "multiple-input",
     "aria-label": "Username",
     "aria-describedby": "basic-addon1"
-  }), showOptions && /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("div", {
+  }))), showOptions && /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("div", {
     className: "option-wrapper multiple-select-option-wrapper"
-  }, filterdOptions.map((option, index) => {
+  }, filterdOptions === null || filterdOptions === void 0 ? void 0 : filterdOptions.map((option, index) => {
     // --巧妙
     return /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("div", {
       ref: optionItemRefs[index],
       key: index,
-      onClick: e => handleSelect(e, option),
+      onClick: () => handleSelect(option),
       className: "option-item ".concat(option.selected && "multiple-select-active")
     }, option.label);
   })));
 };
-/* harmony default export */ const src_0 = (withTranslation()(MultipleSelect));
+/* harmony default export */ const src = (withTranslation()(MultipleSelect));
 })();
 
 /******/ 	return __webpack_exports__;

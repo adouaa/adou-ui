@@ -1421,6 +1421,7 @@ module.exports = {
           name,
           size,
           className,
+          autoFocus,
           prefixContent,
           suffixContent,
           placeholder,
@@ -1462,11 +1463,12 @@ module.exports = {
           setValue(e.target.value);
           // 根据 name 属性，更新 Form 中的数据源
 
-          onChangeOK && onChangeOK(e);
+          onChangeOK && onChangeOK(e.target.value);
         };
         (0, external_root_React_commonjs2_react_commonjs_react_amd_react_.useEffect)(() => {
           if (defaultValue) {
             setValue(defaultValue);
+            // 这边不能直接用 context.handleChange(context.name, defaultValue)来赋默认值，会被置为空，并且失去 提交和重置功能
           } else {
             setValue("");
           }
@@ -1477,6 +1479,7 @@ module.exports = {
           className: "input-group-text",
           id: "basic-addon1"
         }, prefixContent), /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("input", {
+          autoFocus: autoFocus,
           name: name,
           value: value,
           disabled: disabled,
