@@ -4,7 +4,7 @@ import Input from "./components/adou-Input";
 import Modal from "./components/adou-modal";
 import Button from "./components/adou-button";
 import Form, { FormItem } from "./components/adou-form";
-
+import MultipleSelect from "./components/adou-multipleSelect";
 import LiveSearchSelect from "./components/adou-liveSearchSelect";
 
 // 注意：组件里面用的value状态应该是自己定义的一个，而不是用父组件传递过来的defaultValue，这个只能当做一开始的默认值来使用！
@@ -146,9 +146,10 @@ function App() {
 
   return (
     <div className="App p-3">
-      <Button size="small" type="primary" onClickOK={reValidate}>重置校验</Button>
-      <Button size="small" onClickOK={testSubmit}>提交数据</Button>
-      <Form labelWidth={500} ref={formRef}>
+      <MultipleSelect options={options}></MultipleSelect>
+      <Button size="small" type="primary" onClickOK={reValidate}><span>重置校验</span></Button>
+      <Button size="small" onClickOK={testSubmit}><span>提交数据</span></Button>
+      <Form ref={formRef}>
         <FormItem
           rule={[
             {
@@ -189,7 +190,7 @@ function App() {
         <Button onClickOK={reset}>重置</Button>
       </div> */}
       <Button type="danger" round onClickOK={openModal}>
-        打开
+        <span>打开</span>
       </Button>
 
       <div className="mt-3">
@@ -200,7 +201,7 @@ function App() {
           title="标题~"
           content={
             <>
-              <Form ref={formRef} name="adouadoua" labelAlignX="left">
+              <Form ref={formRef} name="adouadoua" labelAlignX="right">
                 {1 > 2 && <FormItem
                   rule={[
                     {
@@ -287,10 +288,7 @@ function App() {
                   <FormItem.MultipleSelect
                     options={options}
                     defaultValue={defaultMultipleSelectData}
-                    onMultipleSelectChangeOK={(arr) => {
-                      setMultipleSelectData(arr);
-                      console.log(arr);
-                    }}
+                    
                   ></FormItem.MultipleSelect>
                 </FormItem>
                 <FormItem
@@ -307,12 +305,28 @@ function App() {
                 >
                   <FormItem.Radio
                     inline={false}
-                    defaultValue={{ value: "chengdu", label: "成都" }}
                     options={radioData}
                     onChangeOK={(item) => {
                       console.log("父组件item = ", item);
                     }}
                   ></FormItem.Radio>
+                </FormItem>
+                <FormItem
+                  rule={[
+                    {
+                      required: true,
+                      message: "请选择城市111",
+                    },
+                  ]}
+                  validate
+                  label="多选1"
+                  name="multiple1"
+                >
+                  <FormItem.MultipleSelect
+                    options={options}
+                    defaultValue={defaultMultipleSelectData}
+                    
+                  ></FormItem.MultipleSelect>
                 </FormItem>
                 <FormItem
                   rule={[
@@ -335,7 +349,7 @@ function App() {
                   ></FormItem.Checkbox>
                 </FormItem>
               </Form>
-              <Button onClickOK={reset}>重置</Button>
+              <Button onClickOK={reset}><span>重置</span></Button>
             </>
           }
           onClose={closeModal}

@@ -12,7 +12,7 @@ export interface SelectProps {
     size?: "sm" | "lg";
     className?: string;
     disabled?: boolean;
-    onChangeOK?: (e?: ChangeEvent<HTMLSelectElement>, ...args: any) => void
+    onChangeOK?: (e?: any, ...args: any) => void
     setFormItemValue?: (value: any) => void;
 }
 
@@ -37,11 +37,10 @@ const Select = (props: SelectProps) => {
         const selectedIndex = e.target.selectedIndex - 1;
         const selectedOption = options[selectedIndex];
         setValue(selectedOption);
-        onChangeOK && onChangeOK(selectedOption);
         context.handleChange(context.name, selectedOption);
         context.checkValidate(selectedOption); // 选中的时候，要让他做校验
         setFormItemValue && setFormItemValue(selectedOption);
-
+        onChangeOK && onChangeOK(selectedOption);
     }
 
     const handleBlur = () => {
@@ -76,10 +75,10 @@ const Select = (props: SelectProps) => {
         // 创建一个新数组，将 "请选择" 选项添加在数组的开头
         const enhancedOptions = [{ label: "请选择", value: "" }, ...options];
         setNewOptions(enhancedOptions);
-        // 如果 defaultValue 未定义，则将选择设置为 "请选择" 选项
-        if (!defaultValue) {
+        // 如果 defaultValue 未定义，则将选择设置为 "请选择" 选项 -- 不写也没问题qwq
+        /* if (!defaultValue) {
             setValue({ label: "请选择", value: "" });
-        }
+        } */
     }, [options])
 
     return <>

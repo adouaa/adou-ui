@@ -45,6 +45,12 @@ const Checkbox: React.FC<CheckboxProps> = (props: CheckboxProps) => {
         onChangeOK && onChangeOK(updatedChheckboxData?.filter(v => v.checked));
         setFormItemValue && setFormItemValue(updatedChheckboxData?.filter(v => v.checked))
     }
+    
+    const handleBlur = () => {
+        const checkedList = optionsList.filter(item => item.checked);
+        context.handleChange(context.name, checkedList);
+        context.checkValidate(checkedList.length)
+    }
 
     useEffect(() => {
         if (defaultValue.length) {
@@ -81,7 +87,7 @@ const Checkbox: React.FC<CheckboxProps> = (props: CheckboxProps) => {
         <div className={divClasses}>
             {optionsList?.map(item => {
                 return <div key={item.value} className="form-check" style={{ textAlign: "left", marginRight: "20px" }}>
-                    <input className={cls} type="checkbox" name={item.name} id={item.id} checked={item.checked} onChange={() => handleChange(item)} value={item.value} />
+                    <input onBlur={handleBlur} className={cls} type="checkbox" name={item.name} id={item.id} checked={item.checked} onChange={() => handleChange(item)} value={item.value} />
                     <label className="form-check-label" htmlFor={item.id}>
                         {item.label || "Default Checkbox"}
                     </label></div>

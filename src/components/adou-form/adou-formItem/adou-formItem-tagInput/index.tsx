@@ -19,15 +19,13 @@ const TagInput = (props: TagInputProps) => {
 
     const [inputValue, setInputValue] = useState("");
 
-    const [tagList, setTagList] = useState<any>([]);
 
     const [isHighlighted, setIsHighlighted] = useState(false);
 
     const addInput = () => {
         setInputList([...inputList, inputValue]);
         setInputValue("");
-        const formatValue = `[${inputValue}]`;
-        setTagList([...tagList, formatValue])
+        context.checkValidate(1);
     }
 
     const handleInputChange = (e: any) => {
@@ -47,15 +45,12 @@ const TagInput = (props: TagInputProps) => {
     };
 
     const handleDeleteItem = (item: any) => {
-        let formatValue = `[${item}]`;
-        setInputList((preArr: any) => {
-            return preArr.filter((value: any) => item !== value);
-        })
-        setTagList((preArr: any) => {
-            return preArr.filter((value: any) => formatValue !== value);
-        })
+        const tagList = inputList.filter((value: any) => item !== value);
+        setInputList(tagList)
         // 注意，这边不能直接用 inputList给 formData赋值，会出现不一致的情况
-        context.handleChange(context.name, inputList.filter((v: any) => v !== item));
+        
+        context.handleChange(context.name, tagList);
+        context.checkValidate(inputList.filter((v: any) => v !== item).length);
     }
 
     const handleBlur = () => {
@@ -69,17 +64,14 @@ const TagInput = (props: TagInputProps) => {
         setIsHighlighted(true);
     }
 
-
     useEffect(() => {
         if (defaultValue.length) {
             setInputList(defaultValue);
-            setTagList(defaultValue.map((item: any) => `[${item}]`))
             context.formData[context.name as string] = defaultValue;
         }
     }, [defaultValue])
 
     useEffect(() => {
-        console.log("变化了", context.formData[context.name as string]);
         
         setInputList(context.formData[context.name as string] || "");
     }, [context.formData[context.name as string]])

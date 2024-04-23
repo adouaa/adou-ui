@@ -7,7 +7,7 @@ interface ModalProps {
     type?: string;
     title?: string;
     show: boolean;
-    content?: string;
+    content?: any;
     confirmText?: string,
     cancelText?: string,
     maxHeight?: number;
