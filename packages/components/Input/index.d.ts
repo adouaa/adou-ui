@@ -1,5 +1,6 @@
 import React from "react";
 export interface InputProps {
+    type?: "text" | "date" | "time";
     name?: string;
     defaultValue?: string;
     size?: "large" | "middle" | "small" | undefined;
@@ -23,6 +24,7 @@ export interface FormContextProps {
 }
 declare const _default: React.ComponentType<Omit<{
     style?: any;
+    type?: "text" | "date" | "time" | undefined;
     name?: string | undefined;
     defaultValue?: string | undefined;
     size?: "large" | "middle" | "small" | undefined;

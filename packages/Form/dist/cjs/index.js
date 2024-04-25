@@ -2105,6 +2105,7 @@ const Input = props => {
   // 获取 `FormContext.Provider` 提供提供的 `value` 值
   const context = (0,external_root_React_commonjs2_react_commonjs_react_amd_react_.useContext)(FormContext);
   const {
+    type = "text",
     name,
     size,
     className,
@@ -2158,12 +2159,18 @@ const Input = props => {
     setValue(context.formData[context.name] || "");
   }, [context.formData[context.name]]);
   (0,external_root_React_commonjs2_react_commonjs_react_amd_react_.useEffect)(() => {
+    console.log("defaultValue = ", defaultValue);
     if (defaultValue) {
       // 为了一上来就提交表单，这边有默认值也要给 父组件设置
       setValue(defaultValue);
       setFormItemValue && setFormItemValue(defaultValue);
       // 这边不能直接用 context.handleChange(context.name, defaultValue)来赋默认值，会被置为空，并且失去 提交和重置功能
       context.formData[context.name] = defaultValue;
+
+      // 新增让校验通过----解决了在切换树形节点之前如果已经出现校验失败，切换节点的时候要全部置为校验通过
+      context.checkValidate(defaultValue);
+    } else {
+      setValue("");
     }
   }, [defaultValue]);
   return /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement((external_root_React_commonjs2_react_commonjs_react_amd_react_default()).Fragment, null, /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("div", {
@@ -2175,6 +2182,7 @@ const Input = props => {
     className: "input-group-text",
     id: "basic-addon1"
   }, prefixContent), /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("input", {
+    step: 1,
     name: name,
     value: value,
     disabled: disabled,
@@ -2184,7 +2192,7 @@ const Input = props => {
     onBlur: e => handleBlur(e, "hello1", 5561),
     onFocus: e => handleFocus(e, "hello1", 5561),
     onClick: e => handleClick(e, "hello", 556),
-    type: "text",
+    type: type,
     className: "form-control",
     "aria-label": "Username",
     "aria-describedby": "basic-addon1"
@@ -3141,7 +3149,7 @@ const FormItem_FormItem = props => {
     labelWidth = 100,
     validate,
     rule,
-    maxLabelLength,
+    maxLabelLength = 0,
     labelAlignX = "right"
   } = props;
   const [error, setError] = (0,external_root_React_commonjs2_react_commonjs_react_amd_react_.useState)("");
@@ -3173,6 +3181,10 @@ const FormItem_FormItem = props => {
       }
       context.handleValidate(true); // 最后可以执行到这步的时候，说明 表单验证通过
       setError("");
+    } else {
+      // 为了兼容动态判断是否需要检验表单的情况
+      setError("");
+      context.handleValidate(false);
     }
   };
   const renderContent = () => {
@@ -3216,63 +3228,71 @@ const FormItem_FormItem = props => {
   const handleSetFormItemValue = value => {
     newFormItemValue.current = value;
   };
-  const handleValidate = formData => {
-    if (validate) {
-      var _rule$2;
-      console.log(name + "=", formData[name]);
-      let valid = true;
-      if (Array.isArray(formData[name])) {
-        if (rule[0].required && !formData[name].length) {
-          setError(rule[0].message);
-          valid = false;
-          return valid;
+  const handleValidate = (formData, forceTrue) => {
+    if (forceTrue) {
+      setError("");
+      return true;
+    } else {
+      if (validate) {
+        var _rule$2;
+        let valid = true;
+        if (Array.isArray(formData[name])) {
+          if (rule[0].required && !formData[name].length) {
+            setError(rule[0].message);
+            valid = false;
+            return valid;
+          }
+        } else {
+          if (rule[0].required && !formData[name]) {
+            setError(rule[0].message);
+            valid = false;
+            return valid;
+          }
         }
+        if ((_rule$2 = rule[1]) !== null && _rule$2 !== void 0 && _rule$2.type) {
+          const type = rule[1].type;
+          switch (type) {
+            case "email":
+              if (!/^[a-zA-Z0-9_-]+@[a-zA-Z0-9_-]+(\.[a-zA-Z0-9_-]+)+$/.test(formData[name])) {
+                setError(rule[1].message);
+                valid = false;
+              }
+              break;
+            case "number":
+              if (!/^[0-9]*$/.test(formData[name])) {
+                setError(rule[1].message);
+                valid = false;
+              }
+          }
+        }
+        if (valid) {
+          setError("");
+        }
+        return valid;
       } else {
-        if (rule[0].required && !formData[name]) {
-          setError(rule[0].message);
-          valid = false;
-          return valid;
-        }
-      }
-      if ((_rule$2 = rule[1]) !== null && _rule$2 !== void 0 && _rule$2.type) {
-        const type = rule[1].type;
-        switch (type) {
-          case "email":
-            if (!/^[a-zA-Z0-9_-]+@[a-zA-Z0-9_-]+(\.[a-zA-Z0-9_-]+)+$/.test(formData[name])) {
-              setError(rule[1].message);
-              valid = false;
-            }
-            break;
-          case "number":
-            if (!/^[0-9]*$/.test(formData[name])) {
-              setError(rule[1].message);
-              valid = false;
-            }
-        }
-      }
-      if (valid) {
+        // 为了兼容动态校验表单的情况
         setError("");
+        return true;
       }
-      return valid;
     }
   };
   (0,external_root_React_commonjs2_react_commonjs_react_amd_react_.useEffect)(() => {
     context.registerFormItem({
       name,
       validate,
-      handleValidate: handleValidate
+      handleValidate: handleValidate // 无法做动态校验哈哈
     });
     // 组件卸载时可能需要一个注销逻辑
   }, []);
 
   // 复写 FormContext.Provider，增加 name 参数的传递
-  return /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement(FormContext.Provider, {
+  return /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement((external_root_React_commonjs2_react_commonjs_react_amd_react_default()).Fragment, null, /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement(FormContext.Provider, {
     value: {
       ...context,
       checkValidate,
       name
     }
-  }, renderContent());
+  }, renderContent()));
 };
 FormItem_FormItem.displayName = 'formItem';
 FormItem_FormItem.Input = FormItem_Input;
@@ -3325,6 +3345,9 @@ const Form = /*#__PURE__*/(0,external_root_React_commonjs2_react_commonjs_react_
       };
       Object.keys(data).forEach(item => {
         data[item] = "";
+      });
+      formItems.forEach(item => {
+        item.handleValidate(formData, true); // 在重置表单的时候将错误也清楚掉
       });
       setFormData(data);
     },

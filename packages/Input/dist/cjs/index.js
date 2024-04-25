@@ -1404,6 +1404,7 @@ var classnames_default = /*#__PURE__*/__webpack_require__.n(classnames);
 
 const Input = props => {
   const {
+    type = "text",
     name,
     size,
     className,
@@ -1448,7 +1449,7 @@ const Input = props => {
   const handleChange = function (e) {
     setValue(e.target.value);
     // 根据 name 属性，更新 Form 中的数据源
-
+    console.log("handleChange ============", e.target.value);
     onChangeOK && onChangeOK(e.target.value);
   };
   (0,external_root_React_commonjs2_react_commonjs_react_amd_react_.useEffect)(() => {
@@ -1465,6 +1466,7 @@ const Input = props => {
     className: "input-group-text",
     id: "basic-addon1"
   }, prefixContent), /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("input", {
+    step: 1,
     autoFocus: autoFocus,
     name: name,
     value: value,
@@ -1475,7 +1477,7 @@ const Input = props => {
     onBlur: e => handleBlur(e, "hello1", 5561),
     onFocus: e => handleFocus(e, "hello1", 5561),
     onClick: e => handleClick(e, "hello", 556),
-    type: "text",
+    type: type,
     className: "form-control",
     "aria-label": "Username",
     "aria-describedby": "basic-addon1"

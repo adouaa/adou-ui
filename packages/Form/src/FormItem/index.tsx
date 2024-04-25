@@ -30,7 +30,7 @@ const FormItem = (props: FormItemProps) => {
   // 获取 `FormContext.Provider` 提供提供的 `value` 值
   const context: FormContextProps = useContext(FormContext);
 
-  const { children, width, name, inline = true, labelAlignY = "center", label, labelWidth = 100, validate, rule, maxLabelLength, labelAlignX = "right" } = props
+  const { children, width, name, inline = true, labelAlignY = "center", label, labelWidth = 100, validate, rule, maxLabelLength = 0, labelAlignX = "right" } = props
 
   const [error, setError] = useState("");
 
@@ -40,6 +40,7 @@ const FormItem = (props: FormItemProps) => {
 
   // 用于失焦的时候来验证表单
   const checkValidate = (value: any) => {
+
     if (validate) {
       context.handleValidate(false); // 一开始进去先置为错误的，表单验证不通过
       if (rule[0].required && !value) {
@@ -62,6 +63,9 @@ const FormItem = (props: FormItemProps) => {
       }
       context.handleValidate(true); // 最后可以执行到这步的时候，说明 表单验证通过
       setError("");
+    } else { // 为了兼容动态判断是否需要检验表单的情况
+      setError("");
+      context.handleValidate(false);
     }
   }
 
@@ -99,58 +103,65 @@ const FormItem = (props: FormItemProps) => {
   const handleSetFormItemValue = (value: string) => {
     newFormItemValue.current = value;
   }
-  const handleValidate = (formData: any) => {
-    
-    if (validate) {
-      console.log(name + "=", formData[name]);
-      
-      let valid = true;
-      if (Array.isArray(formData[name])) {
-        if (rule[0].required && !formData[name].length) {
-          setError(rule[0].message);
-          valid = false;
-          return valid;
+  const handleValidate = (formData: any, forceTrue?: boolean) => {
+    if (forceTrue) {
+      setError("");
+      return true;
+    } else {
+      if (validate) {
+        let valid = true;
+        if (Array.isArray(formData[name])) {
+          if (rule[0].required && !formData[name].length) {
+            setError(rule[0].message);
+            valid = false;
+            return valid;
+          }
+        } else {
+          if (rule[0].required && !formData[name]) {
+            setError(rule[0].message);
+            valid = false;
+            return valid;
+          }
         }
-      } else {
-        if (rule[0].required && !formData[name]) {
-          setError(rule[0].message);
-          valid = false;
-          return valid;
+        if (rule[1]?.type) {
+          const type = rule[1].type;
+          switch (type) {
+            case "email":
+              if (!/^[a-zA-Z0-9_-]+@[a-zA-Z0-9_-]+(\.[a-zA-Z0-9_-]+)+$/.test(formData[name])) {
+                setError(rule[1].message);
+                valid = false;
+              }
+              break;
+            case "number":
+              if (!/^[0-9]*$/.test(formData[name])) {
+                setError(rule[1].message);
+                valid = false;
+              }
+          }
         }
-      }
-      if (rule[1]?.type) {
-        const type = rule[1].type;
-        switch (type) {
-          case "email":
-            if (!/^[a-zA-Z0-9_-]+@[a-zA-Z0-9_-]+(\.[a-zA-Z0-9_-]+)+$/.test(formData[name])) {
-              setError(rule[1].message);
-              valid = false;
-            }
-            break;
-          case "number":
-            if (!/^[0-9]*$/.test(formData[name])) {
-              setError(rule[1].message);
-              valid = false;
-            }
+        if (valid) {
+          setError("");
         }
-      }
-      if (valid) {
+        return valid;
+      } else { // 为了兼容动态校验表单的情况
         setError("");
+        return true;
       }
-      return valid;
     }
   }
   useEffect(() => {
     context.registerFormItem({
       name,
       validate,
-      handleValidate: handleValidate
+      handleValidate: handleValidate // 无法做动态校验哈哈
     });
     // 组件卸载时可能需要一个注销逻辑
   }, []);
 
   // 复写 FormContext.Provider，增加 name 参数的传递
-  return <FormContext.Provider value={{ ...context, checkValidate, name }}>{renderContent()}</FormContext.Provider>
+  return <>
+    <FormContext.Provider value={{ ...context, checkValidate, name }}>{renderContent()}</FormContext.Provider>
+  </>
 }
 
 FormItem.displayName = 'formItem'
