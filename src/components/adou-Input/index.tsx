@@ -9,6 +9,7 @@ export interface FormContextProps {
 }
 
 export interface InputProps {
+    type?: "text" | "date" | "time";
     name?: string;
     defaultValue?: string;
     size?: "large" | "middle" | "small" | undefined;
@@ -31,7 +32,7 @@ const Input: React.FC<InputProps> = (props: InputProps) => {
 
 
     
-    const { name, size, className, autoFocus, prefixContent, suffixContent, placeholder, style, disabled, defaultValue, onClickOK, onFocusOK, onBlurOK, onChangeOK } = props;
+    const { type = "text", name, size, className, autoFocus, prefixContent, suffixContent, placeholder, style, disabled, defaultValue, onClickOK, onFocusOK, onBlurOK, onChangeOK } = props;
 
 
     // 确保value不会是undefined，如果defaultValue或formData中相应的值是undefined，则将其设为空字符串
@@ -75,7 +76,7 @@ const Input: React.FC<InputProps> = (props: InputProps) => {
         <>
             <div className={cls} >
                 {prefixContent && <span className="input-group-text" id="basic-addon1">{prefixContent}</span>}
-                <input autoFocus={autoFocus} name={name} value={value} disabled={disabled} style={style} placeholder={placeholder} onChange={handleChange} onBlur={(e) => handleBlur(e, "hello1", 5561)} onFocus={(e) => handleFocus(e, "hello1", 5561)} onClick={(e) => handleClick(e, "hello", 556)} type="text" className="form-control" aria-label="Username" aria-describedby="basic-addon1" />
+                <input step={1} autoFocus={autoFocus} name={name} value={value} disabled={disabled} style={style} placeholder={placeholder} onChange={handleChange} onBlur={(e) => handleBlur(e, "hello1", 5561)} onFocus={(e) => handleFocus(e, "hello1", 5561)} onClick={(e) => handleClick(e, "hello", 556)} type={type} className="form-control" aria-label="Username" aria-describedby="basic-addon1" />
                 {suffixContent && <span className="input-group-text" id="basic-addon2">{suffixContent}</span>}
             </div>
         </>

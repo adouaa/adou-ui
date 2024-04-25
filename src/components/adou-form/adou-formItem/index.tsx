@@ -40,7 +40,6 @@ const FormItem = (props: FormItemProps) => {
 
   // 用于失焦的时候来验证表单
   const checkValidate = (value: any) => {
-    
     if (validate) {
       context.handleValidate(false); // 一开始进去先置为错误的，表单验证不通过
       if (rule[0].required && !value) {
@@ -103,45 +102,50 @@ const FormItem = (props: FormItemProps) => {
   const handleSetFormItemValue = (value: string) => {
     newFormItemValue.current = value;
   }
-  const handleValidate = (formData: any) => {
-    if (validate) {
-      let valid = true;
-      if (Array.isArray(formData[name])) {
-        if (rule[0].required && !formData[name].length) {
-          setError(rule[0].message);
-          valid = false;
-          return valid;
-        }
-      } else {
-        if (rule[0].required && !formData[name]) {
-          setError(rule[0].message);
-          valid = false;
-          return valid;
-        }
-      }
-      if (rule[1]?.type) {
-        const type = rule[1].type;
-        switch (type) {
-          case "email":
-            if (!/^[a-zA-Z0-9_-]+@[a-zA-Z0-9_-]+(\.[a-zA-Z0-9_-]+)+$/.test(formData[name])) {
-              setError(rule[1].message);
-              valid = false;
-            }
-            break;
-          case "number":
-            if (!/^[0-9]*$/.test(formData[name])) {
-              setError(rule[1].message);
-              valid = false;
-            }
-        }
-      }
-      if (valid) {
-        setError("");
-      }
-      return valid;
-    } else { // 为了兼容动态校验表单的情况
+  const handleValidate = (formData: any, forceTrue?: boolean) => {
+    if (forceTrue) {
       setError("");
       return true;
+    } else {
+      if (validate) {
+        let valid = true;
+        if (Array.isArray(formData[name])) {
+          if (rule[0].required && !formData[name].length) {
+            setError(rule[0].message);
+            valid = false;
+            return valid;
+          }
+        } else {
+          if (rule[0].required && !formData[name]) {
+            setError(rule[0].message);
+            valid = false;
+            return valid;
+          }
+        }
+        if (rule[1]?.type) {
+          const type = rule[1].type;
+          switch (type) {
+            case "email":
+              if (!/^[a-zA-Z0-9_-]+@[a-zA-Z0-9_-]+(\.[a-zA-Z0-9_-]+)+$/.test(formData[name])) {
+                setError(rule[1].message);
+                valid = false;
+              }
+              break;
+            case "number":
+              if (!/^[0-9]*$/.test(formData[name])) {
+                setError(rule[1].message);
+                valid = false;
+              }
+          }
+        }
+        if (valid) {
+          setError("");
+        }
+        return valid;
+      } else { // 为了兼容动态校验表单的情况
+        setError("");
+        return true;
+      }
     }
   }
   useEffect(() => {

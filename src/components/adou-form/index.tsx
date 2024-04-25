@@ -54,6 +54,9 @@ const Form = forwardRef((props: FormProps, formRef) => {
       Object.keys(data).forEach((item) => {
         data[item] = "";
       })
+      formItems.forEach(item => {
+        item.handleValidate(formData, true); // 在重置表单的时候将错误也清除掉--好像没用
+      })
       setFormData(data);
     },
 
