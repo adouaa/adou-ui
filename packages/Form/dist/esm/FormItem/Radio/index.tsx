@@ -38,8 +38,6 @@ const Radio: React.FC<RadioProps> = (props: RadioProps) => {
     })
 
     const handleChange = (item: any) => {
-        console.log(96);
-        
         setOptionsList(preArr => {
             return preArr.map(option => {
                 return { ...option, checked: option.value === item.value };

@@ -2,21 +2,21 @@ import React, { useContext, useEffect, useState } from "react";
 
 import "./index.scss";
 import { withTranslation } from "react-i18next"
-import { FormContext, FormContextProps } from "../../index";
+import { FormContext, FormContextProps } from "adou-form";
 
 interface TagInputProps {
-    defaultValue?: any
+    defaultValue?: any;
     onChange?: (value: any) => void;
 }
 
 const TagInput = (props: TagInputProps) => {
 
-    const { onChange, defaultValue = [] } = props;
+    const { defaultValue = [], onChange } = props;
 
-    const context: FormContextProps = useContext(FormContext);
+    const context: FormContextProps = useContext(FormContext) || {};
 
 
-    const [inputList, setInputList] = useState<any>(defaultValue || context.formData[context.name as string] || []);
+    const [inputList, setInputList] = useState<any>(defaultValue || context.formData?.[context.name as string] || []);
 
     const [inputValue, setInputValue] = useState("");
 
@@ -24,9 +24,13 @@ const TagInput = (props: TagInputProps) => {
     const [isHighlighted, setIsHighlighted] = useState(false);
 
     const addInput = () => {
-        setInputList([...inputList, inputValue]);
+        // 因为state是异步的，所以要把数据先处理好再使用
+        const data = [...inputList, inputValue];
+        setInputList(data);
         setInputValue("");
-        context.checkValidate(1);
+        context.checkValidate && context.checkValidate(1);
+        // 把数据传回给父组件
+        onChange && onChange(data);   
     }
 
     const handleInputChange = (e: any) => {
@@ -48,18 +52,17 @@ const TagInput = (props: TagInputProps) => {
     const handleDeleteItem = (item: any) => {
         const tagList = inputList.filter((value: any) => item !== value);
         setInputList(tagList)
-        onChange && onChange(tagList);
-
         // 注意，这边不能直接用 inputList给 formData赋值，会出现不一致的情况
+        onChange && onChange(tagList);
         
-        context.handleChange(context.name, tagList);
-        context.checkValidate(inputList.filter((v: any) => v !== item).length);
+        context.handleChange && context.handleChange(context.name, tagList);
+        context.checkValidate && context.checkValidate(inputList.filter((v: any) => v !== item).length);
     }
 
     const handleBlur = () => {
         // 注意，这边要在 inpuut失焦的时候触发，不能在 input change的时候触发，不然会出现校验错误
-        context.handleChange(context.name, inputList);
-        context.checkValidate(inputList.length);
+        context.handleChange && context.handleChange(context.name, inputList);
+        context.checkValidate && context.checkValidate(inputList.length);
         setIsHighlighted(false);
     }
 
@@ -70,13 +73,16 @@ const TagInput = (props: TagInputProps) => {
     useEffect(() => {
         if (defaultValue.length) {
             setInputList(defaultValue);
-            context.formData[context.name as string] = defaultValue;
+            if (context.formData) {
+                context.formData[context.name as string] = defaultValue;
+            }
         }
     }, [defaultValue])
 
     useEffect(() => {
-        setInputList(context.formData[context.name as string] || "");
-    }, [context.formData[context.name as string]])
+        
+        setInputList(context.formData?.[context.name as string] || "");
+    }, [context.formData?.[context.name as string]])
 
     return <>
     {/* 实现点击后高亮，div必须加上 form-control，这个类名会空值高亮以动画效果出现。并且 focus类名必须动态添加 */}

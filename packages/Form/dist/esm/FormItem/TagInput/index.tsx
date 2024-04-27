@@ -6,11 +6,12 @@ import { FormContext, FormContextProps } from "../../index";
 
 interface TagInputProps {
     defaultValue?: any
+    onChange?: (value: any) => void;
 }
 
 const TagInput = (props: TagInputProps) => {
 
-    const { defaultValue = [] } = props;
+    const { onChange, defaultValue = [] } = props;
 
     const context: FormContextProps = useContext(FormContext);
 
@@ -47,6 +48,8 @@ const TagInput = (props: TagInputProps) => {
     const handleDeleteItem = (item: any) => {
         const tagList = inputList.filter((value: any) => item !== value);
         setInputList(tagList)
+        onChange && onChange(tagList);
+
         // 注意，这边不能直接用 inputList给 formData赋值，会出现不一致的情况
         
         context.handleChange(context.name, tagList);
@@ -72,8 +75,6 @@ const TagInput = (props: TagInputProps) => {
     }, [defaultValue])
 
     useEffect(() => {
-        console.log("变化了", context.formData[context.name as string]);
-        
         setInputList(context.formData[context.name as string] || "");
     }, [context.formData[context.name as string]])
 

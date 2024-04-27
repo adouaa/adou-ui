@@ -68,8 +68,6 @@ const Input: React.FC<InputProps> = (props: InputProps) => {
     }, [context.formData[context.name as string]])
 
     useEffect(() => {
-        console.log("defaultValue = ", defaultValue);
-
         if (defaultValue) {
             
             // 为了一上来就提交表单，这边有默认值也要给 父组件设置

@@ -1406,11 +1406,14 @@ var classnames_default = /*#__PURE__*/__webpack_require__.n(classnames);
 const MultipleSelect = props => {
   const {
     defaultValue,
+    showSelected = true,
     options,
     size,
     className,
-    disabled,
-    onChangeOK
+    disabled = false,
+    setFormItemValue,
+    onChangeOK,
+    onMultipleSelectChangeOK
   } = props;
 
   // 获取 `FormContext.Provider` 提供提供的 `value` 值
@@ -1453,19 +1456,21 @@ const MultipleSelect = props => {
     // 这里不能直接用 selectedOptions这个状态，会有延迟
     // 要用原来所有的状态，去过滤掉没选上的，再传递给父组件
     const selectedList = hasSelected ? nowSelectedList : [...selectedOptions, option];
-    onChangeOK && onChangeOK(selectedList);
+    onMultipleSelectChangeOK && onMultipleSelectChangeOK(selectedList);
+    setFormItemValue && setFormItemValue(selectedList);
   };
   const handleInputClick = e => {
+    setIsHighlighted(true);
     // 这个时候也要重新过滤数据
   };
   const handleInputChange = e => {
     let value = e.target.value;
     searchValueRef.current = value;
+    onChangeOK && onChangeOK(e.target.value);
     // 输入改变的时候重新过滤
   };
 
   // 选项的ref数组--巧妙
-  // eslint-disable-next-line react-hooks/rules-of-hooks
 
   const handleDeleteItem = item => {
     const selectedList = selectedOptions.filter(option => option !== item);
@@ -1478,52 +1483,43 @@ const MultipleSelect = props => {
     }));
     onChangeOK && onChangeOK(selectedList);
   };
-  const handleFocus = () => {
-    setIsHighlighted(true);
-  };
-  const handleBlur = () => {};
 
   // 一些用来判断选项是否展示的的Ref
   const multipleInputRef = (0,external_root_React_commonjs2_react_commonjs_react_amd_react_.useRef)();
   const selectListRef = (0,external_root_React_commonjs2_react_commonjs_react_amd_react_.useRef)();
   // 巧妙
-  // eslint-disable-next-line react-hooks/rules-of-hooks
 
   const multipleSelectWrapperFormControlRef = (0,external_root_React_commonjs2_react_commonjs_react_amd_react_.useRef)();
+
+  // 点击外边wrapper，展示选项
+  const handleWrapperClick = () => {
+    setShowOptions(true);
+  };
   (0,external_root_React_commonjs2_react_commonjs_react_amd_react_.useEffect)(() => {
     window.addEventListener("click", e => {
       // 用类名方便
-      // let classNames = ["multiple-input", "select-list", "selected-option", "multiple-select-wrapper form-control ", "multiple-select-wrapper form-control focus"];
-      // let classNames = ["multiple-input", "select-list", "selected-option", "multiple-select-wrapper form-control ", "multiple-select-wrapper form-control focus"];
-      if (e.target === multipleInputRef.current || e.target === selectListRef.current || e.target === multipleSelectWrapperFormControlRef.current) {
-        return setShowOptions(true);
-      }
-
-      /* if (classNames.includes(e.target.className)) {
-          return setShowOptions(true);
-      } */
-
-      // --巧妙
-      // 点的是被选中的选项
-      if (selectedOptionRefs.some(ref => ref.current === e.target)) {
-        return setShowOptions(true);
-      }
-      // --巧妙
-      // 点的不是 input框，也不是 选项，则将 active类名去掉，并且隐藏 选项
-      if (!optionItemRefs.some(ref => ref.current === e.target)) {
+      let classNames = ["multiple-input", "option-icon", "option-item", "option-item false", "option-item multiple-select-active", "select-list", "selected-option", "multiple-select-wrapper form-control ", "multiple-select-wrapper form-control focus"];
+      if (!classNames.includes(e.target.className)) {
         setIsHighlighted(false);
-        return setShowOptions(false);
-      } else {
-        setIsHighlighted(true);
-      }
+        setShowOptions(false);
+      } else {}
     });
   }, []);
+  const newFilterOptions = (arr, item) => {
+    arr.forEach(i => {
+      if (i.user_id === item.user_id) {
+        i.selected = true;
+      }
+    });
+    setFilterdOptions(arr);
+  };
 
   // 让多选框默认展示父组件传递过来的值
   (0,external_root_React_commonjs2_react_commonjs_react_amd_react_.useEffect)(() => {
     let arr = [];
     let tempFilterdOptions = [];
     if (defaultValue !== null && defaultValue !== void 0 && defaultValue.length) {
+      setFormItemValue && setFormItemValue(defaultValue);
       defaultValue === null || defaultValue === void 0 || defaultValue.map(item => {
         tempOptions.some(option => {
           option.value === item.value && arr.push(item);
@@ -1553,22 +1549,26 @@ const MultipleSelect = props => {
         return item;
       }));
     }
-  }, [defaultValue, tempOptions, options]);
+  }, [defaultValue]);
   (0,external_root_React_commonjs2_react_commonjs_react_amd_react_.useEffect)(() => {
-    setTempOptions(options);
-    setFilterdOptions(options);
+    if (selectedOptions.length) {
+      selectedOptions.forEach(item => {
+        newFilterOptions(options, item);
+      });
+    } else {
+      setFilterdOptions(options);
+      setTempOptions(options);
+    }
   }, [options]);
   return /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement((external_root_React_commonjs2_react_commonjs_react_amd_react_default()).Fragment, null, /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("div", {
     ref: multipleSelectWrapperFormControlRef,
     tabIndex: 0,
-    onFocus: handleFocus,
-    onBlur: handleBlur,
-    onClick: () => setShowOptions(true),
+    onClick: handleWrapperClick,
     className: "multiple-select-wrapper form-control ".concat(isHighlighted ? "focus" : "")
   }, /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("div", {
     ref: selectListRef,
     className: "select-list"
-  }, showSelectedOptions && (selectedOptions === null || selectedOptions === void 0 ? void 0 : selectedOptions.map((option, index) => {
+  }, showSelected && showSelectedOptions && (selectedOptions === null || selectedOptions === void 0 ? void 0 : selectedOptions.map((option, index) => {
     return /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("div", {
       ref: selectedOptionRefs[index],
       className: "selected-option",
@@ -1590,7 +1590,7 @@ const MultipleSelect = props => {
     className: "multiple-input",
     "aria-label": "Username",
     "aria-describedby": "basic-addon1"
-  }))), showOptions && /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("div", {
+  }))), !disabled && showOptions && /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("div", {
     className: "option-wrapper multiple-select-option-wrapper"
   }, filterdOptions === null || filterdOptions === void 0 ? void 0 : filterdOptions.map((option, index) => {
     // --巧妙

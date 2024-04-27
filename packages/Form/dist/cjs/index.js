@@ -194,7 +194,7 @@ ___CSS_LOADER_EXPORT___.push([module.id, `@charset "UTF-8";
 
 .live-search-select-wrapper {
   flex: 1;
-}`, "",{"version":3,"sources":["webpack://./src/FormItem/LiveSearchSelect/index.css"],"names":[],"mappings":"AAAA,gBAAgB;AAAhB,cAAA;AACA;EACI,YAAA;EACA,gBAAA;EACA,sBAAA;EACA,0CAAA;EACA,uBAAA;EACA,eAAA;EACA,gBAAA;EACA,kBAAA;EACA,aAAA;AAEJ;;AACE;EACE,gBAAA;AAEJ;;AACE;EACE,mCAAA;EACA,eAAA;AAEJ;;AAAE;EACE,OAAA;AAGJ","sourcesContent":["/* 自定义的公共css */\r\n.option-wrapper {\r\n    width: 300px;\r\n    text-align: left;\r\n    background-color: #fff;\r\n    box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.2);\r\n    border: 1px solid black;\r\n    margin-top: 2px;\r\n    margin-left: 4px;\r\n    position: absolute;\r\n    z-index: 9999;\r\n  }\r\n  \r\n  .option-item {\r\n    padding: 2px 8px;\r\n  }\r\n  \r\n  .option-item:hover {\r\n    background-color: rgba(25, 103, 210);\r\n    cursor: pointer;\r\n  }\r\n  .live-search-select-wrapper {\r\n    flex: 1;\r\n  }"],"sourceRoot":""}]);
+}`, "",{"version":3,"sources":["webpack://./src/FormItem/LiveSearchSelect/index.css"],"names":[],"mappings":"AAAA,gBAAgB;AAAhB,cAAA;AACA;EACI,YAAA;EACA,gBAAA;EACA,sBAAA;EACA,0CAAA;EACA,uBAAA;EACA,eAAA;EACA,gBAAA;EACA,kBAAA;EACA,aAAA;AAEJ;;AACE;EACE,gBAAA;AAEJ;;AACE;EACE,mCAAA;EACA,eAAA;AAEJ;;AAAE;EACE,OAAA;AAGJ","sourcesContent":["/* 自定义的公共css */\n.option-wrapper {\n    width: 300px;\n    text-align: left;\n    background-color: #fff;\n    box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.2);\n    border: 1px solid black;\n    margin-top: 2px;\n    margin-left: 4px;\n    position: absolute;\n    z-index: 9999;\n  }\n  \n  .option-item {\n    padding: 2px 8px;\n  }\n  \n  .option-item:hover {\n    background-color: rgba(25, 103, 210);\n    cursor: pointer;\n  }\n  .live-search-select-wrapper {\n    flex: 1;\n  }"],"sourceRoot":""}]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 
@@ -272,7 +272,7 @@ ___CSS_LOADER_EXPORT___.push([module.id, `@charset "UTF-8";
   width: 100%;
   outline: none;
   border: none;
-}`, "",{"version":3,"sources":["webpack://./src/FormItem/MultipleSelect/index.css"],"names":[],"mappings":"AAAA,gBAAgB;AAAhB;EACI,wBAAA;EACA,kBAAA;EACA,OAAA;EACA,gBAAA;EACA,YAAA;EACA,eAAA;AAEJ;;AAEA;EACI,mCAAA;AACJ;;AACA;EACI,aAAA;AAEJ;;AAAA;EACI,YAAA;AAGJ;;AAAA;EACI,aAAA;EACA,eAAA;AAGJ;;AAAA;EACI,cAAA;EACA,eAAA;EACA,0BAAA;EACA,mBAAA;EACA,yBAAA;EACA,kBAAA;EACA,iBAAA;EACA,kBAAA;AAGJ;;AAAA;EACI,cAAA;EACA,kBAAA;EACA,WAAA;EACA,WAAA;EACA,eAAA;AAGJ;;AAAA;EACI,OAAA;AAGJ;;AADA;EACI,gBAAA;EACA,WAAA;EACA,aAAA;EACA,YAAA;AAIJ","sourcesContent":[".multiple-select-wrapper {\r\n    display: flex !important;\r\n    position: relative;\r\n    flex: 1;\r\n    min-height: 38px;\r\n    cursor: text;\r\n    flex-wrap: wrap;\r\n}\r\n\r\n\r\n.multiple-select-active {\r\n    background-color: rgba(25, 103, 210);\r\n}\r\n.multiple-select-option-wrapper {\r\n    padding: 14px;\r\n}\r\n.multiple-select-active::after {\r\n    content: \"✔\";\r\n}\r\n\r\n.select-list {\r\n    display: flex;\r\n    flex-wrap: wrap;   \r\n}\r\n\r\n.selected-option {\r\n    color: #7e8085;\r\n    font-size: 14px;\r\n    padding: 3px 22px 3px 12px;\r\n    border-radius: 13px;\r\n    background-color: #f4f4f5;\r\n    position: relative;\r\n    margin-right: 6px;\r\n    margin-bottom: 6px;\r\n}\r\n\r\n.option-icon {\r\n    color: #999ba1;\r\n    position: absolute;\r\n    right: 10px;\r\n    bottom: 4px;\r\n    cursor: pointer;\r\n}\r\n\r\n.input-control {\r\n    flex: 1;\r\n}\r\n.multiple-input {\r\n    min-width: 120px;\r\n    width: 100%;\r\n    outline: none;\r\n    border: none;\r\n}"],"sourceRoot":""}]);
+}`, "",{"version":3,"sources":["webpack://./src/FormItem/MultipleSelect/index.css"],"names":[],"mappings":"AAAA,gBAAgB;AAAhB;EACI,wBAAA;EACA,kBAAA;EACA,OAAA;EACA,gBAAA;EACA,YAAA;EACA,eAAA;AAEJ;;AAEA;EACI,mCAAA;AACJ;;AACA;EACI,aAAA;AAEJ;;AAAA;EACI,YAAA;AAGJ;;AAAA;EACI,aAAA;EACA,eAAA;AAGJ;;AAAA;EACI,cAAA;EACA,eAAA;EACA,0BAAA;EACA,mBAAA;EACA,yBAAA;EACA,kBAAA;EACA,iBAAA;EACA,kBAAA;AAGJ;;AAAA;EACI,cAAA;EACA,kBAAA;EACA,WAAA;EACA,WAAA;EACA,eAAA;AAGJ;;AAAA;EACI,OAAA;AAGJ;;AADA;EACI,gBAAA;EACA,WAAA;EACA,aAAA;EACA,YAAA;AAIJ","sourcesContent":[".multiple-select-wrapper {\n    display: flex !important;\n    position: relative;\n    flex: 1;\n    min-height: 38px;\n    cursor: text;\n    flex-wrap: wrap;\n}\n\n\n.multiple-select-active {\n    background-color: rgba(25, 103, 210);\n}\n.multiple-select-option-wrapper {\n    padding: 14px;\n}\n.multiple-select-active::after {\n    content: \"✔\";\n}\n\n.select-list {\n    display: flex;\n    flex-wrap: wrap;   \n}\n\n.selected-option {\n    color: #7e8085;\n    font-size: 14px;\n    padding: 3px 22px 3px 12px;\n    border-radius: 13px;\n    background-color: #f4f4f5;\n    position: relative;\n    margin-right: 6px;\n    margin-bottom: 6px;\n}\n\n.option-icon {\n    color: #999ba1;\n    position: absolute;\n    right: 10px;\n    bottom: 4px;\n    cursor: pointer;\n}\n\n.input-control {\n    flex: 1;\n}\n.multiple-input {\n    min-width: 120px;\n    width: 100%;\n    outline: none;\n    border: none;\n}"],"sourceRoot":""}]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 
@@ -341,7 +341,7 @@ ___CSS_LOADER_EXPORT___.push([module.id, `@charset "UTF-8";
 .focus {
   border-color: #80bdff; /* 设置输入框获得焦点时的边框颜色 */
   box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.313); /* 设置输入框获得焦点时的阴影效果 */
-}`, "",{"version":3,"sources":["webpack://./src/FormItem/TagInput/index.scss"],"names":[],"mappings":"AAAA,gBAAgB;AAAhB;EACI,YAAA;EACA,gBAAA;AAEJ;AAAI;EACI,aAAA;EACA,eAAA;AAER;AAAQ;EACI,UAAA;EACA,gBAAA;EACA,aAAA;EACA,eAAA;AAEZ;AAAY;EACI,cAAA;EACA,qBAAA;EACA,eAAA;EACA,0BAAA;EACA,mBAAA;EACA,yBAAA;EACA,kBAAA;EACA,iBAAA;EACA,kBAAA;AAEhB;AAAgB;EACI,cAAA;EACA,kBAAA;EACA,WAAA;EACA,WAAA;EACA,eAAA;AAEpB;AAII;EACI,OAAA;AAFR;AAGQ;EACI,gBAAA;EACA,WAAA;EACA,aAAA;EACA,YAAA;AADZ;;AAMA;EACI,qBAAA,EAAA,oBAAA;EACA,iDAAA,EAAA,oBAAA;AAHJ","sourcesContent":[".tag-input-wrapper {\r\n    height: 100%;\r\n    margin-top: 10px;\r\n\r\n    .tag-input-content {\r\n        display: flex;\r\n        flex-wrap: wrap;\r\n\r\n        .tag-input-list {\r\n            padding: 0;\r\n            margin-bottom: 0;\r\n            display: flex;\r\n            flex-wrap: wrap; // 不写这个太窄的话会挤在一起\r\n\r\n            .list-item {\r\n                color: #7e8085;\r\n                list-style-type: none;\r\n                font-size: 14px;\r\n                padding: 3px 22px 3px 12px;\r\n                border-radius: 13px;\r\n                background-color: #f4f4f5;\r\n                position: relative;\r\n                margin-right: 6px;\r\n                margin-bottom: 6px;\r\n\r\n                .item-icon {\r\n                    color: #999ba1;\r\n                    position: absolute;\r\n                    right: 10px;\r\n                    bottom: 4px;\r\n                    cursor: pointer;\r\n                }\r\n            }\r\n        }\r\n    }\r\n\r\n    .tag-input-control {\r\n        flex: 1;\r\n        .input {\r\n            min-width: 120px;\r\n            width: 100%;\r\n            outline: none;\r\n            border: none;\r\n        }\r\n    }\r\n}\r\n\r\n.focus {\r\n    border-color: #80bdff; /* 设置输入框获得焦点时的边框颜色 */\r\n    box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.313); /* 设置输入框获得焦点时的阴影效果 */\r\n}\r\n"],"sourceRoot":""}]);
+}`, "",{"version":3,"sources":["webpack://./src/FormItem/TagInput/index.scss"],"names":[],"mappings":"AAAA,gBAAgB;AAAhB;EACI,YAAA;EACA,gBAAA;AAEJ;AAAI;EACI,aAAA;EACA,eAAA;AAER;AAAQ;EACI,UAAA;EACA,gBAAA;EACA,aAAA;EACA,eAAA;AAEZ;AAAY;EACI,cAAA;EACA,qBAAA;EACA,eAAA;EACA,0BAAA;EACA,mBAAA;EACA,yBAAA;EACA,kBAAA;EACA,iBAAA;EACA,kBAAA;AAEhB;AAAgB;EACI,cAAA;EACA,kBAAA;EACA,WAAA;EACA,WAAA;EACA,eAAA;AAEpB;AAII;EACI,OAAA;AAFR;AAGQ;EACI,gBAAA;EACA,WAAA;EACA,aAAA;EACA,YAAA;AADZ;;AAMA;EACI,qBAAA,EAAA,oBAAA;EACA,iDAAA,EAAA,oBAAA;AAHJ","sourcesContent":[".tag-input-wrapper {\n    height: 100%;\n    margin-top: 10px;\n\n    .tag-input-content {\n        display: flex;\n        flex-wrap: wrap;\n\n        .tag-input-list {\n            padding: 0;\n            margin-bottom: 0;\n            display: flex;\n            flex-wrap: wrap; // 不写这个太窄的话会挤在一起\n\n            .list-item {\n                color: #7e8085;\n                list-style-type: none;\n                font-size: 14px;\n                padding: 3px 22px 3px 12px;\n                border-radius: 13px;\n                background-color: #f4f4f5;\n                position: relative;\n                margin-right: 6px;\n                margin-bottom: 6px;\n\n                .item-icon {\n                    color: #999ba1;\n                    position: absolute;\n                    right: 10px;\n                    bottom: 4px;\n                    cursor: pointer;\n                }\n            }\n        }\n    }\n\n    .tag-input-control {\n        flex: 1;\n        .input {\n            min-width: 120px;\n            width: 100%;\n            outline: none;\n            border: none;\n        }\n    }\n}\n\n.focus {\n    border-color: #80bdff; /* 设置输入框获得焦点时的边框颜色 */\n    box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.313); /* 设置输入框获得焦点时的阴影效果 */\n}\n"],"sourceRoot":""}]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 
@@ -366,7 +366,7 @@ var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBP
 // Module
 ___CSS_LOADER_EXPORT___.push([module.id, `.textarea-warpper {
   flex: 1;
-}`, "",{"version":3,"sources":["webpack://./src/FormItem/Textarea/index.css"],"names":[],"mappings":"AAAA;EACI,OAAA;AACJ","sourcesContent":[".textarea-warpper {\r\n    flex: 1;\r\n}"],"sourceRoot":""}]);
+}`, "",{"version":3,"sources":["webpack://./src/FormItem/Textarea/index.css"],"names":[],"mappings":"AAAA;EACI,OAAA;AACJ","sourcesContent":[".textarea-warpper {\n    flex: 1;\n}"],"sourceRoot":""}]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 
@@ -390,6 +390,11 @@ ___CSS_LOADER_EXPORT___.push([module.id, `.textarea-warpper {
 var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_1___default()((_node_modules_css_loader_dist_runtime_sourceMaps_js__WEBPACK_IMPORTED_MODULE_0___default()));
 // Module
 ___CSS_LOADER_EXPORT___.push([module.id, `@charset "UTF-8";
+.error-inline {
+  display: flex;
+  align-items: center;
+}
+
 /* 定义淡入动画 */
 @keyframes fadeIn {
   from {
@@ -417,7 +422,7 @@ ___CSS_LOADER_EXPORT___.push([module.id, `@charset "UTF-8";
 /* 淡出效果 */
 .fadeOut {
   animation: fadeOut 0.5s ease-in-out forwards;
-}`, "",{"version":3,"sources":["webpack://./src/FormItem/index.css"],"names":[],"mappings":"AAAA,gBAAgB;AAAhB,WAAA;AACA;EACI;IACE,UAAA;EAEJ;EAAE;IACE,UAAA;EAEJ;AACF;AACE,WAAA;AACA;EACE;IACE,UAAA;EACJ;EACE;IACE,UAAA;EACJ;AACF;AAEE,cAAA;AAGA,SAAA;AACA;EACE,2CAAA;AAFJ;;AAKE,SAAA;AACA;EACE,4CAAA;AAFJ","sourcesContent":["/* 定义淡入动画 */\r\n@keyframes fadeIn {\r\n    from {\r\n      opacity: 0;\r\n    }\r\n    to {\r\n      opacity: 1;\r\n    }\r\n  }\r\n  \r\n  /* 定义淡出动画 */\r\n  @keyframes fadeOut {\r\n    from {\r\n      opacity: 1;\r\n    }\r\n    to {\r\n      opacity: 0;\r\n    }\r\n  }\r\n  \r\n  /* 元素默认状态为隐藏 */\r\n\r\n  \r\n  /* 淡入效果 */\r\n  .fadeIn {\r\n    animation: fadeIn 0.5s ease-in-out forwards;\r\n  }\r\n  \r\n  /* 淡出效果 */\r\n  .fadeOut {\r\n    animation: fadeOut 0.5s ease-in-out forwards;\r\n  }\r\n  "],"sourceRoot":""}]);
+}`, "",{"version":3,"sources":["webpack://./src/FormItem/index.css"],"names":[],"mappings":"AAAA,gBAAgB;AAChB;EACE,aAAA;EACA,mBAAA;AACF;;AACA,WAAA;AACA;EACI;IACE,UAAA;EAEJ;EAAE;IACE,UAAA;EAEJ;AACF;AACE,WAAA;AACA;EACE;IACE,UAAA;EACJ;EACE;IACE,UAAA;EACJ;AACF;AAEE,cAAA;AAGA,SAAA;AACA;EACE,2CAAA;AAFJ;;AAKE,SAAA;AACA;EACE,4CAAA;AAFJ","sourcesContent":["\n.error-inline {\n  display: flex;\n  align-items: center;\n}\n/* 定义淡入动画 */\n@keyframes fadeIn {\n    from {\n      opacity: 0;\n    }\n    to {\n      opacity: 1;\n    }\n  }\n  \n  /* 定义淡出动画 */\n  @keyframes fadeOut {\n    from {\n      opacity: 1;\n    }\n    to {\n      opacity: 0;\n    }\n  }\n  \n  /* 元素默认状态为隐藏 */\n\n  \n  /* 淡入效果 */\n  .fadeIn {\n    animation: fadeIn 0.5s ease-in-out forwards;\n  }\n  \n  /* 淡出效果 */\n  .fadeOut {\n    animation: fadeOut 0.5s ease-in-out forwards;\n  }\n  \n"],"sourceRoot":""}]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 
@@ -2159,7 +2164,6 @@ const Input = props => {
     setValue(context.formData[context.name] || "");
   }, [context.formData[context.name]]);
   (0,external_root_React_commonjs2_react_commonjs_react_amd_react_.useEffect)(() => {
-    console.log("defaultValue = ", defaultValue);
     if (defaultValue) {
       // 为了一上来就提交表单，这边有默认值也要给 父组件设置
       setValue(defaultValue);
@@ -2170,6 +2174,9 @@ const Input = props => {
       // 新增让校验通过----解决了在切换树形节点之前如果已经出现校验失败，切换节点的时候要全部置为校验通过
       context.checkValidate(defaultValue);
     } else {
+      // 不能直接写 setValue(defaultValue)
+      // 不知道为什么如果 defaultValue是空的话不会value赋值为 ""
+      // 所以只能写死为 ""
       setValue("");
     }
   }, [defaultValue]);
@@ -2616,14 +2623,17 @@ var MultipleSelect_update = injectStylesIntoStyleTag_default()(MultipleSelect/* 
 
 
 const MultipleSelect_MultipleSelect = props => {
+  var _context$formData3;
   const {
     defaultValue,
+    showSelected = true,
     options,
     size,
     className,
-    disabled,
-    onMultipleSelectChangeOK,
-    setFormItemValue
+    disabled = false,
+    setFormItemValue,
+    onChangeOK,
+    onMultipleSelectChangeOK
   } = props;
 
   // 获取 `FormContext.Provider` 提供提供的 `value` 值
@@ -2633,11 +2643,14 @@ const MultipleSelect_MultipleSelect = props => {
   // 注意！！！如果发现状态没有按预知的方向变化的话，就考虑用 xxxRef来替代。。。
   // const prevSelectedValueRef = useRef<string>(defaultValue || "");
   const searchValueRef = (0,external_root_React_commonjs2_react_commonjs_react_amd_react_.useRef)(defaultValue || "");
+  const [tempOptions, setTempOptions] = (0,external_root_React_commonjs2_react_commonjs_react_amd_react_.useState)(options || []);
   const [showOptions, setShowOptions] = (0,external_root_React_commonjs2_react_commonjs_react_amd_react_.useState)(false);
   const [filterdOptions, setFilterdOptions] = (0,external_root_React_commonjs2_react_commonjs_react_amd_react_.useState)(options); // 多选主要是靠这个来展示哪个选项被打钩
   // 是否展示选中的选项
   const [selectedOptions, setSelectedOptions] = (0,external_root_React_commonjs2_react_commonjs_react_amd_react_.useState)([]); // 选中的选项展示在 框中
   const [showSelectedOptions, setShowSelectedOptions] = (0,external_root_React_commonjs2_react_commonjs_react_amd_react_.useState)(false);
+  let selectedOptionRefs = [];
+  let optionItemRefs = [];
 
   // 框高亮
   const [isHighlighted, setIsHighlighted] = (0,external_root_React_commonjs2_react_commonjs_react_amd_react_.useState)(false);
@@ -2665,28 +2678,27 @@ const MultipleSelect_MultipleSelect = props => {
     // 要用原来所有的状态，去过滤掉没选上的，再传递给父组件
     const selectedList = hasSelected ? nowSelectedList : [...selectedOptions, option];
     onMultipleSelectChangeOK && onMultipleSelectChangeOK(selectedList);
-    context.handleChange(context.name, selectedList);
+    context.handleChange && context.handleChange(context.name, selectedList);
     setFormItemValue && setFormItemValue(selectedList);
     const length = hasSelected ? nowSelectedList.length : 1;
-    console.log("length = ", length);
     setTimeout(() => {
-      context.checkValidate(length);
+      context.checkValidate && context.checkValidate(length);
     }, 100); // 选择或者取消选择的时候也要进行校验
   };
   const handleInputClick = e => {
+    setIsHighlighted(true);
     // 这个时候也要重新过滤数据
   };
   const handleInputChange = e => {
     let value = e.target.value;
     searchValueRef.current = value;
+    onChangeOK && onChangeOK(e.target.value);
     // 输入改变的时候重新过滤
   };
 
   // 选项的ref数组--巧妙
-  // eslint-disable-next-line react-hooks/rules-of-hooks
-  const optionItemRefs = options.map(() => (0,external_root_React_commonjs2_react_commonjs_react_amd_react_.useRef)(null));
+
   const handleDeleteItem = item => {
-    console.log(item);
     const selectedList = selectedOptions.filter(option => option !== item);
     setSelectedOptions(selectedList);
     setFilterdOptions(filterdOptions.map(v => {
@@ -2695,46 +2707,55 @@ const MultipleSelect_MultipleSelect = props => {
       }
       return v;
     }));
-    context.checkValidate(selectedList.length);
-    context.handleChange(context.name, selectedList);
-  };
-  const handleFocus = () => {
-    setIsHighlighted(true);
+    onChangeOK && onChangeOK(selectedList);
+    context.checkValidate && context.checkValidate(selectedList.length);
+    context.handleChange && context.handleChange(context.name, selectedList);
   };
   const handleBlur = () => {
-    context.checkValidate(selectedOptions.length);
+    context.checkValidate && context.checkValidate(selectedOptions.length);
+  };
+
+  // 一些用来判断选项是否展示的的Ref
+  const multipleInputRef = (0,external_root_React_commonjs2_react_commonjs_react_amd_react_.useRef)();
+  const selectListRef = (0,external_root_React_commonjs2_react_commonjs_react_amd_react_.useRef)();
+  // 巧妙
+
+  const multipleSelectWrapperFormControlRef = (0,external_root_React_commonjs2_react_commonjs_react_amd_react_.useRef)();
+
+  // 点击外边wrapper，展示选项
+  const handleWrapperClick = () => {
+    setShowOptions(true);
   };
   (0,external_root_React_commonjs2_react_commonjs_react_amd_react_.useEffect)(() => {
     window.addEventListener("click", e => {
       // 用类名方便
-      let classNames = ["multiple-input", "select-list", "selected-option", "multiple-select-wrapper form-control ", "multiple-select-wrapper form-control focus"];
-      /* if (e.target === wrapperRef.current || e.target === .current) {
-          return setShowOptions(true);
-      } */
-
-      if (classNames.includes(e.target.className)) {
-        return setShowOptions(true);
-      }
-
-      // --巧妙
-      // 点的不是 input框，也不是 选项，则将 active类名去掉，并且隐藏 选项
-      if (!optionItemRefs.some(ref => ref.current === e.target)) {
+      let classNames = ["multiple-input", "option-icon", "option-item", "option-item false", "option-item multiple-select-active", "select-list", "selected-option", "multiple-select-wrapper form-control ", "multiple-select-wrapper form-control focus"];
+      if (!classNames.includes(e.target.className)) {
         setIsHighlighted(false);
-        return setShowOptions(false);
-      } else {
-        setIsHighlighted(true);
-      }
+        setShowOptions(false);
+      } else {}
     });
   }, []);
+  const newFilterOptions = (arr, item) => {
+    arr.forEach(i => {
+      if (i.user_id === item.user_id) {
+        i.selected = true;
+      }
+    });
+    setFilterdOptions(arr);
+  };
 
   // 让多选框默认展示父组件传递过来的值
   (0,external_root_React_commonjs2_react_commonjs_react_amd_react_.useEffect)(() => {
     let arr = [];
+    let tempFilterdOptions = [];
     if (defaultValue !== null && defaultValue !== void 0 && defaultValue.length) {
-      context.formData[context.name] = defaultValue; // 让 Form里面对应的数据项有值
+      if (context.formData) {
+        context.formData[context.name] = defaultValue;
+      }
       setFormItemValue && setFormItemValue(defaultValue);
       defaultValue === null || defaultValue === void 0 || defaultValue.map(item => {
-        options.some(option => {
+        tempOptions.some(option => {
           option.value === item.value && arr.push(item);
           return false;
         });
@@ -2743,16 +2764,17 @@ const MultipleSelect_MultipleSelect = props => {
       if (arr !== null && arr !== void 0 && arr.length) {
         setSelectedOptions(arr);
         setShowSelectedOptions(true);
-        setFilterdOptions(preArr => {
-          let filterdOptions = [];
-          preArr.forEach(item => {
-            filterdOptions.push({
-              ...item,
-              selected: arr.some(i => i.value === item.value)
+        setTimeout(() => {
+          setFilterdOptions(preArr => {
+            preArr.forEach(item => {
+              tempFilterdOptions.push({
+                ...item,
+                selected: arr.some(i => i.value === item.value)
+              });
             });
+            return tempFilterdOptions;
           });
-          return filterdOptions;
-        });
+        }, 0);
       }
     } else {
       setSelectedOptions([]);
@@ -2763,8 +2785,9 @@ const MultipleSelect_MultipleSelect = props => {
     }
   }, [defaultValue]);
   (0,external_root_React_commonjs2_react_commonjs_react_amd_react_.useEffect)(() => {
+    var _context$formData;
     // 把option后面打钩的选项置空（option后面都不打钩，即 selected置为false）
-    if (!context.formData[context.name]) {
+    if (!(context !== null && context !== void 0 && (_context$formData = context.formData) !== null && _context$formData !== void 0 && _context$formData[context === null || context === void 0 ? void 0 : context.name])) {
       setFilterdOptions(preArr => {
         return preArr === null || preArr === void 0 ? void 0 : preArr.map(item => {
           item.selected = false;
@@ -2772,19 +2795,34 @@ const MultipleSelect_MultipleSelect = props => {
         });
       });
     }
-    // 把展示在input的选项置空，即没有选中的选项
-    setSelectedOptions(context.formData[context.name] || []);
-  }, [context.formData[context.name]]);
+    // 把展示在input的选项置空，即没有选中的选项，要判断下是否在 Form下
+    if (context.formData) {
+      var _context$formData2;
+      setSelectedOptions((context === null || context === void 0 || (_context$formData2 = context.formData) === null || _context$formData2 === void 0 ? void 0 : _context$formData2[context === null || context === void 0 ? void 0 : context.name]) || []);
+    }
+  }, [context === null || context === void 0 || (_context$formData3 = context.formData) === null || _context$formData3 === void 0 ? void 0 : _context$formData3[context === null || context === void 0 ? void 0 : context.name]]);
+  (0,external_root_React_commonjs2_react_commonjs_react_amd_react_.useEffect)(() => {
+    if (selectedOptions.length) {
+      selectedOptions.forEach(item => {
+        newFilterOptions(options, item);
+      });
+    } else {
+      setFilterdOptions(options);
+      setTempOptions(options);
+    }
+  }, [options]);
   return /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement((external_root_React_commonjs2_react_commonjs_react_amd_react_default()).Fragment, null, /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("div", {
+    ref: multipleSelectWrapperFormControlRef,
     tabIndex: 0,
-    onFocus: handleFocus,
     onBlur: handleBlur,
-    onClick: () => setShowOptions(true),
+    onClick: handleWrapperClick,
     className: "multiple-select-wrapper form-control ".concat(isHighlighted ? "focus" : "")
   }, /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("div", {
+    ref: selectListRef,
     className: "select-list"
-  }, showSelectedOptions && (selectedOptions === null || selectedOptions === void 0 ? void 0 : selectedOptions.map(option => {
+  }, showSelected && showSelectedOptions && (selectedOptions === null || selectedOptions === void 0 ? void 0 : selectedOptions.map((option, index) => {
     return /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("div", {
+      ref: selectedOptionRefs[index],
       className: "selected-option",
       key: option.value,
       style: {}
@@ -2795,6 +2833,7 @@ const MultipleSelect_MultipleSelect = props => {
   }))), /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("div", {
     className: "input-control"
   }, /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("input", {
+    ref: multipleInputRef,
     placeholder: "\u8F93\u5165\u5173\u952E\u8BCD",
     onChange: e => handleInputChange(e),
     onClick: handleInputClick,
@@ -2803,7 +2842,7 @@ const MultipleSelect_MultipleSelect = props => {
     className: "multiple-input",
     "aria-label": "Username",
     "aria-describedby": "basic-addon1"
-  }))), showOptions && /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("div", {
+  }))), !disabled && showOptions && /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("div", {
     className: "option-wrapper multiple-select-option-wrapper"
   }, filterdOptions === null || filterdOptions === void 0 ? void 0 : filterdOptions.map((option, index) => {
     // --巧妙
@@ -2842,7 +2881,6 @@ const Radio = props => {
     [className]: className
   });
   const handleChange = item => {
-    console.log(96);
     setOptionsList(preArr => {
       return preArr.map(option => {
         return {
@@ -2911,8 +2949,9 @@ const Radio = props => {
 
 
 const Checkbox = props => {
+  var _context$formData2;
   // 获取 `FormContext.Provider` 提供提供的 `value` 值
-  const context = (0,external_root_React_commonjs2_react_commonjs_react_amd_react_.useContext)(FormContext);
+  const context = (0,external_root_React_commonjs2_react_commonjs_react_amd_react_.useContext)(FormContext) || {};
   const {
     className,
     inline = true,
@@ -2941,19 +2980,26 @@ const Checkbox = props => {
         return option;
       }
     });
-    context.formData[context.name] = updatedChheckboxData.filter(item => item.checked);
+    if (context.formData) {
+      context.formData[context.name] = updatedChheckboxData.filter(item => item.checked);
+      const checkedList = updatedChheckboxData.filter(item => item.checked);
+      context.handleChange && context.handleChange(context.name, checkedList);
+      context.checkValidate && context.checkValidate(checkedList.length);
+    }
     setOptionsList(updatedChheckboxData);
     onChangeOK && onChangeOK(updatedChheckboxData === null || updatedChheckboxData === void 0 ? void 0 : updatedChheckboxData.filter(v => v.checked));
     setFormItemValue && setFormItemValue(updatedChheckboxData === null || updatedChheckboxData === void 0 ? void 0 : updatedChheckboxData.filter(v => v.checked));
   };
   const handleBlur = () => {
     const checkedList = optionsList.filter(item => item.checked);
-    context.handleChange(context.name, checkedList);
-    context.checkValidate(checkedList.length);
+    context.handleChange && context.handleChange(context.name, checkedList);
+    context.checkValidate && context.checkValidate(checkedList.length);
   };
   (0,external_root_React_commonjs2_react_commonjs_react_amd_react_.useEffect)(() => {
     if (defaultValue.length) {
-      context.formData[context.name] = defaultValue;
+      if (context.formData) {
+        context.formData[context.name] = defaultValue;
+      }
       setFormItemValue && setFormItemValue(defaultValue);
       setOptionsList(preArr => {
         return preArr.map(option => {
@@ -2963,10 +3009,13 @@ const Checkbox = props => {
           return option;
         });
       });
+    } else {
+      context.checkValidate && context.checkValidate(0);
     }
-  }, []);
+  }, [defaultValue]);
   (0,external_root_React_commonjs2_react_commonjs_react_amd_react_.useEffect)(() => {
-    if (!context.formData[context.name]) {
+    var _context$formData;
+    if (!((_context$formData = context.formData) !== null && _context$formData !== void 0 && _context$formData[context.name])) {
       setOptionsList(preArr => {
         return preArr.map(option => {
           option.checked = false;
@@ -2974,7 +3023,7 @@ const Checkbox = props => {
         });
       });
     }
-  }, [context.formData[context.name]]);
+  }, [(_context$formData2 = context.formData) === null || _context$formData2 === void 0 ? void 0 : _context$formData2[context.name]]);
   const divClasses = classnames_default()({
     'checkbox-wrapper': true,
     'd-flex': inline,
@@ -3044,6 +3093,7 @@ var TagInput_update = injectStylesIntoStyleTag_default()(TagInput/* default */.A
 
 const TagInput_TagInput = props => {
   const {
+    onChange,
     defaultValue = []
   } = props;
   const context = (0,external_root_React_commonjs2_react_commonjs_react_amd_react_.useContext)(FormContext);
@@ -3071,6 +3121,8 @@ const TagInput_TagInput = props => {
   const handleDeleteItem = item => {
     const tagList = inputList.filter(value => item !== value);
     setInputList(tagList);
+    onChange && onChange(tagList);
+
     // 注意，这边不能直接用 inputList给 formData赋值，会出现不一致的情况
 
     context.handleChange(context.name, tagList);
@@ -3092,7 +3144,6 @@ const TagInput_TagInput = props => {
     }
   }, [defaultValue]);
   (0,external_root_React_commonjs2_react_commonjs_react_amd_react_.useEffect)(() => {
-    console.log("变化了", context.formData[context.name]);
     setInputList(context.formData[context.name] || "");
   }, [context.formData[context.name]]);
   return /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement((external_root_React_commonjs2_react_commonjs_react_amd_react_default()).Fragment, null, /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("div", {
@@ -3140,6 +3191,7 @@ const FormItem_FormItem = props => {
   // 获取 `FormContext.Provider` 提供提供的 `value` 值
   const context = (0,external_root_React_commonjs2_react_commonjs_react_amd_react_.useContext)(FormContext);
   const {
+    errorInline = false,
     children,
     width,
     name,
@@ -3196,7 +3248,9 @@ const FormItem_FormItem = props => {
 
     // 子元素检查
     if ( /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().isValidElement(children)) {
-      return /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement((external_root_React_commonjs2_react_commonjs_react_amd_react_default()).Fragment, null, /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("div", {
+      return /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("div", {
+        className: "form-item-wrapper ".concat(errorInline ? "error-inline" : "")
+      }, /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("div", {
         style: {
           width: width
         },
@@ -3216,7 +3270,8 @@ const FormItem_FormItem = props => {
         className: "form-item-error text-danger small ".concat(error ? 'fadeIn' : 'fadeOut'),
         style: {
           textAlign: "left",
-          margin: "-15px 0 5px ".concat((maxLabelLength * eachWordWidth > labelWidth ? labelWidth + 0.8 * eachWordWidth : (maxLabelLength + 0.8) * eachWordWidth) + "px")
+          margin: "-15px 0 5px ".concat((maxLabelLength * eachWordWidth > labelWidth ? labelWidth + 0.8 * eachWordWidth : (maxLabelLength + 0.8) * eachWordWidth) + "px"),
+          marginLeft: "".concat(errorInline && "10px")
         }
       }, error));
     }
@@ -3277,7 +3332,7 @@ const FormItem_FormItem = props => {
     }
   };
   (0,external_root_React_commonjs2_react_commonjs_react_amd_react_.useEffect)(() => {
-    context.registerFormItem({
+    context === null || context === void 0 || context.registerFormItem({
       name,
       validate,
       handleValidate: handleValidate // 无法做动态校验哈哈
@@ -3313,6 +3368,8 @@ FormItem_FormItem.TagInput = src_FormItem_TagInput;
 const FormContext = /*#__PURE__*/(0,external_root_React_commonjs2_react_commonjs_react_amd_react_.createContext)({});
 const Form = /*#__PURE__*/(0,external_root_React_commonjs2_react_commonjs_react_amd_react_.forwardRef)((props, formRef) => {
   const {
+    inline = false,
+    errorInline = false,
     labelAlignX,
     name,
     labelWidth
@@ -3333,7 +3390,9 @@ const Form = /*#__PURE__*/(0,external_root_React_commonjs2_react_commonjs_react_
     validate: callback => {
       let isValid = true;
       formItems.forEach(item => {
+        console.log(formData);
         const validationResult = item.handleValidate(formData);
+        console.log(validationResult);
         if (!validationResult && item.validate) isValid = false; // 假设validate方法返回false表示验证失败
       });
       callback && callback(isValid);
@@ -3347,7 +3406,7 @@ const Form = /*#__PURE__*/(0,external_root_React_commonjs2_react_commonjs_react_
         data[item] = "";
       });
       formItems.forEach(item => {
-        item.handleValidate(formData, true); // 在重置表单的时候将错误也清楚掉
+        item.handleValidate(formData, true); // 在重置表单的时候将错误也清除掉--好像没用
       });
       setFormData(data);
     },
@@ -3405,7 +3464,9 @@ const Form = /*#__PURE__*/(0,external_root_React_commonjs2_react_commonjs_react_
           maxLabelLength,
           labelAlignX,
           labelWidth,
-          key: child.props.name // 给每个组件一个 key
+          key: child.props.name,
+          // 给每个组件一个 key
+          errorInline
         });
         renderChildren.push(enhancedChildren);
       }
@@ -3429,7 +3490,9 @@ const Form = /*#__PURE__*/(0,external_root_React_commonjs2_react_commonjs_react_
       handleValidate,
       registerFormItem
     }
-  }, /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement((external_root_React_commonjs2_react_commonjs_react_amd_react_default()).Fragment, null, renderContent()));
+  }, /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("div", {
+    className: "".concat(inline ? "form-wrapper" : "")
+  }, renderContent()));
 });
 Form.displayName = 'form';
 /* harmony default export */ const src = (Form);

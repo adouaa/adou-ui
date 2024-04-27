@@ -35,6 +35,7 @@ const Checkbox: React.FC<CheckboxProps> = (props: CheckboxProps) => {
         onChangeOK && onChangeOK(updatedChheckboxData?.filter(v => v.checked));
     }
 
+
     useEffect(() => {
         if (defaultValue.length) {
             setOptionsList(preArr => {

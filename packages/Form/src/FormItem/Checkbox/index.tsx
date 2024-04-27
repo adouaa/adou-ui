@@ -1,6 +1,7 @@
 import classNames from "classnames";
 import React, { useContext, useEffect, useState } from "react";
 import { withTranslation } from "react-i18next"
+
 import { FormContext, FormContextProps } from "../../index";
 
 interface CheckboxProps {
@@ -16,7 +17,7 @@ interface CheckboxProps {
 const Checkbox: React.FC<CheckboxProps> = (props: CheckboxProps) => {
 
     // 获取 `FormContext.Provider` 提供提供的 `value` 值
-    const context: FormContextProps = useContext(FormContext);
+    const context: FormContextProps = useContext(FormContext) || {};
 
     const { className, inline = true, options, defaultValue, wrap = true, onChangeOK, setFormItemValue } = props;
 
@@ -38,22 +39,29 @@ const Checkbox: React.FC<CheckboxProps> = (props: CheckboxProps) => {
                 return option;
             }
         });
-        context.formData[context.name as string] = updatedChheckboxData.filter(item => item.checked);
+        if (context.formData) {
+            context.formData[context.name as string] = updatedChheckboxData.filter(item => item.checked);
+            const checkedList = updatedChheckboxData.filter(item => item.checked);
+            context.handleChange && context.handleChange(context.name, checkedList);
+            context.checkValidate && context.checkValidate(checkedList.length)
+        }
 
         setOptionsList(updatedChheckboxData!);
         onChangeOK && onChangeOK(updatedChheckboxData?.filter(v => v.checked));
         setFormItemValue && setFormItemValue(updatedChheckboxData?.filter(v => v.checked))
     }
-    
+
     const handleBlur = () => {
         const checkedList = optionsList.filter(item => item.checked);
-        context.handleChange(context.name, checkedList);
-        context.checkValidate(checkedList.length)
+        context.handleChange && context.handleChange(context.name, checkedList);
+        context.checkValidate && context.checkValidate(checkedList.length)
     }
 
     useEffect(() => {
         if (defaultValue.length) {
-            context.formData[context.name as string] = defaultValue;
+            if (context.formData) {
+                context.formData[context.name as string] = defaultValue;
+            }
             setFormItemValue && setFormItemValue(defaultValue);
             setOptionsList(preArr => {
                 return preArr.map(option => {
@@ -63,11 +71,13 @@ const Checkbox: React.FC<CheckboxProps> = (props: CheckboxProps) => {
                     return option;
                 })
             })
+        } else {
+            context.checkValidate && context.checkValidate(0);
         }
-    }, [])
+    }, [defaultValue])
 
     useEffect(() => {
-        if (!context.formData[context.name as string]) {
+        if (!context.formData?.[context.name as string]) {
             setOptionsList(preArr => {
                 return preArr.map(option => {
                     option.checked = false;
@@ -75,7 +85,7 @@ const Checkbox: React.FC<CheckboxProps> = (props: CheckboxProps) => {
                 })
             })
         }
-    }, [context.formData[context.name as string]])
+    }, [context.formData?.[context.name as string]])
 
     const divClasses = classNames({
         'checkbox-wrapper': true,

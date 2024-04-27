@@ -20,12 +20,14 @@ interface FormProps {
   children?: any,
   name?: string,
   labelWidth?: number,
-  labelAlignX?: "left" | "right"
+  labelAlignX?: "left" | "right",
+  inline?: boolean,
+  errorInline?: boolean
 }
 
 const Form = forwardRef((props: FormProps, formRef) => {
 
-  const { labelAlignX, name, labelWidth } = props;
+  const { inline = false, errorInline = false, labelAlignX, name, labelWidth } = props;
   
   
   // 统一管理表单数据源
@@ -43,7 +45,10 @@ const Form = forwardRef((props: FormProps, formRef) => {
     validate: (callback: any) => {
       let isValid = true;
       formItems.forEach(item => {
+        console.log(formData);
+        
         const validationResult = item.handleValidate(formData);
+        console.log(validationResult);
         
         if (!validationResult && item.validate) isValid = false; // 假设validate方法返回false表示验证失败
       });
@@ -56,7 +61,7 @@ const Form = forwardRef((props: FormProps, formRef) => {
         data[item] = "";
       })
       formItems.forEach(item => {
-        item.handleValidate(formData, true); // 在重置表单的时候将错误也清楚掉
+        item.handleValidate(formData, true); // 在重置表单的时候将错误也清除掉--好像没用
       })
       setFormData(data);
     },
@@ -117,7 +122,8 @@ const Form = forwardRef((props: FormProps, formRef) => {
           maxLabelLength,
           labelAlignX,
           labelWidth,
-          key: child.props.name // 给每个组件一个 key
+          key: child.props.name, // 给每个组件一个 key
+          errorInline
         })
         renderChildren.push(enhancedChildren)
       }
@@ -136,9 +142,9 @@ const Form = forwardRef((props: FormProps, formRef) => {
 
   // 传入数据源以及数据源的修改方法，子孙后代都可读取 value 中的值
   return <FormContext.Provider value={{ formData, handleChange, handleValidate, registerFormItem }}>
-    <>
+    <div className={`${inline ? "form-wrapper" : ""}`}>
     {renderContent()}
-    </>
+    </div>
   </FormContext.Provider>
 })
 

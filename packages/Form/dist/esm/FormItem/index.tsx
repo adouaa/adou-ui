@@ -22,15 +22,16 @@ export interface FormItemProps {
   inline?: boolean;
   validate?: boolean;
   rule?: any;
-  maxLabelLength: number;
-  labelAlignY?: any
+  maxLabelLength?: number;
+  labelAlignY?: any;
+  errorInline?: boolean;
 }
 
 const FormItem = (props: FormItemProps) => {
   // 获取 `FormContext.Provider` 提供提供的 `value` 值
   const context: FormContextProps = useContext(FormContext);
 
-  const { children, width, name, inline = true, labelAlignY = "center", label, labelWidth = 100, validate, rule, maxLabelLength = 0, labelAlignX = "right" } = props
+  const { errorInline = false, children, width, name, inline = true, labelAlignY = "center", label, labelWidth = 100, validate, rule, maxLabelLength = 0, labelAlignX = "right" } = props
 
   const [error, setError] = useState("");
 
@@ -40,7 +41,6 @@ const FormItem = (props: FormItemProps) => {
 
   // 用于失焦的时候来验证表单
   const checkValidate = (value: any) => {
-
     if (validate) {
       context.handleValidate(false); // 一开始进去先置为错误的，表单验证不通过
       if (rule[0].required && !value) {
@@ -80,7 +80,7 @@ const FormItem = (props: FormItemProps) => {
     // 子元素检查
     if (React.isValidElement(children)) {
       return (
-        <>
+        <div className={`form-item-wrapper ${errorInline ? "error-inline" : ""}`}>
           {<div style={{ width: width }} className={`form-item mb-3 ${inline && `d-flex align-items-${labelAlignY}`}`}>
             {/* 常哥指点了一下，要是某个label太长，就不能让再让它按最长label的长度来计算，而是应该固定一个最长值，让它自己挤到下边 */}
             {/* <div className="form-item-label" style={{ minWidth: ((maxLabelLength * eachWordWidth > labelWidth) ? labelWidth : maxLabelLength * eachWordWidth) + "px", textAlign: labelAlignX }}>{label}：</div> */}
@@ -91,8 +91,8 @@ const FormItem = (props: FormItemProps) => {
             <div style={{ flex: 1, marginLeft: "15px" }}>{enhancedChildren}</div>
           </div>}
           {/* 乘 0.8是为了更好地调整位置，大概0.8个字体的宽度 */}
-          {error && <div className={`form-item-error text-danger small ${error ? 'fadeIn' : 'fadeOut'}`} style={{ textAlign: "left", margin: `-15px 0 5px ${((maxLabelLength * eachWordWidth > labelWidth) ? labelWidth + (0.8 * eachWordWidth) : (maxLabelLength + 0.8) * eachWordWidth) + "px"}` }}>{error}</div>}
-        </>
+          {error && <div className={`form-item-error text-danger small ${error ? 'fadeIn' : 'fadeOut'}`} style={{ textAlign: "left", margin: `-15px 0 5px ${((maxLabelLength * eachWordWidth > labelWidth) ? labelWidth + (0.8 * eachWordWidth) : (maxLabelLength + 0.8) * eachWordWidth) + "px"}`, marginLeft: `${errorInline && "10px"}` }}>{error}</div>}
+        </div>
       )
     }
     return null
@@ -150,7 +150,7 @@ const FormItem = (props: FormItemProps) => {
     }
   }
   useEffect(() => {
-    context.registerFormItem({
+    context?.registerFormItem({
       name,
       validate,
       handleValidate: handleValidate // 无法做动态校验哈哈
