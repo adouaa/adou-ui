@@ -161,6 +161,29 @@ ___CSS_LOADER_EXPORT___.push([module.id, `@charset "UTF-8";
   color: #fff;
   background-color: #2783d8;
 }
+.list-node-wrapper .node-item .left-content .tag1 {
+  font-size: 12px;
+  padding: 2px 6px;
+  border-radius: 6px;
+  background-color: #f0f9eb;
+  color: #6dc442;
+  white-space: nowrap;
+}
+.list-node-wrapper .node-item .left-content .tag2 {
+  font-size: 12px;
+  padding: 2px 6px;
+  border-radius: 6px;
+  background-color: #fef0f0;
+  color: #f67878;
+  white-space: nowrap;
+}
+.list-node-wrapper .node-item .left-content .icon {
+  width: 8px;
+  margin: 0 6px;
+}
+.list-node-wrapper .node-item .left-content .item-name {
+  word-break: break-all;
+}
 .list-node-wrapper .node-item .left-content .right-content {
   padding: 0 5px;
   position: absolute;
@@ -174,10 +197,6 @@ ___CSS_LOADER_EXPORT___.push([module.id, `@charset "UTF-8";
 .list-node-wrapper .node-item .left-content .right-content i {
   margin: 0 6px;
 }
-.list-node-wrapper .node-item .icon {
-  width: 8px;
-  margin-right: 8px;
-}
 .list-node-wrapper .node-item .no-children {
   padding-left: 16px;
 }
@@ -190,7 +209,7 @@ ___CSS_LOADER_EXPORT___.push([module.id, `@charset "UTF-8";
   overflow-y: clip;
   transition: max-height 2s ease; /* 添加过渡效果 */
   max-height: 1000px; /* 展开时高度自动适应内容 */
-}`, "",{"version":3,"sources":["webpack://./src/ListNode/index.scss"],"names":[],"mappings":"AAAA,gBAAgB;AAAhB;EACI,cAAA;EACA,eAAA;AAEJ;AAAQ;EAEI,aAAA;EACA,mBAAA;EACA,oEAAA;EACA,0BAAA;EAEA,kBAAA,EAAA,iBAAA;EACA,gBAAA;EACA,eAAA;AAAZ;AACY;EACI,yBAAA;AAChB;AACY;EACI,WAAA;EACA,yBAAA;AAChB;AACY;EACI,cAAA;EACA,kBAAA;EACA,kBAAA;EACA,QAAA;EACA,WAAA;EACA,cAAA;EACA,sBAAA;EACA,YAAA;AAChB;AAAgB;EACI,aAAA;AAEpB;AAEQ;EACI,UAAA;EACA,iBAAA;AAAZ;AAIQ;EACI,kBAAA;AAFZ;AAKI;EACI,kBAAA;EACA,aAAA,EAAA,cAAA;EACA,kBAAA,EAAA,WAAA;AAHR;AAOQ;EACI,gBAAA;EACA,8BAAA,EAAA,WAAA;EACA,kBAAA,EAAA,gBAAA;AALZ","sourcesContent":[".list-node-wrapper {\r\n    color: #606266;\r\n    font-size: 14px;\r\n    .node-item {\r\n        .left-content {\r\n            // 使用 display 会出现 hover背景色和 active高亮色宽度比较短，但是没事。。\r\n            display: flex;\r\n            align-items: center;\r\n            /* display: inline-block; // 这个加上就会把这个盒子的宽度变成跟内容的宽度一样，而不会是根据父容器的宽度 */\r\n            padding: 3px 20px 3px 14px;\r\n            // white-space: wrap;\r\n            position: relative; /* 添加相对定位--好像没用 */\r\n            min-width: 120px;\r\n            cursor: pointer;\r\n            &:hover {\r\n                background-color: #f6f6f6;\r\n            }\r\n            &.active {\r\n                color: #fff;\r\n                background-color: #2783d8;\r\n            }\r\n            .right-content {\r\n                padding: 0 5px;\r\n                position: absolute;\r\n                border-radius: 4px;\r\n                top: 2px;\r\n                right: 10px;\r\n                color: #606266;\r\n                background-color: #fff;\r\n                z-index: 999;\r\n                i {\r\n                    margin: 0 6px;\r\n                }\r\n            }\r\n        }\r\n        .icon {\r\n            width: 8px;\r\n            margin-right: 8px;\r\n        }\r\n        .has-children {\r\n        }\r\n        .no-children {\r\n            padding-left: 16px;\r\n        }\r\n    }\r\n    .children {\r\n        padding-left: 10px;\r\n        max-height: 0; /* 初始状态下高度为0 */\r\n        overflow-y: hidden; /* 隐藏溢出内容 */\r\n        &.not-expand {\r\n            // transition: max-height .2s ease; 这个加上过度效果会出现点击的节点的内部闪现x轴滚动条\r\n        }\r\n        &.expanded {\r\n            overflow-y: clip; // 这句话加上就不会出现很多歌滚动条。。。\r\n            transition: max-height 2s ease; /* 添加过渡效果 */\r\n            max-height: 1000px; /* 展开时高度自动适应内容 */\r\n        }\r\n    }\r\n}\r\n"],"sourceRoot":""}]);
+}`, "",{"version":3,"sources":["webpack://./src/ListNode/index.scss"],"names":[],"mappings":"AAAA,gBAAgB;AAAhB;EACI,cAAA;EACA,eAAA;AAEJ;AAAQ;EAEI,aAAA;EACA,mBAAA;EACA,oEAAA;EACA,0BAAA;EAEA,kBAAA,EAAA,iBAAA;EACA,gBAAA;EACA,eAAA;AAAZ;AACY;EACI,yBAAA;AAChB;AACY;EACI,WAAA;EACA,yBAAA;AAChB;AACY;EACI,eAAA;EACA,gBAAA;EACA,kBAAA;EACA,yBAAA;EACA,cAAA;EACA,mBAAA;AAChB;AACY;EACI,eAAA;EACA,gBAAA;EACA,kBAAA;EACA,yBAAA;EACA,cAAA;EACA,mBAAA;AAChB;AAEY;EACI,UAAA;EACA,aAAA;AAAhB;AAEY;EACI,qBAAA;AAAhB;AAEY;EACI,cAAA;EACA,kBAAA;EACA,kBAAA;EACA,QAAA;EACA,WAAA;EACA,cAAA;EACA,sBAAA;EACA,YAAA;AAAhB;AACgB;EACI,aAAA;AACpB;AAMQ;EACI,kBAAA;AAJZ;AAOI;EACI,kBAAA;EACA,aAAA,EAAA,cAAA;EACA,kBAAA,EAAA,WAAA;AALR;AASQ;EACI,gBAAA;EACA,8BAAA,EAAA,WAAA;EACA,kBAAA,EAAA,gBAAA;AAPZ","sourcesContent":[".list-node-wrapper {\r\n    color: #606266;\r\n    font-size: 14px;\r\n    .node-item {\r\n        .left-content {\r\n            // 使用 display 会出现 hover背景色和 active高亮色宽度比较短，但是没事。。\r\n            display: flex;\r\n            align-items: center;\r\n            /* display: inline-block; // 这个加上就会把这个盒子的宽度变成跟内容的宽度一样，而不会是根据父容器的宽度 */\r\n            padding: 3px 20px 3px 14px;\r\n            // white-space: wrap;\r\n            position: relative; /* 添加相对定位--好像没用 */\r\n            min-width: 120px;\r\n            cursor: pointer;\r\n            &:hover {\r\n                background-color: #f6f6f6;\r\n            }\r\n            &.active {\r\n                color: #fff;\r\n                background-color: #2783d8;\r\n            }\r\n            .tag1 {\r\n                font-size: 12px;\r\n                padding: 2px 6px;\r\n                border-radius: 6px;\r\n                background-color: #f0f9eb;\r\n                color: #6dc442;\r\n                white-space: nowrap;\r\n            }\r\n            .tag2 {\r\n                font-size: 12px;\r\n                padding: 2px 6px;\r\n                border-radius: 6px;\r\n                background-color: #fef0f0;\r\n                color: #f67878;\r\n                white-space: nowrap;\r\n\r\n            }\r\n            .icon {\r\n                width: 8px;\r\n                margin: 0 6px;\r\n            }\r\n            .item-name {\r\n                word-break: break-all;\r\n            }\r\n            .right-content {\r\n                padding: 0 5px;\r\n                position: absolute;\r\n                border-radius: 4px;\r\n                top: 2px;\r\n                right: 10px;\r\n                color: #606266;\r\n                background-color: #fff;\r\n                z-index: 999;\r\n                i {\r\n                    margin: 0 6px;\r\n                }\r\n            }\r\n        }\r\n        \r\n        .has-children {\r\n        }\r\n        .no-children {\r\n            padding-left: 16px;\r\n        }\r\n    }\r\n    .children {\r\n        padding-left: 10px;\r\n        max-height: 0; /* 初始状态下高度为0 */\r\n        overflow-y: hidden; /* 隐藏溢出内容 */\r\n        &.not-expand {\r\n            // transition: max-height .2s ease; 这个加上过度效果会出现点击的节点的内部闪现x轴滚动条\r\n        }\r\n        &.expanded {\r\n            overflow-y: clip; // 这句话加上就不会出现很多歌滚动条。。。\r\n            transition: max-height 2s ease; /* 添加过渡效果 */\r\n            max-height: 1000px; /* 展开时高度自动适应内容 */\r\n        }\r\n    }\r\n}\r\n"],"sourceRoot":""}]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 
@@ -594,6 +613,8 @@ var update = injectStylesIntoStyleTag_default()(ListNode/* default */.A, options
 
 const ListNode_ListNode = _ref => {
   let {
+    showTag = false,
+    children,
     wrap = true,
     node,
     isTree,
@@ -630,6 +651,13 @@ const ListNode_ListNode = _ref => {
   const handleChildrenOptIconClick = (type, node) => {
     onOptIconClick && onOptIconClick(type, node);
   };
+  const renderTag = () => {
+    return children.map(item => {
+      if (item.props.id === node.showTag) {
+        return item;
+      }
+    });
+  };
   return (
     /*#__PURE__*/
     // style={{whiteSpace: `${wrap ? "wrap" : "nowrap"}`}} 
@@ -642,7 +670,7 @@ const ListNode_ListNode = _ref => {
       onClick: () => handleItemClick(node),
       onMouseEnter: () => setIsShowIcons(true),
       onMouseLeave: () => setIsShowIcons(false)
-    }, isTree && node.children && node.children.length > 0 && /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("i", {
+    }, showTag && renderTag(), isTree && node.children && node.children.length > 0 && /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("i", {
       onClick: e => handleIconClick(node, e),
       className: "icon fa fa-caret-".concat(isExpanded ? 'down' : 'right')
     }), /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("span", {
@@ -680,6 +708,8 @@ const ListNode_ListNode = _ref => {
     // 或许只是为了写个占位，代表需要触发父组件的这个回调函数？
     // 如果是传递的属性的话，是需要写的,像父组件那样子写，用的参数是父组件传递过来的，类似父组件那样再写一遍
     external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement(ListNode_ListNode, {
+      showTag: showTag,
+      children: children,
       showAddIcon: showAddIcon,
       showEditIcon: showEditIcon,
       showOptIcons: showOptIcons,
@@ -701,6 +731,8 @@ const ListNode_ListNode = _ref => {
 
 const List = _ref => {
   let {
+    showTag = false,
+    children,
     wrap = true,
     data,
     isTree = true,
@@ -736,6 +768,7 @@ const List = _ref => {
       overflow: 'auto'
     }
   }, data && data.map(item => /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement(src_ListNode_0, {
+    showTag: showTag,
     wrap: wrap,
     showEditIcon: showEditIcon,
     showAddIcon: showAddIcon,
@@ -748,7 +781,7 @@ const List = _ref => {
     node: item,
     isTree: isTree,
     onToggle: onToggle
-  })));
+  }, children)));
 };
 /* harmony default export */ const src = (List);
 })();

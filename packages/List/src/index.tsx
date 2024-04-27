@@ -19,13 +19,15 @@ interface ListProps {
     showEditIcon?: boolean;
     activeId?: string | number;
     wrap?: boolean;
+    children?: any;
+    showTag?: boolean;
     onToggle?: (node: any) => void;
     onItemClick?: (node: any) => void;
     onIconClick?: (node: any) => void;
     onOptIconClick?: (type: string, node: any) => void;
 }
 
-const List = ({ wrap = true, data, isTree = true, showOptIcons = true, showAddIcon = true, showEditIcon = true, activeId, maxWidth = 300, maxHeight = 200, onToggle, onItemClick, onIconClick, onOptIconClick }: ListProps) => {
+const List = ({ showTag = false, children, wrap = true, data, isTree = true, showOptIcons = true, showAddIcon = true, showEditIcon = true, activeId, maxWidth = 300, maxHeight = 200, onToggle, onItemClick, onIconClick, onOptIconClick }: ListProps) => {
 
 
     const [_activeId, set_ActiveId] = useState(activeId);
@@ -51,10 +53,11 @@ const List = ({ wrap = true, data, isTree = true, showOptIcons = true, showAddIc
     return (
         <div style={{ maxWidth: maxWidth + "px", maxHeight: maxHeight + "px", overflow: 'auto' }}>
             {data && data.map((item: any) => (
-                <ListNode wrap={wrap} showEditIcon={showEditIcon} showAddIcon={showAddIcon} activeId={_activeId} showOptIcons={showOptIcons} onOptIconClick={(type, node) => handleOptIconClick(type, node)} onIconClick={handleIconClick} onItemClick={handleItemClick} key={item.id} node={item} isTree={isTree} onToggle={onToggle} />
+                <ListNode showTag={showTag} wrap={wrap} showEditIcon={showEditIcon} showAddIcon={showAddIcon} activeId={_activeId} showOptIcons={showOptIcons} onOptIconClick={(type, node) => handleOptIconClick(type, node)} onIconClick={handleIconClick} onItemClick={handleItemClick} key={item.id} node={item} isTree={isTree} onToggle={onToggle}>
+                    {children}
+                </ListNode>
             ))}
         </div>
     );
 };
-
 export default List;

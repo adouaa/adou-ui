@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import "./index.scss";
 
 interface ListNodeProps {
+  children?: any;
   node: any;
   isTree: boolean;
   showOptIcons?: boolean;
@@ -9,13 +10,16 @@ interface ListNodeProps {
   showEditIcon?: boolean;
   activeId?: string | number;
   wrap?: boolean;
+  isTreeChildren?: boolean;
+  isExpanded?: boolean;
+  showTag?: boolean;
   onToggle?: (node: any) => void;
   onItemClick?: (node: any) => void;
   onIconClick?: (node: any) => void;
   onOptIconClick?: (type: string, node: any) => void;
 }
 
-const ListNode = ({ wrap = true, node, isTree, showOptIcons = true, showAddIcon = true, showEditIcon = true, activeId, onToggle, onIconClick, onItemClick, onOptIconClick }: ListNodeProps) => {
+const ListNode = ({ showTag = false, children, wrap = true, node, isTree, showOptIcons = true, showAddIcon = true, showEditIcon = true, activeId, onToggle, onIconClick, onItemClick, onOptIconClick }: ListNodeProps) => {
 
   const [isExpanded, setIsExpanded] = useState(false);
   const [isShowIcons, setIsShowIcons] = useState(false);
@@ -50,11 +54,22 @@ const ListNode = ({ wrap = true, node, isTree, showOptIcons = true, showAddIcon 
     onOptIconClick && onOptIconClick(type, node);
   }
 
+  const renderTag = () => {
+    return children.map((item: any) => {
+      
+      if (item.props.id === node.showTag) {
+        return item;
+      }
+    })
+  }
+  
+
   return (
     // style={{whiteSpace: `${wrap ? "wrap" : "nowrap"}`}} 
     <div className='list-node-wrapper'>
       <div className='node-item'>
         <div className={`left-content ${Number(activeId) === Number(node.id) && "active"}`} onClick={() => handleItemClick(node)} onMouseEnter={() => setIsShowIcons(true)} onMouseLeave={() => setIsShowIcons(false)}>
+          {showTag && renderTag()}
           {isTree && node.children && node.children.length > 0 && <i onClick={(e) => handleIconClick(node, e)} className={`icon fa fa-caret-${isExpanded ? 'down' : 'right'}`}></i>}
           <span onClick={() => handleItemClick(node)} className={`item-name ${node.children && node.children.length > 0 ? 'has-children' : 'no-children'}`}>{node.name}</span>
           <div className="right-content" style={{ display: (showOptIcons && isShowIcons) ? 'block' : 'none' }}>
@@ -72,7 +87,7 @@ const ListNode = ({ wrap = true, node, isTree, showOptIcons = true, showAddIcon 
             // 具体传递的回调的函数需要的参数有哪些，就得参考父组件原来是怎么写的，也可以直接不写好像。。。
             // 或许只是为了写个占位，代表需要触发父组件的这个回调函数？
             // 如果是传递的属性的话，是需要写的,像父组件那样子写，用的参数是父组件传递过来的，类似父组件那样再写一遍
-            <ListNode showAddIcon={showAddIcon} showEditIcon={showEditIcon} showOptIcons={showOptIcons} activeId={activeId} onOptIconClick={(type, child) => handleChildrenOptIconClick(type, child)} onIconClick={handleChildrenIconClick} onItemClick={handleItemClick} key={child.id} node={child} isTree={isTree} onToggle={onToggle} />
+            <ListNode showTag={showTag} children={children} showAddIcon={showAddIcon} showEditIcon={showEditIcon} showOptIcons={showOptIcons} activeId={activeId} onOptIconClick={(type, child) => handleChildrenOptIconClick(type, child)} onIconClick={handleChildrenIconClick} onItemClick={handleItemClick} key={child.id} node={child} isTree={isTree} onToggle={onToggle} />
           ))}
         </div>
       )}
