@@ -3141,6 +3141,8 @@ const TagInput_TagInput = props => {
     if (defaultValue.length) {
       setInputList(defaultValue);
       context.formData[context.name] = defaultValue;
+    } else {
+      setInputList([]);
     }
   }, [defaultValue]);
   (0,external_root_React_commonjs2_react_commonjs_react_amd_react_.useEffect)(() => {

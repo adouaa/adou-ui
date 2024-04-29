@@ -76,6 +76,8 @@ const TagInput = (props: TagInputProps) => {
             if (context.formData) {
                 context.formData[context.name as string] = defaultValue;
             }
+        } else {
+            setInputList([]);
         }
     }, [defaultValue])
 

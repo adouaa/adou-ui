@@ -2148,7 +2148,6 @@ module.exports = {
           setValue(context.formData[context.name] || "");
         }, [context.formData[context.name]]);
         (0, external_root_React_commonjs2_react_commonjs_react_amd_react_.useEffect)(() => {
-          console.log("defaultValue = ", defaultValue);
           if (defaultValue) {
             // 为了一上来就提交表单，这边有默认值也要给 父组件设置
             setValue(defaultValue);
@@ -2651,7 +2650,6 @@ module.exports = {
             // 用类名方便
             let classNames = ["multiple-input", "option-icon", "option-item", "option-item false", "option-item multiple-select-active", "select-list", "selected-option", "multiple-select-wrapper form-control ", "multiple-select-wrapper form-control focus"];
             if (!classNames.includes(e.target.className)) {
-              console.log("点击到外边了");
               setIsHighlighted(false);
               setShowOptions(false);
             } else {}
@@ -2800,7 +2798,6 @@ module.exports = {
           [className]: className
         });
         const handleChange = item => {
-          console.log(96);
           setOptionsList(preArr => {
             return preArr.map(option => {
               return {
@@ -2914,7 +2911,6 @@ module.exports = {
           context.checkValidate && context.checkValidate(checkedList.length);
         };
         (0, external_root_React_commonjs2_react_commonjs_react_amd_react_.useEffect)(() => {
-          console.log(defaultValue);
           if (defaultValue.length) {
             if (context.formData) {
               context.formData[context.name] = defaultValue;
@@ -3044,7 +3040,6 @@ module.exports = {
           }
         }, [defaultValue]);
         (0, external_root_React_commonjs2_react_commonjs_react_amd_react_.useEffect)(() => {
-          console.log("变化了", context.formData[context.name]);
           setInputList(context.formData[context.name] || "");
         }, [context.formData[context.name]]);
         return /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement(external_root_React_commonjs2_react_commonjs_react_amd_react_default().Fragment, null, /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("div", {
@@ -3258,6 +3253,7 @@ module.exports = {
       const FormContext = /*#__PURE__*/(0, external_root_React_commonjs2_react_commonjs_react_amd_react_.createContext)({});
       const Form = /*#__PURE__*/(0, external_root_React_commonjs2_react_commonjs_react_amd_react_.forwardRef)((props, formRef) => {
         const {
+          inline = false,
           errorInline = false,
           labelAlignX,
           name,
@@ -3380,7 +3376,7 @@ module.exports = {
             registerFormItem
           }
         }, /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("div", {
-          className: "form-wrapper"
+          className: "".concat(inline ? "form-wrapper" : "")
         }, renderContent()));
       });
       Form.displayName = 'form';
@@ -5125,6 +5121,8 @@ const TagInput = props => {
       if (context.formData) {
         context.formData[context.name] = defaultValue;
       }
+    } else {
+      setInputList([]);
     }
   }, [defaultValue]);
   (0,external_root_React_commonjs2_react_commonjs_react_amd_react_.useEffect)(() => {
