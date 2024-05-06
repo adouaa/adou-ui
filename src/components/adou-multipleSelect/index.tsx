@@ -1,9 +1,10 @@
-/* eslint-disable react-hooks/rules-of-hooks */
 import { withTranslation } from "react-i18next";
 import classNames from "classnames";
-import React from "react";
+import React, { useContext, useImperativeHandle } from "react";
+import "./index.css";
+import { FormContext, FormContextProps } from "../adou-form";
 
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState, forwardRef } from "react";
 
 export interface SelectProps {
     defaultValue?: any;
@@ -11,22 +12,24 @@ export interface SelectProps {
     placeholder?: string;
     size?: "sm" | "lg";
     className?: string;
-    disabled?: boolean;
+    disabled?: any;
+    showSelected?: boolean;
     onChangeOK?: (e?: any, ...args: any) => void
 }
 
 interface MultipleSelectProps extends SelectProps {
     onMultipleSelectChangeOK?: (selectedOptions: any[]) => void;
-
+    setFormItemValue?: (value: any) => void;
 }
 
-const MultipleSelect: React.FC<MultipleSelectProps> = (props: MultipleSelectProps) => {
+const MultipleSelect = forwardRef((props: MultipleSelectProps, testRef) => {
 
 
 
-    const { defaultValue, options, size, className, disabled, onChangeOK } = props;
+    const { defaultValue, showSelected = true, options, size, className, disabled = false, setFormItemValue, onChangeOK, onMultipleSelectChangeOK } = props;
 
     // 获取 `FormContext.Provider` 提供提供的 `value` 值
+    const context: FormContextProps = useContext(FormContext);
 
     // const [value, setValue] = useState(defaultValue || ""); // 给个 || ""就会让 input为受苦状态
     // 注意！！！如果发现状态没有按预知的方向变化的话，就考虑用 xxxRef来替代。。。
@@ -38,6 +41,7 @@ const MultipleSelect: React.FC<MultipleSelectProps> = (props: MultipleSelectProp
     // 是否展示选中的选项
     const [selectedOptions, setSelectedOptions] = useState<any[]>([]); // 选中的选项展示在 框中
     const [showSelectedOptions, setShowSelectedOptions] = useState(false);
+
 
     let selectedOptionRefs: any = []
     let optionItemRefs: any = []
@@ -71,21 +75,29 @@ const MultipleSelect: React.FC<MultipleSelectProps> = (props: MultipleSelectProp
         // 这里不能直接用 selectedOptions这个状态，会有延迟
         // 要用原来所有的状态，去过滤掉没选上的，再传递给父组件
         const selectedList = (hasSelected ? nowSelectedList : [...selectedOptions, option])
-        onChangeOK && onChangeOK(selectedList);
+        onMultipleSelectChangeOK && onMultipleSelectChangeOK(selectedList);
+        context.handleChange && context.handleChange(context.name, selectedList)
+        setFormItemValue && setFormItemValue(selectedList)
+        const length = hasSelected ? nowSelectedList.length : 1;
+
+        setTimeout(() => {
+            context.checkValidate && context.checkValidate(length);
+        }, 100); // 选择或者取消选择的时候也要进行校验
     }
 
     const handleInputClick = (e: any) => {
+        setIsHighlighted(true);
         // 这个时候也要重新过滤数据
     }
 
     const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         let value = e.target.value;
         searchValueRef.current = value;
+        onChangeOK && onChangeOK(e.target.value);
         // 输入改变的时候重新过滤
     }
 
     // 选项的ref数组--巧妙
-    // eslint-disable-next-line react-hooks/rules-of-hooks
 
 
     const handleDeleteItem = (item: any) => {
@@ -98,61 +110,74 @@ const MultipleSelect: React.FC<MultipleSelectProps> = (props: MultipleSelectProp
             return v;
         }))
         onChangeOK && onChangeOK(selectedList);
-    }
-
-    const handleFocus = () => {
-        setIsHighlighted(true);
+        context.checkValidate && context.checkValidate(selectedList.length);
+        context.handleChange && context.handleChange(context.name, selectedList);
     }
 
     const handleBlur = () => {
+        context.checkValidate && context.checkValidate(selectedOptions.length);
     }
 
+
     // 一些用来判断选项是否展示的的Ref
-    const multipleInputRef = useRef<any>();
+    const multipleInputRef = useRef<any>(null);
     const selectListRef = useRef<any>();
     // 巧妙
-    // eslint-disable-next-line react-hooks/rules-of-hooks
 
     const multipleSelectWrapperFormControlRef = useRef<any>();
+
+    // 点击外边wrapper，展示选项
+    const handleWrapperClick = () => {
+        setShowOptions(true);
+    }
 
     useEffect(() => {
         window.addEventListener("click", (e: any) => {
             // 用类名方便
-            // let classNames = ["multiple-input", "select-list", "selected-option", "multiple-select-wrapper form-control ", "multiple-select-wrapper form-control focus"];
-            // let classNames = ["multiple-input", "select-list", "selected-option", "multiple-select-wrapper form-control ", "multiple-select-wrapper form-control focus"];
-            if (e.target === multipleInputRef.current || e.target === selectListRef.current || e.target === multipleSelectWrapperFormControlRef.current) {
-                return setShowOptions(true);
-            }
+            let classNames = ["multiple-input", "option-icon", "option-item", "option-item false", "option-item multiple-select-active", "select-list", "selected-option", "multiple-select-wrapper form-control ", "multiple-select-wrapper form-control focus"];
 
-            /* if (classNames.includes(e.target.className)) {
-                return setShowOptions(true);
-            } */
+            if (!classNames.includes(e.target.className)) {
+                console.log("点击到外边了");
 
-            // --巧妙
-            // 点的是被选中的选项
-            if (selectedOptionRefs.some(ref => ref.current === e.target)) {
-                return setShowOptions(true);
-
-            }
-            // --巧妙
-            // 点的不是 input框，也不是 选项，则将 active类名去掉，并且隐藏 选项
-            if (!optionItemRefs.some(ref => ref.current === e.target)) {
                 setIsHighlighted(false);
-                return setShowOptions(false);
+                setShowOptions(false);
+            }
 
-            } else {
-                setIsHighlighted(true);
+            else {
+
             }
         })
     }, [])
+
+    const newFilterOptions = (arr: any, item: any) => {
+        arr.forEach((i: any) => {
+            if (i.user_id === item.user_id) {
+                i.selected = true;
+            }
+        })
+        setFilterdOptions(arr);
+    }
+
+    const clear = () => {
+        multipleInputRef.current.value = "";
+    }
+
+    useImperativeHandle(testRef, () => ({
+        clear
+    }));
 
     // 让多选框默认展示父组件传递过来的值
     useEffect(() => {
         let arr: any[] = [];
         let tempFilterdOptions: any[] = []
+        
         if (defaultValue?.length) {
+            if (context.formData) {
+                context.formData[context.name as string] = defaultValue;
+            }
+            setFormItemValue && setFormItemValue(defaultValue);
             defaultValue?.map((item: any) => {
-                tempOptions.some(option => {
+                tempOptions.some((option: any) => {
 
                     option.value === item.value && arr.push(item)
                     return false;
@@ -178,18 +203,39 @@ const MultipleSelect: React.FC<MultipleSelectProps> = (props: MultipleSelectProp
                 return item;
             }))
         }
-    }, [defaultValue, tempOptions, options])
+    }, [defaultValue])
 
     useEffect(() => {
-        setTempOptions(options);
-        setFilterdOptions(options);
+        // 把option后面打钩的选项置空（option后面都不打钩，即 selected置为false）
+        if (!context?.formData?.[context?.name as string]) {
+            setFilterdOptions(preArr => {
+                return preArr?.map(item => {
+                    item.selected = false;
+                    return item;
+                })
+            })
+        }
+        // 把展示在input的选项置空，即没有选中的选项，要判断下是否在 Form下
+        if (context.formData) {
+            setSelectedOptions(context?.formData?.[context?.name as string] || []);
+        }
+    }, [context?.formData?.[context?.name as string]])
+
+    useEffect(() => {
+        if (selectedOptions.length) {
+            selectedOptions.forEach((item: any) => {
+                newFilterOptions(options, item);
+            })
+        } else {
+            setFilterdOptions(options);
+            setTempOptions(options);
+        }
     }, [options])
 
-
     return <>
-        <div ref={multipleSelectWrapperFormControlRef} tabIndex={0} onFocus={handleFocus} onBlur={handleBlur} onClick={() => setShowOptions(true)} className={`multiple-select-wrapper form-control ${isHighlighted ? "focus" : ""}`}>
+        <div ref={multipleSelectWrapperFormControlRef} tabIndex={0} onBlur={handleBlur} onClick={handleWrapperClick} className={`multiple-select-wrapper form-control ${isHighlighted ? "focus" : ""}`}>
             <div ref={selectListRef} className="select-list">
-                {showSelectedOptions && selectedOptions?.map((option, index) => {
+                {showSelected && showSelectedOptions && selectedOptions?.map((option, index) => {
                     return <div ref={selectedOptionRefs[index]} className="selected-option" key={option.value} style={{
                     }}>
                         {option.label}
@@ -200,18 +246,18 @@ const MultipleSelect: React.FC<MultipleSelectProps> = (props: MultipleSelectProp
             <div className="input-control">
                 <input ref={multipleInputRef} placeholder="输入关键词" onChange={(e) => handleInputChange(e)} onClick={handleInputClick} disabled={disabled} type="text" className="multiple-input" aria-label="Username" aria-describedby="basic-addon1" />
             </div>
-
         </div>
-        {showOptions && <div className="option-wrapper multiple-select-option-wrapper">
-            {filterdOptions?.map((option: any, index: number) => {
-                // --巧妙
-                return <div ref={optionItemRefs[index]} key={index} onClick={() => handleSelect(option)} className={`option-item ${option.selected && "multiple-select-active"}`}>
-                    {option.label}
-                </div>
-            })}
-        </div>}
+        {!disabled && showOptions &&
+            <div className="option-wrapper multiple-select-option-wrapper">
+                {filterdOptions?.map((option: any, index: number) => {
+                    // --巧妙
+                    return <div ref={optionItemRefs[index]} key={index} onClick={() => handleSelect(option)} className={`option-item ${option.selected && "multiple-select-active"}`}>
+                        {option.label}
+                    </div>
+                })}
+            </div>}
     </>
 
-}
+})
 
-export default withTranslation()(MultipleSelect);
+export default MultipleSelect;

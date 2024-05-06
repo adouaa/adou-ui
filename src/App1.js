@@ -6,6 +6,12 @@ import Button from "./components/adou-button";
 import Form, { FormItem } from "./components/adou-form";
 import MultipleSelect from "./components/adou-multipleSelect";
 import LiveSearchSelect from "./components/adou-liveSearchSelect";
+import Select from "./components/adou-select";
+import TextArea from "./components/adou-textarea";
+import Radio from "./components/adou-radio";
+import Checkbox from "./components/adou-checkbox";
+import TagInput from "./components/adou-tag-input";
+import AdouInput from "./components/adou-Input";
 
 // 注意：组件里面用的value状态应该是自己定义的一个，而不是用父组件传递过来的defaultValue，这个只能当做一开始的默认值来使用！
 
@@ -54,6 +60,44 @@ function App() {
       label: "杭州",
       name: "test",
       id: "id5",
+      checked: false,
+    },
+  ]);
+  const [radioData1] = useState([
+    {
+      value: "beijing",
+      label: "北京",
+      name: "test1",
+      id: "id11",
+      checked: false,
+    },
+    {
+      value: "shanghai",
+      label: "上海",
+      name: "test1",
+      id: "id22",
+      checked: false,
+    },
+    {
+      value: "guangzhou",
+      label: "广州",
+      name: "test1",
+      id: "id33",
+      checked: false,
+      disabled: true,
+    },
+    {
+      value: "chengdu",
+      label: "成都",
+      name: "test1",
+      id: "id44",
+      checked: false,
+    },
+    {
+      value: "hangzhou",
+      label: "杭州",
+      name: "test1",
+      id: "id55",
       checked: false,
     },
   ]);
@@ -133,52 +177,177 @@ function App() {
     formRef.current.resetForm();
   };
 
-    // 功能3：重置表单校验
+  // 功能3：重置表单校验
   const reValidate = () => {
     formRef.current.reValidate();
-  }
+  };
+  const resetForm = () => {
+    formRef.current.resetForm();
+  };
 
   const testSubmit = () => {
-    formRef.current.submitForm((formData) => {
-      console.log(formData);
+    formRef.current.validate((valid) => {
+      if (valid) {
+        formRef.current.submitForm((formData) => {
+          console.log(formData);
+        });
+      }
     });
+  };
+
+  const testRef = useRef(null);
+  const handleTestClear = () => {
+    testRef.current && testRef.current.clear && testRef.current.clear();
   }
 
+  const [aaa, setaaa] = useState({});
+  const handle1 = (value) => {
+    console.log(value);
+  }
   return (
     <div className="App p-3">
-      <MultipleSelect options={options}></MultipleSelect>
-      <Button size="small" type="primary" onClickOK={reValidate}><span>重置校验</span></Button>
-      <Button size="small" onClickOK={testSubmit}><span>提交数据</span></Button>
-      <Form ref={formRef}>
+      <AdouInput defaultValue="你好" onChange={(value) => handle1(value)}>
+        123
+      </AdouInput>
+      <Select defaultValue={{value: "guangzhou"}} options={options}></Select>
+      <button onClick={handleTestClear}>清除</button>
+      <MultipleSelect ref={testRef} showSelected={true} defaultValue={defaultMultipleSelectData} options={options}></MultipleSelect>
+      <Radio
+        inline={false}
+        options={radioData1}
+        onChangeOK={(item) => {
+          console.log("父组件item = ", item);
+        }}
+      ></Radio>
+      <TagInput
+        onChange={(data) => {
+          console.log(data);
+        }}
+      ></TagInput>
+      <Button size="small" type="primary" onClickOK={reValidate}>
+        <span>重置校验</span>
+      </Button>
+      <Button size="small" type="primary" onClickOK={resetForm}>
+        <span>重置表单</span>
+      </Button>
+      <Button size="small" onClickOK={testSubmit}>
+        <span>提交数据</span>
+      </Button>
+      <Form inline errorInline ref={formRef}>
         <FormItem
           rule={[
             {
               required: true,
-              message: "请输入邮箱",
-            },
-            {
-              type: "email",
-              message: "请输入正确的邮箱",
-            },
+              message: "请输入邮箱112",
+            }
           ]}
           validate
           label="邮箱"
           name="email"
         >
-          <FormItem.Input
-          ></FormItem.Input>
+          <Input></Input>
+        </FormItem>
+        <FormItem
+          rule={[
+            {
+              required: true,
+              message: "请选择城市",
+            },
+          ]}
+          validate
+          label="城市111"
+          name="city"
+        >
+          <FormItem.Select
+          style={{width: "200px"}}
+          defaultValue={{value: "guangzhou"}}
+            onChangeOK={(item) => {
+              // let a = item; 不会出bug
+              setaaa({}); // 出bbug
+            }}
+            options={options}
+            placeholder="请选择"
+          ></FormItem.Select>
         </FormItem>
         <FormItem rule={[
             {
               required: true,
-              message: "请输入用户名",
-            }
+              message: "请输入富文本",
+            },
           ]}
-          validate label="用户名" name="source_user">
-          <FormItem.Input type="datetime-local" defaultValue={`2023-10-14 18:00:00`}></FormItem.Input>
+          validate label="富文本" name="fwb">
+          <TextArea
+            defaultValue={defaultTextAreaValye}
+            onChangeOK={(value) => {
+              console.log(value);
+            }}
+          ></TextArea>
+        </FormItem>
+        <FormItem rule={[
+            {
+              required: true,
+              message: "请选择城市",
+            },
+          ]}
+          validate label="多选" name="multiple">
+          <MultipleSelect
+            options={options}
+            defaultValue={defaultMultipleSelectData}
+          ></MultipleSelect>
+        </FormItem>
+        <FormItem rule={[
+            {
+              required: true,
+              message: "请选择城市",
+            },
+          ]}
+          validate label="单选" name="radio">
+          <Radio
+           inline={false}
+            options={radioData}
+            defaultValue={{ value: "chengdu" }}
+            onChangeOK={(item) => {
+              console.log("父组件item = ", item);
+            }}
+          ></Radio>
+        </FormItem>
+        <FormItem        
+          label="复选框"
+          name="check"
+          rule={[
+            {
+              required: true,
+              message: "请选择食物",
+            },
+          ]}
+          validate
+        >
+          <Checkbox
+          inline={false}
+
+            options={checkboxOptions}
+            defaultValue={defaultCheckboxData}
+            onChangeOK={(data) => {
+              console.log(data);
+            }}
+          ></Checkbox>
+        </FormItem>
+        <FormItem rule={[
+            {
+              required: true,
+              message: "请输入标签",
+            },
+          ]}
+          validate label="标签" name="tag">
+          <TagInput
+          defaultValue={["吃饭", "睡觉"]}
+            onChange={(data) => {
+              console.log(data);
+            }}
+          ></TagInput>
         </FormItem>
       </Form>
-     {/*  <LiveSearchSelect
+      {/*  <LiveSearchSelect
         options={options}
         defaultValue={defaultLiveSearchSelectData}
       ></LiveSearchSelect>
@@ -193,35 +362,61 @@ function App() {
         <span>打开</span>
       </Button>
 
+      <Input
+        type="date"
+        defaultValue="2024-04-25"
+        prefixContent={"email:"}
+        onChange={(e) => {
+          console.log(e);
+        }}
+      ></Input>
+      <Select
+        defaultValue={{ value: "guangzhou" }}
+        onChangeOK={(item) => {
+          console.log(item);
+        }}
+        options={options}
+        placeholder="请选择"
+      ></Select>
+
+      <TextArea
+        defaultValue={defaultTextAreaValye}
+        onChangeOK={(value) => {
+          console.log(value);
+        }}
+      ></TextArea>
+
       <div className="mt-3">
         <Modal
           show={modalVisible}
           width="800px"
           overflowY
+          maxHeight={200}
           title="标题111~"
           content={
             <>
               <Form ref={formRef} name="adouadoua" labelAlignX="right">
-                {<FormItem
-                  rule={[
-                    {
-                      required: true,
-                      message: "请输入邮箱",
-                    },
-                    {
-                      type: "email",
-                      message: "请输入正确的邮箱",
-                    },
-                  ]}
-                  label="邮箱吗"
-                  name="email"
-                >
-                  <FormItem.Input
-                  type="date"
-                    defaultValue="2024-04-25"
-                    prefixContent={"email:"}
-                  ></FormItem.Input>
-                </FormItem>}
+                {
+                  <FormItem
+                    rule={[
+                      {
+                        required: true,
+                        message: "请输入邮箱11",
+                      },
+                      {
+                        type: "email",
+                        message: "请输入正确的邮箱",
+                      },
+                    ]}
+                    label="邮箱吗"
+                    name="email"
+                  >
+                    <Input
+                      defaultValue="2024-04-25"
+                      prefixContent={"email:"}
+                    ></Input>
+                  </FormItem>
+                }
                 <FormItem
                   rule={[
                     {
@@ -233,13 +428,12 @@ function App() {
                   name="city"
                   label="城市"
                 >
-                  <FormItem.Select
-                  defaultValue={{}}
-                    onChangeOK={(item) => {
-                    }}
+                  <Select
+                    defaultValue={{}}
+                    onChangeOK={(item) => {}}
                     options={options}
                     placeholder="请选择"
-                  ></FormItem.Select>
+                  ></Select>
                 </FormItem>
                 <FormItem
                   rule={[
@@ -252,10 +446,10 @@ function App() {
                   label="富文"
                   name="editor"
                 >
-                  <FormItem.TextArea
+                  <TextArea
                     defaultValue={defaultTextAreaValye}
                     onChangeOK={(value) => {}}
-                  ></FormItem.TextArea>
+                  ></TextArea>
                 </FormItem>
                 <FormItem
                   label="实时"
@@ -268,12 +462,12 @@ function App() {
                     },
                   ]}
                 >
-                  <FormItem.LiveSearchSelect
+                  <LiveSearchSelect
                     onSelectOK={(item) => {
                       // setLiveSearchSelectData(item);
                     }}
                     options={options}
-                  ></FormItem.LiveSearchSelect>
+                  ></LiveSearchSelect>
                 </FormItem>
                 <FormItem
                   rule={[
@@ -286,11 +480,10 @@ function App() {
                   label="多选"
                   name="multiple"
                 >
-                  <FormItem.MultipleSelect
+                {/*   <MultipleSelect
                     options={options}
                     defaultValue={defaultMultipleSelectData}
-                    
-                  ></FormItem.MultipleSelect>
+                  ></MultipleSelect> */}
                 </FormItem>
                 <FormItem
                   rule={[
@@ -304,13 +497,13 @@ function App() {
                   label="单选"
                   name="radio"
                 >
-                  <FormItem.Radio
+                  <Radio
                     inline={false}
                     options={radioData}
                     onChangeOK={(item) => {
                       console.log("父组件item = ", item);
                     }}
-                  ></FormItem.Radio>
+                  ></Radio>
                 </FormItem>
                 <FormItem
                   rule={[
@@ -323,11 +516,10 @@ function App() {
                   label="多选1"
                   name="multiple1"
                 >
-                  <FormItem.MultipleSelect
+                 {/*  <FormItem.MultipleSelect
                     options={options}
                     defaultValue={defaultMultipleSelectData}
-                    
-                  ></FormItem.MultipleSelect>
+                  ></FormItem.MultipleSelect> */}
                 </FormItem>
                 <FormItem
                   rule={[
@@ -341,16 +533,18 @@ function App() {
                   label="复选"
                   name="checkbox"
                 >
-                  <FormItem.Checkbox
+                  <Checkbox
                     options={checkboxOptions}
                     defaultValue={defaultCheckboxData}
                     onChangeOK={(data) => {
-                      setCheckboxData(data);
+                      console.log(data);
                     }}
-                  ></FormItem.Checkbox>
+                  ></Checkbox>
                 </FormItem>
               </Form>
-              <Button onClickOK={reset}><span>重置</span></Button>
+              <Button onClickOK={reset}>
+                <span>重置</span>
+              </Button>
             </>
           }
           onClose={closeModal}

@@ -1,4 +1,4 @@
-import AdouInput from "components/adou-Input";
+import AdouInput from "../../adou-Input";
 import React, { useEffect, useRef, useState } from "react";
 import { withTranslation } from "react-i18next";
 
@@ -22,7 +22,7 @@ interface EditableTableCellProps {
 
 const EditableTableCell = (props: EditableTableCellProps) => {
 
-    const { 
+    const {
         render,
         rowData,
         prop,
@@ -32,13 +32,14 @@ const EditableTableCell = (props: EditableTableCellProps) => {
         value,
         eidtable,
         textPosition = "center",
+        width,
         onChange,
         onEditCancel,
-        onEditOK 
+        onEditOK
     } = props;
 
     const [isEditing, setIsEditing] = useState(false);
-    const [editedValue, setEditedValue] = useState(value || "");
+    const [editedValue, setEditedValue] = useState(value || ""); // 最终展示的值
     const wrapperRef = useRef<any>(null);
     const handleDoubleClick = () => {
         eidtable && setIsEditing(true);
@@ -64,29 +65,30 @@ const EditableTableCell = (props: EditableTableCellProps) => {
     }, [value])
 
 
-    return <>
-        {render ? render(editedValue, rowData, rowIndex, prop, colIndex) : <div
-            className="edit-able-table-cell-wrapper"
-            style={{ display: 'inline-block', overflow: 'hidden' }}
-            onDoubleClick={handleDoubleClick}
-            ref={wrapperRef}
-        >
-            {isEditing ? (
-                <div style={{
-                    width: wrapperRef.current ? `${wrapperRef.current.clientWidth}px` : '100%',
-                    boxSizing: 'border-box',
-                }}>
-                    <AdouInput
-                        defaultValue={editedValue}
-                        onChangeOK={(e) => handleChange(e)}
-                        onBlurOK={(e) => handleBlur(e)}
-                    />
-                </div>
-            ) : (
-                <div style={{ minWidth: "100px" }}>{editedValue}</div>
-            )}
-        </div>}
-    </>
+    return <div className="edit-table-cell" style={{width: width + "px"}}>
+        {render ? render(editedValue, rowData, rowIndex, prop, colIndex) :
+            <div
+                className="edit-able-table-cell-wrapper"
+                style={{ display: 'inline-block', overflow: 'hidden', width: width }}
+                onDoubleClick={handleDoubleClick}
+                ref={wrapperRef}
+            >
+                {isEditing ? (
+                    <div style={{
+                        width: wrapperRef.current ? `${wrapperRef.current.clientWidth}px` : '100%',
+                        boxSizing: 'border-box',
+                    }}>
+                        <AdouInput
+                            defaultValue={editedValue}
+                            onChange={(e) => handleChange(e)}
+                            onBlur={(e) => handleBlur(e)}
+                        />
+                    </div>
+                ) : (
+                    <div style={{ minWidth: "100px" }}>{editedValue}</div>
+                )}
+            </div>}
+    </div>
 }
 
 export default withTranslation()(EditableTableCell);

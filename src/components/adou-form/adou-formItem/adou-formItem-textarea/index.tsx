@@ -3,7 +3,7 @@ import { withTranslation } from "react-i18next"
 import { FormContext, FormContextProps } from "../../../adou-form";
 import React from "react";
 
-import "./index.css";
+
 
 
 interface TextAreaProps {

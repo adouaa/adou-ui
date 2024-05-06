@@ -75,7 +75,7 @@ const DynamicFields = (props: DynamicFieldsProps) => {
         const type = field.type;
         const value = field.value;
         if (type === "Input") {
-            return <Input defaultValue={value} onChangeOK={(value) => handleFieldChange(type, value, index)}></Input>
+            return <Input defaultValue={value} onChange={(value) => handleFieldChange(type, value, index)}></Input>
         } else if (type === "Select") {
             return <Select defaultValue={field} onChangeOK={(value) => handleFieldChange(type, value, index)} options={Array.isArray(field.data) ? field.data : (dataArr?.[field.data] || [])}></Select>
         } else if (type === "MultipleSelect") {
@@ -159,17 +159,17 @@ const DynamicFields = (props: DynamicFieldsProps) => {
                 <div className="label-inpu" style={{ flex: 1 }}><Input placeholder="请输入标签" onChangeOK={(value) => handleLabelChange(value)}></Input></div> */}
                 <Form ref={formRef}>
                     <FormItem width="260px" name="type" label="类型">
-                        <FormItem.Select onChangeOK={handleTyeSelectOK} options={options}></FormItem.Select>
+                        <Select onChangeOK={handleTyeSelectOK} options={options}></Select>
                     </FormItem>
                     <FormItem validate rule={[
                         { required: true, message: '标签不能为空' }
                     ]} name="label" label="标签">
-                        <FormItem.Input placeholder="请输入标签"></FormItem.Input>
+                        <Input placeholder="请输入标签"></Input>
                     </FormItem>
                     <FormItem width="260px" validate rule={[
                         { required: true, message: "数据集不能为空" }
                     ]} name="data" label="数据">
-                        <FormItem.Select options={dataList}></FormItem.Select>
+                        <Select options={dataList}></Select>
                     </FormItem>
                 </Form>
             </div>
