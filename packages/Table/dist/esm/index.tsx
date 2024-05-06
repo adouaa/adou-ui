@@ -24,7 +24,8 @@ interface TableProps {
     headTextColor?: string,
     headBGC?: any,
     divider?: boolean,
-    maxHeight?: any,
+    maxHeight?: string,
+    minHeight?: string
     onEditOK?: (data: any) => void,
 }
 
@@ -49,7 +50,8 @@ const Table = (props: TableProps) => {
         headTextColor = "white",
         headBGC = "#2782d7",
         divider,
-        maxHeight
+        maxHeight,
+        minHeight = "300"
     } = props;
 
     const cls = classNames({
@@ -63,14 +65,14 @@ const Table = (props: TableProps) => {
         [`table-${headColor}`]: true,
     })
 
-    const [tabelData, setTableData] = useState(data || []);
+    const [tabelData, setTableData] = useState([]);
 
     // 控制渲染的子组件
     const renderChildren = () => {
 
         // 兼容，不知道为什么children只有一个的话会被当做是 对象来处理。。
         let array: any = [];
-        if (!props.children.length) {
+        if (!props.children?.length) {
             array.push(props.children);
         } else {
             array = props.children;
@@ -80,9 +82,11 @@ const Table = (props: TableProps) => {
         const textPositionObject: any = {};
         const verticalAlignObject: any = {};
         array.forEach((item: any) => {
-            widthObject[item.props.prop] = item.props.width;
-            textPositionObject[item.props.prop] = item.props.textPosition;
-            verticalAlignObject[item.props.prop] = item.props.verticalAlign;
+            if (item?.props) {
+                widthObject[item.props.prop] = item.props.width;
+                textPositionObject[item.props.prop] = item.props.textPosition || "center";
+                verticalAlignObject[item.props.prop] = item.props.verticalAlign || "middle";
+            }
         })
 
 
@@ -91,13 +95,15 @@ const Table = (props: TableProps) => {
                 <tr>
                     {/* 头部 */}
                     {array && array.map((child: any, rowIndex: number) => {
-                        return <th className={`${"text-" + textPositionObject[child.props.prop]}`} scope="col" key={child.props.label}>{child.props.label}</th>
+                        if (child?.props) {
+                            return <th style={{width: widthObject[(child as React.ReactElement).props.prop] + "px"}} className={`${"text-" + textPositionObject[child.props.prop]}`} scope="col" key={child.props.label}>{child.props.label}</th>
+                        }
                     })}
                 </tr>
 
             </thead>
             <tbody className={`${divider && "table-group-divider"}`}>
-                {tabelData.map((data: any, rowIndex: number) => {
+                {tabelData.length > 0 && tabelData.map((data: any, rowIndex: number) => {
                     return <tr key={rowIndex}>
                         {React.Children.map(array, (child, colIndex) => {
                             let prop = (child as React.ReactElement).props.prop;
@@ -110,7 +116,7 @@ const Table = (props: TableProps) => {
                                     rowIndex: rowIndex,
                                     colIndex: colIndex
                                 } as React.Attributes);
-                                return <td className={`${"text-" + textPositionObject[prop]}`} style={{ verticalAlign: verticalAlignObject[prop], width: widthObject[(child as React.ReactElement).props.prop], overflowWrap: "break-word", wordWrap: "break-word", wordBreak: "break-word" }} key={colIndex}>{enhancedChild}</td>;
+                                return <td className={`${"text-" + textPositionObject[prop]}`} style={{ verticalAlign: verticalAlignObject[prop], width: widthObject[(child as React.ReactElement).props.prop] + "px", overflowWrap: "break-word", wordWrap: "break-word", wordBreak: "break-word" }} key={colIndex}>{enhancedChild}</td>;
                             }
                         })}
                     </tr>
@@ -138,7 +144,7 @@ const Table = (props: TableProps) => {
     }, [data])
 
     return <>
-        <div style={{ maxHeight, overflow: "auto" }} className={`table-wrapper ${`table-responsive${"-" + tableResponsive}`}`}>
+        <div style={{ minHeight: minHeight + "px", maxHeight: maxHeight + "px", overflow: "auto" }} className={`table-wrapper ${`table-responsive${"-" + tableResponsive}`}`}>
             {/* 不能这里边写东西了，因为 Table下的thead是用 sticky定位，
               粘性效果top: 0是相对于它的最近滚动祖先容器，即上边的div
               如果没给 上边的div 设置垂直滚动的话，就会去找往上找有 垂直滚动的祖先元素。。

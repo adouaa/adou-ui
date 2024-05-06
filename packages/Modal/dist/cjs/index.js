@@ -1403,7 +1403,7 @@ const Modal = _ref => {
   })), /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("div", {
     className: "modal-body",
     style: overflowY ? {
-      maxHeight: maxHeight || "60vh",
+      maxHeight: maxHeight + "px" || 0,
       overflowY: "auto"
     } : {}
   }, " ", content || "..."), /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("div", {

@@ -1,0 +1,17 @@
+.icon-input {
+    position: relative; /* 让伪元素相对于输入框定位 */
+
+    .icon {
+        position: absolute;
+        right: 20px;
+        top: 20%;  /* 垂直居中 */
+        cursor: pointer;  /* 鼠标悬停时显示指针样式 */
+        transition: transform 0.3s; /* 添加过渡效果 */
+        color: #c6c6cd;
+        &:hover {
+            transform: scale(1.3); /* 水平和垂直方向都放大1.5倍 */
+            color: #51515b;
+        }
+    }
+}
+

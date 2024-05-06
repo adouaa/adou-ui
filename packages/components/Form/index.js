@@ -279,6 +279,79 @@ ___CSS_LOADER_EXPORT___.push([module.id, `@charset "UTF-8";
 
 /***/ }),
 
+/***/ 590:
+/***/ ((module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   A: () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _node_modules_css_loader_dist_runtime_sourceMaps_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(73);
+/* harmony import */ var _node_modules_css_loader_dist_runtime_sourceMaps_js__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_css_loader_dist_runtime_sourceMaps_js__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(191);
+/* harmony import */ var _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_1__);
+// Imports
+
+
+var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_1___default()((_node_modules_css_loader_dist_runtime_sourceMaps_js__WEBPACK_IMPORTED_MODULE_0___default()));
+// Module
+___CSS_LOADER_EXPORT___.push([module.id, `@charset "UTF-8";
+.select-wrapper {
+  position: relative;
+}
+.select-wrapper .select-placeholder {
+  color: #7d7d7d;
+}
+.select-wrapper .custom-select {
+  height: 38px;
+  position: relative;
+  cursor: pointer;
+}
+.select-wrapper .custom-select i {
+  transition: transform 0.3s ease; /* 添加过渡效果 */
+}
+.select-wrapper .content {
+  background-color: #fff;
+  max-height: 200px;
+  overflow-y: auto;
+  position: fixed;
+  z-index: 999;
+  box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+}
+.select-wrapper .content .option {
+  padding: 5px 10px;
+}
+.select-wrapper .content .option:hover {
+  background-color: #f6f6f6;
+  cursor: pointer;
+}
+.select-wrapper .content .option:active {
+  color: #fff;
+  background-color: #2783d8;
+}
+.select-wrapper .icon {
+  position: absolute;
+  top: 10px;
+  right: 14px;
+  transition: transform 0.2s;
+}
+.select-wrapper .icon:hover {
+  transform: scale(1.4);
+}
+
+.rotate-up {
+  transform: rotate(90deg); /* 旋转-180度，向上箭头样式 */
+}
+
+.rotate-down {
+  transform: rotate(0deg); /* 不旋转，向下箭头样式 */
+}`, "",{"version":3,"sources":["webpack://./src/FormItem/Select/index.scss"],"names":[],"mappings":"AAAA,gBAAgB;AAAhB;EACI,kBAAA;AAEJ;AADI;EACG,cAAA;AAGP;AADI;EACI,YAAA;EACA,kBAAA;EACA,eAAA;AAGR;AAFQ;EACI,+BAAA,EAAA,WAAA;AAIZ;AADI;EACI,sBAAA;EACA,iBAAA;EACA,gBAAA;EACA,eAAA;EACA,YAAA;EACA,4CAAA;AAGR;AAFQ;EACI,iBAAA;AAIZ;AAHY;EACI,yBAAA;EACA,eAAA;AAKhB;AAHY;EACI,WAAA;EACA,yBAAA;AAKhB;AADI;EACI,kBAAA;EACA,SAAA;EACA,WAAA;EACA,0BAAA;AAGR;AAFQ;EACI,qBAAA;AAIZ;;AACA;EACI,wBAAA,EAAA,mBAAA;AAEJ;;AACA;EACI,uBAAA,EAAA,eAAA;AAEJ","sourcesContent":[".select-wrapper {\r\n    position: relative;\r\n    .select-placeholder {\r\n       color: #7d7d7d;\r\n    }\r\n    .custom-select {\r\n        height: 38px;\r\n        position: relative;\r\n        cursor: pointer;\r\n        i {\r\n            transition: transform 0.3s ease; /* 添加过渡效果 */\r\n        }\r\n    }\r\n    .content {\r\n        background-color: #fff;\r\n        max-height: 200px;\r\n        overflow-y: auto;\r\n        position: fixed;\r\n        z-index: 999;\r\n        box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;\r\n        .option {\r\n            padding: 5px 10px;\r\n            &:hover {\r\n                background-color: #f6f6f6;\r\n                cursor: pointer;\r\n            }\r\n            &:active {\r\n                color: #fff;\r\n                background-color: #2783d8;\r\n            }\r\n        }\r\n    }\r\n    .icon {\r\n        position: absolute;\r\n        top: 10px;\r\n        right: 14px;\r\n        transition: transform 0.2s;\r\n        &:hover {\r\n            transform: scale(1.4);\r\n        }\r\n    }\r\n}\r\n\r\n.rotate-up {\r\n    transform: rotate(90deg); /* 旋转-180度，向上箭头样式 */\r\n}\r\n\r\n.rotate-down {\r\n    transform: rotate(0deg); /* 不旋转，向下箭头样式 */\r\n}\r\n"],"sourceRoot":""}]);
+// Exports
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
+
+
+/***/ }),
+
 /***/ 818:
 /***/ ((module, __webpack_exports__, __webpack_require__) => {
 
@@ -2210,14 +2283,47 @@ const Input = props => {
 };
 Input.displayName = "Input";
 /* harmony default export */ const FormItem_Input = (withTranslation()(Input));
+// EXTERNAL MODULE: ../../node_modules/css-loader/dist/cjs.js??ruleSet[1].rules[1].use[1]!../../node_modules/sass-loader/dist/cjs.js??ruleSet[1].rules[1].use[2]!./src/FormItem/Select/index.scss
+var Select = __webpack_require__(590);
+;// CONCATENATED MODULE: ./src/FormItem/Select/index.scss
+
+      
+      
+      
+      
+      
+      
+      
+      
+      
+
+var Select_options = {};
+
+Select_options.styleTagTransform = (styleTagTransform_default());
+Select_options.setAttributes = (setAttributesWithoutAttributes_default());
+
+      Select_options.insert = insertBySelector_default().bind(null, "head");
+    
+Select_options.domAPI = (styleDomAPI_default());
+Select_options.insertStyleElement = (insertStyleElement_default());
+
+var Select_update = injectStylesIntoStyleTag_default()(Select/* default */.A, Select_options);
+
+
+
+
+       /* harmony default export */ const FormItem_Select = (Select/* default */.A && Select/* default */.A.locals ? Select/* default */.A.locals : undefined);
+
 ;// CONCATENATED MODULE: ./src/FormItem/Select/index.tsx
 
 
 
 
 
-const Select = props => {
+
+const Select_Select = props => {
   const {
+    style,
     defaultValue,
     options,
     placeholder,
@@ -2231,7 +2337,8 @@ const Select = props => {
   // 获取 `FormContext.Provider` 提供提供的 `value` 值
   const context = (0,external_root_React_commonjs2_react_commonjs_react_amd_react_.useContext)(FormContext);
   const [newOptions, setNewOptions] = (0,external_root_React_commonjs2_react_commonjs_react_amd_react_.useState)(options || []);
-  const [value, setValue] = (0,external_root_React_commonjs2_react_commonjs_react_amd_react_.useState)(defaultValue);
+  const [value, setValue] = (0,external_root_React_commonjs2_react_commonjs_react_amd_react_.useState)(defaultValue) || {};
+  const [showOptions, setShowOptions] = (0,external_root_React_commonjs2_react_commonjs_react_amd_react_.useState)(false);
   const cls = classnames_default()({
     ["form-select form-select-".concat(size)]: true,
     [className]: className
@@ -2240,16 +2347,39 @@ const Select = props => {
     const selectedIndex = e.target.selectedIndex - 1;
     const selectedOption = options[selectedIndex];
     setValue(selectedOption);
-    onChangeOK && onChangeOK(selectedOption);
     context.handleChange(context.name, selectedOption);
     context.checkValidate(selectedOption); // 选中的时候，要让他做校验
     setFormItemValue && setFormItemValue(selectedOption);
+    onChangeOK && onChangeOK(selectedOption);
   };
   const handleBlur = () => {
-    setTimeout(() => {
-      context.checkValidate(value.value); // 将value.label换成value.value，为了兼容默认值为空是 请选择的情况
-    }, 150);
+    // 这边就不用再加 定时器了
+    context.checkValidate(value === null || value === void 0 ? void 0 : value.value); // 将value.label换成value.value，为了兼容默认值为空是 请选择的情况
   };
+  const handleDivClock = e => {
+    e.stopPropagation(); // 阻止事件冒泡
+    setShowOptions(!showOptions);
+  };
+  const handleOptionClick = item => {
+    context.handleChange(context.name, item);
+    context.checkValidate(item); // 选中的时候，要让他做校验
+    setFormItemValue && setFormItemValue(item);
+    onChangeOK && onChangeOK(item);
+    setValue(item);
+  };
+  const handleClick = e => {
+    let classNameList = ["custom-select form-control"];
+    let value = e.target;
+    if (!classNameList.includes(value.className)) {
+      setShowOptions(false);
+    }
+  };
+  (0,external_root_React_commonjs2_react_commonjs_react_amd_react_.useEffect)(() => {
+    window.addEventListener("click", handleClick);
+    return () => {
+      window.removeEventListener("click", handleClick);
+    };
+  });
   (0,external_root_React_commonjs2_react_commonjs_react_amd_react_.useEffect)(() => {
     // 这边用判断来，如果表单的数据 context.formData[context.name as string]没有值（""）
     // 就直接给value设置为{ label: "", value: "" }，不能直接设置为""，这样子原生select选中的值会保持原来选中的
@@ -2262,10 +2392,11 @@ const Select = props => {
   }, [context.formData[context.name]]);
   (0,external_root_React_commonjs2_react_commonjs_react_amd_react_.useEffect)(() => {
     if (defaultValue !== null && defaultValue !== void 0 && defaultValue.value) {
-      setValue(defaultValue); // 直接在判断有默认值的地方就给表单赋值，就不会出现数据闪动的现象
+      const selectOption = options.find(option => option.value === defaultValue.value);
+      setValue(selectOption); // 直接在判断有默认值的地方就给表单赋值，就不会出现数据闪动的现象
       // 这边不能直接用 context.handleChange(context.name, defaultValue)来赋默认值，会被置为空，并且失去 提交和重置功能
-      context.formData[context.name] = defaultValue; // 让 Form里面对应的数据项有值
-      setFormItemValue && setFormItemValue(defaultValue);
+      context.formData[context.name] = selectOption; // 让 Form里面对应的数据项有值
+      setFormItemValue && setFormItemValue(selectOption);
     } else {
       // js默认的选择框好像只能这样写，不能写成 setValue=({})
       // 只能让它重置为选中第一个选项。。
@@ -2282,31 +2413,33 @@ const Select = props => {
       value: ""
     }, ...options];
     setNewOptions(enhancedOptions);
-    // 如果 defaultValue 未定义，则将选择设置为 "请选择" 选项
-    if (!defaultValue) {
-      setValue({
-        label: "请选择",
-        value: ""
-      });
-    }
+    // 如果 defaultValue 未定义，则将选择设置为 "请选择" 选项 -- 不写也没问题qwq
+    /* if (!defaultValue) {
+        setValue({ label: "请选择", value: "" });
+    } */
   }, [options]);
-  return /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement((external_root_React_commonjs2_react_commonjs_react_amd_react_default()).Fragment, null, /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("select", {
-    style: {
-      flex: 1
-    },
-    value: value === null || value === void 0 ? void 0 : value.value,
-    onBlur: () => handleBlur(),
-    onChange: e => handleSelect(e),
-    className: cls,
-    "aria-label": ".form-select-lg example",
-    disabled: disabled
-  }, newOptions.map(item => /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("option", {
-    disabled: item.disabled || !item.value,
-    key: item.value,
-    value: item.value
+  return /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("div", {
+    className: "select-wrapper",
+    style: style
+  }, /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("div", {
+    onBlur: handleBlur,
+    onClick: e => handleDivClock(e),
+    tabIndex: 1,
+    className: "custom-select form-control"
+  }, value !== null && value !== void 0 && value.value ? value.label : /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("span", {
+    className: "select-placeholder"
+  }, placeholder), /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("i", {
+    onClick: e => handleDivClock(e),
+    className: "icon fa-solid fa-caret-right rotate-up ".concat(showOptions ? "rotate-up" : "rotate-down")
+  })), /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("div", {
+    className: "content"
+  }, showOptions && newOptions.map(item => /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("div", {
+    onClick: () => handleOptionClick(item),
+    className: "option",
+    key: item.value
   }, item.label))));
 };
-/* harmony default export */ const FormItem_Select = (withTranslation()(Select));
+/* harmony default export */ const src_FormItem_Select = (withTranslation()(Select_Select));
 // EXTERNAL MODULE: ../../node_modules/css-loader/dist/cjs.js??ruleSet[1].rules[1].use[1]!../../node_modules/sass-loader/dist/cjs.js??ruleSet[1].rules[1].use[2]!./src/FormItem/Textarea/index.css
 var Textarea = __webpack_require__(5);
 ;// CONCATENATED MODULE: ./src/FormItem/Textarea/index.css
@@ -3092,18 +3225,23 @@ var TagInput_update = injectStylesIntoStyleTag_default()(TagInput/* default */.A
 
 
 const TagInput_TagInput = props => {
+  var _context$formData, _context$formData3;
   const {
-    onChange,
-    defaultValue = []
+    defaultValue = [],
+    onChange
   } = props;
-  const context = (0,external_root_React_commonjs2_react_commonjs_react_amd_react_.useContext)(FormContext);
-  const [inputList, setInputList] = (0,external_root_React_commonjs2_react_commonjs_react_amd_react_.useState)(defaultValue || context.formData[context.name] || []);
+  const context = (0,external_root_React_commonjs2_react_commonjs_react_amd_react_.useContext)(FormContext) || {};
+  const [inputList, setInputList] = (0,external_root_React_commonjs2_react_commonjs_react_amd_react_.useState)(defaultValue || ((_context$formData = context.formData) === null || _context$formData === void 0 ? void 0 : _context$formData[context.name]) || []);
   const [inputValue, setInputValue] = (0,external_root_React_commonjs2_react_commonjs_react_amd_react_.useState)("");
   const [isHighlighted, setIsHighlighted] = (0,external_root_React_commonjs2_react_commonjs_react_amd_react_.useState)(false);
   const addInput = () => {
-    setInputList([...inputList, inputValue]);
+    // 因为state是异步的，所以要把数据先处理好再使用
+    const data = [...inputList, inputValue];
+    setInputList(data);
     setInputValue("");
-    context.checkValidate(1);
+    context.checkValidate && context.checkValidate(1);
+    // 把数据传回给父组件
+    onChange && onChange(data);
   };
   const handleInputChange = e => {
     setInputValue(e.target.value);
@@ -3122,16 +3260,15 @@ const TagInput_TagInput = props => {
     const tagList = inputList.filter(value => item !== value);
     setInputList(tagList);
     onChange && onChange(tagList);
-
     // 注意，这边不能直接用 inputList给 formData赋值，会出现不一致的情况
 
-    context.handleChange(context.name, tagList);
-    context.checkValidate(inputList.filter(v => v !== item).length);
+    context.handleChange && context.handleChange(context.name, tagList);
+    context.checkValidate && context.checkValidate(inputList.filter(v => v !== item).length);
   };
   const handleBlur = () => {
     // 注意，这边要在 inpuut失焦的时候触发，不能在 input change的时候触发，不然会出现校验错误
-    context.handleChange(context.name, inputList);
-    context.checkValidate(inputList.length);
+    context.handleChange && context.handleChange(context.name, inputList);
+    context.checkValidate && context.checkValidate(inputList.length);
     setIsHighlighted(false);
   };
   const handleFocus = () => {
@@ -3140,14 +3277,15 @@ const TagInput_TagInput = props => {
   (0,external_root_React_commonjs2_react_commonjs_react_amd_react_.useEffect)(() => {
     if (defaultValue.length) {
       setInputList(defaultValue);
-      context.formData[context.name] = defaultValue;
-    } else {
-      setInputList([]);
+      if (context.formData) {
+        context.formData[context.name] = defaultValue;
+      }
     }
   }, [defaultValue]);
   (0,external_root_React_commonjs2_react_commonjs_react_amd_react_.useEffect)(() => {
-    setInputList(context.formData[context.name] || "");
-  }, [context.formData[context.name]]);
+    var _context$formData2;
+    setInputList(((_context$formData2 = context.formData) === null || _context$formData2 === void 0 ? void 0 : _context$formData2[context.name]) || "");
+  }, [(_context$formData3 = context.formData) === null || _context$formData3 === void 0 ? void 0 : _context$formData3[context.name]]);
   return /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement((external_root_React_commonjs2_react_commonjs_react_amd_react_default()).Fragment, null, /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("div", {
     className: "tag-input-wrapper form-control ".concat(isHighlighted && "focus")
   }, /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("div", {
@@ -3353,7 +3491,7 @@ const FormItem_FormItem = props => {
 };
 FormItem_FormItem.displayName = 'formItem';
 FormItem_FormItem.Input = FormItem_Input;
-FormItem_FormItem.Select = FormItem_Select;
+FormItem_FormItem.Select = src_FormItem_Select;
 FormItem_FormItem.TextArea = src_FormItem_Textarea;
 FormItem_FormItem.LiveSearchSelect = src_FormItem_LiveSearchSelect;
 FormItem_FormItem.MultipleSelect = src_FormItem_MultipleSelect;
@@ -3392,9 +3530,7 @@ const Form = /*#__PURE__*/(0,external_root_React_commonjs2_react_commonjs_react_
     validate: callback => {
       let isValid = true;
       formItems.forEach(item => {
-        console.log(formData);
         const validationResult = item.handleValidate(formData);
-        console.log(validationResult);
         if (!validationResult && item.validate) isValid = false; // 假设validate方法返回false表示验证失败
       });
       callback && callback(isValid);

@@ -1,6 +1,7 @@
 import React from "react";
+import "./index.scss";
 export interface InputProps {
-    type?: "text" | "date" | "time";
+    type?: "text" | "datetime-local" | "date" | "time";
     name?: string;
     defaultValue?: string;
     size?: "large" | "middle" | "small" | undefined;
@@ -10,21 +11,17 @@ export interface InputProps {
     placeholder?: string;
     style?: any;
     disabled?: boolean;
-    autoFocus?: boolean;
+    children?: any;
     setFormItemValue?: (value: any) => void;
-    onClickOK?: (e: React.MouseEvent<HTMLInputElement, MouseEvent>, ...args: any) => void;
-    onFocusOK?: (e: React.FocusEvent<HTMLInputElement, Element>, ...args: any) => void;
-    onBlurOK?: (e: React.FocusEvent<HTMLInputElement, Element>, ...args: any) => void;
-    onChangeOK?: (e: any, ...args: any) => void;
-}
-export interface FormContextProps {
-    handleChange?: any;
-    name?: string;
-    formData?: any;
+    onClick?: (e: React.MouseEvent<HTMLInputElement, MouseEvent>, ...args: any) => void;
+    onFocus?: (e: React.FocusEvent<HTMLInputElement, Element>, ...args: any) => void;
+    onBlur?: (e: React.FocusEvent<HTMLInputElement, Element>, ...args: any) => void;
+    onChange?: (value: any, ...args: any) => void;
+    onIconClick?: (value: string) => void;
 }
 declare const _default: React.ComponentType<Omit<{
     style?: any;
-    type?: "text" | "date" | "time" | undefined;
+    type?: "text" | "datetime-local" | "date" | "time" | undefined;
     name?: string | undefined;
     defaultValue?: string | undefined;
     size?: "large" | "middle" | "small" | undefined;
@@ -33,11 +30,12 @@ declare const _default: React.ComponentType<Omit<{
     suffixContent?: any;
     placeholder?: string | undefined;
     disabled?: boolean | undefined;
-    autoFocus?: boolean | undefined;
+    children?: any;
     setFormItemValue?: ((value: any) => void) | undefined;
-    onClickOK?: ((e: React.MouseEvent<HTMLInputElement, MouseEvent>, ...args: any) => void) | undefined;
-    onFocusOK?: ((e: React.FocusEvent<HTMLInputElement, Element>, ...args: any) => void) | undefined;
-    onBlurOK?: ((e: React.FocusEvent<HTMLInputElement, Element>, ...args: any) => void) | undefined;
-    onChangeOK?: ((e: any, ...args: any) => void) | undefined;
+    onClick?: ((e: React.MouseEvent<HTMLInputElement, MouseEvent>, ...args: any) => void) | undefined;
+    onFocus?: ((e: React.FocusEvent<HTMLInputElement, Element>, ...args: any) => void) | undefined;
+    onBlur?: ((e: React.FocusEvent<HTMLInputElement, Element>, ...args: any) => void) | undefined;
+    onChange?: ((value: any, ...args: any) => void) | undefined;
+    onIconClick?: ((value: string) => void) | undefined;
 }, keyof import("react-i18next").WithTranslation<N, undefined>> & import("react-i18next").WithTranslationProps>;
 export default _default;

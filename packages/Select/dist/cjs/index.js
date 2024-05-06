@@ -11,6 +11,121 @@
 return /******/ (() => { // webpackBootstrap
 /******/ 	var __webpack_modules__ = ({
 
+/***/ 191:
+/***/ ((module) => {
+
+"use strict";
+
+
+/*
+  MIT License http://www.opensource.org/licenses/mit-license.php
+  Author Tobias Koppers @sokra
+*/
+module.exports = function (cssWithMappingToString) {
+  var list = [];
+
+  // return the list of modules as css string
+  list.toString = function toString() {
+    return this.map(function (item) {
+      var content = "";
+      var needLayer = typeof item[5] !== "undefined";
+      if (item[4]) {
+        content += "@supports (".concat(item[4], ") {");
+      }
+      if (item[2]) {
+        content += "@media ".concat(item[2], " {");
+      }
+      if (needLayer) {
+        content += "@layer".concat(item[5].length > 0 ? " ".concat(item[5]) : "", " {");
+      }
+      content += cssWithMappingToString(item);
+      if (needLayer) {
+        content += "}";
+      }
+      if (item[2]) {
+        content += "}";
+      }
+      if (item[4]) {
+        content += "}";
+      }
+      return content;
+    }).join("");
+  };
+
+  // import a list of modules into the list
+  list.i = function i(modules, media, dedupe, supports, layer) {
+    if (typeof modules === "string") {
+      modules = [[null, modules, undefined]];
+    }
+    var alreadyImportedModules = {};
+    if (dedupe) {
+      for (var k = 0; k < this.length; k++) {
+        var id = this[k][0];
+        if (id != null) {
+          alreadyImportedModules[id] = true;
+        }
+      }
+    }
+    for (var _k = 0; _k < modules.length; _k++) {
+      var item = [].concat(modules[_k]);
+      if (dedupe && alreadyImportedModules[item[0]]) {
+        continue;
+      }
+      if (typeof layer !== "undefined") {
+        if (typeof item[5] === "undefined") {
+          item[5] = layer;
+        } else {
+          item[1] = "@layer".concat(item[5].length > 0 ? " ".concat(item[5]) : "", " {").concat(item[1], "}");
+          item[5] = layer;
+        }
+      }
+      if (media) {
+        if (!item[2]) {
+          item[2] = media;
+        } else {
+          item[1] = "@media ".concat(item[2], " {").concat(item[1], "}");
+          item[2] = media;
+        }
+      }
+      if (supports) {
+        if (!item[4]) {
+          item[4] = "".concat(supports);
+        } else {
+          item[1] = "@supports (".concat(item[4], ") {").concat(item[1], "}");
+          item[4] = supports;
+        }
+      }
+      list.push(item);
+    }
+  };
+  return list;
+};
+
+/***/ }),
+
+/***/ 73:
+/***/ ((module) => {
+
+"use strict";
+
+
+module.exports = function (item) {
+  var content = item[1];
+  var cssMapping = item[3];
+  if (!cssMapping) {
+    return content;
+  }
+  if (typeof btoa === "function") {
+    var base64 = btoa(unescape(encodeURIComponent(JSON.stringify(cssMapping))));
+    var data = "sourceMappingURL=data:application/json;charset=utf-8;base64,".concat(base64);
+    var sourceMapping = "/*# ".concat(data, " */");
+    return [content].concat([sourceMapping]).join("\n");
+  }
+  return [content].join("\n");
+};
+
+/***/ }),
+
 /***/ 978:
 /***/ ((module) => {
 
@@ -35,6 +150,342 @@ module.exports = {
   "track": true,
   "wbr": true
 };
+
+/***/ }),
+
+/***/ 483:
+/***/ ((module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   A: () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _node_modules_css_loader_dist_runtime_sourceMaps_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(73);
+/* harmony import */ var _node_modules_css_loader_dist_runtime_sourceMaps_js__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_css_loader_dist_runtime_sourceMaps_js__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(191);
+/* harmony import */ var _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_1__);
+// Imports
+
+
+var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_1___default()((_node_modules_css_loader_dist_runtime_sourceMaps_js__WEBPACK_IMPORTED_MODULE_0___default()));
+// Module
+___CSS_LOADER_EXPORT___.push([module.id, `@charset "UTF-8";
+.select-wrapper {
+  position: relative;
+}
+.select-wrapper .select-placeholder, .select-wrapper .select-value {
+  display: block;
+  color: #7d7d7d;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+.select-wrapper .select-value {
+  color: #000;
+}
+.select-wrapper .custom-select {
+  height: 38px;
+  position: relative;
+  cursor: pointer;
+}
+.select-wrapper .custom-select i {
+  transition: transform 0.3s ease; /* 添加过渡效果 */
+}
+.select-wrapper .content {
+  text-align-last: left;
+  background-color: #fff;
+  max-height: 200px;
+  overflow-y: auto;
+  position: absolute;
+  z-index: 999;
+  box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+}
+.select-wrapper .content .option {
+  padding: 5px 10px;
+}
+.select-wrapper .content .option:hover {
+  background-color: #f6f6f6;
+  cursor: pointer;
+}
+.select-wrapper .content .option:active {
+  color: #fff;
+  background-color: #2783d8;
+}
+.select-wrapper .icon {
+  position: absolute;
+  top: 10px;
+  right: 14px;
+  transition: transform 0.2s;
+}
+.select-wrapper .icon:hover {
+  transform: scale(1.4);
+}
+
+.rotate-up {
+  transform: rotate(90deg); /* 旋转-180度，向上箭头样式 */
+}
+
+.rotate-down {
+  transform: rotate(0deg); /* 不旋转，向下箭头样式 */
+}`, "",{"version":3,"sources":["webpack://./src/index.scss"],"names":[],"mappings":"AAAA,gBAAgB;AAAhB;EACI,kBAAA;AAEJ;AADI;EACI,cAAA;EACA,cAAA;EACA,gBAAA;EACA,mBAAA;EACA,uBAAA;AAGR;AADI;EACI,WAAA;AAGR;AADI;EACI,YAAA;EACA,kBAAA;EACA,eAAA;AAGR;AAFQ;EACI,+BAAA,EAAA,WAAA;AAIZ;AADI;EACI,qBAAA;EACA,sBAAA;EACA,iBAAA;EACA,gBAAA;EACA,kBAAA;EACA,YAAA;EACA,4CAAA;AAGR;AAFQ;EACI,iBAAA;AAIZ;AAHY;EACI,yBAAA;EACA,eAAA;AAKhB;AAHY;EACI,WAAA;EACA,yBAAA;AAKhB;AADI;EACI,kBAAA;EACA,SAAA;EACA,WAAA;EACA,0BAAA;AAGR;AAFQ;EACI,qBAAA;AAIZ;;AACA;EACI,wBAAA,EAAA,mBAAA;AAEJ;;AACA;EACI,uBAAA,EAAA,eAAA;AAEJ","sourcesContent":[".select-wrapper {\r\n    position: relative;\r\n    .select-placeholder, .select-value {\r\n        display: block;\r\n        color: #7d7d7d;\r\n        overflow: hidden;\r\n        white-space: nowrap;\r\n        text-overflow: ellipsis;\r\n    }\r\n    .select-value {\r\n        color: #000;\r\n    }\r\n    .custom-select {\r\n        height: 38px;\r\n        position: relative;\r\n        cursor: pointer;\r\n        i {\r\n            transition: transform 0.3s ease; /* 添加过渡效果 */\r\n        }\r\n    }\r\n    .content {\r\n        text-align-last: left;\r\n        background-color: #fff;\r\n        max-height: 200px;\r\n        overflow-y: auto;\r\n        position: absolute;\r\n        z-index: 999;\r\n        box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;\r\n        .option {\r\n            padding: 5px 10px;\r\n            &:hover {\r\n                background-color: #f6f6f6;\r\n                cursor: pointer;\r\n            }\r\n            &:active {\r\n                color: #fff;\r\n                background-color: #2783d8;\r\n            }\r\n        }\r\n    }\r\n    .icon {\r\n        position: absolute;\r\n        top: 10px;\r\n        right: 14px;\r\n        transition: transform 0.2s;\r\n        &:hover {\r\n            transform: scale(1.4);\r\n        }\r\n    }\r\n}\r\n\r\n.rotate-up {\r\n    transform: rotate(90deg); /* 旋转-180度，向上箭头样式 */\r\n}\r\n\r\n.rotate-down {\r\n    transform: rotate(0deg); /* 不旋转，向下箭头样式 */\r\n}\r\n"],"sourceRoot":""}]);
+// Exports
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
+
+
+/***/ }),
+
+/***/ 591:
+/***/ ((module) => {
+
+"use strict";
+
+
+var stylesInDOM = [];
+function getIndexByIdentifier(identifier) {
+  var result = -1;
+  for (var i = 0; i < stylesInDOM.length; i++) {
+    if (stylesInDOM[i].identifier === identifier) {
+      result = i;
+      break;
+    }
+  }
+  return result;
+}
+function modulesToDom(list, options) {
+  var idCountMap = {};
+  var identifiers = [];
+  for (var i = 0; i < list.length; i++) {
+    var item = list[i];
+    var id = options.base ? item[0] + options.base : item[0];
+    var count = idCountMap[id] || 0;
+    var identifier = "".concat(id, " ").concat(count);
+    idCountMap[id] = count + 1;
+    var indexByIdentifier = getIndexByIdentifier(identifier);
+    var obj = {
+      css: item[1],
+      media: item[2],
+      sourceMap: item[3],
+      supports: item[4],
+      layer: item[5]
+    };
+    if (indexByIdentifier !== -1) {
+      stylesInDOM[indexByIdentifier].references++;
+      stylesInDOM[indexByIdentifier].updater(obj);
+    } else {
+      var updater = addElementStyle(obj, options);
+      options.byIndex = i;
+      stylesInDOM.splice(i, 0, {
+        identifier: identifier,
+        updater: updater,
+        references: 1
+      });
+    }
+    identifiers.push(identifier);
+  }
+  return identifiers;
+}
+function addElementStyle(obj, options) {
+  var api = options.domAPI(options);
+  api.update(obj);
+  var updater = function updater(newObj) {
+    if (newObj) {
+      if (newObj.css === obj.css && newObj.media === obj.media && newObj.sourceMap === obj.sourceMap && newObj.supports === obj.supports && newObj.layer === obj.layer) {
+        return;
+      }
+      api.update(obj = newObj);
+    } else {
+      api.remove();
+    }
+  };
+  return updater;
+}
+module.exports = function (list, options) {
+  options = options || {};
+  list = list || [];
+  var lastIdentifiers = modulesToDom(list, options);
+  return function update(newList) {
+    newList = newList || [];
+    for (var i = 0; i < lastIdentifiers.length; i++) {
+      var identifier = lastIdentifiers[i];
+      var index = getIndexByIdentifier(identifier);
+      stylesInDOM[index].references--;
+    }
+    var newLastIdentifiers = modulesToDom(newList, options);
+    for (var _i = 0; _i < lastIdentifiers.length; _i++) {
+      var _identifier = lastIdentifiers[_i];
+      var _index = getIndexByIdentifier(_identifier);
+      if (stylesInDOM[_index].references === 0) {
+        stylesInDOM[_index].updater();
+        stylesInDOM.splice(_index, 1);
+      }
+    }
+    lastIdentifiers = newLastIdentifiers;
+  };
+};
+
+/***/ }),
+
+/***/ 128:
+/***/ ((module) => {
+
+"use strict";
+
+
+var memo = {};
+
+/* istanbul ignore next  */
+function getTarget(target) {
+  if (typeof memo[target] === "undefined") {
+    var styleTarget = document.querySelector(target);
+
+    // Special case to return head of iframe instead of iframe itself
+    if (window.HTMLIFrameElement && styleTarget instanceof window.HTMLIFrameElement) {
+      try {
+        // This will throw an exception if access to iframe is blocked
+        // due to cross-origin restrictions
+        styleTarget = styleTarget.contentDocument.head;
+      } catch (e) {
+        // istanbul ignore next
+        styleTarget = null;
+      }
+    }
+    memo[target] = styleTarget;
+  }
+  return memo[target];
+}
+
+/* istanbul ignore next  */
+function insertBySelector(insert, style) {
+  var target = getTarget(insert);
+  if (!target) {
+    throw new Error("Couldn't find a style target. This probably means that the value for the 'insert' parameter is invalid.");
+  }
+  target.appendChild(style);
+}
+module.exports = insertBySelector;
+
+/***/ }),
+
+/***/ 51:
+/***/ ((module) => {
+
+"use strict";
+
+
+/* istanbul ignore next  */
+function insertStyleElement(options) {
+  var element = document.createElement("style");
+  options.setAttributes(element, options.attributes);
+  options.insert(element, options.options);
+  return element;
+}
+module.exports = insertStyleElement;
+
+/***/ }),
+
+/***/ 855:
+/***/ ((module, __unused_webpack_exports, __webpack_require__) => {
+
+"use strict";
+
+
+/* istanbul ignore next  */
+function setAttributesWithoutAttributes(styleElement) {
+  var nonce =  true ? __webpack_require__.nc : 0;
+  if (nonce) {
+    styleElement.setAttribute("nonce", nonce);
+  }
+}
+module.exports = setAttributesWithoutAttributes;
+
+/***/ }),
+
+/***/ 740:
+/***/ ((module) => {
+
+"use strict";
+
+
+/* istanbul ignore next  */
+function apply(styleElement, options, obj) {
+  var css = "";
+  if (obj.supports) {
+    css += "@supports (".concat(obj.supports, ") {");
+  }
+  if (obj.media) {
+    css += "@media ".concat(obj.media, " {");
+  }
+  var needLayer = typeof obj.layer !== "undefined";
+  if (needLayer) {
+    css += "@layer".concat(obj.layer.length > 0 ? " ".concat(obj.layer) : "", " {");
+  }
+  css += obj.css;
+  if (needLayer) {
+    css += "}";
+  }
+  if (obj.media) {
+    css += "}";
+  }
+  if (obj.supports) {
+    css += "}";
+  }
+  var sourceMap = obj.sourceMap;
+  if (sourceMap && typeof btoa !== "undefined") {
+    css += "\n/*# sourceMappingURL=data:application/json;base64,".concat(btoa(unescape(encodeURIComponent(JSON.stringify(sourceMap)))), " */");
+  }
+
+  // For old IE
+  /* istanbul ignore if  */
+  options.styleTagTransform(css, styleElement, options.options);
+}
+function removeStyleElement(styleElement) {
+  // istanbul ignore if
+  if (styleElement.parentNode === null) {
+    return false;
+  }
+  styleElement.parentNode.removeChild(styleElement);
+}
+
+/* istanbul ignore next  */
+function domAPI(options) {
+  if (typeof document === "undefined") {
+    return {
+      update: function update() {},
+      remove: function remove() {}
+    };
+  }
+  var styleElement = options.insertStyleElement(options);
+  return {
+    update: function update(obj) {
+      apply(styleElement, options, obj);
+    },
+    remove: function remove() {
+      removeStyleElement(styleElement);
+    }
+  };
+}
+module.exports = domAPI;
+
+/***/ }),
+
+/***/ 656:
+/***/ ((module) => {
+
+"use strict";
+
+
+/* istanbul ignore next  */
+function styleTagTransform(css, styleElement) {
+  if (styleElement.styleSheet) {
+    styleElement.styleSheet.cssText = css;
+  } else {
+    while (styleElement.firstChild) {
+      styleElement.removeChild(styleElement.firstChild);
+    }
+    styleElement.appendChild(document.createTextNode(css));
+  }
+}
+module.exports = styleTagTransform;
 
 /***/ }),
 
@@ -128,7 +579,7 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/*!
 /******/ 		}
 /******/ 		// Create a new module (and put it into the cache)
 /******/ 		var module = __webpack_module_cache__[moduleId] = {
-/******/ 			// no module.id needed
+/******/ 			id: moduleId,
 /******/ 			// no module.loaded needed
 /******/ 			exports: {}
 /******/ 		};
@@ -181,6 +632,11 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/*!
 /******/ 		};
 /******/ 	})();
 /******/ 	
+/******/ 	/* webpack/runtime/nonce */
+/******/ 	(() => {
+/******/ 		__webpack_require__.nc = undefined;
+/******/ 	})();
+/******/ 	
 /************************************************************************/
 var __webpack_exports__ = {};
 // This entry need to be wrapped in an IIFE because it need to be in strict mode.
@@ -191,7 +647,7 @@ __webpack_require__.r(__webpack_exports__);
 
 // EXPORTS
 __webpack_require__.d(__webpack_exports__, {
-  "default": () => (/* binding */ src)
+  "default": () => (/* binding */ src_0)
 });
 
 // EXTERNAL MODULE: external {"root":"React","commonjs2":"react","commonjs":"react","amd":"react"}
@@ -1398,70 +1854,173 @@ var selectOrdinal = function selectOrdinal() {
 // EXTERNAL MODULE: ../../../node_modules/classnames/index.js
 var classnames = __webpack_require__(650);
 var classnames_default = /*#__PURE__*/__webpack_require__.n(classnames);
+// EXTERNAL MODULE: ../../node_modules/style-loader/dist/runtime/injectStylesIntoStyleTag.js
+var injectStylesIntoStyleTag = __webpack_require__(591);
+var injectStylesIntoStyleTag_default = /*#__PURE__*/__webpack_require__.n(injectStylesIntoStyleTag);
+// EXTERNAL MODULE: ../../node_modules/style-loader/dist/runtime/styleDomAPI.js
+var styleDomAPI = __webpack_require__(740);
+var styleDomAPI_default = /*#__PURE__*/__webpack_require__.n(styleDomAPI);
+// EXTERNAL MODULE: ../../node_modules/style-loader/dist/runtime/insertBySelector.js
+var insertBySelector = __webpack_require__(128);
+var insertBySelector_default = /*#__PURE__*/__webpack_require__.n(insertBySelector);
+// EXTERNAL MODULE: ../../node_modules/style-loader/dist/runtime/setAttributesWithoutAttributes.js
+var setAttributesWithoutAttributes = __webpack_require__(855);
+var setAttributesWithoutAttributes_default = /*#__PURE__*/__webpack_require__.n(setAttributesWithoutAttributes);
+// EXTERNAL MODULE: ../../node_modules/style-loader/dist/runtime/insertStyleElement.js
+var insertStyleElement = __webpack_require__(51);
+var insertStyleElement_default = /*#__PURE__*/__webpack_require__.n(insertStyleElement);
+// EXTERNAL MODULE: ../../node_modules/style-loader/dist/runtime/styleTagTransform.js
+var styleTagTransform = __webpack_require__(656);
+var styleTagTransform_default = /*#__PURE__*/__webpack_require__.n(styleTagTransform);
+// EXTERNAL MODULE: ../../node_modules/css-loader/dist/cjs.js??ruleSet[1].rules[1].use[1]!../../node_modules/sass-loader/dist/cjs.js??ruleSet[1].rules[1].use[2]!./src/index.scss
+var cjs_ruleSet_1_rules_1_use_2_src = __webpack_require__(483);
+;// CONCATENATED MODULE: ./src/index.scss
+
+      
+      
+      
+      
+      
+      
+      
+      
+      
+
+var options = {};
+
+options.styleTagTransform = (styleTagTransform_default());
+options.setAttributes = (setAttributesWithoutAttributes_default());
+
+      options.insert = insertBySelector_default().bind(null, "head");
+    
+options.domAPI = (styleDomAPI_default());
+options.insertStyleElement = (insertStyleElement_default());
+
+var update = injectStylesIntoStyleTag_default()(cjs_ruleSet_1_rules_1_use_2_src/* default */.A, options);
+
+
+
+
+       /* harmony default export */ const src = (cjs_ruleSet_1_rules_1_use_2_src/* default */.A && cjs_ruleSet_1_rules_1_use_2_src/* default */.A.locals ? cjs_ruleSet_1_rules_1_use_2_src/* default */.A.locals : undefined);
+
 ;// CONCATENATED MODULE: ./src/index.tsx
+
 
 
 
 
 const Select = props => {
   const {
+    width,
     defaultValue,
     options,
     placeholder,
     size,
     className,
     disabled,
-    onChangeOK
+    transparent,
+    maxHeight,
+    onChangeOK,
+    setFormItemValue
   } = props;
-
-  // 获取 `FormContext.Provider` 提供提供的 `value` 值
-
-  const [value, setValue] = (0,external_root_React_commonjs2_react_commonjs_react_amd_react_.useState)(defaultValue);
   const [newOptions, setNewOptions] = (0,external_root_React_commonjs2_react_commonjs_react_amd_react_.useState)(options || []);
+  const [value, setValue] = (0,external_root_React_commonjs2_react_commonjs_react_amd_react_.useState)(defaultValue || {});
+  const [showOptions, setShowOptions] = (0,external_root_React_commonjs2_react_commonjs_react_amd_react_.useState)(false);
   const cls = classnames_default()({
+    "custom-select": true,
     ["form-select form-select-".concat(size)]: true,
     [className]: className
   });
   const handleSelect = e => {
-    const selectedIndex = e.target.selectedIndex;
-    const selectedOption = newOptions[selectedIndex];
+    const selectedIndex = e.target.selectedIndex - 1;
+    const selectedOption = options[selectedIndex];
     setValue(selectedOption);
+    // context.handleChange(context.name, selectedOption);
+    // context.checkValidate(selectedOption);
+    setFormItemValue && setFormItemValue(selectedOption);
     onChangeOK && onChangeOK(selectedOption);
   };
-  (0,external_root_React_commonjs2_react_commonjs_react_amd_react_.useEffect)(() => {
-    // 创建一个新数组，将 "请选择" 选项添加在数组的开头
-    const enhancedOptions = [{
-      label: "请选择",
-      value: ""
-    }, ...options];
-    setNewOptions(enhancedOptions);
-  }, [options]);
+  const handleBlur = () => {
+    setTimeout(() => {
+      // context.checkValidate(value.value);
+    }, 150);
+  };
+  const handleDivClock = e => {
+    e.stopPropagation(); // 阻止事件冒泡
+    setShowOptions(!showOptions);
+  };
+  const handleOptionClick = item => {
+    onChangeOK && onChangeOK(item);
+    setValue(item);
+  };
+
+  /*  useEffect(() => {
+       if (!context.formData[context.name as string]) {
+           setValue({ label: "", value: "" });
+       }
+   }, [context.formData[context.name as string]]) */
+
   (0,external_root_React_commonjs2_react_commonjs_react_amd_react_.useEffect)(() => {
     if (defaultValue !== null && defaultValue !== void 0 && defaultValue.value) {
-      setValue(defaultValue); // 直接在判断有默认值的地方就给表单赋值，就不会出现数据闪动的现象
+      const selectOption = options.find(option => option.value === defaultValue.value);
+      setValue(selectOption); // 直接在判断有默认值的地方就给表单赋值，就不会出现数据闪动的现象
       // 这边不能直接用 context.handleChange(context.name, defaultValue)来赋默认值，会被置为空，并且失去 提交和重置功能
+      // context.formData[context.name as string] = selectOption; // 让 Form里面对应的数据项有值
+      setFormItemValue && setFormItemValue(selectOption);
     } else {
       // js默认的选择框好像只能这样写，不能写成 setValue=({})
       // 只能让它重置为选中第一个选项。。
-      setValue({
-        label: "",
-        value: ""
-      });
+      // setValue({value: " ", label: "请选择"});
     }
   }, [defaultValue]);
-  return /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement((external_root_React_commonjs2_react_commonjs_react_amd_react_default()).Fragment, null, /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("select", {
-    value: value === null || value === void 0 ? void 0 : value.value,
-    onChange: e => handleSelect(e),
-    className: cls,
-    "aria-label": ".form-select-lg example",
-    disabled: disabled
-  }, newOptions === null || newOptions === void 0 ? void 0 : newOptions.map(item => /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("option", {
-    disabled: item.disabled || !item.value,
-    key: item.value,
-    value: item.value
+  (0,external_root_React_commonjs2_react_commonjs_react_amd_react_.useEffect)(() => {
+    setNewOptions(options);
+  }, [options]);
+  const handleClick = e => {
+    let classNameList = ["custom-select form-control"];
+    let value = e.target;
+    if (!classNameList.includes(value.className)) {
+      setShowOptions(false);
+    }
+  };
+  (0,external_root_React_commonjs2_react_commonjs_react_amd_react_.useEffect)(() => {
+    window.addEventListener("click", handleClick);
+    return () => {
+      window.removeEventListener("click", handleClick);
+    };
+  });
+  return /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("div", {
+    className: "select-wrapper",
+    style: {
+      width: width + "px"
+    }
+  }, /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("div", {
+    onClick: e => handleDivClock(e),
+    tabIndex: 1,
+    className: "custom-select form-control",
+    style: {
+      textAlign: "left",
+      background: transparent ? "transparent" : "#fff"
+    }
+  }, value !== null && value !== void 0 && value.value ? /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("span", {
+    className: "select-value"
+  }, value.label) : /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("span", {
+    className: "select-placeholder"
+  }, placeholder), /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("i", {
+    onClick: e => handleDivClock(e),
+    className: "icon fa-solid fa-caret-right rotate-up ".concat(showOptions ? "rotate-up" : "rotate-down")
+  })), /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("div", {
+    className: "content",
+    style: {
+      maxHeight: maxHeight + "px"
+    }
+  }, showOptions && newOptions.map(item => /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("div", {
+    onClick: () => handleOptionClick(item),
+    className: "option",
+    key: item.value
   }, item.label))));
 };
-/* harmony default export */ const src = (withTranslation()(Select));
+/* harmony default export */ const src_0 = (withTranslation()(Select));
 })();
 
 /******/ 	return __webpack_exports__;

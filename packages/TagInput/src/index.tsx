@@ -52,8 +52,8 @@ const TagInput = (props: TagInputProps) => {
     const handleDeleteItem = (item: any) => {
         const tagList = inputList.filter((value: any) => item !== value);
         setInputList(tagList)
-        // 注意，这边不能直接用 inputList给 formData赋值，会出现不一致的情况
         onChange && onChange(tagList);
+        // 注意，这边不能直接用 inputList给 formData赋值，会出现不一致的情况
         
         context.handleChange && context.handleChange(context.name, tagList);
         context.checkValidate && context.checkValidate(inputList.filter((v: any) => v !== item).length);
@@ -76,8 +76,6 @@ const TagInput = (props: TagInputProps) => {
             if (context.formData) {
                 context.formData[context.name as string] = defaultValue;
             }
-        } else {
-            setInputList([]);
         }
     }, [defaultValue])
 

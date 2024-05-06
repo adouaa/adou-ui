@@ -1,0 +1,58 @@
+.select-wrapper {
+    position: relative;
+    .select-placeholder, .select-value {
+        display: block;
+        color: #7d7d7d;
+        overflow: hidden;
+        white-space: nowrap;
+        text-overflow: ellipsis;
+    }
+    .select-value {
+        color: #000;
+    }
+    .custom-select {
+        height: 38px;
+        position: relative;
+        cursor: pointer;
+        i {
+            transition: transform 0.3s ease; /* 添加过渡效果 */
+        }
+    }
+    .content {
+        text-align-last: left;
+        background-color: #fff;
+        max-height: 200px;
+        overflow-y: auto;
+        position: absolute;
+        z-index: 999;
+        box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+        .option {
+            padding: 5px 10px;
+            &:hover {
+                background-color: #f6f6f6;
+                cursor: pointer;
+            }
+            &:active {
+                color: #fff;
+                background-color: #2783d8;
+            }
+        }
+    }
+    .icon {
+        position: absolute;
+        top: 10px;
+        right: 14px;
+        transition: transform 0.2s;
+        &:hover {
+            transform: scale(1.4);
+        }
+    }
+}
+
+.rotate-up {
+    transform: rotate(90deg); /* 旋转-180度，向上箭头样式 */
+}
+
+.rotate-down {
+    transform: rotate(0deg); /* 不旋转，向下箭头样式 */
+}

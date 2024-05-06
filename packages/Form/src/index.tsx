@@ -45,11 +45,7 @@ const Form = forwardRef((props: FormProps, formRef) => {
     validate: (callback: any) => {
       let isValid = true;
       formItems.forEach(item => {
-        console.log(formData);
-        
         const validationResult = item.handleValidate(formData);
-        console.log(validationResult);
-        
         if (!validationResult && item.validate) isValid = false; // 假设validate方法返回false表示验证失败
       });
       callback && callback(isValid);
