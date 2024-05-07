@@ -78,7 +78,7 @@ const Modal: React.FC<ModalProps> = ({
                                 <h5 className="modal-title" id="exampleModalLabel">{title || "Modal title"}</h5>
                                 <button onClick={handleOnClose} type="button" className="btn-close" aria-label="Close"></button>
                             </div>
-                            <div className="modal-body" style={overflowY ? { maxHeight: maxHeight + "px" || "60vh", overflowY: "auto" } : {}}> {/* 设置最大高度和滚动条 */}
+                            <div className="modal-body" style={overflowY ? { maxHeight: maxHeight, overflowY: "auto" } : {}}> {/* 设置最大高度和滚动条 */}
                                 {content || "..."}
                             </div>
                             <div className="modal-footer">

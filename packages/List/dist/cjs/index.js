@@ -1927,6 +1927,7 @@ module.exports = function (item) {
         // 获取 `FormContext.Provider` 提供提供的 `value` 值
 
         const {
+          transparent,
           children,
           type = "text",
           name,
@@ -2012,7 +2013,8 @@ module.exports = function (item) {
           style: {
             borderRadius: "6px",
             borderTopLeftRadius: prefixContent ? 0 : '6px',
-            borderBottomLeftRadius: prefixContent ? 0 : '6px'
+            borderBottomLeftRadius: prefixContent ? 0 : '6px',
+            background: transparent ? "transparent" : "#fff"
           },
           step: 1,
           name: name,
@@ -2564,6 +2566,7 @@ var update = injectStylesIntoStyleTag_default()(ListNode/* default */.A, options
 
 const ListNode_ListNode = _ref => {
   let {
+    prefixTag,
     showTag = false,
     children,
     wrap = true,
@@ -2603,8 +2606,10 @@ const ListNode_ListNode = _ref => {
     onOptIconClick && onOptIconClick(type, node);
   };
   const renderTag = () => {
-    return children.map(item => {
-      if (item.props.id === node.showTag) {
+    const childArr = (children === null || children === void 0 ? void 0 : children.length) > 0 ? children : [children];
+    return childArr.map(item => {
+      var _item$props;
+      if ((item === null || item === void 0 || (_item$props = item.props) === null || _item$props === void 0 ? void 0 : _item$props.id) === node.showTag) {
         return item;
       }
     });
@@ -2621,7 +2626,11 @@ const ListNode_ListNode = _ref => {
       onClick: () => handleItemClick(node),
       onMouseEnter: () => setIsShowIcons(true),
       onMouseLeave: () => setIsShowIcons(false)
-    }, showTag && renderTag(), isTree && node.children && node.children.length > 0 && /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("i", {
+    }, /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("div", {
+      className: "prefix-tag"
+    }, /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("i", {
+      className: prefixTag
+    })), showTag && renderTag(), isTree && node.children && node.children.length > 0 && /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("i", {
       onClick: e => handleIconClick(node, e),
       className: "icon fa fa-caret-".concat(isExpanded ? 'down' : 'right')
     }), /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("span", {
@@ -2659,6 +2668,7 @@ const ListNode_ListNode = _ref => {
     // 或许只是为了写个占位，代表需要触发父组件的这个回调函数？
     // 如果是传递的属性的话，是需要写的,像父组件那样子写，用的参数是父组件传递过来的，类似父组件那样再写一遍
     external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement(ListNode_ListNode, {
+      prefixTag: prefixTag,
       showTag: showTag,
       children: children,
       showAddIcon: showAddIcon,
@@ -2686,6 +2696,7 @@ var cjs_default = /*#__PURE__*/__webpack_require__.n(cjs);
 
 const List = _ref => {
   let {
+    prefixTag,
     showSearch = false,
     showTag = false,
     children,
@@ -2737,6 +2748,7 @@ const List = _ref => {
       overflow: 'auto'
     }
   }, data && data.map(item => /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement(src_ListNode_0, {
+    prefixTag: prefixTag,
     showTag: showTag,
     wrap: wrap,
     showEditIcon: showEditIcon,

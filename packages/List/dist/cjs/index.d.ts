@@ -18,10 +18,11 @@ interface ListProps {
     children?: any;
     showTag?: boolean;
     showSearch?: boolean;
+    prefixTag?: string;
     onToggle?: (node: any) => void;
     onItemClick?: (node: any) => void;
     onIconClick?: (node: any) => void;
     onOptIconClick?: (type: string, node: any) => void;
 }
-declare const List: ({ showSearch, showTag, children, wrap, data, isTree, showOptIcons, showAddIcon, showEditIcon, activeId, maxWidth, maxHeight, onToggle, onItemClick, onIconClick, onOptIconClick }: ListProps) => React.JSX.Element;
+declare const List: ({ prefixTag, showSearch, showTag, children, wrap, data, isTree, showOptIcons, showAddIcon, showEditIcon, activeId, maxWidth, maxHeight, onToggle, onItemClick, onIconClick, onOptIconClick }: ListProps) => React.JSX.Element;
 export default List;
