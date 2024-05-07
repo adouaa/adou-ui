@@ -173,7 +173,8 @@ ___CSS_LOADER_EXPORT___.push([module.id, `@charset "UTF-8";
 .select-wrapper {
   position: relative;
 }
-.select-wrapper .select-placeholder, .select-wrapper .select-value {
+.select-wrapper .select-placeholder,
+.select-wrapper .select-value {
   display: block;
   color: #7d7d7d;
   overflow: hidden;
@@ -192,13 +193,15 @@ ___CSS_LOADER_EXPORT___.push([module.id, `@charset "UTF-8";
   transition: transform 0.3s ease; /* 添加过渡效果 */
 }
 .select-wrapper .content {
+  min-width: 200px;
   text-align-last: left;
   background-color: #fff;
-  max-height: 200px;
-  overflow-y: auto;
+  max-height: 0; /* 初始高度设为0，隐藏选项内容 */
+  overflow: hidden; /* 隐藏溢出内容 */
   position: absolute;
   z-index: 999;
   box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+  transition: max-height 0.3s ease; /* 添加高度变化的过渡效果 */
 }
 .select-wrapper .content .option {
   padding: 5px 10px;
@@ -210,6 +213,9 @@ ___CSS_LOADER_EXPORT___.push([module.id, `@charset "UTF-8";
 .select-wrapper .content .option:active {
   color: #fff;
   background-color: #2783d8;
+}
+.select-wrapper .open {
+  max-height: 200px; /* 显示选项内容时的最大高度 */
 }
 .select-wrapper .icon {
   position: absolute;
@@ -227,7 +233,7 @@ ___CSS_LOADER_EXPORT___.push([module.id, `@charset "UTF-8";
 
 .rotate-down {
   transform: rotate(0deg); /* 不旋转，向下箭头样式 */
-}`, "",{"version":3,"sources":["webpack://./src/index.scss"],"names":[],"mappings":"AAAA,gBAAgB;AAAhB;EACI,kBAAA;AAEJ;AADI;EACI,cAAA;EACA,cAAA;EACA,gBAAA;EACA,mBAAA;EACA,uBAAA;AAGR;AADI;EACI,WAAA;AAGR;AADI;EACI,YAAA;EACA,kBAAA;EACA,eAAA;AAGR;AAFQ;EACI,+BAAA,EAAA,WAAA;AAIZ;AADI;EACI,qBAAA;EACA,sBAAA;EACA,iBAAA;EACA,gBAAA;EACA,kBAAA;EACA,YAAA;EACA,4CAAA;AAGR;AAFQ;EACI,iBAAA;AAIZ;AAHY;EACI,yBAAA;EACA,eAAA;AAKhB;AAHY;EACI,WAAA;EACA,yBAAA;AAKhB;AADI;EACI,kBAAA;EACA,SAAA;EACA,WAAA;EACA,0BAAA;AAGR;AAFQ;EACI,qBAAA;AAIZ;;AACA;EACI,wBAAA,EAAA,mBAAA;AAEJ;;AACA;EACI,uBAAA,EAAA,eAAA;AAEJ","sourcesContent":[".select-wrapper {\r\n    position: relative;\r\n    .select-placeholder, .select-value {\r\n        display: block;\r\n        color: #7d7d7d;\r\n        overflow: hidden;\r\n        white-space: nowrap;\r\n        text-overflow: ellipsis;\r\n    }\r\n    .select-value {\r\n        color: #000;\r\n    }\r\n    .custom-select {\r\n        height: 38px;\r\n        position: relative;\r\n        cursor: pointer;\r\n        i {\r\n            transition: transform 0.3s ease; /* 添加过渡效果 */\r\n        }\r\n    }\r\n    .content {\r\n        text-align-last: left;\r\n        background-color: #fff;\r\n        max-height: 200px;\r\n        overflow-y: auto;\r\n        position: absolute;\r\n        z-index: 999;\r\n        box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;\r\n        .option {\r\n            padding: 5px 10px;\r\n            &:hover {\r\n                background-color: #f6f6f6;\r\n                cursor: pointer;\r\n            }\r\n            &:active {\r\n                color: #fff;\r\n                background-color: #2783d8;\r\n            }\r\n        }\r\n    }\r\n    .icon {\r\n        position: absolute;\r\n        top: 10px;\r\n        right: 14px;\r\n        transition: transform 0.2s;\r\n        &:hover {\r\n            transform: scale(1.4);\r\n        }\r\n    }\r\n}\r\n\r\n.rotate-up {\r\n    transform: rotate(90deg); /* 旋转-180度，向上箭头样式 */\r\n}\r\n\r\n.rotate-down {\r\n    transform: rotate(0deg); /* 不旋转，向下箭头样式 */\r\n}\r\n"],"sourceRoot":""}]);
+}`, "",{"version":3,"sources":["webpack://./src/index.scss"],"names":[],"mappings":"AAAA,gBAAgB;AAAhB;EACI,kBAAA;AAEJ;AADI;;EAEI,cAAA;EACA,cAAA;EACA,gBAAA;EACA,mBAAA;EACA,uBAAA;AAGR;AADI;EACI,WAAA;AAGR;AADI;EACI,YAAA;EACA,kBAAA;EACA,eAAA;AAGR;AAFQ;EACI,+BAAA,EAAA,WAAA;AAIZ;AADI;EACI,gBAAA;EACA,qBAAA;EACA,sBAAA;EACA,aAAA,EAAA,mBAAA;EACA,gBAAA,EAAA,WAAA;EACA,kBAAA;EACA,YAAA;EACA,4CAAA;EACA,gCAAA,EAAA,gBAAA;AAGR;AAFQ;EACI,iBAAA;AAIZ;AAHY;EACI,yBAAA;EACA,eAAA;AAKhB;AAHY;EACI,WAAA;EACA,yBAAA;AAKhB;AADI;EACI,iBAAA,EAAA,iBAAA;AAGR;AADI;EACI,kBAAA;EACA,SAAA;EACA,WAAA;EACA,0BAAA;AAGR;AAFQ;EACI,qBAAA;AAIZ;;AACA;EACI,wBAAA,EAAA,mBAAA;AAEJ;;AACA;EACI,uBAAA,EAAA,eAAA;AAEJ","sourcesContent":[".select-wrapper {\r\n    position: relative;\r\n    .select-placeholder,\r\n    .select-value {\r\n        display: block;\r\n        color: #7d7d7d;\r\n        overflow: hidden;\r\n        white-space: nowrap;\r\n        text-overflow: ellipsis;\r\n    }\r\n    .select-value {\r\n        color: #000;\r\n    }\r\n    .custom-select {\r\n        height: 38px;\r\n        position: relative;\r\n        cursor: pointer;\r\n        i {\r\n            transition: transform 0.3s ease; /* 添加过渡效果 */\r\n        }\r\n    }\r\n    .content {\r\n        min-width: 200px;\r\n        text-align-last: left;\r\n        background-color: #fff;\r\n        max-height: 0; /* 初始高度设为0，隐藏选项内容 */\r\n        overflow: hidden; /* 隐藏溢出内容 */\r\n        position: absolute;\r\n        z-index: 999;\r\n        box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;\r\n        transition: max-height 0.3s ease; /* 添加高度变化的过渡效果 */\r\n        .option {\r\n            padding: 5px 10px;\r\n            &:hover {\r\n                background-color: #f6f6f6;\r\n                cursor: pointer;\r\n            }\r\n            &:active {\r\n                color: #fff;\r\n                background-color: #2783d8;\r\n            }\r\n        }\r\n    }\r\n    .open {\r\n        max-height: 200px; /* 显示选项内容时的最大高度 */\r\n    }\r\n    .icon {\r\n        position: absolute;\r\n        top: 10px;\r\n        right: 14px;\r\n        transition: transform 0.2s;\r\n        &:hover {\r\n            transform: scale(1.4);\r\n        }\r\n    }\r\n}\r\n\r\n.rotate-up {\r\n    transform: rotate(90deg); /* 旋转-180度，向上箭头样式 */\r\n}\r\n\r\n.rotate-down {\r\n    transform: rotate(0deg); /* 不旋转，向下箭头样式 */\r\n}\r\n"],"sourceRoot":""}]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 
@@ -2010,7 +2016,7 @@ const Select = props => {
     onClick: e => handleDivClock(e),
     className: "icon fa-solid fa-caret-right rotate-up ".concat(showOptions ? "rotate-up" : "rotate-down")
   })), /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("div", {
-    className: "content",
+    className: "content ".concat(showOptions ? "open" : ""),
     style: {
       maxHeight: maxHeight + "px"
     }

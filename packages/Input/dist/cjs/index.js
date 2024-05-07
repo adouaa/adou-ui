@@ -1869,6 +1869,7 @@ const Input = props => {
   // 获取 `FormContext.Provider` 提供提供的 `value` 值
 
   const {
+    transparent,
     children,
     type = "text",
     name,
@@ -1954,7 +1955,8 @@ const Input = props => {
     style: {
       borderRadius: "6px",
       borderTopLeftRadius: prefixContent ? 0 : '6px',
-      borderBottomLeftRadius: prefixContent ? 0 : '6px'
+      borderBottomLeftRadius: prefixContent ? 0 : '6px',
+      background: transparent ? "transparent" : "#fff"
     },
     step: 1,
     name: name,

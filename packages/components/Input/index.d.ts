@@ -12,6 +12,7 @@ export interface InputProps {
     style?: any;
     disabled?: boolean;
     children?: any;
+    transparent?: boolean;
     setFormItemValue?: (value: any) => void;
     onClick?: (e: React.MouseEvent<HTMLInputElement, MouseEvent>, ...args: any) => void;
     onFocus?: (e: React.FocusEvent<HTMLInputElement, Element>, ...args: any) => void;
@@ -31,6 +32,7 @@ declare const _default: React.ComponentType<Omit<{
     placeholder?: string | undefined;
     disabled?: boolean | undefined;
     children?: any;
+    transparent?: boolean | undefined;
     setFormItemValue?: ((value: any) => void) | undefined;
     onClick?: ((e: React.MouseEvent<HTMLInputElement, MouseEvent>, ...args: any) => void) | undefined;
     onFocus?: ((e: React.FocusEvent<HTMLInputElement, Element>, ...args: any) => void) | undefined;

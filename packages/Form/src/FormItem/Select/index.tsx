@@ -15,13 +15,14 @@ export interface SelectProps {
     className?: string;
     disabled?: boolean;
     style?: any;
+    transparent?: boolean;
     onChangeOK?: (e?: any, ...args: any) => void
     setFormItemValue?: (value: any) => void;
 }
 
 const Select = (props: SelectProps) => {
 
-    const { style, defaultValue, options, placeholder, size, className, disabled, onChangeOK, setFormItemValue } = props;
+    const { style, defaultValue, options, placeholder, size, className, disabled, transparent, onChangeOK, setFormItemValue } = props;
 
     // 获取 `FormContext.Provider` 提供提供的 `value` 值
     const context: FormContextProps = useContext(FormContext);
@@ -54,7 +55,7 @@ const Select = (props: SelectProps) => {
         context.checkValidate(value?.value); // 将value.label换成value.value，为了兼容默认值为空是 请选择的情况
     }
 
-    const handleDivClock = (e: any) => {
+    const handleDivClick = (e: any) => {
         e.stopPropagation(); // 阻止事件冒泡
         setShowOptions(!showOptions);
     }
@@ -108,7 +109,7 @@ const Select = (props: SelectProps) => {
 
     useEffect(() => {
         // 创建一个新数组，将 "请选择" 选项添加在数组的开头
-        const enhancedOptions = [{ label: "请选择", value: "" }, ...options];
+        const enhancedOptions = [...options];
         setNewOptions(enhancedOptions);
         // 如果 defaultValue 未定义，则将选择设置为 "请选择" 选项 -- 不写也没问题qwq
         /* if (!defaultValue) {
@@ -117,11 +118,11 @@ const Select = (props: SelectProps) => {
     }, [options])
 
     return <div className="select-wrapper" style={style}>
-        <div onBlur={handleBlur} onClick={(e: any) => handleDivClock(e)} tabIndex={1} className="custom-select form-control">
+        <div onBlur={handleBlur} onClick={(e: any) => handleDivClick(e)} tabIndex={1} className="custom-select form-control" style={{ textAlign: "left", background: transparent ? "transparent" : "#fff" }}>
             {value?.value ? value.label : <span className="select-placeholder">{placeholder}</span>}
-            {<i onClick={(e: any) => handleDivClock(e)} className={`icon fa-solid fa-caret-right rotate-up ${showOptions ? "rotate-up" : "rotate-down"}`}></i>}
+            {<i onClick={(e: any) => handleDivClick(e)} className={`icon fa-solid fa-caret-right rotate-up ${showOptions ? "rotate-up" : "rotate-down"}`}></i>}
         </div>
-        <div className="content">
+        <div className={`content ${showOptions ? "open" : ""}`}>
             {showOptions && newOptions.map(item => <div onClick={() => handleOptionClick(item)} className="option" key={item.value}>{item.label}</div>)}
         </div>
     </div>;

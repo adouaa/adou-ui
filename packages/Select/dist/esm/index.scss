@@ -1,6 +1,7 @@
 .select-wrapper {
     position: relative;
-    .select-placeholder, .select-value {
+    .select-placeholder,
+    .select-value {
         display: block;
         color: #7d7d7d;
         overflow: hidden;
@@ -19,13 +20,15 @@
         }
     }
     .content {
+        min-width: 200px;
         text-align-last: left;
         background-color: #fff;
-        max-height: 200px;
-        overflow-y: auto;
+        max-height: 0; /* 初始高度设为0，隐藏选项内容 */
+        overflow: hidden; /* 隐藏溢出内容 */
         position: absolute;
         z-index: 999;
         box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+        transition: max-height 0.3s ease; /* 添加高度变化的过渡效果 */
         .option {
             padding: 5px 10px;
             &:hover {
@@ -37,6 +40,9 @@
                 background-color: #2783d8;
             }
         }
+    }
+    .open {
+        max-height: 200px; /* 显示选项内容时的最大高度 */
     }
     .icon {
         position: absolute;

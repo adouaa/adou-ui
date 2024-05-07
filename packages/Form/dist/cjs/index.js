@@ -2330,6 +2330,7 @@ const Select_Select = props => {
     size,
     className,
     disabled,
+    transparent,
     onChangeOK,
     setFormItemValue
   } = props;
@@ -2356,7 +2357,7 @@ const Select_Select = props => {
     // 这边就不用再加 定时器了
     context.checkValidate(value === null || value === void 0 ? void 0 : value.value); // 将value.label换成value.value，为了兼容默认值为空是 请选择的情况
   };
-  const handleDivClock = e => {
+  const handleDivClick = e => {
     e.stopPropagation(); // 阻止事件冒泡
     setShowOptions(!showOptions);
   };
@@ -2408,10 +2409,7 @@ const Select_Select = props => {
   }, [defaultValue]);
   (0,external_root_React_commonjs2_react_commonjs_react_amd_react_.useEffect)(() => {
     // 创建一个新数组，将 "请选择" 选项添加在数组的开头
-    const enhancedOptions = [{
-      label: "请选择",
-      value: ""
-    }, ...options];
+    const enhancedOptions = [...options];
     setNewOptions(enhancedOptions);
     // 如果 defaultValue 未定义，则将选择设置为 "请选择" 选项 -- 不写也没问题qwq
     /* if (!defaultValue) {
@@ -2423,16 +2421,20 @@ const Select_Select = props => {
     style: style
   }, /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("div", {
     onBlur: handleBlur,
-    onClick: e => handleDivClock(e),
+    onClick: e => handleDivClick(e),
     tabIndex: 1,
-    className: "custom-select form-control"
+    className: "custom-select form-control",
+    style: {
+      textAlign: "left",
+      background: transparent ? "transparent" : "#fff"
+    }
   }, value !== null && value !== void 0 && value.value ? value.label : /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("span", {
     className: "select-placeholder"
   }, placeholder), /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("i", {
-    onClick: e => handleDivClock(e),
+    onClick: e => handleDivClick(e),
     className: "icon fa-solid fa-caret-right rotate-up ".concat(showOptions ? "rotate-up" : "rotate-down")
   })), /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("div", {
-    className: "content"
+    className: "content ".concat(showOptions ? "open" : "")
   }, showOptions && newOptions.map(item => /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("div", {
     onClick: () => handleOptionClick(item),
     className: "option",

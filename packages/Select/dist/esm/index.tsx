@@ -105,7 +105,7 @@ const Select = (props: SelectProps) => {
         {value?.value ?  <span className="select-value">{value.label}</span> : <span className="select-placeholder">{placeholder}</span>}
             {<i onClick={(e: any) => handleDivClock(e)} className={`icon fa-solid fa-caret-right rotate-up ${showOptions ? "rotate-up" : "rotate-down"}`}></i>}
         </div>
-        <div className="content" style={{maxHeight: maxHeight + "px"}}>
+        <div className={`content ${showOptions ? "open" : ""}`} style={{maxHeight: maxHeight + "px"}}>
             {showOptions && newOptions.map(item => <div onClick={() => handleOptionClick(item)} className="option" key={item.value}>{item.label}</div>)}
         </div>
     </div>;
