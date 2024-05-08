@@ -1,0 +1,68 @@
+@charset "UTF-8";
+.select-wrapper {
+  position: relative;
+}
+.select-wrapper .select-placeholder,
+.select-wrapper .select-value {
+  display: block;
+  color: #7d7d7d;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+.select-wrapper .select-value {
+  color: #000;
+}
+.select-wrapper .custom-select {
+  height: 38px;
+  position: relative;
+  cursor: pointer;
+}
+.select-wrapper .custom-select i {
+  transition: transform 0.3s ease; /* 添加过渡效果 */
+}
+.select-wrapper .icon {
+  position: absolute;
+  top: 10px;
+  right: 14px;
+  transition: transform 0.2s;
+}
+.select-wrapper .icon:hover {
+  transform: scale(1.4);
+}
+
+.rotate-up {
+  transform: rotate(90deg); /* 旋转-180度，向上箭头样式 */
+}
+
+.rotate-down {
+  transform: rotate(0deg); /* 不旋转，向下箭头样式 */
+}
+
+.custom-select-content {
+  min-width: 200px;
+  text-align-last: left;
+  background-color: #fff;
+  max-height: 0; /* 初始高度设为0，隐藏选项内容 */
+  overflow: auto; /* 隐藏溢出内容 */
+  position: absolute;
+  z-index: 66666666;
+  border-radius: 4px;
+  box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+  transition: max-height 0.3s ease; /* 添加高度变化的过渡效果 */
+}
+.custom-select-content .option {
+  padding: 5px 10px;
+}
+.custom-select-content .option:hover {
+  background-color: #f6f6f6;
+  cursor: pointer;
+}
+.custom-select-content .option:active {
+  color: #fff;
+  background-color: #2783d8;
+}
+
+.custom-select-content-open {
+  max-height: 100px; /* 显示选项内容时的最大高度 */
+}

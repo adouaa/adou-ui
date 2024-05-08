@@ -1,8 +1,10 @@
 import { withTranslation } from "react-i18next";
 import classNames from "classnames";
-import { ChangeEvent, useEffect, useState } from "react";
+import { ChangeEvent, useEffect, useRef, useState } from "react";
 import React from "react";
 import "./index.scss";
+import ReactDOM from "react-dom";
+import {getAbsolutePosition} from "adou-ui/Utils/index";
 
 export interface SelectProps {
     defaultValue?: any;
@@ -49,7 +51,15 @@ const Select = (props: SelectProps) => {
         }, 150);
     }
 
+    // 测试getAbsolutePosition
+    const customSelectRef = useRef<any>();
+    const contentRef = useRef<any>();
+    const [customSelectContentPosition, setCustomSelectContentPosition] = useState<any>({});
+
     const handleDivClock = (e: any) => {
+        // 新增使用createPortal来定位下拉框
+        const position = getAbsolutePosition(customSelectRef.current, 0, 0);
+        setCustomSelectContentPosition(position);
         e.stopPropagation(); // 阻止事件冒泡
         setShowOptions(!showOptions);
     }
@@ -101,14 +111,18 @@ const Select = (props: SelectProps) => {
     })
 
     return <div className="select-wrapper" style={{width: width + "px"}}>
-        <div onClick={(e: any) => handleDivClock(e)} tabIndex={1} className="custom-select form-control" style={{textAlign: "left", background: transparent ? "transparent" : "#fff"}}>
+        <div ref={customSelectRef} onClick={(e: any) => handleDivClock(e)} tabIndex={1} className="custom-select form-control" style={{textAlign: "left", background: transparent ? "transparent" : "#fff"}}>
         {value?.value ?  <span className="select-value">{value.label}</span> : <span className="select-placeholder">{placeholder}</span>}
             {<i onClick={(e: any) => handleDivClock(e)} className={`icon fa-solid fa-caret-right rotate-up ${showOptions ? "rotate-up" : "rotate-down"}`}></i>}
         </div>
-        <div className={`content ${showOptions ? "open" : ""}`} style={{maxHeight: maxHeight + "px"}}>
-            {showOptions && newOptions.map(item => <div onClick={() => handleOptionClick(item)} className="option" key={item.value}>{item.label}</div>)}
-        </div>
+        {ReactDOM.createPortal(
+            <div style={{position: "absolute", top: (customSelectContentPosition.y + customSelectContentPosition.height) + "px", left: customSelectContentPosition.x + "px"}} ref={contentRef} className={`custom-select-content ${showOptions ? "custom-select-content-open" : ""}`}>
+                {showOptions && newOptions.map(item => <div onClick={() => handleOptionClick(item)} className="option" key={item.value}>{item.label}</div>)}
+            </div>,
+            document.body
+        )}
     </div>;
 };
+
 
 export default withTranslation()(Select);

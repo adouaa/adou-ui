@@ -1,13 +1,13 @@
 (function webpackUniversalModuleDefinition(root, factory) {
 	if(typeof exports === 'object' && typeof module === 'object')
-		module.exports = factory(require("react"));
+		module.exports = factory(require("react"), require("react-dom"));
 	else if(typeof define === 'function' && define.amd)
-		define(["react"], factory);
+		define(["react", "react-dom"], factory);
 	else if(typeof exports === 'object')
-		exports["RPB"] = factory(require("react"));
+		exports["RPB"] = factory(require("react"), require("react-dom"));
 	else
-		root["RPB"] = factory(root["React"]);
-})(this, (__WEBPACK_EXTERNAL_MODULE__442__) => {
+		root["RPB"] = factory(root["React"], root["ReactDOM"]);
+})(this, (__WEBPACK_EXTERNAL_MODULE__442__, __WEBPACK_EXTERNAL_MODULE__3__) => {
 return /******/ (() => { // webpackBootstrap
 /******/ 	var __webpack_modules__ = ({
 
@@ -316,6 +316,7 @@ ___CSS_LOADER_EXPORT___.push([module.id, `@charset "UTF-8";
   overflow-y: auto;
   position: fixed;
   z-index: 999;
+  border-radius: 4px;
   box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
 }
 .select-wrapper .content .option {
@@ -345,7 +346,7 @@ ___CSS_LOADER_EXPORT___.push([module.id, `@charset "UTF-8";
 
 .rotate-down {
   transform: rotate(0deg); /* 不旋转，向下箭头样式 */
-}`, "",{"version":3,"sources":["webpack://./src/FormItem/Select/index.scss"],"names":[],"mappings":"AAAA,gBAAgB;AAAhB;EACI,kBAAA;AAEJ;AADI;EACG,cAAA;AAGP;AADI;EACI,YAAA;EACA,kBAAA;EACA,eAAA;AAGR;AAFQ;EACI,+BAAA,EAAA,WAAA;AAIZ;AADI;EACI,sBAAA;EACA,iBAAA;EACA,gBAAA;EACA,eAAA;EACA,YAAA;EACA,4CAAA;AAGR;AAFQ;EACI,iBAAA;AAIZ;AAHY;EACI,yBAAA;EACA,eAAA;AAKhB;AAHY;EACI,WAAA;EACA,yBAAA;AAKhB;AADI;EACI,kBAAA;EACA,SAAA;EACA,WAAA;EACA,0BAAA;AAGR;AAFQ;EACI,qBAAA;AAIZ;;AACA;EACI,wBAAA,EAAA,mBAAA;AAEJ;;AACA;EACI,uBAAA,EAAA,eAAA;AAEJ","sourcesContent":[".select-wrapper {\r\n    position: relative;\r\n    .select-placeholder {\r\n       color: #7d7d7d;\r\n    }\r\n    .custom-select {\r\n        height: 38px;\r\n        position: relative;\r\n        cursor: pointer;\r\n        i {\r\n            transition: transform 0.3s ease; /* 添加过渡效果 */\r\n        }\r\n    }\r\n    .content {\r\n        background-color: #fff;\r\n        max-height: 200px;\r\n        overflow-y: auto;\r\n        position: fixed;\r\n        z-index: 999;\r\n        box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;\r\n        .option {\r\n            padding: 5px 10px;\r\n            &:hover {\r\n                background-color: #f6f6f6;\r\n                cursor: pointer;\r\n            }\r\n            &:active {\r\n                color: #fff;\r\n                background-color: #2783d8;\r\n            }\r\n        }\r\n    }\r\n    .icon {\r\n        position: absolute;\r\n        top: 10px;\r\n        right: 14px;\r\n        transition: transform 0.2s;\r\n        &:hover {\r\n            transform: scale(1.4);\r\n        }\r\n    }\r\n}\r\n\r\n.rotate-up {\r\n    transform: rotate(90deg); /* 旋转-180度，向上箭头样式 */\r\n}\r\n\r\n.rotate-down {\r\n    transform: rotate(0deg); /* 不旋转，向下箭头样式 */\r\n}\r\n"],"sourceRoot":""}]);
+}`, "",{"version":3,"sources":["webpack://./src/FormItem/Select/index.scss"],"names":[],"mappings":"AAAA,gBAAgB;AAAhB;EACI,kBAAA;AAEJ;AADI;EACG,cAAA;AAGP;AADI;EACI,YAAA;EACA,kBAAA;EACA,eAAA;AAGR;AAFQ;EACI,+BAAA,EAAA,WAAA;AAIZ;AADI;EACI,sBAAA;EACA,iBAAA;EACA,gBAAA;EACA,eAAA;EACA,YAAA;EACA,kBAAA;EACA,4CAAA;AAGR;AAFQ;EACI,iBAAA;AAIZ;AAHY;EACI,yBAAA;EACA,eAAA;AAKhB;AAHY;EACI,WAAA;EACA,yBAAA;AAKhB;AADI;EACI,kBAAA;EACA,SAAA;EACA,WAAA;EACA,0BAAA;AAGR;AAFQ;EACI,qBAAA;AAIZ;;AACA;EACI,wBAAA,EAAA,mBAAA;AAEJ;;AACA;EACI,uBAAA,EAAA,eAAA;AAEJ","sourcesContent":[".select-wrapper {\r\n    position: relative;\r\n    .select-placeholder {\r\n       color: #7d7d7d;\r\n    }\r\n    .custom-select {\r\n        height: 38px;\r\n        position: relative;\r\n        cursor: pointer;\r\n        i {\r\n            transition: transform 0.3s ease; /* 添加过渡效果 */\r\n        }\r\n    }\r\n    .content {\r\n        background-color: #fff;\r\n        max-height: 200px;\r\n        overflow-y: auto;\r\n        position: fixed;\r\n        z-index: 999;\r\n        border-radius: 4px;\r\n        box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;\r\n        .option {\r\n            padding: 5px 10px;\r\n            &:hover {\r\n                background-color: #f6f6f6;\r\n                cursor: pointer;\r\n            }\r\n            &:active {\r\n                color: #fff;\r\n                background-color: #2783d8;\r\n            }\r\n        }\r\n    }\r\n    .icon {\r\n        position: absolute;\r\n        top: 10px;\r\n        right: 14px;\r\n        transition: transform 0.2s;\r\n        &:hover {\r\n            transform: scale(1.4);\r\n        }\r\n    }\r\n}\r\n\r\n.rotate-up {\r\n    transform: rotate(90deg); /* 旋转-180度，向上箭头样式 */\r\n}\r\n\r\n.rotate-down {\r\n    transform: rotate(0deg); /* 不旋转，向下箭头样式 */\r\n}\r\n"],"sourceRoot":""}]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 
@@ -762,6 +763,14 @@ module.exports = styleTagTransform;
 
 "use strict";
 module.exports = __WEBPACK_EXTERNAL_MODULE__442__;
+
+/***/ }),
+
+/***/ 3:
+/***/ ((module) => {
+
+"use strict";
+module.exports = __WEBPACK_EXTERNAL_MODULE__3__;
 
 /***/ }),
 
@@ -2314,7 +2323,42 @@ var Select_update = injectStylesIntoStyleTag_default()(Select/* default */.A, Se
 
        /* harmony default export */ const FormItem_Select = (Select/* default */.A && Select/* default */.A.locals ? Select/* default */.A.locals : undefined);
 
+;// CONCATENATED MODULE: ../utils/src/libs/getAbsolutePositionOfStage.js
+function getAbsolutePositionOfStage(domElement) {
+  let left = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 0;
+  let top = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : 0;
+  console.log(domElement);
+  if (!parseInt(left)) {
+    left = 0;
+  } else {
+    left = parseInt(left);
+  }
+  if (!parseInt(top)) {
+    top = 0;
+  } else {
+    top = parseInt(top);
+  }
+  const box = domElement.getBoundingClientRect();
+  const body = document.body;
+  const docElem = document.documentElement;
+  const scrollTop = window.pageYOffset || docElem.scrollTop || body.scrollTop;
+  const scrollLeft = window.pageXOffset || docElem.scrollLeft || body.scrollLeft;
+  const clientTop = docElem.clientTop || body.clientTop || 0;
+  const clientLeft = docElem.clientLeft || body.clientLeft || 0;
+  const attr = {};
+  attr.y = box.top + scrollTop - clientTop + top;
+  attr.x = box.left + scrollLeft - clientLeft + left;
+  attr.width = box.width;
+  attr.height = box.height;
+  return attr;
+}
+/* harmony default export */ const libs_getAbsolutePositionOfStage = (getAbsolutePositionOfStage);
+// EXTERNAL MODULE: external {"root":"ReactDOM","commonjs2":"react-dom","commonjs":"react-dom","amd":"react-dom"}
+var external_root_ReactDOM_commonjs2_react_dom_commonjs_react_dom_amd_react_dom_ = __webpack_require__(3);
+var external_root_ReactDOM_commonjs2_react_dom_commonjs_react_dom_amd_react_dom_default = /*#__PURE__*/__webpack_require__.n(external_root_ReactDOM_commonjs2_react_dom_commonjs_react_dom_amd_react_dom_);
 ;// CONCATENATED MODULE: ./src/FormItem/Select/index.tsx
+
+
 
 
 
@@ -2357,7 +2401,15 @@ const Select_Select = props => {
     // 这边就不用再加 定时器了
     context.checkValidate(value === null || value === void 0 ? void 0 : value.value); // 将value.label换成value.value，为了兼容默认值为空是 请选择的情况
   };
+
+  // 测试getAbsolutePosition
+  const customSelectRef = (0,external_root_React_commonjs2_react_commonjs_react_amd_react_.useRef)();
+  const contentRef = (0,external_root_React_commonjs2_react_commonjs_react_amd_react_.useRef)();
+  const [customSelectContentPosition, setCustomSelectContentPosition] = (0,external_root_React_commonjs2_react_commonjs_react_amd_react_.useState)({});
   const handleDivClick = e => {
+    // 新增使用createPortal来定位下拉框
+    const position = libs_getAbsolutePositionOfStage(customSelectRef.current, 0, 0);
+    setCustomSelectContentPosition(position);
     e.stopPropagation(); // 阻止事件冒泡
     setShowOptions(!showOptions);
   };
@@ -2420,6 +2472,7 @@ const Select_Select = props => {
     className: "select-wrapper",
     style: style
   }, /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("div", {
+    ref: customSelectRef,
     onBlur: handleBlur,
     onClick: e => handleDivClick(e),
     tabIndex: 1,
@@ -2433,13 +2486,19 @@ const Select_Select = props => {
   }, placeholder), /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("i", {
     onClick: e => handleDivClick(e),
     className: "icon fa-solid fa-caret-right rotate-up ".concat(showOptions ? "rotate-up" : "rotate-down")
-  })), /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("div", {
-    className: "content ".concat(showOptions ? "open" : "")
+  })), /*#__PURE__*/external_root_ReactDOM_commonjs2_react_dom_commonjs_react_dom_amd_react_dom_default().createPortal( /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("div", {
+    style: {
+      position: "absolute",
+      top: customSelectContentPosition.y + customSelectContentPosition.height + "px",
+      left: customSelectContentPosition.x + "px"
+    },
+    ref: contentRef,
+    className: "custom-select-content ".concat(showOptions ? "custom-select-content-open" : "")
   }, showOptions && newOptions.map(item => /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("div", {
     onClick: () => handleOptionClick(item),
     className: "option",
     key: item.value
-  }, item.label))));
+  }, item.label))), document.body));
 };
 /* harmony default export */ const src_FormItem_Select = (withTranslation()(Select_Select));
 // EXTERNAL MODULE: ../../node_modules/css-loader/dist/cjs.js??ruleSet[1].rules[1].use[1]!../../node_modules/sass-loader/dist/cjs.js??ruleSet[1].rules[1].use[2]!./src/FormItem/Textarea/index.css

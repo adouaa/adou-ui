@@ -1,13 +1,13 @@
 (function webpackUniversalModuleDefinition(root, factory) {
 	if(typeof exports === 'object' && typeof module === 'object')
-		module.exports = factory(require("react"));
+		module.exports = factory(require("react"), require("react-dom"));
 	else if(typeof define === 'function' && define.amd)
-		define(["react"], factory);
+		define(["react", "react-dom"], factory);
 	else if(typeof exports === 'object')
-		exports["RPB"] = factory(require("react"));
+		exports["RPB"] = factory(require("react"), require("react-dom"));
 	else
-		root["RPB"] = factory(root["React"]);
-})(this, (__WEBPACK_EXTERNAL_MODULE__442__) => {
+		root["RPB"] = factory(root["React"], root["ReactDOM"]);
+})(this, (__WEBPACK_EXTERNAL_MODULE__442__, __WEBPACK_EXTERNAL_MODULE__3__) => {
 return /******/ (() => { // webpackBootstrap
 /******/ 	var __webpack_modules__ = ({
 
@@ -153,6 +153,119 @@ module.exports = {
 
 /***/ }),
 
+/***/ 36:
+/***/ (function(module) {
+
+(function webpackUniversalModuleDefinition(root, factory) {
+  if (true) module.exports = factory();else {}
+})(this, () => {
+  return /******/(() => {
+    // webpackBootstrap
+    /******/
+    "use strict";
+
+    /******/ // The require scope
+    /******/
+    var __nested_webpack_require_474__ = {};
+    /******/
+    /************************************************************************/
+    /******/ /* webpack/runtime/define property getters */
+    /******/
+    (() => {
+      /******/ // define getter functions for harmony exports
+      /******/__nested_webpack_require_474__.d = (exports, definition) => {
+        /******/for (var key in definition) {
+          /******/if (__nested_webpack_require_474__.o(definition, key) && !__nested_webpack_require_474__.o(exports, key)) {
+            /******/Object.defineProperty(exports, key, {
+              enumerable: true,
+              get: definition[key]
+            });
+            /******/
+          }
+          /******/
+        }
+        /******/
+      };
+      /******/
+    })();
+    /******/
+    /******/ /* webpack/runtime/hasOwnProperty shorthand */
+    /******/
+    (() => {
+      /******/__nested_webpack_require_474__.o = (obj, prop) => Object.prototype.hasOwnProperty.call(obj, prop);
+      /******/
+    })();
+    /******/
+    /******/ /* webpack/runtime/make namespace object */
+    /******/
+    (() => {
+      /******/ // define __esModule on exports
+      /******/__nested_webpack_require_474__.r = exports => {
+        /******/if (typeof Symbol !== 'undefined' && Symbol.toStringTag) {
+          /******/Object.defineProperty(exports, Symbol.toStringTag, {
+            value: 'Module'
+          });
+          /******/
+        }
+        /******/
+        Object.defineProperty(exports, '__esModule', {
+          value: true
+        });
+        /******/
+      };
+      /******/
+    })();
+    /******/
+    /************************************************************************/
+    var __nested_webpack_exports__ = {};
+    // ESM COMPAT FLAG
+    __nested_webpack_require_474__.r(__nested_webpack_exports__);
+
+    // EXPORTS
+    __nested_webpack_require_474__.d(__nested_webpack_exports__, {
+      getAbsolutePosition: () => ( /* reexport */libs_getAbsolutePositionOfStage)
+    });
+    ; // CONCATENATED MODULE: ./src/libs/getAbsolutePositionOfStage.js
+    function getAbsolutePositionOfStage(domElement) {
+      let left = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 0;
+      let top = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : 0;
+      console.log(domElement);
+      if (!parseInt(left)) {
+        left = 0;
+      } else {
+        left = parseInt(left);
+      }
+      if (!parseInt(top)) {
+        top = 0;
+      } else {
+        top = parseInt(top);
+      }
+      const box = domElement.getBoundingClientRect();
+      const body = document.body;
+      const docElem = document.documentElement;
+      const scrollTop = window.pageYOffset || docElem.scrollTop || body.scrollTop;
+      const scrollLeft = window.pageXOffset || docElem.scrollLeft || body.scrollLeft;
+      const clientTop = docElem.clientTop || body.clientTop || 0;
+      const clientLeft = docElem.clientLeft || body.clientLeft || 0;
+      const attr = {};
+      attr.y = box.top + scrollTop - clientTop + top;
+      attr.x = box.left + scrollLeft - clientLeft + left;
+      attr.width = box.width;
+      attr.height = box.height;
+      return attr;
+    }
+    /* harmony default export */
+    const libs_getAbsolutePositionOfStage = getAbsolutePositionOfStage;
+    ; // CONCATENATED MODULE: ./src/index.tsx
+
+    /******/
+    return __nested_webpack_exports__;
+    /******/
+  })();
+});
+
+/***/ }),
+
 /***/ 483:
 /***/ ((module, __webpack_exports__, __webpack_require__) => {
 
@@ -192,31 +305,6 @@ ___CSS_LOADER_EXPORT___.push([module.id, `@charset "UTF-8";
 .select-wrapper .custom-select i {
   transition: transform 0.3s ease; /* 添加过渡效果 */
 }
-.select-wrapper .content {
-  min-width: 200px;
-  text-align-last: left;
-  background-color: #fff;
-  max-height: 0; /* 初始高度设为0，隐藏选项内容 */
-  overflow: hidden; /* 隐藏溢出内容 */
-  position: absolute;
-  z-index: 999;
-  box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
-  transition: max-height 0.3s ease; /* 添加高度变化的过渡效果 */
-}
-.select-wrapper .content .option {
-  padding: 5px 10px;
-}
-.select-wrapper .content .option:hover {
-  background-color: #f6f6f6;
-  cursor: pointer;
-}
-.select-wrapper .content .option:active {
-  color: #fff;
-  background-color: #2783d8;
-}
-.select-wrapper .open {
-  max-height: 200px; /* 显示选项内容时的最大高度 */
-}
 .select-wrapper .icon {
   position: absolute;
   top: 10px;
@@ -233,7 +321,35 @@ ___CSS_LOADER_EXPORT___.push([module.id, `@charset "UTF-8";
 
 .rotate-down {
   transform: rotate(0deg); /* 不旋转，向下箭头样式 */
-}`, "",{"version":3,"sources":["webpack://./src/index.scss"],"names":[],"mappings":"AAAA,gBAAgB;AAAhB;EACI,kBAAA;AAEJ;AADI;;EAEI,cAAA;EACA,cAAA;EACA,gBAAA;EACA,mBAAA;EACA,uBAAA;AAGR;AADI;EACI,WAAA;AAGR;AADI;EACI,YAAA;EACA,kBAAA;EACA,eAAA;AAGR;AAFQ;EACI,+BAAA,EAAA,WAAA;AAIZ;AADI;EACI,gBAAA;EACA,qBAAA;EACA,sBAAA;EACA,aAAA,EAAA,mBAAA;EACA,gBAAA,EAAA,WAAA;EACA,kBAAA;EACA,YAAA;EACA,4CAAA;EACA,gCAAA,EAAA,gBAAA;AAGR;AAFQ;EACI,iBAAA;AAIZ;AAHY;EACI,yBAAA;EACA,eAAA;AAKhB;AAHY;EACI,WAAA;EACA,yBAAA;AAKhB;AADI;EACI,iBAAA,EAAA,iBAAA;AAGR;AADI;EACI,kBAAA;EACA,SAAA;EACA,WAAA;EACA,0BAAA;AAGR;AAFQ;EACI,qBAAA;AAIZ;;AACA;EACI,wBAAA,EAAA,mBAAA;AAEJ;;AACA;EACI,uBAAA,EAAA,eAAA;AAEJ","sourcesContent":[".select-wrapper {\r\n    position: relative;\r\n    .select-placeholder,\r\n    .select-value {\r\n        display: block;\r\n        color: #7d7d7d;\r\n        overflow: hidden;\r\n        white-space: nowrap;\r\n        text-overflow: ellipsis;\r\n    }\r\n    .select-value {\r\n        color: #000;\r\n    }\r\n    .custom-select {\r\n        height: 38px;\r\n        position: relative;\r\n        cursor: pointer;\r\n        i {\r\n            transition: transform 0.3s ease; /* 添加过渡效果 */\r\n        }\r\n    }\r\n    .content {\r\n        min-width: 200px;\r\n        text-align-last: left;\r\n        background-color: #fff;\r\n        max-height: 0; /* 初始高度设为0，隐藏选项内容 */\r\n        overflow: hidden; /* 隐藏溢出内容 */\r\n        position: absolute;\r\n        z-index: 999;\r\n        box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;\r\n        transition: max-height 0.3s ease; /* 添加高度变化的过渡效果 */\r\n        .option {\r\n            padding: 5px 10px;\r\n            &:hover {\r\n                background-color: #f6f6f6;\r\n                cursor: pointer;\r\n            }\r\n            &:active {\r\n                color: #fff;\r\n                background-color: #2783d8;\r\n            }\r\n        }\r\n    }\r\n    .open {\r\n        max-height: 200px; /* 显示选项内容时的最大高度 */\r\n    }\r\n    .icon {\r\n        position: absolute;\r\n        top: 10px;\r\n        right: 14px;\r\n        transition: transform 0.2s;\r\n        &:hover {\r\n            transform: scale(1.4);\r\n        }\r\n    }\r\n}\r\n\r\n.rotate-up {\r\n    transform: rotate(90deg); /* 旋转-180度，向上箭头样式 */\r\n}\r\n\r\n.rotate-down {\r\n    transform: rotate(0deg); /* 不旋转，向下箭头样式 */\r\n}\r\n"],"sourceRoot":""}]);
+}
+
+.custom-select-content {
+  min-width: 200px;
+  text-align-last: left;
+  background-color: #fff;
+  max-height: 0; /* 初始高度设为0，隐藏选项内容 */
+  overflow: auto; /* 隐藏溢出内容 */
+  position: absolute;
+  z-index: 66666666;
+  border-radius: 4px;
+  box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+  transition: max-height 0.3s ease; /* 添加高度变化的过渡效果 */
+}
+.custom-select-content .option {
+  padding: 5px 10px;
+}
+.custom-select-content .option:hover {
+  background-color: #f6f6f6;
+  cursor: pointer;
+}
+.custom-select-content .option:active {
+  color: #fff;
+  background-color: #2783d8;
+}
+
+.custom-select-content-open {
+  max-height: 100px; /* 显示选项内容时的最大高度 */
+}`, "",{"version":3,"sources":["webpack://./src/index.scss"],"names":[],"mappings":"AAAA,gBAAgB;AAAhB;EACI,kBAAA;AAEJ;AADI;;EAEI,cAAA;EACA,cAAA;EACA,gBAAA;EACA,mBAAA;EACA,uBAAA;AAGR;AADI;EACI,WAAA;AAGR;AADI;EACI,YAAA;EACA,kBAAA;EACA,eAAA;AAGR;AAFQ;EACI,+BAAA,EAAA,WAAA;AAIZ;AAAI;EACI,kBAAA;EACA,SAAA;EACA,WAAA;EACA,0BAAA;AAER;AADQ;EACI,qBAAA;AAGZ;;AAEA;EACI,wBAAA,EAAA,mBAAA;AACJ;;AAEA;EACI,uBAAA,EAAA,eAAA;AACJ;;AAEA;EACI,gBAAA;EACA,qBAAA;EACA,sBAAA;EACA,aAAA,EAAA,mBAAA;EACA,cAAA,EAAA,WAAA;EACA,kBAAA;EACA,iBAAA;EACA,kBAAA;EACA,4CAAA;EACA,gCAAA,EAAA,gBAAA;AACJ;AAAI;EACI,iBAAA;AAER;AADQ;EACI,yBAAA;EACA,eAAA;AAGZ;AADQ;EACI,WAAA;EACA,yBAAA;AAGZ;;AACA;EACI,iBAAA,EAAA,iBAAA;AAEJ","sourcesContent":[".select-wrapper {\r\n    position: relative;\r\n    .select-placeholder,\r\n    .select-value {\r\n        display: block;\r\n        color: #7d7d7d;\r\n        overflow: hidden;\r\n        white-space: nowrap;\r\n        text-overflow: ellipsis;\r\n    }\r\n    .select-value {\r\n        color: #000;\r\n    }\r\n    .custom-select {\r\n        height: 38px;\r\n        position: relative;\r\n        cursor: pointer;\r\n        i {\r\n            transition: transform 0.3s ease; /* 添加过渡效果 */\r\n        }\r\n    }\r\n\r\n    .icon {\r\n        position: absolute;\r\n        top: 10px;\r\n        right: 14px;\r\n        transition: transform 0.2s;\r\n        &:hover {\r\n            transform: scale(1.4);\r\n        }\r\n    }\r\n}\r\n\r\n.rotate-up {\r\n    transform: rotate(90deg); /* 旋转-180度，向上箭头样式 */\r\n}\r\n\r\n.rotate-down {\r\n    transform: rotate(0deg); /* 不旋转，向下箭头样式 */\r\n}\r\n\r\n.custom-select-content {\r\n    min-width: 200px;\r\n    text-align-last: left;\r\n    background-color: #fff;\r\n    max-height: 0; /* 初始高度设为0，隐藏选项内容 */\r\n    overflow: auto; /* 隐藏溢出内容 */\r\n    position: absolute;\r\n    z-index: 66666666;\r\n    border-radius: 4px;\r\n    box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;\r\n    transition: max-height 0.3s ease; /* 添加高度变化的过渡效果 */\r\n    .option {\r\n        padding: 5px 10px;\r\n        &:hover {\r\n            background-color: #f6f6f6;\r\n            cursor: pointer;\r\n        }\r\n        &:active {\r\n            color: #fff;\r\n            background-color: #2783d8;\r\n        }\r\n    }\r\n}\r\n.custom-select-content-open {\r\n    max-height: 100px; /* 显示选项内容时的最大高度 */\r\n}\r\n"],"sourceRoot":""}]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 
@@ -503,6 +619,14 @@ module.exports = __WEBPACK_EXTERNAL_MODULE__442__;
 
 /***/ }),
 
+/***/ 3:
+/***/ ((module) => {
+
+"use strict";
+module.exports = __WEBPACK_EXTERNAL_MODULE__3__;
+
+/***/ }),
+
 /***/ 650:
 /***/ ((module, exports) => {
 
@@ -591,7 +715,7 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/*!
 /******/ 		};
 /******/ 	
 /******/ 		// Execute the module function
-/******/ 		__webpack_modules__[moduleId](module, module.exports, __webpack_require__);
+/******/ 		__webpack_modules__[moduleId].call(module.exports, module, module.exports, __webpack_require__);
 /******/ 	
 /******/ 		// Return the exports of the module
 /******/ 		return module.exports;
@@ -1909,7 +2033,14 @@ var update = injectStylesIntoStyleTag_default()(cjs_ruleSet_1_rules_1_use_2_src/
 
        /* harmony default export */ const src = (cjs_ruleSet_1_rules_1_use_2_src/* default */.A && cjs_ruleSet_1_rules_1_use_2_src/* default */.A.locals ? cjs_ruleSet_1_rules_1_use_2_src/* default */.A.locals : undefined);
 
+// EXTERNAL MODULE: external {"root":"ReactDOM","commonjs2":"react-dom","commonjs":"react-dom","amd":"react-dom"}
+var external_root_ReactDOM_commonjs2_react_dom_commonjs_react_dom_amd_react_dom_ = __webpack_require__(3);
+var external_root_ReactDOM_commonjs2_react_dom_commonjs_react_dom_amd_react_dom_default = /*#__PURE__*/__webpack_require__.n(external_root_ReactDOM_commonjs2_react_dom_commonjs_react_dom_amd_react_dom_);
+// EXTERNAL MODULE: ../components/Utils/index.js
+var Utils = __webpack_require__(36);
 ;// CONCATENATED MODULE: ./src/index.tsx
+
+
 
 
 
@@ -1951,7 +2082,15 @@ const Select = props => {
       // context.checkValidate(value.value);
     }, 150);
   };
+
+  // 测试getAbsolutePosition
+  const customSelectRef = (0,external_root_React_commonjs2_react_commonjs_react_amd_react_.useRef)();
+  const contentRef = (0,external_root_React_commonjs2_react_commonjs_react_amd_react_.useRef)();
+  const [customSelectContentPosition, setCustomSelectContentPosition] = (0,external_root_React_commonjs2_react_commonjs_react_amd_react_.useState)({});
   const handleDivClock = e => {
+    // 新增使用createPortal来定位下拉框
+    const position = (0,Utils.getAbsolutePosition)(customSelectRef.current, 0, 0);
+    setCustomSelectContentPosition(position);
     e.stopPropagation(); // 阻止事件冒泡
     setShowOptions(!showOptions);
   };
@@ -2001,6 +2140,7 @@ const Select = props => {
       width: width + "px"
     }
   }, /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("div", {
+    ref: customSelectRef,
     onClick: e => handleDivClock(e),
     tabIndex: 1,
     className: "custom-select form-control",
@@ -2015,16 +2155,19 @@ const Select = props => {
   }, placeholder), /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("i", {
     onClick: e => handleDivClock(e),
     className: "icon fa-solid fa-caret-right rotate-up ".concat(showOptions ? "rotate-up" : "rotate-down")
-  })), /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("div", {
-    className: "content ".concat(showOptions ? "open" : ""),
+  })), /*#__PURE__*/external_root_ReactDOM_commonjs2_react_dom_commonjs_react_dom_amd_react_dom_default().createPortal( /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("div", {
     style: {
-      maxHeight: maxHeight + "px"
-    }
+      position: "absolute",
+      top: customSelectContentPosition.y + customSelectContentPosition.height + "px",
+      left: customSelectContentPosition.x + "px"
+    },
+    ref: contentRef,
+    className: "custom-select-content ".concat(showOptions ? "custom-select-content-open" : "")
   }, showOptions && newOptions.map(item => /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("div", {
     onClick: () => handleOptionClick(item),
     className: "option",
     key: item.value
-  }, item.label))));
+  }, item.label))), document.body));
 };
 /* harmony default export */ const src_0 = (withTranslation()(Select));
 })();

@@ -19,31 +19,7 @@
             transition: transform 0.3s ease; /* 添加过渡效果 */
         }
     }
-    .content {
-        min-width: 200px;
-        text-align-last: left;
-        background-color: #fff;
-        max-height: 0; /* 初始高度设为0，隐藏选项内容 */
-        overflow: hidden; /* 隐藏溢出内容 */
-        position: absolute;
-        z-index: 999;
-        box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
-        transition: max-height 0.3s ease; /* 添加高度变化的过渡效果 */
-        .option {
-            padding: 5px 10px;
-            &:hover {
-                background-color: #f6f6f6;
-                cursor: pointer;
-            }
-            &:active {
-                color: #fff;
-                background-color: #2783d8;
-            }
-        }
-    }
-    .open {
-        max-height: 200px; /* 显示选项内容时的最大高度 */
-    }
+
     .icon {
         position: absolute;
         top: 10px;
@@ -61,4 +37,31 @@
 
 .rotate-down {
     transform: rotate(0deg); /* 不旋转，向下箭头样式 */
+}
+
+.custom-select-content {
+    min-width: 200px;
+    text-align-last: left;
+    background-color: #fff;
+    max-height: 0; /* 初始高度设为0，隐藏选项内容 */
+    overflow: auto; /* 隐藏溢出内容 */
+    position: absolute;
+    z-index: 66666666;
+    border-radius: 4px;
+    box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+    transition: max-height 0.3s ease; /* 添加高度变化的过渡效果 */
+    .option {
+        padding: 5px 10px;
+        &:hover {
+            background-color: #f6f6f6;
+            cursor: pointer;
+        }
+        &:active {
+            color: #fff;
+            background-color: #2783d8;
+        }
+    }
+}
+.custom-select-content-open {
+    max-height: 100px; /* 显示选项内容时的最大高度 */
 }
