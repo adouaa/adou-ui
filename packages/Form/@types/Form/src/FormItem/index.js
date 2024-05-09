@@ -40,7 +40,7 @@ const TagInput_1 = __importDefault(require("./TagInput"));
 const FormItem = (props) => {
     // 获取 `FormContext.Provider` 提供提供的 `value` 值
     const context = (0, react_1.useContext)(index_1.FormContext);
-    const { errorInline = false, children, width, name, inline = true, labelAlignY = "center", label, labelWidth = 100, validate, rule, maxLabelLength = 0, labelAlignX = "right" } = props;
+    const { suffixIcon, errorInline = false, children, width, name, inline = true, labelAlignY = "center", label, labelWidth = 100, validate, rule, maxLabelLength = 0, labelAlignX = "right", onSuffixIconClick } = props;
     const [error, setError] = (0, react_1.useState)("");
     // 每个字体的width
     const eachWordWidth = 24;
@@ -73,6 +73,9 @@ const FormItem = (props) => {
             context.handleValidate(false);
         }
     };
+    const handleSuffixIconClick = () => {
+        onSuffixIconClick && onSuffixIconClick(name, context.formData[name]);
+    };
     const renderContent = () => {
         const enhancedChildren = react_1.default.Children.map(props.children, (child) => {
             return react_1.default.cloneElement(child, {
@@ -86,7 +89,8 @@ const FormItem = (props) => {
                     react_1.default.createElement("div", { className: "form-item-label", style: { width: ((maxLabelLength * eachWordWidth > labelWidth) ? labelWidth : maxLabelLength * eachWordWidth) + "px", textAlign: labelAlignX } },
                         label,
                         ":"),
-                    react_1.default.createElement("div", { style: { flex: 1, marginLeft: "15px" } }, enhancedChildren)),
+                    react_1.default.createElement("div", { style: { flex: 1, marginLeft: "15px" } }, enhancedChildren),
+                    suffixIcon && react_1.default.createElement("div", { className: "suffix-icon-container", onClick: handleSuffixIconClick }, suffixIcon)),
                 error && react_1.default.createElement("div", { className: `form-item-error text-danger small ${error ? 'fadeIn' : 'fadeOut'}`, style: { textAlign: "left", margin: `-15px 0 5px ${((maxLabelLength * eachWordWidth > labelWidth) ? labelWidth + (0.8 * eachWordWidth) : (maxLabelLength + 0.8) * eachWordWidth) + "px"}`, marginLeft: `${errorInline && "10px"}` } }, error)));
         }
         return null;

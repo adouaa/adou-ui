@@ -52,8 +52,8 @@ const TagInput = (props: TagInputProps) => {
     const handleDeleteItem = (item: any) => {
         const tagList = inputList.filter((value: any) => item !== value);
         setInputList(tagList)
-        // 注意，这边不能直接用 inputList给 formData赋值，会出现不一致的情况
         onChange && onChange(tagList);
+        // 注意，这边不能直接用 inputList给 formData赋值，会出现不一致的情况
         
         context.handleChange && context.handleChange(context.name, tagList);
         context.checkValidate && context.checkValidate(inputList.filter((v: any) => v !== item).length);
@@ -71,20 +71,12 @@ const TagInput = (props: TagInputProps) => {
     }
 
     useEffect(() => {
+        console.log(defaultValue);
+        
         if (defaultValue.length) {
             setInputList(defaultValue);
-            if (context.formData) {
-                context.formData[context.name as string] = defaultValue;
-            }
-        } else {
-            setInputList([]);
         }
     }, [defaultValue])
-
-    useEffect(() => {
-        
-        setInputList(context.formData?.[context.name as string] || "");
-    }, [context.formData?.[context.name as string]])
 
     return <>
     {/* 实现点击后高亮，div必须加上 form-control，这个类名会空值高亮以动画效果出现。并且 focus类名必须动态添加 */}

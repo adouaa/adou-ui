@@ -17,6 +17,8 @@ interface FormProps {
     labelAlignX?: "left" | "right";
     inline?: boolean;
     errorInline?: boolean;
+    suffixIcon?: any;
+    onSuffixIconClick?: any;
 }
 declare const Form: React.ForwardRefExoticComponent<FormProps & React.RefAttributes<unknown>>;
 export default Form;

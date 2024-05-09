@@ -33,7 +33,7 @@ exports.FormItem = FormItem_1.default;
 // 基于 FormContext 下发表单数据源以及修改方法
 exports.FormContext = (0, react_1.createContext)({});
 const Form = (0, react_1.forwardRef)((props, formRef) => {
-    const { inline = false, errorInline = false, labelAlignX, name, labelWidth } = props;
+    const { suffixIcon, inline = false, errorInline = false, labelAlignX, name, labelWidth, onSuffixIconClick } = props;
     // 统一管理表单数据源
     const [formData, setFormData] = (0, react_1.useState)({});
     const [validation, setValidation] = (0, react_1.useState)(true);
@@ -112,7 +112,9 @@ const Form = (0, react_1.forwardRef)((props, formRef) => {
                     labelAlignX,
                     labelWidth,
                     key: child.props.name,
-                    errorInline
+                    errorInline,
+                    suffixIcon,
+                    onSuffixIconClick
                 });
                 renderChildren.push(enhancedChildren);
             }

@@ -71,18 +71,12 @@ const TagInput = (props: TagInputProps) => {
     }
 
     useEffect(() => {
+        console.log(defaultValue);
+        
         if (defaultValue.length) {
             setInputList(defaultValue);
-            if (context.formData) {
-                context.formData[context.name as string] = defaultValue;
-            }
         }
     }, [defaultValue])
-
-    useEffect(() => {
-        
-        setInputList(context.formData?.[context.name as string] || "");
-    }, [context.formData?.[context.name as string]])
 
     return <>
     {/* 实现点击后高亮，div必须加上 form-control，这个类名会空值高亮以动画效果出现。并且 focus类名必须动态添加 */}

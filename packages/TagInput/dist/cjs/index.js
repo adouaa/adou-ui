@@ -1,13 +1,13 @@
 (function webpackUniversalModuleDefinition(root, factory) {
 	if(typeof exports === 'object' && typeof module === 'object')
-		module.exports = factory(require("react"));
+		module.exports = factory(require("react"), require("react-dom"));
 	else if(typeof define === 'function' && define.amd)
-		define(["react"], factory);
+		define(["react", "react-dom"], factory);
 	else if(typeof exports === 'object')
-		exports["RPB"] = factory(require("react"));
+		exports["RPB"] = factory(require("react"), require("react-dom"));
 	else
-		root["RPB"] = factory(root["React"]);
-})(this, (__WEBPACK_EXTERNAL_MODULE__442__) => {
+		root["RPB"] = factory(root["React"], root["ReactDOM"]);
+})(this, (__WEBPACK_EXTERNAL_MODULE__442__, __WEBPACK_EXTERNAL_MODULE__3__) => {
 return /******/ (() => { // webpackBootstrap
 /******/ 	var __webpack_modules__ = ({
 
@@ -157,8 +157,8 @@ module.exports = {
 /***/ (function(module, __unused_webpack_exports, __webpack_require__) {
 
 (function webpackUniversalModuleDefinition(root, factory) {
-  if (true) module.exports = factory(__webpack_require__(442));else {}
-})(this, __WEBPACK_EXTERNAL_MODULE__442__ => {
+  if (true) module.exports = factory(__webpack_require__(442), __webpack_require__(3));else {}
+})(this, (__WEBPACK_EXTERNAL_MODULE__442__, __WEBPACK_EXTERNAL_MODULE__3__) => {
   return /******/(() => {
     // webpackBootstrap
     /******/
@@ -297,22 +297,22 @@ module.exports = {
 
         /***/
       }),
-      /***/989: ( /***/(module, __nested_webpack_exports__, __nested_webpack_require_4830__) => {
+      /***/989: ( /***/(module, __nested_webpack_exports__, __nested_webpack_require_4939__) => {
         "use strict";
 
         /* harmony export */
-        __nested_webpack_require_4830__.d(__nested_webpack_exports__, {
+        __nested_webpack_require_4939__.d(__nested_webpack_exports__, {
           /* harmony export */A: () => __WEBPACK_DEFAULT_EXPORT__
           /* harmony export */
         });
         /* harmony import */
-        var _node_modules_css_loader_dist_runtime_sourceMaps_js__WEBPACK_IMPORTED_MODULE_0__ = __nested_webpack_require_4830__(73);
+        var _node_modules_css_loader_dist_runtime_sourceMaps_js__WEBPACK_IMPORTED_MODULE_0__ = __nested_webpack_require_4939__(73);
         /* harmony import */
-        var _node_modules_css_loader_dist_runtime_sourceMaps_js__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__nested_webpack_require_4830__.n(_node_modules_css_loader_dist_runtime_sourceMaps_js__WEBPACK_IMPORTED_MODULE_0__);
+        var _node_modules_css_loader_dist_runtime_sourceMaps_js__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__nested_webpack_require_4939__.n(_node_modules_css_loader_dist_runtime_sourceMaps_js__WEBPACK_IMPORTED_MODULE_0__);
         /* harmony import */
-        var _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_1__ = __nested_webpack_require_4830__(191);
+        var _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_1__ = __nested_webpack_require_4939__(191);
         /* harmony import */
-        var _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__nested_webpack_require_4830__.n(_node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_1__);
+        var _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__nested_webpack_require_4939__.n(_node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_1__);
         // Imports
 
         var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_1___default()(_node_modules_css_loader_dist_runtime_sourceMaps_js__WEBPACK_IMPORTED_MODULE_0___default());
@@ -331,22 +331,22 @@ module.exports = {
 
         /***/
       }),
-      /***/675: ( /***/(module, __nested_webpack_exports__, __nested_webpack_require_7756__) => {
+      /***/675: ( /***/(module, __nested_webpack_exports__, __nested_webpack_require_7865__) => {
         "use strict";
 
         /* harmony export */
-        __nested_webpack_require_7756__.d(__nested_webpack_exports__, {
+        __nested_webpack_require_7865__.d(__nested_webpack_exports__, {
           /* harmony export */A: () => __WEBPACK_DEFAULT_EXPORT__
           /* harmony export */
         });
         /* harmony import */
-        var _node_modules_css_loader_dist_runtime_sourceMaps_js__WEBPACK_IMPORTED_MODULE_0__ = __nested_webpack_require_7756__(73);
+        var _node_modules_css_loader_dist_runtime_sourceMaps_js__WEBPACK_IMPORTED_MODULE_0__ = __nested_webpack_require_7865__(73);
         /* harmony import */
-        var _node_modules_css_loader_dist_runtime_sourceMaps_js__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__nested_webpack_require_7756__.n(_node_modules_css_loader_dist_runtime_sourceMaps_js__WEBPACK_IMPORTED_MODULE_0__);
+        var _node_modules_css_loader_dist_runtime_sourceMaps_js__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__nested_webpack_require_7865__.n(_node_modules_css_loader_dist_runtime_sourceMaps_js__WEBPACK_IMPORTED_MODULE_0__);
         /* harmony import */
-        var _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_1__ = __nested_webpack_require_7756__(191);
+        var _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_1__ = __nested_webpack_require_7865__(191);
         /* harmony import */
-        var _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__nested_webpack_require_7756__.n(_node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_1__);
+        var _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__nested_webpack_require_7865__.n(_node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_1__);
         // Imports
 
         var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_1___default()(_node_modules_css_loader_dist_runtime_sourceMaps_js__WEBPACK_IMPORTED_MODULE_0___default());
@@ -365,22 +365,56 @@ module.exports = {
 
         /***/
       }),
-      /***/818: ( /***/(module, __nested_webpack_exports__, __nested_webpack_require_11729__) => {
+      /***/590: ( /***/(module, __nested_webpack_exports__, __nested_webpack_require_11838__) => {
         "use strict";
 
         /* harmony export */
-        __nested_webpack_require_11729__.d(__nested_webpack_exports__, {
+        __nested_webpack_require_11838__.d(__nested_webpack_exports__, {
           /* harmony export */A: () => __WEBPACK_DEFAULT_EXPORT__
           /* harmony export */
         });
         /* harmony import */
-        var _node_modules_css_loader_dist_runtime_sourceMaps_js__WEBPACK_IMPORTED_MODULE_0__ = __nested_webpack_require_11729__(73);
+        var _node_modules_css_loader_dist_runtime_sourceMaps_js__WEBPACK_IMPORTED_MODULE_0__ = __nested_webpack_require_11838__(73);
         /* harmony import */
-        var _node_modules_css_loader_dist_runtime_sourceMaps_js__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__nested_webpack_require_11729__.n(_node_modules_css_loader_dist_runtime_sourceMaps_js__WEBPACK_IMPORTED_MODULE_0__);
+        var _node_modules_css_loader_dist_runtime_sourceMaps_js__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__nested_webpack_require_11838__.n(_node_modules_css_loader_dist_runtime_sourceMaps_js__WEBPACK_IMPORTED_MODULE_0__);
         /* harmony import */
-        var _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_1__ = __nested_webpack_require_11729__(191);
+        var _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_1__ = __nested_webpack_require_11838__(191);
         /* harmony import */
-        var _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__nested_webpack_require_11729__.n(_node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_1__);
+        var _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__nested_webpack_require_11838__.n(_node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_1__);
+        // Imports
+
+        var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_1___default()(_node_modules_css_loader_dist_runtime_sourceMaps_js__WEBPACK_IMPORTED_MODULE_0___default());
+        // Module
+        ___CSS_LOADER_EXPORT___.push([module.id, "@charset \"UTF-8\";\n.select-wrapper {\n  position: relative;\n}\n.select-wrapper .select-placeholder {\n  color: #7d7d7d;\n}\n.select-wrapper .custom-select {\n  height: 38px;\n  position: relative;\n  cursor: pointer;\n}\n.select-wrapper .custom-select i {\n  transition: transform 0.3s ease; /* \u6DFB\u52A0\u8FC7\u6E21\u6548\u679C */\n}\n.select-wrapper .content {\n  background-color: #fff;\n  max-height: 200px;\n  overflow-y: auto;\n  position: fixed;\n  z-index: 999;\n  border-radius: 4px;\n  box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;\n}\n.select-wrapper .content .option {\n  padding: 5px 10px;\n}\n.select-wrapper .content .option:hover {\n  background-color: #f6f6f6;\n  cursor: pointer;\n}\n.select-wrapper .content .option:active {\n  color: #fff;\n  background-color: #2783d8;\n}\n.select-wrapper .icon {\n  position: absolute;\n  top: 10px;\n  right: 14px;\n  transition: transform 0.2s;\n}\n.select-wrapper .icon:hover {\n  transform: scale(1.4);\n}\n\n.rotate-up {\n  transform: rotate(90deg); /* \u65CB\u8F6C-180\u5EA6\uFF0C\u5411\u4E0A\u7BAD\u5934\u6837\u5F0F */\n}\n\n.rotate-down {\n  transform: rotate(0deg); /* \u4E0D\u65CB\u8F6C\uFF0C\u5411\u4E0B\u7BAD\u5934\u6837\u5F0F */\n}", "", {
+          "version": 3,
+          "sources": ["webpack://./src/FormItem/Select/index.scss"],
+          "names": [],
+          "mappings": "AAAA,gBAAgB;AAAhB;EACI,kBAAA;AAEJ;AADI;EACG,cAAA;AAGP;AADI;EACI,YAAA;EACA,kBAAA;EACA,eAAA;AAGR;AAFQ;EACI,+BAAA,EAAA,WAAA;AAIZ;AADI;EACI,sBAAA;EACA,iBAAA;EACA,gBAAA;EACA,eAAA;EACA,YAAA;EACA,kBAAA;EACA,4CAAA;AAGR;AAFQ;EACI,iBAAA;AAIZ;AAHY;EACI,yBAAA;EACA,eAAA;AAKhB;AAHY;EACI,WAAA;EACA,yBAAA;AAKhB;AADI;EACI,kBAAA;EACA,SAAA;EACA,WAAA;EACA,0BAAA;AAGR;AAFQ;EACI,qBAAA;AAIZ;;AACA;EACI,wBAAA,EAAA,mBAAA;AAEJ;;AACA;EACI,uBAAA,EAAA,eAAA;AAEJ",
+          "sourcesContent": [".select-wrapper {\r\n    position: relative;\r\n    .select-placeholder {\r\n       color: #7d7d7d;\r\n    }\r\n    .custom-select {\r\n        height: 38px;\r\n        position: relative;\r\n        cursor: pointer;\r\n        i {\r\n            transition: transform 0.3s ease; /* 添加过渡效果 */\r\n        }\r\n    }\r\n    .content {\r\n        background-color: #fff;\r\n        max-height: 200px;\r\n        overflow-y: auto;\r\n        position: fixed;\r\n        z-index: 999;\r\n        border-radius: 4px;\r\n        box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;\r\n        .option {\r\n            padding: 5px 10px;\r\n            &:hover {\r\n                background-color: #f6f6f6;\r\n                cursor: pointer;\r\n            }\r\n            &:active {\r\n                color: #fff;\r\n                background-color: #2783d8;\r\n            }\r\n        }\r\n    }\r\n    .icon {\r\n        position: absolute;\r\n        top: 10px;\r\n        right: 14px;\r\n        transition: transform 0.2s;\r\n        &:hover {\r\n            transform: scale(1.4);\r\n        }\r\n    }\r\n}\r\n\r\n.rotate-up {\r\n    transform: rotate(90deg); /* 旋转-180度，向上箭头样式 */\r\n}\r\n\r\n.rotate-down {\r\n    transform: rotate(0deg); /* 不旋转，向下箭头样式 */\r\n}\r\n"],
+          "sourceRoot": ""
+        }]);
+        // Exports
+        /* harmony default export */
+        const __WEBPACK_DEFAULT_EXPORT__ = ___CSS_LOADER_EXPORT___;
+
+        /***/
+      }),
+      /***/818: ( /***/(module, __nested_webpack_exports__, __nested_webpack_require_16489__) => {
+        "use strict";
+
+        /* harmony export */
+        __nested_webpack_require_16489__.d(__nested_webpack_exports__, {
+          /* harmony export */A: () => __WEBPACK_DEFAULT_EXPORT__
+          /* harmony export */
+        });
+        /* harmony import */
+        var _node_modules_css_loader_dist_runtime_sourceMaps_js__WEBPACK_IMPORTED_MODULE_0__ = __nested_webpack_require_16489__(73);
+        /* harmony import */
+        var _node_modules_css_loader_dist_runtime_sourceMaps_js__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__nested_webpack_require_16489__.n(_node_modules_css_loader_dist_runtime_sourceMaps_js__WEBPACK_IMPORTED_MODULE_0__);
+        /* harmony import */
+        var _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_1__ = __nested_webpack_require_16489__(191);
+        /* harmony import */
+        var _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__nested_webpack_require_16489__.n(_node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_1__);
         // Imports
 
         var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_1___default()(_node_modules_css_loader_dist_runtime_sourceMaps_js__WEBPACK_IMPORTED_MODULE_0___default());
@@ -399,22 +433,22 @@ module.exports = {
 
         /***/
       }),
-      /***/5: ( /***/(module, __nested_webpack_exports__, __nested_webpack_require_16411__) => {
+      /***/5: ( /***/(module, __nested_webpack_exports__, __nested_webpack_require_21171__) => {
         "use strict";
 
         /* harmony export */
-        __nested_webpack_require_16411__.d(__nested_webpack_exports__, {
+        __nested_webpack_require_21171__.d(__nested_webpack_exports__, {
           /* harmony export */A: () => __WEBPACK_DEFAULT_EXPORT__
           /* harmony export */
         });
         /* harmony import */
-        var _node_modules_css_loader_dist_runtime_sourceMaps_js__WEBPACK_IMPORTED_MODULE_0__ = __nested_webpack_require_16411__(73);
+        var _node_modules_css_loader_dist_runtime_sourceMaps_js__WEBPACK_IMPORTED_MODULE_0__ = __nested_webpack_require_21171__(73);
         /* harmony import */
-        var _node_modules_css_loader_dist_runtime_sourceMaps_js__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__nested_webpack_require_16411__.n(_node_modules_css_loader_dist_runtime_sourceMaps_js__WEBPACK_IMPORTED_MODULE_0__);
+        var _node_modules_css_loader_dist_runtime_sourceMaps_js__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__nested_webpack_require_21171__.n(_node_modules_css_loader_dist_runtime_sourceMaps_js__WEBPACK_IMPORTED_MODULE_0__);
         /* harmony import */
-        var _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_1__ = __nested_webpack_require_16411__(191);
+        var _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_1__ = __nested_webpack_require_21171__(191);
         /* harmony import */
-        var _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__nested_webpack_require_16411__.n(_node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_1__);
+        var _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__nested_webpack_require_21171__.n(_node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_1__);
         // Imports
 
         var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_1___default()(_node_modules_css_loader_dist_runtime_sourceMaps_js__WEBPACK_IMPORTED_MODULE_0___default());
@@ -433,22 +467,22 @@ module.exports = {
 
         /***/
       }),
-      /***/900: ( /***/(module, __nested_webpack_exports__, __nested_webpack_require_18249__) => {
+      /***/900: ( /***/(module, __nested_webpack_exports__, __nested_webpack_require_23009__) => {
         "use strict";
 
         /* harmony export */
-        __nested_webpack_require_18249__.d(__nested_webpack_exports__, {
+        __nested_webpack_require_23009__.d(__nested_webpack_exports__, {
           /* harmony export */A: () => __WEBPACK_DEFAULT_EXPORT__
           /* harmony export */
         });
         /* harmony import */
-        var _node_modules_css_loader_dist_runtime_sourceMaps_js__WEBPACK_IMPORTED_MODULE_0__ = __nested_webpack_require_18249__(73);
+        var _node_modules_css_loader_dist_runtime_sourceMaps_js__WEBPACK_IMPORTED_MODULE_0__ = __nested_webpack_require_23009__(73);
         /* harmony import */
-        var _node_modules_css_loader_dist_runtime_sourceMaps_js__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__nested_webpack_require_18249__.n(_node_modules_css_loader_dist_runtime_sourceMaps_js__WEBPACK_IMPORTED_MODULE_0__);
+        var _node_modules_css_loader_dist_runtime_sourceMaps_js__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__nested_webpack_require_23009__.n(_node_modules_css_loader_dist_runtime_sourceMaps_js__WEBPACK_IMPORTED_MODULE_0__);
         /* harmony import */
-        var _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_1__ = __nested_webpack_require_18249__(191);
+        var _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_1__ = __nested_webpack_require_23009__(191);
         /* harmony import */
-        var _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__nested_webpack_require_18249__.n(_node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_1__);
+        var _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__nested_webpack_require_23009__.n(_node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_1__);
         // Imports
 
         var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_1___default()(_node_modules_css_loader_dist_runtime_sourceMaps_js__WEBPACK_IMPORTED_MODULE_0___default());
@@ -607,12 +641,12 @@ module.exports = {
 
         /***/
       }),
-      /***/855: ( /***/(module, __unused_webpack_exports, __nested_webpack_require_26259__) => {
+      /***/855: ( /***/(module, __unused_webpack_exports, __nested_webpack_require_31019__) => {
         "use strict";
 
         /* istanbul ignore next  */
         function setAttributesWithoutAttributes(styleElement) {
-          var nonce =  true ? __nested_webpack_require_26259__.nc : 0;
+          var nonce =  true ? __nested_webpack_require_31019__.nc : 0;
           if (nonce) {
             styleElement.setAttribute("nonce", nonce);
           }
@@ -711,6 +745,13 @@ module.exports = {
 
         /***/
       }),
+      /***/3: ( /***/module => {
+        "use strict";
+
+        module.exports = __WEBPACK_EXTERNAL_MODULE__3__;
+
+        /***/
+      }),
       /***/650: ( /***/(module, exports) => {
         var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__; /*!
                                                                          Copyright (c) 2018 Jed Watson.
@@ -786,7 +827,7 @@ module.exports = {
     /******/
     /******/ // The require function
     /******/
-    function __nested_webpack_require_32182__(moduleId) {
+    function __nested_webpack_require_37080__(moduleId) {
       /******/ // Check if module is in cache
       /******/var cachedModule = __webpack_module_cache__[moduleId];
       /******/
@@ -805,7 +846,7 @@ module.exports = {
       /******/
       /******/ // Execute the module function
       /******/
-      __webpack_modules__[moduleId](module, module.exports, __nested_webpack_require_32182__);
+      __webpack_modules__[moduleId](module, module.exports, __nested_webpack_require_37080__);
       /******/
       /******/ // Return the exports of the module
       /******/
@@ -818,10 +859,10 @@ module.exports = {
     /******/
     (() => {
       /******/ // getDefaultExport function for compatibility with non-harmony modules
-      /******/__nested_webpack_require_32182__.n = module => {
+      /******/__nested_webpack_require_37080__.n = module => {
         /******/var getter = module && module.__esModule ? /******/() => module['default'] : /******/() => module;
         /******/
-        __nested_webpack_require_32182__.d(getter, {
+        __nested_webpack_require_37080__.d(getter, {
           a: getter
         });
         /******/
@@ -835,9 +876,9 @@ module.exports = {
     /******/
     (() => {
       /******/ // define getter functions for harmony exports
-      /******/__nested_webpack_require_32182__.d = (exports, definition) => {
+      /******/__nested_webpack_require_37080__.d = (exports, definition) => {
         /******/for (var key in definition) {
-          /******/if (__nested_webpack_require_32182__.o(definition, key) && !__nested_webpack_require_32182__.o(exports, key)) {
+          /******/if (__nested_webpack_require_37080__.o(definition, key) && !__nested_webpack_require_37080__.o(exports, key)) {
             /******/Object.defineProperty(exports, key, {
               enumerable: true,
               get: definition[key]
@@ -854,7 +895,7 @@ module.exports = {
     /******/ /* webpack/runtime/hasOwnProperty shorthand */
     /******/
     (() => {
-      /******/__nested_webpack_require_32182__.o = (obj, prop) => Object.prototype.hasOwnProperty.call(obj, prop);
+      /******/__nested_webpack_require_37080__.o = (obj, prop) => Object.prototype.hasOwnProperty.call(obj, prop);
       /******/
     })();
     /******/
@@ -862,7 +903,7 @@ module.exports = {
     /******/
     (() => {
       /******/ // define __esModule on exports
-      /******/__nested_webpack_require_32182__.r = exports => {
+      /******/__nested_webpack_require_37080__.r = exports => {
         /******/if (typeof Symbol !== 'undefined' && Symbol.toStringTag) {
           /******/Object.defineProperty(exports, Symbol.toStringTag, {
             value: 'Module'
@@ -881,7 +922,7 @@ module.exports = {
     /******/ /* webpack/runtime/nonce */
     /******/
     (() => {
-      /******/__nested_webpack_require_32182__.nc = undefined;
+      /******/__nested_webpack_require_37080__.nc = undefined;
       /******/
     })();
     /******/
@@ -892,38 +933,38 @@ module.exports = {
       "use strict";
 
       // ESM COMPAT FLAG
-      __nested_webpack_require_32182__.r(__nested_webpack_exports__);
+      __nested_webpack_require_37080__.r(__nested_webpack_exports__);
 
       // EXPORTS
-      __nested_webpack_require_32182__.d(__nested_webpack_exports__, {
+      __nested_webpack_require_37080__.d(__nested_webpack_exports__, {
         FormContext: () => ( /* binding */FormContext),
         FormItem: () => ( /* reexport */src_FormItem_0),
         "default": () => ( /* binding */src)
       });
 
       // EXTERNAL MODULE: external {"root":"React","commonjs2":"react","commonjs":"react","amd":"react"}
-      var external_root_React_commonjs2_react_commonjs_react_amd_react_ = __nested_webpack_require_32182__(442);
-      var external_root_React_commonjs2_react_commonjs_react_amd_react_default = /*#__PURE__*/__nested_webpack_require_32182__.n(external_root_React_commonjs2_react_commonjs_react_amd_react_);
+      var external_root_React_commonjs2_react_commonjs_react_amd_react_ = __nested_webpack_require_37080__(442);
+      var external_root_React_commonjs2_react_commonjs_react_amd_react_default = /*#__PURE__*/__nested_webpack_require_37080__.n(external_root_React_commonjs2_react_commonjs_react_amd_react_);
       // EXTERNAL MODULE: ../../node_modules/style-loader/dist/runtime/injectStylesIntoStyleTag.js
-      var injectStylesIntoStyleTag = __nested_webpack_require_32182__(591);
-      var injectStylesIntoStyleTag_default = /*#__PURE__*/__nested_webpack_require_32182__.n(injectStylesIntoStyleTag);
+      var injectStylesIntoStyleTag = __nested_webpack_require_37080__(591);
+      var injectStylesIntoStyleTag_default = /*#__PURE__*/__nested_webpack_require_37080__.n(injectStylesIntoStyleTag);
       // EXTERNAL MODULE: ../../node_modules/style-loader/dist/runtime/styleDomAPI.js
-      var styleDomAPI = __nested_webpack_require_32182__(740);
-      var styleDomAPI_default = /*#__PURE__*/__nested_webpack_require_32182__.n(styleDomAPI);
+      var styleDomAPI = __nested_webpack_require_37080__(740);
+      var styleDomAPI_default = /*#__PURE__*/__nested_webpack_require_37080__.n(styleDomAPI);
       // EXTERNAL MODULE: ../../node_modules/style-loader/dist/runtime/insertBySelector.js
-      var insertBySelector = __nested_webpack_require_32182__(128);
-      var insertBySelector_default = /*#__PURE__*/__nested_webpack_require_32182__.n(insertBySelector);
+      var insertBySelector = __nested_webpack_require_37080__(128);
+      var insertBySelector_default = /*#__PURE__*/__nested_webpack_require_37080__.n(insertBySelector);
       // EXTERNAL MODULE: ../../node_modules/style-loader/dist/runtime/setAttributesWithoutAttributes.js
-      var setAttributesWithoutAttributes = __nested_webpack_require_32182__(855);
-      var setAttributesWithoutAttributes_default = /*#__PURE__*/__nested_webpack_require_32182__.n(setAttributesWithoutAttributes);
+      var setAttributesWithoutAttributes = __nested_webpack_require_37080__(855);
+      var setAttributesWithoutAttributes_default = /*#__PURE__*/__nested_webpack_require_37080__.n(setAttributesWithoutAttributes);
       // EXTERNAL MODULE: ../../node_modules/style-loader/dist/runtime/insertStyleElement.js
-      var insertStyleElement = __nested_webpack_require_32182__(51);
-      var insertStyleElement_default = /*#__PURE__*/__nested_webpack_require_32182__.n(insertStyleElement);
+      var insertStyleElement = __nested_webpack_require_37080__(51);
+      var insertStyleElement_default = /*#__PURE__*/__nested_webpack_require_37080__.n(insertStyleElement);
       // EXTERNAL MODULE: ../../node_modules/style-loader/dist/runtime/styleTagTransform.js
-      var styleTagTransform = __nested_webpack_require_32182__(656);
-      var styleTagTransform_default = /*#__PURE__*/__nested_webpack_require_32182__.n(styleTagTransform);
+      var styleTagTransform = __nested_webpack_require_37080__(656);
+      var styleTagTransform_default = /*#__PURE__*/__nested_webpack_require_37080__.n(styleTagTransform);
       // EXTERNAL MODULE: ../../node_modules/css-loader/dist/cjs.js??ruleSet[1].rules[1].use[1]!../../node_modules/sass-loader/dist/cjs.js??ruleSet[1].rules[1].use[2]!./src/FormItem/index.css
-      var FormItem = __nested_webpack_require_32182__(900);
+      var FormItem = __nested_webpack_require_37080__(900);
       ; // CONCATENATED MODULE: ./src/FormItem/index.css
 
       var options = {};
@@ -938,8 +979,8 @@ module.exports = {
       const src_FormItem = FormItem /* default */.A && FormItem /* default */.A.locals ? FormItem /* default */.A.locals : undefined;
 
       // EXTERNAL MODULE: ../../node_modules/void-elements/index.js
-      var void_elements = __nested_webpack_require_32182__(978);
-      var void_elements_default = /*#__PURE__*/__nested_webpack_require_32182__.n(void_elements);
+      var void_elements = __nested_webpack_require_37080__(978);
+      var void_elements_default = /*#__PURE__*/__nested_webpack_require_37080__.n(void_elements);
       ; // CONCATENATED MODULE: ../../node_modules/html-parse-stringify/dist/html-parse-stringify.module.js
 
       var t = /\s([^'"/\s><]+?)[\s/>]|([^\s=]+)=\s?(".*?"|'.*?')/g;
@@ -2085,8 +2126,8 @@ module.exports = {
         return '';
       };
       // EXTERNAL MODULE: ../../../node_modules/classnames/index.js
-      var classnames = __nested_webpack_require_32182__(650);
-      var classnames_default = /*#__PURE__*/__nested_webpack_require_32182__.n(classnames);
+      var classnames = __nested_webpack_require_37080__(650);
+      var classnames_default = /*#__PURE__*/__nested_webpack_require_37080__.n(classnames);
       ; // CONCATENATED MODULE: ./src/FormItem/Input/index.tsx
 
       const Input = props => {
@@ -2195,16 +2236,66 @@ module.exports = {
       Input.displayName = "Input";
       /* harmony default export */
       const FormItem_Input = withTranslation()(Input);
+      // EXTERNAL MODULE: ../../node_modules/css-loader/dist/cjs.js??ruleSet[1].rules[1].use[1]!../../node_modules/sass-loader/dist/cjs.js??ruleSet[1].rules[1].use[2]!./src/FormItem/Select/index.scss
+      var Select = __nested_webpack_require_37080__(590);
+      ; // CONCATENATED MODULE: ./src/FormItem/Select/index.scss
+
+      var Select_options = {};
+      Select_options.styleTagTransform = styleTagTransform_default();
+      Select_options.setAttributes = setAttributesWithoutAttributes_default();
+      Select_options.insert = insertBySelector_default().bind(null, "head");
+      Select_options.domAPI = styleDomAPI_default();
+      Select_options.insertStyleElement = insertStyleElement_default();
+      var Select_update = injectStylesIntoStyleTag_default()(Select /* default */.A, Select_options);
+
+      /* harmony default export */
+      const FormItem_Select = Select /* default */.A && Select /* default */.A.locals ? Select /* default */.A.locals : undefined;
+      ; // CONCATENATED MODULE: ../utils/src/libs/getAbsolutePositionOfStage.js
+      function getAbsolutePositionOfStage(domElement) {
+        let left = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 0;
+        let top = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : 0;
+        console.log(domElement);
+        if (!parseInt(left)) {
+          left = 0;
+        } else {
+          left = parseInt(left);
+        }
+        if (!parseInt(top)) {
+          top = 0;
+        } else {
+          top = parseInt(top);
+        }
+        const box = domElement.getBoundingClientRect();
+        const body = document.body;
+        const docElem = document.documentElement;
+        const scrollTop = window.pageYOffset || docElem.scrollTop || body.scrollTop;
+        const scrollLeft = window.pageXOffset || docElem.scrollLeft || body.scrollLeft;
+        const clientTop = docElem.clientTop || body.clientTop || 0;
+        const clientLeft = docElem.clientLeft || body.clientLeft || 0;
+        const attr = {};
+        attr.y = box.top + scrollTop - clientTop + top;
+        attr.x = box.left + scrollLeft - clientLeft + left;
+        attr.width = box.width;
+        attr.height = box.height;
+        return attr;
+      }
+      /* harmony default export */
+      const libs_getAbsolutePositionOfStage = getAbsolutePositionOfStage;
+      // EXTERNAL MODULE: external {"root":"ReactDOM","commonjs2":"react-dom","commonjs":"react-dom","amd":"react-dom"}
+      var external_root_ReactDOM_commonjs2_react_dom_commonjs_react_dom_amd_react_dom_ = __nested_webpack_require_37080__(3);
+      var external_root_ReactDOM_commonjs2_react_dom_commonjs_react_dom_amd_react_dom_default = /*#__PURE__*/__nested_webpack_require_37080__.n(external_root_ReactDOM_commonjs2_react_dom_commonjs_react_dom_amd_react_dom_);
       ; // CONCATENATED MODULE: ./src/FormItem/Select/index.tsx
 
-      const Select = props => {
+      const Select_Select = props => {
         const {
+          style,
           defaultValue,
           options,
           placeholder,
           size,
           className,
           disabled,
+          transparent,
           onChangeOK,
           setFormItemValue
         } = props;
@@ -2212,7 +2303,8 @@ module.exports = {
         // 获取 `FormContext.Provider` 提供提供的 `value` 值
         const context = (0, external_root_React_commonjs2_react_commonjs_react_amd_react_.useContext)(FormContext);
         const [newOptions, setNewOptions] = (0, external_root_React_commonjs2_react_commonjs_react_amd_react_.useState)(options || []);
-        const [value, setValue] = (0, external_root_React_commonjs2_react_commonjs_react_amd_react_.useState)(defaultValue);
+        const [value, setValue] = (0, external_root_React_commonjs2_react_commonjs_react_amd_react_.useState)(defaultValue) || {};
+        const [showOptions, setShowOptions] = (0, external_root_React_commonjs2_react_commonjs_react_amd_react_.useState)(false);
         const cls = classnames_default()({
           ["form-select form-select-".concat(size)]: true,
           [className]: className
@@ -2221,16 +2313,47 @@ module.exports = {
           const selectedIndex = e.target.selectedIndex - 1;
           const selectedOption = options[selectedIndex];
           setValue(selectedOption);
-          onChangeOK && onChangeOK(selectedOption);
           context.handleChange(context.name, selectedOption);
           context.checkValidate(selectedOption); // 选中的时候，要让他做校验
           setFormItemValue && setFormItemValue(selectedOption);
+          onChangeOK && onChangeOK(selectedOption);
         };
         const handleBlur = () => {
-          setTimeout(() => {
-            context.checkValidate(value.value); // 将value.label换成value.value，为了兼容默认值为空是 请选择的情况
-          }, 150);
+          // 这边就不用再加 定时器了
+          context.checkValidate(value === null || value === void 0 ? void 0 : value.value); // 将value.label换成value.value，为了兼容默认值为空是 请选择的情况
         };
+
+        // 测试getAbsolutePosition
+        const customSelectRef = (0, external_root_React_commonjs2_react_commonjs_react_amd_react_.useRef)();
+        const contentRef = (0, external_root_React_commonjs2_react_commonjs_react_amd_react_.useRef)();
+        const [customSelectContentPosition, setCustomSelectContentPosition] = (0, external_root_React_commonjs2_react_commonjs_react_amd_react_.useState)({});
+        const handleDivClick = e => {
+          // 新增使用createPortal来定位下拉框
+          const position = libs_getAbsolutePositionOfStage(customSelectRef.current, 0, 0);
+          setCustomSelectContentPosition(position);
+          e.stopPropagation(); // 阻止事件冒泡
+          setShowOptions(!showOptions);
+        };
+        const handleOptionClick = item => {
+          context.handleChange(context.name, item);
+          context.checkValidate(item); // 选中的时候，要让他做校验
+          setFormItemValue && setFormItemValue(item);
+          onChangeOK && onChangeOK(item);
+          setValue(item);
+        };
+        const handleClick = e => {
+          let classNameList = ["custom-select form-control"];
+          let value = e.target;
+          if (!classNameList.includes(value.className)) {
+            setShowOptions(false);
+          }
+        };
+        (0, external_root_React_commonjs2_react_commonjs_react_amd_react_.useEffect)(() => {
+          window.addEventListener("click", handleClick);
+          return () => {
+            window.removeEventListener("click", handleClick);
+          };
+        });
         (0, external_root_React_commonjs2_react_commonjs_react_amd_react_.useEffect)(() => {
           // 这边用判断来，如果表单的数据 context.formData[context.name as string]没有值（""）
           // 就直接给value设置为{ label: "", value: "" }，不能直接设置为""，这样子原生select选中的值会保持原来选中的
@@ -2243,10 +2366,11 @@ module.exports = {
         }, [context.formData[context.name]]);
         (0, external_root_React_commonjs2_react_commonjs_react_amd_react_.useEffect)(() => {
           if (defaultValue !== null && defaultValue !== void 0 && defaultValue.value) {
-            setValue(defaultValue); // 直接在判断有默认值的地方就给表单赋值，就不会出现数据闪动的现象
+            const selectOption = options.find(option => option.value === defaultValue.value);
+            setValue(selectOption); // 直接在判断有默认值的地方就给表单赋值，就不会出现数据闪动的现象
             // 这边不能直接用 context.handleChange(context.name, defaultValue)来赋默认值，会被置为空，并且失去 提交和重置功能
-            context.formData[context.name] = defaultValue; // 让 Form里面对应的数据项有值
-            setFormItemValue && setFormItemValue(defaultValue);
+            context.formData[context.name] = selectOption; // 让 Form里面对应的数据项有值
+            setFormItemValue && setFormItemValue(selectOption);
           } else {
             // js默认的选择框好像只能这样写，不能写成 setValue=({})
             // 只能让它重置为选中第一个选项。。
@@ -2258,39 +2382,49 @@ module.exports = {
         }, [defaultValue]);
         (0, external_root_React_commonjs2_react_commonjs_react_amd_react_.useEffect)(() => {
           // 创建一个新数组，将 "请选择" 选项添加在数组的开头
-          const enhancedOptions = [{
-            label: "请选择",
-            value: ""
-          }, ...options];
+          const enhancedOptions = [...options];
           setNewOptions(enhancedOptions);
-          // 如果 defaultValue 未定义，则将选择设置为 "请选择" 选项
-          if (!defaultValue) {
-            setValue({
-              label: "请选择",
-              value: ""
-            });
-          }
+          // 如果 defaultValue 未定义，则将选择设置为 "请选择" 选项 -- 不写也没问题qwq
+          /* if (!defaultValue) {
+              setValue({ label: "请选择", value: "" });
+          } */
         }, [options]);
-        return /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement(external_root_React_commonjs2_react_commonjs_react_amd_react_default().Fragment, null, /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("select", {
+        return /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("div", {
+          className: "select-wrapper",
+          style: style
+        }, /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("div", {
+          ref: customSelectRef,
+          onBlur: handleBlur,
+          onClick: e => handleDivClick(e),
+          tabIndex: 1,
+          className: "custom-select form-control",
           style: {
-            flex: 1
+            textAlign: "left",
+            background: transparent ? "transparent" : "#fff"
+          }
+        }, value !== null && value !== void 0 && value.value ? value.label : /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("span", {
+          className: "select-placeholder"
+        }, placeholder), /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("i", {
+          onClick: e => handleDivClick(e),
+          className: "icon fa-solid fa-caret-right rotate-up ".concat(showOptions ? "rotate-up" : "rotate-down")
+        })), /*#__PURE__*/external_root_ReactDOM_commonjs2_react_dom_commonjs_react_dom_amd_react_dom_default().createPortal( /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("div", {
+          style: {
+            position: "absolute",
+            top: customSelectContentPosition.y + customSelectContentPosition.height + "px",
+            left: customSelectContentPosition.x + "px"
           },
-          value: value === null || value === void 0 ? void 0 : value.value,
-          onBlur: () => handleBlur(),
-          onChange: e => handleSelect(e),
-          className: cls,
-          "aria-label": ".form-select-lg example",
-          disabled: disabled
-        }, newOptions.map(item => /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("option", {
-          disabled: item.disabled || !item.value,
-          key: item.value,
-          value: item.value
-        }, item.label))));
+          ref: contentRef,
+          className: "custom-select-content ".concat(showOptions ? "custom-select-content-open" : "")
+        }, showOptions && newOptions.map(item => /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("div", {
+          onClick: () => handleOptionClick(item),
+          className: "option",
+          key: item.value
+        }, item.label))), document.body));
       };
       /* harmony default export */
-      const FormItem_Select = withTranslation()(Select);
+      const src_FormItem_Select = withTranslation()(Select_Select);
       // EXTERNAL MODULE: ../../node_modules/css-loader/dist/cjs.js??ruleSet[1].rules[1].use[1]!../../node_modules/sass-loader/dist/cjs.js??ruleSet[1].rules[1].use[2]!./src/FormItem/Textarea/index.css
-      var Textarea = __nested_webpack_require_32182__(5);
+      var Textarea = __nested_webpack_require_37080__(5);
       ; // CONCATENATED MODULE: ./src/FormItem/Textarea/index.css
 
       var Textarea_options = {};
@@ -2362,7 +2496,7 @@ module.exports = {
       /* harmony default export */
       const src_FormItem_Textarea = withTranslation()(TextArea);
       // EXTERNAL MODULE: ../../node_modules/css-loader/dist/cjs.js??ruleSet[1].rules[1].use[1]!../../node_modules/sass-loader/dist/cjs.js??ruleSet[1].rules[1].use[2]!./src/FormItem/LiveSearchSelect/index.css
-      var LiveSearchSelect = __nested_webpack_require_32182__(989);
+      var LiveSearchSelect = __nested_webpack_require_37080__(989);
       ; // CONCATENATED MODULE: ./src/FormItem/LiveSearchSelect/index.css
 
       var LiveSearchSelect_options = {};
@@ -2526,7 +2660,7 @@ module.exports = {
       /* harmony default export */
       const src_FormItem_LiveSearchSelect = withTranslation()(LiveSearchSelect_LiveSearchSelect);
       // EXTERNAL MODULE: ../../node_modules/css-loader/dist/cjs.js??ruleSet[1].rules[1].use[1]!../../node_modules/sass-loader/dist/cjs.js??ruleSet[1].rules[1].use[2]!./src/FormItem/MultipleSelect/index.css
-      var MultipleSelect = __nested_webpack_require_32182__(675);
+      var MultipleSelect = __nested_webpack_require_37080__(675);
       ; // CONCATENATED MODULE: ./src/FormItem/MultipleSelect/index.css
 
       var MultipleSelect_options = {};
@@ -2972,7 +3106,7 @@ module.exports = {
       /* harmony default export */
       const FormItem_Checkbox = withTranslation()(Checkbox);
       // EXTERNAL MODULE: ../../node_modules/css-loader/dist/cjs.js??ruleSet[1].rules[1].use[1]!../../node_modules/sass-loader/dist/cjs.js??ruleSet[1].rules[1].use[2]!./src/FormItem/TagInput/index.scss
-      var TagInput = __nested_webpack_require_32182__(818);
+      var TagInput = __nested_webpack_require_37080__(818);
       ; // CONCATENATED MODULE: ./src/FormItem/TagInput/index.scss
 
       var TagInput_options = {};
@@ -2988,18 +3122,23 @@ module.exports = {
       ; // CONCATENATED MODULE: ./src/FormItem/TagInput/index.tsx
 
       const TagInput_TagInput = props => {
+        var _context$formData, _context$formData3;
         const {
-          onChange,
-          defaultValue = []
+          defaultValue = [],
+          onChange
         } = props;
-        const context = (0, external_root_React_commonjs2_react_commonjs_react_amd_react_.useContext)(FormContext);
-        const [inputList, setInputList] = (0, external_root_React_commonjs2_react_commonjs_react_amd_react_.useState)(defaultValue || context.formData[context.name] || []);
+        const context = (0, external_root_React_commonjs2_react_commonjs_react_amd_react_.useContext)(FormContext) || {};
+        const [inputList, setInputList] = (0, external_root_React_commonjs2_react_commonjs_react_amd_react_.useState)(defaultValue || ((_context$formData = context.formData) === null || _context$formData === void 0 ? void 0 : _context$formData[context.name]) || []);
         const [inputValue, setInputValue] = (0, external_root_React_commonjs2_react_commonjs_react_amd_react_.useState)("");
         const [isHighlighted, setIsHighlighted] = (0, external_root_React_commonjs2_react_commonjs_react_amd_react_.useState)(false);
         const addInput = () => {
-          setInputList([...inputList, inputValue]);
+          // 因为state是异步的，所以要把数据先处理好再使用
+          const data = [...inputList, inputValue];
+          setInputList(data);
           setInputValue("");
-          context.checkValidate(1);
+          context.checkValidate && context.checkValidate(1);
+          // 把数据传回给父组件
+          onChange && onChange(data);
         };
         const handleInputChange = e => {
           setInputValue(e.target.value);
@@ -3018,16 +3157,15 @@ module.exports = {
           const tagList = inputList.filter(value => item !== value);
           setInputList(tagList);
           onChange && onChange(tagList);
-
           // 注意，这边不能直接用 inputList给 formData赋值，会出现不一致的情况
 
-          context.handleChange(context.name, tagList);
-          context.checkValidate(inputList.filter(v => v !== item).length);
+          context.handleChange && context.handleChange(context.name, tagList);
+          context.checkValidate && context.checkValidate(inputList.filter(v => v !== item).length);
         };
         const handleBlur = () => {
           // 注意，这边要在 inpuut失焦的时候触发，不能在 input change的时候触发，不然会出现校验错误
-          context.handleChange(context.name, inputList);
-          context.checkValidate(inputList.length);
+          context.handleChange && context.handleChange(context.name, inputList);
+          context.checkValidate && context.checkValidate(inputList.length);
           setIsHighlighted(false);
         };
         const handleFocus = () => {
@@ -3036,12 +3174,15 @@ module.exports = {
         (0, external_root_React_commonjs2_react_commonjs_react_amd_react_.useEffect)(() => {
           if (defaultValue.length) {
             setInputList(defaultValue);
-            context.formData[context.name] = defaultValue;
+            if (context.formData) {
+              context.formData[context.name] = defaultValue;
+            }
           }
         }, [defaultValue]);
         (0, external_root_React_commonjs2_react_commonjs_react_amd_react_.useEffect)(() => {
-          setInputList(context.formData[context.name] || "");
-        }, [context.formData[context.name]]);
+          var _context$formData2;
+          setInputList(((_context$formData2 = context.formData) === null || _context$formData2 === void 0 ? void 0 : _context$formData2[context.name]) || "");
+        }, [(_context$formData3 = context.formData) === null || _context$formData3 === void 0 ? void 0 : _context$formData3[context.name]]);
         return /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement(external_root_React_commonjs2_react_commonjs_react_amd_react_default().Fragment, null, /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("div", {
           className: "tag-input-wrapper form-control ".concat(isHighlighted && "focus")
         }, /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("div", {
@@ -3078,6 +3219,7 @@ module.exports = {
         // 获取 `FormContext.Provider` 提供提供的 `value` 值
         const context = (0, external_root_React_commonjs2_react_commonjs_react_amd_react_.useContext)(FormContext);
         const {
+          suffixIcon,
           errorInline = false,
           children,
           width,
@@ -3089,7 +3231,8 @@ module.exports = {
           validate,
           rule,
           maxLabelLength = 0,
-          labelAlignX = "right"
+          labelAlignX = "right",
+          onSuffixIconClick
         } = props;
         const [error, setError] = (0, external_root_React_commonjs2_react_commonjs_react_amd_react_.useState)("");
 
@@ -3126,6 +3269,9 @@ module.exports = {
             context.handleValidate(false);
           }
         };
+        const handleSuffixIconClick = () => {
+          onSuffixIconClick && onSuffixIconClick(name, context.formData[name]);
+        };
         const renderContent = () => {
           const enhancedChildren = external_root_React_commonjs2_react_commonjs_react_amd_react_default().Children.map(props.children, child => {
             return /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().cloneElement(child, {
@@ -3153,7 +3299,10 @@ module.exports = {
                 flex: 1,
                 marginLeft: "15px"
               }
-            }, enhancedChildren)), error && /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("div", {
+            }, enhancedChildren), suffixIcon && /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("div", {
+              className: "suffix-icon-container",
+              onClick: handleSuffixIconClick
+            }, suffixIcon)), error && /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("div", {
               className: "form-item-error text-danger small ".concat(error ? 'fadeIn' : 'fadeOut'),
               style: {
                 textAlign: "left",
@@ -3238,7 +3387,7 @@ module.exports = {
       };
       FormItem_FormItem.displayName = 'formItem';
       FormItem_FormItem.Input = FormItem_Input;
-      FormItem_FormItem.Select = FormItem_Select;
+      FormItem_FormItem.Select = src_FormItem_Select;
       FormItem_FormItem.TextArea = src_FormItem_Textarea;
       FormItem_FormItem.LiveSearchSelect = src_FormItem_LiveSearchSelect;
       FormItem_FormItem.MultipleSelect = src_FormItem_MultipleSelect;
@@ -3253,11 +3402,13 @@ module.exports = {
       const FormContext = /*#__PURE__*/(0, external_root_React_commonjs2_react_commonjs_react_amd_react_.createContext)({});
       const Form = /*#__PURE__*/(0, external_root_React_commonjs2_react_commonjs_react_amd_react_.forwardRef)((props, formRef) => {
         const {
+          suffixIcon,
           inline = false,
           errorInline = false,
           labelAlignX,
           name,
-          labelWidth
+          labelWidth,
+          onSuffixIconClick
         } = props;
 
         // 统一管理表单数据源
@@ -3275,9 +3426,7 @@ module.exports = {
           validate: callback => {
             let isValid = true;
             formItems.forEach(item => {
-              console.log(formData);
               const validationResult = item.handleValidate(formData);
-              console.log(validationResult);
               if (!validationResult && item.validate) isValid = false; // 假设validate方法返回false表示验证失败
             });
             callback && callback(isValid);
@@ -3351,7 +3500,9 @@ module.exports = {
                 labelWidth,
                 key: child.props.name,
                 // 给每个组件一个 key
-                errorInline
+                errorInline,
+                suffixIcon,
+                onSuffixIconClick
               });
               renderChildren.push(enhancedChildren);
             }
@@ -3721,6 +3872,14 @@ module.exports = styleTagTransform;
 
 "use strict";
 module.exports = __WEBPACK_EXTERNAL_MODULE__442__;
+
+/***/ }),
+
+/***/ 3:
+/***/ ((module) => {
+
+"use strict";
+module.exports = __WEBPACK_EXTERNAL_MODULE__3__;
 
 /***/ })
 
@@ -5067,7 +5226,7 @@ var cjs = __webpack_require__(540);
 
 
 const TagInput = props => {
-  var _context$formData, _context$formData3;
+  var _context$formData;
   const {
     defaultValue = [],
     onChange
@@ -5101,8 +5260,9 @@ const TagInput = props => {
   const handleDeleteItem = item => {
     const tagList = inputList.filter(value => item !== value);
     setInputList(tagList);
-    // 注意，这边不能直接用 inputList给 formData赋值，会出现不一致的情况
     onChange && onChange(tagList);
+    // 注意，这边不能直接用 inputList给 formData赋值，会出现不一致的情况
+
     context.handleChange && context.handleChange(context.name, tagList);
     context.checkValidate && context.checkValidate(inputList.filter(v => v !== item).length);
   };
@@ -5116,19 +5276,11 @@ const TagInput = props => {
     setIsHighlighted(true);
   };
   (0,external_root_React_commonjs2_react_commonjs_react_amd_react_.useEffect)(() => {
+    console.log(defaultValue);
     if (defaultValue.length) {
       setInputList(defaultValue);
-      if (context.formData) {
-        context.formData[context.name] = defaultValue;
-      }
-    } else {
-      setInputList([]);
     }
   }, [defaultValue]);
-  (0,external_root_React_commonjs2_react_commonjs_react_amd_react_.useEffect)(() => {
-    var _context$formData2;
-    setInputList(((_context$formData2 = context.formData) === null || _context$formData2 === void 0 ? void 0 : _context$formData2[context.name]) || "");
-  }, [(_context$formData3 = context.formData) === null || _context$formData3 === void 0 ? void 0 : _context$formData3[context.name]]);
   return /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement((external_root_React_commonjs2_react_commonjs_react_amd_react_default()).Fragment, null, /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("div", {
     className: "tag-input-wrapper form-control ".concat(isHighlighted && "focus")
   }, /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("div", {

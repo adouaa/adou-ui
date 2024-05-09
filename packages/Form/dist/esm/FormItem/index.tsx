@@ -25,13 +25,29 @@ export interface FormItemProps {
   maxLabelLength?: number;
   labelAlignY?: any;
   errorInline?: boolean;
+  suffixIcon?: any;
+  onSuffixIconClick?: (name: string, value: any) => void;
 }
 
 const FormItem = (props: FormItemProps) => {
   // 获取 `FormContext.Provider` 提供提供的 `value` 值
   const context: FormContextProps = useContext(FormContext);
 
-  const { errorInline = false, children, width, name, inline = true, labelAlignY = "center", label, labelWidth = 100, validate, rule, maxLabelLength = 0, labelAlignX = "right" } = props
+  const {
+    suffixIcon,
+    errorInline = false,
+    children,
+    width,
+    name,
+    inline = true,
+    labelAlignY = "center",
+    label, labelWidth = 100,
+    validate,
+    rule,
+    maxLabelLength = 0,
+    labelAlignX = "right",
+    onSuffixIconClick
+  } = props
 
   const [error, setError] = useState("");
 
@@ -69,6 +85,10 @@ const FormItem = (props: FormItemProps) => {
     }
   }
 
+  const handleSuffixIconClick = () => {
+    onSuffixIconClick && onSuffixIconClick(name, context.formData[name]);
+  }
+
   const renderContent = () => {
 
     const enhancedChildren = React.Children.map(props.children, (child: any) => {
@@ -89,6 +109,10 @@ const FormItem = (props: FormItemProps) => {
 
             {/* 这边的 div是展示子组件内容的父级div，这里先 flex: 1先保证父级的宽度是剩下的全部 */}
             <div style={{ flex: 1, marginLeft: "15px" }}>{enhancedChildren}</div>
+            {/* {suffixIcon && <Button size='sm' outlineColor='danger' className='ms-2'><i className={suffixIcon} onClick={handleSuffixIconClick}></i></Button>} */}
+            {suffixIcon && <div className="suffix-icon-container" onClick={handleSuffixIconClick}>
+              {suffixIcon}
+            </div>}
           </div>}
           {/* 乘 0.8是为了更好地调整位置，大概0.8个字体的宽度 */}
           {error && <div className={`form-item-error text-danger small ${error ? 'fadeIn' : 'fadeOut'}`} style={{ textAlign: "left", margin: `-15px 0 5px ${((maxLabelLength * eachWordWidth > labelWidth) ? labelWidth + (0.8 * eachWordWidth) : (maxLabelLength + 0.8) * eachWordWidth) + "px"}`, marginLeft: `${errorInline && "10px"}` }}>{error}</div>}
@@ -149,6 +173,7 @@ const FormItem = (props: FormItemProps) => {
       }
     }
   }
+
   useEffect(() => {
     context?.registerFormItem({
       name,

@@ -3392,6 +3392,7 @@ const FormItem_FormItem = props => {
   // 获取 `FormContext.Provider` 提供提供的 `value` 值
   const context = (0,external_root_React_commonjs2_react_commonjs_react_amd_react_.useContext)(FormContext);
   const {
+    suffixIcon,
     errorInline = false,
     children,
     width,
@@ -3403,7 +3404,8 @@ const FormItem_FormItem = props => {
     validate,
     rule,
     maxLabelLength = 0,
-    labelAlignX = "right"
+    labelAlignX = "right",
+    onSuffixIconClick
   } = props;
   const [error, setError] = (0,external_root_React_commonjs2_react_commonjs_react_amd_react_.useState)("");
 
@@ -3440,6 +3442,9 @@ const FormItem_FormItem = props => {
       context.handleValidate(false);
     }
   };
+  const handleSuffixIconClick = () => {
+    onSuffixIconClick && onSuffixIconClick(name, context.formData[name]);
+  };
   const renderContent = () => {
     const enhancedChildren = external_root_React_commonjs2_react_commonjs_react_amd_react_default().Children.map(props.children, child => {
       return /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().cloneElement(child, {
@@ -3467,7 +3472,10 @@ const FormItem_FormItem = props => {
           flex: 1,
           marginLeft: "15px"
         }
-      }, enhancedChildren)), error && /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("div", {
+      }, enhancedChildren), suffixIcon && /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("div", {
+        className: "suffix-icon-container",
+        onClick: handleSuffixIconClick
+      }, suffixIcon)), error && /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("div", {
         className: "form-item-error text-danger small ".concat(error ? 'fadeIn' : 'fadeOut'),
         style: {
           textAlign: "left",
@@ -3569,11 +3577,13 @@ FormItem_FormItem.TagInput = src_FormItem_TagInput;
 const FormContext = /*#__PURE__*/(0,external_root_React_commonjs2_react_commonjs_react_amd_react_.createContext)({});
 const Form = /*#__PURE__*/(0,external_root_React_commonjs2_react_commonjs_react_amd_react_.forwardRef)((props, formRef) => {
   const {
+    suffixIcon,
     inline = false,
     errorInline = false,
     labelAlignX,
     name,
-    labelWidth
+    labelWidth,
+    onSuffixIconClick
   } = props;
 
   // 统一管理表单数据源
@@ -3665,7 +3675,9 @@ const Form = /*#__PURE__*/(0,external_root_React_commonjs2_react_commonjs_react_
           labelWidth,
           key: child.props.name,
           // 给每个组件一个 key
-          errorInline
+          errorInline,
+          suffixIcon,
+          onSuffixIconClick
         });
         renderChildren.push(enhancedChildren);
       }

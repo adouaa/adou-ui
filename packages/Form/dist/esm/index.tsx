@@ -22,14 +22,24 @@ interface FormProps {
   labelWidth?: number,
   labelAlignX?: "left" | "right",
   inline?: boolean,
-  errorInline?: boolean
+  errorInline?: boolean,
+  suffixIcon?: any,
+  onSuffixIconClick?: any;
 }
 
 const Form = forwardRef((props: FormProps, formRef) => {
 
-  const { inline = false, errorInline = false, labelAlignX, name, labelWidth } = props;
-  
-  
+  const {
+    suffixIcon,
+    inline = false,
+    errorInline = false,
+    labelAlignX,
+    name,
+    labelWidth,
+    onSuffixIconClick
+  } = props;
+
+
   // 统一管理表单数据源
   const [formData, setFormData] = useState({})
 
@@ -66,7 +76,7 @@ const Form = forwardRef((props: FormProps, formRef) => {
     reValidate: () => {
       formItems.forEach(item => {
         // 不知道为什么在 FormItem中无法通过 context.formData来获取数据，所以这边直接在父组件这里传递过去
-        item.handleValidate(formData); 
+        item.handleValidate(formData);
       });
     }
   }))
@@ -99,17 +109,17 @@ const Form = forwardRef((props: FormProps, formRef) => {
   } else {
     array = props.children;
   }
-  
+
   array.forEach((item: any) => {
     if (maxLabelLength < item?.props?.label?.length) {
       maxLabelLength = item.props.label.length;
     }
   })
-  
+
 
   const renderContent = () => {
     const renderChildren: any = []
-    
+
     // 这个方法可行
     React.Children.map(props.children, (child) => {
       // child.type 子元素自身（FormItem），检查其静态属性 displayName 是否满足条件
@@ -119,11 +129,13 @@ const Form = forwardRef((props: FormProps, formRef) => {
           labelAlignX,
           labelWidth,
           key: child.props.name, // 给每个组件一个 key
-          errorInline
+          errorInline,
+          suffixIcon,
+          onSuffixIconClick
         })
         renderChildren.push(enhancedChildren)
       }
-      
+
     })
 
     // 这边不能直接用 props.children.forEach，会报错：props.children.forEach is not a function
@@ -139,7 +151,7 @@ const Form = forwardRef((props: FormProps, formRef) => {
   // 传入数据源以及数据源的修改方法，子孙后代都可读取 value 中的值
   return <FormContext.Provider value={{ formData, handleChange, handleValidate, registerFormItem }}>
     <div className={`${inline ? "form-wrapper" : ""}`}>
-    {renderContent()}
+      {renderContent()}
     </div>
   </FormContext.Provider>
 })

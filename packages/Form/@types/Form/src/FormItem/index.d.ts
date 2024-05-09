@@ -13,6 +13,8 @@ export interface FormItemProps {
     maxLabelLength?: number;
     labelAlignY?: any;
     errorInline?: boolean;
+    suffixIcon?: any;
+    onSuffixIconClick?: (name: string, value: any) => void;
 }
 declare const FormItem: {
     (props: FormItemProps): React.JSX.Element;
