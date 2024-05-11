@@ -6,12 +6,13 @@ import { FormContext, FormContextProps } from "adou-form";
 
 interface TagInputProps {
     defaultValue?: any;
+    style?: React.CSSProperties;
     onChange?: (value: any) => void;
 }
 
 const TagInput = (props: TagInputProps) => {
 
-    const { defaultValue = [], onChange } = props;
+    const { defaultValue = [], onChange, style } = props;
 
     const context: FormContextProps = useContext(FormContext) || {};
 
@@ -71,8 +72,6 @@ const TagInput = (props: TagInputProps) => {
     }
 
     useEffect(() => {
-        console.log(defaultValue);
-        
         if (defaultValue.length) {
             setInputList(defaultValue);
         }
@@ -80,7 +79,7 @@ const TagInput = (props: TagInputProps) => {
 
     return <>
     {/* 实现点击后高亮，div必须加上 form-control，这个类名会空值高亮以动画效果出现。并且 focus类名必须动态添加 */}
-        <div className={`tag-input-wrapper form-control ${isHighlighted && "focus"}`}>
+        <div style={style} className={`tag-input-wrapper form-control ${isHighlighted && "focus"}`}>
             <div className="tag-input-content">
                 <ul className="tag-input-list">
                     {inputList.length > 0 && inputList.map((item: any) => {
@@ -91,7 +90,7 @@ const TagInput = (props: TagInputProps) => {
                     })}
                 </ul>
                 <div className="tag-input-control">
-                    <input value={inputValue} autoComplete="off" onFocus={handleFocus} onBlur={handleBlur} onChange={(e) => handleInputChange(e)} onKeyDown={handleKeyDown} placeholder="空格或回车分割" type="text" className="input"></input>
+                    <input style={{backgroundColor: "inherit"}} value={inputValue} autoComplete="off" onFocus={handleFocus} onBlur={handleBlur} onChange={(e) => handleInputChange(e)} onKeyDown={handleKeyDown} placeholder="空格或回车分割" type="text" className="input"></input>
                 </div>
             </div>
         </div>

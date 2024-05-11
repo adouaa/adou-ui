@@ -90,7 +90,7 @@ const Input: React.FC<InputProps> = (props: InputProps) => {
                     <input style={{
                         borderRadius: "6px", borderTopLeftRadius: prefixContent ? 0 : '6px',
                         borderBottomLeftRadius: prefixContent ? 0 : '6px',
-                        background: transparent ? "transparent" : "#fff"
+                        ...(transparent ? { backgroundColor: "transparent", border: "transparent", textAlign: "center" } : {})
                     }} step={1} name={name} value={value} disabled={disabled} placeholder={placeholder} onChange={handleChange} onBlur={(e) => handleBlur(e, "hello1", 5561)} onFocus={(e) => handleFocus(e, "hello1", 5561)} onClick={(e) => handleClick(e, "hello", 556)} type={type} className="form-control" aria-label="Username" aria-describedby="basic-addon1" />
                     <div onClick={handleIconClick} className="icon">
                         {children}

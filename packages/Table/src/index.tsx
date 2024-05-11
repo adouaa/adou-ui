@@ -1,8 +1,8 @@
 import classNames from "classnames";
 import React, { useEffect, useState } from "react";
 import { withTranslation } from "react-i18next"
-import EditableTableCell from "./adou-editableTableCell";
-export { EditableTableCell }
+import TableCell from "./TableCell";
+export { TableCell }
 
 interface TableProps {
     eidtable?: boolean,
@@ -25,7 +25,8 @@ interface TableProps {
     headBGC?: any,
     divider?: boolean,
     maxHeight?: string,
-    minHeight?: string
+    minHeight?: string,
+    overflow?: string,
     onEditOK?: (data: any) => void,
 }
 
@@ -51,7 +52,8 @@ const Table = (props: TableProps) => {
         headBGC = "#2782d7",
         divider,
         maxHeight,
-        minHeight = "300"
+        minHeight = 80,
+        overflow = "auto"
     } = props;
 
     const cls = classNames({
@@ -88,6 +90,8 @@ const Table = (props: TableProps) => {
                 verticalAlignObject[item.props.prop] = item.props.verticalAlign || "middle";
             }
         })
+        console.log(widthObject);
+        
 
 
         return <>
@@ -96,14 +100,15 @@ const Table = (props: TableProps) => {
                     {/* 头部 */}
                     {array && array.map((child: any, rowIndex: number) => {
                         if (child?.props) {
-                            return <th style={{width: widthObject[(child as React.ReactElement).props.prop] + "px"}} className={`${"text-" + textPositionObject[child.props.prop]}`} scope="col" key={child.props.label}>{child.props.label}</th>
+                            // width: widthObject[(child as React.ReactElement).props.prop] || 0 + "px"--> 写个 || 0可以起到自己分配宽度的作用。。
+                            return <th style={{ width: widthObject[(child as React.ReactElement).props.prop] + "px" }} className={`${"text-" + textPositionObject[child.props.prop]}`} scope="col" key={child.props.label}>{child.props.label}</th>
                         }
                     })}
                 </tr>
 
             </thead>
             <tbody className={`${divider && "table-group-divider"}`}>
-                {tabelData.length > 0 && tabelData.map((data: any, rowIndex: number) => {
+                {tabelData.length > 0 ? tabelData.map((data: any, rowIndex: number) => {
                     return <tr key={rowIndex}>
                         {React.Children.map(array, (child, colIndex) => {
                             let prop = (child as React.ReactElement).props.prop;
@@ -120,11 +125,9 @@ const Table = (props: TableProps) => {
                             }
                         })}
                     </tr>
-                })}
-            </tbody></>
-
-
-
+                }) : <div className="none">暂无数据</div>}
+            </tbody>
+        </>
     }
 
 
@@ -144,7 +147,7 @@ const Table = (props: TableProps) => {
     }, [data])
 
     return <>
-        <div style={{ minHeight: minHeight + "px", maxHeight: maxHeight + "px", overflow: "auto" }} className={`table-wrapper ${`table-responsive${"-" + tableResponsive}`}`}>
+        <div style={{ minHeight: minHeight + "px", maxHeight: maxHeight + "px", overflow, position: "relative" }} className={`table-wrapper ${`table-responsive${"-" + tableResponsive}`}`}>
             {/* 不能这里边写东西了，因为 Table下的thead是用 sticky定位，
               粘性效果top: 0是相对于它的最近滚动祖先容器，即上边的div
               如果没给 上边的div 设置垂直滚动的话，就会去找往上找有 垂直滚动的祖先元素。。
@@ -157,6 +160,6 @@ const Table = (props: TableProps) => {
     </>
 }
 
-Table.EditableTableCell = EditableTableCell;
+Table.TableCell = TableCell;
 
 export default withTranslation()(Table);

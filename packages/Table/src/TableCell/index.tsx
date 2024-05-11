@@ -1,8 +1,8 @@
-import AdouInput from "../../../Input";
+import AdouInput from "../../../Input/dist/cjs";
 import React, { useEffect, useRef, useState } from "react";
 import { withTranslation } from "react-i18next";
 
-interface EditableTableCellProps {
+interface TableCellProps {
     children?: any;
     prop?: string,
     label?: string,
@@ -20,7 +20,7 @@ interface EditableTableCellProps {
     onEditOK?: (value: string) => void;
 }
 
-const EditableTableCell = (props: EditableTableCellProps) => {
+const TableCell = (props: TableCellProps) => {
 
     const {
         render,
@@ -92,4 +92,4 @@ const EditableTableCell = (props: EditableTableCellProps) => {
 }
 
 
-export default withTranslation()(EditableTableCell);
+export default withTranslation()(TableCell);

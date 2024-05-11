@@ -111,7 +111,7 @@ const Select = (props: SelectProps) => {
     })
 
     return <div className="select-wrapper" style={{width: width + "px"}}>
-        <div ref={customSelectRef} onClick={(e: any) => handleDivClock(e)} tabIndex={1} className="custom-select form-control" style={{textAlign: "left", background: transparent ? "transparent" : "#fff"}}>
+        <div ref={customSelectRef} onClick={(e: any) => handleDivClock(e)} tabIndex={1} className="custom-select form-control" style={{textAlign: "left", ...(transparent ? { backgroundColor: "transparent", border: "transparent", textAlign: "center" } : {})}}>
         {value?.value ?  <span className="select-value">{value.label}</span> : <span className="select-placeholder">{placeholder}</span>}
             {<i onClick={(e: any) => handleDivClock(e)} className={`icon fa-solid fa-caret-right rotate-up ${showOptions ? "rotate-up" : "rotate-down"}`}></i>}
         </div>
@@ -123,6 +123,7 @@ const Select = (props: SelectProps) => {
         )}
     </div>;
 };
+
 
 
 export default withTranslation()(Select);
