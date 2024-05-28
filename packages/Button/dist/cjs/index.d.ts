@@ -10,6 +10,11 @@ interface buttonProps {
     textColor?: color;
     outlineColor?: color;
     disabled?: boolean;
+    label?: string;
+    prefixIcon?: string;
+    suffixIcon?: string;
+    loading?: boolean;
+    spiner?: "border" | "grow";
     onClickOK?: () => void;
 }
 declare const Button: React.FC<buttonProps>;

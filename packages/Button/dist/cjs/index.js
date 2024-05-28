@@ -626,6 +626,11 @@ var update = injectStylesIntoStyleTag_default()(cjs_ruleSet_1_rules_1_use_2_src/
 
 const Button = props => {
   const {
+    spiner = "border",
+    loading,
+    suffixIcon,
+    prefixIcon,
+    label,
     children,
     type,
     size,
@@ -650,25 +655,77 @@ const Button = props => {
     disabled,
     [className]: className
   });
-  const applyStylesToChildren = () => {
+  const renderPrefixIcon = () => {
+    return /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("i", {
+      className: "".concat(prefixIcon)
+    });
+  };
+  const rendersuffixIcon = () => {
+    return /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("i", {
+      className: "".concat(suffixIcon)
+    });
+  };
+
+  /* const renderLoading = () => {
+      return React.Children.map(children, (child: any) => {
+          if (!React.isValidElement(child)) {
+              child = <span className="m-1">{child}</span>
+              const enhancedChild = React.cloneElement(child!, {
+                  style: {
+                  }
+              } as React.Attributes);
+              return enhancedChild;
+          }
+      });
+  }; */
+
+  const renderLabel = () => {
     return external_root_React_commonjs2_react_commonjs_react_amd_react_default().Children.map(children, child => {
-      if ( /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().isValidElement(child)) {
+      if (! /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().isValidElement(child)) {
+        child = /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("span", null, child);
         const enhancedChild = /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().cloneElement(child, {
           style: {
-            //    [`${size === "sm" ? "fontSize" : ""}`]: "12px" ,
+            margin: "0 0.5rem"
           }
         });
         return enhancedChild;
       }
     });
   };
-  return /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("button", {
+  const renderLoadingIcon = () => {
+    let hasLoader = false;
+    external_root_React_commonjs2_react_commonjs_react_amd_react_default().Children.map(children, child => {
+      var _child$props;
+      if ((_child$props = child.props) !== null && _child$props !== void 0 && _child$props.className.includes("loader")) {
+        hasLoader = true;
+      }
+    });
+    if (hasLoader) {
+      return external_root_React_commonjs2_react_commonjs_react_amd_react_default().Children.map(children, child => {
+        var _child$props2;
+        if ((_child$props2 = child.props) !== null && _child$props2 !== void 0 && _child$props2.className.includes("loader")) {
+          return child;
+        }
+      });
+    } else {
+      return /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement((external_root_React_commonjs2_react_commonjs_react_amd_react_default()).Fragment, null, /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("div", {
+        className: "spinner-".concat(spiner, " spinner-").concat(spiner, "-sm"),
+        role: "status"
+      }));
+    }
+  };
+  return /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("span", {
+    className: "button-wrapper"
+  }, loading ? "111" : 222, /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("button", {
     style: {
       cursor: "pointer"
     },
     onClick: handleOnClick,
-    className: cls
-  }, applyStylesToChildren());
+    className: cls,
+    disabled: loading
+  }, loading ? /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("div", {
+    className: "d-flex align-items-center"
+  }, renderLoadingIcon(), renderLabel()) : /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement((external_root_React_commonjs2_react_commonjs_react_amd_react_default()).Fragment, null, prefixIcon && renderPrefixIcon(), renderLabel(), suffixIcon && rendersuffixIcon())));
 };
 /* harmony default export */ const src_0 = (Button);
 })();
