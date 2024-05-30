@@ -35,6 +35,10 @@ const TextArea = (props) => {
             // 这边不能直接用 context.handleChange(context.name, defaultValue)来赋默认值，会被置为空，并且失去 提交和重置功能
             context.formData[context.name] = defaultValue;
         }
+        else {
+            // setValue(context.formData[context.name as string] || "")
+            setValue(""); // 用这个比较直接
+        }
     }, [defaultValue]);
     return react_2.default.createElement(react_2.default.Fragment, null,
         react_2.default.createElement("div", { className: "textarea-warpper" },

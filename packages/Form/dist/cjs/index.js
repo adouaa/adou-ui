@@ -2243,10 +2243,16 @@ const Input = props => {
     context.handleChange(context.name, e.target.value);
   };
   (0,external_root_React_commonjs2_react_commonjs_react_amd_react_.useEffect)(() => {
-    setValue(context.formData[context.name] || "");
+    // 要做0的判断
+    if (context.formData[context.name] || context.formData[context.name] >= 0) {
+      setValue(context.formData[context.name]);
+    } else {
+      setValue("");
+    }
   }, [context.formData[context.name]]);
   (0,external_root_React_commonjs2_react_commonjs_react_amd_react_.useEffect)(() => {
-    if (defaultValue) {
+    // 要做0的判断并且在formData那也要处理一下，不然会被 setValue("");置空
+    if (defaultValue || defaultValue >= 0) {
       // 为了一上来就提交表单，这边有默认值也要给 父组件设置
       setValue(defaultValue);
       setFormItemValue && setFormItemValue(defaultValue);
@@ -2576,6 +2582,9 @@ const TextArea = props => {
       setFormItemValue && setFormItemValue(defaultValue);
       // 这边不能直接用 context.handleChange(context.name, defaultValue)来赋默认值，会被置为空，并且失去 提交和重置功能
       context.formData[context.name] = defaultValue;
+    } else {
+      // setValue(context.formData[context.name as string] || "")
+      setValue(""); // 用这个比较直接
     }
   }, [defaultValue]);
   return /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement((external_root_React_commonjs2_react_commonjs_react_amd_react_default()).Fragment, null, /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("div", {

@@ -60,10 +60,17 @@ const Input = (props) => {
         context.handleChange(context.name, e.target.value);
     };
     (0, react_1.useEffect)(() => {
-        setValue(context.formData[context.name] || "");
+        // 要做0的判断
+        if (context.formData[context.name] || context.formData[context.name] >= 0) {
+            setValue(context.formData[context.name]);
+        }
+        else {
+            setValue("");
+        }
     }, [context.formData[context.name]]);
     (0, react_1.useEffect)(() => {
-        if (defaultValue) {
+        // 要做0的判断并且在formData那也要处理一下，不然会被 setValue("");置空
+        if (defaultValue || defaultValue >= 0) {
             // 为了一上来就提交表单，这边有默认值也要给 父组件设置
             setValue(defaultValue);
             setFormItemValue && setFormItemValue(defaultValue);

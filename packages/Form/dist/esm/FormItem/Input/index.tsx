@@ -5,9 +5,9 @@ import classNames from "classnames";
 import { FormContext, FormContextProps } from "../../index";
 
 export interface InputProps {
-    type?: "text" | "datetime-local" | "date" | "time";
+    type?: "text" | "datetime-local" | "date" | "time" | "number";
     name?: string;
-    defaultValue?: string;
+    defaultValue?: any;
     size?: "large" | "middle" | "small" | undefined;
     className?: string;
     prefixContent?: any;
@@ -64,12 +64,17 @@ const Input: React.FC<InputProps> = (props: InputProps) => {
     }
 
     useEffect(() => {
-        setValue(context.formData[context.name as string] || "");
+        // 要做0的判断
+        if (context.formData[context.name as string] || context.formData[context.name as string] >= 0) {
+            setValue(context.formData[context.name as string])
+        } else {
+            setValue("");
+        }
     }, [context.formData[context.name as string]])
 
     useEffect(() => {
-        if (defaultValue) {
-            
+        // 要做0的判断并且在formData那也要处理一下，不然会被 setValue("");置空
+        if (defaultValue || defaultValue >= 0) {
             // 为了一上来就提交表单，这边有默认值也要给 父组件设置
             setValue(defaultValue);
             setFormItemValue && setFormItemValue(defaultValue); 

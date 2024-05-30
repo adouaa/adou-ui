@@ -70,9 +70,9 @@ const Input: React.FC<InputProps> = (props: InputProps) => {
 
 
     useEffect(() => {
-        if (defaultValue) {
+        if (defaultValue || Number(defaultValue) >= 0) {
             // 为了一上来就提交表单，这边有默认值也要给 父组件设置
-            setValue(defaultValue);
+            setValue(defaultValue!);
             setFormItemValue && setFormItemValue(defaultValue);
         } else {
             // 不能直接写 setValue(defaultValue)

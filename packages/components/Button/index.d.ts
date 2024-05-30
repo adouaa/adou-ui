@@ -14,7 +14,9 @@ interface buttonProps {
     prefixIcon?: string;
     suffixIcon?: string;
     loading?: boolean;
-    spiner?: "border" | "grow";
+    spinerType?: "border" | "grow";
+    spinerColor?: color;
+    fontSize?: string;
     onClickOK?: () => void;
 }
 declare const Button: React.FC<buttonProps>;

@@ -17,11 +17,13 @@ interface buttonProps {
     prefixIcon?: string;
     suffixIcon?: string;
     loading?: boolean;
-    spiner?: "border" | "grow";
+    spinerType?: "border" | "grow";
+    spinerColor?: color;
+    fontSize?: string;
     onClickOK?: () => void;
 }
 const Button: React.FC<buttonProps> = (props: buttonProps) => {
-    const { spiner = "border", loading, suffixIcon, prefixIcon, label, children, type, size, className, round, textColor, disabled, outlineColor, onClickOK } = props;
+    const { fontSize = "14px", spinerType = "border", spinerColor, loading, suffixIcon, prefixIcon, label, children, type, size, className, round, textColor, disabled, outlineColor, onClickOK } = props;
 
     const handleOnClick = () => {
         onClickOK && onClickOK();
@@ -65,11 +67,13 @@ const Button: React.FC<buttonProps> = (props: buttonProps) => {
 
     const renderLabel = () => {
         return React.Children.map(children, (child: any) => {
+            
             if (!React.isValidElement(child)) {
                 child = <span>{child}</span>
                 const enhancedChild = React.cloneElement(child, {
                     style: {
-                        margin: "0 0.5rem"
+                        margin: "0 0.5rem",
+                        fontSize
                     }
                 } as React.Attributes);
                 return enhancedChild;
@@ -80,7 +84,7 @@ const Button: React.FC<buttonProps> = (props: buttonProps) => {
     const renderLoadingIcon = () => {
         let hasLoader = false;
         React.Children.map(children, (child: any) => {
-            if (child.props?.className.includes("loader")) {
+            if (child.props?.className?.includes("loader")) {
                 hasLoader = true;
             }
         });
@@ -92,7 +96,7 @@ const Button: React.FC<buttonProps> = (props: buttonProps) => {
             });
         } else {
             return <>
-                <div className={`spinner-${spiner} spinner-${spiner}-sm`} role="status">
+                <div className={`spinner-${spinerType} spinner-${spinerType}-sm text-${spinerColor}`} role="status">
                 </div>
             </>
         }
@@ -101,7 +105,6 @@ const Button: React.FC<buttonProps> = (props: buttonProps) => {
 
     return (
         <span className="button-wrapper">
-            {loading ? "111" : 222}
             <button
                 style={{ cursor: "pointer" }}
                 onClick={handleOnClick}

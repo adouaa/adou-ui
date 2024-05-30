@@ -8,8 +8,8 @@ export type NodeType = {
 interface ListProps {
     data?: any[];
     isTree?: boolean;
-    maxWidth?: number;
-    maxHeight?: number;
+    maxWidth?: any;
+    maxHeight?: any;
     showOptIcons?: boolean;
     showAddIcon?: boolean;
     showEditIcon?: boolean;

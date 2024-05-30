@@ -19,10 +19,11 @@ interface buttonProps {
     loading?: boolean;
     spinerType?: "border" | "grow";
     spinerColor?: color;
+    fontSize?: string;
     onClickOK?: () => void;
 }
 const Button: React.FC<buttonProps> = (props: buttonProps) => {
-    const { spinerType = "border", spinerColor, loading, suffixIcon, prefixIcon, label, children, type, size, className, round, textColor, disabled, outlineColor, onClickOK } = props;
+    const { fontSize = "14px", spinerType = "border", spinerColor, loading, suffixIcon, prefixIcon, label, children, type, size, className, round, textColor, disabled, outlineColor, onClickOK } = props;
 
     const handleOnClick = () => {
         onClickOK && onClickOK();
@@ -66,11 +67,13 @@ const Button: React.FC<buttonProps> = (props: buttonProps) => {
 
     const renderLabel = () => {
         return React.Children.map(children, (child: any) => {
+            
             if (!React.isValidElement(child)) {
                 child = <span>{child}</span>
                 const enhancedChild = React.cloneElement(child, {
                     style: {
-                        margin: "0 0.5rem"
+                        margin: "0 0.5rem",
+                        fontSize
                     }
                 } as React.Attributes);
                 return enhancedChild;

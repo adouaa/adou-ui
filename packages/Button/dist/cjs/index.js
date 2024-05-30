@@ -626,7 +626,9 @@ var update = injectStylesIntoStyleTag_default()(cjs_ruleSet_1_rules_1_use_2_src/
 
 const Button = props => {
   const {
-    spiner = "border",
+    fontSize = "14px",
+    spinerType = "border",
+    spinerColor,
     loading,
     suffixIcon,
     prefixIcon,
@@ -685,7 +687,8 @@ const Button = props => {
         child = /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("span", null, child);
         const enhancedChild = /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().cloneElement(child, {
           style: {
-            margin: "0 0.5rem"
+            margin: "0 0.5rem",
+            fontSize
           }
         });
         return enhancedChild;
@@ -696,7 +699,7 @@ const Button = props => {
     let hasLoader = false;
     external_root_React_commonjs2_react_commonjs_react_amd_react_default().Children.map(children, child => {
       var _child$props;
-      if ((_child$props = child.props) !== null && _child$props !== void 0 && _child$props.className.includes("loader")) {
+      if ((_child$props = child.props) !== null && _child$props !== void 0 && (_child$props = _child$props.className) !== null && _child$props !== void 0 && _child$props.includes("loader")) {
         hasLoader = true;
       }
     });
@@ -709,14 +712,14 @@ const Button = props => {
       });
     } else {
       return /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement((external_root_React_commonjs2_react_commonjs_react_amd_react_default()).Fragment, null, /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("div", {
-        className: "spinner-".concat(spiner, " spinner-").concat(spiner, "-sm"),
+        className: "spinner-".concat(spinerType, " spinner-").concat(spinerType, "-sm text-").concat(spinerColor),
         role: "status"
       }));
     }
   };
   return /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("span", {
     className: "button-wrapper"
-  }, loading ? "111" : 222, /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("button", {
+  }, /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("button", {
     style: {
       cursor: "pointer"
     },
