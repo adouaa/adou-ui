@@ -2413,6 +2413,7 @@ const Select_Select = props => {
   const contentRef = (0,external_root_React_commonjs2_react_commonjs_react_amd_react_.useRef)();
   const [customSelectContentPosition, setCustomSelectContentPosition] = (0,external_root_React_commonjs2_react_commonjs_react_amd_react_.useState)({});
   const handleDivClick = e => {
+    if (disabled) return;
     // 新增使用createPortal来定位下拉框
     const position = libs_getAbsolutePositionOfStage(customSelectRef.current, 0, 0);
     setCustomSelectContentPosition(position);
@@ -2478,6 +2479,7 @@ const Select_Select = props => {
     className: "select-wrapper",
     style: style
   }, /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("div", {
+    "aria-disabled": disabled,
     ref: customSelectRef,
     onBlur: handleBlur,
     onClick: e => handleDivClick(e),

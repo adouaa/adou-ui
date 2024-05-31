@@ -40,6 +40,8 @@ const Select = (props) => {
     const contentRef = (0, react_1.useRef)();
     const [customSelectContentPosition, setCustomSelectContentPosition] = (0, react_1.useState)({});
     const handleDivClick = (e) => {
+        if (disabled)
+            return;
         // 新增使用createPortal来定位下拉框
         const position = (0, getAbsolutePositionOfStage_1.default)(customSelectRef.current, 0, 0);
         setCustomSelectContentPosition(position);
@@ -97,7 +99,7 @@ const Select = (props) => {
         } */
     }, [options]);
     return react_2.default.createElement("div", { className: "select-wrapper", style: style },
-        react_2.default.createElement("div", { ref: customSelectRef, onBlur: handleBlur, onClick: (e) => handleDivClick(e), tabIndex: 1, className: "custom-select form-control", style: { textAlign: "left", background: transparent ? "transparent" : "#fff" } },
+        react_2.default.createElement("div", { "aria-disabled": disabled, ref: customSelectRef, onBlur: handleBlur, onClick: (e) => handleDivClick(e), tabIndex: 1, className: "custom-select form-control", style: { textAlign: "left", background: transparent ? "transparent" : "#fff" } },
             value?.value ? value.label : react_2.default.createElement("span", { className: "select-placeholder" }, placeholder),
             react_2.default.createElement("i", { onClick: (e) => handleDivClick(e), className: `icon fa-solid fa-caret-right rotate-up ${showOptions ? "rotate-up" : "rotate-down"}` })),
         react_dom_1.default.createPortal(react_2.default.createElement("div", { style: { position: "absolute", top: (customSelectContentPosition.y + customSelectContentPosition.height) + "px", left: customSelectContentPosition.x + "px" }, ref: contentRef, className: `custom-select-content ${showOptions ? "custom-select-content-open" : ""}` }, showOptions && newOptions.map(item => react_2.default.createElement("div", { onClick: () => handleOptionClick(item), className: "option", key: item.value }, item.label))), document.body));

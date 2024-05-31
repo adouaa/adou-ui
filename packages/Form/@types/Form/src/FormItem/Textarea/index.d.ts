@@ -5,7 +5,7 @@ declare const _default: React.ComponentType<Omit<{
     defaultValue?: string | undefined;
     placeholder?: string | undefined;
     disabled?: boolean | undefined;
-    setFormItemValue?: ((value: any) => void) | undefined;
     onChangeOK?: ((e: React.ChangeEvent<HTMLTextAreaElement>, ...args: any) => void) | undefined;
+    setFormItemValue?: ((value: any) => void) | undefined;
 }, keyof import("react-i18next").WithTranslation<N, undefined>> & import("react-i18next").WithTranslationProps>;
 export default _default;

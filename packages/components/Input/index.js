@@ -1929,7 +1929,7 @@ const Input = props => {
     onIconClick && onIconClick(value);
   };
   (0,external_root_React_commonjs2_react_commonjs_react_amd_react_.useEffect)(() => {
-    if (defaultValue) {
+    if (defaultValue || Number(defaultValue) >= 0) {
       // 为了一上来就提交表单，这边有默认值也要给 父组件设置
       setValue(defaultValue);
       setFormItemValue && setFormItemValue(defaultValue);
@@ -1956,7 +1956,11 @@ const Input = props => {
       borderRadius: "6px",
       borderTopLeftRadius: prefixContent ? 0 : '6px',
       borderBottomLeftRadius: prefixContent ? 0 : '6px',
-      background: transparent ? "transparent" : "#fff"
+      ...(transparent ? {
+        backgroundColor: "transparent",
+        border: "transparent",
+        textAlign: "center"
+      } : {})
     },
     step: 1,
     name: name,

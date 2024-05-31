@@ -64,6 +64,7 @@ const Select = (props: SelectProps) => {
     const [customSelectContentPosition, setCustomSelectContentPosition] = useState<any>({});
 
     const handleDivClick = (e: any) => {
+        if (disabled) return;
         // 新增使用createPortal来定位下拉框
         const position = getAbsolutePosition(customSelectRef.current, 0, 0);
         setCustomSelectContentPosition(position);
@@ -129,7 +130,7 @@ const Select = (props: SelectProps) => {
     }, [options])
 
     return <div className="select-wrapper" style={style}>
-        <div ref={customSelectRef} onBlur={handleBlur} onClick={(e: any) => handleDivClick(e)} tabIndex={1} className="custom-select form-control" style={{ textAlign: "left", background: transparent ? "transparent" : "#fff" }}>
+        <div aria-disabled={disabled} ref={customSelectRef} onBlur={handleBlur} onClick={(e: any) => handleDivClick(e)} tabIndex={1} className="custom-select form-control" style={{ textAlign: "left", background: transparent ? "transparent" : "#fff" }}>
             {value?.value ? value.label : <span className="select-placeholder">{placeholder}</span>}
             {<i onClick={(e: any) => handleDivClick(e)} className={`icon fa-solid fa-caret-right rotate-up ${showOptions ? "rotate-up" : "rotate-down"}`}></i>}
         </div>
