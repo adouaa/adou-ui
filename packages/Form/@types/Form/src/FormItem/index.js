@@ -37,10 +37,11 @@ const MultipleSelect_1 = __importDefault(require("./MultipleSelect"));
 const Radio_1 = __importDefault(require("./Radio"));
 const Checkbox_1 = __importDefault(require("./Checkbox"));
 const TagInput_1 = __importDefault(require("./TagInput"));
+const CodeTextArea_1 = __importDefault(require("./CodeTextArea"));
 const FormItem = (props) => {
     // 获取 `FormContext.Provider` 提供提供的 `value` 值
     const context = (0, react_1.useContext)(index_1.FormContext);
-    const { suffixIcon, errorInline = false, children, width, name, inline = true, labelAlignY = "center", label, labelWidth = 100, validate, rule, maxLabelLength = 0, labelAlignX = "right", onSuffixIconClick } = props;
+    const { suffixContent, commonSuffixContent, errorInline = false, children, width, name, inline = true, labelAlignY = "center", label, labelWidth = 100, validate, rule, maxLabelLength = 0, labelAlignX = "right", onSuffixIconClick } = props;
     const [error, setError] = (0, react_1.useState)("");
     // 每个字体的width
     const eachWordWidth = 24;
@@ -48,7 +49,8 @@ const FormItem = (props) => {
     const checkValidate = (value) => {
         if (validate) {
             context.handleValidate(false); // 一开始进去先置为错误的，表单验证不通过
-            if (rule[0].required && !value) {
+            // 做0的判断
+            if (rule[0].required && value !== 0 && !value) {
                 return setError(rule[0].message);
             }
             if (rule[1]?.type) {
@@ -90,7 +92,8 @@ const FormItem = (props) => {
                         label,
                         ":"),
                     react_1.default.createElement("div", { style: { flex: 1, marginLeft: "15px" } }, enhancedChildren),
-                    suffixIcon && react_1.default.createElement("div", { className: "suffix-icon-container", onClick: handleSuffixIconClick }, suffixIcon)),
+                    suffixContent && react_1.default.createElement("div", { className: "suffix-content-container ms-2", onClick: handleSuffixIconClick }, suffixContent),
+                    commonSuffixContent && react_1.default.createElement("div", { className: "common-suffix-content-container ms-2", onClick: handleSuffixIconClick }, commonSuffixContent)),
                 error && react_1.default.createElement("div", { className: `form-item-error text-danger small ${error ? 'fadeIn' : 'fadeOut'}`, style: { textAlign: "left", margin: `-15px 0 5px ${((maxLabelLength * eachWordWidth > labelWidth) ? labelWidth + (0.8 * eachWordWidth) : (maxLabelLength + 0.8) * eachWordWidth) + "px"}`, marginLeft: `${errorInline && "10px"}` } }, error)));
         }
         return null;
@@ -170,5 +173,6 @@ FormItem.MultipleSelect = MultipleSelect_1.default;
 FormItem.Radio = Radio_1.default;
 FormItem.Checkbox = Checkbox_1.default;
 FormItem.TagInput = TagInput_1.default;
+FormItem.CodeTextArea = CodeTextArea_1.default;
 exports.default = FormItem;
 //# sourceMappingURL=index.js.map

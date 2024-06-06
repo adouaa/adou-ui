@@ -18,19 +18,19 @@ export interface InputProps {
 }
 declare const _default: React.ComponentType<Omit<{
     style?: any;
-    defaultValue?: any;
-    placeholder?: string | undefined;
-    size?: "small" | "large" | "middle" | undefined;
-    className?: string | undefined;
-    disabled?: boolean | undefined;
-    onChangeOK?: ((e: React.ChangeEvent<HTMLInputElement>, ...args: any) => void) | undefined;
-    setFormItemValue?: ((value: any) => void) | undefined;
-    type?: "number" | "time" | "text" | "datetime-local" | "date" | undefined;
+    type?: "number" | "text" | "datetime-local" | "date" | "time" | undefined;
     name?: string | undefined;
+    defaultValue?: any;
+    size?: "large" | "middle" | "small" | undefined;
+    className?: string | undefined;
     prefixContent?: any;
     suffixContent?: any;
+    placeholder?: string | undefined;
+    disabled?: boolean | undefined;
+    setFormItemValue?: ((value: any) => void) | undefined;
     onClickOK?: ((e: React.MouseEvent<HTMLInputElement, MouseEvent>, ...args: any) => void) | undefined;
     onFocusOK?: ((e: React.FocusEvent<HTMLInputElement, Element>, ...args: any) => void) | undefined;
     onBlurOK?: ((e: React.FocusEvent<HTMLInputElement, Element>, ...args: any) => void) | undefined;
+    onChangeOK?: ((e: React.ChangeEvent<HTMLInputElement>, ...args: any) => void) | undefined;
 }, keyof import("react-i18next").WithTranslation<N, undefined>> & import("react-i18next").WithTranslationProps>;
 export default _default;

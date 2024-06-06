@@ -1,0 +1,22 @@
+.CodeMirror {
+    border-radius: 10px;
+    height: 250px;
+    font-size: 12px;
+}
+
+.CodeMirror-activeline {
+    background-color: red !important;
+}
+/* ---------- Dark Mode ----------- */
+/* 如果样式需要单独适配暗黑模式效果，请使用以下方法 */
+/*
+.dark-mode,
+[data-bs-theme=dark] {
+   //...
+}
+*/
+
+.dark-mode,
+[data-bs-theme=dark] {
+    .xxx {}
+}

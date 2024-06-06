@@ -12,13 +12,13 @@ export interface SelectProps {
 }
 declare const _default: React.ComponentType<Omit<{
     defaultValue?: any;
-    options: any[];
-    placeholder?: string | undefined;
     size?: "sm" | "lg" | undefined;
     className?: string | undefined;
+    placeholder?: string | undefined;
     disabled?: any;
-    onChangeOK?: ((e?: any, ...args: any) => void) | undefined;
     setFormItemValue?: ((value: any) => void) | undefined;
+    onChangeOK?: ((e?: any, ...args: any) => void) | undefined;
+    options: any[];
     onMultipleSelectChangeOK?: ((selectedOptions: any[]) => void) | undefined;
     showSelected?: boolean | undefined;
 }, keyof import("react-i18next").WithTranslation<N, undefined>> & import("react-i18next").WithTranslationProps>;

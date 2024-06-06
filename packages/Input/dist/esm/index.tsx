@@ -7,7 +7,7 @@ import "./index.scss";
 export interface InputProps {
     type?: "text" | "datetime-local" | "date" | "time";
     name?: string;
-    defaultValue?: string;
+    defaultValue?: any;
     size?: "large" | "middle" | "small" | undefined;
     className?: string;
     prefixContent?: any;
@@ -70,7 +70,7 @@ const Input: React.FC<InputProps> = (props: InputProps) => {
 
 
     useEffect(() => {
-        if (defaultValue || Number(defaultValue) >= 0) {
+        if (defaultValue || Number(defaultValue) == 0) {
             // 为了一上来就提交表单，这边有默认值也要给 父组件设置
             setValue(defaultValue!);
             setFormItemValue && setFormItemValue(defaultValue);

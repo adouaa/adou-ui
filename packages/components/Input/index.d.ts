@@ -3,7 +3,7 @@ import "./index.scss";
 export interface InputProps {
     type?: "text" | "datetime-local" | "date" | "time";
     name?: string;
-    defaultValue?: string;
+    defaultValue?: any;
     size?: "large" | "middle" | "small" | undefined;
     className?: string;
     prefixContent?: any;
@@ -24,7 +24,7 @@ declare const _default: React.ComponentType<Omit<{
     style?: any;
     type?: "text" | "datetime-local" | "date" | "time" | undefined;
     name?: string | undefined;
-    defaultValue?: string | undefined;
+    defaultValue?: any;
     size?: "large" | "middle" | "small" | undefined;
     className?: string | undefined;
     prefixContent?: any;

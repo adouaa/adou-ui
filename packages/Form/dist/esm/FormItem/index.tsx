@@ -10,7 +10,7 @@ import MultipleSelect from "./MultipleSelect";
 import Radio from "./Radio";
 import Checkbox from "./Checkbox";
 import TagInput from './TagInput';
-
+import CodeTextArea from './CodeTextArea';
 
 export interface FormItemProps {
   name: string;
@@ -25,7 +25,8 @@ export interface FormItemProps {
   maxLabelLength?: number;
   labelAlignY?: any;
   errorInline?: boolean;
-  suffixIcon?: any;
+  suffixContent?: any;
+  commonSuffixContent?: any;
   onSuffixIconClick?: (name: string, value: any) => void;
 }
 
@@ -34,7 +35,8 @@ const FormItem = (props: FormItemProps) => {
   const context: FormContextProps = useContext(FormContext);
 
   const {
-    suffixIcon,
+    suffixContent,
+    commonSuffixContent,
     errorInline = false,
     children,
     width,
@@ -59,7 +61,8 @@ const FormItem = (props: FormItemProps) => {
   const checkValidate = (value: any) => {
     if (validate) {
       context.handleValidate(false); // 一开始进去先置为错误的，表单验证不通过
-      if (rule[0].required && !value) {
+      // 做0的判断
+      if (rule[0].required && value !== 0 && !value) {
         return setError(rule[0].message);
       }
       if (rule[1]?.type) {
@@ -109,9 +112,14 @@ const FormItem = (props: FormItemProps) => {
 
             {/* 这边的 div是展示子组件内容的父级div，这里先 flex: 1先保证父级的宽度是剩下的全部 */}
             <div style={{ flex: 1, marginLeft: "15px" }}>{enhancedChildren}</div>
-            {/* {suffixIcon && <Button size='sm' outlineColor='danger' className='ms-2'><i className={suffixIcon} onClick={handleSuffixIconClick}></i></Button>} */}
-            {suffixIcon && <div className="suffix-icon-container" onClick={handleSuffixIconClick}>
-              {suffixIcon}
+            {/* {suffixContent && <Button size='sm' outlineColor='danger' className='ms-2'><i className={suffixContent} onClick={handleSuffixIconClick}></i></Button>} */}
+            {suffixContent && <div className="suffix-content-container ms-2" onClick={handleSuffixIconClick}>
+              {suffixContent}
+              
+            </div>}
+            {commonSuffixContent && <div className="common-suffix-content-container ms-2" onClick={handleSuffixIconClick}>
+              {commonSuffixContent}
+              
             </div>}
           </div>}
           {/* 乘 0.8是为了更好地调整位置，大概0.8个字体的宽度 */}
@@ -199,5 +207,6 @@ FormItem.MultipleSelect = MultipleSelect;
 FormItem.Radio = Radio;
 FormItem.Checkbox = Checkbox;
 FormItem.TagInput = TagInput;
+FormItem.CodeTextArea = CodeTextArea;
 
 export default FormItem

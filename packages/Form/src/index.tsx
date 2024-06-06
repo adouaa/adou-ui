@@ -23,14 +23,14 @@ interface FormProps {
   labelAlignX?: "left" | "right",
   inline?: boolean,
   errorInline?: boolean,
-  suffixIcon?: any,
+  commonSuffixContent?: any,
   onSuffixIconClick?: any;
 }
 
 const Form = forwardRef((props: FormProps, formRef) => {
 
   const {
-    suffixIcon,
+    commonSuffixContent,
     inline = false,
     errorInline = false,
     labelAlignX,
@@ -130,7 +130,7 @@ const Form = forwardRef((props: FormProps, formRef) => {
           labelWidth,
           key: child.props.name, // 给每个组件一个 key
           errorInline,
-          suffixIcon,
+          commonSuffixContent,
           onSuffixIconClick
         })
         renderChildren.push(enhancedChildren)
