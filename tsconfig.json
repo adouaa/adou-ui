@@ -30,7 +30,7 @@
   },
   "include": [
     "src/**/*.ts", "src/**/*.tsx"
-  ],
+, "src/App.tsx", "src/components/adou-globalModal/GlobalModalProvider.js"  ],
   "exclude": [
     "node_modules"
   ]

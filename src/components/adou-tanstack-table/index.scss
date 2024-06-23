@@ -1,0 +1,153 @@
+/* index.css */
+
+/* Reset default margin and padding */
+body, html {
+    margin: 0;
+    padding: 0;
+  }
+  
+  /* Basic styling for tables */
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    border: 1px solid #ddd;
+  }
+  
+  th, td {
+    padding: 8px;
+    text-align: left;
+    border-bottom: 1px solid #ddd;
+  }
+  
+  th {
+    background-color: #f2f2f2;
+  }
+  
+  /* Basic styling for form elements */
+  input[type="text"], input[type="number"], select {
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+  }
+  
+  input[type="text"]:focus, input[type="number"]:focus, select:focus {
+    outline: none;
+    border-color: #007bff;
+    box-shadow: 0 0 5px #007bff;
+  }
+  
+  /* Pagination buttons */
+  button {
+    padding: 8px 12px;
+    border: 1px solid #007bff;
+    border-radius: 4px;
+    background-color: #007bff;
+    color: white;
+    cursor: pointer;
+  }
+  
+  button:hover {
+    background-color: #0056b3;
+    border-color: #0056b3;
+  }
+  
+  button:disabled {
+    background-color: #ccc;
+    border-color: #ccc;
+    color: #666;
+    cursor: not-allowed;
+  }
+  
+  /* Container styles */
+  .p-2 {
+    padding: 16px;
+  }
+  
+  .flex {
+    display: flex;
+  }
+  
+  .items-center {
+    align-items: center;
+  }
+  
+  .gap-1 {
+    gap: 4px;
+  }
+  
+  .gap-2 {
+    gap: 8px;
+  }
+  
+  .h-2 {
+    height: 4px;
+  }
+  
+  .h-1 {
+    height: 2px;
+  }
+  
+  .w-16 {
+    width: 64px;
+  }
+  
+  .w-24 {
+    width: 96px;
+  }
+  
+  /* Rounded borders */
+  .rounded {
+    border-radius: 4px;
+  }
+  
+  /* Border styles */
+  .border {
+    border: 1px solid #ccc;
+  }
+  
+  /* Shadow effect */
+  .shadow {
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+  }
+  
+  /* Cursor styles */
+  .cursor-pointer {
+    cursor: pointer;
+  }
+  
+  /* Select none */
+  .select-none {
+    user-select: none;
+  }
+  
+  /* Responsive utilities */
+  @media (max-width: 768px) {
+    .sm\:p-2 {
+      padding: 8px;
+    }
+  
+    .sm\:gap-1 {
+      gap: 2px;
+    }
+  
+    .sm\:gap-2 {
+      gap: 4px;
+    }
+  
+    .sm\:h-2 {
+      height: 2px;
+    }
+  
+    .sm\:h-1 {
+      height: 1px;
+    }
+  
+    .sm\:w-16 {
+      width: 56px;
+    }
+  
+    .sm\:w-24 {
+      width: 80px;
+    }
+  }
+  

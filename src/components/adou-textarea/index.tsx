@@ -1,4 +1,4 @@
-import { useContext, useEffect, useState } from "react";
+import { forwardRef, useContext, useEffect, useState } from "react";
 import { withTranslation } from "react-i18next"
 import { FormContext, FormContextProps } from "../adou-form";
 import React from "react";
@@ -6,6 +6,7 @@ import React from "react";
 
 
 interface TextAreaProps {
+    ref?: any,
     defaultValue?: string,
     label?: string,
     placeholder?: string;

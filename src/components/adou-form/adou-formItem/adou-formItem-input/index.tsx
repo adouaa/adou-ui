@@ -7,9 +7,9 @@ import { FormContext, FormContextProps } from "../../index";
 
 
 export interface InputProps {
-    type?: "text" | "datetime-local" | "date" | "time";
+    type?: "text" | "password" | "datetime-local" | "date" | "time";
     name?: string;
-    defaultValue?: string;
+    defaultValue?: any
     size?: "large" | "middle" | "small" | undefined;
     className?: string;
     prefixContent?: any;
@@ -60,32 +60,35 @@ const Input: React.FC<InputProps> = (props: InputProps) => {
     }
     const handleChange = (e: React.ChangeEvent<HTMLInputElement>, ...args: any) => {
         setValue(e.target.value);
-        setFormItemValue && setFormItemValue(e.target.value); 
+        setFormItemValue && setFormItemValue(e.target.value);
         // 根据 name 属性，更新 Form 中的数据源
         context.handleChange(context.name, e.target.value)
     }
 
     useEffect(() => {
-        setValue(context.formData[context.name as string] || "");
+        // 要做0的判断
+        if (context.formData[context.name as string] || context.formData[context.name as string] == 0) {
+            setValue(context.formData[context.name as string])
+        } else {
+            setValue("");
+        }
     }, [context.formData[context.name as string]])
 
     useEffect(() => {
-
-        if (defaultValue) {
-            
+        if (defaultValue || defaultValue == 0) {
             // 为了一上来就提交表单，这边有默认值也要给 父组件设置
             setValue(defaultValue);
-            setFormItemValue && setFormItemValue(defaultValue); 
+            setFormItemValue && setFormItemValue(defaultValue);
             // 这边不能直接用 context.handleChange(context.name, defaultValue)来赋默认值，会被置为空，并且失去 提交和重置功能
             context.formData[context.name as string] = defaultValue;
 
             // 新增让校验通过----解决了在切换树形节点之前如果已经出现校验失败，切换节点的时候要全部置为校验通过
-            context.checkValidate(defaultValue); 
+            context.checkValidate(defaultValue);
         } else {
             // 不能直接写 setValue(defaultValue)
             // 不知道为什么如果 defaultValue是空的话不会value赋值为 ""
             // 所以只能写死为 ""
-            setValue(""); 
+            setValue("");
         }
     }, [defaultValue])
 

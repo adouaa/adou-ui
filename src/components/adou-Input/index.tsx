@@ -7,7 +7,7 @@ import "./index.scss";
 export interface InputProps {
     type?: "text" | "datetime-local" | "date" | "time";
     name?: string;
-    defaultValue?: string;
+    defaultValue?: any;
     size?: "large" | "middle" | "small" | undefined;
     className?: string;
     prefixContent?: any;
@@ -16,6 +16,7 @@ export interface InputProps {
     style?: any;
     disabled?: boolean;
     children?: any;
+    transparent?: boolean;
     setFormItemValue?: (value: any) => void;
     onClick?: (e: React.MouseEvent<HTMLInputElement, MouseEvent>, ...args: any) => void;
     onFocus?: (e: React.FocusEvent<HTMLInputElement, Element>, ...args: any) => void;
@@ -31,7 +32,7 @@ const Input: React.FC<InputProps> = (props: InputProps) => {
     // 获取 `FormContext.Provider` 提供提供的 `value` 值
 
 
-    const { children, type = "text", name, size, className, prefixContent, suffixContent, placeholder, style, disabled, defaultValue, onChange, onClick, onFocus, onBlur, setFormItemValue, onIconClick } = props;
+    const { transparent, children, type = "text", name, size, className, prefixContent, suffixContent, placeholder, style, disabled, defaultValue, onChange, onClick, onFocus, onBlur, setFormItemValue, onIconClick } = props;
 
 
     // 确保value不会是undefined，如果defaultValue或formData中相应的值是undefined，则将其设为空字符串
@@ -69,7 +70,7 @@ const Input: React.FC<InputProps> = (props: InputProps) => {
 
 
     useEffect(() => {
-        if (defaultValue) {
+        if (defaultValue || defaultValue == 0) {
             // 为了一上来就提交表单，这边有默认值也要给 父组件设置
             setValue(defaultValue);
             setFormItemValue && setFormItemValue(defaultValue);
@@ -89,6 +90,7 @@ const Input: React.FC<InputProps> = (props: InputProps) => {
                     <input style={{
                         borderRadius: "6px", borderTopLeftRadius: prefixContent ? 0 : '6px',
                         borderBottomLeftRadius: prefixContent ? 0 : '6px',
+                        background: transparent ? "transparent" : "#fff"
                     }} step={1} name={name} value={value} disabled={disabled} placeholder={placeholder} onChange={handleChange} onBlur={(e) => handleBlur(e, "hello1", 5561)} onFocus={(e) => handleFocus(e, "hello1", 5561)} onClick={(e) => handleClick(e, "hello", 556)} type={type} className="form-control" aria-label="Username" aria-describedby="basic-addon1" />
                     <div onClick={handleIconClick} className="icon">
                         {children}

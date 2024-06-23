@@ -1,3 +1,5 @@
+import Tab1 from "components/Tab1";
+import Tab2 from "components/Tab2";
 import Tabs from "components/adou-tabs";
 import TabItem from "components/adou-tabs/tab-item";
 import React, { useState } from "react";
@@ -14,8 +16,8 @@ const App = () => {
 
     return <div style={{padding: "20px"}}>
         <Tabs handleLabelClick={handleLabelClickFn} activeIndex={activeIndex}>
-            <TabItem label="标签1"><h1>555</h1></TabItem>
-            <TabItem label="标签2"><div style={{backgroundColor: "red"}}>666</div></TabItem>
+            <TabItem label="标签1"><Tab1></Tab1></TabItem>
+            <TabItem label="标签2"><Tab2></Tab2></TabItem>
             <TabItem label="标签3">123</TabItem>
             <TabItem label="标签4">123</TabItem>
         </Tabs>

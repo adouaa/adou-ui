@@ -10,6 +10,7 @@ import MultipleSelect from "./adou-formItem-multipleSelect";
 import Radio from "./adou-formItem-radio";
 import Checkbox from "./adou-formItem-checkbox";
 import TagInput from './adou-formItem-tagInput';
+import CodeTextArea from './adou-formItem-codeTextArea/CodeTextArea';
 
 
 
@@ -26,13 +27,31 @@ export interface FormItemProps {
   maxLabelLength?: number;
   labelAlignY?: any;
   errorInline?: boolean;
+  suffixContent?: any;
+  commonSuffixContent?: any;
+  onSuffixIconClick?: (name: string, value: any) => void;
 }
 
 const FormItem = (props: FormItemProps) => {
   // 获取 `FormContext.Provider` 提供提供的 `value` 值
   const context: FormContextProps = useContext(FormContext);
 
-  const { errorInline = false, children, width, name, inline = true, labelAlignY = "center", label, labelWidth = 100, validate, rule, maxLabelLength = 0, labelAlignX = "right" } = props
+  const {
+    suffixContent,
+    commonSuffixContent,
+    errorInline = false,
+    children,
+    width,
+    name,
+    inline = true,
+    labelAlignY = "center",
+    label, labelWidth = 100,
+    validate,
+    rule,
+    maxLabelLength = 0,
+    labelAlignX = "right",
+    onSuffixIconClick
+  } = props
 
   const [error, setError] = useState("");
 
@@ -44,7 +63,8 @@ const FormItem = (props: FormItemProps) => {
   const checkValidate = (value: any) => {
     if (validate) {
       context.handleValidate(false); // 一开始进去先置为错误的，表单验证不通过
-      if (rule[0].required && !value) {
+      // 做0的判断
+      if (rule[0].required && value !== 0 && !value) {
         return setError(rule[0].message);
       }
       if (rule[1]?.type) {
@@ -70,6 +90,10 @@ const FormItem = (props: FormItemProps) => {
     }
   }
 
+  const handleSuffixIconClick = () => {
+    onSuffixIconClick && onSuffixIconClick(name, context.formData[name]);
+  }
+
   const renderContent = () => {
 
     const enhancedChildren = React.Children.map(props.children, (child: any) => {
@@ -90,6 +114,15 @@ const FormItem = (props: FormItemProps) => {
 
             {/* 这边的 div是展示子组件内容的父级div，这里先 flex: 1先保证父级的宽度是剩下的全部 */}
             <div style={{ flex: 1, marginLeft: "15px" }}>{enhancedChildren}</div>
+            {/* {suffixContent && <Button size='sm' outlineColor='danger' className='ms-2'><i className={suffixContent} onClick={handleSuffixIconClick}></i></Button>} */}
+            {suffixContent && <div className="suffix-content-container ms-2" onClick={handleSuffixIconClick}>
+              {suffixContent}
+              
+            </div>}
+            {commonSuffixContent && <div className="common-suffix-content-container ms-2" onClick={handleSuffixIconClick}>
+              {commonSuffixContent}
+              
+            </div>}
           </div>}
           {/* 乘 0.8是为了更好地调整位置，大概0.8个字体的宽度 */}
           {error && <div className={`form-item-error text-danger small ${error ? 'fadeIn' : 'fadeOut'}`} style={{ textAlign: "left", margin: `-15px 0 5px ${((maxLabelLength * eachWordWidth > labelWidth) ? labelWidth + (0.8 * eachWordWidth) : (maxLabelLength + 0.8) * eachWordWidth) + "px"}`, marginLeft: `${errorInline && "10px"}` }}>{error}</div>}
@@ -150,6 +183,7 @@ const FormItem = (props: FormItemProps) => {
       }
     }
   }
+
   useEffect(() => {
     context?.registerFormItem({
       name,
@@ -175,6 +209,7 @@ FormItem.MultipleSelect = MultipleSelect;
 FormItem.Radio = Radio;
 FormItem.Checkbox = Checkbox;
 FormItem.TagInput = TagInput;
+FormItem.CodeTextArea = CodeTextArea;
 
 
 export default FormItem

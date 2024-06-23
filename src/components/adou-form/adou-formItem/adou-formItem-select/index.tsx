@@ -1,9 +1,11 @@
 import { withTranslation } from "react-i18next";
 import classNames from "classnames";
-import { ChangeEvent, useContext, useEffect, useState } from "react";
+import { ChangeEvent, useContext, useEffect, useRef, useState } from "react";
 import { FormContext, FormContextProps } from "../../../adou-form";
 import "./index.scss";
 import React from "react";
+import getAbsolutePositionOfStage from "../../../../utils/getAbsolutePosition";
+import ReactDOM from "react-dom";
 
 export interface SelectProps {
     defaultValue?: any;
@@ -13,13 +15,15 @@ export interface SelectProps {
     className?: string;
     disabled?: boolean;
     style?: any;
+    transparent?: boolean;
+    maxHeight?: string;
     onChangeOK?: (e?: any, ...args: any) => void
     setFormItemValue?: (value: any) => void;
 }
 
 const Select = (props: SelectProps) => {
 
-    const { style, defaultValue, options, placeholder, size, className, disabled, onChangeOK, setFormItemValue } = props;
+    const { style, defaultValue, options, placeholder, size, className, disabled, transparent, maxHeight, onChangeOK, setFormItemValue } = props;
 
     // 获取 `FormContext.Provider` 提供提供的 `value` 值
     const context: FormContextProps = useContext(FormContext);
@@ -52,7 +56,16 @@ const Select = (props: SelectProps) => {
         context.checkValidate(value?.value); // 将value.label换成value.value，为了兼容默认值为空是 请选择的情况
     }
 
-    const handleDivClock = (e: any) => {
+
+    // 测试getAbsolutePosition
+    const customSelectRef = useRef<any>();
+    const contentRef = useRef<any>();
+    const [customSelectContentPosition, setCustomSelectContentPosition] = useState<any>({});
+
+    const handleDivClick = (e: any) => {
+        // 新增使用createPortal来定位下拉框
+        const position = getAbsolutePositionOfStage(customSelectRef.current, 0, 0);
+        setCustomSelectContentPosition(position);
         e.stopPropagation(); // 阻止事件冒泡
         setShowOptions(!showOptions);
     }
@@ -105,8 +118,12 @@ const Select = (props: SelectProps) => {
     }, [defaultValue])
 
     useEffect(() => {
+        // 重新获取列表的时候，要先把原来选择的数据清空
+        setValue({});
+        context.formData[context.name as string] = "";
+        
         // 创建一个新数组，将 "请选择" 选项添加在数组的开头
-        const enhancedOptions = [{ label: "请选择", value: "" }, ...options];
+        const enhancedOptions = [...options];
         setNewOptions(enhancedOptions);
         // 如果 defaultValue 未定义，则将选择设置为 "请选择" 选项 -- 不写也没问题qwq
         /* if (!defaultValue) {
@@ -115,13 +132,16 @@ const Select = (props: SelectProps) => {
     }, [options])
 
     return <div className="select-wrapper" style={style}>
-        <div onBlur={handleBlur} onClick={(e: any) => handleDivClock(e)} tabIndex={1} className="custom-select form-control">
+        <div ref={customSelectRef} onBlur={handleBlur} onClick={(e: any) => handleDivClick(e)} tabIndex={1} className="custom-select form-control" style={{ textAlign: "left", background: transparent ? "transparent" : "#fff" }}>
             {value?.value ? value.label : <span className="select-placeholder">{placeholder}</span>}
-            {<i onClick={(e: any) => handleDivClock(e)} className={`icon fa-solid fa-caret-right rotate-up ${showOptions ? "rotate-up" : "rotate-down"}`}></i>}
+            {<i onClick={(e: any) => handleDivClick(e)} className={`icon fa-solid fa-caret-right rotate-up ${showOptions ? "rotate-up" : "rotate-down"}`}></i>}
         </div>
-        <div className="content">
-            {showOptions && newOptions.map(item => <div onClick={() => handleOptionClick(item)} className="option" key={item.value}>{item.label}</div>)}
-        </div>
+        {ReactDOM.createPortal(
+            <div style={{maxHeight, position: "absolute", top: (customSelectContentPosition.y + customSelectContentPosition.height) + "px", left: customSelectContentPosition.x + "px"}} ref={contentRef} className={`custom-select-content ${showOptions ? "custom-select-content-open" : ""}`}>
+                {showOptions && (newOptions.length > 0 ? newOptions.map(item => <div onClick={() => handleOptionClick(item)} className="option" key={item.value}>{item.label}</div>) : <div className="none-option">Nothing</div>)}
+            </div>,
+            document.body
+        )}
     </div>;
 };
 

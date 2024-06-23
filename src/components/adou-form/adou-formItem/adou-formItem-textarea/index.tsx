@@ -49,6 +49,8 @@ const TextArea: React.FC<TextAreaProps> = (props: TextAreaProps) => {
             setFormItemValue && setFormItemValue(defaultValue);
             // 这边不能直接用 context.handleChange(context.name, defaultValue)来赋默认值，会被置为空，并且失去 提交和重置功能
             context.formData[context.name as string] = defaultValue; 
+        } else {
+            setValue("");
         }
     }, [defaultValue])
 
