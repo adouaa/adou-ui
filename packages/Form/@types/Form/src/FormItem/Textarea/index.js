@@ -9,7 +9,7 @@ const index_1 = require("../../index");
 const react_2 = __importDefault(require("react"));
 require("./index.css");
 const TextArea = (props) => {
-    const { label, placeholder, disabled, defaultValue, onChangeOK, setFormItemValue } = props;
+    const { label, placeholder, disabled, defaultValue, rows, onChangeOK, setFormItemValue } = props;
     // 获取 `FormContext.Provider` 提供提供的 `value` 值
     const context = (0, react_1.useContext)(index_1.FormContext);
     const [value, setValue] = (0, react_1.useState)(defaultValue ?? context.formData[context.name] ?? '');
@@ -36,14 +36,13 @@ const TextArea = (props) => {
             context.formData[context.name] = defaultValue;
         }
         else {
-            // setValue(context.formData[context.name as string] || "")
-            setValue(""); // 用这个比较直接
+            setValue("");
         }
     }, [defaultValue]);
     return react_2.default.createElement(react_2.default.Fragment, null,
         react_2.default.createElement("div", { className: "textarea-warpper" },
             label && react_2.default.createElement("span", { className: "input-group-text" }, label),
-            react_2.default.createElement("textarea", { value: value, disabled: disabled, onBlur: (e) => handleBlur(e), onChange: (e) => handleChange(e), placeholder: placeholder, className: "form-control", "aria-label": "With textarea" })));
+            react_2.default.createElement("textarea", { rows: rows, value: value, disabled: disabled, onBlur: (e) => handleBlur(e), onChange: (e) => handleChange(e), placeholder: placeholder, className: "form-control", "aria-label": "With textarea" })));
 };
 exports.default = (0, react_i18next_1.withTranslation)()(TextArea);
 //# sourceMappingURL=index.js.map

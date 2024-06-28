@@ -13,13 +13,14 @@ interface TextAreaProps {
     label?: string,
     placeholder?: string;
     disabled?: boolean;
+    rows?: number;
     onChangeOK?: (e: React.ChangeEvent<HTMLTextAreaElement>, ...args: any) => void
     setFormItemValue?: (value: any) => void;
 }
 
 const TextArea: React.FC<TextAreaProps> = (props: TextAreaProps) => {
 
-    const { label, placeholder, disabled, defaultValue, onChangeOK, setFormItemValue } = props;
+    const { label, placeholder, disabled, defaultValue, rows, onChangeOK, setFormItemValue } = props;
 
     // 获取 `FormContext.Provider` 提供提供的 `value` 值
   const context: FormContextProps = useContext(FormContext);
@@ -52,15 +53,14 @@ const TextArea: React.FC<TextAreaProps> = (props: TextAreaProps) => {
             // 这边不能直接用 context.handleChange(context.name, defaultValue)来赋默认值，会被置为空，并且失去 提交和重置功能
             context.formData[context.name as string] = defaultValue; 
         } else {
-            // setValue(context.formData[context.name as string] || "")
-            setValue(""); // 用这个比较直接
+            setValue("");
         }
     }, [defaultValue])
 
     return <>
         <div className="textarea-warpper">
             {label && <span className="input-group-text">{label}</span>}
-            <textarea value={value} disabled={disabled} onBlur={(e) => handleBlur(e)} onChange={(e) => handleChange(e)} placeholder={placeholder} className="form-control" aria-label="With textarea"></textarea>
+            <textarea rows={rows} value={value} disabled={disabled} onBlur={(e) => handleBlur(e)} onChange={(e) => handleChange(e)} placeholder={placeholder} className="form-control" aria-label="With textarea"></textarea>
         </div>
     </>
 }

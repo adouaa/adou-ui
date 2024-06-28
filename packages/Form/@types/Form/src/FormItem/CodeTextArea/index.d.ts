@@ -11,8 +11,8 @@ declare const _default: React.ComponentType<Omit<{
     label?: string | undefined;
     defaultValue?: string | undefined;
     placeholder?: string | undefined;
-    setFormItemValue?: ((value: any) => void) | undefined;
     onChangeOK?: ((e: React.ChangeEvent<HTMLTextAreaElement>, ...args: any) => void) | undefined;
+    setFormItemValue?: ((value: any) => void) | undefined;
     readOnly?: boolean | undefined;
     mode?: "htmlmixed" | "css" | "javascript" | undefined;
     theme?: "material" | "base16-light" | "base16-dark" | undefined;

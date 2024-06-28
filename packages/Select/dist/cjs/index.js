@@ -5720,74 +5720,6 @@ module.exports = __WEBPACK_EXTERNAL_MODULE__442__;
 "use strict";
 module.exports = __WEBPACK_EXTERNAL_MODULE__3__;
 
-/***/ }),
-
-/***/ 650:
-/***/ ((module, exports) => {
-
-var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/*!
-	Copyright (c) 2018 Jed Watson.
-	Licensed under the MIT License (MIT), see
-	http://jedwatson.github.io/classnames
-*/
-/* global define */
-
-(function () {
-  'use strict';
-
-  var hasOwn = {}.hasOwnProperty;
-  function classNames() {
-    var classes = '';
-    for (var i = 0; i < arguments.length; i++) {
-      var arg = arguments[i];
-      if (arg) {
-        classes = appendClass(classes, parseValue(arg));
-      }
-    }
-    return classes;
-  }
-  function parseValue(arg) {
-    if (typeof arg === 'string' || typeof arg === 'number') {
-      return arg;
-    }
-    if (typeof arg !== 'object') {
-      return '';
-    }
-    if (Array.isArray(arg)) {
-      return classNames.apply(null, arg);
-    }
-    if (arg.toString !== Object.prototype.toString && !arg.toString.toString().includes('[native code]')) {
-      return arg.toString();
-    }
-    var classes = '';
-    for (var key in arg) {
-      if (hasOwn.call(arg, key) && arg[key]) {
-        classes = appendClass(classes, key);
-      }
-    }
-    return classes;
-  }
-  function appendClass(value, newClass) {
-    if (!newClass) {
-      return value;
-    }
-    if (value) {
-      return value + ' ' + newClass;
-    }
-    return value + newClass;
-  }
-  if ( true && module.exports) {
-    classNames.default = classNames;
-    module.exports = classNames;
-  } else if (true) {
-    // register as 'classnames', consistent with npm package name
-    !(__WEBPACK_AMD_DEFINE_ARRAY__ = [], __WEBPACK_AMD_DEFINE_RESULT__ = (function () {
-      return classNames;
-    }).apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__),
-		__WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
-  } else {}
-})();
-
 /***/ })
 
 /******/ 	});
@@ -7076,9 +7008,6 @@ var plural = function plural() {
 var selectOrdinal = function selectOrdinal() {
   return '';
 };
-// EXTERNAL MODULE: ../../../node_modules/classnames/index.js
-var classnames = __webpack_require__(650);
-var classnames_default = /*#__PURE__*/__webpack_require__.n(classnames);
 // EXTERNAL MODULE: ../../node_modules/style-loader/dist/runtime/injectStylesIntoStyleTag.js
 var injectStylesIntoStyleTag = __webpack_require__(591);
 var injectStylesIntoStyleTag_default = /*#__PURE__*/__webpack_require__.n(injectStylesIntoStyleTag);
@@ -7140,7 +7069,6 @@ var Utils = __webpack_require__(36);
 
 
 
-
 const Select = props => {
   const {
     width,
@@ -7158,11 +7086,6 @@ const Select = props => {
   const [newOptions, setNewOptions] = (0,external_root_React_commonjs2_react_commonjs_react_amd_react_.useState)(options || []);
   const [value, setValue] = (0,external_root_React_commonjs2_react_commonjs_react_amd_react_.useState)(defaultValue || {});
   const [showOptions, setShowOptions] = (0,external_root_React_commonjs2_react_commonjs_react_amd_react_.useState)(false);
-  const cls = classnames_default()({
-    "custom-select": true,
-    ["form-select form-select-".concat(size)]: true,
-    [className]: className
-  });
   const handleSelect = e => {
     const selectedIndex = e.target.selectedIndex - 1;
     const selectedOption = options[selectedIndex];
@@ -7183,7 +7106,6 @@ const Select = props => {
   const contentRef = (0,external_root_React_commonjs2_react_commonjs_react_amd_react_.useRef)();
   const [customSelectContentPosition, setCustomSelectContentPosition] = (0,external_root_React_commonjs2_react_commonjs_react_amd_react_.useState)({});
   const handleDivClock = e => {
-    if (disabled) return;
     // 新增使用createPortal来定位下拉框
     const position = (0,Utils.getAbsolutePosition)(customSelectRef.current, 0, 0);
     setCustomSelectContentPosition(position);
@@ -7202,8 +7124,8 @@ const Select = props => {
    }, [context.formData[context.name as string]]) */
 
   (0,external_root_React_commonjs2_react_commonjs_react_amd_react_.useEffect)(() => {
-    if (defaultValue !== null && defaultValue !== void 0 && defaultValue.value) {
-      const selectOption = options.find(option => option.value === defaultValue.value);
+    if (defaultValue) {
+      const selectOption = options.find(option => option.value === defaultValue);
       setValue(selectOption); // 直接在判断有默认值的地方就给表单赋值，就不会出现数据闪动的现象
       // 这边不能直接用 context.handleChange(context.name, defaultValue)来赋默认值，会被置为空，并且失去 提交和重置功能
       // context.formData[context.name as string] = selectOption; // 让 Form里面对应的数据项有值
@@ -7215,7 +7137,14 @@ const Select = props => {
     }
   }, [defaultValue]);
   (0,external_root_React_commonjs2_react_commonjs_react_amd_react_.useEffect)(() => {
-    setNewOptions(options);
+    setValue({}); // 不知道要不要加
+
+    // 创建一个新数组，将 "空" 选项添加在数组的开头
+    const enhancedOptions = [{
+      label: "空",
+      value: null
+    }, ...options];
+    setNewOptions(enhancedOptions);
   }, [options]);
   const handleClick = e => {
     let classNameList = ["custom-select form-control"];
@@ -7236,18 +7165,13 @@ const Select = props => {
       width: width + "px"
     }
   }, /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("div", {
-    "aria-disabled": disabled,
     ref: customSelectRef,
     onClick: e => handleDivClock(e),
     tabIndex: 1,
     className: "custom-select form-control",
     style: {
       textAlign: "left",
-      ...(transparent ? {
-        backgroundColor: "transparent",
-        border: "transparent",
-        textAlign: "center"
-      } : {})
+      background: transparent ? "transparent" : "#fff"
     }
   }, value !== null && value !== void 0 && value.value ? /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("span", {
     className: "select-value"

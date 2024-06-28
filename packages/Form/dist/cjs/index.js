@@ -14941,7 +14941,7 @@ var __webpack_unused_export__;
 
 
 function _extends() {
-  _extends = Object.assign ? Object.assign.bind() : function (target) {
+  _extends = Object.assign || function (target) {
     for (var i = 1; i < arguments.length; i++) {
       var source = arguments[i];
       for (var key in source) {
@@ -14954,14 +14954,17 @@ function _extends() {
   };
   return _extends.apply(this, arguments);
 }
-function _typeof(o) {
-  "@babel/helpers - typeof";
-
-  return _typeof = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function (o) {
-    return typeof o;
-  } : function (o) {
-    return o && "function" == typeof Symbol && o.constructor === Symbol && o !== Symbol.prototype ? "symbol" : typeof o;
-  }, _typeof(o);
+function _typeof(obj) {
+  if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") {
+    _typeof = function _typeof(obj) {
+      return typeof obj;
+    };
+  } else {
+    _typeof = function _typeof(obj) {
+      return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj;
+    };
+  }
+  return _typeof(obj);
 }
 var __extends = void 0 && (void 0).__extends || function () {
   var _extendStatics = function extendStatics(d, b) {
@@ -14970,12 +14973,13 @@ var __extends = void 0 && (void 0).__extends || function () {
     } instanceof Array && function (d, b) {
       d.__proto__ = b;
     } || function (d, b) {
-      for (var p in b) if (Object.prototype.hasOwnProperty.call(b, p)) d[p] = b[p];
+      for (var p in b) {
+        if (b.hasOwnProperty(p)) d[p] = b[p];
+      }
     };
     return _extendStatics(d, b);
   };
   return function (d, b) {
-    if (typeof b !== 'function' && b !== null) throw new TypeError('Class extends value ' + String(b) + ' is not a constructor or null');
     _extendStatics(d, b);
     function __() {
       this.constructor = d;
@@ -14986,9 +14990,8 @@ var __extends = void 0 && (void 0).__extends || function () {
 __webpack_unused_export__ = ({
   value: true
 });
-__webpack_unused_export__ = exports.xL = void 0;
 var React = __webpack_require__(442);
-var SERVER_RENDERED = typeof navigator === 'undefined' || typeof __webpack_require__.g !== 'undefined' && __webpack_require__.g['PREVENT_CODEMIRROR_RENDER'] === true;
+var SERVER_RENDERED = typeof navigator === 'undefined' || __webpack_require__.g['PREVENT_CODEMIRROR_RENDER'] === true;
 var cm;
 if (!SERVER_RENDERED) {
   cm = __webpack_require__(843);
@@ -15167,24 +15170,10 @@ var Shared = function () {
             });
           }
           break;
-        case 'onInputRead':
-          {
-            _this.editor.on('inputRead', function (cm, EditorChangeEvent) {
-              _this.props.onInputRead(_this.editor, EditorChangeEvent);
-            });
-          }
-          break;
         case 'onKeyDown':
           {
             _this.editor.on('keydown', function (cm, event) {
               _this.props.onKeyDown(_this.editor, event);
-            });
-          }
-          break;
-        case 'onKeyHandled':
-          {
-            _this.editor.on('keyHandled', function (cm, key, event) {
-              _this.props.onKeyHandled(_this.editor, key, event);
             });
           }
           break;
@@ -15300,7 +15289,7 @@ var Controlled = function (_super) {
       });
     }
     if (!this.hydrated) {
-      this.deferred ? this.resolveChange(props.value) : this.initChange(props.value || '');
+      this.deferred ? this.resolveChange() : this.initChange(props.value || '');
     }
     this.hydrated = true;
   };
@@ -15321,7 +15310,7 @@ var Controlled = function (_super) {
     this.mirror.clearHistory();
     this.emulating = false;
   };
-  Controlled.prototype.resolveChange = function (value) {
+  Controlled.prototype.resolveChange = function () {
     this.emulating = true;
     var doc = this.editor.getDoc();
     if (this.deferred.origin === 'undo') {
@@ -15330,11 +15319,6 @@ var Controlled = function (_super) {
       doc.redo();
     } else {
       doc.replaceRange(this.deferred.text, this.deferred.from, this.deferred.to, this.deferred.origin);
-    }
-    if (value && value !== doc.getValue()) {
-      var cursor = doc.getCursor();
-      doc.setValue(value);
-      doc.setCursor(cursor);
     }
     this.emulating = false;
     this.deferred = null;
@@ -15360,9 +15344,9 @@ var Controlled = function (_super) {
         cm.defineMode(this.props.defineMode.name, this.props.defineMode.fn);
       }
     }
-    this.editor = cm(this.ref, this.props.options);
+    this.editor = cm(this.ref);
     this.shared = new Shared(this.editor, this.props);
-    this.mirror = cm(function () {}, this.props.options);
+    this.mirror = cm(function () {});
     this.editor.on('electricInput', function () {
       _this.mirror.setHistory(_this.editor.getDoc().getHistory());
     });
@@ -15398,23 +15382,23 @@ var Controlled = function (_super) {
       this.props.editorDidMount(this.editor, this.editor.getValue(), this.initCb);
     }
   };
-  Controlled.prototype.componentDidUpdate = function (prevProps) {
+  Controlled.prototype.componentWillReceiveProps = function (nextProps) {
     if (SERVER_RENDERED) return;
     var preserved = {
       cursor: null
     };
-    if (this.props.value !== prevProps.value) {
+    if (nextProps.value !== this.props.value) {
       this.hydrated = false;
     }
     if (!this.props.autoCursor && this.props.autoCursor !== undefined) {
       preserved.cursor = this.editor.getDoc().getCursor();
     }
-    this.hydrate(this.props);
+    this.hydrate(nextProps);
     if (!this.appliedNext) {
-      this.shared.applyNext(prevProps, this.props, preserved);
+      this.shared.applyNext(this.props, nextProps, preserved);
       this.appliedNext = true;
     }
-    this.shared.applyUserDefined(prevProps, preserved);
+    this.shared.applyUserDefined(this.props, preserved);
     this.appliedUserDefined = true;
   };
   Controlled.prototype.componentWillUnmount = function () {
@@ -15429,7 +15413,7 @@ var Controlled = function (_super) {
   Controlled.prototype.render = function () {
     var _this = this;
     if (SERVER_RENDERED) return null;
-    var className = this.props.className ? 'react-codemirror2 '.concat(this.props.className) : 'react-codemirror2';
+    var className = this.props.className ? 'react-codemirror2 ' + this.props.className : 'react-codemirror2';
     return React.createElement('div', {
       className: className,
       ref: function ref(self) {
@@ -15500,7 +15484,7 @@ var UnControlled = function (_super) {
         cm.defineMode(this.props.defineMode.name, this.props.defineMode.fn);
       }
     }
-    this.editor = cm(this.ref, this.props.options);
+    this.editor = cm(this.ref);
     this.shared = new Shared(this.editor, this.props);
     this.editor.on('beforeChange', function (cm, data) {
       if (_this.props.onBeforeChange) {
@@ -15529,38 +15513,38 @@ var UnControlled = function (_super) {
       this.props.editorDidMount(this.editor, this.editor.getValue(), this.initCb);
     }
   };
-  UnControlled.prototype.componentDidUpdate = function (prevProps) {
-    if (this.detached && this.props.detach === false) {
+  UnControlled.prototype.componentWillReceiveProps = function (nextProps) {
+    if (this.detached && nextProps.detach === false) {
       this.detached = false;
-      if (prevProps.editorDidAttach) {
-        prevProps.editorDidAttach(this.editor);
+      if (this.props.editorDidAttach) {
+        this.props.editorDidAttach(this.editor);
       }
     }
-    if (!this.detached && this.props.detach === true) {
+    if (!this.detached && nextProps.detach === true) {
       this.detached = true;
-      if (prevProps.editorDidDetach) {
-        prevProps.editorDidDetach(this.editor);
+      if (this.props.editorDidDetach) {
+        this.props.editorDidDetach(this.editor);
       }
     }
     if (SERVER_RENDERED || this.detached) return;
     var preserved = {
       cursor: null
     };
-    if (this.props.value !== prevProps.value) {
+    if (nextProps.value !== this.props.value) {
       this.hydrated = false;
       this.applied = false;
       this.appliedUserDefined = false;
     }
-    if (!prevProps.autoCursor && prevProps.autoCursor !== undefined) {
+    if (!this.props.autoCursor && this.props.autoCursor !== undefined) {
       preserved.cursor = this.editor.getDoc().getCursor();
     }
-    this.hydrate(this.props);
+    this.hydrate(nextProps);
     if (!this.applied) {
-      this.shared.apply(prevProps);
+      this.shared.apply(this.props);
       this.applied = true;
     }
     if (!this.appliedUserDefined) {
-      this.shared.applyUserDefined(prevProps, preserved);
+      this.shared.applyUserDefined(this.props, preserved);
       this.appliedUserDefined = true;
     }
   };
@@ -15573,13 +15557,13 @@ var UnControlled = function (_super) {
   UnControlled.prototype.shouldComponentUpdate = function (nextProps, nextState) {
     var update = true;
     if (SERVER_RENDERED) update = false;
-    if (this.detached && nextProps.detach) update = false;
+    if (this.detached) update = false;
     return update;
   };
   UnControlled.prototype.render = function () {
     var _this = this;
     if (SERVER_RENDERED) return null;
-    var className = this.props.className ? 'react-codemirror2 '.concat(this.props.className) : 'react-codemirror2';
+    var className = this.props.className ? 'react-codemirror2 ' + this.props.className : 'react-codemirror2';
     return React.createElement('div', {
       className: className,
       ref: function ref(self) {
@@ -15827,7 +15811,17 @@ ___CSS_LOADER_EXPORT___.push([module.id, `@charset "UTF-8";
 
 .rotate-down {
   transform: rotate(0deg); /* 不旋转，向下箭头样式 */
-}`, "",{"version":3,"sources":["webpack://./src/FormItem/Select/index.scss"],"names":[],"mappings":"AAAA,gBAAgB;AAAhB;EACI,kBAAA;AAEJ;AADI;EACG,cAAA;AAGP;AADI;EACI,YAAA;EACA,kBAAA;EACA,eAAA;AAGR;AAFQ;EACI,+BAAA,EAAA,WAAA;AAIZ;AADI;EACI,sBAAA;EACA,iBAAA;EACA,gBAAA;EACA,eAAA;EACA,YAAA;EACA,kBAAA;EACA,4CAAA;AAGR;AAFQ;EACI,iBAAA;AAIZ;AAHY;EACI,yBAAA;EACA,eAAA;AAKhB;AAHY;EACI,WAAA;EACA,yBAAA;AAKhB;AADI;EACI,kBAAA;EACA,SAAA;EACA,WAAA;EACA,0BAAA;AAGR;AAFQ;EACI,qBAAA;AAIZ;;AACA;EACI,wBAAA,EAAA,mBAAA;AAEJ;;AACA;EACI,uBAAA,EAAA,eAAA;AAEJ","sourcesContent":[".select-wrapper {\r\n    position: relative;\r\n    .select-placeholder {\r\n       color: #7d7d7d;\r\n    }\r\n    .custom-select {\r\n        height: 38px;\r\n        position: relative;\r\n        cursor: pointer;\r\n        i {\r\n            transition: transform 0.3s ease; /* 添加过渡效果 */\r\n        }\r\n    }\r\n    .content {\r\n        background-color: #fff;\r\n        max-height: 200px;\r\n        overflow-y: auto;\r\n        position: fixed;\r\n        z-index: 999;\r\n        border-radius: 4px;\r\n        box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;\r\n        .option {\r\n            padding: 5px 10px;\r\n            &:hover {\r\n                background-color: #f6f6f6;\r\n                cursor: pointer;\r\n            }\r\n            &:active {\r\n                color: #fff;\r\n                background-color: #2783d8;\r\n            }\r\n        }\r\n    }\r\n    .icon {\r\n        position: absolute;\r\n        top: 10px;\r\n        right: 14px;\r\n        transition: transform 0.2s;\r\n        &:hover {\r\n            transform: scale(1.4);\r\n        }\r\n    }\r\n}\r\n\r\n.rotate-up {\r\n    transform: rotate(90deg); /* 旋转-180度，向上箭头样式 */\r\n}\r\n\r\n.rotate-down {\r\n    transform: rotate(0deg); /* 不旋转，向下箭头样式 */\r\n}\r\n"],"sourceRoot":""}]);
+}
+
+.none-option {
+  width: 200px;
+  height: 50px;
+  padding: 10px 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: #a4a3a3;
+}`, "",{"version":3,"sources":["webpack://./src/FormItem/Select/index.scss"],"names":[],"mappings":"AAAA,gBAAgB;AAAhB;EACI,kBAAA;AAEJ;AADI;EACG,cAAA;AAGP;AADI;EACI,YAAA;EACA,kBAAA;EACA,eAAA;AAGR;AAFQ;EACI,+BAAA,EAAA,WAAA;AAIZ;AADI;EACI,sBAAA;EACA,iBAAA;EACA,gBAAA;EACA,eAAA;EACA,YAAA;EACA,kBAAA;EACA,4CAAA;AAGR;AAFQ;EACI,iBAAA;AAIZ;AAHY;EACI,yBAAA;EACA,eAAA;AAKhB;AAHY;EACI,WAAA;EACA,yBAAA;AAKhB;AADI;EACI,kBAAA;EACA,SAAA;EACA,WAAA;EACA,0BAAA;AAGR;AAFQ;EACI,qBAAA;AAIZ;;AACA;EACI,wBAAA,EAAA,mBAAA;AAEJ;;AACA;EACI,uBAAA,EAAA,eAAA;AAEJ;;AACA;EACI,YAAA;EACA,YAAA;EACA,eAAA;EACA,aAAA;EACA,uBAAA;EACA,mBAAA;EACA,cAAA;AAEJ","sourcesContent":[".select-wrapper {\r\n    position: relative;\r\n    .select-placeholder {\r\n       color: #7d7d7d;\r\n    }\r\n    .custom-select {\r\n        height: 38px;\r\n        position: relative;\r\n        cursor: pointer;\r\n        i {\r\n            transition: transform 0.3s ease; /* 添加过渡效果 */\r\n        }\r\n    }\r\n    .content {\r\n        background-color: #fff;\r\n        max-height: 200px;\r\n        overflow-y: auto;\r\n        position: fixed;\r\n        z-index: 999;\r\n        border-radius: 4px;\r\n        box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;\r\n        .option {\r\n            padding: 5px 10px;\r\n            &:hover {\r\n                background-color: #f6f6f6;\r\n                cursor: pointer;\r\n            }\r\n            &:active {\r\n                color: #fff;\r\n                background-color: #2783d8;\r\n            }\r\n        }\r\n    }\r\n    .icon {\r\n        position: absolute;\r\n        top: 10px;\r\n        right: 14px;\r\n        transition: transform 0.2s;\r\n        &:hover {\r\n            transform: scale(1.4);\r\n        }\r\n    }\r\n}\r\n\r\n.rotate-up {\r\n    transform: rotate(90deg); /* 旋转-180度，向上箭头样式 */\r\n}\r\n\r\n.rotate-down {\r\n    transform: rotate(0deg); /* 不旋转，向下箭头样式 */\r\n}\r\n\r\n.none-option {\r\n    width: 200px;\r\n    height: 50px;\r\n    padding: 10px 0;\r\n    display: flex;\r\n    justify-content: center;\r\n    align-items: center;\r\n    color: #a4a3a3;\r\n}"],"sourceRoot":""}]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 
@@ -18816,7 +18810,6 @@ var external_root_ReactDOM_commonjs2_react_dom_commonjs_react_dom_amd_react_dom_
 
 
 
-
 const Select_Select = props => {
   const {
     style,
@@ -18827,6 +18820,7 @@ const Select_Select = props => {
     className,
     disabled,
     transparent,
+    maxHeight,
     onChangeOK,
     setFormItemValue
   } = props;
@@ -18836,10 +18830,8 @@ const Select_Select = props => {
   const [newOptions, setNewOptions] = (0,external_root_React_commonjs2_react_commonjs_react_amd_react_.useState)(options || []);
   const [value, setValue] = (0,external_root_React_commonjs2_react_commonjs_react_amd_react_.useState)(defaultValue) || {};
   const [showOptions, setShowOptions] = (0,external_root_React_commonjs2_react_commonjs_react_amd_react_.useState)(false);
-  const cls = classnames_default()({
-    ["form-select form-select-".concat(size)]: true,
-    [className]: className
-  });
+
+  // 目前好像没用。。
   const handleSelect = e => {
     const selectedIndex = e.target.selectedIndex - 1;
     const selectedOption = options[selectedIndex];
@@ -18858,19 +18850,25 @@ const Select_Select = props => {
   const customSelectRef = (0,external_root_React_commonjs2_react_commonjs_react_amd_react_.useRef)();
   const contentRef = (0,external_root_React_commonjs2_react_commonjs_react_amd_react_.useRef)();
   const [customSelectContentPosition, setCustomSelectContentPosition] = (0,external_root_React_commonjs2_react_commonjs_react_amd_react_.useState)({});
+  // 点击div之后就去重新获取选项的位置
   const handleDivClick = e => {
-    if (disabled) return;
     // 新增使用createPortal来定位下拉框
     const position = libs_getAbsolutePositionOfStage(customSelectRef.current, 0, 0);
     setCustomSelectContentPosition(position);
     e.stopPropagation(); // 阻止事件冒泡
     setShowOptions(!showOptions);
   };
+
+  // 点击选项的回调
   const handleOptionClick = item => {
+    // 给Form赋上选中的值
     context.handleChange(context.name, item);
-    context.checkValidate(item); // 选中的时候，要让他做校验
+    // 选中的时候，要让他做校验;
+    context.checkValidate(item);
     setFormItemValue && setFormItemValue(item);
+    // 回调给父组件
     onChangeOK && onChangeOK(item);
+    // 设置值--可以在这里明确的写出来，也可以在 监听Form对应数据项的时候给该组件赋值
     setValue(item);
   };
   const handleClick = e => {
@@ -18897,12 +18895,14 @@ const Select_Select = props => {
     }
   }, [context.formData[context.name]]);
   (0,external_root_React_commonjs2_react_commonjs_react_amd_react_.useEffect)(() => {
-    if (defaultValue !== null && defaultValue !== void 0 && defaultValue.value) {
-      const selectOption = options.find(option => option.value === defaultValue.value);
-      setValue(selectOption); // 直接在判断有默认值的地方就给表单赋值，就不会出现数据闪动的现象
+    if (defaultValue) {
+      // 如果有默认值，就去找到对应的选项
+      const selectOption = options.find(option => option.value === defaultValue);
+      // 直接在判断有默认值的地方就给表单赋值，就不会出现数据闪动的现象
+      setValue(selectOption);
       // 这边不能直接用 context.handleChange(context.name, defaultValue)来赋默认值，会被置为空，并且失去 提交和重置功能
       context.formData[context.name] = selectOption; // 让 Form里面对应的数据项有值
-      setFormItemValue && setFormItemValue(selectOption);
+      setFormItemValue && setFormItemValue(selectOption); // --目前不知道是干嘛的。。
     } else {
       // js默认的选择框好像只能这样写，不能写成 setValue=({})
       // 只能让它重置为选中第一个选项。。
@@ -18913,8 +18913,15 @@ const Select_Select = props => {
     }
   }, [defaultValue]);
   (0,external_root_React_commonjs2_react_commonjs_react_amd_react_.useEffect)(() => {
-    // 创建一个新数组，将 "请选择" 选项添加在数组的开头
-    const enhancedOptions = [...options];
+    // 重新获取列表的时候，要先把原来选择的数据清空
+    setValue({});
+    context.formData[context.name] = "";
+
+    // 创建一个新数组，将 "空" 选项添加在数组的开头
+    const enhancedOptions = [{
+      label: "空",
+      value: null
+    }, ...options];
     setNewOptions(enhancedOptions);
     // 如果 defaultValue 未定义，则将选择设置为 "请选择" 选项 -- 不写也没问题qwq
     /* if (!defaultValue) {
@@ -18925,7 +18932,6 @@ const Select_Select = props => {
     className: "select-wrapper",
     style: style
   }, /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("div", {
-    "aria-disabled": disabled,
     ref: customSelectRef,
     onBlur: handleBlur,
     onClick: e => handleDivClick(e),
@@ -18942,17 +18948,20 @@ const Select_Select = props => {
     className: "icon fa-solid fa-caret-right rotate-up ".concat(showOptions ? "rotate-up" : "rotate-down")
   })), /*#__PURE__*/external_root_ReactDOM_commonjs2_react_dom_commonjs_react_dom_amd_react_dom_default().createPortal( /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("div", {
     style: {
+      maxHeight,
       position: "absolute",
       top: customSelectContentPosition.y + customSelectContentPosition.height + "px",
       left: customSelectContentPosition.x + "px"
     },
     ref: contentRef,
     className: "custom-select-content ".concat(showOptions ? "custom-select-content-open" : "")
-  }, showOptions && newOptions.map(item => /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("div", {
+  }, showOptions && (newOptions.length > 0 ? newOptions.map(item => /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("div", {
     onClick: () => handleOptionClick(item),
     className: "option",
     key: item.value
-  }, item.label))), document.body));
+  }, item.label)) : /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("div", {
+    className: "none-option"
+  }, "Nothing"))), document.body));
 };
 /* harmony default export */ const src_FormItem_Select = (withTranslation()(Select_Select));
 // EXTERNAL MODULE: ../../node_modules/css-loader/dist/cjs.js??ruleSet[1].rules[1].use[1]!../../node_modules/sass-loader/dist/cjs.js??ruleSet[1].rules[1].use[2]!./src/FormItem/Textarea/index.css
@@ -18999,6 +19008,7 @@ const TextArea = props => {
     placeholder,
     disabled,
     defaultValue,
+    rows,
     onChangeOK,
     setFormItemValue
   } = props;
@@ -19031,8 +19041,7 @@ const TextArea = props => {
       // 这边不能直接用 context.handleChange(context.name, defaultValue)来赋默认值，会被置为空，并且失去 提交和重置功能
       context.formData[context.name] = defaultValue;
     } else {
-      // setValue(context.formData[context.name as string] || "")
-      setValue(""); // 用这个比较直接
+      setValue("");
     }
   }, [defaultValue]);
   return /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement((external_root_React_commonjs2_react_commonjs_react_amd_react_default()).Fragment, null, /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("div", {
@@ -19040,6 +19049,7 @@ const TextArea = props => {
   }, label && /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("span", {
     className: "input-group-text"
   }, label), /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("textarea", {
+    rows: rows,
     value: value,
     disabled: disabled,
     onBlur: e => handleBlur(e),

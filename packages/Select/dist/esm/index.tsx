@@ -29,12 +29,6 @@ const Select = (props: SelectProps) => {
     const [value, setValue] = useState(defaultValue || {});
     const [showOptions, setShowOptions] = useState<boolean>(false);
 
-    const cls = classNames({
-        "custom-select": true,
-        [`form-select form-select-${size}`]: true,
-        [className as string]: className
-    })
-
     const handleSelect = (e: ChangeEvent<HTMLSelectElement>) => {
         const selectedIndex = e.target.selectedIndex - 1;
         const selectedOption = options[selectedIndex];
@@ -57,7 +51,6 @@ const Select = (props: SelectProps) => {
     const [customSelectContentPosition, setCustomSelectContentPosition] = useState<any>({});
 
     const handleDivClock = (e: any) => {
-        if (disabled) return;
         // 新增使用createPortal来定位下拉框
         const position = getAbsolutePosition(customSelectRef.current, 0, 0);
         setCustomSelectContentPosition(position);
@@ -78,8 +71,8 @@ const Select = (props: SelectProps) => {
     }, [context.formData[context.name as string]]) */
 
     useEffect(() => {
-        if (defaultValue?.value) {
-            const selectOption = options.find((option) => option.value === defaultValue.value);
+        if (defaultValue) {
+            const selectOption = options.find((option) => option.value === defaultValue);
             setValue(selectOption); // 直接在判断有默认值的地方就给表单赋值，就不会出现数据闪动的现象
             // 这边不能直接用 context.handleChange(context.name, defaultValue)来赋默认值，会被置为空，并且失去 提交和重置功能
             // context.formData[context.name as string] = selectOption; // 让 Form里面对应的数据项有值
@@ -92,7 +85,11 @@ const Select = (props: SelectProps) => {
     }, [defaultValue])
 
     useEffect(() => {
-        setNewOptions(options);
+        setValue({}) // 不知道要不要加
+        
+        // 创建一个新数组，将 "空" 选项添加在数组的开头
+        const enhancedOptions = [ { label: "空", value: null }, ...options ];
+        setNewOptions(enhancedOptions);
     }, [options])
 
     const handleClick = (e: any) => {
@@ -112,7 +109,7 @@ const Select = (props: SelectProps) => {
     })
 
     return <div className="select-wrapper" style={{width: width + "px"}}>
-        <div aria-disabled={disabled} ref={customSelectRef} onClick={(e: any) => handleDivClock(e)} tabIndex={1} className="custom-select form-control" style={{textAlign: "left", ...(transparent ? { backgroundColor: "transparent", border: "transparent", textAlign: "center" } : {})}}>
+        <div ref={customSelectRef} onClick={(e: any) => handleDivClock(e)} tabIndex={1} className="custom-select form-control" style={{textAlign: "left", background: transparent ? "transparent" : "#fff"}}>
         {value?.value ?  <span className="select-value">{value.label}</span> : <span className="select-placeholder">{placeholder}</span>}
             {<i onClick={(e: any) => handleDivClock(e)} className={`icon fa-solid fa-caret-right rotate-up ${showOptions ? "rotate-up" : "rotate-down"}`}></i>}
         </div>
