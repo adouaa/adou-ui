@@ -16,7 +16,7 @@ interface LiveSearchSelectProps extends SelectProps {
 
 const LiveSearchSelect = (props: LiveSearchSelectProps) => {
 
-    const { defaultValue, options, size, className, disabled, onSelectOK, setFormItemValue } = props;
+    const { defaultValue, options, size, externalClassName, readOnly, onSelectOK, setFormItemValue } = props;
 
     const context: FormContextProps = useContext(FormContext);
 
@@ -33,7 +33,7 @@ const LiveSearchSelect = (props: LiveSearchSelectProps) => {
 
     const cls = classNames({
         [`live-search-select-wrapper form-select-${size} adou-live-search-select`]: true,
-        [className as string]: className
+        [externalClassName as string]: externalClassName
     })
 
     const handleSelect = (e: any, option: any) => {
@@ -141,7 +141,7 @@ const LiveSearchSelect = (props: LiveSearchSelectProps) => {
 
 
     return <div className={cls}>
-        <input value={selectedValeRef.current} onBlur={(e) => handleInputBlur(e)} onChange={(e) => handleInputChange(e)} onClick={handleInputClick} ref={inputRef} disabled={disabled} type="text" className="form-control" aria-label="Username" aria-describedby="basic-addon1" />
+        <input value={selectedValeRef.current} onBlur={(e) => handleInputBlur(e)} onChange={(e) => handleInputChange(e)} onClick={handleInputClick} ref={inputRef} readOnly={readOnly} type="text" className="form-control" aria-label="Username" aria-describedby="basic-addon1" />
         {showOptions && <div className="option-wrapper">
             {filterdOptions.length ? filterdOptions.map((option, index) => {
                 // --巧妙

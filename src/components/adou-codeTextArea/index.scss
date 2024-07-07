@@ -1,0 +1,52 @@
+.react-codemirror2 {
+    flex: 1;
+}
+
+.CodeMirror {
+    border-radius: 10px;
+    height: 250px;
+    font-size: 12px;
+}
+
+.CodeMirror-activeline {
+    background-color: red !important;
+}
+
+.inputGroup {
+    display: flex;
+    align-items: center;
+}
+
+
+.label-box {
+    font-size: 14px;
+    min-width: 50px;
+}
+    
+
+.label-in-center {
+    display: flex;
+    align-items: center;
+}
+
+.label-in-left-top {
+    display: flex;
+
+    .label-box {
+        display: flex;
+        align-items: start;
+    }
+}
+/* ---------- Dark Mode ----------- */
+/* 如果样式需要单独适配暗黑模式效果，请使用以下方法 */
+/*
+.dark-mode,
+[data-bs-theme=dark] {
+   //...
+}
+*/
+
+.dark-mode,
+[data-bs-theme=dark] {
+    .xxx {}
+}

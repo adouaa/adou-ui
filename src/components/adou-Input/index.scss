@@ -1,20 +1,62 @@
-.icon-input {
-    position: relative; /* 让伪元素相对于输入框定位 */
-
-    .icon {
-        /* margin-left: -40px !important;
-        margin-top: 6px;
-        z-index: 9; */
-        position: absolute;
-        right: 20px;
-        top: 20%;  /* 垂直居中 */
-        cursor: pointer;  /* 鼠标悬停时显示指针样式 */
-        transition: transform 0.3s; /* 添加过渡效果 */
-        color: #c6c6cd;
-        &:hover {
-            transform: scale(1.3); /* 水平和垂直方向都放大1.5倍 */
-            color: #51515b;
-        }
+.suffix-icon {
+    /* margin-left: -40px !important;
+    margin-top: 6px;
+    z-index: 9; */
+    position: absolute;
+    right: 12px;
+    top: 30px;  /* 垂直居中 */
+    cursor: pointer;  /* 鼠标悬停时显示指针样式 */
+    transition: transform 0.3s; /* 添加过渡效果 */
+    color: #c6c6cd;
+    &:hover {
+        transform: scale(1.3); /* 水平和垂直方向都放大1.5倍 */
+        color: #51515b;
     }
 }
 
+.common-suffix-icon {
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+}
+
+.label-box {
+    font-size: 14px;
+    min-width: 50px;
+}
+
+.lable-in-control {
+    .icon-input {
+        position: relative; /* 让伪元素相对于输入框定位 */
+        
+    }
+    
+    .content-box {
+        .label-box {
+            display: flex;
+            align-items: center;
+        }
+        
+    }
+    .label-in-center {
+        .suffix-icon {
+            top: 7px;
+        }
+    }
+    .label-in-left-top {
+        .label-box {
+            display: flex;
+            align-items: start;
+        }
+        .suffix-icon {
+            top: 7px;
+        }
+    }
+    
+}
+
+.input-group {
+    .suffix-icon {
+        top: 7px !important;
+    }
+}

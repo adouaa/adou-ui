@@ -13,8 +13,8 @@ export type NodeType = {
 interface ListProps {
     data?: any[];
     isTree?: boolean;
-    maxWidth?: number;
-    maxHeight?: number;
+    maxWidth?: any;
+    maxHeight?: any;
     showOptIcons?: boolean;
     showAddIcon?: boolean;
     showEditIcon?: boolean;
@@ -23,13 +23,14 @@ interface ListProps {
     children?: any;
     showTag?: boolean;
     showSearch?: boolean;
+    prefixTag?: string;
     onToggle?: (node: any) => void;
     onItemClick?: (node: any) => void;
     onIconClick?: (node: any) => void;
     onOptIconClick?: (type: string, node: any) => void;
 }
 
-const List = ({ showSearch = false, showTag = false, children, wrap = true, data, isTree = true, showOptIcons = true, showAddIcon = true, showEditIcon = true, activeId, maxWidth = 300, maxHeight = 200, onToggle, onItemClick, onIconClick, onOptIconClick }: ListProps) => {
+const List = ({ prefixTag, showSearch = false, showTag = false, children, wrap = true, data, isTree = true, showOptIcons = true, showAddIcon = true, showEditIcon = true, activeId, maxWidth = 300, maxHeight = "500px", onToggle, onItemClick, onIconClick, onOptIconClick }: ListProps) => {
 
 
     const [_activeId, set_ActiveId] = useState(activeId);
@@ -70,9 +71,9 @@ const List = ({ showSearch = false, showTag = false, children, wrap = true, data
                 </div>
             }
             <div className="list-content">
-                <div style={{ maxWidth: maxWidth + "px", maxHeight: maxHeight + "px", overflow: 'auto' }}>
+                <div style={{ maxWidth: maxWidth + "px", maxHeight: maxHeight, overflow: 'auto' }}>
                     {data && data.map((item: any) => (
-                        <ListNode showTag={showTag} wrap={wrap} showEditIcon={showEditIcon} showAddIcon={showAddIcon} activeId={_activeId} showOptIcons={showOptIcons} onOptIconClick={(type, node) => handleOptIconClick(type, node)} onIconClick={handleIconClick} onItemClick={handleItemClick} key={item.id} node={item} isTree={isTree} onToggle={onToggle}>
+                        <ListNode prefixTag={prefixTag} showTag={showTag} wrap={wrap} showEditIcon={showEditIcon} showAddIcon={showAddIcon} activeId={_activeId} showOptIcons={showOptIcons} onOptIconClick={(type, node) => handleOptIconClick(type, node)} onIconClick={handleIconClick} onItemClick={handleItemClick} key={item.id} node={item} isTree={isTree} onToggle={onToggle}>
                             {children}
                         </ListNode>
                     ))}

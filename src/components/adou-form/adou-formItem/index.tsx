@@ -11,6 +11,7 @@ import Radio from "./adou-formItem-radio";
 import Checkbox from "./adou-formItem-checkbox";
 import TagInput from './adou-formItem-tagInput';
 import CodeTextArea from './adou-formItem-codeTextArea/CodeTextArea';
+import InputSelect from './adou-input-select';
 
 
 
@@ -210,6 +211,7 @@ FormItem.Radio = Radio;
 FormItem.Checkbox = Checkbox;
 FormItem.TagInput = TagInput;
 FormItem.CodeTextArea = CodeTextArea;
+FormItem.InputSelect = InputSelect;
 
 
 export default FormItem

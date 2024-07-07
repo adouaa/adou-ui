@@ -58,7 +58,6 @@ const CodeTextArea: React.FC<CodeTextAreaProps> = (props: CodeTextAreaProps) => 
     }, [context.formData[context.name as string]])
 
     useEffect(() => {
-        console.log("defaultValue = ", defaultValue);
         
         if (defaultValue) {
             setValue(defaultValue);

@@ -1,5 +1,4 @@
 import { withTranslation } from "react-i18next";
-import classNames from "classnames";
 import { ChangeEvent, useContext, useEffect, useRef, useState } from "react";
 import { FormContext, FormContextProps } from "../../../adou-form";
 import "./index.scss";
@@ -35,12 +34,7 @@ const Select = (props: SelectProps) => {
     const [showOptions, setShowOptions] = useState<boolean>(false);
 
 
-    const cls = classNames({
-        [`form-select form-select-${size}`]: true,
-        [className as string]: className
-    })
-
-
+    // 目前好像没用。。
     const handleSelect = (e: ChangeEvent<HTMLSelectElement>) => {
         const selectedIndex = e.target.selectedIndex - 1;
         const selectedOption = options[selectedIndex];
@@ -61,7 +55,7 @@ const Select = (props: SelectProps) => {
     const customSelectRef = useRef<any>();
     const contentRef = useRef<any>();
     const [customSelectContentPosition, setCustomSelectContentPosition] = useState<any>({});
-
+    // 点击div之后就去重新获取选项的位置
     const handleDivClick = (e: any) => {
         // 新增使用createPortal来定位下拉框
         const position = getAbsolutePositionOfStage(customSelectRef.current, 0, 0);
@@ -70,11 +64,16 @@ const Select = (props: SelectProps) => {
         setShowOptions(!showOptions);
     }
 
+    // 点击选项的回调
     const handleOptionClick = (item: any) => {
+        // 给Form赋上选中的值
         context.handleChange(context.name, item);
-        context.checkValidate(item); // 选中的时候，要让他做校验
+        // 选中的时候，要让他做校验;
+        context.checkValidate(item); 
         setFormItemValue && setFormItemValue(item);
+        // 回调给父组件
         onChangeOK && onChangeOK(item);
+        // 设置值--可以在这里明确的写出来，也可以在 监听Form对应数据项的时候给该组件赋值
         setValue(item);
     }
 
@@ -100,16 +99,17 @@ const Select = (props: SelectProps) => {
         if (!context.formData[context.name as string]) {
             setValue({ label: "", value: "" });
         }
-
     }, [context.formData[context.name as string]])
 
     useEffect(() => {
-        if (defaultValue?.value) {
-            const selectOption = options.find((option) => option.value === defaultValue.value);
-            setValue(selectOption); // 直接在判断有默认值的地方就给表单赋值，就不会出现数据闪动的现象
+        if (defaultValue) {
+            // 如果有默认值，就去找到对应的选项
+            const selectOption = options.find((option) => option.value === defaultValue);
+            // 直接在判断有默认值的地方就给表单赋值，就不会出现数据闪动的现象
+            setValue(selectOption); 
             // 这边不能直接用 context.handleChange(context.name, defaultValue)来赋默认值，会被置为空，并且失去 提交和重置功能
             context.formData[context.name as string] = selectOption; // 让 Form里面对应的数据项有值
-            setFormItemValue && setFormItemValue(selectOption);
+            setFormItemValue && setFormItemValue(selectOption); // --目前不知道是干嘛的。。
         } else {
             // js默认的选择框好像只能这样写，不能写成 setValue=({})
             // 只能让它重置为选中第一个选项。。
@@ -122,8 +122,8 @@ const Select = (props: SelectProps) => {
         setValue({});
         context.formData[context.name as string] = "";
         
-        // 创建一个新数组，将 "请选择" 选项添加在数组的开头
-        const enhancedOptions = [...options];
+        // 创建一个新数组，将 "空" 选项添加在数组的开头
+        const enhancedOptions = [ { label: "空", value: null }, ...options ];
         setNewOptions(enhancedOptions);
         // 如果 defaultValue 未定义，则将选择设置为 "请选择" 选项 -- 不写也没问题qwq
         /* if (!defaultValue) {

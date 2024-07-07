@@ -1,110 +1,149 @@
 import classNames from "classnames";
-import React, { useContext, useEffect, useState } from "react";
-import { withTranslation } from "react-i18next"
-
-import { FormContext, FormContextProps } from "../adou-form";
+import React, { useEffect, useState, forwardRef, ForwardRefRenderFunction, useImperativeHandle } from "react";
+import "./index.scss";
 
 interface CheckboxProps {
-    defaultValue?: any;
-    className?: string,
-    options?: any[],
-    inline?: boolean,
-    wrap?: boolean,
-    onChangeOK?: (item: any) => void,
-    setFormItemValue?: (value: any) => void;
+    name?: string;
+    commonSuffixIcon?: string;
+    readOnly?: boolean;
+    inputGroup?: boolean;
+    label?: string;
+    labelPosition?: "left-top" | "center" | "top" | "input-group";
+    labelColor?: string;
+    required?: boolean;
+    defaultValue?: string | string[] | { label: string; value: string }[];
+    externalClassName?: string;
+    options?: { label: string; value: string }[];
+    inline?: boolean;
+    wrap?: boolean;
+    onChangeOK?: (item: { label: string; value: string }[]) => void;
+    setFormItemValue?: (value: { label: string; value: string }[]) => void;
 }
 
-const Checkbox: React.FC<CheckboxProps> = (props: CheckboxProps) => {
+const Checkbox: ForwardRefRenderFunction<any, CheckboxProps> = ({
+    name,
+    commonSuffixIcon,
+    readOnly,
+    label,
+    labelPosition,
+    labelColor,
+    inputGroup = false,
+    required = false,
+    externalClassName,
+    inline = true,
+    options = [],
+    defaultValue = [],
+    wrap = true,
+    onChangeOK,
+    setFormItemValue,
+}, ref) => {
 
-    // 获取 `FormContext.Provider` 提供提供的 `value` 值
-    const context: FormContextProps = useContext(FormContext) || {};
+    // Function to check if an option should be checked
+    const isChecked = (value: string, defaultValue: string | string[] | { label: string; value: string }[] | any) => {
+        if (typeof defaultValue === 'string') {
+            return value === defaultValue;
+        } else if (Array.isArray(defaultValue)) {
+            if (Array.isArray(defaultValue) && typeof defaultValue[0] !== 'string') {
+                return defaultValue!.some(item => item.value === value);
+            } else {
+                return defaultValue.includes(value as any);
+            }
+        }
+        return false;
+    };
 
-    const { className, inline = true, options, defaultValue, wrap = true, onChangeOK, setFormItemValue } = props;
+    // Initialize optionsList based on defaultValue
+    const initialOptions = options.map(option => ({
+        ...option,
+        checked: isChecked(option.value, defaultValue)
+    }));
 
-    const [optionsList, setOptionsList] = useState(options || []);
+    const [optionsList, setOptionsList] = useState(initialOptions);
 
     const cls = classNames({
         "form-check-input": true,
-        [className as string]: className
-    })
+    });
 
-    const handleChange = (item: any) => {
-        const updatedChheckboxData = optionsList?.map((option) => {
-            if (option.value === item.value) {
-                return { ...option, checked: !option.checked };
-                // 下面这样写也可以
-                /* item.checked = !item.checked;
-            return item; */
-            } else {
-                return option;
-            }
-        });
-        if (context.formData) {
-            context.formData[context.name as string] = updatedChheckboxData.filter(item => item.checked);
-            const checkedList = updatedChheckboxData.filter(item => item.checked);
-            context.handleChange && context.handleChange(context.name, checkedList);
-            context.checkValidate && context.checkValidate(checkedList.length)
-        }
-
-        setOptionsList(updatedChheckboxData!);
-        onChangeOK && onChangeOK(updatedChheckboxData?.filter(v => v.checked));
-        setFormItemValue && setFormItemValue(updatedChheckboxData?.filter(v => v.checked))
-    }
+    const handleChange = (item: { label: string; value: string }) => {
+        const updatedOptions = optionsList.map((option) =>
+            option.value === item.value ? { ...option, checked: !option.checked } : option
+        );
+        setOptionsList(updatedOptions);
+        onChangeOK && onChangeOK(updatedOptions.filter((opt) => opt.checked));
+        setFormItemValue && setFormItemValue(updatedOptions.filter((opt) => opt.checked));
+    };
 
     const handleBlur = () => {
-        const checkedList = optionsList.filter(item => item.checked);
-        context.handleChange && context.handleChange(context.name, checkedList);
-        context.checkValidate && context.checkValidate(checkedList.length)
+        const checkedList = optionsList.filter((item) => item.checked);
+        // Optionally handle blur event
+    };
+
+    const [error, setError] = useState<boolean>(true);
+    const validateCheckbox = () => {
+        // Example validation logic, replace with your actual validation needs
+        setError(true);
+    };
+    const clear = () => {
+        setOptionsList(optionsList.map((item: any) => {
+            item.checked = false;
+            return item;
+        }))
+    };
+    const handleClickCommonSuffixIcon = () => {
+        clear();
     }
+    // Expose validateInput method via ref
+    useImperativeHandle(ref, () => ({
+        validateCheckbox,
+        clear
+    }));
 
     useEffect(() => {
-        console.log(defaultValue);
-        
-        if (defaultValue.length) {
-            if (context.formData) {
-                context.formData[context.name as string] = defaultValue;
-            }
-            setFormItemValue && setFormItemValue(defaultValue);
-            setOptionsList(preArr => {
-                return preArr.map(option => {
-                    if (defaultValue.some((item: any) => item.value === option.value)) {
-                        option.checked = true;
-                    }
-                    return option;
-                })
-            })
-        } else {
-            context.checkValidate && context.checkValidate(0);
-        }
-    }, [defaultValue])
+        // Update optionsList when defaultValue changes
+        const updatedOptions = options.map(option => ({
+            ...option,
+            checked: isChecked(option.value, defaultValue)
+        }));
+        setOptionsList(updatedOptions);
+        setFormItemValue && setFormItemValue(updatedOptions.filter((opt) => opt.checked));
+    }, [defaultValue, options]);
 
-    useEffect(() => {
-        if (!context.formData?.[context.name as string]) {
-            setOptionsList(preArr => {
-                return preArr.map(option => {
-                    option.checked = false;
-                    return option;
-                })
-            })
-        }
-    }, [context.formData?.[context.name as string]])
+    const checkboxClasses = classNames({
+        "checkbox-wrapper": true,
+        [externalClassName as string]: externalClassName,
+    });
 
-    const divClasses = classNames({
-        'checkbox-wrapper': true,
-        'd-flex': inline,
-        "flex-wrap": wrap
-    })
-    return <>
-        <div className={divClasses}>
-            {optionsList?.map(item => {
-                return <div key={item.value} className="form-check" style={{ textAlign: "left", marginRight: "20px" }}>
-                    <input onBlur={handleBlur} className={cls} type="checkbox" name={item.name} id={item.id} checked={item.checked} onChange={() => handleChange(item)} value={item.value} />
-                    <label className="form-check-label" htmlFor={item.id}>
-                        {item.label || "Default Checkbox"}
-                    </label></div>
-            })}
+    return (
+        <div className={checkboxClasses}>
+            <div className={`content-box ${inputGroup ? "inputGroup" : `label-in-${labelPosition}`}`}>
+                {label && <span className={`${inputGroup ? "input-group-text" : ""} label-box`}>{label}</span>}
+                <div className="option-box" style={{ display: inline ? "flex" : "" }}>
+                    {optionsList.map((item) => (
+                        <div key={item.value} className="form-check" style={{ textAlign: "left", marginRight: "20px", marginBottom: 0}}>
+                            <input
+                                ref={ref} // 将 ref 绑定到 input 元素
+                                required={required}
+                                onBlur={handleBlur}
+                                className={cls}
+                                type="checkbox"
+                                name={name}
+                                id={item.value}
+                                checked={item.checked}
+                                onChange={() => handleChange(item)}
+                                value={item.value}
+                                readOnly={readOnly}
+                            />
+                            <label className="form-check-label" htmlFor={item.value}>
+                                {item.label || "Default Checkbox"}
+                            </label>
+                        </div>
+                    ))}
+                </div>
+                {commonSuffixIcon && <i onClick={handleClickCommonSuffixIcon} className={`${commonSuffixIcon} common-suffix-icon ms-2`}></i>}
+            </div>
+            {error && "错误----------checkbox"}
         </div>
-    </>
-}
+    );
+};
 
-export default withTranslation()(Checkbox);
+export default (forwardRef(Checkbox));

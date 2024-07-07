@@ -1,5 +1,4 @@
 function getAbsolutePositionOfStage(domElement, left= 0, top= 0) {
-    console.log(domElement);
     if (!parseInt(left)) {
         left = 0;
     } else {

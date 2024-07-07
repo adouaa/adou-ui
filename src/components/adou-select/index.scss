@@ -1,5 +1,10 @@
 .select-wrapper {
+    select option:first-child {
+        display: none;
+    }
+
     position: relative;
+
     .select-placeholder,
     .select-value {
         display: block;
@@ -8,57 +13,163 @@
         white-space: nowrap;
         text-overflow: ellipsis;
     }
+
     .select-value {
         color: #000;
     }
+
     .custom-select {
         height: 38px;
         position: relative;
         cursor: pointer;
+
         i {
-            transition: transform 0.3s ease; /* 添加过渡效果 */
+            transition: transform 0.3s ease;
+            /* 添加过渡效果 */
         }
     }
+
     .content {
         min-width: 200px;
         text-align-last: left;
         background-color: #fff;
-        max-height: 0; /* 初始高度设为0，隐藏选项内容 */
-        overflow: hidden; /* 隐藏溢出内容 */
+        max-height: 0;
+        /* 初始高度设为0，隐藏选项内容 */
+        overflow: hidden;
+        /* 隐藏溢出内容 */
         position: absolute;
         z-index: 999;
         box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
-        transition: max-height 0.3s ease; /* 添加高度变化的过渡效果 */
+        transition: max-height 0.3s ease;
+
+        /* 添加高度变化的过渡效果 */
         .option {
             padding: 5px 10px;
+
             &:hover {
                 background-color: #f6f6f6;
                 cursor: pointer;
             }
+
             &:active {
                 color: #fff;
                 background-color: #2783d8;
             }
         }
     }
+
     .open {
-        max-height: 200px; /* 显示选项内容时的最大高度 */
+        max-height: 200px;
+        /* 显示选项内容时的最大高度 */
     }
+
     .icon {
         position: absolute;
         top: 10px;
         right: 14px;
         transition: transform 0.2s;
+
         &:hover {
             transform: scale(1.4);
+        }
+    }
+
+    .content-box {
+        .label-box {
+            font-size: 14px;
+            min-width: 50px;
+        }
+    }
+
+    .label-in-center {
+        display: flex;
+        align-items: center;
+    }
+
+    .label-in-left-top {
+        display: flex;
+
+        .label-box {
+            display: flex;
+            align-items: start;
         }
     }
 }
 
 .rotate-up {
-    transform: rotate(90deg); /* 旋转-180度，向上箭头样式 */
+    transform: rotate(90deg);
+    /* 旋转-180度，向上箭头样式 */
 }
 
 .rotate-down {
-    transform: rotate(0deg); /* 不旋转，向下箭头样式 */
+    transform: rotate(0deg);
+    /* 不旋转，向下箭头样式 */
+}
+
+/* 定义滚动条样式 */
+::-webkit-scrollbar {
+    width: 8px;
+    /* 滚动条宽度 */
+}
+
+::-webkit-scrollbar-track {
+    background: #f1f1f1;
+    /* 滚动条背景色 */
+}
+
+::-webkit-scrollbar-thumb {
+    background: #888;
+    /* 滚动条滑块颜色 */
+    border-radius: 2px;
+    /* 滚动条滑块圆角 */
+}
+
+/* 悬停时滑块样式 */
+::-webkit-scrollbar-thumb:hover {
+    background: #555;
+}
+
+.custom-select-content {
+    min-width: 200px;
+    text-align-last: left;
+    background-color: #fff;
+    max-height: 0;
+    /* 初始高度设为0，隐藏选项内容 */
+    overflow: auto;
+    /* 隐藏溢出内容 */
+    position: absolute;
+    z-index: 66666666;
+    border-radius: 4px;
+    box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+    transition: max-height 0.3s ease;
+
+    /* 添加高度变化的过渡效果 */
+    .option {
+        padding: 5px 10px;
+
+        &:hover {
+            background-color: #f6f6f6;
+            cursor: pointer;
+        }
+
+        &:active {
+            color: #fff;
+            background-color: #2783d8;
+        }
+    }
+}
+
+.custom-select-content-open {
+    max-height: 100px;
+    /* 显示选项内容时的最大高度 */
+}
+
+.none-option {
+    width: 200px;
+    height: 50px;
+    padding: 10px 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: #a4a3a3;
 }
