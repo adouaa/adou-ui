@@ -1,4 +1,5 @@
-.list-node-wrapper {
+.list-node-wrapper-special {
+    
     color: #606266;
     font-size: 14px;
     .node-item {
@@ -7,17 +8,17 @@
             display: flex;
             align-items: center;
             /* display: inline-block; // 这个加上就会把这个盒子的宽度变成跟内容的宽度一样，而不会是根据父容器的宽度 */
-            padding: 3px 20px 3px 14px;
+            padding: 6px 20px 6px 14px;
             // white-space: wrap;
             position: relative; /* 添加相对定位--好像没用 */
             min-width: 120px;
             cursor: pointer;
             &:hover {
-                background-color: #f6f6f6;
+                background-color: #2e90ff;
             }
             &.active {
                 color: #fff;
-                background-color: #2783d8;
+                background-color: #2e90ff;
             }
             .tag1 {
                 font-size: 12px;
@@ -65,16 +66,26 @@
         }
     }
     .children {
-        padding-left: 10px;
+        // padding-left: 10px; // 为了参照实施的风格
         max-height: 0; /* 初始状态下高度为0 */
         overflow-y: hidden; /* 隐藏溢出内容 */
+        transition: max-height .3s ease !important;
         &.not-expand {
-            transition: max-height .25s ease; //这个加上过度效果会出现点击的节点的内部闪现x轴滚动条
+            // transition: max-height .2s ease; 这个加上过度效果会出现点击的节点的内部闪现x轴滚动条
         }
         &.expanded {
             overflow-y: clip; // 这句话加上就不会出现很多歌滚动条。。。
-            transition: max-height .3s ease; /* 添加过渡效果 */
-            max-height: 1000px; /* 展开时高度自动适应内容 */
+            // transition: max-height 2s ease; /* 添加过渡效果 */
+            max-height: 1500px !important; /* 展开时高度自动适应内容 */
+        }
+
+
+        // 手动适配距离
+        .prefix-tag {
+            padding-left: 24px;
+        }
+        .item-name {
+            
         }
     }
 }

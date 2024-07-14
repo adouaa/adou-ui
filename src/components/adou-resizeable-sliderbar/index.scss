@@ -1,0 +1,22 @@
+.resizable-sidebar {
+    position: relative;
+    background-color: #f8f9fa; /* Bootstrap的light颜色 */
+    padding: 15px;
+    border-right: 1px solid #dee2e6; /* Bootstrap的secondary颜色 */
+  }
+  
+  .resize-handle {
+    position: absolute;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    width: 5px;
+    cursor: ew-resize;
+    background-color: #007bff; /* Bootstrap的primary颜色 */
+    opacity: 0.5;
+  }
+  
+  .resize-handle:hover {
+    opacity: 1;
+  }
+  

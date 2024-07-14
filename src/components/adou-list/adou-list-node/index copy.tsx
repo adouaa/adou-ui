@@ -42,37 +42,26 @@ const ListNode = ({ prefixTag, showTag = false, children, wrap = true, node, isT
 
   const setMaxHeights = (element: any, expandedParents: any[], closed: boolean = false) => {
     console.log(isExpanded);
-    let currentMaxHeight: any;
-
-    // scrollHeight 可以用来确定元素内容的总高度，包括隐藏的溢出内容。
-    currentMaxHeight = element.scrollHeight;
+    
+    let currentMaxHeight = element.scrollHeight;
     // 遍历所有找到的父 div 元素
     expandedParents.forEach((parent: any, index: number) => {
       // 将当前父 div 元素的 maxHeight 设置为当前值加上上一个父 div 元素的 maxHeight
 
       if (index) {
-        // 后面遍历到的expanded元素 因为要加上前边遍历到的expanded元素，所以要加上它的 maxHeight
-        // 如此往复就会正确计算好展开的maxHeight。。。
         const parenetMaxHeight = parseInt(parent.style.maxHeight);
         parent.style.maxHeight = `${currentMaxHeight + parenetMaxHeight}px`;
 
-      } else { 
-        // 如果是第一个遍历到的expanded元素的话，只要赋上本身的 scrollHeight即可
-        // 后面遍历到的expanded元素 因为要加上前边遍历到的expanded元素，所以要加上它的 maxHeight
-        // 如此往复就会正确计算好展开的maxHeight。。。
+      } else {
         parent.style.maxHeight = `${currentMaxHeight}px`;
 
       }
       // 更新 currentMaxHeight 为当前父 div 元素的实际高度
-      // ----错了，不能累加，每次用最开始的计算就行。。因为后面遍历到的 expanded元素会加上它本身的 maxHeight
-      // 这个 maxHeight就会正确的包括前面的 expanded元素的高度。
     });
   }
 
   function findExpandedParents(element: any) {
-    // 存放所有expanded元素的数组
     let expandedParents: any = [];
-    // 存放当前元素
     let currentElement = element;
 
     // 循环遍历每个父节点
@@ -81,7 +70,7 @@ const ListNode = ({ prefixTag, showTag = false, children, wrap = true, node, isT
       if (currentElement.tagName === 'DIV' && currentElement.classList.contains('expanded')) {
         expandedParents.push(currentElement);
       }
-      // 移动到当前元素的父节点--类似递归的操作
+      // 移动到当前元素的父节点
       currentElement = currentElement.parentNode;
     }
 
@@ -96,51 +85,38 @@ const ListNode = ({ prefixTag, showTag = false, children, wrap = true, node, isT
     onIconClick && onIconClick(node);
     const target = e.target;
     const nodeItem = target.parentNode?.parentNode;
-    
     if (!isExpanded) {
-      // 如果是展开，这个操作也是不能少的--具体原因未知。。。
-      setChildrenMaxHeight(nodeItem.scrollHeight);
+      setChildrenMaxHeight(nodeItem.clientHeight)
     } else {
-      // 如果是折叠，直接maxHeight设置为0即可。虽热子节点的maxHeight不会为，但是父节点的maxHeight为0，就隐藏子节点了
-      setChildrenMaxHeight(0);
+      setChildrenMaxHeight(0)
     }
-    // 一开始还没点击展开的时候，都是 not-expanded
     const notExpandedChildren = nodeItem.querySelector(".children.not-expand");
-    // childrenList: 类名为 children下的所有div节点
-    const childrenList = notExpandedChildren?.querySelectorAll(".list-node-wrapper");
-    if (childrenList) {
-      // 伪数组无法遍历，造成新数组来处理
-      const childrenArr = [...childrenList];
-      // 存放是expanded节点的子元素
-      const expandedChildrenList: any = [];
+    // const chidlrenHeight = notExpandedChildren?.clientHeight;
+    // childrenNodeList: 类名为 children下的所有div节点
+    const childrenNodeList = notExpandedChildren?.querySelectorAll(".list-node-wrapper");
+    console.log(childrenNodeList);
 
-      // 因为isExpanded状态的设置是异步的，所以这边要加个定时器，不然不行
-      setTimeout(() => {
-        childrenArr.forEach((child: any) => {
-          // 找到list-node-wrapper的父节点
-          const parent = child.parentNode;
-          // 通过判断list-node-wrapper的父节点是否是 expanded，来决定要不要存入数组
-          if (parent.classList.contains('expanded')) {
-            console.log("child = ", child);
-
-            expandedChildrenList.push(child);
-          }
-        })
-
-        // 存放父节点
-        let childrenContainerDiv: any;
-        expandedChildrenList?.forEach((child: any) => {
-          // 相同的节点只处理一次
-          if (childrenContainerDiv != child.parentNode) {
-            // 存放父节点
-            childrenContainerDiv = child.parentNode;
-            // 判断这个父节点是否是展开状态--貌似有点多余，不用判断，直接执行函数即可
+    setTimeout(() => {
+      let childrenContainerDivHeight = 0;
+      let childrenContainerDiv: any;
+      childrenNodeList?.forEach((node: any) => {
+        if (childrenContainerDiv != node.parentNode) {
+          // 找到子节点的父节点(类名为children)
+          childrenContainerDiv = node.parentNode;
+          // 判断这个父节点是否是展开状态
+          const expanded = childrenContainerDiv.classList.contains('expanded');
+          if (expanded) {
             findExpandedParents(childrenContainerDiv);
+          } else {
+            console.log("关闭");
+            
           }
+        }
 
-        })
-      }, 0);
-    }
+      })
+
+
+    }, 0);
 
   }
 
