@@ -1,5 +1,5 @@
 import Button from "components/adou-button";
-import Select from "components/adou-select";
+import Select from "components/adou-new-form/adou-select";
 import React, { useEffect, useRef, useState } from "react";
 import { withTranslation } from "react-i18next"
 import Input from "../adou-Input";
@@ -77,7 +77,7 @@ const DynamicFields = (props: DynamicFieldsProps) => {
         if (type === "Input") {
             return <Input defaultValue={value} onChangeOK={(value) => handleFieldChange(type, value, index)}></Input>
         } else if (type === "Select") {
-            return <Select defaultValue={field} onChangeOK={(value) => handleFieldChange(type, value, index)} options={Array.isArray(field.data) ? field.data : (dataArr?.[field.data] || [])}></Select>
+            return <Select defaultValue={field} onChange={(value) => handleFieldChange(type, value, index)} options={Array.isArray(field.data) ? field.data : (dataArr?.[field.data] || [])}></Select>
         } else if (type === "MultipleSelect") {
             return <MultipleSelect defaultValue={value} onChangeOK={(value) => handleFieldChange(type, value, index)} options={Array.isArray(field.data) ? field.data : (dataArr?.[field.data] || [])}></MultipleSelect>
         }
@@ -159,7 +159,7 @@ const DynamicFields = (props: DynamicFieldsProps) => {
                 <div className="label-inpu" style={{ flex: 1 }}><Input placeholder="请输入标签" onChangeOK={(value) => handleLabelChange(value)}></Input></div> */}
                 <Form ref={formRef}>
                     <FormItem width="260px" name="type" label="类型">
-                        <Select onChangeOK={handleTyeSelectOK} options={options}></Select>
+                        <Select onChange={handleTyeSelectOK} options={options}></Select>
                     </FormItem>
                     <FormItem validate rule={[
                         { required: true, message: '标签不能为空' }

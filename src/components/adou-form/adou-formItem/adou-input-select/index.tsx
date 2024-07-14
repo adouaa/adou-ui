@@ -9,6 +9,16 @@ import ReactDOM from "react-dom";
 import getAbsolutePosition from "../../../../utils/getAbsolutePosition";
 
 export interface SelectProps {
+    name?: string;
+    required?: boolean;
+    errMsg?: string;
+    labelWidth?: any;
+    commonSuffixIcon?: string;
+    width?: any;
+    label?: string;
+    labelPosition?: "left-top" | "center" | "top";
+    inputGroup?: boolean;
+    labelColor?: string;
     defaultValue?: any;
     options: any[];
     placeholder?: string;

@@ -2,7 +2,7 @@ import { withTranslation } from "react-i18next";
 import { ChangeEvent, useContext, useEffect, useImperativeHandle, useRef, useState } from "react";
 import "./index.scss";
 import React from "react";
-import getAbsolutePositionOfStage from "../../utils/getAbsolutePosition";
+import getAbsolutePositionOfStage from "utils/getAbsolutePosition";
 import ReactDOM from "react-dom";
 
 
@@ -124,7 +124,6 @@ const Select = React.forwardRef((props: SelectProps, ref) => {
     // 校验方法
     const [error, setError] = useState<boolean>(false);
     const validate = () => {
-        if (!required) return true;
         if (value) {
             setError(false);
             return true;
@@ -149,7 +148,7 @@ const Select = React.forwardRef((props: SelectProps, ref) => {
         getValue
     }));
 
-    const wrapperClassName = `select-wrapper ${!error && "mb-3"} ${externalClassName || ''}`.trim();
+    const wrapperClassName = `select-wrapper ${externalClassName || ''}`.trim();
 
     useEffect(() => {
         window.addEventListener("click", handleClick)
@@ -176,7 +175,7 @@ const Select = React.forwardRef((props: SelectProps, ref) => {
             </div>
             :
             <div onBlur={validate} className={`content-box label-in-${labelPosition}`}>
-                <span className="label-box" style={{ color: labelColor, width: labelWidth, flexWrap: "nowrap" }}>{label}</span>
+                <span className="label-box" style={{ color: labelColor, width: labelWidth }}>{label}</span>
                 <div ref={customSelectRef} onClick={(e: any) => handleDivClock(e)} tabIndex={1} className="custom-select form-control" style={{ textAlign: "left", background: transparent ? "transparent" : "#fff" }}>
                     {value?.value ? <span className="select-value">{value.label}</span> : <span className="select-placeholder">{placeholder}</span>}
                     {<i onClick={(e: any) => handleDivClock(e)} className={`icon fa-solid fa-caret-right rotate-up ${showOptions ? "rotate-up" : "rotate-down"}`}></i>}
@@ -191,7 +190,7 @@ const Select = React.forwardRef((props: SelectProps, ref) => {
                 )}
             </div>
         }
-        {error && required && <div className="animate__animated animate__fadeIn mb-1" style={{ color: "#DC3545", fontSize: "14px", paddingLeft: parseInt(labelWidth) > 120 ? "120px" : labelWidth }}>{`${errMsg || `${name}不能为空`}`}</div>}
+        {error && required && <div className="animate__animated animate__fadeIn" style={{ color: "red", paddingLeft: parseInt(labelWidth) > 120 ? "120px" : labelWidth }}>{`${errMsg || `${name}不能为空`}`}</div>}
     </div>;
 });
 

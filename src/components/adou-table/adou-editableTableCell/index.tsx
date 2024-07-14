@@ -1,4 +1,4 @@
-import AdouInput from "../../adou-Input";
+import AdouInput from "../../adou-new-form/adou-Input";
 import React, { useEffect, useRef, useState } from "react";
 import { withTranslation } from "react-i18next";
 

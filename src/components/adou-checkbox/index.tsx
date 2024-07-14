@@ -4,6 +4,8 @@ import "./index.scss";
 
 interface CheckboxProps {
     name?: string;
+    errMsg?: string;
+    labelWidth?: any;
     commonSuffixIcon?: string;
     readOnly?: boolean;
     inputGroup?: boolean;
@@ -16,12 +18,13 @@ interface CheckboxProps {
     options?: { label: string; value: string }[];
     inline?: boolean;
     wrap?: boolean;
-    onChangeOK?: (item: { label: string; value: string }[]) => void;
-    setFormItemValue?: (value: { label: string; value: string }[]) => void;
+    onChange?: (item: { label: string; value: string }[]) => void;
 }
 
 const Checkbox: ForwardRefRenderFunction<any, CheckboxProps> = ({
     name,
+    errMsg,
+    labelWidth,
     commonSuffixIcon,
     readOnly,
     label,
@@ -34,8 +37,7 @@ const Checkbox: ForwardRefRenderFunction<any, CheckboxProps> = ({
     options = [],
     defaultValue = [],
     wrap = true,
-    onChangeOK,
-    setFormItemValue,
+    onChange,
 }, ref) => {
 
     // Function to check if an option should be checked
@@ -69,8 +71,12 @@ const Checkbox: ForwardRefRenderFunction<any, CheckboxProps> = ({
             option.value === item.value ? { ...option, checked: !option.checked } : option
         );
         setOptionsList(updatedOptions);
-        onChangeOK && onChangeOK(updatedOptions.filter((opt) => opt.checked));
-        setFormItemValue && setFormItemValue(updatedOptions.filter((opt) => opt.checked));
+        onChange && onChange(updatedOptions.filter((opt) => opt.checked));
+        if (updatedOptions.some((option: any) => option.checked)) {
+            setError(false);
+        } else {
+            setError(true);
+        }
     };
 
     const handleBlur = () => {
@@ -78,10 +84,16 @@ const Checkbox: ForwardRefRenderFunction<any, CheckboxProps> = ({
         // Optionally handle blur event
     };
 
-    const [error, setError] = useState<boolean>(true);
-    const validateCheckbox = () => {
-        // Example validation logic, replace with your actual validation needs
-        setError(true);
+    const [error, setError] = useState<boolean>(false);
+    const validate = () => {
+        if (!required) return true;
+        if (optionsList.some((item: any) => item.checked)) {
+            setError(false);
+            return true;
+        } else {
+            setError(true);
+            return false;
+        }
     };
     const clear = () => {
         setOptionsList(optionsList.map((item: any) => {
@@ -91,10 +103,11 @@ const Checkbox: ForwardRefRenderFunction<any, CheckboxProps> = ({
     };
     const handleClickCommonSuffixIcon = () => {
         clear();
+        setError(true);
     }
     // Expose validateInput method via ref
     useImperativeHandle(ref, () => ({
-        validateCheckbox,
+        validate,
         clear
     }));
 
@@ -105,10 +118,10 @@ const Checkbox: ForwardRefRenderFunction<any, CheckboxProps> = ({
             checked: isChecked(option.value, defaultValue)
         }));
         setOptionsList(updatedOptions);
-        setFormItemValue && setFormItemValue(updatedOptions.filter((opt) => opt.checked));
     }, [defaultValue, options]);
 
     const checkboxClasses = classNames({
+        "mb-3": error,
         "checkbox-wrapper": true,
         [externalClassName as string]: externalClassName,
     });
@@ -116,7 +129,7 @@ const Checkbox: ForwardRefRenderFunction<any, CheckboxProps> = ({
     return (
         <div className={checkboxClasses}>
             <div className={`content-box ${inputGroup ? "inputGroup" : `label-in-${labelPosition}`}`}>
-                {label && <span className={`${inputGroup ? "input-group-text" : ""} label-box`}>{label}</span>}
+                {label && <span style={{color: labelColor, width: labelWidth}} className={`${inputGroup ? "input-group-text" : ""} label-box`}>{label}</span>}
                 <div className="option-box" style={{ display: inline ? "flex" : "" }}>
                     {optionsList.map((item) => (
                         <div key={item.value} className="form-check" style={{ textAlign: "left", marginRight: "20px", marginBottom: 0}}>
@@ -141,7 +154,7 @@ const Checkbox: ForwardRefRenderFunction<any, CheckboxProps> = ({
                 </div>
                 {commonSuffixIcon && <i onClick={handleClickCommonSuffixIcon} className={`${commonSuffixIcon} common-suffix-icon ms-2`}></i>}
             </div>
-            {error && "错误----------checkbox"}
+            {error && required && <div className="animate__animated animate__fadeIn mb-1" style={{ color: "#DC3545", fontSize: "14px", paddingLeft: parseInt(labelWidth) > 120 ? "120px" : labelWidth}}>{`${errMsg || `${name}不能为空`}`}</div>}
         </div>
     );
 };

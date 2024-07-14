@@ -69,7 +69,6 @@ const Radio: React.ForwardRefRenderFunction<any, RadioProps> = (props, ref) => {
     }
     const [error, setError] = useState<boolean>(false);
     const validate = () => {
-        if (!required) return true;
         // Example validation logic, replace with your actual validation needs
         if (optionsList.some((item: any) => item.checked)) {
             setError(false);
@@ -87,7 +86,6 @@ const Radio: React.ForwardRefRenderFunction<any, RadioProps> = (props, ref) => {
     }));
 
     const radioClasses = classNames({
-        "mb-3": error,
         "radio-warpper": true,
         [externalClassName as string]: externalClassName,
     });
@@ -118,7 +116,7 @@ const Radio: React.ForwardRefRenderFunction<any, RadioProps> = (props, ref) => {
                 </div>
                 {commonSuffixIcon && <i onClick={handleClickCommonSuffixIcon} className={`${commonSuffixIcon} common-suffix-icon ms-2`}></i>}
             </div>
-            {error && required && <div className="animate__animated animate__fadeIn mb-1" style={{ color: "#DC3545", fontSize: "14px", paddingLeft: parseInt(labelWidth) > 120 ? "120px" : labelWidth}}>{`${errMsg || `${name}不能为空`}`}</div>}
+            {error && required && <div className="animate__animated animate__fadeIn" style={{color: "red", paddingLeft: parseInt(labelWidth) > 120 ? "120px" : labelWidth}}>{`${errMsg || `${name}不能为空`}`}</div>}
         </div>
     );
 };

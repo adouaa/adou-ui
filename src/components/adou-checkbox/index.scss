@@ -6,6 +6,8 @@
 .label-box {
     font-size: 14px;
     min-width: 50px;
+    max-width: 120px !important;
+    flex-wrap: wrap;
 }
 
 .label-in-center {
@@ -18,5 +20,6 @@
     .label-box {
         display: flex;
         align-items: start;
+        
     }
 }

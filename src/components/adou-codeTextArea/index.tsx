@@ -14,6 +14,9 @@ import "./index.scss";
 
 interface CodeTextAreaProps {
     name?: string,
+    required?: boolean;
+    errMsg?: string;
+    labelWidth?: any;
     commonSuffixIcon?: string;
     width?: any,
     defaultValue?: string,
@@ -31,12 +34,11 @@ interface CodeTextAreaProps {
     styleActiveLine?: boolean;
     showCursorWhenSelecting?: boolean;
     onChangeOK?: (e: React.ChangeEvent<HTMLTextAreaElement>, ...args: any) => void
-    setFormItemValue?: (value: any) => void;
 }
 
 const CodeTextArea: React.FC<CodeTextAreaProps> = React.forwardRef((props: CodeTextAreaProps, ref) => {
 
-    const { commonSuffixIcon, width, label, labelColor, inputGroup = false, labelPosition = "center", name, autoCloseTags = true, showCursorWhenSelecting = true, styleActiveLine = true, mode = "htmlmixed", theme = "base16-light", lineNumbers = false, lineWrapping = true, readOnly, defaultValue, onChangeOK, setFormItemValue } = props;
+    const { required, errMsg, labelWidth, commonSuffixIcon, width, label, labelColor, inputGroup = false, labelPosition = "center", name, autoCloseTags = true, showCursorWhenSelecting = true, styleActiveLine = true, mode = "htmlmixed", theme = "base16-light", lineNumbers = false, lineWrapping = true, readOnly, defaultValue, onChangeOK } = props;
 
     // 获取 `FormContext.Provider` 提供提供的 `value` 值
 
@@ -45,14 +47,17 @@ const CodeTextArea: React.FC<CodeTextAreaProps> = React.forwardRef((props: CodeT
 
     const handleChange = (value: any, ...args: any) => {
         setValue(value); // 手动将表单的value值赋值
-        setFormItemValue && setFormItemValue(value);
         // 根据 name 属性，更新 Form 中的数据源
         // context.handleChange(context.name, e.target.value) // 这边不能直接用 handleChange来赋值，会出现赋值错误的情况
         onChangeOK && onChangeOK(value, ...args);
+        if (value) {
+            setError(false);
+        } else {
+            setError(true);
+        }
     }
 
     const handleBlur = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
-        setFormItemValue && setFormItemValue(e.target.value);
     }
 
     const getValue = () => {
@@ -60,14 +65,22 @@ const CodeTextArea: React.FC<CodeTextAreaProps> = React.forwardRef((props: CodeT
     }
 
     // 校验方法
-    const [error, setError] = useState<boolean>(true);
-    const validateSelect = () => {
+    const [error, setError] = useState<boolean>(false);
+    const validate = () => {
+        if (!required) return true;
         // Example validation logic, replace with your actual validation needs
-        setError(true);
+        if (value) {
+            setError(false);
+            return true;
+        } else {
+            setError(true);
+            return false;
+        }
     };
     // 清除内容方法
     const clear = () => {
         setValue("");
+        setError(true);
     }
     const handleClickCommonSuffixIcon = () => {
         clear();
@@ -75,7 +88,7 @@ const CodeTextArea: React.FC<CodeTextAreaProps> = React.forwardRef((props: CodeT
     // Expose validateInput method via ref
     useImperativeHandle(ref, () => ({
         getValue,
-        validateSelect,
+        validate,
         clear
     }));
 
@@ -84,7 +97,6 @@ const CodeTextArea: React.FC<CodeTextAreaProps> = React.forwardRef((props: CodeT
 
         if (defaultValue) {
             setValue(defaultValue);
-            setFormItemValue && setFormItemValue(defaultValue);
             // 这边不能直接用 context.handleChange(context.name, defaultValue)来赋默认值，会被置为空，并且失去 提交和重置功能
         } else {
             // setValue(context.formData[context.name as string] || "")
@@ -93,16 +105,17 @@ const CodeTextArea: React.FC<CodeTextAreaProps> = React.forwardRef((props: CodeT
     }, [defaultValue])
 
     return <>
-        <div className="textarea-warpper" style={{ width }}>
+        <div className={`textarea-warpper ${!error && "mb-3"}`} style={{ width }}>
             <select name={name} style={{ display: "none" }}></select>
             <div className={`content-box ${inputGroup ? "inputGroup" : `label-in-${labelPosition}`}`}>
-                <span className={`label-box ${inputGroup ? "input-group-text" : ""}`} style={{ color: labelColor }}>{label}</span>
+                <span className={`label-box ${inputGroup ? "input-group-text" : ""}`} style={{ color: labelColor, width: labelWidth }}>{label}</span>
 
                 <CodeMirror
                     value={value}
                     onBeforeChange={(editor: any, data: any, value: any) => {
                         handleChange(value);
                     }}
+                    onBlur={(e: any) => handleBlur(e)}
                     options={{
                         readOnly,
                         showCursorWhenSelecting,
@@ -114,6 +127,7 @@ const CodeTextArea: React.FC<CodeTextAreaProps> = React.forwardRef((props: CodeT
                 />
                 {commonSuffixIcon && <i onClick={handleClickCommonSuffixIcon} className={`${commonSuffixIcon} common-suffix-icon ms-2`}></i>}
             </div>
+            {error && required && <div className="animate__animated animate__fadeIn mb-1" style={{ color: "#DC3545", fontSize: "14px", paddingLeft: parseInt(labelWidth) > 120 ? "120px" : labelWidth }}>{`${errMsg || `${name}不能为空`}`}</div>}
         </div>
     </>
 });

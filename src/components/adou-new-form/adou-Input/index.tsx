@@ -13,7 +13,7 @@ export interface InputProps {
     inputGroup?: boolean;
     labelColor?: string;
     required?: boolean;
-    type?: "text" | "datetime-local" | "date" | "time" | "number";
+    type?: "text" | "datetime-local" | "date" | "time";
     defaultValue?: any;
     size?: "large" | "middle" | "small" | undefined;
     externalClassName?: string;
@@ -99,7 +99,6 @@ const Input: React.ForwardRefRenderFunction<InputRef, InputProps> = (
 
     const [error, setError] = useState<boolean>(false);
     const validate = () => {
-        if (!required) return true;
         // Example validation logic, replace with your actual validation needs
         if (value) {
             setError(false);
@@ -133,7 +132,7 @@ const Input: React.ForwardRefRenderFunction<InputRef, InputProps> = (
     }, [defaultValue]);
 
     return (
-        <div className={`${cls} input-wrapper ${inputGroup ? "" : "lable-in-control"} ${!error && "mb-3"}`} style={{ width }}>
+        <div className={`${cls} input-wrapper ${inputGroup ? "" : "lable-in-control"}`} style={{ width }}>
             <div className={`content-box icon-input ${inputGroup ? "input-group" : ""} label-in-${labelPosition}`}>
                 {prefixContent && <span className="input-group-text" id="basic-addon1">{prefixContent}</span>}
                 {label && <div className="label-box" style={{ color: labelColor, width: labelWidth }}>{label}</div>}
@@ -166,7 +165,7 @@ const Input: React.ForwardRefRenderFunction<InputRef, InputProps> = (
                 </div>
             </div>
             {suffixContent && <span className="input-group-text" id="basic-addon2">{suffixContent}</span>}
-            {error && required && <div className="animate__animated animate__fadeIn mb-1" style={{ color: "#DC3545", fontSize: "14px", paddingLeft: parseInt(labelWidth) > 120 ? "120px" : labelWidth }}>{`${errMsg || `${name}不能为空`}`}</div>}
+            {error && required && <div className="animate__animated animate__fadeIn" style={{ color: "red", paddingLeft: parseInt(labelWidth) > 120 ? "120px" : labelWidth }}>{`${errMsg || `${name}不能为空`}`}</div>}
         </div>
     );
 };

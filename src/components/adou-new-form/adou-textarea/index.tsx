@@ -1,4 +1,5 @@
 import { forwardRef, useContext, useEffect, useImperativeHandle, useState } from "react";
+import { FormContext, FormContextProps } from "../../adou-form";
 import React from "react";
 import "./index.scss";
 import classNames from "classnames";
@@ -51,7 +52,6 @@ const TextArea: React.FC<TextAreaProps> = React.forwardRef((props: TextAreaProps
 
     const [error, setError] = useState<boolean>(false);
     const validate = () => {
-        if (!required) return true;
         if (value) {
             setError(false);
             return true;
@@ -71,7 +71,6 @@ const TextArea: React.FC<TextAreaProps> = React.forwardRef((props: TextAreaProps
 
 
     const textareaClasses = classNames({
-        "mb-3": error,
         "textarea-warpper": true,
         [externalClassName as string]: externalClassName,
     });
@@ -89,7 +88,7 @@ const TextArea: React.FC<TextAreaProps> = React.forwardRef((props: TextAreaProps
             <textarea readOnly={readOnly} required={required} name={name} value={value} disabled={disabled} onBlur={(e) => handleBlur(e)} onChange={(e) => handleChange(e)} placeholder={placeholder} className="form-control" aria-label="With textarea"></textarea>
             {commonSuffixIcon && <i onClick={handleClickCommonSuffixIcon} className={`${commonSuffixIcon} common-suffix-icon ms-2`}></i>}
         </div>
-        {error && required && <div className="animate__animated animate__fadeIn mb-1" style={{ color: "#DC3545", fontSize: "14px", paddingLeft: parseInt(labelWidth) > 120 ? "120px" : labelWidth}}>{`${errMsg || `${name}不能为空`}`}</div>}
+        {error && required && <div className="animate__animated animate__fadeIn" style={{color: "red", paddingLeft: parseInt(labelWidth) > 120 ? "120px" : labelWidth}}>{`${errMsg || `${name}不能为空`}`}</div>}
     </div>
 })
 

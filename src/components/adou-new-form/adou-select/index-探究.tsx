@@ -3,7 +3,7 @@ import classNames from "classnames";
 import { ChangeEvent, useContext, useEffect, useRef, useState } from "react";
 import "./index.scss";
 import React from "react";
-import getAbsolutePositionOfStage from "../../utils/getAbsolutePosition";
+import getAbsolutePositionOfStage from "utils/getAbsolutePosition";
 import ReactDOM from "react-dom";
 
 

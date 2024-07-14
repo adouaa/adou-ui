@@ -5,10 +5,13 @@ import "./index.scss";
 import { useEffect, useRef, useState } from "react";
 import ReactDOM from "react-dom";
 import getAbsolutePosition from "../../utils/getAbsolutePosition";
-import findCommonData from "../../utils/findCommonData";
 
 export interface SelectProps {
     name?: string;
+    attribute?: string;
+    required?: boolean;
+    errMsg?: string;
+    labelWidth?: any;
     commonSuffixIcon?: string;
     width?: any;
     label?: string;
@@ -35,7 +38,7 @@ const RetrievrSelect: React.FC<RetrieveSelectProps> = React.forwardRef((props: R
 
 
 
-    const { commonSuffixIcon, width, label, labelColor, labelPosition = "center", inputGroup = false, single = true, name, defaultValue, showSelected = true, options, size, externalClassName, readOnly = false, setFormItemValue, onChangeOK, onRetrieveSelectChange } = props;
+    const { attribute = "value", required, errMsg, labelWidth, commonSuffixIcon, width, label, labelColor, labelPosition = "center", inputGroup = false, single = true, name, defaultValue, showSelected = true, options, size, externalClassName, readOnly = false, setFormItemValue, onChangeOK, onRetrieveSelectChange } = props;
 
     // 获取 `FormContext.Provider` 提供提供的 `value` 值
 
@@ -68,11 +71,18 @@ const RetrievrSelect: React.FC<RetrieveSelectProps> = React.forwardRef((props: R
     }
 
     const handleSelect = (option: any) => {
-
+        const currentSelectList = optionList.filter((item: any) => item.value != option.value).filter((i: any) => i.selected);
+        
         // 如果是点击已经选择的项
         if (option.selected) {
             option.selected = false;
+            if (currentSelectList.length) {
+                setError(false);
+            } else {
+                setError(true);
+            }
         } else { // 点击未选择的项
+            setError(false);
             if (single) { // 如果是单选
                 setOptionList((preArr: any) => {
                     return preArr.map((item: any) => {
@@ -134,6 +144,7 @@ const RetrievrSelect: React.FC<RetrieveSelectProps> = React.forwardRef((props: R
             }
             return v;
         }))
+        validate();
     }
 
     const handleBlur = () => {
@@ -167,10 +178,16 @@ const RetrievrSelect: React.FC<RetrieveSelectProps> = React.forwardRef((props: R
     }
 
     // 校验方法
-    const [error, setError] = useState<boolean>(true);
-    const validateSelect = () => {
-        // Example validation logic, replace with your actual validation needs
-        setError(true);
+    const [error, setError] = useState<boolean>(false);
+    const validate = () => {
+        if (!required) return true;
+        if (selectedOptions.length) {
+            setError(false);
+            return true;
+        } else {
+            setError(true);
+            return false;
+        }
     };
     // 清除内容方法
     const clear = () => {
@@ -182,11 +199,12 @@ const RetrievrSelect: React.FC<RetrieveSelectProps> = React.forwardRef((props: R
     }
     const handleClickCommonSuffixIcon = () => {
         clear();
+        setError(true);
     }
     // Expose validateInput method via ref
     useImperativeHandle(ref, () => ({
         getValue,
-        validateSelect,
+        validate,
         clear
     }));
 
@@ -207,9 +225,9 @@ const RetrievrSelect: React.FC<RetrieveSelectProps> = React.forwardRef((props: R
         })
     }, [])
 
-    const newFilterOptions = (arr: any, item: any) => {
+    const judgeOptionsByAttribute = (arr: any, item: any) => {
         arr.forEach((i: any) => {
-            if (i.background_id === item.background_id) {
+            if (i[attribute] === item[attribute]) {
                 i.selected = true;
             }
         })
@@ -217,6 +235,7 @@ const RetrievrSelect: React.FC<RetrieveSelectProps> = React.forwardRef((props: R
     }
 
     const retrieveSelectClasses = classNames({
+        "mb-3": error,
         "retrieve-select-warpper": true,
         [externalClassName as string]: externalClassName,
     });
@@ -231,6 +250,8 @@ const RetrievrSelect: React.FC<RetrieveSelectProps> = React.forwardRef((props: R
 
     // 让多选框默认展示父组件传递过来的值
     useEffect(() => {
+        console.log("defaul", defaultValue);
+        
         let arr: any[] = [];
         let tempFilterdOptions: any[] = [] // 这个好像可有可无啦
 
@@ -271,10 +292,12 @@ const RetrievrSelect: React.FC<RetrieveSelectProps> = React.forwardRef((props: R
     }, [defaultValue])
 
     useEffect(() => {
+        console.log("optio", options);
+
         if (selectedOptions.length) {
 
             selectedOptions.forEach((item: any) => {
-                newFilterOptions(options, item);
+                judgeOptionsByAttribute(options, item);
             })
         } else {
             // setTempOptions(options);
@@ -284,9 +307,9 @@ const RetrievrSelect: React.FC<RetrieveSelectProps> = React.forwardRef((props: R
 
     }, [options])
 
-    return <div className={retrieveSelectClasses} style={{ width }}>
+    return <div className={retrieveSelectClasses} style={{ width }} onBlur={validate}>
         <div className={`content-box ${inputGroup ? "inputGroup" : `label-in-${labelPosition}`}`}>
-            <span className={`label-box ${inputGroup ? "input-group-text" : ""}`} style={{ color: labelColor }}>{label}</span>
+            <span className={`label-box ${inputGroup ? "input-group-text" : ""}`} style={{ color: labelColor, width: labelWidth }}>{label}</span>
             <div style={{display: "flex", flexWrap: "wrap"}} ref={retrieveSelectWrapperFormControlRef} tabIndex={0} onBlur={handleBlur} onClick={handleWrapperClick} className={`select-list-box form-control ${isHighlighted ? "focus" : ""}`}>
                 <select style={{ display: "none" }} name={name}>
                     {showSelected && showSelectedOptions && selectedOptions?.map((option, index) => {
@@ -319,6 +342,7 @@ const RetrievrSelect: React.FC<RetrieveSelectProps> = React.forwardRef((props: R
                     })}
                 </div>, document.body)
         }
+            {error && required && <div className="animate__animated animate__fadeIn mb-1" style={{ color: "#DC3545", fontSize: "14px", paddingLeft: parseInt(labelWidth) > 120 ? "120px" : labelWidth}}>{`${errMsg || `${name}不能为空`}`}</div>}
     </div>
 
 })

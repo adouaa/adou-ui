@@ -22,6 +22,7 @@ interface TagInputProps {
 const TagInput = React.forwardRef(({ required, errMsg, labelWidth, commonSuffixIcon, readOnly, width, label, labelColor, inputGroup = false, labelPosition = "center", name, defaultValue = [], onChange }: TagInputProps, ref) => {
 
 
+
     const [inputList, setInputList] = useState<any>(defaultValue || []);
 
     const [inputValue, setInputValue] = useState("");
@@ -87,7 +88,6 @@ const TagInput = React.forwardRef(({ required, errMsg, labelWidth, commonSuffixI
     // 校验方法
     const [error, setError] = useState<boolean>(false);
     const validate = () => {
-        if (!required) return true;
         if (inputList.length) {
             setError(false);
             return true;
@@ -118,7 +118,7 @@ const TagInput = React.forwardRef(({ required, errMsg, labelWidth, commonSuffixI
         }
     }, [defaultValue])
 
-    return <div className={`tag-input-wrapper ${!error && "mb-3"}`} style={{width}}>
+    return <div className="tag-input-wrapper" style={{width}}>
         <div className={`content-box ${inputGroup ? "inputGroup" : `label-in-${labelPosition}`}`}>
             <span className={`label-box ${inputGroup ? "input-group-text" : ""}`} style={{ color: labelColor, width: labelWidth }}>{label}</span>
             <div style={{display: "flex"}} onClick={handleClickFormControl} className={`form-control ${isHighlighted ? "focus" : ""}`}>
@@ -138,7 +138,7 @@ const TagInput = React.forwardRef(({ required, errMsg, labelWidth, commonSuffixI
         </div>
 
         {/* 实现点击后高亮，div必须加上 form-control，这个类名会空值高亮以动画效果出现。并且 focus类名必须动态添加 */}
-        {error && required && <div className="animate__animated animate__fadeIn mb-1" style={{ color: "#DC3545", fontSize: "14px", paddingLeft: parseInt(labelWidth) > 120 ? "120px" : labelWidth}}>{`${errMsg || `${name}不能为空`}`}</div>}
+        {error && required && <div className="animate__animated animate__fadeIn" style={{color: "red", paddingLeft: parseInt(labelWidth) > 120 ? "120px" : labelWidth}}>{`${errMsg || `${name}不能为空`}`}</div>}
     </div>
 })
 

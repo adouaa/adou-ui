@@ -6,7 +6,7 @@ import "./index.css";
 
 import { LegacyRef, useContext, useEffect, useRef, useState } from "react";
 import { FormContext, FormContextProps } from "../adou-form";
-import { SelectProps } from "../adou-select";
+import { SelectProps } from "../adou-new-form/adou-select";
 
 interface LiveSearchSelectProps extends SelectProps {
     defaultValue?: any;
