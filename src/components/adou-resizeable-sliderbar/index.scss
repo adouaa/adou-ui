@@ -1,22 +1,31 @@
 .resizable-sidebar {
-    position: relative;
-    background-color: #f8f9fa; /* Bootstrap的light颜色 */
-    padding: 15px;
-    border-right: 1px solid #dee2e6; /* Bootstrap的secondary颜色 */
-  }
-  
-  .resize-handle {
-    position: absolute;
-    right: 0;
-    top: 0;
-    bottom: 0;
-    width: 5px;
-    cursor: ew-resize;
-    background-color: #007bff; /* Bootstrap的primary颜色 */
-    opacity: 0.5;
-  }
-  
-  .resize-handle:hover {
-    opacity: 1;
-  }
-  
+  position: relative;
+  background-color: #f8f9fa;
+  padding: 15px;
+  border-right: 2px solid #dee2e6;
+  transition: width .25s ease; /* 添加动画效果 */
+}
+.resizable-sidebar:hover {
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* 在悬停时添加阴影 */
+}
+
+.draging {
+  border-right: 5px solid #007bff;
+}
+
+.resize-handle {
+  position: absolute;
+  z-index: 999;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  width: 15px;
+  cursor: ew-resize;
+  background-color: #dee2e6;
+  cursor: col-resize;
+  transition: opacity 0.3s ease; /* 添加悬停动画效果 */
+}
+
+.resize-handle:hover {
+  opacity: 1;
+}
