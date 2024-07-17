@@ -5,7 +5,7 @@ import "./App.css";
 import ResizableSidebar from 'components/adou-resizeable-sliderbar';
 import Button from 'components/adou-button';
 import "./index.scss";
-import Collapse from 'components/adou-collapse';
+import Collapse from 'components/adou-collapse-animate';
 const testData = [
   {
     id: 1,
