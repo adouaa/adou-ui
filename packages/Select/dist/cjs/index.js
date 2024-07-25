@@ -7069,37 +7069,32 @@ var Utils = __webpack_require__(36);
 
 
 
-const Select = props => {
+const Select = /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().forwardRef((props, ref) => {
   const {
+    commonSuffixIcon,
+    errMsg,
+    labelWidth,
+    label,
+    labelPosition = "center",
+    inputGroup = false,
+    labelColor,
+    required = false,
+    showEmpty = true,
+    name,
     width,
     defaultValue,
     options,
     placeholder,
     size,
-    className,
-    disabled,
+    externalClassName,
+    readOnly,
     transparent,
     maxHeight,
-    onChangeOK,
-    setFormItemValue
+    onChange
   } = props;
   const [newOptions, setNewOptions] = (0,external_root_React_commonjs2_react_commonjs_react_amd_react_.useState)(options || []);
   const [value, setValue] = (0,external_root_React_commonjs2_react_commonjs_react_amd_react_.useState)(defaultValue || {});
   const [showOptions, setShowOptions] = (0,external_root_React_commonjs2_react_commonjs_react_amd_react_.useState)(false);
-  const handleSelect = e => {
-    const selectedIndex = e.target.selectedIndex - 1;
-    const selectedOption = options[selectedIndex];
-    setValue(selectedOption);
-    // context.handleChange(context.name, selectedOption);
-    // context.checkValidate(selectedOption);
-    setFormItemValue && setFormItemValue(selectedOption);
-    onChangeOK && onChangeOK(selectedOption);
-  };
-  const handleBlur = () => {
-    setTimeout(() => {
-      // context.checkValidate(value.value);
-    }, 150);
-  };
 
   // 测试getAbsolutePosition
   const customSelectRef = (0,external_root_React_commonjs2_react_commonjs_react_amd_react_.useRef)();
@@ -7110,41 +7105,35 @@ const Select = props => {
     const position = (0,Utils.getAbsolutePosition)(customSelectRef.current, 0, 0);
     setCustomSelectContentPosition(position);
     e.stopPropagation(); // 阻止事件冒泡
-    setShowOptions(!showOptions);
+    !readOnly && setShowOptions(!showOptions);
   };
-  const handleOptionClick = item => {
-    onChangeOK && onChangeOK(item);
+  const handleSelect = item => {
     setValue(item);
+    onChange && onChange(item);
+    setShowOptions(false);
+    setError(false);
   };
-
-  /*  useEffect(() => {
-       if (!context.formData[context.name as string]) {
-           setValue({ label: "", value: "" });
-       }
-   }, [context.formData[context.name as string]]) */
-
   (0,external_root_React_commonjs2_react_commonjs_react_amd_react_.useEffect)(() => {
     if (defaultValue) {
       const selectOption = options.find(option => option.value === defaultValue);
-      setValue(selectOption); // 直接在判断有默认值的地方就给表单赋值，就不会出现数据闪动的现象
-      // 这边不能直接用 context.handleChange(context.name, defaultValue)来赋默认值，会被置为空，并且失去 提交和重置功能
-      // context.formData[context.name as string] = selectOption; // 让 Form里面对应的数据项有值
-      setFormItemValue && setFormItemValue(selectOption);
+      setValue(selectOption);
     } else {
-      // js默认的选择框好像只能这样写，不能写成 setValue=({})
-      // 只能让它重置为选中第一个选项。。
-      // setValue({value: " ", label: "请选择"});
+      setValue(""); // 如果没有默认值，重置为初始状态
     }
   }, [defaultValue]);
   (0,external_root_React_commonjs2_react_commonjs_react_amd_react_.useEffect)(() => {
-    setValue({}); // 不知道要不要加
+    // setValue({}) // 不知道要不要加 -- 不能加，加完之后会出现默认值无法赋值。。。
 
-    // 创建一个新数组，将 "空" 选项添加在数组的开头
-    const enhancedOptions = [{
-      label: "空",
-      value: null
-    }, ...options];
-    setNewOptions(enhancedOptions);
+    if (showEmpty) {
+      // 创建一个新数组，将 "空" 选项添加在数组的开头
+      const enhancedOptions = [{
+        label: "空",
+        value: ""
+      }, ...options];
+      setNewOptions(enhancedOptions);
+    } else {
+      setNewOptions(options);
+    }
   }, [options]);
   const handleClick = e => {
     let classNameList = ["custom-select form-control"];
@@ -7153,6 +7142,39 @@ const Select = props => {
       setShowOptions(false);
     }
   };
+  const handleSelectChange = e => {
+    setValue(e.target.value);
+  };
+  const getValue = () => {
+    return (value === null || value === void 0 ? void 0 : value.value) || value;
+  };
+  // 校验方法
+  const [error, setError] = (0,external_root_React_commonjs2_react_commonjs_react_amd_react_.useState)(false);
+  const validate = () => {
+    if (!required) return true;
+    if (value) {
+      setError(false);
+      return true;
+    } else {
+      setError(true);
+      return false;
+    }
+  };
+  // 清除内容方法
+  const clear = () => {
+    setValue("");
+  };
+  const handleClickCommonSuffixIcon = () => {
+    clear();
+    setError(true);
+  };
+  // Expose validateInput method via ref
+  (0,external_root_React_commonjs2_react_commonjs_react_amd_react_.useImperativeHandle)(ref, () => ({
+    validate,
+    clear,
+    getValue
+  }));
+  const wrapperClassName = "select-wrapper ".concat(!error && "mb-3", " ").concat(externalClassName || '').trim();
   (0,external_root_React_commonjs2_react_commonjs_react_amd_react_.useEffect)(() => {
     window.addEventListener("click", handleClick);
     return () => {
@@ -7160,11 +7182,46 @@ const Select = props => {
     };
   });
   return /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("div", {
-    className: "select-wrapper",
+    className: wrapperClassName,
     style: {
-      width: width + "px"
+      width
     }
-  }, /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("div", {
+  }, /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("select", {
+    style: {
+      display: "none"
+    },
+    name: name
+  }, /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("option", {
+    value: value === null || value === void 0 ? void 0 : value.value
+  }, value.label)), inputGroup ? /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("div", {
+    className: "input-group"
+  }, /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("label", {
+    className: "input-group-text",
+    htmlFor: "inputGroupSelect01"
+  }, label), /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("select", {
+    onBlur: validate,
+    onChange: handleSelectChange,
+    value: value === null || value === void 0 ? void 0 : value.value,
+    disabled: readOnly,
+    className: "form-select",
+    id: "inputGroupSelect01"
+  }, newOptions === null || newOptions === void 0 ? void 0 : newOptions.map(option => /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("option", {
+    key: option.value,
+    value: option.value
+  }, option.label))), commonSuffixIcon && /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("i", {
+    onClick: handleClickCommonSuffixIcon,
+    className: "".concat(commonSuffixIcon, " common-suffix-icon ms-2")
+  })) : /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("div", {
+    onBlur: validate,
+    className: "content-box label-in-".concat(labelPosition)
+  }, /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("span", {
+    className: "label-box",
+    style: {
+      color: labelColor,
+      width: labelWidth,
+      flexWrap: "nowrap"
+    }
+  }, label), /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("div", {
     ref: customSelectRef,
     onClick: e => handleDivClock(e),
     tabIndex: 1,
@@ -7180,7 +7237,10 @@ const Select = props => {
   }, placeholder), /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("i", {
     onClick: e => handleDivClock(e),
     className: "icon fa-solid fa-caret-right rotate-up ".concat(showOptions ? "rotate-up" : "rotate-down")
-  })), /*#__PURE__*/external_root_ReactDOM_commonjs2_react_dom_commonjs_react_dom_amd_react_dom_default().createPortal( /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("div", {
+  })), commonSuffixIcon && /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("i", {
+    onClick: handleClickCommonSuffixIcon,
+    className: "".concat(commonSuffixIcon, " common-suffix-icon ms-2")
+  }), /*#__PURE__*/external_root_ReactDOM_commonjs2_react_dom_commonjs_react_dom_amd_react_dom_default().createPortal( /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("div", {
     style: {
       position: "absolute",
       top: customSelectContentPosition.y + customSelectContentPosition.height + "px",
@@ -7189,11 +7249,18 @@ const Select = props => {
     ref: contentRef,
     className: "custom-select-content ".concat(showOptions ? "custom-select-content-open" : "")
   }, showOptions && newOptions.map(item => /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("div", {
-    onClick: () => handleOptionClick(item),
+    onClick: () => handleSelect(item),
     className: "option",
     key: item.value
-  }, item.label))), document.body));
-};
+  }, item.label))), document.body)), error && required && /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("div", {
+    className: "animate__animated animate__fadeIn mb-1",
+    style: {
+      color: "#DC3545",
+      fontSize: "14px",
+      paddingLeft: parseInt(labelWidth) > 120 ? "120px" : labelWidth
+    }
+  }, "".concat(errMsg || "".concat(name, "\u4E0D\u80FD\u4E3A\u7A7A"))));
+});
 /* harmony default export */ const src_0 = (withTranslation()(Select));
 })();
 

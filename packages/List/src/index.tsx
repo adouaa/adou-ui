@@ -1,7 +1,7 @@
 // List组件
 import React, { useEffect, useState } from 'react';
-import ListNode from './ListNode/index';
-import Input from "../../Input";
+import ListNode from './ListNode';
+import Input from "adou-ui/Input";
 
 export type NodeType = {
     id: string,

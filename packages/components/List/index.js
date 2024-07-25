@@ -11,122 +11,7 @@
 return /******/ (() => { // webpackBootstrap
 /******/ 	var __webpack_modules__ = ({
 
-/***/ 191:
-/***/ ((module) => {
-
-"use strict";
-
-
-/*
-  MIT License http://www.opensource.org/licenses/mit-license.php
-  Author Tobias Koppers @sokra
-*/
-module.exports = function (cssWithMappingToString) {
-  var list = [];
-
-  // return the list of modules as css string
-  list.toString = function toString() {
-    return this.map(function (item) {
-      var content = "";
-      var needLayer = typeof item[5] !== "undefined";
-      if (item[4]) {
-        content += "@supports (".concat(item[4], ") {");
-      }
-      if (item[2]) {
-        content += "@media ".concat(item[2], " {");
-      }
-      if (needLayer) {
-        content += "@layer".concat(item[5].length > 0 ? " ".concat(item[5]) : "", " {");
-      }
-      content += cssWithMappingToString(item);
-      if (needLayer) {
-        content += "}";
-      }
-      if (item[2]) {
-        content += "}";
-      }
-      if (item[4]) {
-        content += "}";
-      }
-      return content;
-    }).join("");
-  };
-
-  // import a list of modules into the list
-  list.i = function i(modules, media, dedupe, supports, layer) {
-    if (typeof modules === "string") {
-      modules = [[null, modules, undefined]];
-    }
-    var alreadyImportedModules = {};
-    if (dedupe) {
-      for (var k = 0; k < this.length; k++) {
-        var id = this[k][0];
-        if (id != null) {
-          alreadyImportedModules[id] = true;
-        }
-      }
-    }
-    for (var _k = 0; _k < modules.length; _k++) {
-      var item = [].concat(modules[_k]);
-      if (dedupe && alreadyImportedModules[item[0]]) {
-        continue;
-      }
-      if (typeof layer !== "undefined") {
-        if (typeof item[5] === "undefined") {
-          item[5] = layer;
-        } else {
-          item[1] = "@layer".concat(item[5].length > 0 ? " ".concat(item[5]) : "", " {").concat(item[1], "}");
-          item[5] = layer;
-        }
-      }
-      if (media) {
-        if (!item[2]) {
-          item[2] = media;
-        } else {
-          item[1] = "@media ".concat(item[2], " {").concat(item[1], "}");
-          item[2] = media;
-        }
-      }
-      if (supports) {
-        if (!item[4]) {
-          item[4] = "".concat(supports);
-        } else {
-          item[1] = "@supports (".concat(item[4], ") {").concat(item[1], "}");
-          item[4] = supports;
-        }
-      }
-      list.push(item);
-    }
-  };
-  return list;
-};
-
-/***/ }),
-
-/***/ 73:
-/***/ ((module) => {
-
-"use strict";
-
-
-module.exports = function (item) {
-  var content = item[1];
-  var cssMapping = item[3];
-  if (!cssMapping) {
-    return content;
-  }
-  if (typeof btoa === "function") {
-    var base64 = btoa(unescape(encodeURIComponent(JSON.stringify(cssMapping))));
-    var data = "sourceMappingURL=data:application/json;charset=utf-8;base64,".concat(base64);
-    var sourceMapping = "/*# ".concat(data, " */");
-    return [content].concat([sourceMapping]).join("\n");
-  }
-  return [content].join("\n");
-};
-
-/***/ }),
-
-/***/ 798:
+/***/ 395:
 /***/ (function(module, __unused_webpack_exports, __webpack_require__) {
 
 (function webpackUniversalModuleDefinition(root, factory) {
@@ -1987,7 +1872,7 @@ module.exports = function (item) {
           onIconClick && onIconClick(value);
         };
         (0, external_root_React_commonjs2_react_commonjs_react_amd_react_.useEffect)(() => {
-          if (defaultValue) {
+          if (defaultValue || Number(defaultValue) == 0) {
             // 为了一上来就提交表单，这边有默认值也要给 父组件设置
             setValue(defaultValue);
             setFormItemValue && setFormItemValue(defaultValue);
@@ -2014,7 +1899,11 @@ module.exports = function (item) {
             borderRadius: "6px",
             borderTopLeftRadius: prefixContent ? 0 : '6px',
             borderBottomLeftRadius: prefixContent ? 0 : '6px',
-            background: transparent ? "transparent" : "#fff"
+            ...(transparent ? {
+              backgroundColor: "transparent",
+              border: "transparent",
+              textAlign: "center"
+            } : {})
           },
           step: 1,
           name: name,
@@ -2046,6 +1935,121 @@ module.exports = function (item) {
     /******/
   })();
 });
+
+/***/ }),
+
+/***/ 191:
+/***/ ((module) => {
+
+"use strict";
+
+
+/*
+  MIT License http://www.opensource.org/licenses/mit-license.php
+  Author Tobias Koppers @sokra
+*/
+module.exports = function (cssWithMappingToString) {
+  var list = [];
+
+  // return the list of modules as css string
+  list.toString = function toString() {
+    return this.map(function (item) {
+      var content = "";
+      var needLayer = typeof item[5] !== "undefined";
+      if (item[4]) {
+        content += "@supports (".concat(item[4], ") {");
+      }
+      if (item[2]) {
+        content += "@media ".concat(item[2], " {");
+      }
+      if (needLayer) {
+        content += "@layer".concat(item[5].length > 0 ? " ".concat(item[5]) : "", " {");
+      }
+      content += cssWithMappingToString(item);
+      if (needLayer) {
+        content += "}";
+      }
+      if (item[2]) {
+        content += "}";
+      }
+      if (item[4]) {
+        content += "}";
+      }
+      return content;
+    }).join("");
+  };
+
+  // import a list of modules into the list
+  list.i = function i(modules, media, dedupe, supports, layer) {
+    if (typeof modules === "string") {
+      modules = [[null, modules, undefined]];
+    }
+    var alreadyImportedModules = {};
+    if (dedupe) {
+      for (var k = 0; k < this.length; k++) {
+        var id = this[k][0];
+        if (id != null) {
+          alreadyImportedModules[id] = true;
+        }
+      }
+    }
+    for (var _k = 0; _k < modules.length; _k++) {
+      var item = [].concat(modules[_k]);
+      if (dedupe && alreadyImportedModules[item[0]]) {
+        continue;
+      }
+      if (typeof layer !== "undefined") {
+        if (typeof item[5] === "undefined") {
+          item[5] = layer;
+        } else {
+          item[1] = "@layer".concat(item[5].length > 0 ? " ".concat(item[5]) : "", " {").concat(item[1], "}");
+          item[5] = layer;
+        }
+      }
+      if (media) {
+        if (!item[2]) {
+          item[2] = media;
+        } else {
+          item[1] = "@media ".concat(item[2], " {").concat(item[1], "}");
+          item[2] = media;
+        }
+      }
+      if (supports) {
+        if (!item[4]) {
+          item[4] = "".concat(supports);
+        } else {
+          item[1] = "@supports (".concat(item[4], ") {").concat(item[1], "}");
+          item[4] = supports;
+        }
+      }
+      list.push(item);
+    }
+  };
+  return list;
+};
+
+/***/ }),
+
+/***/ 73:
+/***/ ((module) => {
+
+"use strict";
+
+
+module.exports = function (item) {
+  var content = item[1];
+  var cssMapping = item[3];
+  if (!cssMapping) {
+    return content;
+  }
+  if (typeof btoa === "function") {
+    var base64 = btoa(unescape(encodeURIComponent(JSON.stringify(cssMapping))));
+    var data = "sourceMappingURL=data:application/json;charset=utf-8;base64,".concat(base64);
+    var sourceMapping = "/*# ".concat(data, " */");
+    return [content].concat([sourceMapping]).join("\n");
+  }
+  return [content].join("\n");
+};
 
 /***/ }),
 
@@ -2130,9 +2134,12 @@ ___CSS_LOADER_EXPORT___.push([module.id, `@charset "UTF-8";
   max-height: 0; /* 初始状态下高度为0 */
   overflow-y: hidden; /* 隐藏溢出内容 */
 }
+.list-node-wrapper .children.not-expand {
+  transition: max-height 0.25s ease;
+}
 .list-node-wrapper .children.expanded {
   overflow-y: clip;
-  transition: max-height 2s ease; /* 添加过渡效果 */
+  transition: max-height 0.3s ease; /* 添加过渡效果 */
   max-height: 1000px; /* 展开时高度自动适应内容 */
 }
 
@@ -2154,7 +2161,7 @@ ___CSS_LOADER_EXPORT___.push([module.id, `@charset "UTF-8";
 /* 鼠标悬停在滚动条上时的样式 */
 ::-webkit-scrollbar-thumb:hover {
   background: #555; /* 设置滚动条滑块在鼠标悬停时的颜色 */
-}`, "",{"version":3,"sources":["webpack://./src/ListNode/index.scss"],"names":[],"mappings":"AAAA,gBAAgB;AAAhB;EACI,cAAA;EACA,eAAA;AAEJ;AAAQ;EAEI,aAAA;EACA,mBAAA;EACA,oEAAA;EACA,0BAAA;EAEA,kBAAA,EAAA,iBAAA;EACA,gBAAA;EACA,eAAA;AAAZ;AACY;EACI,yBAAA;AAChB;AACY;EACI,WAAA;EACA,yBAAA;AAChB;AACY;EACI,eAAA;EACA,gBAAA;EACA,kBAAA;EACA,yBAAA;EACA,cAAA;EACA,mBAAA;AAChB;AACY;EACI,eAAA;EACA,gBAAA;EACA,kBAAA;EACA,yBAAA;EACA,cAAA;EACA,mBAAA;AAChB;AACY;EACI,UAAA;EACA,aAAA;AAChB;AACY;EACI,qBAAA;AAChB;AACY;EACI,cAAA;EACA,kBAAA;EACA,kBAAA;EACA,QAAA;EACA,WAAA;EACA,cAAA;EACA,sBAAA;EACA,YAAA;AAChB;AAAgB;EACI,aAAA;AAEpB;AAKQ;EACI,kBAAA;AAHZ;AAMI;EACI,kBAAA;EACA,aAAA,EAAA,cAAA;EACA,kBAAA,EAAA,WAAA;AAJR;AAQQ;EACI,gBAAA;EACA,8BAAA,EAAA,WAAA;EACA,kBAAA,EAAA,gBAAA;AANZ;;AAWA,aAAA;AACA;EACI,UAAA,EAAA,YAAA;AARJ;;AAWA,eAAA;AACA;EACI,mBAAA,EAAA,eAAA;AARJ;;AAWA,eAAA;AACA;EACI,gBAAA,EAAA,cAAA;AARJ;;AAWA,kBAAA;AACA;EACI,gBAAA,EAAA,qBAAA;AARJ","sourcesContent":[".list-node-wrapper {\n    color: #606266;\n    font-size: 14px;\n    .node-item {\n        .left-content {\n            // 使用 display 会出现 hover背景色和 active高亮色宽度比较短，但是没事。。\n            display: flex;\n            align-items: center;\n            /* display: inline-block; // 这个加上就会把这个盒子的宽度变成跟内容的宽度一样，而不会是根据父容器的宽度 */\n            padding: 3px 20px 3px 14px;\n            // white-space: wrap;\n            position: relative; /* 添加相对定位--好像没用 */\n            min-width: 120px;\n            cursor: pointer;\n            &:hover {\n                background-color: #f6f6f6;\n            }\n            &.active {\n                color: #fff;\n                background-color: #2783d8;\n            }\n            .tag1 {\n                font-size: 12px;\n                padding: 2px 6px;\n                border-radius: 6px;\n                background-color: #f0f9eb;\n                color: #6dc442;\n                white-space: nowrap;\n            }\n            .tag2 {\n                font-size: 12px;\n                padding: 2px 6px;\n                border-radius: 6px;\n                background-color: #fef0f0;\n                color: #f67878;\n                white-space: nowrap;\n            }\n            .icon {\n                width: 8px;\n                margin: 0 6px;\n            }\n            .item-name {\n                word-break: break-all; // 树节点 的名字太长让它换行\n            }\n            .right-content {\n                padding: 0 5px;\n                position: absolute;\n                border-radius: 4px;\n                top: 2px;\n                right: 10px;\n                color: #606266;\n                background-color: #fff;\n                z-index: 999;\n                i {\n                    margin: 0 6px;\n                }\n            }\n        }\n\n        .has-children {\n        }\n        .no-children {\n            padding-left: 16px;\n        }\n    }\n    .children {\n        padding-left: 10px;\n        max-height: 0; /* 初始状态下高度为0 */\n        overflow-y: hidden; /* 隐藏溢出内容 */\n        &.not-expand {\n            // transition: max-height .2s ease; 这个加上过度效果会出现点击的节点的内部闪现x轴滚动条\n        }\n        &.expanded {\n            overflow-y: clip; // 这句话加上就不会出现很多歌滚动条。。。\n            transition: max-height 2s ease; /* 添加过渡效果 */\n            max-height: 1000px; /* 展开时高度自动适应内容 */\n        }\n    }\n}\n\n/* 修改滚动条的样式 */\n::-webkit-scrollbar {\n    width: 8px; /* 设置滚动条宽度 */\n}\n\n/* 修改滚动条轨道的样式 */\n::-webkit-scrollbar-track {\n    background: #f1f1f1; /* 设置滚动条轨道背景色 */\n}\n\n/* 修改滚动条滑块的样式 */\n::-webkit-scrollbar-thumb {\n    background: #888; /* 设置滚动条滑块颜色 */\n}\n\n/* 鼠标悬停在滚动条上时的样式 */\n::-webkit-scrollbar-thumb:hover {\n    background: #555; /* 设置滚动条滑块在鼠标悬停时的颜色 */\n}\n"],"sourceRoot":""}]);
+}`, "",{"version":3,"sources":["webpack://./src/ListNode/index.scss"],"names":[],"mappings":"AAAA,gBAAgB;AAAhB;EACI,cAAA;EACA,eAAA;AAEJ;AAAQ;EAEI,aAAA;EACA,mBAAA;EACA,oEAAA;EACA,0BAAA;EAEA,kBAAA,EAAA,iBAAA;EACA,gBAAA;EACA,eAAA;AAAZ;AACY;EACI,yBAAA;AAChB;AACY;EACI,WAAA;EACA,yBAAA;AAChB;AACY;EACI,eAAA;EACA,gBAAA;EACA,kBAAA;EACA,yBAAA;EACA,cAAA;EACA,mBAAA;AAChB;AACY;EACI,eAAA;EACA,gBAAA;EACA,kBAAA;EACA,yBAAA;EACA,cAAA;EACA,mBAAA;AAChB;AAEY;EACI,UAAA;EACA,aAAA;AAAhB;AAEY;EACI,qBAAA;AAAhB;AAEY;EACI,cAAA;EACA,kBAAA;EACA,kBAAA;EACA,QAAA;EACA,WAAA;EACA,cAAA;EACA,sBAAA;EACA,YAAA;AAAhB;AACgB;EACI,aAAA;AACpB;AAMQ;EACI,kBAAA;AAJZ;AAOI;EACI,kBAAA;EACA,aAAA,EAAA,cAAA;EACA,kBAAA,EAAA,WAAA;AALR;AAMQ;EACI,iCAAA;AAJZ;AAMQ;EACI,gBAAA;EACA,gCAAA,EAAA,WAAA;EACA,kBAAA,EAAA,gBAAA;AAJZ;;AASA,aAAA;AACA;EACI,UAAA,EAAA,YAAA;AANJ;;AASE,eAAA;AACA;EACE,mBAAA,EAAA,eAAA;AANJ;;AASE,eAAA;AACA;EACE,gBAAA,EAAA,cAAA;AANJ;;AASE,kBAAA;AACA;EACE,gBAAA,EAAA,qBAAA;AANJ","sourcesContent":[".list-node-wrapper {\r\n    color: #606266;\r\n    font-size: 14px;\r\n    .node-item {\r\n        .left-content {\r\n            // 使用 display 会出现 hover背景色和 active高亮色宽度比较短，但是没事。。\r\n            display: flex;\r\n            align-items: center;\r\n            /* display: inline-block; // 这个加上就会把这个盒子的宽度变成跟内容的宽度一样，而不会是根据父容器的宽度 */\r\n            padding: 3px 20px 3px 14px;\r\n            // white-space: wrap;\r\n            position: relative; /* 添加相对定位--好像没用 */\r\n            min-width: 120px;\r\n            cursor: pointer;\r\n            &:hover {\r\n                background-color: #f6f6f6;\r\n            }\r\n            &.active {\r\n                color: #fff;\r\n                background-color: #2783d8;\r\n            }\r\n            .tag1 {\r\n                font-size: 12px;\r\n                padding: 2px 6px;\r\n                border-radius: 6px;\r\n                background-color: #f0f9eb;\r\n                color: #6dc442;\r\n                white-space: nowrap;\r\n            }\r\n            .tag2 {\r\n                font-size: 12px;\r\n                padding: 2px 6px;\r\n                border-radius: 6px;\r\n                background-color: #fef0f0;\r\n                color: #f67878;\r\n                white-space: nowrap;\r\n\r\n            }\r\n            .icon {\r\n                width: 8px;\r\n                margin: 0 6px;\r\n            }\r\n            .item-name {\r\n                word-break: break-all; // 树节点 的名字太长让它换行\r\n            }\r\n            .right-content {\r\n                padding: 0 5px;\r\n                position: absolute;\r\n                border-radius: 4px;\r\n                top: 2px;\r\n                right: 10px;\r\n                color: #606266;\r\n                background-color: #fff;\r\n                z-index: 999;\r\n                i {\r\n                    margin: 0 6px;\r\n                }\r\n            }\r\n        }\r\n        \r\n        .has-children {\r\n        }\r\n        .no-children {\r\n            padding-left: 16px;\r\n        }\r\n    }\r\n    .children {\r\n        padding-left: 10px;\r\n        max-height: 0; /* 初始状态下高度为0 */\r\n        overflow-y: hidden; /* 隐藏溢出内容 */\r\n        &.not-expand {\r\n            transition: max-height .25s ease; //这个加上过度效果会出现点击的节点的内部闪现x轴滚动条\r\n        }\r\n        &.expanded {\r\n            overflow-y: clip; // 这句话加上就不会出现很多歌滚动条。。。\r\n            transition: max-height .3s ease; /* 添加过渡效果 */\r\n            max-height: 1000px; /* 展开时高度自动适应内容 */\r\n        }\r\n    }\r\n}\r\n\r\n/* 修改滚动条的样式 */\r\n::-webkit-scrollbar {\r\n    width: 8px; /* 设置滚动条宽度 */\r\n  }\r\n  \r\n  /* 修改滚动条轨道的样式 */\r\n  ::-webkit-scrollbar-track {\r\n    background: #f1f1f1; /* 设置滚动条轨道背景色 */\r\n  }\r\n  \r\n  /* 修改滚动条滑块的样式 */\r\n  ::-webkit-scrollbar-thumb {\r\n    background: #888; /* 设置滚动条滑块颜色 */\r\n  }\r\n  \r\n  /* 鼠标悬停在滚动条上时的样式 */\r\n  ::-webkit-scrollbar-thumb:hover {\r\n    background: #555; /* 设置滚动条滑块在鼠标悬停时的颜色 */\r\n  }"],"sourceRoot":""}]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 
@@ -2583,6 +2590,9 @@ const ListNode_ListNode = _ref => {
   } = _ref;
   const [isExpanded, setIsExpanded] = (0,external_root_React_commonjs2_react_commonjs_react_amd_react_.useState)(false);
   const [isShowIcons, setIsShowIcons] = (0,external_root_React_commonjs2_react_commonjs_react_amd_react_.useState)(false);
+
+  // 计算children的maxWidth
+  const [childrenMaxHeight, setChildrenMaxHeight] = (0,external_root_React_commonjs2_react_commonjs_react_amd_react_.useState)(0);
   const handleToggle = () => {
     setIsExpanded(prev => !prev);
     onToggle && onToggle(node);
@@ -2590,10 +2600,103 @@ const ListNode_ListNode = _ref => {
   const handleItemClick = node => {
     onItemClick && onItemClick(node);
   };
-  const handleIconClick = (node, e) => {
+  const setMaxHeights = function (element, expandedParents) {
+    let closed = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : false;
+    console.log(isExpanded);
+    let currentMaxHeight;
+
+    // scrollHeight 可以用来确定元素内容的总高度，包括隐藏的溢出内容。
+    currentMaxHeight = element.scrollHeight;
+    // 遍历所有找到的父 div 元素
+    expandedParents.forEach((parent, index) => {
+      // 将当前父 div 元素的 maxHeight 设置为当前值加上上一个父 div 元素的 maxHeight
+
+      if (index) {
+        // 后面遍历到的expanded元素 因为要加上前边遍历到的expanded元素，所以要加上它的 maxHeight
+        // 如此往复就会正确计算好展开的maxHeight。。。
+        const parenetMaxHeight = parseInt(parent.style.maxHeight);
+        parent.style.maxHeight = "".concat(currentMaxHeight + parenetMaxHeight, "px");
+      } else {
+        // 如果是第一个遍历到的expanded元素的话，只要赋上本身的 scrollHeight即可
+        // 后面遍历到的expanded元素 因为要加上前边遍历到的expanded元素，所以要加上它的 maxHeight
+        // 如此往复就会正确计算好展开的maxHeight。。。
+        parent.style.maxHeight = "".concat(currentMaxHeight, "px");
+      }
+      // 更新 currentMaxHeight 为当前父 div 元素的实际高度
+      // ----错了，不能累加，每次用最开始的计算就行。。因为后面遍历到的 expanded元素会加上它本身的 maxHeight
+      // 这个 maxHeight就会正确的包括前面的 expanded元素的高度。
+    });
+  };
+  function findExpandedParents(element) {
+    // 存放所有expanded元素的数组
+    let expandedParents = [];
+    // 存放当前元素
+    let currentElement = element;
+
+    // 循环遍历每个父节点
+    while (currentElement) {
+      // 检查当前元素是否是 div 并且包含 'expanded' 类
+      if (currentElement.tagName === 'DIV' && currentElement.classList.contains('expanded')) {
+        expandedParents.push(currentElement);
+      }
+      // 移动到当前元素的父节点--类似递归的操作
+      currentElement = currentElement.parentNode;
+    }
+    setMaxHeights(element, expandedParents);
+  }
+  const handleFolderIconClick = (node, e) => {
+    var _target$parentNode;
+    // 公共操作
     e.stopPropagation();
     handleToggle();
     onIconClick && onIconClick(node);
+    const target = e.target;
+    const nodeItem = (_target$parentNode = target.parentNode) === null || _target$parentNode === void 0 ? void 0 : _target$parentNode.parentNode;
+    if (!isExpanded) {
+      // 如果是展开，这个操作也是不能少的--具体原因未知。。。
+      setChildrenMaxHeight(nodeItem.scrollHeight);
+    } else {
+      // 如果是折叠，直接maxHeight设置为0即可。虽热子节点的maxHeight不会为，但是父节点的maxHeight为0，就隐藏子节点了
+      setChildrenMaxHeight(0);
+    }
+    // 一开始还没点击展开的时候，都是 not-expanded
+    const notExpandedChildren = nodeItem.querySelector(".children.not-expand");
+    // childrenList: 类名为 children下的所有div节点
+    const childrenList = notExpandedChildren === null || notExpandedChildren === void 0 ? void 0 : notExpandedChildren.querySelectorAll(".list-node-wrapper");
+    if (childrenList) {
+      // 伪数组无法遍历，造成新数组来处理
+      const childrenArr = [...childrenList];
+      // 存放是expanded节点的子元素
+      const expandedChildrenList = [];
+
+      // 因为isExpanded状态的设置是异步的，所以这边要加个定时器，不然不行
+      setTimeout(() => {
+        childrenArr.forEach(child => {
+          // 找到list-node-wrapper的父节点
+          const parent = child.parentNode;
+          // 通过判断list-node-wrapper的父节点是否是 expanded，来决定要不要存入数组
+          if (parent.classList.contains('expanded')) {
+            console.log("child = ", child);
+            expandedChildrenList.push(child);
+          }
+        });
+
+        // 存放父节点
+        let childrenContainerDiv;
+        expandedChildrenList === null || expandedChildrenList === void 0 || expandedChildrenList.forEach(child => {
+          // 相同的节点只处理一次
+          if (childrenContainerDiv != child.parentNode) {
+            // 存放父节点
+            childrenContainerDiv = child.parentNode;
+            // 判断这个父节点是否是展开状态--貌似有点多余，不用判断，直接执行函数即可
+            findExpandedParents(childrenContainerDiv);
+          }
+        });
+      }, 0);
+    }
+  };
+  const handleNodeNameClick = (node, e) => {
+    onItemClick && onItemClick(node);
   };
   const handleChildrenIconClick = node => {
     onIconClick && onIconClick(node);
@@ -2617,6 +2720,7 @@ const ListNode_ListNode = _ref => {
   return (
     /*#__PURE__*/
     // style={{whiteSpace: `${wrap ? "wrap" : "nowrap"}`}} 
+    // 整个树
     external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("div", {
       className: "list-node-wrapper"
     }, /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("div", {
@@ -2631,10 +2735,13 @@ const ListNode_ListNode = _ref => {
     }, /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("i", {
       className: prefixTag
     })), showTag && renderTag(), isTree && node.children && node.children.length > 0 && /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("i", {
-      onClick: e => handleIconClick(node, e),
+      style: {
+        fontSize: "16px"
+      },
+      onClick: e => handleFolderIconClick(node, e),
       className: "icon fa fa-caret-".concat(isExpanded ? 'down' : 'right')
     }), /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("span", {
-      onClick: () => handleItemClick(node),
+      onClick: e => handleNodeNameClick(node, e),
       className: "item-name ".concat(node.children && node.children.length > 0 ? 'has-children' : 'no-children')
     }, node.name), /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("div", {
       className: "right-content",
@@ -2656,10 +2763,10 @@ const ListNode_ListNode = _ref => {
     }), /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("i", {
       className: "icon fa fa-trash",
       onClick: e => handleOptIconClick(e, 'delete', node)
-    })))), node.children && node.children.length > 0 && /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("div", {
+    }))), node.children && node.children.length > 0 && /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("div", {
       className: "children ".concat(isExpanded ? 'expanded' : 'not-expand'),
       style: {
-        marginLeft: '1rem'
+        maxHeight: childrenMaxHeight
       }
     }, node.children.map(child =>
     /*#__PURE__*/
@@ -2682,13 +2789,13 @@ const ListNode_ListNode = _ref => {
       node: child,
       isTree: isTree,
       onToggle: onToggle
-    }))))
+    })))))
   );
 };
 /* harmony default export */ const src_ListNode_0 = (ListNode_ListNode);
-// EXTERNAL MODULE: ../Input/dist/cjs/index.js
-var cjs = __webpack_require__(798);
-var cjs_default = /*#__PURE__*/__webpack_require__.n(cjs);
+// EXTERNAL MODULE: ../../node_modules/adou-ui/Input/index.js
+var Input = __webpack_require__(395);
+var Input_default = /*#__PURE__*/__webpack_require__.n(Input);
 ;// CONCATENATED MODULE: ./src/index.tsx
 // List组件
 
@@ -2734,7 +2841,7 @@ const List = _ref => {
     className: "list-wrapper"
   }, showSearch && /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("div", {
     className: "showSearch mb-2"
-  }, /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement((cjs_default()), {
+  }, /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement((Input_default()), {
     onIconClick: handleInputIconClick,
     onChange: value => handleInputChange(value)
   }, /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("i", {

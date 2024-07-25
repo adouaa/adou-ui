@@ -452,74 +452,6 @@ module.exports = styleTagTransform;
 "use strict";
 module.exports = __WEBPACK_EXTERNAL_MODULE__442__;
 
-/***/ }),
-
-/***/ 650:
-/***/ ((module, exports) => {
-
-var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/*!
-	Copyright (c) 2018 Jed Watson.
-	Licensed under the MIT License (MIT), see
-	http://jedwatson.github.io/classnames
-*/
-/* global define */
-
-(function () {
-  'use strict';
-
-  var hasOwn = {}.hasOwnProperty;
-  function classNames() {
-    var classes = '';
-    for (var i = 0; i < arguments.length; i++) {
-      var arg = arguments[i];
-      if (arg) {
-        classes = appendClass(classes, parseValue(arg));
-      }
-    }
-    return classes;
-  }
-  function parseValue(arg) {
-    if (typeof arg === 'string' || typeof arg === 'number') {
-      return arg;
-    }
-    if (typeof arg !== 'object') {
-      return '';
-    }
-    if (Array.isArray(arg)) {
-      return classNames.apply(null, arg);
-    }
-    if (arg.toString !== Object.prototype.toString && !arg.toString.toString().includes('[native code]')) {
-      return arg.toString();
-    }
-    var classes = '';
-    for (var key in arg) {
-      if (hasOwn.call(arg, key) && arg[key]) {
-        classes = appendClass(classes, key);
-      }
-    }
-    return classes;
-  }
-  function appendClass(value, newClass) {
-    if (!newClass) {
-      return value;
-    }
-    if (value) {
-      return value + ' ' + newClass;
-    }
-    return value + newClass;
-  }
-  if ( true && module.exports) {
-    classNames.default = classNames;
-    module.exports = classNames;
-  } else if (true) {
-    // register as 'classnames', consistent with npm package name
-    !(__WEBPACK_AMD_DEFINE_ARRAY__ = [], __WEBPACK_AMD_DEFINE_RESULT__ = (function () {
-      return classNames;
-    }).apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__),
-		__WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
-  } else {}
-})();
-
 /***/ })
 
 /******/ 	});
@@ -1808,9 +1740,6 @@ var plural = function plural() {
 var selectOrdinal = function selectOrdinal() {
   return '';
 };
-// EXTERNAL MODULE: ../../../node_modules/classnames/index.js
-var classnames = __webpack_require__(650);
-var classnames_default = /*#__PURE__*/__webpack_require__.n(classnames);
 // EXTERNAL MODULE: ../../node_modules/style-loader/dist/runtime/injectStylesIntoStyleTag.js
 var injectStylesIntoStyleTag = __webpack_require__(591);
 var injectStylesIntoStyleTag_default = /*#__PURE__*/__webpack_require__.n(injectStylesIntoStyleTag);
@@ -1864,38 +1793,43 @@ var update = injectStylesIntoStyleTag_default()(cjs_ruleSet_1_rules_1_use_2_src/
 
 
 
-
-const Input = props => {
-  // 获取 `FormContext.Provider` 提供提供的 `value` 值
-
-  const {
-    transparent,
-    children,
-    type = "text",
+const Input = (_ref, ref) => {
+  let {
     name,
+    isFormItem,
+    errMsg,
+    labelWidth,
+    commonSuffixIcon,
+    inputGroup = false,
+    width,
+    label,
+    labelPosition = "center",
+    labelColor,
+    required = false,
+    type = "text",
+    defaultValue,
     size,
-    className,
+    externalClassName,
     prefixContent,
     suffixContent,
     placeholder,
     style,
-    disabled,
-    defaultValue,
-    onChange,
+    readOnly,
+    transparent,
+    children,
     onClick,
     onFocus,
     onBlur,
-    setFormItemValue,
+    onChange,
     onIconClick
-  } = props;
-
-  // 确保value不会是undefined，如果defaultValue或formData中相应的值是undefined，则将其设为空字符串
+  } = _ref;
+  const inputRef = (0,external_root_React_commonjs2_react_commonjs_react_amd_react_.useRef)(null);
   const [value, setValue] = (0,external_root_React_commonjs2_react_commonjs_react_amd_react_.useState)(defaultValue !== null && defaultValue !== void 0 ? defaultValue : '');
-  const cls = classnames_default()({
+  const cls = {
     "input-group": suffixContent || prefixContent,
     ["input-group-".concat(size)]: size,
-    [className]: className
-  });
+    [externalClassName]: externalClassName
+  };
   const handleClick = function (e) {
     for (var _len = arguments.length, args = new Array(_len > 1 ? _len - 1 : 0), _key = 1; _key < _len; _key++) {
       args[_key - 1] = arguments[_key];
@@ -1909,17 +1843,14 @@ const Input = props => {
     onFocus && onFocus(e, ...args);
   };
   const handleBlur = function (e) {
-    // 为了让父组件能拿到值，在点击确定按钮的时候，让Form调用每个表单项的检验方法
-    setFormItemValue && setFormItemValue(e.target.value);
     for (var _len3 = arguments.length, args = new Array(_len3 > 1 ? _len3 - 1 : 0), _key3 = 1; _key3 < _len3; _key3++) {
       args[_key3 - 1] = arguments[_key3];
     }
     onBlur && onBlur(e, ...args);
+    validate();
   };
   const handleChange = function (e) {
     setValue(e.target.value);
-    setFormItemValue && setFormItemValue(e.target.value);
-    // 根据 name 属性，更新 Form 中的数据源
     for (var _len4 = arguments.length, args = new Array(_len4 > 1 ? _len4 - 1 : 0), _key4 = 1; _key4 < _len4; _key4++) {
       args[_key4 - 1] = arguments[_key4];
     }
@@ -1928,60 +1859,96 @@ const Input = props => {
   const handleIconClick = () => {
     onIconClick && onIconClick(value);
   };
-  (0,external_root_React_commonjs2_react_commonjs_react_amd_react_.useEffect)(() => {
-    if (defaultValue || Number(defaultValue) == 0) {
-      // 为了一上来就提交表单，这边有默认值也要给 父组件设置
-      setValue(defaultValue);
-      setFormItemValue && setFormItemValue(defaultValue);
+  const [error, setError] = (0,external_root_React_commonjs2_react_commonjs_react_amd_react_.useState)(false);
+  const validate = () => {
+    if (!required) return true;
+    // Example validation logic, replace with your actual validation needs
+    if (value) {
+      setError(false);
+      return true;
     } else {
-      // 不能直接写 setValue(defaultValue)
-      // 不知道为什么如果 defaultValue是空的话不会value赋值为 ""
-      // 所以只能写死为 ""
+      setError(true);
+      return false;
+    }
+  };
+  const clear = () => {
+    setValue("");
+  };
+  const handleClickCommonSuffixIcon = () => {
+    clear();
+    if (required) setError(true);
+  };
+
+  // Expose validate method via ref
+  (0,external_root_React_commonjs2_react_commonjs_react_amd_react_.useImperativeHandle)(ref, () => ({
+    validate,
+    clear
+  }));
+  (0,external_root_React_commonjs2_react_commonjs_react_amd_react_.useEffect)(() => {
+    if (defaultValue || defaultValue === 0) {
+      setValue(defaultValue);
+    } else {
       setValue("");
     }
   }, [defaultValue]);
-  return /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement((external_root_React_commonjs2_react_commonjs_react_amd_react_default()).Fragment, null, /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("div", {
-    className: cls + "input-wrapper",
+  return /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("div", {
+    className: "".concat(cls, " input-wrapper ").concat(inputGroup ? "" : "lable-in-control", " ").concat(!error && isFormItem && "mb-3"),
     style: {
-      flex: 1
+      width
     }
   }, /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("div", {
-    style: style,
-    className: "icon-input input-group"
+    className: "content-box icon-input ".concat(inputGroup ? "input-group" : "", " label-in-").concat(labelPosition)
   }, prefixContent && /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("span", {
     className: "input-group-text",
     id: "basic-addon1"
-  }, prefixContent), /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("input", {
+  }, prefixContent), label && /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("div", {
+    className: "label-box",
+    style: {
+      color: labelColor,
+      width: labelWidth
+    }
+  }, label), /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("input", {
+    ref: inputRef,
+    required: required,
     style: {
       borderRadius: "6px",
       borderTopLeftRadius: prefixContent ? 0 : '6px',
       borderBottomLeftRadius: prefixContent ? 0 : '6px',
-      ...(transparent ? {
-        backgroundColor: "transparent",
-        border: "transparent",
-        textAlign: "center"
-      } : {})
+      background: transparent ? "transparent" : "#fff"
     },
     step: 1,
     name: name,
     value: value,
-    disabled: disabled,
+    readOnly: readOnly,
     placeholder: placeholder,
     onChange: handleChange,
-    onBlur: e => handleBlur(e, "hello1", 5561),
-    onFocus: e => handleFocus(e, "hello1", 5561),
-    onClick: e => handleClick(e, "hello", 556),
+    onBlur: e => handleBlur(e),
+    onFocus: e => handleFocus(e),
+    onClick: e => handleClick(e),
     type: type,
-    className: "form-control",
+    className: "form-control input",
     "aria-label": "Username",
     "aria-describedby": "basic-addon1"
+  }), commonSuffixIcon && /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("i", {
+    onClick: handleClickCommonSuffixIcon,
+    className: "".concat(commonSuffixIcon, " common-suffix-icon ms-2")
   }), /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("div", {
     onClick: handleIconClick,
-    className: "icon"
+    className: "suffix-icon",
+    style: {
+      right: commonSuffixIcon && "32px"
+    }
   }, children)), suffixContent && /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("span", {
     className: "input-group-text",
     id: "basic-addon2"
-  }, suffixContent)));
+  }, suffixContent), error && required && /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("div", {
+    className: "animate__animated animate__fadeIn mb-1",
+    style: {
+      color: "#DC3545",
+      fontSize: "14px",
+      paddingLeft: parseInt(labelWidth) > 120 ? "120px" : labelWidth
+    }
+  }, "".concat(errMsg || "".concat(name, "\u4E0D\u80FD\u4E3A\u7A7A"))));
 };
 /* harmony default export */ const src_0 = (withTranslation()(Input));
 })();

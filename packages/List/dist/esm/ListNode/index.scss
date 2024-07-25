@@ -34,6 +34,7 @@
                 background-color: #fef0f0;
                 color: #f67878;
                 white-space: nowrap;
+
             }
             .icon {
                 width: 8px;
@@ -56,7 +57,7 @@
                 }
             }
         }
-
+        
         .has-children {
         }
         .no-children {
@@ -68,11 +69,11 @@
         max-height: 0; /* 初始状态下高度为0 */
         overflow-y: hidden; /* 隐藏溢出内容 */
         &.not-expand {
-            // transition: max-height .2s ease; 这个加上过度效果会出现点击的节点的内部闪现x轴滚动条
+            transition: max-height .25s ease; //这个加上过度效果会出现点击的节点的内部闪现x轴滚动条
         }
         &.expanded {
             overflow-y: clip; // 这句话加上就不会出现很多歌滚动条。。。
-            transition: max-height 2s ease; /* 添加过渡效果 */
+            transition: max-height .3s ease; /* 添加过渡效果 */
             max-height: 1000px; /* 展开时高度自动适应内容 */
         }
     }
@@ -81,19 +82,19 @@
 /* 修改滚动条的样式 */
 ::-webkit-scrollbar {
     width: 8px; /* 设置滚动条宽度 */
-}
-
-/* 修改滚动条轨道的样式 */
-::-webkit-scrollbar-track {
+  }
+  
+  /* 修改滚动条轨道的样式 */
+  ::-webkit-scrollbar-track {
     background: #f1f1f1; /* 设置滚动条轨道背景色 */
-}
-
-/* 修改滚动条滑块的样式 */
-::-webkit-scrollbar-thumb {
+  }
+  
+  /* 修改滚动条滑块的样式 */
+  ::-webkit-scrollbar-thumb {
     background: #888; /* 设置滚动条滑块颜色 */
-}
-
-/* 鼠标悬停在滚动条上时的样式 */
-::-webkit-scrollbar-thumb:hover {
+  }
+  
+  /* 鼠标悬停在滚动条上时的样式 */
+  ::-webkit-scrollbar-thumb:hover {
     background: #555; /* 设置滚动条滑块在鼠标悬停时的颜色 */
-}
+  }

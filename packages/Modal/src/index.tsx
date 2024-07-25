@@ -10,7 +10,7 @@ interface ModalProps {
     content?: any;
     confirmText?: string,
     cancelText?: string,
-    maxHeight?: number;
+    maxHeight?: any;
     overflowY?: boolean;
     width?: string;
     onCancel?: () => void;
