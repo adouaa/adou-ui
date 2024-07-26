@@ -1,43 +1,116 @@
-import Tab1 from "components/Tab1";
-import Tab2 from "components/Tab2";
-import Accordion from "components/adou-collapse";
-import Collapse from "components/adou-collapse-animate";
-import OffCanvas from "components/adou-offcanvas";
-import Tabs from "components/adou-tabs";
-import TabItem from "components/adou-tabs/tab-item";
-import React, { useState } from "react";
-import { withTranslation } from "react-i18next"
+import Button from 'components/adou-button';
+import Collapse from 'components/adou-collapse';
+import TimeLine from 'components/adou-time-line';
+import TimeLineItem from 'components/adou-time-line/adou-time-line-item';
+import React, { useState } from 'react';
+import { withTranslation } from 'react-i18next';
 
 const App = () => {
-    const panels = [
-        { title: 'Panel 1', content: 'Content for panel 1' },
-        { title: 'Panel 2', content: 'Content for panel 2' },
-        // 添加更多面板...
-    ];
+    const [events, setEvents] = useState<any[]>([
+        {
+            id: 1,
+            title: 'Event 1',
+            description: 'Description for event 1',
+            date: '2023-01-01',
+            isFinish: true,
+        },
+        {
+            id: 2,
+            title: 'Event 2',
+            description: 'Description for event 2',
+            date: '2023-02-01',
+        },
+        {
+            id: 3,
+            title: 'Event 3',
+            description: 'Description for event 3',
+            date: '2023-03-01',
+        },
+    ]);
+    const handleTest = () => {
+        setEvents([
+            {
+                id: 1,
+                title: 'Event 1111111111111',
+                description: 'Description for event 1',
+                date: '2023-01-01',
+                isFinish: true,
+            },
+            {
+                id: 2,
+                title: 'Event 2',
+                description: 'Description for event 2',
+                date: '2023-02-01',
+                isFinish: true,
+            },
+            {
+                id: 3,
+                title: 'Event 3',
+                description: 'Description for event 3',
+                date: '2023-03-01',
+            },
+        ]);
+    };
 
-    const [activeIndex, setActiveIndex] = useState(0);
+    const render = (event: any, timeLineWidth: any, timeLineHeight, isLasted: any) => {
+        return (
+            <>
+                <div className={`content`}>
+                    <div className="icon">
+                        <i className={`fs-5 fa-solid fa-circle-check ${event.isFinish ? 'finished' : 'un-finish'}`}></i>
+                    </div>
+                    <div className="timeline-date">{event.date}</div>
+                    <div className="timeline-content">
+                        <h4>{event.title}</h4>
+                        <h4>{event.title}</h4>
+                        <h4>{event.title}</h4>
+                        <h4>{event.title}</h4>
+                        <p>{event.description}</p>
+                    </div>
+                    {!isLasted && <div style={{ width: timeLineWidth, height: timeLineHeight }} className={`timeline-line ${event.isFinish ? 'finished' : 'un-finish'}`}></div>}{' '}
+                    {/* 连接线 */}
+                </div>
+            </>
+        );
+    };
+    return (
+        <div>
+            <Collapse firstShow={true} header={<Button>点击</Button>}>
+                <Button type="success" onClickOK={handleTest}>
+                    测试
+                </Button>
+                <TimeLine vertical events={events}>
+                    <TimeLineItem render={render}></TimeLineItem>
 
-    const handleLabelClickFn = (index: number) => {
-        setActiveIndex(index);
-    }
-
-    return <div style={{ padding: "20px" }}>
-        <Accordion title="Panel 1">
-            {/* <div className="card" style={{ padding: '1rem' }}>Content for panel 1</div> */}
-            <h1>555</h1>
-            <h1>555</h1>
-            <h1>555</h1>
-            <h1>555</h1>
-        </Accordion>
-        <Accordion title="Panel 2">
-            <div style={{ padding: '1rem' }}>Content for panel 2</div>
-        </Accordion>
-        <Accordion title="Panel 3">
-            <div style={{ padding: '1rem' }}>Content for panel 3</div>
-        </Accordion>
-        <Collapse></Collapse>
-        <OffCanvas></OffCanvas>
-    </div>
-}
+                    <TimeLineItem render={render}></TimeLineItem>
+                    <TimeLineItem
+                        render={(event: any, timeLineWidth: any, timeLineHeight: any, isLasted: any) => (
+                            <>
+                                <div className={`content`}>
+                                    <div className="icon">
+                                        <i className={`fs-5 fa-solid fa-circle-check ${event.isFinish ? 'finished' : 'un-finish'}`}></i>
+                                    </div>
+                                    <div className="timeline-date">{event.date}</div>
+                                    <div className="timeline-content">
+                                        <h4>{event.title}</h4>
+                                        <p>{event.description}</p>
+                                    </div>
+                                    {!isLasted && (
+                                        <div
+                                            style={{ width: timeLineWidth, height: timeLineHeight }}
+                                            className={`timeline-line ${event.isFinish ? 'finished' : 'un-finish'}`}
+                                        ></div>
+                                    )}{' '}
+                                    {/* 连接线 */}
+                                </div>
+                            </>
+                        )}
+                    ></TimeLineItem>
+                    <TimeLineItem render={render}></TimeLineItem>
+                </TimeLine>
+            </Collapse>
+        </div>
+    );
+};
 
 export default withTranslation()(App);

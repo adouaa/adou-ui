@@ -51,7 +51,7 @@ const Table = (props: TableProps) => {
         headBGC = "#2782d7",
         divider,
         maxHeight,
-        minHeight = "300"
+        minHeight = "300px"
     } = props;
 
     const cls = classNames({
@@ -144,7 +144,7 @@ const Table = (props: TableProps) => {
     }, [data])
 
     return <>
-        <div style={{ minHeight: minHeight + "px", maxHeight: maxHeight + "px", overflow: "auto" }} className={`table-wrapper ${`table-responsive${"-" + tableResponsive}`}`}>
+        <div style={{ minHeight: minHeight, maxHeight: maxHeight, overflow: "auto" }} className={`table-wrapper ${`table-responsive${"-" + tableResponsive}`}`}>
             {/* 不能这里边写东西了，因为 Table下的thead是用 sticky定位，
               粘性效果top: 0是相对于它的最近滚动祖先容器，即上边的div
               如果没给 上边的div 设置垂直滚动的话，就会去找往上找有 垂直滚动的祖先元素。。

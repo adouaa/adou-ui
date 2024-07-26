@@ -4,6 +4,7 @@
   "main": "index.js",
   "dependencies": {
     "@babel/cli": "^7.24.1",
+    "@tanstack/react-table": "^8.17.3",
     "@testing-library/jest-dom": "^5.17.0",
     "@testing-library/react": "^13.4.0",
     "@testing-library/user-event": "^13.5.0",
@@ -14,8 +15,7 @@
     "react-i18next": "12.2.0",
     "react-router-dom": "6.10.0",
     "save-dev": "^0.0.1-security",
-    "web-vitals": "^2.1.4",
-    "@tanstack/react-table": "^8.17.3"
+    "web-vitals": "^2.1.4"
   },
   "devDependencies": {
     "@babel/core": "^7.24.4",
@@ -36,6 +36,7 @@
     "browserify": "^17.0.0",
     "css-loader": "^7.0.0",
     "postcss-loader": "^8.1.1",
+    "prettier": "^3.3.3",
     "react": "^18.2.0",
     "react-scripts": "5.0.1",
     "sass": "^1.58.3",

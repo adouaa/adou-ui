@@ -122,7 +122,7 @@ const App = () => {
         <AdouInput label="测试2" commonSuffixIcon="fa-solid fa-circle-xmark text-danger" inputGroup required name="test-input2" defaultValue={"测试一下啊2"}>
           <i className="fa fa-plus"></i>
         </AdouInput>
-        <AdouInput label="最大阈值啊啊啊你好啊" labelPosition="center" required name="test-input3" defaultValue={"测试一下啊3"}>
+        <AdouInput label="最大阈值" labelPosition="center" required name="test-input3" defaultValue={"测试一下啊3"}>
           <i className="fa fa-plus"></i>
         </AdouInput>
 
@@ -130,7 +130,7 @@ const App = () => {
         <AdouTextarea commonSuffixIcon="fa-solid fa-circle-xmark text-danger" externalClassName="mb-2" inputGroup labelPosition="top" label="测试" required name="test-textarea" defaultValue="55555你好"></AdouTextarea>
         <AdouCheckbox commonSuffixIcon="fa-solid fa-circle-xmark text-danger" externalClassName="mb-2" labelPosition="center" inline={true} label="测试" required name="test-checkbox" options={textbookSubjects} defaultValue={defaultCheckboxValue}></AdouCheckbox>
         <AdouRadio commonSuffixIcon="fa-solid fa-circle-xmark text-danger" externalClassName="mb-2" inline label="测试" labelPosition="center" name="test-radio" options={travelOptions} defaultValue={"Gùgōng"}></AdouRadio>
-        <AdouRetrieveSelect commonSuffixIcon="fa-solid fa-circle-xmark text-danger" inputGroup labelPosition="left-top" label="测试" single={true} onChangeOK={handleInputChange} defaultValue={retrieveSelectDefaultValue} name="test-retrieve-select" options={options}></AdouRetrieveSelect>
+        <AdouRetrieveSelect commonSuffixIcon="fa-solid fa-circle-xmark text-danger" labelPosition="left-top" label="相关测试" single={true} onChangeOK={handleInputChange} defaultValue={retrieveSelectDefaultValue} name="test-retrieve-select" options={options}></AdouRetrieveSelect>
         <AdouTagInput defaultValue={tagInputDefaultValue} commonSuffixIcon="fa-solid fa-circle-xmark text-danger" labelPosition="left-top" label="测试" name="test-tag-input"></AdouTagInput>
         <AdouCodeTextarea width={"500px"} commonSuffixIcon="fa-solid fa-circle-xmark text-danger" label="测试" labelPosition="left-top" name="test-code-textarea" defaultValue="999998"></AdouCodeTextarea>
       </AdouNewForm>

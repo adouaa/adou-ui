@@ -1,22 +1,23 @@
 .collapse-container {
-    border: 1px solid #ddd;
-    border-radius: 4px;
-    margin-bottom: 1rem;
-    overflow: hidden;
-  }
-  
-  .collapse-header {
-    padding: 1rem;
-    background-color: #f7f7f7;
+  // border: 1px solid #ddd;
+  margin-bottom: 1rem;
+}
+
+.collapse-header {
+  // background-color: #f7f7f7;
+
+  &-content {
     cursor: pointer;
-    border-bottom: 1px solid #ddd;
-  }
-  
-  .collapse-content {
-    overflow: hidden;
-    white-space: nowrap;
-    transition: max-width 0.5s ease, opacity 0.5s ease;
     display: inline-block;
-    vertical-align: top;
+
   }
-  
+}
+
+.collapse-content {
+  padding-left: 30px;
+  overflow: hidden;
+  white-space: nowrap;
+  transition: all 0.5s ease, opacity 0.5s ease;
+  display: inline-block;
+  vertical-align: top;
+}
