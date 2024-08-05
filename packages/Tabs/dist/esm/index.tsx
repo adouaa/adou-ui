@@ -1,70 +1,117 @@
 import React from "react";
-import { withTranslation } from "react-i18next"
+import { withTranslation } from "react-i18next";
 
 import TabItem from "./TabItem";
 import "./index.scss";
 
-
-export {TabItem}
-
+export { TabItem };
 
 interface TabsProps {
-    children?: any,
-    handleLabelClick?: any,
-    activeIndex?: number,
+  children?: any;
+  handleLabelClick?: any;
+  activeIndex?: number;
+  activeLabelColor?: string;
+  tabStyle?: "common" | "bootstrap";
 }
 
 const Tabs = (props: TabsProps) => {
+  const {
+    children,
+    handleLabelClick,
+    activeIndex = 0,
+    activeLabelColor = "#409eff",
+    tabStyle = "common",
+  } = props;
 
-    const { children, handleLabelClick, activeIndex = 0 } = props;
+  const handleLabelClickFn = (index: number) => {
+    handleLabelClick && handleLabelClick(index);
+  };
 
-    const handleLabelClickFn = (index: number) => {
-        handleLabelClick && handleLabelClick(index);
-    }
-
-    const renderHeader = () => {
-        const items: any = [];
-        React.Children.map(children, (child: any) => {
-            items.push(child);
-        })
-        return <>
-            <div className="tabs-header">
-                {items.map((child: any, index: number) => {
-
-                    return <div key={index}>
-                        <div className={`tabs-header-item-box ${index === 0 && "first"}`}>
-                            <div onClick={() => handleLabelClickFn(index)} className={`tabs-header-item  ${activeIndex === index && "active"}`}>
-                                {child.props.label}
-                            </div>
-                        </div>
+  const renderHeader = () => {
+    const tabItems: any = [];
+    React.Children.map(children, (child: any) => {
+      tabItems.push(child);
+    });
+    return (
+      <>
+        {tabStyle === "common" ? (
+          <div className="tabs-header">
+            {tabItems.map((child: any, index: number) => {
+              return (
+                <div key={index}>
+                  <div
+                    className={`tabs-header-item-box ${index === 0 && "first"}`}
+                  >
+                    <div
+                      onClick={() => handleLabelClickFn(index)}
+                      className={`tabs-header-item  ${
+                        activeIndex === index && "active"
+                      }`}
+                    >
+                      {child.props.label}
                     </div>
-                })}
-            </div>
-        </>
+                  </div>
+                </div>
+              );
+            })}
+          </div>
+        ) : (
+          <ul className="nav nav-tabs m-2">
+            {tabItems.map((child: any, index: number) => {
+              return (
+                <li
+                  key={index}
+                  className="nav-item d-flex"
+                  onClick={() => handleLabelClickFn(index)}
+                >
+                  <a
+                    style={{
+                      marginLeft: index === 0 ? "10px" : "",
+                      color:
+                        index === activeIndex
+                          ? child.props.activeLabelColor || activeLabelColor
+                          : "",
+                    }}
+                    className={`${
+                      index === activeIndex ? "active" : ""
+                    } nav-link`}
+                    aria-current="page"
+                    href="#"
+                  >
+                    <i className={child.props.prefixIcon + " me-1"}></i>
+                    {child.props.label}
+                  </a>
+                </li>
+              );
+            })}
+          </ul>
+        )}
+      </>
+    );
+  };
 
-    }
+  const renderContent = () => {
+    const renderChildren: any = [];
+    React.Children.map(children, (child: any, index) => {
+      const enhancedChildren = React.cloneElement(child, {
+        active: index === activeIndex,
+        key: index,
+      });
+      renderChildren.push(enhancedChildren);
+    });
+    return renderChildren;
+  };
 
-    const renderContent = () => {
-        const renderChildren: any = []
-        React.Children.map(children, (child: any, index) => {
-            const enhancedChildren = React.cloneElement((child), {
-                active: index === activeIndex,
-                key: index
-            })
-        renderChildren.push(enhancedChildren);
-        })
-        return renderChildren;
-    }
-
-
-    return <>
-        <div className="tabs-box">
-            {/* 先渲染头部 */}
-            {renderHeader()}
-            {/* 再渲染内容 */}
-            {renderContent()}
-        </div>
+  return (
+    <>
+      <div className="tabs-box">
+        {/* 先渲染头部 */}
+        {renderHeader()}
+        {/* 再渲染内容 */}
+        {renderContent()}
+      </div>
     </>
-}
+  );
+};
 
 export default withTranslation()(Tabs);

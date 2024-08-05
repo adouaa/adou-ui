@@ -1,0 +1,125 @@
+.time-line-wrapper-y {
+    position: relative;
+
+    .content {
+        position: relative;
+        padding-left: 20px;
+
+        .icon {
+            position: absolute;
+            left: -12px;
+            top: -6px;
+            height: 20px;
+            width: 20px;
+            /* 事件点颜色 */
+            border-radius: 50%;
+
+            .un-finish {
+                color: #6c757d;
+            }
+
+            .finished {
+                color: #198754;
+            }
+        }
+    }
+
+
+    .timeline-content {
+        display: inline-block;
+        background-color: #f9f9f9;
+        padding: 10px;
+        border-radius: 5px;
+        box-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
+    }
+
+
+    .timeline-line {
+        position: absolute;
+        left: -3px;
+        /* 使连接线与主线对齐 */
+        top: 14px;
+        /* 根据需要调整线的位置 */
+        /* 线条宽度 */
+        height: 120px;
+        background-color: #ccc;
+        /* 线条颜色 */
+    }
+
+    .timeline-line.finished {
+        background-color: #198754;
+    }
+
+    .timeline-line.un-finish {
+        background-color: #6c757d;
+    }
+
+    .timeline-date {
+        font-size: 12px;
+        color: #999;
+    }
+}
+
+.time-line-wrapper-x {
+    position: relative;
+    border-left: 2px solid #ccc;
+    display: flex;
+
+    .content {
+        position: relative;
+        padding-top: 15px;
+        margin-right: 15px;
+
+        .icon {
+            position: absolute;
+            left: -12px;
+            top: -6px;
+            height: 20px;
+            width: 20px;
+            /* 事件点颜色 */
+            border-radius: 50%;
+
+            .un-finish {
+                color: #6c757d;
+            }
+
+            .finished {
+                color: #198754;
+            }
+        }
+    }
+
+
+    .timeline-content {
+        background-color: #f9f9f9;
+        padding: 10px;
+        border-radius: 5px;
+        box-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
+    }
+
+
+    .timeline-line {
+        position: absolute;
+        left: 8px;
+        /* 使连接线与主线对齐 */
+        top: 4px;
+        /* 根据需要调整线的位置 */
+        /* 线条宽度 */
+        height: 2px;
+        background-color: #ccc;
+        /* 线条颜色 */
+    }
+
+    .timeline-line.finished {
+        background-color: #198754;
+    }
+
+    .timeline-line.un-finish {
+        background-color: #6c757d;
+    }
+
+    .timeline-date {
+        font-size: 12px;
+        color: #999;
+    }
+}

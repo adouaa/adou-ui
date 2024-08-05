@@ -1,13 +1,13 @@
 (function webpackUniversalModuleDefinition(root, factory) {
 	if(typeof exports === 'object' && typeof module === 'object')
-		module.exports = factory(require("react"));
+		module.exports = factory(require("react"), require("react-dom"));
 	else if(typeof define === 'function' && define.amd)
-		define(["react"], factory);
+		define(["react", "react-dom"], factory);
 	else if(typeof exports === 'object')
-		exports["RPB"] = factory(require("react"));
+		exports["RPB"] = factory(require("react"), require("react-dom"));
 	else
-		root["RPB"] = factory(root["React"]);
-})(this, (__WEBPACK_EXTERNAL_MODULE__442__) => {
+		root["RPB"] = factory(root["React"], root["ReactDOM"]);
+})(this, (__WEBPACK_EXTERNAL_MODULE__442__, __WEBPACK_EXTERNAL_MODULE__3__) => {
 return /******/ (() => { // webpackBootstrap
 /******/ 	var __webpack_modules__ = ({
 
@@ -43,6 +43,14 @@ module.exports = {
 
 "use strict";
 module.exports = __WEBPACK_EXTERNAL_MODULE__442__;
+
+/***/ }),
+
+/***/ 3:
+/***/ ((module) => {
+
+"use strict";
+module.exports = __WEBPACK_EXTERNAL_MODULE__3__;
 
 /***/ })
 
@@ -1327,7 +1335,11 @@ var plural = function plural() {
 var selectOrdinal = function selectOrdinal() {
   return '';
 };
+// EXTERNAL MODULE: external {"root":"ReactDOM","commonjs2":"react-dom","commonjs":"react-dom","amd":"react-dom"}
+var external_root_ReactDOM_commonjs2_react_dom_commonjs_react_dom_amd_react_dom_ = __webpack_require__(3);
+var external_root_ReactDOM_commonjs2_react_dom_commonjs_react_dom_amd_react_dom_default = /*#__PURE__*/__webpack_require__.n(external_root_ReactDOM_commonjs2_react_dom_commonjs_react_dom_amd_react_dom_);
 ;// CONCATENATED MODULE: ./src/index.tsx
+
 
 
 
@@ -1344,6 +1356,8 @@ const Modal = _ref => {
     maxHeight,
     overflowY,
     width,
+    showConfirm = true,
+    showCancel = true,
     onCancel,
     onClose,
     onConfirm
@@ -1371,7 +1385,7 @@ const Modal = _ref => {
       setVisible(show);
     }, 100);
   }, [show]);
-  return /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement((external_root_React_commonjs2_react_commonjs_react_amd_react_default()).Fragment, null, show && /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("div", null, /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("div", {
+  return /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement((external_root_React_commonjs2_react_commonjs_react_amd_react_default()).Fragment, null, show && /*#__PURE__*/external_root_ReactDOM_commonjs2_react_dom_commonjs_react_dom_amd_react_dom_default().createPortal( /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("div", null, /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("div", {
     className: "modal fade ".concat(visible ? "show " : ""),
     style: {
       display: show ? "block" : "none"
@@ -1408,18 +1422,18 @@ const Modal = _ref => {
     } : {}
   }, " ", content || "..."), /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("div", {
     className: "modal-footer"
-  }, /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("button", {
+  }, showCancel ? /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("button", {
     type: "button",
     className: "btn btn-secondary",
     "data-bs-dismiss": "modal",
     onClick: handleOnCancel
-  }, cancelText || "关闭"), /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("button", {
+  }, cancelText || "取消") : "", showConfirm ? /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("button", {
     type: "button",
     className: "btn btn-primary",
     onClick: handleOnConfirm
-  }, confirmText || "确定"))))), visible ? /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("div", {
-    className: "modal-backdrop fade ".concat(visible && 'show')
-  }) : null));
+  }, confirmText || "确定") : "")))), visible ? /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("div", {
+    className: "modal-backdrop fade ".concat(visible && "show")
+  }) : null), document.body));
 };
 /* harmony default export */ const src = (withTranslation()(Modal));
 })();
