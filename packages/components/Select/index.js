@@ -7072,6 +7072,7 @@ var Utils = __webpack_require__(36);
 const Select = /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().forwardRef((props, ref) => {
   const {
     commonSuffixIcon,
+    isFormItem,
     errMsg,
     labelWidth,
     label,
@@ -7114,6 +7115,7 @@ const Select = /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_a
     setError(false);
   };
   (0,external_root_React_commonjs2_react_commonjs_react_amd_react_.useEffect)(() => {
+    console.log(defaultValue);
     if (defaultValue) {
       const selectOption = options.find(option => option.value === defaultValue);
       setValue(selectOption);
@@ -7174,7 +7176,7 @@ const Select = /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_a
     clear,
     getValue
   }));
-  const wrapperClassName = "select-wrapper ".concat(!error && "mb-3", " ").concat(externalClassName || '').trim();
+  const wrapperClassName = "select-wrapper ".concat(!error && isFormItem && "mb-3", " ").concat(externalClassName || "").trim();
   (0,external_root_React_commonjs2_react_commonjs_react_amd_react_.useEffect)(() => {
     window.addEventListener("click", handleClick);
     return () => {
@@ -7193,7 +7195,7 @@ const Select = /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_a
     name: name
   }, /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("option", {
     value: value === null || value === void 0 ? void 0 : value.value
-  }, value.label)), inputGroup ? /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("div", {
+  }, value === null || value === void 0 ? void 0 : value.label)), inputGroup ? /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("div", {
     className: "input-group"
   }, /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("label", {
     className: "input-group-text",
@@ -7214,7 +7216,7 @@ const Select = /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_a
   })) : /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("div", {
     onBlur: validate,
     className: "content-box label-in-".concat(labelPosition)
-  }, /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("span", {
+  }, isFormItem && /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("span", {
     className: "label-box",
     style: {
       color: labelColor,

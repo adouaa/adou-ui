@@ -18810,6 +18810,7 @@ var external_root_ReactDOM_commonjs2_react_dom_commonjs_react_dom_amd_react_dom_
 
 
 
+
 const Select_Select = props => {
   const {
     style,
@@ -18820,7 +18821,6 @@ const Select_Select = props => {
     className,
     disabled,
     transparent,
-    maxHeight,
     onChangeOK,
     setFormItemValue
   } = props;
@@ -18830,8 +18830,10 @@ const Select_Select = props => {
   const [newOptions, setNewOptions] = (0,external_root_React_commonjs2_react_commonjs_react_amd_react_.useState)(options || []);
   const [value, setValue] = (0,external_root_React_commonjs2_react_commonjs_react_amd_react_.useState)(defaultValue) || {};
   const [showOptions, setShowOptions] = (0,external_root_React_commonjs2_react_commonjs_react_amd_react_.useState)(false);
-
-  // 目前好像没用。。
+  const cls = classnames_default()({
+    ["form-select form-select-".concat(size)]: true,
+    [className]: className
+  });
   const handleSelect = e => {
     const selectedIndex = e.target.selectedIndex - 1;
     const selectedOption = options[selectedIndex];
@@ -18850,25 +18852,19 @@ const Select_Select = props => {
   const customSelectRef = (0,external_root_React_commonjs2_react_commonjs_react_amd_react_.useRef)();
   const contentRef = (0,external_root_React_commonjs2_react_commonjs_react_amd_react_.useRef)();
   const [customSelectContentPosition, setCustomSelectContentPosition] = (0,external_root_React_commonjs2_react_commonjs_react_amd_react_.useState)({});
-  // 点击div之后就去重新获取选项的位置
   const handleDivClick = e => {
+    if (disabled) return;
     // 新增使用createPortal来定位下拉框
     const position = libs_getAbsolutePositionOfStage(customSelectRef.current, 0, 0);
     setCustomSelectContentPosition(position);
     e.stopPropagation(); // 阻止事件冒泡
     setShowOptions(!showOptions);
   };
-
-  // 点击选项的回调
   const handleOptionClick = item => {
-    // 给Form赋上选中的值
     context.handleChange(context.name, item);
-    // 选中的时候，要让他做校验;
-    context.checkValidate(item);
+    context.checkValidate(item); // 选中的时候，要让他做校验
     setFormItemValue && setFormItemValue(item);
-    // 回调给父组件
     onChangeOK && onChangeOK(item);
-    // 设置值--可以在这里明确的写出来，也可以在 监听Form对应数据项的时候给该组件赋值
     setValue(item);
   };
   const handleClick = e => {
@@ -18895,14 +18891,12 @@ const Select_Select = props => {
     }
   }, [context.formData[context.name]]);
   (0,external_root_React_commonjs2_react_commonjs_react_amd_react_.useEffect)(() => {
-    if (defaultValue) {
-      // 如果有默认值，就去找到对应的选项
-      const selectOption = options.find(option => option.value === defaultValue);
-      // 直接在判断有默认值的地方就给表单赋值，就不会出现数据闪动的现象
-      setValue(selectOption);
+    if (defaultValue !== null && defaultValue !== void 0 && defaultValue.value) {
+      const selectOption = options.find(option => option.value === defaultValue.value);
+      setValue(selectOption); // 直接在判断有默认值的地方就给表单赋值，就不会出现数据闪动的现象
       // 这边不能直接用 context.handleChange(context.name, defaultValue)来赋默认值，会被置为空，并且失去 提交和重置功能
       context.formData[context.name] = selectOption; // 让 Form里面对应的数据项有值
-      setFormItemValue && setFormItemValue(selectOption); // --目前不知道是干嘛的。。
+      setFormItemValue && setFormItemValue(selectOption);
     } else {
       // js默认的选择框好像只能这样写，不能写成 setValue=({})
       // 只能让它重置为选中第一个选项。。
@@ -18913,25 +18907,22 @@ const Select_Select = props => {
     }
   }, [defaultValue]);
   (0,external_root_React_commonjs2_react_commonjs_react_amd_react_.useEffect)(() => {
-    // 重新获取列表的时候，要先把原来选择的数据清空
+    // 重新获取列表的时候，要把原来选择的数据清空
     setValue({});
     context.formData[context.name] = "";
-
-    // 创建一个新数组，将 "空" 选项添加在数组的开头
-    const enhancedOptions = [{
-      label: "空",
-      value: null
-    }, ...options];
+    const enhancedOptions = [...options];
     setNewOptions(enhancedOptions);
     // 如果 defaultValue 未定义，则将选择设置为 "请选择" 选项 -- 不写也没问题qwq
     /* if (!defaultValue) {
-        setValue({ label: "请选择", value: "" });
-    } */
+            setValue({ label: "请选择", value: "" });
+        } */
+    console.log(options);
   }, [options]);
   return /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("div", {
     className: "select-wrapper",
     style: style
   }, /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("div", {
+    "aria-disabled": disabled,
     ref: customSelectRef,
     onBlur: handleBlur,
     onClick: e => handleDivClick(e),
@@ -18948,20 +18939,17 @@ const Select_Select = props => {
     className: "icon fa-solid fa-caret-right rotate-up ".concat(showOptions ? "rotate-up" : "rotate-down")
   })), /*#__PURE__*/external_root_ReactDOM_commonjs2_react_dom_commonjs_react_dom_amd_react_dom_default().createPortal( /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("div", {
     style: {
-      maxHeight,
       position: "absolute",
       top: customSelectContentPosition.y + customSelectContentPosition.height + "px",
       left: customSelectContentPosition.x + "px"
     },
     ref: contentRef,
     className: "custom-select-content ".concat(showOptions ? "custom-select-content-open" : "")
-  }, showOptions && (newOptions.length > 0 ? newOptions.map(item => /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("div", {
+  }, showOptions && newOptions.map(item => /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("div", {
     onClick: () => handleOptionClick(item),
     className: "option",
     key: item.value
-  }, item.label)) : /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("div", {
-    className: "none-option"
-  }, "Nothing"))), document.body));
+  }, item.label))), document.body));
 };
 /* harmony default export */ const src_FormItem_Select = (withTranslation()(Select_Select));
 // EXTERNAL MODULE: ../../node_modules/css-loader/dist/cjs.js??ruleSet[1].rules[1].use[1]!../../node_modules/sass-loader/dist/cjs.js??ruleSet[1].rules[1].use[2]!./src/FormItem/Textarea/index.css
@@ -19753,23 +19741,17 @@ var TagInput_update = injectStylesIntoStyleTag_default()(TagInput/* default */.A
 
 
 const TagInput_TagInput = props => {
-  var _context$formData, _context$formData3;
   const {
-    defaultValue = [],
-    onChange
+    defaultValue = []
   } = props;
-  const context = (0,external_root_React_commonjs2_react_commonjs_react_amd_react_.useContext)(FormContext) || {};
-  const [inputList, setInputList] = (0,external_root_React_commonjs2_react_commonjs_react_amd_react_.useState)(defaultValue || ((_context$formData = context.formData) === null || _context$formData === void 0 ? void 0 : _context$formData[context.name]) || []);
+  const context = (0,external_root_React_commonjs2_react_commonjs_react_amd_react_.useContext)(FormContext);
+  const [inputList, setInputList] = (0,external_root_React_commonjs2_react_commonjs_react_amd_react_.useState)(defaultValue || context.formData[context.name] || []);
   const [inputValue, setInputValue] = (0,external_root_React_commonjs2_react_commonjs_react_amd_react_.useState)("");
   const [isHighlighted, setIsHighlighted] = (0,external_root_React_commonjs2_react_commonjs_react_amd_react_.useState)(false);
   const addInput = () => {
-    // 因为state是异步的，所以要把数据先处理好再使用
-    const data = [...inputList, inputValue];
-    setInputList(data);
+    setInputList([...inputList, inputValue]);
     setInputValue("");
-    context.checkValidate && context.checkValidate(1);
-    // 把数据传回给父组件
-    onChange && onChange(data);
+    context.checkValidate(1);
   };
   const handleInputChange = e => {
     setInputValue(e.target.value);
@@ -19787,16 +19769,15 @@ const TagInput_TagInput = props => {
   const handleDeleteItem = item => {
     const tagList = inputList.filter(value => item !== value);
     setInputList(tagList);
-    onChange && onChange(tagList);
     // 注意，这边不能直接用 inputList给 formData赋值，会出现不一致的情况
 
-    context.handleChange && context.handleChange(context.name, tagList);
-    context.checkValidate && context.checkValidate(inputList.filter(v => v !== item).length);
+    context.handleChange(context.name, tagList);
+    context.checkValidate(inputList.filter(v => v !== item).length);
   };
   const handleBlur = () => {
     // 注意，这边要在 inpuut失焦的时候触发，不能在 input change的时候触发，不然会出现校验错误
-    context.handleChange && context.handleChange(context.name, inputList);
-    context.checkValidate && context.checkValidate(inputList.length);
+    context.handleChange(context.name, inputList);
+    context.checkValidate(inputList.length);
     setIsHighlighted(false);
   };
   const handleFocus = () => {
@@ -19805,15 +19786,14 @@ const TagInput_TagInput = props => {
   (0,external_root_React_commonjs2_react_commonjs_react_amd_react_.useEffect)(() => {
     if (defaultValue.length) {
       setInputList(defaultValue);
-      if (context.formData) {
-        context.formData[context.name] = defaultValue;
-      }
+      context.formData[context.name] = defaultValue;
+    } else {
+      setInputList([]);
     }
   }, [defaultValue]);
   (0,external_root_React_commonjs2_react_commonjs_react_amd_react_.useEffect)(() => {
-    var _context$formData2;
-    setInputList(((_context$formData2 = context.formData) === null || _context$formData2 === void 0 ? void 0 : _context$formData2[context.name]) || "");
-  }, [(_context$formData3 = context.formData) === null || _context$formData3 === void 0 ? void 0 : _context$formData3[context.name]]);
+    setInputList(context.formData[context.name] || "");
+  }, [context.formData[context.name]]);
   return /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement((external_root_React_commonjs2_react_commonjs_react_amd_react_default()).Fragment, null, /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("div", {
     className: "tag-input-wrapper form-control ".concat(isHighlighted && "focus")
   }, /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("div", {

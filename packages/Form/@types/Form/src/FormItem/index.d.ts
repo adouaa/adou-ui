@@ -29,8 +29,8 @@ declare const FormItem: {
         disabled?: boolean | undefined;
         onChangeOK?: ((e: React.ChangeEvent<HTMLInputElement>, ...args: any) => void) | undefined;
         setFormItemValue?: ((value: any) => void) | undefined;
-        type?: "number" | "time" | "text" | "datetime-local" | "date" | undefined;
         name?: string | undefined;
+        type?: "number" | "time" | "text" | "date" | "datetime-local" | undefined;
         prefixContent?: any;
         suffixContent?: any;
         onClickOK?: ((e: React.MouseEvent<HTMLInputElement, MouseEvent>, ...args: any) => void) | undefined;
@@ -46,7 +46,6 @@ declare const FormItem: {
         className?: string | undefined;
         disabled?: boolean | undefined;
         transparent?: boolean | undefined;
-        maxHeight?: string | undefined;
         onChangeOK?: ((e?: any, ...args: any) => void) | undefined;
         setFormItemValue?: ((value: any) => void) | undefined;
     }, keyof import("react-i18next").WithTranslation<N, undefined>> & import("react-i18next").WithTranslationProps>;
@@ -68,7 +67,6 @@ declare const FormItem: {
         className?: string | undefined;
         disabled?: boolean | undefined;
         transparent?: boolean | undefined;
-        maxHeight?: string | undefined;
         onChangeOK?: ((e?: any, ...args: any) => void) | undefined;
         setFormItemValue?: ((value: any) => void) | undefined;
         onSelectOK: (value: string) => void;

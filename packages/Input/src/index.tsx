@@ -88,11 +88,11 @@ const Input: React.ForwardRefRenderFunction<InputRef, InputProps> = (
   const inputRef = useRef<HTMLInputElement>(null);
   const [value, setValue] = useState(defaultValue ?? "");
 
-  const cls = {
+  const cls = classNames({
     "input-group": suffixContent || prefixContent,
     [`input-group-${size}`]: size,
     [externalClassName as string]: externalClassName,
-  };
+  });
 
   const handleClick = (
     e: React.MouseEvent<HTMLInputElement, MouseEvent>,
@@ -238,10 +238,11 @@ const Input: React.ForwardRefRenderFunction<InputRef, InputProps> = (
             fontSize: "14px",
             paddingLeft: parseInt(labelWidth) > 120 ? "120px" : labelWidth,
           }}
-        >{`${errMsg || `${name}不能为空`}`}</div>
+        >{`${errMsg || `${label}不能为空`}`}</div>
       )}
     </div>
   );
 };
+
 
 export default withTranslation()(Input);

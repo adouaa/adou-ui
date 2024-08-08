@@ -452,6 +452,74 @@ module.exports = styleTagTransform;
 "use strict";
 module.exports = __WEBPACK_EXTERNAL_MODULE__442__;
 
+/***/ }),
+
+/***/ 650:
+/***/ ((module, exports) => {
+
+var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/*!
+	Copyright (c) 2018 Jed Watson.
+	Licensed under the MIT License (MIT), see
+	http://jedwatson.github.io/classnames
+*/
+/* global define */
+
+(function () {
+  'use strict';
+
+  var hasOwn = {}.hasOwnProperty;
+  function classNames() {
+    var classes = '';
+    for (var i = 0; i < arguments.length; i++) {
+      var arg = arguments[i];
+      if (arg) {
+        classes = appendClass(classes, parseValue(arg));
+      }
+    }
+    return classes;
+  }
+  function parseValue(arg) {
+    if (typeof arg === 'string' || typeof arg === 'number') {
+      return arg;
+    }
+    if (typeof arg !== 'object') {
+      return '';
+    }
+    if (Array.isArray(arg)) {
+      return classNames.apply(null, arg);
+    }
+    if (arg.toString !== Object.prototype.toString && !arg.toString.toString().includes('[native code]')) {
+      return arg.toString();
+    }
+    var classes = '';
+    for (var key in arg) {
+      if (hasOwn.call(arg, key) && arg[key]) {
+        classes = appendClass(classes, key);
+      }
+    }
+    return classes;
+  }
+  function appendClass(value, newClass) {
+    if (!newClass) {
+      return value;
+    }
+    if (value) {
+      return value + ' ' + newClass;
+    }
+    return value + newClass;
+  }
+  if ( true && module.exports) {
+    classNames.default = classNames;
+    module.exports = classNames;
+  } else if (true) {
+    // register as 'classnames', consistent with npm package name
+    !(__WEBPACK_AMD_DEFINE_ARRAY__ = [], __WEBPACK_AMD_DEFINE_RESULT__ = (function () {
+      return classNames;
+    }).apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__),
+		__WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
+  } else {}
+})();
+
 /***/ })
 
 /******/ 	});
@@ -1740,6 +1808,9 @@ var plural = function plural() {
 var selectOrdinal = function selectOrdinal() {
   return '';
 };
+// EXTERNAL MODULE: ../../../node_modules/classnames/index.js
+var classnames = __webpack_require__(650);
+var classnames_default = /*#__PURE__*/__webpack_require__.n(classnames);
 // EXTERNAL MODULE: ../../node_modules/style-loader/dist/runtime/injectStylesIntoStyleTag.js
 var injectStylesIntoStyleTag = __webpack_require__(591);
 var injectStylesIntoStyleTag_default = /*#__PURE__*/__webpack_require__.n(injectStylesIntoStyleTag);
@@ -1793,6 +1864,7 @@ var update = injectStylesIntoStyleTag_default()(cjs_ruleSet_1_rules_1_use_2_src/
 
 
 
+
 const Input = (_ref, ref) => {
   let {
     name,
@@ -1824,12 +1896,12 @@ const Input = (_ref, ref) => {
     onIconClick
   } = _ref;
   const inputRef = (0,external_root_React_commonjs2_react_commonjs_react_amd_react_.useRef)(null);
-  const [value, setValue] = (0,external_root_React_commonjs2_react_commonjs_react_amd_react_.useState)(defaultValue !== null && defaultValue !== void 0 ? defaultValue : '');
-  const cls = {
+  const [value, setValue] = (0,external_root_React_commonjs2_react_commonjs_react_amd_react_.useState)(defaultValue !== null && defaultValue !== void 0 ? defaultValue : "");
+  const cls = classnames_default()({
     "input-group": suffixContent || prefixContent,
     ["input-group-".concat(size)]: size,
     [externalClassName]: externalClassName
-  };
+  });
   const handleClick = function (e) {
     for (var _len = arguments.length, args = new Array(_len > 1 ? _len - 1 : 0), _key = 1; _key < _len; _key++) {
       args[_key - 1] = arguments[_key];
@@ -1912,8 +1984,8 @@ const Input = (_ref, ref) => {
     required: required,
     style: {
       borderRadius: "6px",
-      borderTopLeftRadius: prefixContent ? 0 : '6px',
-      borderBottomLeftRadius: prefixContent ? 0 : '6px',
+      borderTopLeftRadius: prefixContent ? 0 : "6px",
+      borderBottomLeftRadius: prefixContent ? 0 : "6px",
       background: transparent ? "transparent" : "#fff"
     },
     step: 1,
@@ -1948,7 +2020,7 @@ const Input = (_ref, ref) => {
       fontSize: "14px",
       paddingLeft: parseInt(labelWidth) > 120 ? "120px" : labelWidth
     }
-  }, "".concat(errMsg || "".concat(name, "\u4E0D\u80FD\u4E3A\u7A7A"))));
+  }, "".concat(errMsg || "".concat(label, "\u4E0D\u80FD\u4E3A\u7A7A"))));
 };
 /* harmony default export */ const src_0 = (withTranslation()(Input));
 })();

@@ -1,7 +1,20 @@
 import React from "react";
 import "./index.scss";
-declare const _default: React.ComponentType<Omit<{
+interface TagInputProps {
+    name?: string;
+    isFormItem?: boolean;
+    required?: boolean;
+    errMsg?: string;
+    labelWidth?: any;
+    commonSuffixIcon?: string;
+    readOnly?: boolean;
+    width?: any;
+    label?: string;
+    labelPosition?: "left-top" | "center" | "top";
+    inputGroup?: boolean;
+    labelColor?: string;
     defaultValue?: any;
-    onChange?: ((value: any) => void) | undefined;
-}, keyof import("react-i18next").WithTranslation<N, undefined>> & import("react-i18next").WithTranslationProps>;
-export default _default;
+    onChange?: (value: any) => void;
+}
+declare const TagInput: React.ForwardRefExoticComponent<TagInputProps & React.RefAttributes<unknown>>;
+export default TagInput;

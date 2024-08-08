@@ -9,7 +9,6 @@ declare const _default: React.ComponentType<Omit<{
     className?: string | undefined;
     disabled?: boolean | undefined;
     transparent?: boolean | undefined;
-    maxHeight?: string | undefined;
     onChangeOK?: ((e?: any, ...args: any) => void) | undefined;
     setFormItemValue?: ((value: any) => void) | undefined;
     onSelectOK: (value: string) => void;
