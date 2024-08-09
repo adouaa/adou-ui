@@ -703,6 +703,8 @@ const TagInput = /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react
   (0,external_root_React_commonjs2_react_commonjs_react_amd_react_.useEffect)(() => {
     if (defaultValue.length) {
       setInputList(defaultValue);
+    } else {
+      setInputList([]);
     }
   }, [defaultValue]);
   return /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("div", {
