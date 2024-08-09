@@ -1,12 +1,15 @@
 .resizable-sidebar {
   position: relative;
-  background-color: #f8f9fa;
+  // background-color: #f8f9fa;
   padding: 15px;
   border-right: 2px solid #dee2e6;
-  transition: width .25s ease; /* 添加动画效果 */
+  transition: width .25s ease;
+  /* 添加动画效果 */
 }
+
 .resizable-sidebar:hover {
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* 在悬停时添加阴影 */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  /* 在悬停时添加阴影 */
 }
 
 .draging {
@@ -23,7 +26,8 @@
   cursor: ew-resize;
   background-color: #dee2e6;
   cursor: col-resize;
-  transition: opacity 0.3s ease; /* 添加悬停动画效果 */
+  transition: opacity 0.3s ease;
+  /* 添加悬停动画效果 */
 }
 
 .resize-handle:hover {

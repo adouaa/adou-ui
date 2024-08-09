@@ -1,5 +1,5 @@
-import { useEffect, useRef, useState } from "react";
-import React from "react";
+import { useEffect, useRef, useState } from 'react';
+import React from 'react';
 
 interface TimeLineItemProps {
     data?: any;
@@ -9,7 +9,6 @@ interface TimeLineItemProps {
 }
 
 const TimeLineItem = ({ data, render, vertical, isLasted }: TimeLineItemProps) => {
-
     const [timeLineWidth, setTimeLineWidth] = useState<number>(0);
     const [timeLineHeight, setTimeLineHeight] = useState<number>(0);
 
@@ -17,9 +16,6 @@ const TimeLineItem = ({ data, render, vertical, isLasted }: TimeLineItemProps) =
 
     useEffect(() => {
         if (timeLineItemWrapperRef.current) {
-            console.log("data变化了1 = ", timeLineItemWrapperRef.current.getBoundingClientRect().width);
-            console.log("data变化了1 = ", timeLineItemWrapperRef.current.scrollWidth);
-
             if (vertical) {
                 setTimeLineHeight(timeLineItemWrapperRef.current.getBoundingClientRect().height - 20);
                 setTimeLineWidth(2);

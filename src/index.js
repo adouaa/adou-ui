@@ -21,18 +21,18 @@ export {
   FormItem,
 }
  */
-import React from "react";
-import ReactDOM from "react-dom/client";
-import App from "./App";
-import "bootstrap/dist/css/bootstrap.min.css";
-import "./App.css";
-import "./index.scss";
+import React from 'react';
+import ReactDOM from 'react-dom/client';
+import App from './App-special-table';
+import 'bootstrap/dist/css/bootstrap.min.css';
+import './App.css';
+import './index.scss';
 // 把 App根组件渲染到 id为 root的 dom节点上
 import 'animate.css/animate.min.css';
 
-const root = ReactDOM.createRoot(document.getElementById("root"));
+const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
-  <>
-    <App />
-  </>
+    <>
+        <App />
+    </>
 );

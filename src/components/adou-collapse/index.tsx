@@ -39,13 +39,13 @@ const Collapse = ({ header, children, firstShow = false }: CollapseProps) => {
 
     return (
         <div className="collapse-container">
-            <div className="collapse-header p-2">
+            <div className="collapse-header">
                 <div className="collapse-header-content" onClick={toggleCollapse}>
                     {header}
                 </div>
             </div>
             <div
-                className="collapse-content"
+                className="collapse-content mt-1"
                 style={{
                     maxWidth: isOpen ? `${maxWidth}px` : '0px',
                     maxHeight: isOpen ? `${maxHeight}px` : '0px',

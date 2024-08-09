@@ -1,0 +1,43 @@
+.collapse-table-td {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    // line-height: 0.8;
+}
+
+.collapse-icon {
+    padding: 0 10px;
+    transition: transform .3s ease; // 旋转动画
+    cursor: pointer;
+    z-index: 1;
+    margin-bottom: 6px;
+}
+
+.rotate-down {
+    transform: rotate(90deg);
+    /* 不旋转，向下箭头样式 */
+}
+
+
+// 添加展开的动画
+tbody>tr {
+    transition: max-height 0.3s ease-in-out;
+}
+
+/* 默认情况下，表格行被隐藏 */
+.collapse-tr {
+    transition: opacity 0.5s ease, transform 0.5s ease;
+    opacity: 0;
+    transform: scaleY(0);
+    /* 使用 scaleY 来隐藏 */
+    transform-origin: top;
+    /* 让缩放从顶部开始 */
+    overflow: hidden;
+}
+
+/* 当表格行显示时 */
+.collapse-tr.show {
+    opacity: 1;
+    transform: scaleY(1);
+    /* 还原到原始高度 */
+}

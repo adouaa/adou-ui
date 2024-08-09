@@ -1,17 +1,21 @@
-import Button from "components/adou-button";
-import React, { useEffect, useState } from "react";
-import { withTranslation } from "react-i18next";
+import React, { useEffect, useState } from 'react';
+import { withTranslation } from 'react-i18next';
+import ReactDOM from 'react-dom';
+
+// import "./index.css";
 
 interface ModalProps {
     type?: string;
     title?: string;
     show: boolean;
     content?: any;
-    confirmText?: string,
-    cancelText?: string,
-    maxHeight?: number;
+    confirmText?: string;
+    cancelText?: string;
+    maxHeight?: any;
     overflowY?: boolean;
     width?: string;
+    showConfirm?: boolean;
+    showCancel?: boolean;
     onCancel?: () => void;
     onClose?: () => void;
     onConfirm?: () => void;
@@ -25,56 +29,40 @@ const Modal: React.FC<ModalProps> = ({
     cancelText,
     maxHeight,
     overflowY,
-    width = type === "tip" ? "400px" : "600px",
+    width,
+    showConfirm = true,
+    showCancel = true,
     onCancel,
     onClose,
-    onConfirm
+    onConfirm,
 }) => {
-
     const [visible, setVisible] = useState(false);
 
     const handleOnClose = () => {
-        setVisible(false)
+        setVisible(false);
         setTimeout(() => {
-            show = false;
             onClose && onClose();
         }, 100);
-    }
+    };
 
     const handleOnCancel = () => {
         setVisible(false);
         setTimeout(() => {
-            show = false;
             onCancel && onCancel();
         }, 100);
-    }
+    };
 
     const handleOnConfirm = () => {
         setTimeout(() => {
             onConfirm && onConfirm();
-
         }, 100);
-    }
+    };
 
-    const handleClickOutside = (e: any) => {
-        const classNames = e.target.className;
-
-        classNames?.includes("fade") && onClose && onClose();
-    }
     useEffect(() => {
-
         setTimeout(() => {
             setVisible(show);
         }, 100);
-
-    }, [show])
-
-    useEffect(() => {
-        window.addEventListener("click", (e) => handleClickOutside(e))
-        return () => {
-            window.removeEventListener("click", (e) => handleClickOutside(e))
-        }
-    }, [])
+    }, [show]);
 
     return (
         <>
@@ -85,54 +73,53 @@ const Modal: React.FC<ModalProps> = ({
                   一定要记住先后原则：展示--先出现，再添加类名【show】 消失--先移除类名【show】，再消失。（不能两者一起添加或消失）
                   否则，就不会有一个动画效果
         */}
-            {(show && type === "tip") ?
-                <div>
-                    <div className={`modal fade ${visible ? "show " : ""}`} style={{ display: show ? "block" : "none" }} id="exampleModal" tabIndex={-1} aria-labelledby="exampleModalLabel" aria-hidden="true">
-                        <div className={`modal-dialog ${"modal-dialog-centered"}`} style={{ maxWidth: "fit-content" }}>
-                            <div className="modal-content" style={{ width: width }}>
-                                <div className="modal-header" style={{ padding: "15px 15px 10px", borderBottom: 0 }}>
-                                    <h5 style={{ fontSize: "18px", lineHeight: "18px" }} className="modal-title" id="exampleModalLabel">{title || "Modal title"}</h5>
-                                    <button onClick={handleOnClose} type="button" className="btn-close" aria-label="Close"></button>
-                                </div>
-                                <div className="modal-body" style={{
-                                    overflowY: overflowY ? "auto" : "visible",
-                                    maxHeight: overflowY ? (maxHeight + "px" || "60vh") : "none",
-                                    padding: "10px 15px"
-                                }}> {/* 设置最大高度和滚动条 */}
-                                    {content || "..."}
-                                </div>
-                                <div className="modal-footer" style={{border: "none", padding: "5px 15px"}}>
-                                    {<Button size="sm" className="btn btn-primary" onClickOK={handleOnConfirm}>{confirmText || "确定"}</Button>}
+            {show &&
+                ReactDOM.createPortal(
+                    <div>
+                        <div
+                            className={`modal fade ${visible ? 'show ' : ''}`}
+                            style={{ display: show ? 'block' : 'none' }}
+                            id="exampleModal"
+                            tabIndex={-1}
+                            aria-labelledby="exampleModalLabel"
+                            aria-hidden="true"
+                        >
+                            <div className={`modal-dialog ${type === 'tip' ? 'modal-dialog-centered' : ''}`} style={{ maxWidth: 'fit-content' }}>
+                                <div className="modal-content" style={{ width: width }}>
+                                    <div className="modal-header">
+                                        <h5 className="modal-title" id="exampleModalLabel">
+                                            {title || 'Modal title'}
+                                        </h5>
+                                        <button onClick={handleOnClose} type="button" className="btn-close" aria-label="Close"></button>
+                                    </div>
+                                    <div className="modal-body" style={overflowY ? { maxHeight: maxHeight, overflowY: 'auto' } : {}}>
+                                        {' '}
+                                        {/* 设置最大高度和滚动条 */}
+                                        {content || '...'}
+                                    </div>
+                                    <div className="modal-footer">
+                                        {showCancel ? (
+                                            <button type="button" className="btn btn-secondary" data-bs-dismiss="modal" onClick={handleOnCancel}>
+                                                {cancelText || '取消'}
+                                            </button>
+                                        ) : (
+                                            ''
+                                        )}
+                                        {showConfirm ? (
+                                            <button type="button" className="btn btn-primary" onClick={handleOnConfirm}>
+                                                {confirmText || '确定'}
+                                            </button>
+                                        ) : (
+                                            ''
+                                        )}
+                                    </div>
                                 </div>
                             </div>
                         </div>
-                    </div>
-                    {visible ? <div className={`modal-backdrop fade ${visible && 'show'}`}></div> : null}
-                </div> :
-                <div>
-                    <div className={`modal fade ${visible ? "show " : ""}`} style={{ display: show ? "block" : "none" }} id="exampleModal" tabIndex={-1} aria-labelledby="exampleModalLabel" aria-hidden="true">
-                        <div className={`modal-dialog`} style={{ maxWidth: "fit-content" }}>
-                            <div className="modal-content" style={{ width: width }}>
-                                <div className="modal-header">
-                                    <h5 className="modal-title" id="exampleModalLabel">{title || "Modal title"}</h5>
-                                    <button onClick={handleOnClose} type="button" className="btn-close" aria-label="Close"></button>
-                                </div>
-                                <div className="modal-body" style={{
-                                    overflowY: overflowY ? "auto" : "visible",
-                                    maxHeight: overflowY ? (maxHeight + "px" || "60vh") : "none",
-                                }}> {/* 设置最大高度和滚动条 */}
-                                    {content || "..."}
-                                </div>
-                                <div className="modal-footer">
-                                    {<button type="button" className="btn btn-secondary" data-bs-dismiss="modal" onClick={handleOnCancel}>{cancelText || "关闭"}</button>}
-                                    {<button type="button" className="btn btn-primary" onClick={handleOnConfirm}>{confirmText || "确定"}</button>}
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    {visible ? <div className={`modal-backdrop fade ${visible && 'show'}`}></div> : null}
-                </div>
-            }
+                        {visible ? <div className={`modal-backdrop fade ${visible && 'show'}`}></div> : null}
+                    </div>,
+                    document.body
+                )}
         </>
     );
 };

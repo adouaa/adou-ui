@@ -1,21 +1,22 @@
-import React, { forwardRef, useEffect, useRef, useState, useImperativeHandle } from "react";
-import classNames from "classnames";
-import "./index.scss";
+import React, { forwardRef, useEffect, useRef, useState, useImperativeHandle } from 'react';
+import classNames from 'classnames';
+import './index.scss';
 
 export interface InputProps {
     name?: string;
+    isFormItem?: boolean;
     errMsg?: string;
     labelWidth?: any;
     commonSuffixIcon?: string;
     width?: any;
     label?: string;
-    labelPosition?: "left-top" | "center" | "top";
+    labelPosition?: 'left-top' | 'center' | 'top';
     inputGroup?: boolean;
     labelColor?: string;
     required?: boolean;
-    type?: "text" | "datetime-local" | "date" | "time" | "number";
+    type?: 'text' | 'datetime-local' | 'date' | 'time' | 'number';
     defaultValue?: any;
-    size?: "large" | "middle" | "small" | undefined;
+    size?: 'large' | 'middle' | 'small' | undefined;
     externalClassName?: string;
     prefixContent?: any;
     suffixContent?: any;
@@ -38,16 +39,17 @@ export interface InputRef {
 const Input: React.ForwardRefRenderFunction<InputRef, InputProps> = (
     {
         name,
+        isFormItem,
         errMsg,
         labelWidth,
         commonSuffixIcon,
         inputGroup = false,
         width,
         label,
-        labelPosition = "center",
+        labelPosition = 'center',
         labelColor,
         required = false,
-        type = "text",
+        type = 'text',
         defaultValue,
         size,
         externalClassName,
@@ -70,7 +72,7 @@ const Input: React.ForwardRefRenderFunction<InputRef, InputProps> = (
     const [value, setValue] = useState(defaultValue ?? '');
 
     const cls = classNames({
-        "input-group": suffixContent || prefixContent,
+        'input-group': suffixContent || prefixContent,
         [`input-group-${size}`]: size,
         [externalClassName as string]: externalClassName,
     });
@@ -110,13 +112,13 @@ const Input: React.ForwardRefRenderFunction<InputRef, InputProps> = (
         }
     };
     const clear = () => {
-        setValue("");
+        setValue('');
     };
 
     const handleClickCommonSuffixIcon = () => {
         clear();
-        setError(true);
-    }
+        if (required) setError(true);
+    };
 
     // Expose validate method via ref
     useImperativeHandle(ref, () => ({
@@ -128,23 +130,31 @@ const Input: React.ForwardRefRenderFunction<InputRef, InputProps> = (
         if (defaultValue || defaultValue === 0) {
             setValue(defaultValue);
         } else {
-            setValue("");
+            setValue('');
         }
     }, [defaultValue]);
 
     return (
-        <div className={`${cls} input-wrapper ${inputGroup ? "" : "lable-in-control"} ${!error && "mb-3"}`} style={{ width }}>
-            <div className={`content-box icon-input ${inputGroup ? "input-group" : ""} label-in-${labelPosition}`}>
-                {prefixContent && <span className="input-group-text" id="basic-addon1">{prefixContent}</span>}
-                {label && <div className="label-box" style={{ color: labelColor, width: labelWidth }}>{label}</div>}
+        <div className={`${cls} input-wrapper ${inputGroup ? '' : 'lable-in-control'} ${!error && isFormItem && 'mb-3'}`} style={{ width }}>
+            <div className={`content-box icon-input ${inputGroup ? 'input-group' : ''} label-in-${labelPosition}`}>
+                {prefixContent && (
+                    <span className="input-group-text" id="basic-addon1">
+                        {prefixContent}
+                    </span>
+                )}
+                {label && (
+                    <div className="label-box" style={{ color: labelColor, width: labelWidth }}>
+                        {label}
+                    </div>
+                )}
                 <input
                     ref={inputRef}
                     required={required}
                     style={{
-                        borderRadius: "6px",
+                        borderRadius: '6px',
                         borderTopLeftRadius: prefixContent ? 0 : '6px',
                         borderBottomLeftRadius: prefixContent ? 0 : '6px',
-                        background: transparent ? "transparent" : "#fff",
+                        background: transparent ? 'transparent' : '#fff',
                     }}
                     step={1}
                     name={name}
@@ -161,16 +171,28 @@ const Input: React.ForwardRefRenderFunction<InputRef, InputProps> = (
                     aria-describedby="basic-addon1"
                 />
                 {commonSuffixIcon && <i onClick={handleClickCommonSuffixIcon} className={`${commonSuffixIcon} common-suffix-icon ms-2`}></i>}
-                <div onClick={handleIconClick} className="suffix-icon" style={{ right: commonSuffixIcon && "32px" }}>
+                <div onClick={handleIconClick} className="suffix-icon" style={{ right: commonSuffixIcon && '32px' }}>
                     {children}
                 </div>
             </div>
-            {suffixContent && <span className="input-group-text" id="basic-addon2">{suffixContent}</span>}
-            {error && required && <div className="animate__animated animate__fadeIn mb-1" style={{ color: "#DC3545", fontSize: "14px", paddingLeft: parseInt(labelWidth) > 120 ? "120px" : labelWidth }}>{`${errMsg || `${name}不能为空`}`}</div>}
+            {suffixContent && (
+                <span className="input-group-text" id="basic-addon2">
+                    {suffixContent}
+                </span>
+            )}
+            {error && required && (
+                <div
+                    className="animate__animated animate__fadeIn mb-1"
+                    style={{
+                        color: '#DC3545',
+                        fontSize: '14px',
+                        paddingLeft: parseInt(labelWidth) > 120 ? '120px' : labelWidth,
+                    }}
+                >{`${errMsg || `${label}不能为空`}`}</div>
+            )}
         </div>
     );
 };
-
-Input.displayName = "Input";
+Input.displayName = 'Input';
 
 export default forwardRef(Input);

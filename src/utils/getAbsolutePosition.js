@@ -1,4 +1,4 @@
-function getAbsolutePositionOfStage(domElement, left= 0, top= 0) {
+function getAbsolutePosition(domElement, left= 0, top= 0) {
     if (!parseInt(left)) {
         left = 0;
     } else {
@@ -28,4 +28,4 @@ function getAbsolutePositionOfStage(domElement, left= 0, top= 0) {
     return attr;
 }
 
-export default getAbsolutePositionOfStage;
+export default getAbsolutePosition;

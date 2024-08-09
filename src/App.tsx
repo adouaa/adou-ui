@@ -1,5 +1,6 @@
 import Button from 'components/adou-button';
 import Collapse from 'components/adou-collapse';
+import ResizableSidebar from 'components/adou-resizeable-sliderbar';
 import TimeLine from 'components/adou-time-line';
 import TimeLineItem from 'components/adou-time-line/adou-time-line-item';
 import React, { useState } from 'react';
@@ -75,40 +76,39 @@ const App = () => {
     };
     return (
         <div>
-            <Collapse firstShow={true} header={<Button>点击</Button>}>
-                <Button type="success" onClickOK={handleTest}>
-                    测试
-                </Button>
-                <TimeLine vertical events={events}>
-                    <TimeLineItem render={render}></TimeLineItem>
+            <ResizableSidebar>
+                <Collapse firstShow={true} header={<Button type="primary">点击</Button>}>
+                    <TimeLine vertical events={events}>
+                        <TimeLineItem render={render}></TimeLineItem>
 
-                    <TimeLineItem render={render}></TimeLineItem>
-                    <TimeLineItem
-                        render={(event: any, timeLineWidth: any, timeLineHeight: any, isLasted: any) => (
-                            <>
-                                <div className={`content`}>
-                                    <div className="icon">
-                                        <i className={`fs-5 fa-solid fa-circle-check ${event.isFinish ? 'finished' : 'un-finish'}`}></i>
+                        <TimeLineItem render={render}></TimeLineItem>
+                        <TimeLineItem
+                            render={(event: any, timeLineWidth: any, timeLineHeight: any, isLasted: any) => (
+                                <>
+                                    <div className={`content`}>
+                                        <div className="icon">
+                                            <i className={`fs-5 fa-solid fa-circle-check ${event.isFinish ? 'finished' : 'un-finish'}`}></i>
+                                        </div>
+                                        <div className="timeline-date">{event.date}</div>
+                                        <div className="timeline-content">
+                                            <h4>{event.title}</h4>
+                                            <p>{event.description}</p>
+                                        </div>
+                                        {!isLasted && (
+                                            <div
+                                                style={{ width: timeLineWidth, height: timeLineHeight }}
+                                                className={`timeline-line ${event.isFinish ? 'finished' : 'un-finish'}`}
+                                            ></div>
+                                        )}{' '}
+                                        {/* 连接线 */}
                                     </div>
-                                    <div className="timeline-date">{event.date}</div>
-                                    <div className="timeline-content">
-                                        <h4>{event.title}</h4>
-                                        <p>{event.description}</p>
-                                    </div>
-                                    {!isLasted && (
-                                        <div
-                                            style={{ width: timeLineWidth, height: timeLineHeight }}
-                                            className={`timeline-line ${event.isFinish ? 'finished' : 'un-finish'}`}
-                                        ></div>
-                                    )}{' '}
-                                    {/* 连接线 */}
-                                </div>
-                            </>
-                        )}
-                    ></TimeLineItem>
-                    <TimeLineItem render={render}></TimeLineItem>
-                </TimeLine>
-            </Collapse>
+                                </>
+                            )}
+                        ></TimeLineItem>
+                        <TimeLineItem render={render}></TimeLineItem>
+                    </TimeLine>
+                </Collapse>
+            </ResizableSidebar>
         </div>
     );
 };

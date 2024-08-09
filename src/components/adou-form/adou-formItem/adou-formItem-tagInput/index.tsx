@@ -1,36 +1,33 @@
-import React, { useContext, useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from 'react';
 
-import "./index.scss";
-import { withTranslation } from "react-i18next"
-import { FormContext, FormContextProps } from "components/adou-form";
+import './index.scss';
+import { withTranslation } from 'react-i18next';
+import { FormContext, FormContextProps } from 'components/adou-form';
 
 interface TagInputProps {
-    defaultValue?: any
+    defaultValue?: any;
 }
 
 const TagInput = (props: TagInputProps) => {
-
     const { defaultValue = [] } = props;
 
     const context: FormContextProps = useContext(FormContext);
 
-
     const [inputList, setInputList] = useState<any>(defaultValue || context.formData[context.name as string] || []);
 
-    const [inputValue, setInputValue] = useState("");
-
+    const [inputValue, setInputValue] = useState('');
 
     const [isHighlighted, setIsHighlighted] = useState(false);
 
     const addInput = () => {
         setInputList([...inputList, inputValue]);
-        setInputValue("");
+        setInputValue('');
         context.checkValidate(1);
-    }
+    };
 
     const handleInputChange = (e: any) => {
         setInputValue(e.target.value);
-    }
+    };
 
     const handleKeyDown = (event: any) => {
         const value = event.target.value.trim(); // 会有一个空格存在，要去掉
@@ -40,29 +37,28 @@ const TagInput = (props: TagInputProps) => {
             event.preventDefault(); // 阻止默认行为，防止提交表单或失去焦点
             flag = inputList.length > 0 && inputList.some((item: any) => item === value);
             !flag && addInput();
-        } 
-
+        }
     };
 
     const handleDeleteItem = (item: any) => {
         const tagList = inputList.filter((value: any) => item !== value);
-        setInputList(tagList)
+        setInputList(tagList);
         // 注意，这边不能直接用 inputList给 formData赋值，会出现不一致的情况
-        
+
         context.handleChange(context.name, tagList);
         context.checkValidate(inputList.filter((v: any) => v !== item).length);
-    }
+    };
 
     const handleBlur = () => {
         // 注意，这边要在 inpuut失焦的时候触发，不能在 input change的时候触发，不然会出现校验错误
         context.handleChange(context.name, inputList);
         context.checkValidate(inputList.length);
         setIsHighlighted(false);
-    }
+    };
 
     const handleFocus = () => {
         setIsHighlighted(true);
-    }
+    };
 
     useEffect(() => {
         if (defaultValue.length) {
@@ -71,32 +67,47 @@ const TagInput = (props: TagInputProps) => {
         } else {
             setInputList([]);
         }
-    }, [defaultValue])
+    }, [defaultValue]);
 
     useEffect(() => {
-        
-        setInputList(context.formData[context.name as string] || "");
-    }, [context.formData[context.name as string]])
+        setInputList(context.formData[context.name as string] || '');
+    }, [context.formData[context.name as string]]);
 
-    return <>
-    {/* 实现点击后高亮，div必须加上 form-control，这个类名会空值高亮以动画效果出现。并且 focus类名必须动态添加 */}
-        <div className={`tag-input-wrapper form-control ${isHighlighted && "focus"}`}>
-            <div className="tag-input-content">
-                <ul className="tag-input-list">
-                    {inputList.length > 0 && inputList.map((item: any) => {
-                        return <li className="list-item" key={item}>
-                        {item}
-                        <span onClick={() => handleDeleteItem(item)} className="item-icon">x</span>
-                    </li>
-                    })}
-                </ul>
-                <div className="tag-input-control">
-                    <input value={inputValue} autoComplete="off" onFocus={handleFocus} onBlur={handleBlur} onChange={(e) => handleInputChange(e)} onKeyDown={handleKeyDown} placeholder="空格或回车分割" type="text" className="input"></input>
+    return (
+        <>
+            {/* 实现点击后高亮，div必须加上 form-control，这个类名会空值高亮以动画效果出现。并且 focus类名必须动态添加 */}
+            <div className={`tag-input-wrapper form-control ${isHighlighted && 'focus'}`}>
+                <div className="tag-input-content">
+                    <ul className="tag-input-list">
+                        {inputList.length > 0 &&
+                            inputList.map((item: any) => {
+                                return (
+                                    <li className="list-item" key={item}>
+                                        {item}
+                                        <span onClick={() => handleDeleteItem(item)} className="item-icon">
+                                            x
+                                        </span>
+                                    </li>
+                                );
+                            })}
+                    </ul>
+                    <div className="tag-input-control">
+                        <input
+                            value={inputValue}
+                            autoComplete="off"
+                            onFocus={handleFocus}
+                            onBlur={handleBlur}
+                            onChange={(e) => handleInputChange(e)}
+                            onKeyDown={handleKeyDown}
+                            placeholder="空格或回车分割"
+                            type="text"
+                            className="input"
+                        ></input>
+                    </div>
                 </div>
             </div>
-        </div>
-    </>
-}
-
+        </>
+    );
+};
 
 export default withTranslation()(TagInput);

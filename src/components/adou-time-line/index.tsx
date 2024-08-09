@@ -1,4 +1,6 @@
-import React, { useEffect, useRef } from 'react';
+import React, { useRef } from 'react';
+import TimeLineItem from './adou-time-line-item';
+
 import './index.scss'; // 引入样式文件
 
 interface TimeLineProps {
@@ -7,8 +9,9 @@ interface TimeLineProps {
     children?: any;
 }
 
-const TimeLine = ({ children, events,vertical = true }: TimeLineProps) => {
+export { TimeLineItem };
 
+const TimeLine = ({ children, events, vertical = true }: TimeLineProps) => {
     const timeLineContentBoxRef = useRef<any>();
 
     const renderChildren = () => {
@@ -20,19 +23,15 @@ const TimeLine = ({ children, events,vertical = true }: TimeLineProps) => {
         events.map((event: any, index: number, self: any[]) => {
             childrenArr.forEach((chid: any, i: number) => {
                 if (index === i) {
-                    console.log(i);
-                    console.log(self);
-                    
-                    const props = chid.props;
                     const enhancedChild = React.cloneElement(chid, {
                         data: event,
                         vertical: vertical,
-                        isLasted: i === self.length - 1
-                    })
+                        isLasted: i === self.length - 1,
+                    });
                     enhancedChildren.push(enhancedChild);
                 }
-            })
-        })
+            });
+        });
         {
             /* events.map((event: any, index: number, self: any[]) => (
                 <div ref={timeLineContentBoxRef} className='time-line-content-box' key={event.id}>
@@ -40,23 +39,14 @@ const TimeLine = ({ children, events,vertical = true }: TimeLineProps) => {
                 </div>
             )) */
         }
-        return enhancedChildren.map((item: any, index: number) =>
-            <div className='time-line-item' key={index}>
+        return enhancedChildren.map((item: any, index: number) => (
+            <div className="time-line-item" key={index}>
                 {item}
-            </div>)
-    }
+            </div>
+        ));
+    };
 
-    useEffect(() => {
-        // console.log(timeLineContentBoxRef.current.scrollHeight);
-
-    }, []);
-
-    return (
-        <div className={`time-line-wrapper-${vertical ? "y" : "x"}`}>
-            {renderChildren()}
-        </div>
-    );
+    return <div className={`time-line-wrapper-${vertical ? 'y' : 'x'} pt-2`}>{renderChildren()}</div>;
 };
-
 
 export default TimeLine;
