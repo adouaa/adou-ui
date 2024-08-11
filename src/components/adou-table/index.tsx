@@ -7,6 +7,7 @@ import './index.scss';
 export { EditableTableCell };
 
 interface TableProps {
+    textPosition?: 'center' | 'left' | 'right' | 'justify';
     collection?: boolean;
     collapse?: boolean;
     expandAll?: boolean;
@@ -36,6 +37,7 @@ interface TableProps {
 
 const Table = (props: TableProps) => {
     const {
+        textPosition,
         collection,
         collapse,
         expandAll = true,
@@ -92,7 +94,6 @@ const Table = (props: TableProps) => {
         } else {
             array = props.children;
         }
-        console.log(array);
 
         let widthObject: any = {};
         const textPositionObject: any = {};
@@ -117,7 +118,7 @@ const Table = (props: TableProps) => {
                             <>
                                 {/* 复选框 */}
                                 <th scope="col" style={{ width: '50px' }}>
-                                    <input type="checkbox" />
+                                    <input checked={checkedAll} onChange={handleCheckedAllChange} type="checkbox" />
                                 </th>
                             </>
                         )}
@@ -142,17 +143,18 @@ const Table = (props: TableProps) => {
                     {tabelData.length > 0 &&
                         tabelData.map((data: any, rowIndex: number) => {
                             return (
-                                <Fragment key={data.teamId}>
+                                <Fragment key={data.id}>
                                     <tr key={rowIndex}>
                                         {collection && (
                                             <td scope="row" style={{ width: '50px' }}>
-                                                <input type="checkbox" />
+                                                <input checked={data.checked} onChange={(e) => handleCheckboxChange(e, data)} type="checkbox" />
                                             </td>
                                         )}
                                         {React.Children.map(array, (child, colIndex) => {
                                             let prop = (child as React.ReactElement).props.prop;
                                             if (React.isValidElement(child)) {
                                                 const enhancedChild = React.cloneElement(child, {
+                                                    onCollapseClick: handleCollapseClick,
                                                     value: data[`${prop}`],
                                                     rowData: data,
                                                     eidtable,
@@ -161,6 +163,7 @@ const Table = (props: TableProps) => {
                                                     colIndex: colIndex,
                                                     canCollapse: data.children,
                                                     collapse: collapse,
+                                                    textPosition,
                                                     width: widthObject[(child as React.ReactElement).props.prop],
                                                 } as React.Attributes);
                                                 return (
@@ -172,18 +175,12 @@ const Table = (props: TableProps) => {
                                                             overflowWrap: 'break-word',
                                                             wordWrap: 'break-word',
                                                             wordBreak: 'break-word',
+                                                            [`${!colIndex && !data.children ? 'paddingLeft' : ''}`]: '35px',
                                                         }}
                                                         key={colIndex}
                                                     >
                                                         <div className="d-flex collapse-table-td">
-                                                            {!colIndex && collapse && data.children ? (
-                                                                <i
-                                                                    onClick={() => handleCollapseClick(data, rowIndex)}
-                                                                    className={`fa-solid ${data.collapse ? 'rotate-down' : ''} collapse-icon fa-chevron-right me-2`}
-                                                                ></i>
-                                                            ) : (
-                                                                ''
-                                                            )}
+                                                            {!colIndex && collapse && data.children ? '' : ''}
                                                             {enhancedChild}
                                                         </div>
                                                     </td>
@@ -194,23 +191,24 @@ const Table = (props: TableProps) => {
                                     {/* 展开行 */}
                                     {data.collapse &&
                                         data.children &&
-                                        data.children.map((member: any) => (
-                                            <tr className="collapse-table-tr" key={member.teamId} style={{ [`${!data.collapse ? 'display' : ''}`]: 'none' }}>
+                                        data.children.map((childData: any) => (
+                                            <tr className="collapse-table-tr" key={childData.id} style={{ [`${!data.collapse ? 'display' : ''}`]: 'none' }}>
                                                 {collection && (
                                                     <td scope="row" style={{ width: '50px' }}>
-                                                        <input type="checkbox" />
+                                                        <input checked={childData.checked} onChange={(e: any) => handleCheckboxChange(e, childData)} type="checkbox" />
                                                     </td>
                                                 )}
                                                 {React.Children.map(array, (child, colIndex) => {
                                                     let prop = (child as React.ReactElement).props.prop;
                                                     if (React.isValidElement(child)) {
                                                         const enhancedChild = React.cloneElement(child, {
-                                                            value: member[prop],
-                                                            rowData: member,
+                                                            value: childData[prop],
+                                                            rowData: childData,
                                                             eidtable,
                                                             prop: prop,
                                                             rowIndex: rowIndex,
                                                             colIndex: colIndex,
+                                                            textPosition,
                                                         } as React.Attributes);
                                                         return (
                                                             <td
@@ -221,7 +219,7 @@ const Table = (props: TableProps) => {
                                                                     overflowWrap: 'break-word',
                                                                     wordWrap: 'break-word',
                                                                     wordBreak: 'break-word',
-                                                                    paddingLeft: '20px',
+                                                                    [`${!colIndex ? 'paddingLeft' : ''}`]: '60px',
                                                                 }}
                                                                 key={colIndex}
                                                             >
@@ -258,7 +256,61 @@ const Table = (props: TableProps) => {
         return labelLengthObj;
     };
 
+    // 选择逻辑
+    const [checkedAll, setCheckedAll] = useState<boolean>(false);
+    const handleCheckboxChange = (e: any, row: any) => {
+        const checked = e.target.checked;
+        row.checked = checked;
+        setTableData((preArr: any) => {
+            return preArr.map((item: any) => {
+                if (item.id === row.id) {
+                    item.checked = checked;
+                }
+                return item;
+            });
+        });
+        setCheckedAll(areAllChecked(tabelData));
+    };
+
+    function areAllChecked(data: any[]) {
+        // 遍历数组中的每个对象
+        return data.every((item) => {
+            // 检查当前对象的 `checked` 属性
+            if (!item.checked) return false;
+
+            // 如果对象有 `children` 属性，递归检查其子对象
+            if (item.children) {
+                return areAllChecked(item.children);
+            }
+
+            return true;
+        });
+    }
+
+    const handleCheckedAllChange = (e: any) => {
+        const checkedAll = e.target.checked;
+        setCheckedAll(checkedAll);
+
+        const updateCheckedState = (data: any[]) => {
+            return data.map((item: any) => {
+                // 更新当前项目的 `checked` 状态
+                item.checked = checkedAll;
+
+                // 如果当前项目有 `children` 属性，递归更新其 `children` 的 `checked` 状态
+                if (item.children) {
+                    item.children = updateCheckedState(item.children);
+                }
+
+                return item;
+            });
+        };
+
+        setTableData(updateCheckedState(tabelData) as any);
+    };
+
     useEffect(() => {
+        const checkedAll = areAllChecked(data);
+        setCheckedAll(checkedAll);
         if (collapse) {
             setTableData(
                 data.map((item: any) => {

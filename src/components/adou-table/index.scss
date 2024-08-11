@@ -5,18 +5,6 @@
     // line-height: 0.8;
 }
 
-.collapse-icon {
-    padding: 0 10px;
-    transition: transform .3s ease; // 旋转动画
-    cursor: pointer;
-    z-index: 1;
-    margin-bottom: 6px;
-}
-
-.rotate-down {
-    transform: rotate(90deg);
-    /* 不旋转，向下箭头样式 */
-}
 
 
 // 添加展开的动画

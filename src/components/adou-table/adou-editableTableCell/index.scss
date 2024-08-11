@@ -1,9 +1,41 @@
 .edit-table-cell-wrapper {
-    .edit-table-cell-value {
+    box-sizing: border-box;
+
+    .edit-able-table-cell-content {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+
+        .collapse-icon {
+            margin-top: 4px;
+            font-size: 12px;
+            padding: 0 10px;
+            transition: transform .3s ease; // 旋转动画
+            cursor: pointer;
+            z-index: 1;
+            margin-bottom: 6px;
+        }
+
+        .rotate-down {
+            transform: rotate(90deg);
+            margin-top: 5px;
+            /* 不旋转，向下箭头样式 */
+        }
+
+        .collapse-icon:not(.rotate-down) {
+            margin-top: 5px;
+        }
+
+    }
+
+    .text-in-one-line {
         white-space: nowrap;
         overflow: hidden;
         text-overflow: ellipsis;
     }
 
-    
+    .edit-table-cell-value-left {
+        flex: 1;
+        text-align-last: left;
+    }
 }
