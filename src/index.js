@@ -23,7 +23,9 @@ export {
  */
 import React from 'react';
 import ReactDOM from 'react-dom/client';
-import App from './App-special-table';
+// import App from './App-special-table';
+// import App from './App-copy-text';
+import App from './App-calendar';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './App.css';
 import './index.scss';

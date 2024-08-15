@@ -1,7 +1,6 @@
 import { withTranslation } from 'react-i18next';
 import classNames from 'classnames';
 import React, { useContext } from 'react';
-import './index.scss';
 import { FormContext, FormContextProps } from '../../../adou-form';
 
 import { useEffect, useRef, useState } from 'react';

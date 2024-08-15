@@ -1,0 +1,46 @@
+.calendar-container {
+  max-width: 800px;
+  margin: 20px auto;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  overflow: hidden;
+}
+
+.calendar-table {
+  width: 100%;
+  border-collapse: collapse;
+  table-layout: fixed;
+  /* 设置为固定布局 */
+}
+
+.calendar-table th,
+.calendar-table td {
+  border: 1px solid #ccc;
+  padding: 10px;
+  text-align: center;
+  overflow: hidden;
+  /* 防止内容溢出 */
+  text-overflow: ellipsis;
+  /* 超出部分用省略号表示 */
+  white-space: nowrap;
+  /* 防止自动换行 */
+}
+
+.calendar-table th {
+  background-color: #f4f4f4;
+}
+
+.calendar-cell {
+  height: 60px;
+  /* 控制每个时间段单元格的高度 */
+  cursor: pointer;
+}
+
+.calendar-cell:hover {
+  background-color: #e9ecef;
+  /* 悬停效果 */
+}
+
+.gray {
+  color: gray; // 设置文字颜色为灰色
+}
