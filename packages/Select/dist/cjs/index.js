@@ -7071,6 +7071,9 @@ var Utils = __webpack_require__(36);
 
 const Select = /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().forwardRef((props, ref) => {
   const {
+    rounded,
+    minWidth = "205px",
+    optionContentMaxHeight = "300px",
     commonSuffixIcon,
     isFormItem,
     errMsg,
@@ -7115,23 +7118,19 @@ const Select = /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_a
     setError(false);
   };
   (0,external_root_React_commonjs2_react_commonjs_react_amd_react_.useEffect)(() => {
-    console.log(defaultValue);
     if (defaultValue) {
       const selectOption = options.find(option => option.value === defaultValue);
       setValue(selectOption);
     } else {
       setValue(""); // 如果没有默认值，重置为初始状态
     }
-  }, [defaultValue]);
+  }, [defaultValue, options]);
   (0,external_root_React_commonjs2_react_commonjs_react_amd_react_.useEffect)(() => {
     // setValue({}) // 不知道要不要加 -- 不能加，加完之后会出现默认值无法赋值。。。
 
     if (showEmpty) {
       // 创建一个新数组，将 "空" 选项添加在数组的开头
-      const enhancedOptions = [{
-        label: "空",
-        value: ""
-      }, ...options];
+      const enhancedOptions = [...options];
       setNewOptions(enhancedOptions);
     } else {
       setNewOptions(options);
@@ -7230,7 +7229,11 @@ const Select = /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_a
     className: "custom-select form-control",
     style: {
       textAlign: "left",
-      background: transparent ? "transparent" : "#fff"
+      background: transparent ? "transparent" : "#fff",
+      minWidth,
+      ...(rounded ? {
+        borderRadius: "20px"
+      } : {})
     }
   }, value !== null && value !== void 0 && value.value ? /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("span", {
     className: "select-value"
@@ -7246,7 +7249,10 @@ const Select = /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_a
     style: {
       position: "absolute",
       top: customSelectContentPosition.y + customSelectContentPosition.height + "px",
-      left: customSelectContentPosition.x + "px"
+      left: customSelectContentPosition.x + "px",
+      ...(showOptions ? {
+        maxHeight: optionContentMaxHeight
+      } : {})
     },
     ref: contentRef,
     className: "custom-select-content ".concat(showOptions ? "custom-select-content-open" : "")

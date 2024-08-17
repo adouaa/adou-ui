@@ -2,6 +2,9 @@ import React from "react";
 import "./index.scss";
 export interface SelectProps {
     name?: string;
+    rounded?: boolean;
+    minWidth?: any;
+    optionContentMaxHeight?: any;
     isFormItem?: boolean;
     validate?: boolean;
     errMsg?: string;
@@ -27,6 +30,9 @@ export interface SelectProps {
 declare const _default: React.ComponentType<Omit<{
     ref?: React.LegacyRef<unknown> | undefined;
     name?: string | undefined;
+    rounded?: boolean | undefined;
+    minWidth?: any;
+    optionContentMaxHeight?: any;
     isFormItem?: boolean | undefined;
     validate?: boolean | undefined;
     errMsg?: string | undefined;
