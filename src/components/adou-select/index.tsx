@@ -7,6 +7,9 @@ import ReactDOM from 'react-dom';
 
 export interface SelectProps {
     name?: string;
+    rounded?: boolean;
+    minWidth?: any;
+    optionContentMaxHeight?: any;
     isFormItem?: boolean;
     validate?: boolean;
     errMsg?: string;
@@ -32,6 +35,9 @@ export interface SelectProps {
 
 const Select = React.forwardRef((props: SelectProps, ref) => {
     const {
+        rounded,
+        minWidth = '205px',
+        optionContentMaxHeight = '300px',
         commonSuffixIcon,
         isFormItem,
         errMsg,
@@ -80,22 +86,20 @@ const Select = React.forwardRef((props: SelectProps, ref) => {
     };
 
     useEffect(() => {
-        console.log(defaultValue);
-
         if (defaultValue) {
             const selectOption = options.find((option) => option.value === defaultValue);
             setValue(selectOption);
         } else {
             setValue(''); // 如果没有默认值，重置为初始状态
         }
-    }, [defaultValue]);
+    }, [defaultValue, options]);
 
     useEffect(() => {
         // setValue({}) // 不知道要不要加 -- 不能加，加完之后会出现默认值无法赋值。。。
 
         if (showEmpty) {
             // 创建一个新数组，将 "空" 选项添加在数组的开头
-            const enhancedOptions = [{ label: '空', value: '' }, ...options];
+            const enhancedOptions = [...options];
             setNewOptions(enhancedOptions);
         } else {
             setNewOptions(options);
@@ -192,10 +196,12 @@ const Select = React.forwardRef((props: SelectProps, ref) => {
                         ref={customSelectRef}
                         onClick={(e: any) => handleDivClock(e)}
                         tabIndex={1}
-                        className="custom-select form-control"
+                        className={`custom-select form-control`}
                         style={{
                             textAlign: 'left',
                             background: transparent ? 'transparent' : '#fff',
+                            minWidth,
+                            ...(rounded ? { borderRadius: '20px' } : {}),
                         }}
                     >
                         {value?.value ? <span className="select-value">{value.label}</span> : <span className="select-placeholder">{placeholder}</span>}
@@ -209,6 +215,7 @@ const Select = React.forwardRef((props: SelectProps, ref) => {
                                 position: 'absolute',
                                 top: customSelectContentPosition.y + customSelectContentPosition.height + 'px',
                                 left: customSelectContentPosition.x + 'px',
+                                ...(showOptions ? { maxHeight: optionContentMaxHeight } : {}),
                             }}
                             ref={contentRef}
                             className={`custom-select-content ${showOptions ? 'custom-select-content-open' : ''}`}

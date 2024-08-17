@@ -1,46 +1,198 @@
 .calendar-container {
-  max-width: 800px;
+  position: relative;
+  max-width: 648px;
+  height: 514px;
   margin: 20px auto;
-  border: 1px solid #ccc;
-  border-radius: 5px;
-  overflow: hidden;
-}
+  border: 1px solid #f1efef;
+  border-radius: 6px;
+  box-shadow: 0 0 0 1px rgba(0, 0, 0, .05);
 
-.calendar-table {
-  width: 100%;
-  border-collapse: collapse;
-  table-layout: fixed;
-  /* 设置为固定布局 */
-}
+  .calendar-header {
+    .current-date-info {
+      color: #3b3b3b;
+      height: 104px;
+      display: flex;
+      align-items: center;
+      background: linear-gradient(to top right, rgba(17, 66, 140, 0) 39.52%, rgba(17, 66, 140, .1) 99.12%);
+      min-height: 88px;
+      padding-left: 12px;
+      padding-bottom: 16px;
 
-.calendar-table th,
-.calendar-table td {
-  border: 1px solid #ccc;
-  padding: 10px;
-  text-align: center;
-  overflow: hidden;
-  /* 防止内容溢出 */
-  text-overflow: ellipsis;
-  /* 超出部分用省略号表示 */
-  white-space: nowrap;
-  /* 防止自动换行 */
-}
+      .left {
+        background-color: #fff;
+        border: 1px solid rgba(52, 116, 10, .2);
+        border-radius: 8px;
+        display: flex;
+        flex-direction: column;
+        height: 64px;
+        justify-content: center;
+        text-align: center;
+        width: 64px;
 
-.calendar-table th {
-  background-color: #f4f4f4;
-}
+        .day-box {
+          color: #11428c;
+          font-size: 12px;
+        }
 
-.calendar-cell {
-  height: 60px;
-  /* 控制每个时间段单元格的高度 */
-  cursor: pointer;
-}
+        .date-box {
+          font-weight: bold;
+          font-size: 28px;
+          color: #444444;
+          line-height: 0.9;
+        }
+      }
 
-.calendar-cell:hover {
-  background-color: #e9ecef;
-  /* 悬停效果 */
-}
+      .right {
+        font-weight: bold;
+        font-size: 20px;
+        color: #11428c;
+        display: flex;
+      }
+    }
 
-.gray {
-  color: gray; // 设置文字颜色为灰色
+    .calendar-option {
+      padding: 0 20px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+
+      .left {
+        display: flex;
+      }
+
+      .right {
+        .today-btn {
+          width: 80px;
+          height: 30px;
+          color: #258ffa;
+          border: 1px solid #258ffa;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          border-radius: 18px;
+          cursor: pointer;
+        }
+
+        .today-btn:hover {
+          background-color: #f0f0f0;
+        }
+      }
+    }
+  }
+
+
+
+
+  .calendar-content {
+    padding: 0 20px 16px;
+    overflow: auto;
+
+    .calendar-table {
+      width: 100%;
+      border-collapse: collapse;
+      table-layout: fixed;
+      /* 设置为固定布局 */
+    }
+
+    .calendar-table tr {
+      margin-top: 10px;
+    }
+
+    .calendar-table th,
+    .calendar-table td {
+      text-align: center;
+      overflow: hidden;
+      /* 防止内容溢出 */
+      text-overflow: ellipsis;
+      /* 超出部分用省略号表示 */
+      white-space: nowrap;
+      /* 防止自动换行 */
+    }
+
+    .calendar-table th {
+      background-color: #fff;
+    }
+
+    .calendar-cell {
+      .calendar-cell-content {
+        color: #444444;
+        width: 80px;
+        height: 65px;
+        /* 控制每个时间段单元格的高度 */
+        cursor: pointer;
+        font-size: 20px;
+        font-weight: 600;
+        box-sizing: border-box;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+      }
+
+      .calendar-cell-content:hover {
+        background-color: #e9ecef;
+        border-radius: 8px;
+        /* 悬停效果 */
+      }
+
+      .active {
+        // border: 2px solid red;
+        color: #258ffa !important;
+        border-radius: 8px;
+        background-color: #e9ecef;
+
+      }
+    }
+
+
+  }
+
+  .calendar-content {
+    overflow: auto;
+    /* 允许滚动 */
+    scrollbar-width: none;
+    /* Firefox */
+  }
+
+  .calendar-content::-webkit-scrollbar {
+    display: none;
+    /* Safari 和 Chrome */
+  }
+
+  .gray {
+    color: #b4b4b4 !important; // 设置文字颜色为灰色
+  }
+
+  .pre-month-btn,
+  .next-month-btn {
+    background-color: #fff;
+    border-radius: 32px;
+    box-shadow: 0 2px 3px rgba(0, 0, 0, .1);
+    cursor: pointer;
+    fill: #767676;
+    height: 32px;
+    position: absolute;
+    top: 50%;
+    width: 32px;
+    border: 1px solid #ddd;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    /* 平滑过渡效果 */
+  }
+
+  .pre-month-btn {
+    left: -18px;
+  }
+
+  .month-btn:hover {
+    transform: scale(1.1);
+    /* 放大1.1倍 */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+    /* 添加阴影 */
+  }
+
+  .next-month-btn {
+    right: -18px;
+  }
 }

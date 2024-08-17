@@ -58,7 +58,6 @@ const Checkbox: React.FC<CheckboxProps> = (props: CheckboxProps) => {
     }
 
     useEffect(() => {
-        console.log(defaultValue);
         
         if (defaultValue.length) {
             if (context.formData) {
