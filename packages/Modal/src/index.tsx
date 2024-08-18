@@ -8,7 +8,7 @@ interface ModalProps {
   type?: string;
   title?: string;
   show: boolean;
-  content?: any;
+  children?: any;
   confirmText?: string;
   cancelText?: string;
   maxHeight?: any;
@@ -24,7 +24,7 @@ const Modal: React.FC<ModalProps> = ({
   type,
   title,
   show,
-  content,
+  children,
   confirmText,
   cancelText,
   maxHeight,
@@ -82,7 +82,6 @@ const Modal: React.FC<ModalProps> = ({
               id="exampleModal"
               tabIndex={-1}
               aria-labelledby="exampleModalLabel"
-              aria-hidden="true"
             >
               <div
                 className={`modal-dialog ${
@@ -112,7 +111,7 @@ const Modal: React.FC<ModalProps> = ({
                   >
                     {" "}
                     {/* 设置最大高度和滚动条 */}
-                    {content || "..."}
+                    {children || "..."}
                   </div>
                   <div className="modal-footer">
                     {showCancel ? (
