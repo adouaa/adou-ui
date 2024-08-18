@@ -1,12 +1,20 @@
 import React, { useEffect, useRef, useState } from 'react';
 import './index.scss'; // 引入样式
-import AdouSelect from '../../components/adou-select';
+import AdouSelect from '../adou-select';
+import AdouModal from 'components/adou-modal';
+import AdouNewForm from 'components/adou-new-form';
+import AdouInput from 'components/adou-Input';
 
-interface CalendarProps {
+interface EventCalendarProps {
     date?: Date;
+    data?: any[];
+    wrapperHeight?: any;
+    contentHeight?: any;
+    modalContent?: any;
+    renderEvent?: any;
 }
 
-const Calendar = ({ date }: CalendarProps) => {
+const EventCalendar = ({ date, wrapperHeight, contentHeight, data = [], modalContent, renderEvent }: EventCalendarProps) => {
     /**
      * 点击某天高亮的逻辑
      */
@@ -16,35 +24,65 @@ const Calendar = ({ date }: CalendarProps) => {
         setActiveId(dayInfo.id);
     };
 
-    const handleTimeLineChange = () => {};
+    /**
+     * 双击展示弹窗逻辑
+     */
+    const [dayInfo, setDayInfo] = useState<any>();
+    const [modalShow, setModalShow] = useState<boolean>(false);
+    const formRef = useRef<any>();
+    const handleTdDoubleClick = (dayInfo: any) => {
+        // console.log(dayInfo);
+
+        setDayInfo(dayInfo);
+
+        setModalShow(true);
+    };
+    const handleCloseModal = () => {
+        setModalShow(false);
+    };
+    const handleCofirmModal = () => {
+        const formData = formRef.current.getFormData();
+        setAllDays((preArr: any[]) =>
+            preArr.map((item: any) => {
+                if (item.id === dayInfo.id) {
+                    item.event = formData.event;
+                }
+                return item;
+            })
+        );
+        handleCloseModal();
+    };
 
     const [currentDate, setCurrentDate] = useState(date || new Date());
     const [currentMonth, setCurrentMonth] = useState<any>();
     const [currentYear, setCurrentYear] = useState<any>();
 
     const getCurrentYear = (year?: number) => {
+        if (!currentDate.getFullYear) return;
         let currentYear: any;
         if (year) {
             currentYear = year;
         } else {
-            currentYear = new Date().getFullYear();
+            currentYear = currentDate.getFullYear();
         }
         setCurrentYear(currentYear);
     };
 
     const getCurrentMonth = (month?: number) => {
+        if (!currentDate.getMonth) return;
         let currentMonth: any;
         if (month || month === 0) {
             // 因为月份列表是从0开始的，所以要加1
             currentMonth = month + 1;
         } else {
-            currentMonth = new Date().getMonth() + 1;
+            currentMonth = currentDate.getMonth() + 1;
         }
         setCurrentMonth(currentMonth);
     };
 
     // 获取指定月份的第一天和最后一天
     const getCurrentMonthFirstAndLastDate = (currentDate: any) => {
+        if (!currentDate.getFullYear) return;
         const year = currentDate.getFullYear();
         const month = currentDate.getMonth();
 
@@ -56,29 +94,21 @@ const Calendar = ({ date }: CalendarProps) => {
         return { firstDate, lastDate };
     };
 
-    const getCurrentMonthDays = () => {
-        const length = currentMonthLastDate.getDate();
-        return Array.from({ length }, (_, i) => {
-            return {
-                id: `${currentYear}-${currentMonth}-${i + 1}`,
-                day: i + 1,
-                isCurrentMonth: true,
-            };
-        });
-    };
-
     // 获取上一个月的天数
     const getPreviousMonthDays = (date: any) => {
-        const month = date.getMonth();
-        const year = date.getFullYear();
-        const lastMonth = new Date(year, month, 0);
-        // 上一个月的天数
-        const lastMonthDays = lastMonth.getDate();
-        return lastMonthDays;
+        if (date && date.getMonth) {
+            const month = date.getMonth();
+            const year = date.getFullYear();
+            const lastMonth = new Date(year, month, 0);
+            // 上一个月的天数
+            const lastMonthDays = lastMonth.getDate();
+            return lastMonthDays;
+        }
     };
 
     // 获取下一个月的天数
     const getNextMonthDays = (date: any) => {
+        if (!date.getMonth) return;
         const month = date.getMonth();
         const year = date.getFullYear();
         const nextMonth = new Date(year, month + 1, 1);
@@ -89,15 +119,48 @@ const Calendar = ({ date }: CalendarProps) => {
 
     // 获取上一个月需要展示在该月份的日期号数
     const getShouldShowPreMonthDays = () => {
-        return Array.from({ length: currentMonthFirstDay ? currentMonthFirstDay - 1 : 6 }, (_, i) => {
-            return { id: `${currentYear}-${currentMonth - 1}-${prevMonthDays - i}`, day: prevMonthDays - i, isCurrentMonth: false };
+        if (!currentMonthFirstDay && currentMonthFirstDay !== 0) return [];
+
+        const data_ = Array.from({ length: currentMonthFirstDay ? currentMonthFirstDay - 1 : 6 }, (_, i) => {
+            const findId = `${currentYear}-${currentMonth - 1}-${prevMonthDays - i}`;
+            const event = data.find((item: any) => item.id === findId);
+
+            return { id: `${currentYear}-${currentMonth - 1}-${prevMonthDays - i}`, event: event?.event, day: prevMonthDays - i, isCurrentMonth: false };
         }).reverse();
+
+        setshouldShowPreMonthDays(data_);
     };
-    // 获取下一个月需要展示在给月份的日期号数
-    const getShouldShowNextMonthDays = () => {
-        return Array.from({ length: 7 - currentMonthLastDay }, (_, i) => {
-            return { id: `${currentYear}-${currentMonth + 1}-${i + 1}`, day: i + 1, isCurrentMonth: false };
+
+    // 获取这个月需要展示在该月份的日期号数
+    const getCurrentMonthDays = () => {
+        if (!currentMonthLastDate || !currentMonthLastDate.getDate) return [];
+        const length = currentMonthLastDate.getDate();
+        const data_ = Array.from({ length }, (_, i) => {
+            const findId = `${currentYear}-${currentMonth}-${i + 1}`;
+            const event = data.find((item: any) => item.id === findId);
+
+            return {
+                id: `${currentYear}-${currentMonth}-${i + 1}`,
+                day: i + 1,
+                event: event?.event,
+                isCurrentMonth: true,
+            };
         });
+        setCurrentMonthDays(data_);
+    };
+
+    // 获取下一个月需要展示在该月份的日期号数
+    const getShouldShowNextMonthDays = () => {
+        if (!currentMonthLastDay) return [];
+
+        const data_ = Array.from({ length: 7 - currentMonthLastDay }, (_, i) => {
+            const findId = `${currentYear}-${currentMonth + 1}-${i + 1}`;
+            const event = data.find((item: any) => item.id === findId);
+            console.log(findId);
+            console.log(data);
+            return { id: `${currentYear}-${currentMonth + 1}-${i + 1}`, day: i + 1, event: event?.event, isCurrentMonth: false };
+        });
+        setShouldShowNextMonthDays(data_);
     };
 
     // 函数将数字数组分组，每组 7 个
@@ -112,34 +175,34 @@ const Calendar = ({ date }: CalendarProps) => {
     /**
      * 获取这个月的第一天和最后一天(date)
      */
-    const [currentMonthFirstAndLastDate, setFirstAndLastDate] = useState<any>(getCurrentMonthFirstAndLastDate(currentDate));
+    const [currentMonthFirstAndLastDate, setCurrentMonthFirstAndLastDate] = useState<any>({});
     // 这个月的第一天(date)
-    const [currentMonthFirstDate, setCurrentMonthFirstDate] = useState<any>(currentMonthFirstAndLastDate.firstDate);
+    const [currentMonthFirstDate, setCurrentMonthFirstDate] = useState<any>();
     // 这个月的最后一天(date)
-    const [currentMonthLastDate, setCurrentMonthLastDate] = useState<any>(currentMonthFirstAndLastDate.lastDate);
+    const [currentMonthLastDate, setCurrentMonthLastDate] = useState<any>();
 
     // 这个月第一天是星期几(day)
-    const [currentMonthFirstDay, setCurrentMonthFirstDay] = useState<any>(currentMonthFirstDate.getDay());
+    const [currentMonthFirstDay, setCurrentMonthFirstDay] = useState<any>();
     // 这个月最后一天是星期几(day)
-    const [currentMonthLastDay, setCurrentMonthLastDay] = useState<any>(currentMonthLastDate.getDay());
+    const [currentMonthLastDay, setCurrentMonthLastDay] = useState<any>();
 
     // 上一个月的天数
-    const [prevMonthDays, setPrevMonthDays] = useState<number>(getPreviousMonthDays(currentMonthFirstDate));
+    const [prevMonthDays, setPrevMonthDays] = useState<any>();
     // 下一个月的天数
-    const [nextMonthDays, setNextMonthDays] = useState<number>(getNextMonthDays(currentMonthFirstDate));
+    const [nextMonthDays, setNextMonthDays] = useState<any>();
 
     /**
      * 获取当前日历应该展示的所有日期
      */
     // 获取上一个月需要展示在该月份的日期号数
-    const [shouldShowPreMonthDays, setshouldShowPreMonthDays] = useState<any>(getShouldShowPreMonthDays());
+    const [shouldShowPreMonthDays, setshouldShowPreMonthDays] = useState<any>([]);
     // 下一个月需要展示在该月份的日期号数
-    const [shouldShowNextMonthDays, setShouldShowNextMonthDays] = useState<any>(getShouldShowNextMonthDays());
+    const [shouldShowNextMonthDays, setShouldShowNextMonthDays] = useState<any>([]);
 
     // 这月需要展示在该月份的日期号数
-    const [currentMonthDays, setCurrentMonthDays] = useState<any>(getCurrentMonthDays());
+    const [currentMonthDays, setCurrentMonthDays] = useState<any>([]);
     // 当前日历应该展示的所有日期
-    const [allDays, setAllDays] = useState<any[]>([...shouldShowPreMonthDays, ...currentMonthDays, ...shouldShowNextMonthDays]);
+    const [allDays, setAllDays] = useState<any[]>([]);
 
     // 分组后的最终展示的数据(七天一组，一个日历共展示 35天)
     const [finalShowData, setfinalShowData] = useState<any>([]);
@@ -177,7 +240,7 @@ const Calendar = ({ date }: CalendarProps) => {
     ]);
 
     // 获取当前月份的所有日期
-    const monthDays = Array.from({ length: currentMonthLastDate.getDate() }, (_, i) => i + 1);
+    // const monthDays = Array.from({ length: currentMonthLastDate.getDate() }, (_, i) => i + 1);
 
     /**
      * 展示在头部左上角的日期
@@ -258,7 +321,7 @@ const Calendar = ({ date }: CalendarProps) => {
     };
 
     // 获取上一个月的日期
-    const getPreviousMonthDate = (date: any = currentDate, step: number) => {
+    const getPreviousMonthDate = (date: any = currentDate, step: number = -1) => {
         let currentData = new Date(date);
         // 创建一个新的 Date 对象，避免修改原始日期
         const prevMonthDate = new Date(currentData.getFullYear(), currentData.getMonth() + step, currentData.getDate());
@@ -287,7 +350,14 @@ const Calendar = ({ date }: CalendarProps) => {
     const handleCalendarTableMaxHeight = () => {
         if (calendarContainerRef.current && calendarHeaderRef.current) {
             const calendarContainerHeight = calendarContainerRef.current.clientHeight - 8;
-            setCalendarTableMaxHeight(calendarContainerHeight - calendarHeaderRef.current.clientHeight);
+            const calendarHeaderHeight = calendarHeaderRef.current.clientHeight;
+            const height =
+                parseInt(contentHeight) > calendarContainerHeight - calendarHeaderHeight
+                    ? calendarContainerHeight - calendarHeaderHeight
+                    : !contentHeight
+                      ? calendarContainerHeight - calendarHeaderHeight
+                      : contentHeight;
+            setCalendarTableMaxHeight(height > 207 ? height : 207);
         }
     };
 
@@ -297,18 +367,12 @@ const Calendar = ({ date }: CalendarProps) => {
     }, []);
 
     useEffect(() => {
-        setFirstAndLastDate(getCurrentMonthFirstAndLastDate(currentDate));
+        setCurrentMonthFirstAndLastDate(getCurrentMonthFirstAndLastDate(currentDate));
         getTopLeftDay(currentDate);
         getTopLeftMonth(currentDate);
+        getCurrentYear();
+        getCurrentMonth();
     }, [currentDate]);
-
-    useEffect(() => {
-        setshouldShowPreMonthDays(getShouldShowPreMonthDays());
-        setShouldShowNextMonthDays(getShouldShowNextMonthDays());
-        setCurrentMonthDays(getCurrentMonthDays());
-        generateYears();
-        setActiveId(`${currentYear}-${currentMonth}-${currentDate.getDate()}`);
-    }, [currentMonth, currentYear, currentMonthFirstDay, currentMonthLastDay, currentMonthLastDate]);
 
     useEffect(() => {
         setCurrentMonthFirstDate(currentMonthFirstAndLastDate.firstDate);
@@ -316,6 +380,15 @@ const Calendar = ({ date }: CalendarProps) => {
     }, [currentMonthFirstAndLastDate]);
 
     useEffect(() => {
+        getShouldShowPreMonthDays();
+        getShouldShowNextMonthDays();
+        getCurrentMonthDays();
+        generateYears();
+        setActiveId(`${currentYear}-${currentMonth}-${currentDate.getDate()}`);
+    }, [currentMonth, currentYear, currentMonthFirstDay, currentMonthLastDay, currentMonthLastDate, prevMonthDays]);
+
+    useEffect(() => {
+        if (!currentMonthFirstDate || !currentMonthFirstDate.getDay) return;
         setCurrentMonthFirstDay(currentMonthFirstDate.getDay());
         setCurrentMonthLastDay(currentMonthLastDate.getDay());
         setPrevMonthDays(getPreviousMonthDays(currentMonthFirstDate));
@@ -330,10 +403,26 @@ const Calendar = ({ date }: CalendarProps) => {
         handleCalendarTableMaxHeight();
     }, [allDays]);
 
+    useEffect(() => {}, [finalShowData]);
+
+    useEffect(() => {
+        if (date) {
+            setCurrentDate(date!);
+        }
+        if (data.length) {
+            setAllDays(data);
+            if (date) {
+                setCurrentDate(date!);
+            } else {
+                setCurrentDate(new Date(data[0]?.id));
+            }
+        }
+    }, [data, date]);
+
     useEffect(() => {}, []);
 
     return (
-        <div className="calendar-container" ref={calendarContainerRef}>
+        <div className="calendar-container" ref={calendarContainerRef} style={{ height: wrapperHeight }}>
             {/*  <Button type="primary" size="sm" onClickOK={handleTestPreDate}>
                 测试上一天
             </Button>
@@ -392,11 +481,8 @@ const Calendar = ({ date }: CalendarProps) => {
                     </div>
                 </div>
             </div>
-            {/* <Button type="warning" size="sm" onClickOK={handleTimeLineChange}>
-                改变时间轴
-            </Button> */}
-            <div className="calendar-content mt-2" style={{ maxHeight: calendarTableMaxHeight }}>
-                <table className="calendar-table">
+            <div className="calendar-content mt-2" style={{ height: calendarTableMaxHeight }}>
+                <table className="calendar-table" style={{ height: '100%' }}>
                     <thead style={{ position: 'sticky', top: 0, zIndex: 1 }}>
                         <tr>
                             {/* <th>Time</th> */}
@@ -409,9 +495,12 @@ const Calendar = ({ date }: CalendarProps) => {
                         {finalShowData.map((week: any, weekIndex: number) => (
                             <tr key={weekIndex}>
                                 {week.map((dayInfo: any, dayIndex: number) => (
-                                    <td onClick={() => handleTdClick(dayInfo)} key={dayInfo.id} className={`calendar-cell`}>
-                                        <div className={`calendar-cell-content ${!dayInfo.isCurrentMonth ? 'gray' : ''}  ${activeId === dayInfo.id ? 'active' : ''}`}>
-                                            {dayInfo.day}
+                                    <td onDoubleClick={() => handleTdDoubleClick(dayInfo)} onClick={() => handleTdClick(dayInfo)} key={dayInfo.id} className={`calendar-cell`}>
+                                        <div className={`calendar-cell-content-box`}>
+                                            <span className={`calendar-cell-content-day ${!dayInfo.isCurrentMonth ? 'gray' : ''}  ${activeId === dayInfo.id ? 'active' : ''}`}>
+                                                {dayInfo.day}
+                                            </span>
+                                            <div className="calendar-cell-content-event">{renderEvent ? renderEvent(dayInfo) : dayInfo.event}</div>
                                         </div>
                                     </td>
                                 ))}
@@ -426,8 +515,17 @@ const Calendar = ({ date }: CalendarProps) => {
             <div onClick={() => getPreviousMonthDate(currentDate, 1)} className="month-btn next-month-btn">
                 <i className="fa-solid fa-angle-right "></i>
             </div>
+
+            {/* 事件弹窗 */}
+            <AdouModal show={modalShow} onCancel={handleCloseModal} onClose={handleCloseModal} onConfirm={handleCofirmModal}>
+                {
+                    <>
+                        <AdouNewForm ref={formRef}>{modalContent || <AdouInput label="事件" name="event"></AdouInput>}</AdouNewForm>
+                    </>
+                }
+            </AdouModal>
         </div>
     );
 };
 
-export default Calendar;
+export default EventCalendar;

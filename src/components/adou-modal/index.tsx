@@ -8,7 +8,7 @@ interface ModalProps {
     type?: string;
     title?: string;
     show: boolean;
-    content?: any;
+    children?: any;
     confirmText?: string;
     cancelText?: string;
     maxHeight?: any;
@@ -24,12 +24,12 @@ const Modal: React.FC<ModalProps> = ({
     type,
     title,
     show,
-    content,
+    children,
     confirmText,
     cancelText,
     maxHeight,
-    overflowY,
-    width,
+    overflowY = true,
+    width = '600px',
     showConfirm = true,
     showCancel = true,
     onCancel,
@@ -82,20 +82,19 @@ const Modal: React.FC<ModalProps> = ({
                             id="exampleModal"
                             tabIndex={-1}
                             aria-labelledby="exampleModalLabel"
-                            aria-hidden="true"
                         >
                             <div className={`modal-dialog ${type === 'tip' ? 'modal-dialog-centered' : ''}`} style={{ maxWidth: 'fit-content' }}>
                                 <div className="modal-content" style={{ width: width }}>
                                     <div className="modal-header">
                                         <h5 className="modal-title" id="exampleModalLabel">
-                                            {title || 'Modal title'}
+                                            {title || '标题'}
                                         </h5>
                                         <button onClick={handleOnClose} type="button" className="btn-close" aria-label="Close"></button>
                                     </div>
                                     <div className="modal-body" style={overflowY ? { maxHeight: maxHeight, overflowY: 'auto' } : {}}>
                                         {' '}
                                         {/* 设置最大高度和滚动条 */}
-                                        {content || '...'}
+                                        {children || '内容'}
                                     </div>
                                     <div className="modal-footer">
                                         {showCancel ? (

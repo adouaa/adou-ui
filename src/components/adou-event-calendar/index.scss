@@ -1,16 +1,17 @@
 .calendar-container {
   position: relative;
-  max-width: 648px;
-  height: 514px;
+  // max-width: 548px;
+  // max-height: 514px;
   margin: 20px auto;
   border: 1px solid #f1efef;
   border-radius: 6px;
   box-shadow: 0 0 0 1px rgba(0, 0, 0, .05);
 
+
   .calendar-header {
     .current-date-info {
       color: #3b3b3b;
-      height: 104px;
+      // height: 104px;
       display: flex;
       align-items: center;
       background: linear-gradient(to top right, rgba(17, 66, 140, 0) 39.52%, rgba(17, 66, 140, .1) 99.12%);
@@ -114,35 +115,54 @@
     }
 
     .calendar-cell {
-      .calendar-cell-content {
-        color: #444444;
-        width: 80px;
-        height: 65px;
-        /* 控制每个时间段单元格的高度 */
-        cursor: pointer;
-        font-size: 20px;
-        font-weight: 600;
-        box-sizing: border-box;
-        display: flex;
-        justify-content: center;
-        align-items: center;
+      position: relative;
+      border: 1px solid #eee;
+      // padding: 10px;
+      // min-height: 4.75rem;
+
+      .calendar-cell-content-box {
+        .calendar-cell-content-day {
+          position: absolute;
+          top: 3px;
+          left: 3px;
+          padding: 5px;
+          display: inline-block;
+          width: 34px;
+          height: 34px;
+          color: #444444;
+          /* 控制每个时间段单元格的高度 */
+          cursor: pointer;
+          font-size: 16px;
+          box-sizing: border-box;
+          justify-content: center;
+          align-items: center;
+        }
+
+        .calendar-cell-content-event {
+          color: #000;
+          background-color: #ecf5ff;
+          margin-top: 20px;
+          white-space: wrap;
+        }
       }
 
-      .calendar-cell-content:hover {
-        background-color: #e9ecef;
-        border-radius: 8px;
-        /* 悬停效果 */
-      }
+
 
       .active {
         // border: 2px solid red;
-        color: #258ffa !important;
-        border-radius: 8px;
-        background-color: #e9ecef;
+        color: white !important;
+        // border-radius: 8px;
+        // background-color: #e9ecef;
+        border-radius: 50%;
+        background-color: #258ffa;
 
       }
     }
 
+    .calendar-cell:hover {
+      background-color: #f6f6f6;
+      cursor: pointer;
+    }
 
   }
 
