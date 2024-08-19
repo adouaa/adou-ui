@@ -1,7 +1,5 @@
-import React from "react";
-import TabItem from "./TabItem";
-import "./index.scss";
-export { TabItem };
+import React from 'react';
+import './index.scss';
 declare const _default: React.ComponentType<Omit<{
     children?: any;
     handleLabelClick?: any;

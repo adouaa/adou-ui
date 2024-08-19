@@ -1,14 +1,14 @@
 import React from "react";
 declare const _default: React.ComponentType<Omit<{
-    type?: string | undefined;
+    width?: string | undefined;
+    maxHeight?: any;
     title?: string | undefined;
-    show: boolean;
     children?: any;
+    type?: string | undefined;
+    show: boolean;
     confirmText?: string | undefined;
     cancelText?: string | undefined;
-    maxHeight?: any;
     overflowY?: boolean | undefined;
-    width?: string | undefined;
     showConfirm?: boolean | undefined;
     showCancel?: boolean | undefined;
     onCancel?: (() => void) | undefined;

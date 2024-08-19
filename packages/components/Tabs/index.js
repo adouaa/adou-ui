@@ -544,7 +544,6 @@ __webpack_require__.r(__webpack_exports__);
 
 // EXPORTS
 __webpack_require__.d(__webpack_exports__, {
-  TabItem: () => (/* reexport */ src_TabItem),
   "default": () => (/* binding */ src_0)
 });
 
@@ -1749,22 +1748,6 @@ var plural = function plural() {
 var selectOrdinal = function selectOrdinal() {
   return '';
 };
-;// CONCATENATED MODULE: ./src/TabItem/index.tsx
-
-
-const TabItem = props => {
-  const {
-    label,
-    children,
-    active
-  } = props;
-  return /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement((external_root_React_commonjs2_react_commonjs_react_amd_react_default()).Fragment, null, active && /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("div", {
-    style: {
-      padding: "15px 10px"
-    }
-  }, children));
-};
-/* harmony default export */ const src_TabItem = (withTranslation()(TabItem));
 // EXTERNAL MODULE: ../../node_modules/style-loader/dist/runtime/injectStylesIntoStyleTag.js
 var injectStylesIntoStyleTag = __webpack_require__(591);
 var injectStylesIntoStyleTag_default = /*#__PURE__*/__webpack_require__.n(injectStylesIntoStyleTag);
@@ -1818,15 +1801,13 @@ var update = injectStylesIntoStyleTag_default()(cjs_ruleSet_1_rules_1_use_2_src/
 
 
 
-
-
 const Tabs = props => {
   const {
     children,
     handleLabelClick,
     activeIndex = 0,
-    activeLabelColor = "#409eff",
-    tabStyle = "common"
+    activeLabelColor = '#409eff',
+    tabStyle = 'common'
   } = props;
   const handleLabelClickFn = index => {
     handleLabelClick && handleLabelClick(index);
@@ -1836,17 +1817,19 @@ const Tabs = props => {
     external_root_React_commonjs2_react_commonjs_react_amd_react_default().Children.map(children, child => {
       tabItems.push(child);
     });
-    return /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement((external_root_React_commonjs2_react_commonjs_react_amd_react_default()).Fragment, null, tabStyle === "common" ? /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("div", {
+    return /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement((external_root_React_commonjs2_react_commonjs_react_amd_react_default()).Fragment, null, tabStyle === 'common' ? /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("div", {
       className: "tabs-header"
     }, tabItems.map((child, index) => {
+      var _child$props;
+      if (!child) return;
       return /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("div", {
         key: index
       }, /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("div", {
-        className: "tabs-header-item-box ".concat(index === 0 && "first")
+        className: "tabs-header-item-box ".concat(index === 0 && 'first')
       }, /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("div", {
         onClick: () => handleLabelClickFn(index),
-        className: "tabs-header-item  ".concat(activeIndex === index && "active")
-      }, child.props.label)));
+        className: "tabs-header-item  ".concat(activeIndex === index && 'active')
+      }, child === null || child === void 0 || (_child$props = child.props) === null || _child$props === void 0 ? void 0 : _child$props.label)));
     })) : /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("ul", {
       className: "nav nav-tabs m-2"
     }, tabItems.map((child, index) => {
@@ -1856,25 +1839,26 @@ const Tabs = props => {
         onClick: () => handleLabelClickFn(index)
       }, /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("a", {
         style: {
-          marginLeft: index === 0 ? "10px" : "",
-          color: index === activeIndex ? child.props.activeLabelColor || activeLabelColor : ""
+          marginLeft: index === 0 ? '10px' : '',
+          color: index === activeIndex ? child.props.activeLabelColor || activeLabelColor : ''
         },
-        className: "".concat(index === activeIndex ? "active" : "", " nav-link"),
-        "aria-current": "page",
-        href: "#"
+        className: "".concat(index === activeIndex ? 'active' : '', " nav-link"),
+        "aria-current": "page"
       }, /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("i", {
-        className: child.props.prefixIcon + " me-1"
+        className: child.props.prefixIcon + ' me-1'
       }), child.props.label));
     })));
   };
   const renderContent = () => {
     const renderChildren = [];
     external_root_React_commonjs2_react_commonjs_react_amd_react_default().Children.map(children, (child, index) => {
-      const enhancedChildren = /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().cloneElement(child, {
-        active: index === activeIndex,
-        key: index
-      });
-      renderChildren.push(enhancedChildren);
+      if (child) {
+        const enhancedChildren = /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().cloneElement(child, {
+          active: index === activeIndex,
+          key: index
+        });
+        renderChildren.push(enhancedChildren);
+      }
     });
     return renderChildren;
   };
