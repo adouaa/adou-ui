@@ -28,11 +28,13 @@ const Tabs = (props: TabsProps) => {
                 {tabStyle === 'common' ? (
                     <div className="tabs-header">
                         {tabItems.map((child: any, index: number) => {
+                            if (!child) return;
+
                             return (
                                 <div key={index}>
                                     <div className={`tabs-header-item-box ${index === 0 && 'first'}`}>
                                         <div onClick={() => handleLabelClickFn(index)} className={`tabs-header-item  ${activeIndex === index && 'active'}`}>
-                                            {child.props.label}
+                                            {child?.props?.label}
                                         </div>
                                     </div>
                                 </div>
@@ -45,7 +47,10 @@ const Tabs = (props: TabsProps) => {
                             return (
                                 <li key={index} className="nav-item d-flex" onClick={() => handleLabelClickFn(index)}>
                                     <a
-                                        style={{ marginLeft: index === 0 ? '10px' : '', color: index === activeIndex ? child.props.activeLabelColor || activeLabelColor : '' }}
+                                        style={{
+                                            marginLeft: index === 0 ? '10px' : '',
+                                            color: index === activeIndex ? child.props.activeLabelColor || activeLabelColor : '',
+                                        }}
                                         className={`${index === activeIndex ? 'active' : ''} nav-link`}
                                         aria-current="page"
                                     >
@@ -64,11 +69,13 @@ const Tabs = (props: TabsProps) => {
     const renderContent = () => {
         const renderChildren: any = [];
         React.Children.map(children, (child: any, index) => {
-            const enhancedChildren = React.cloneElement(child, {
-                active: index === activeIndex,
-                key: index,
-            });
-            renderChildren.push(enhancedChildren);
+            if (child) {
+                const enhancedChildren = React.cloneElement(child, {
+                    active: index === activeIndex,
+                    key: index,
+                });
+                renderChildren.push(enhancedChildren);
+            }
         });
         return renderChildren;
     };

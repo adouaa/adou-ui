@@ -1,6 +1,6 @@
-import classNames from "classnames";
-import React, { useEffect, useState, forwardRef, ForwardRefRenderFunction, useImperativeHandle } from "react";
-import "./index.scss";
+import classNames from 'classnames';
+import React, { useEffect, useState, forwardRef, ForwardRefRenderFunction, useImperativeHandle } from 'react';
+import './index.scss';
 
 interface CheckboxProps {
     name?: string;
@@ -10,7 +10,7 @@ interface CheckboxProps {
     readOnly?: boolean;
     inputGroup?: boolean;
     label?: string;
-    labelPosition?: "left-top" | "center" | "top" | "input-group";
+    labelPosition?: 'left-top' | 'center' | 'top' | 'input-group';
     labelColor?: string;
     required?: boolean;
     defaultValue?: string | string[] | { label: string; value: string }[];
@@ -21,32 +21,34 @@ interface CheckboxProps {
     onChange?: (item: { label: string; value: string }[]) => void;
 }
 
-const Checkbox: ForwardRefRenderFunction<any, CheckboxProps> = ({
-    name,
-    errMsg,
-    labelWidth,
-    commonSuffixIcon,
-    readOnly,
-    label,
-    labelPosition,
-    labelColor,
-    inputGroup = false,
-    required = false,
-    externalClassName,
-    inline = true,
-    options = [],
-    defaultValue = [],
-    wrap = true,
-    onChange,
-}, ref) => {
-
+const Checkbox: ForwardRefRenderFunction<any, CheckboxProps> = (
+    {
+        name,
+        errMsg,
+        labelWidth,
+        commonSuffixIcon,
+        readOnly,
+        label,
+        labelPosition,
+        labelColor,
+        inputGroup = false,
+        required = false,
+        externalClassName,
+        inline = true,
+        options = [],
+        defaultValue = [],
+        wrap = true,
+        onChange,
+    },
+    ref
+) => {
     // Function to check if an option should be checked
     const isChecked = (value: string, defaultValue: string | string[] | { label: string; value: string }[] | any) => {
         if (typeof defaultValue === 'string') {
             return value === defaultValue;
         } else if (Array.isArray(defaultValue)) {
             if (Array.isArray(defaultValue) && typeof defaultValue[0] !== 'string') {
-                return defaultValue!.some(item => item.value === value);
+                return defaultValue!.some((item) => item.value === value);
             } else {
                 return defaultValue.includes(value as any);
             }
@@ -55,21 +57,19 @@ const Checkbox: ForwardRefRenderFunction<any, CheckboxProps> = ({
     };
 
     // Initialize optionsList based on defaultValue
-    const initialOptions = options.map(option => ({
+    const initialOptions = options.map((option) => ({
         ...option,
-        checked: isChecked(option.value, defaultValue)
+        checked: isChecked(option.value, defaultValue),
     }));
 
     const [optionsList, setOptionsList] = useState(initialOptions);
 
     const cls = classNames({
-        "form-check-input": true,
+        'form-check-input': true,
     });
 
     const handleChange = (item: { label: string; value: string }) => {
-        const updatedOptions = optionsList.map((option) =>
-            option.value === item.value ? { ...option, checked: !option.checked } : option
-        );
+        const updatedOptions = optionsList.map((option) => (option.value === item.value ? { ...option, checked: !option.checked } : option));
         setOptionsList(updatedOptions);
         onChange && onChange(updatedOptions.filter((opt) => opt.checked));
         if (updatedOptions.some((option: any) => option.checked)) {
@@ -96,43 +96,57 @@ const Checkbox: ForwardRefRenderFunction<any, CheckboxProps> = ({
         }
     };
     const clear = () => {
-        setOptionsList(optionsList.map((item: any) => {
-            item.checked = false;
-            return item;
-        }))
+        setOptionsList(
+            optionsList.map((item: any) => {
+                item.checked = false;
+                return item;
+            })
+        );
     };
     const handleClickCommonSuffixIcon = () => {
         clear();
         setError(true);
-    }
+    };
     // Expose validateInput method via ref
     useImperativeHandle(ref, () => ({
         validate,
-        clear
+        clear,
     }));
 
     useEffect(() => {
         // Update optionsList when defaultValue changes
-        const updatedOptions = options.map(option => ({
+        const updatedOptions = options.map((option) => ({
             ...option,
-            checked: isChecked(option.value, defaultValue)
+            checked: isChecked(option.value, defaultValue),
         }));
         setOptionsList(updatedOptions);
     }, [defaultValue, options]);
 
     const checkboxClasses = classNames({
-        "mb-3": error,
-        "checkbox-wrapper": true,
+        'mb-3': error,
+        'checkbox-wrapper': true,
         [externalClassName as string]: externalClassName,
     });
 
     return (
         <div className={checkboxClasses}>
-            <div className={`content-box ${inputGroup ? "inputGroup" : `label-in-${labelPosition}`}`}>
-                {label && <span style={{color: labelColor, width: labelWidth}} className={`${inputGroup ? "input-group-text" : ""} label-box`}>{label}</span>}
-                <div className="option-box" style={{ display: inline ? "flex" : "" }}>
+            <div className={`content-box d-flex ${inputGroup ? 'inputGroup' : `label-in-${labelPosition}`}`}>
+                {label && (
+                    <span style={{ color: labelColor, width: labelWidth }} className={`${inputGroup ? 'input-group-text' : ''} label-box`}>
+                        {label}
+                    </span>
+                )}
+                <div className="option-box" style={{ display: inline ? 'flex' : '' }}>
                     {optionsList.map((item) => (
-                        <div key={item.value} className="form-check" style={{ textAlign: "left", marginRight: "20px", marginBottom: 0}}>
+                        <div
+                            key={item.value}
+                            className="form-check"
+                            style={{
+                                textAlign: 'left',
+                                marginRight: '20px',
+                                marginBottom: 0,
+                            }}
+                        >
                             <input
                                 ref={ref} // 将 ref 绑定到 input 元素
                                 required={required}
@@ -147,16 +161,25 @@ const Checkbox: ForwardRefRenderFunction<any, CheckboxProps> = ({
                                 readOnly={readOnly}
                             />
                             <label className="form-check-label" htmlFor={item.value}>
-                                {item.label || "Default Checkbox"}
+                                {item.label || 'Default Checkbox'}
                             </label>
                         </div>
                     ))}
                 </div>
                 {commonSuffixIcon && <i onClick={handleClickCommonSuffixIcon} className={`${commonSuffixIcon} common-suffix-icon ms-2`}></i>}
             </div>
-            {error && required && <div className="animate__animated animate__fadeIn mb-1" style={{ color: "#DC3545", fontSize: "14px", paddingLeft: parseInt(labelWidth) > 120 ? "120px" : labelWidth}}>{`${errMsg || `${name}不能为空`}`}</div>}
+            {error && required && (
+                <div
+                    className="animate__animated animate__fadeIn mb-1"
+                    style={{
+                        color: '#DC3545',
+                        fontSize: '14px',
+                        paddingLeft: parseInt(labelWidth) > 120 ? '120px' : labelWidth,
+                    }}
+                >{`${errMsg || `${name}不能为空`}`}</div>
+            )}
         </div>
     );
 };
 
-export default (forwardRef(Checkbox));
+export default forwardRef(Checkbox);
