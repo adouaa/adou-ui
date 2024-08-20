@@ -1,9 +1,24 @@
 import React from "react";
-declare const _default: React.ComponentType<Omit<{
-    label?: string | undefined;
-    defaultValue?: string | undefined;
-    onChangeOK?: ((e: any, ...args: any) => void) | undefined;
-    placeholder?: string | undefined;
-    disabled?: boolean | undefined;
-}, keyof import("react-i18next").WithTranslation<N, undefined>> & import("react-i18next").WithTranslationProps>;
-export default _default;
+import "./index.scss";
+interface TextAreaProps {
+    name?: string;
+    isFormItem?: boolean;
+    errMsg?: string;
+    labelWidth?: any;
+    commonSuffixIcon?: string;
+    readOnly?: boolean;
+    externalClassName?: string;
+    width?: any;
+    inputGroup?: boolean;
+    labelPosition?: "left-top" | "center" | "top" | "input-group";
+    labelColor?: string;
+    required?: boolean;
+    ref?: any;
+    defaultValue?: string;
+    label?: string;
+    placeholder?: string;
+    disabled?: boolean;
+    onChangeOK?: (value: any, ...args: any) => void;
+}
+declare const TextArea: React.FC<TextAreaProps>;
+export default TextArea;

@@ -649,6 +649,7 @@ var update = injectStylesIntoStyleTag_default()(cjs_ruleSet_1_rules_1_use_2_src/
 const Checkbox = (_ref, ref) => {
   let {
     name,
+    isFormItem,
     errMsg,
     labelWidth,
     commonSuffixIcon,
@@ -661,7 +662,8 @@ const Checkbox = (_ref, ref) => {
     externalClassName,
     inline = true,
     options = [],
-    defaultValue = [],
+    // defaultValue = [], defaultValue不能给成数组默认值，不然会无限循环
+    defaultValue,
     wrap = true,
     onChange
   } = _ref;
@@ -689,10 +691,14 @@ const Checkbox = (_ref, ref) => {
     "form-check-input": true
   });
   const handleChange = item => {
-    const updatedOptions = optionsList.map(option => option.value === item.value ? {
-      ...option,
-      checked: !option.checked
-    } : option);
+    const updatedOptions = optionsList.map(option => {
+      if (option.value === item.value) {
+        console.log("相等");
+        option.checked = !option.checked;
+      }
+      return option;
+    });
+    console.log(updatedOptions);
     setOptionsList(updatedOptions);
     onChange && onChange(updatedOptions.filter(opt => opt.checked));
     if (updatedOptions.some(option => option.checked)) {
@@ -731,6 +737,11 @@ const Checkbox = (_ref, ref) => {
     validate,
     clear
   }));
+  const checkboxClasses = classnames_default()({
+    "mb-3": !error && isFormItem,
+    "checkbox-wrapper": true,
+    [externalClassName]: externalClassName
+  });
   (0,external_root_React_commonjs2_react_commonjs_react_amd_react_.useEffect)(() => {
     // Update optionsList when defaultValue changes
     const updatedOptions = options.map(option => ({
@@ -739,11 +750,7 @@ const Checkbox = (_ref, ref) => {
     }));
     setOptionsList(updatedOptions);
   }, [defaultValue, options]);
-  const checkboxClasses = classnames_default()({
-    "mb-3": error,
-    "checkbox-wrapper": true,
-    [externalClassName]: externalClassName
-  });
+  (0,external_root_React_commonjs2_react_commonjs_react_amd_react_.useEffect)(() => {}, [defaultValue]);
   return /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("div", {
     className: checkboxClasses
   }, /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("div", {

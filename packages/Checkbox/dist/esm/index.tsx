@@ -10,6 +10,7 @@ import "./index.scss";
 
 interface CheckboxProps {
   name?: string;
+  isFormItem?: boolean;
   errMsg?: string;
   labelWidth?: any;
   commonSuffixIcon?: string;
@@ -30,6 +31,7 @@ interface CheckboxProps {
 const Checkbox: ForwardRefRenderFunction<any, CheckboxProps> = (
   {
     name,
+    isFormItem,
     errMsg,
     labelWidth,
     commonSuffixIcon,
@@ -42,7 +44,8 @@ const Checkbox: ForwardRefRenderFunction<any, CheckboxProps> = (
     externalClassName,
     inline = true,
     options = [],
-    defaultValue = [],
+    // defaultValue = [], defaultValue不能给成数组默认值，不然会无限循环
+    defaultValue,
     wrap = true,
     onChange,
   },
@@ -78,11 +81,16 @@ const Checkbox: ForwardRefRenderFunction<any, CheckboxProps> = (
   });
 
   const handleChange = (item: { label: string; value: string }) => {
-    const updatedOptions = optionsList.map((option) =>
-      option.value === item.value
-        ? { ...option, checked: !option.checked }
-        : option
-    );
+    const updatedOptions = optionsList.map((option) => {
+      if (option.value === item.value) {
+        console.log("相等");
+
+        option.checked = !option.checked;
+      }
+      return option;
+    });
+    console.log(updatedOptions);
+
     setOptionsList(updatedOptions);
     onChange && onChange(updatedOptions.filter((opt) => opt.checked));
     if (updatedOptions.some((option: any) => option.checked)) {
@@ -126,6 +134,12 @@ const Checkbox: ForwardRefRenderFunction<any, CheckboxProps> = (
     clear,
   }));
 
+  const checkboxClasses = classNames({
+    "mb-3": !error && isFormItem,
+    "checkbox-wrapper": true,
+    [externalClassName as string]: externalClassName,
+  });
+
   useEffect(() => {
     // Update optionsList when defaultValue changes
     const updatedOptions = options.map((option) => ({
@@ -135,11 +149,7 @@ const Checkbox: ForwardRefRenderFunction<any, CheckboxProps> = (
     setOptionsList(updatedOptions);
   }, [defaultValue, options]);
 
-  const checkboxClasses = classNames({
-    "mb-3": error,
-    "checkbox-wrapper": true,
-    [externalClassName as string]: externalClassName,
-  });
+  useEffect(() => {}, [defaultValue]);
 
   return (
     <div className={checkboxClasses}>

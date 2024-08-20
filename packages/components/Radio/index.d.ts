@@ -1,13 +1,25 @@
 import React from "react";
-declare const _default: React.ComponentType<Omit<{
-    options?: any[] | undefined;
-    label?: string | undefined;
+import "./index.scss";
+interface RadioProps {
+    name?: string;
+    labelStyle?: any;
+    errMsg?: string;
+    labelWidth?: any;
+    commonSuffixIcon?: string;
+    readOnly?: boolean;
     defaultValue?: any;
-    checked?: boolean | undefined;
-    name?: string | undefined;
-    id?: string | undefined;
-    value?: string | undefined;
-    className?: string | undefined;
-    onChangeOK?: ((item: any) => void) | undefined;
-}, keyof import("react-i18next").WithTranslation<N, undefined>> & import("react-i18next").WithTranslationProps>;
+    checked?: boolean;
+    label?: string;
+    inputGroup?: boolean;
+    labelPosition?: "left-top" | "center" | "top" | "input-group";
+    labelColor?: string;
+    required?: boolean;
+    id?: string;
+    value?: string;
+    externalClassName?: string;
+    options?: any[];
+    inline?: boolean;
+    onChangeOK?: (item: any) => void;
+}
+declare const _default: React.ForwardRefExoticComponent<RadioProps & React.RefAttributes<any>>;
 export default _default;

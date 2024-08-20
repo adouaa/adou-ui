@@ -2,6 +2,7 @@ import React from "react";
 import "./index.scss";
 interface CheckboxProps {
     name?: string;
+    isFormItem?: boolean;
     errMsg?: string;
     labelWidth?: any;
     commonSuffixIcon?: string;
