@@ -7,9 +7,7 @@ import ReactDOM from 'react-dom';
 
 export interface SelectProps {
     name?: string;
-    rounded?: boolean;
-    minWidth?: any;
-    optionContentMaxHeight?: any;
+    inline?: boolean;
     isFormItem?: boolean;
     validate?: boolean;
     errMsg?: string;
@@ -35,9 +33,7 @@ export interface SelectProps {
 
 const Select = React.forwardRef((props: SelectProps, ref) => {
     const {
-        rounded,
-        minWidth = '205px',
-        optionContentMaxHeight = '300px',
+        inline,
         commonSuffixIcon,
         isFormItem,
         errMsg,
@@ -92,7 +88,7 @@ const Select = React.forwardRef((props: SelectProps, ref) => {
         } else {
             setValue(''); // 如果没有默认值，重置为初始状态
         }
-    }, [defaultValue, options]);
+    }, [defaultValue]);
 
     useEffect(() => {
         // setValue({}) // 不知道要不要加 -- 不能加，加完之后会出现默认值无法赋值。。。
@@ -160,7 +156,7 @@ const Select = React.forwardRef((props: SelectProps, ref) => {
     });
 
     return (
-        <div className={wrapperClassName} style={{ width }}>
+        <div className={wrapperClassName} style={{ width, ...(inline ? { flex: 1, marginRight: '15px' } : {}) }}>
             <select style={{ display: 'none' }} name={name}>
                 <option value={value?.value}>{value?.label}</option>
             </select>
@@ -187,6 +183,8 @@ const Select = React.forwardRef((props: SelectProps, ref) => {
                                 color: labelColor,
                                 width: labelWidth,
                                 flexWrap: 'nowrap',
+                                alignItems: labelPosition === 'left-top' ? 'start' : 'center',
+                                ...(labelPosition !== 'top' && { display: 'flex' }),
                             }}
                         >
                             {label}
@@ -196,12 +194,11 @@ const Select = React.forwardRef((props: SelectProps, ref) => {
                         ref={customSelectRef}
                         onClick={(e: any) => handleDivClock(e)}
                         tabIndex={1}
-                        className={`custom-select form-control`}
+                        className="custom-select form-control"
                         style={{
                             textAlign: 'left',
                             background: transparent ? 'transparent' : '#fff',
-                            minWidth,
-                            ...(rounded ? { borderRadius: '20px' } : {}),
+                            flex: 1,
                         }}
                     >
                         {value?.value ? <span className="select-value">{value.label}</span> : <span className="select-placeholder">{placeholder}</span>}
@@ -215,7 +212,6 @@ const Select = React.forwardRef((props: SelectProps, ref) => {
                                 position: 'absolute',
                                 top: customSelectContentPosition.y + customSelectContentPosition.height + 'px',
                                 left: customSelectContentPosition.x + 'px',
-                                ...(showOptions ? { maxHeight: optionContentMaxHeight } : {}),
                             }}
                             ref={contentRef}
                             className={`custom-select-content ${showOptions ? 'custom-select-content-open' : ''}`}

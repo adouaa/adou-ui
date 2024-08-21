@@ -4,6 +4,7 @@ import './index.scss';
 
 export interface InputProps {
     name?: string;
+    inline?: boolean;
     isFormItem?: boolean;
     errMsg?: string;
     labelWidth?: any;
@@ -39,6 +40,7 @@ export interface InputRef {
 const Input: React.ForwardRefRenderFunction<InputRef, InputProps> = (
     {
         name,
+        inline,
         isFormItem,
         errMsg,
         labelWidth,
@@ -72,7 +74,6 @@ const Input: React.ForwardRefRenderFunction<InputRef, InputProps> = (
     const [value, setValue] = useState(defaultValue ?? '');
 
     const cls = classNames({
-        'input-group': suffixContent || prefixContent,
         [`input-group-${size}`]: size,
         [externalClassName as string]: externalClassName,
     });
@@ -134,18 +135,35 @@ const Input: React.ForwardRefRenderFunction<InputRef, InputProps> = (
         }
     }, [defaultValue]);
 
+    /**
+     * 获取组件的高度赋值给label
+     */
+    const wrapeerRef = useRef<any>();
+    useEffect(() => {}, []);
+
     return (
-        <div className={`${cls} input-wrapper ${inputGroup ? '' : 'lable-in-control'} ${!error && isFormItem && 'mb-3'}`} style={{ width }}>
-            <div className={`content-box icon-input ${inputGroup ? 'input-group' : ''} label-in-${labelPosition}`}>
+        <div
+            className={`${cls} input-wrapper ${inputGroup ? '' : 'lable-in-control'} ${!error && isFormItem && 'mb-3'}`}
+            style={{ width, ...(inline ? { flex: 1, marginRight: '15px' } : {}) }}
+        >
+            <div ref={wrapeerRef} className={`content-box icon-input ${inputGroup ? 'input-group' : ''} label-in-${labelPosition}`}>
                 {prefixContent && (
                     <span className="input-group-text" id="basic-addon1">
                         {prefixContent}
                     </span>
                 )}
                 {label && (
-                    <div className="label-box" style={{ color: labelColor, width: labelWidth }}>
+                    <span
+                        className="label-box"
+                        style={{
+                            color: labelColor,
+                            width: labelWidth,
+                            alignItems: labelPosition === 'left-top' ? 'start' : 'center',
+                            ...(labelPosition !== 'top' && { display: 'flex' }),
+                        }}
+                    >
                         {label}
-                    </div>
+                    </span>
                 )}
                 <input
                     ref={inputRef}
@@ -155,6 +173,7 @@ const Input: React.ForwardRefRenderFunction<InputRef, InputProps> = (
                         borderTopLeftRadius: prefixContent ? 0 : '6px',
                         borderBottomLeftRadius: prefixContent ? 0 : '6px',
                         background: transparent ? 'transparent' : '#fff',
+                        flex: 1,
                     }}
                     step={1}
                     name={name}
@@ -170,16 +189,13 @@ const Input: React.ForwardRefRenderFunction<InputRef, InputProps> = (
                     aria-label="Username"
                     aria-describedby="basic-addon1"
                 />
+                {suffixContent && <div>{suffixContent}</div>}
+
                 {commonSuffixIcon && <i onClick={handleClickCommonSuffixIcon} className={`${commonSuffixIcon} common-suffix-icon ms-2`}></i>}
                 <div onClick={handleIconClick} className="suffix-icon" style={{ right: commonSuffixIcon && '32px' }}>
                     {children}
                 </div>
             </div>
-            {suffixContent && (
-                <span className="input-group-text" id="basic-addon2">
-                    {suffixContent}
-                </span>
-            )}
             {error && required && (
                 <div
                     className="animate__animated animate__fadeIn mb-1"
@@ -193,6 +209,7 @@ const Input: React.ForwardRefRenderFunction<InputRef, InputProps> = (
         </div>
     );
 };
+
 Input.displayName = 'Input';
 
 export default forwardRef(Input);

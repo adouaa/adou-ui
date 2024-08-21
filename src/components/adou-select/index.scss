@@ -1,5 +1,4 @@
 .select-wrapper {
-
     select option:first-child {
         display: none;
     }
@@ -20,7 +19,6 @@
     }
 
     .custom-select {
-        min-width: 205px;
         height: 38px;
         position: relative;
         cursor: pointer;
@@ -87,7 +85,6 @@
 
     .label-in-center {
         display: flex;
-        align-items: center;
     }
 
     .label-in-left-top {
@@ -134,6 +131,7 @@
 }
 
 .custom-select-content {
+    min-width: 200px;
     text-align-last: left;
     background-color: #fff;
     max-height: 0;
@@ -148,13 +146,7 @@
 
     /* 添加高度变化的过渡效果 */
     .option {
-        font-size: 14px;
-        color: #666;
-        line-height: 35px;
-        padding: 0 15px;
-        transition: .25s;
-        text-overflow: ellipsis;
-        white-space: nowrap;
+        padding: 5px 10px;
 
         &:hover {
             background-color: #f6f6f6;

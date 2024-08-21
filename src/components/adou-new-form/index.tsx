@@ -1,18 +1,20 @@
-import { forwardRef, useEffect, useImperativeHandle, useRef, useState } from "react";
-import React from "react";
+import { forwardRef, useEffect, useImperativeHandle, useRef, useState } from 'react';
+import React from 'react';
+import './index.scss';
 
 interface AdouNewFormProps {
     children?: any;
     eachWordWidth?: number;
     commonSuffixIcon?: any;
+    required?: boolean;
+    inline?: boolean;
+    labelPosition?: 'center' | 'top' | 'left-top';
 }
 
-const AdouNewForm = forwardRef(({ children, eachWordWidth = 17, commonSuffixIcon = "fa-solid fa-circle-xmark text-danger" }: AdouNewFormProps, AdouFormRef) => {
-
+const AdouNewForm = forwardRef(({ labelPosition, inline, required, children, eachWordWidth = 21, commonSuffixIcon = '' }: AdouNewFormProps, AdouFormRef) => {
     const formRef = useRef<any>(null);
 
     const getFormData = () => {
-
         const formWrapper = formRef.current; // 获取 search-wrapper 的 DOM 元素
         if (!formWrapper) return;
 
@@ -30,13 +32,14 @@ const AdouNewForm = forwardRef(({ children, eachWordWidth = 17, commonSuffixIcon
             // 处理 input 元素
             if (tagName === 'INPUT') {
                 if (type === 'checkbox') {
-                    child?.validate()
+                    child?.validate();
 
                     // 如果是复选框，更新 formValues[name] 为选中的复选框的值的数组
                     if (!formValues[name]) {
                         formValues[name] = [];
                     }
-                    if (element.checked) { // 如果是 checkbox的话，会造出多个 input type="checkbox"的表单
+                    if (element.checked) {
+                        // 如果是 checkbox的话，会造出多个 input type="checkbox"的表单
                         formValues[name].push(value);
                     }
                 } else {
@@ -51,13 +54,11 @@ const AdouNewForm = forwardRef(({ children, eachWordWidth = 17, commonSuffixIcon
             }
             // 处理 select 元素
             else if (tagName === 'SELECT') {
-
                 if (child?.getValue) {
                     formValues[name] = child.getValue();
                 } else {
                     formValues[name] = element.value;
                 }
-
             }
             // 处理 textarea 元素
             else if (tagName === 'TEXTAREA') {
@@ -80,7 +81,6 @@ const AdouNewForm = forwardRef(({ children, eachWordWidth = 17, commonSuffixIcon
             let child = childRefs.current[key];
             child.current && child.current.clear && child.current.clear();
         }
-
     };
 
     const validateForm = () => {
@@ -93,7 +93,10 @@ const AdouNewForm = forwardRef(({ children, eachWordWidth = 17, commonSuffixIcon
         for (let key in childRefs.current) {
             let child = childRefs.current[key];
             const valid = child.current && child.current.validate && child.current.validate();
+
             if (!valid) {
+                console.log('存在校验不通过的表单：', key);
+
                 isValid = false;
             }
         }
@@ -106,19 +109,18 @@ const AdouNewForm = forwardRef(({ children, eachWordWidth = 17, commonSuffixIcon
     };
 
     const childRefs = useRef<{ [key: string]: React.MutableRefObject<any> }>({});
-    let maxLengthLabelWidth: number = 0
+    let maxLengthLabelWidth: number = 0;
     const calcMaxLabelWidth = () => {
         const labelWidthList: any = [];
         React.Children.map(children, (child) => {
-            labelWidthList.push(child.props?.label)
-        })
+            labelWidthList.push(child.props?.label);
+        });
         const sortedLabelWidthList = labelWidthList.sort((a: string, b: string) => a.length - b.length);
-        maxLengthLabelWidth = sortedLabelWidthList[sortedLabelWidthList.length - 1].length * eachWordWidth;
-        
-    }
+        maxLengthLabelWidth = sortedLabelWidthList[sortedLabelWidthList.length - 1]?.length * eachWordWidth;
+    };
 
     const renderChildren = () => {
-        const renderChildren: any = []
+        const renderChildren: any = [];
         calcMaxLabelWidth();
         // 这个方法可行
         React.Children.map(children, (child) => {
@@ -127,39 +129,40 @@ const AdouNewForm = forwardRef(({ children, eachWordWidth = 17, commonSuffixIcon
             const enhancedChildren = React.cloneElement(child, {
                 key: child.props.name,
                 ref: childRef,
-                labelWidth: maxLengthLabelWidth + "px",
+                labelWidth: maxLengthLabelWidth + 'px',
                 commonSuffixIcon,
-                required: true
-                
+                isFormItem: true,
+                ...(labelPosition ? { labelPosition } : {}), // 动态添加 required 属性
+
+                ...(inline ? { inline: true } : {}), // 动态添加 required 属性
+
+                ...(required ? { required: true } : {}), // 动态添加 required 属性
+
                 // 注意：一个组件只能有一个 ref，要么外面提供ref手动处理，要么在 Form组件下统一提供ref
                 // 可以自定义要不要在Form下给表单组件提供 ref
-                // [`${child.props.name === "test-select" ? "" : "ref"}`]: childRef 
-            })
+                // [`${child.props.name === "test-select" ? "" : "ref"}`]: childRef
+            });
             renderChildren.push(enhancedChildren);
             // 将子组件的 ref 存储到 childRefs 中
             if (child.props.name) {
-
                 childRefs.current[child.props.name] = childRef;
             }
-
-        })
-        return renderChildren
+        });
+        return renderChildren;
     };
-
 
     // 对外暴露的API
     useImperativeHandle(AdouFormRef, () => ({
         getFormData,
         clearForm,
-        validateForm
-    }))
-
+        validateForm,
+    }));
 
     return (
-        <div className="adou-new-form-wrapper flex-wrap" ref={formRef}>
+        <div className={`adou-new-form-wrapper flex-wrap ${inline ? 'd-flex' : ''}`} ref={formRef}>
             {renderChildren()}
         </div>
     );
-})
+});
 
 export default AdouNewForm;
