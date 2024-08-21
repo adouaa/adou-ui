@@ -2,9 +2,16 @@
     height: 100%;
     margin-top: 10px;
 
+    .center {
+        display: flex;
+        flex: 1;
+    }
+
     .form-control {
+        flex: 1;
         cursor: text;
     }
+
 
     .inputGroup {
         display: flex;

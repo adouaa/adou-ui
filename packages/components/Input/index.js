@@ -170,21 +170,72 @@ module.exports = {
 var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_1___default()((_node_modules_css_loader_dist_runtime_sourceMaps_js__WEBPACK_IMPORTED_MODULE_0___default()));
 // Module
 ___CSS_LOADER_EXPORT___.push([module.id, `@charset "UTF-8";
-.icon-input {
-  position: relative; /* 让伪元素相对于输入框定位 */
-}
-.icon-input .icon {
+.suffix-icon {
+  /* margin-left: -40px !important;
+  margin-top: 6px;
+  z-index: 9; */
   position: absolute;
-  right: 20px;
-  top: 20%; /* 垂直居中 */
-  cursor: pointer; /* 鼠标悬停时显示指针样式 */
-  transition: transform 0.3s; /* 添加过渡效果 */
+  right: 12px;
+  top: 30px;
+  /* 垂直居中 */
+  cursor: pointer;
+  /* 鼠标悬停时显示指针样式 */
+  transition: transform 0.3s;
+  /* 添加过渡效果 */
   color: #c6c6cd;
 }
-.icon-input .icon:hover {
-  transform: scale(1.3); /* 水平和垂直方向都放大1.5倍 */
+.suffix-icon:hover {
+  transform: scale(1.3);
+  /* 水平和垂直方向都放大1.5倍 */
   color: #51515b;
-}`, "",{"version":3,"sources":["webpack://./src/index.scss"],"names":[],"mappings":"AAAA,gBAAgB;AAAhB;EACI,kBAAA,EAAA,iBAAA;AAEJ;AAAI;EACI,kBAAA;EACA,WAAA;EACA,QAAA,EAAA,SAAA;EACA,eAAA,EAAA,gBAAA;EACA,0BAAA,EAAA,WAAA;EACA,cAAA;AAER;AADQ;EACI,qBAAA,EAAA,mBAAA;EACA,cAAA;AAGZ","sourcesContent":[".icon-input {\r\n    position: relative; /* 让伪元素相对于输入框定位 */\r\n\r\n    .icon {\r\n        position: absolute;\r\n        right: 20px;\r\n        top: 20%;  /* 垂直居中 */\r\n        cursor: pointer;  /* 鼠标悬停时显示指针样式 */\r\n        transition: transform 0.3s; /* 添加过渡效果 */\r\n        color: #c6c6cd;\r\n        &:hover {\r\n            transform: scale(1.3); /* 水平和垂直方向都放大1.5倍 */\r\n            color: #51515b;\r\n        }\r\n    }\r\n}\r\n\r\n"],"sourceRoot":""}]);
+}
+
+.common-suffix-icon {
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+}
+
+.label-box {
+  font-size: 14px;
+  min-width: 50px;
+  text-align: right;
+  justify-content: flex-end;
+  padding-right: 10px;
+  flex-wrap: wrap;
+}
+
+.lable-in-control .icon-input {
+  position: relative;
+  /* 让伪元素相对于输入框定位 */
+}
+.lable-in-control .content-box {
+  flex: 1;
+}
+.lable-in-control .label-in-center {
+  display: flex;
+}
+.lable-in-control .label-in-center .suffix-icon {
+  top: 7px;
+}
+.lable-in-control .label-in-left-top {
+  display: flex;
+}
+.lable-in-control .label-in-left-top .label-box {
+  display: flex;
+  align-items: start;
+}
+.lable-in-control .label-in-left-top .suffix-icon {
+  top: 7px;
+}
+
+.input-group .suffix-icon {
+  top: 7px !important;
+}
+
+.input-group-text {
+  cursor: pointer;
+}`, "",{"version":3,"sources":["webpack://./src/index.scss"],"names":[],"mappings":"AAAA,gBAAgB;AAAhB;EACI;;eAAA;EAGA,kBAAA;EACA,WAAA;EACA,SAAA;EACA,SAAA;EACA,eAAA;EACA,gBAAA;EACA,0BAAA;EACA,WAAA;EACA,cAAA;AAEJ;AAAI;EACI,qBAAA;EACA,mBAAA;EACA,cAAA;AAER;;AAEA;EACI,aAAA;EACA,mBAAA;EACA,eAAA;AACJ;;AAEA;EACI,eAAA;EACA,eAAA;EACA,iBAAA;EACA,yBAAA;EACA,mBAAA;EACA,eAAA;AACJ;;AAGI;EACI,kBAAA;EACA,iBAAA;AAAR;AAII;EACI,OAAA;AAFR;AAUI;EACI,aAAA;AARR;AAUQ;EACI,QAAA;AARZ;AAYI;EACI,aAAA;AAVR;AAYQ;EACI,aAAA;EACA,kBAAA;AAVZ;AAaQ;EACI,QAAA;AAXZ;;AAkBI;EACI,mBAAA;AAfR;;AAmBA;EACI,eAAA;AAhBJ","sourcesContent":[".suffix-icon {\r\n    /* margin-left: -40px !important;\r\n    margin-top: 6px;\r\n    z-index: 9; */\r\n    position: absolute;\r\n    right: 12px;\r\n    top: 30px;\r\n    /* 垂直居中 */\r\n    cursor: pointer;\r\n    /* 鼠标悬停时显示指针样式 */\r\n    transition: transform 0.3s;\r\n    /* 添加过渡效果 */\r\n    color: #c6c6cd;\r\n\r\n    &:hover {\r\n        transform: scale(1.3);\r\n        /* 水平和垂直方向都放大1.5倍 */\r\n        color: #51515b;\r\n    }\r\n}\r\n\r\n.common-suffix-icon {\r\n    display: flex;\r\n    align-items: center;\r\n    cursor: pointer;\r\n}\r\n\r\n.label-box {\r\n    font-size: 14px;\r\n    min-width: 50px;\r\n    text-align: right;\r\n    justify-content: flex-end;\r\n    padding-right: 10px;\r\n    flex-wrap: wrap;\r\n}\r\n\r\n.lable-in-control {\r\n    .icon-input {\r\n        position: relative;\r\n        /* 让伪元素相对于输入框定位 */\r\n\r\n    }\r\n\r\n    .content-box {\r\n        flex: 1;\r\n\r\n        .label-box {}\r\n\r\n\r\n\r\n    }\r\n\r\n    .label-in-center {\r\n        display: flex;\r\n\r\n        .suffix-icon {\r\n            top: 7px;\r\n        }\r\n    }\r\n\r\n    .label-in-left-top {\r\n        display: flex;\r\n\r\n        .label-box {\r\n            display: flex;\r\n            align-items: start;\r\n        }\r\n\r\n        .suffix-icon {\r\n            top: 7px;\r\n        }\r\n    }\r\n\r\n}\r\n\r\n.input-group {\r\n    .suffix-icon {\r\n        top: 7px !important;\r\n    }\r\n}\r\n\r\n.input-group-text {\r\n    cursor: pointer;\r\n}"],"sourceRoot":""}]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 
@@ -1868,6 +1919,7 @@ var update = injectStylesIntoStyleTag_default()(cjs_ruleSet_1_rules_1_use_2_src/
 const Input = (_ref, ref) => {
   let {
     name,
+    inline,
     isFormItem,
     errMsg,
     labelWidth,
@@ -1898,7 +1950,6 @@ const Input = (_ref, ref) => {
   const inputRef = (0,external_root_React_commonjs2_react_commonjs_react_amd_react_.useRef)(null);
   const [value, setValue] = (0,external_root_React_commonjs2_react_commonjs_react_amd_react_.useState)(defaultValue !== null && defaultValue !== void 0 ? defaultValue : "");
   const cls = classnames_default()({
-    "input-group": suffixContent || prefixContent,
     ["input-group-".concat(size)]: size,
     [externalClassName]: externalClassName
   });
@@ -1963,21 +2014,36 @@ const Input = (_ref, ref) => {
       setValue("");
     }
   }, [defaultValue]);
+
+  /**
+   * 获取组件的高度赋值给label
+   */
+  const wrapeerRef = (0,external_root_React_commonjs2_react_commonjs_react_amd_react_.useRef)();
+  (0,external_root_React_commonjs2_react_commonjs_react_amd_react_.useEffect)(() => {}, []);
   return /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("div", {
     className: "".concat(cls, " input-wrapper ").concat(inputGroup ? "" : "lable-in-control", " ").concat(!error && isFormItem && "mb-3"),
     style: {
-      width
+      width,
+      ...(inline ? {
+        flex: 1,
+        marginRight: "15px"
+      } : {})
     }
   }, /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("div", {
+    ref: wrapeerRef,
     className: "content-box icon-input ".concat(inputGroup ? "input-group" : "", " label-in-").concat(labelPosition)
   }, prefixContent && /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("span", {
     className: "input-group-text",
     id: "basic-addon1"
-  }, prefixContent), label && /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("div", {
+  }, prefixContent), label && /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("span", {
     className: "label-box",
     style: {
       color: labelColor,
-      width: labelWidth
+      width: labelWidth,
+      alignItems: labelPosition === "left-top" ? "start" : "center",
+      ...(labelPosition !== "top" && {
+        display: "flex"
+      })
     }
   }, label), /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("input", {
     ref: inputRef,
@@ -1986,7 +2052,8 @@ const Input = (_ref, ref) => {
       borderRadius: "6px",
       borderTopLeftRadius: prefixContent ? 0 : "6px",
       borderBottomLeftRadius: prefixContent ? 0 : "6px",
-      background: transparent ? "transparent" : "#fff"
+      background: transparent ? "transparent" : "#fff",
+      flex: 1
     },
     step: 1,
     name: name,
@@ -2001,7 +2068,7 @@ const Input = (_ref, ref) => {
     className: "form-control input",
     "aria-label": "Username",
     "aria-describedby": "basic-addon1"
-  }), commonSuffixIcon && /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("i", {
+  }), suffixContent && /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("div", null, suffixContent), commonSuffixIcon && /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("i", {
     onClick: handleClickCommonSuffixIcon,
     className: "".concat(commonSuffixIcon, " common-suffix-icon ms-2")
   }), /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("div", {
@@ -2010,10 +2077,7 @@ const Input = (_ref, ref) => {
     style: {
       right: commonSuffixIcon && "32px"
     }
-  }, children)), suffixContent && /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("span", {
-    className: "input-group-text",
-    id: "basic-addon2"
-  }, suffixContent), error && required && /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("div", {
+  }, children)), error && required && /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("div", {
     className: "animate__animated animate__fadeIn mb-1",
     style: {
       color: "#DC3545",

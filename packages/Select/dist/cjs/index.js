@@ -5381,6 +5381,9 @@ ___CSS_LOADER_EXPORT___.push([module.id, `@charset "UTF-8";
 .select-wrapper {
   position: relative;
 }
+.select-wrapper select option:first-child {
+  display: none;
+}
 .select-wrapper .select-placeholder,
 .select-wrapper .select-value {
   display: block;
@@ -5398,7 +5401,37 @@ ___CSS_LOADER_EXPORT___.push([module.id, `@charset "UTF-8";
   cursor: pointer;
 }
 .select-wrapper .custom-select i {
-  transition: transform 0.3s ease; /* 添加过渡效果 */
+  transition: transform 0.3s ease;
+  /* 添加过渡效果 */
+}
+.select-wrapper .content {
+  min-width: 200px;
+  text-align-last: left;
+  background-color: #fff;
+  max-height: 0;
+  /* 初始高度设为0，隐藏选项内容 */
+  overflow: hidden;
+  /* 隐藏溢出内容 */
+  position: absolute;
+  z-index: 999;
+  box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+  transition: max-height 0.3s ease;
+  /* 添加高度变化的过渡效果 */
+}
+.select-wrapper .content .option {
+  padding: 5px 10px;
+}
+.select-wrapper .content .option:hover {
+  background-color: #f6f6f6;
+  cursor: pointer;
+}
+.select-wrapper .content .option:active {
+  color: #fff;
+  background-color: #2783d8;
+}
+.select-wrapper .open {
+  max-height: 200px;
+  /* 显示选项内容时的最大高度 */
 }
 .select-wrapper .icon {
   position: absolute;
@@ -5409,26 +5442,70 @@ ___CSS_LOADER_EXPORT___.push([module.id, `@charset "UTF-8";
 .select-wrapper .icon:hover {
   transform: scale(1.4);
 }
+.select-wrapper .content-box .label-box {
+  font-size: 14px;
+  min-width: 50px;
+  max-width: 120px !important;
+  flex-wrap: wrap;
+}
+.select-wrapper .label-in-center {
+  display: flex;
+}
+.select-wrapper .label-in-left-top {
+  display: flex;
+}
+.select-wrapper .label-in-left-top .label-box {
+  display: flex;
+  align-items: start;
+}
 
 .rotate-up {
-  transform: rotate(90deg); /* 旋转-180度，向上箭头样式 */
+  transform: rotate(90deg);
+  /* 旋转-180度，向上箭头样式 */
 }
 
 .rotate-down {
-  transform: rotate(0deg); /* 不旋转，向下箭头样式 */
+  transform: rotate(0deg);
+  /* 不旋转，向下箭头样式 */
+}
+
+/* 定义滚动条样式 */
+::-webkit-scrollbar {
+  width: 8px;
+  /* 滚动条宽度 */
+}
+
+::-webkit-scrollbar-track {
+  background: #f1f1f1;
+  /* 滚动条背景色 */
+}
+
+::-webkit-scrollbar-thumb {
+  background: #888;
+  /* 滚动条滑块颜色 */
+  border-radius: 2px;
+  /* 滚动条滑块圆角 */
+}
+
+/* 悬停时滑块样式 */
+::-webkit-scrollbar-thumb:hover {
+  background: #555;
 }
 
 .custom-select-content {
   min-width: 200px;
   text-align-last: left;
   background-color: #fff;
-  max-height: 0; /* 初始高度设为0，隐藏选项内容 */
-  overflow: auto; /* 隐藏溢出内容 */
+  max-height: 0;
+  /* 初始高度设为0，隐藏选项内容 */
+  overflow: auto;
+  /* 隐藏溢出内容 */
   position: absolute;
   z-index: 66666666;
   border-radius: 4px;
   box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
-  transition: max-height 0.3s ease; /* 添加高度变化的过渡效果 */
+  transition: max-height 0.3s ease;
+  /* 添加高度变化的过渡效果 */
 }
 .custom-select-content .option {
   padding: 5px 10px;
@@ -5443,8 +5520,19 @@ ___CSS_LOADER_EXPORT___.push([module.id, `@charset "UTF-8";
 }
 
 .custom-select-content-open {
-  max-height: 100px; /* 显示选项内容时的最大高度 */
-}`, "",{"version":3,"sources":["webpack://./src/index.scss"],"names":[],"mappings":"AAAA,gBAAgB;AAAhB;EACI,kBAAA;AAEJ;AADI;;EAEI,cAAA;EACA,cAAA;EACA,gBAAA;EACA,mBAAA;EACA,uBAAA;AAGR;AADI;EACI,WAAA;AAGR;AADI;EACI,YAAA;EACA,kBAAA;EACA,eAAA;AAGR;AAFQ;EACI,+BAAA,EAAA,WAAA;AAIZ;AAAI;EACI,kBAAA;EACA,SAAA;EACA,WAAA;EACA,0BAAA;AAER;AADQ;EACI,qBAAA;AAGZ;;AAEA;EACI,wBAAA,EAAA,mBAAA;AACJ;;AAEA;EACI,uBAAA,EAAA,eAAA;AACJ;;AAEA;EACI,gBAAA;EACA,qBAAA;EACA,sBAAA;EACA,aAAA,EAAA,mBAAA;EACA,cAAA,EAAA,WAAA;EACA,kBAAA;EACA,iBAAA;EACA,kBAAA;EACA,4CAAA;EACA,gCAAA,EAAA,gBAAA;AACJ;AAAI;EACI,iBAAA;AAER;AADQ;EACI,yBAAA;EACA,eAAA;AAGZ;AADQ;EACI,WAAA;EACA,yBAAA;AAGZ;;AACA;EACI,iBAAA,EAAA,iBAAA;AAEJ","sourcesContent":[".select-wrapper {\r\n    position: relative;\r\n    .select-placeholder,\r\n    .select-value {\r\n        display: block;\r\n        color: #7d7d7d;\r\n        overflow: hidden;\r\n        white-space: nowrap;\r\n        text-overflow: ellipsis;\r\n    }\r\n    .select-value {\r\n        color: #000;\r\n    }\r\n    .custom-select {\r\n        height: 38px;\r\n        position: relative;\r\n        cursor: pointer;\r\n        i {\r\n            transition: transform 0.3s ease; /* 添加过渡效果 */\r\n        }\r\n    }\r\n\r\n    .icon {\r\n        position: absolute;\r\n        top: 10px;\r\n        right: 14px;\r\n        transition: transform 0.2s;\r\n        &:hover {\r\n            transform: scale(1.4);\r\n        }\r\n    }\r\n}\r\n\r\n.rotate-up {\r\n    transform: rotate(90deg); /* 旋转-180度，向上箭头样式 */\r\n}\r\n\r\n.rotate-down {\r\n    transform: rotate(0deg); /* 不旋转，向下箭头样式 */\r\n}\r\n\r\n.custom-select-content {\r\n    min-width: 200px;\r\n    text-align-last: left;\r\n    background-color: #fff;\r\n    max-height: 0; /* 初始高度设为0，隐藏选项内容 */\r\n    overflow: auto; /* 隐藏溢出内容 */\r\n    position: absolute;\r\n    z-index: 66666666;\r\n    border-radius: 4px;\r\n    box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;\r\n    transition: max-height 0.3s ease; /* 添加高度变化的过渡效果 */\r\n    .option {\r\n        padding: 5px 10px;\r\n        &:hover {\r\n            background-color: #f6f6f6;\r\n            cursor: pointer;\r\n        }\r\n        &:active {\r\n            color: #fff;\r\n            background-color: #2783d8;\r\n        }\r\n    }\r\n}\r\n.custom-select-content-open {\r\n    max-height: 100px; /* 显示选项内容时的最大高度 */\r\n}\r\n"],"sourceRoot":""}]);
+  max-height: 100px;
+  /* 显示选项内容时的最大高度 */
+}
+
+.none-option {
+  width: 200px;
+  height: 50px;
+  padding: 10px 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: #a4a3a3;
+}`, "",{"version":3,"sources":["webpack://./src/index.scss"],"names":[],"mappings":"AAAA,gBAAgB;AAAhB;EAKI,kBAAA;AAFJ;AAFI;EACI,aAAA;AAIR;AACI;;EAEI,cAAA;EACA,cAAA;EACA,gBAAA;EACA,mBAAA;EACA,uBAAA;AACR;AAEI;EACI,WAAA;AAAR;AAGI;EACI,YAAA;EACA,kBAAA;EACA,eAAA;AADR;AAGQ;EACI,+BAAA;EACA,WAAA;AADZ;AAKI;EACI,gBAAA;EACA,qBAAA;EACA,sBAAA;EACA,aAAA;EACA,mBAAA;EACA,gBAAA;EACA,WAAA;EACA,kBAAA;EACA,YAAA;EACA,4CAAA;EACA,gCAAA;EAEA,gBAAA;AAJR;AAKQ;EACI,iBAAA;AAHZ;AAKY;EACI,yBAAA;EACA,eAAA;AAHhB;AAMY;EACI,WAAA;EACA,yBAAA;AAJhB;AASI;EACI,iBAAA;EACA,iBAAA;AAPR;AAUI;EACI,kBAAA;EACA,SAAA;EACA,WAAA;EACA,0BAAA;AARR;AAUQ;EACI,qBAAA;AARZ;AAaQ;EACI,eAAA;EACA,eAAA;EACA,2BAAA;EACA,eAAA;AAXZ;AAeI;EACI,aAAA;AAbR;AAgBI;EACI,aAAA;AAdR;AAgBQ;EACI,aAAA;EACA,kBAAA;AAdZ;;AAmBA;EACI,wBAAA;EACA,mBAAA;AAhBJ;;AAmBA;EACI,uBAAA;EACA,eAAA;AAhBJ;;AAmBA,YAAA;AACA;EACI,UAAA;EACA,UAAA;AAhBJ;;AAmBA;EACI,mBAAA;EACA,WAAA;AAhBJ;;AAmBA;EACI,gBAAA;EACA,YAAA;EACA,kBAAA;EACA,YAAA;AAhBJ;;AAmBA,YAAA;AACA;EACI,gBAAA;AAhBJ;;AAmBA;EACI,gBAAA;EACA,qBAAA;EACA,sBAAA;EACA,aAAA;EACA,mBAAA;EACA,cAAA;EACA,WAAA;EACA,kBAAA;EACA,iBAAA;EACA,kBAAA;EACA,4CAAA;EACA,gCAAA;EAEA,gBAAA;AAjBJ;AAkBI;EACI,iBAAA;AAhBR;AAkBQ;EACI,yBAAA;EACA,eAAA;AAhBZ;AAmBQ;EACI,WAAA;EACA,yBAAA;AAjBZ;;AAsBA;EACI,iBAAA;EACA,iBAAA;AAnBJ;;AAsBA;EACI,YAAA;EACA,YAAA;EACA,eAAA;EACA,aAAA;EACA,uBAAA;EACA,mBAAA;EACA,cAAA;AAnBJ","sourcesContent":[".select-wrapper {\r\n    select option:first-child {\r\n        display: none;\r\n    }\r\n\r\n    position: relative;\r\n\r\n    .select-placeholder,\r\n    .select-value {\r\n        display: block;\r\n        color: #7d7d7d;\r\n        overflow: hidden;\r\n        white-space: nowrap;\r\n        text-overflow: ellipsis;\r\n    }\r\n\r\n    .select-value {\r\n        color: #000;\r\n    }\r\n\r\n    .custom-select {\r\n        height: 38px;\r\n        position: relative;\r\n        cursor: pointer;\r\n\r\n        i {\r\n            transition: transform 0.3s ease;\r\n            /* 添加过渡效果 */\r\n        }\r\n    }\r\n\r\n    .content {\r\n        min-width: 200px;\r\n        text-align-last: left;\r\n        background-color: #fff;\r\n        max-height: 0;\r\n        /* 初始高度设为0，隐藏选项内容 */\r\n        overflow: hidden;\r\n        /* 隐藏溢出内容 */\r\n        position: absolute;\r\n        z-index: 999;\r\n        box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;\r\n        transition: max-height 0.3s ease;\r\n\r\n        /* 添加高度变化的过渡效果 */\r\n        .option {\r\n            padding: 5px 10px;\r\n\r\n            &:hover {\r\n                background-color: #f6f6f6;\r\n                cursor: pointer;\r\n            }\r\n\r\n            &:active {\r\n                color: #fff;\r\n                background-color: #2783d8;\r\n            }\r\n        }\r\n    }\r\n\r\n    .open {\r\n        max-height: 200px;\r\n        /* 显示选项内容时的最大高度 */\r\n    }\r\n\r\n    .icon {\r\n        position: absolute;\r\n        top: 10px;\r\n        right: 14px;\r\n        transition: transform 0.2s;\r\n\r\n        &:hover {\r\n            transform: scale(1.4);\r\n        }\r\n    }\r\n\r\n    .content-box {\r\n        .label-box {\r\n            font-size: 14px;\r\n            min-width: 50px;\r\n            max-width: 120px !important;\r\n            flex-wrap: wrap;\r\n        }\r\n    }\r\n\r\n    .label-in-center {\r\n        display: flex;\r\n    }\r\n\r\n    .label-in-left-top {\r\n        display: flex;\r\n\r\n        .label-box {\r\n            display: flex;\r\n            align-items: start;\r\n        }\r\n    }\r\n}\r\n\r\n.rotate-up {\r\n    transform: rotate(90deg);\r\n    /* 旋转-180度，向上箭头样式 */\r\n}\r\n\r\n.rotate-down {\r\n    transform: rotate(0deg);\r\n    /* 不旋转，向下箭头样式 */\r\n}\r\n\r\n/* 定义滚动条样式 */\r\n::-webkit-scrollbar {\r\n    width: 8px;\r\n    /* 滚动条宽度 */\r\n}\r\n\r\n::-webkit-scrollbar-track {\r\n    background: #f1f1f1;\r\n    /* 滚动条背景色 */\r\n}\r\n\r\n::-webkit-scrollbar-thumb {\r\n    background: #888;\r\n    /* 滚动条滑块颜色 */\r\n    border-radius: 2px;\r\n    /* 滚动条滑块圆角 */\r\n}\r\n\r\n/* 悬停时滑块样式 */\r\n::-webkit-scrollbar-thumb:hover {\r\n    background: #555;\r\n}\r\n\r\n.custom-select-content {\r\n    min-width: 200px;\r\n    text-align-last: left;\r\n    background-color: #fff;\r\n    max-height: 0;\r\n    /* 初始高度设为0，隐藏选项内容 */\r\n    overflow: auto;\r\n    /* 隐藏溢出内容 */\r\n    position: absolute;\r\n    z-index: 66666666;\r\n    border-radius: 4px;\r\n    box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;\r\n    transition: max-height 0.3s ease;\r\n\r\n    /* 添加高度变化的过渡效果 */\r\n    .option {\r\n        padding: 5px 10px;\r\n\r\n        &:hover {\r\n            background-color: #f6f6f6;\r\n            cursor: pointer;\r\n        }\r\n\r\n        &:active {\r\n            color: #fff;\r\n            background-color: #2783d8;\r\n        }\r\n    }\r\n}\r\n\r\n.custom-select-content-open {\r\n    max-height: 100px;\r\n    /* 显示选项内容时的最大高度 */\r\n}\r\n\r\n.none-option {\r\n    width: 200px;\r\n    height: 50px;\r\n    padding: 10px 0;\r\n    display: flex;\r\n    justify-content: center;\r\n    align-items: center;\r\n    color: #a4a3a3;\r\n}"],"sourceRoot":""}]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 
@@ -7071,9 +7159,7 @@ var Utils = __webpack_require__(36);
 
 const Select = /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().forwardRef((props, ref) => {
   const {
-    rounded,
-    minWidth = "205px",
-    optionContentMaxHeight = "300px",
+    inline,
     commonSuffixIcon,
     isFormItem,
     errMsg,
@@ -7124,7 +7210,7 @@ const Select = /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_a
     } else {
       setValue(""); // 如果没有默认值，重置为初始状态
     }
-  }, [defaultValue, options]);
+  }, [defaultValue]);
   (0,external_root_React_commonjs2_react_commonjs_react_amd_react_.useEffect)(() => {
     // setValue({}) // 不知道要不要加 -- 不能加，加完之后会出现默认值无法赋值。。。
 
@@ -7185,7 +7271,11 @@ const Select = /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_a
   return /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("div", {
     className: wrapperClassName,
     style: {
-      width
+      width,
+      ...(inline ? {
+        flex: 1,
+        marginRight: "15px"
+      } : {})
     }
   }, /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("select", {
     style: {
@@ -7220,7 +7310,11 @@ const Select = /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_a
     style: {
       color: labelColor,
       width: labelWidth,
-      flexWrap: "nowrap"
+      flexWrap: "nowrap",
+      alignItems: labelPosition === "left-top" ? "start" : "center",
+      ...(labelPosition !== "top" && {
+        display: "flex"
+      })
     }
   }, label), /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("div", {
     ref: customSelectRef,
@@ -7230,10 +7324,7 @@ const Select = /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_a
     style: {
       textAlign: "left",
       background: transparent ? "transparent" : "#fff",
-      minWidth,
-      ...(rounded ? {
-        borderRadius: "20px"
-      } : {})
+      flex: 1
     }
   }, value !== null && value !== void 0 && value.value ? /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("span", {
     className: "select-value"
@@ -7249,10 +7340,7 @@ const Select = /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_a
     style: {
       position: "absolute",
       top: customSelectContentPosition.y + customSelectContentPosition.height + "px",
-      left: customSelectContentPosition.x + "px",
-      ...(showOptions ? {
-        maxHeight: optionContentMaxHeight
-      } : {})
+      left: customSelectContentPosition.x + "px"
     },
     ref: contentRef,
     className: "custom-select-content ".concat(showOptions ? "custom-select-content-open" : "")

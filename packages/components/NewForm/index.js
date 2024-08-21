@@ -140,79 +140,7 @@ module.exports = function (item) {
 
 var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_1___default()((_node_modules_css_loader_dist_runtime_sourceMaps_js__WEBPACK_IMPORTED_MODULE_0___default()));
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, `@charset "UTF-8";
-.tag-input-wrapper {
-  height: 100%;
-  margin-top: 10px;
-}
-.tag-input-wrapper .center {
-  display: flex;
-  flex: 1;
-}
-.tag-input-wrapper .form-control {
-  flex: 1;
-  cursor: text;
-}
-.tag-input-wrapper .inputGroup {
-  display: flex;
-  align-items: center;
-}
-.tag-input-wrapper .label-box {
-  font-size: 14px;
-  min-width: 50px;
-  max-width: 120px !important;
-  flex-wrap: wrap;
-}
-.tag-input-wrapper .label-in-center {
-  display: flex;
-  align-items: center;
-}
-.tag-input-wrapper .label-in-left-top {
-  display: flex;
-}
-.tag-input-wrapper .label-in-left-top .label-box {
-  display: flex;
-  align-items: start;
-}
-.tag-input-wrapper .content-box .tag-input-list {
-  padding: 0;
-  margin-bottom: 0;
-  display: flex;
-  flex-wrap: wrap;
-}
-.tag-input-wrapper .content-box .tag-input-list .list-item {
-  color: #7e8085;
-  list-style-type: none;
-  font-size: 14px;
-  padding: 3px 22px 3px 12px;
-  border-radius: 13px;
-  background-color: #f4f4f5;
-  position: relative;
-  margin-right: 6px;
-  margin-bottom: 6px;
-}
-.tag-input-wrapper .content-box .tag-input-list .list-item .item-icon {
-  color: #999ba1;
-  position: absolute;
-  right: 10px;
-  bottom: 4px;
-  cursor: pointer;
-}
-.tag-input-wrapper .tag-input-control {
-  flex: 1;
-}
-.tag-input-wrapper .tag-input-control .input {
-  width: 100%;
-  outline: none;
-  border: none;
-}
-
-.focus {
-  border-color: #80bdff;
-  /* 设置输入框获得焦点时的边框颜色 */
-  box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.313);
-  /* 设置输入框获得焦点时的阴影效果 */
-}`, "",{"version":3,"sources":["webpack://./src/index.scss"],"names":[],"mappings":"AAAA,gBAAgB;AAAhB;EACI,YAAA;EACA,gBAAA;AAEJ;AAAI;EACI,aAAA;EACA,OAAA;AAER;AACI;EACI,OAAA;EACA,YAAA;AACR;AAGI;EACI,aAAA;EACA,mBAAA;AADR;AAKI;EACI,eAAA;EACA,eAAA;EACA,2BAAA;EACA,eAAA;AAHR;AAOI;EACI,aAAA;EACA,mBAAA;AALR;AAQI;EACI,aAAA;AANR;AAQQ;EACI,aAAA;EACA,kBAAA;AANZ;AAYQ;EACI,UAAA;EACA,gBAAA;EACA,aAAA;EACA,eAAA;AAVZ;AAYY;EACI,cAAA;EACA,qBAAA;EACA,eAAA;EACA,0BAAA;EACA,mBAAA;EACA,yBAAA;EACA,kBAAA;EACA,iBAAA;EACA,kBAAA;AAVhB;AAYgB;EACI,cAAA;EACA,kBAAA;EACA,WAAA;EACA,WAAA;EACA,eAAA;AAVpB;AAgBI;EACI,OAAA;AAdR;AAgBQ;EACI,WAAA;EACA,aAAA;EACA,YAAA;AAdZ;;AAmBA;EACI,qBAAA;EACA,oBAAA;EACA,iDAAA;EACA,oBAAA;AAhBJ","sourcesContent":[".tag-input-wrapper {\r\n    height: 100%;\r\n    margin-top: 10px;\r\n\r\n    .center {\r\n        display: flex;\r\n        flex: 1;\r\n    }\r\n\r\n    .form-control {\r\n        flex: 1;\r\n        cursor: text;\r\n    }\r\n\r\n\r\n    .inputGroup {\r\n        display: flex;\r\n        align-items: center;\r\n    }\r\n\r\n\r\n    .label-box {\r\n        font-size: 14px;\r\n        min-width: 50px;\r\n        max-width: 120px !important;\r\n        flex-wrap: wrap;\r\n    }\r\n\r\n\r\n    .label-in-center {\r\n        display: flex;\r\n        align-items: center;\r\n    }\r\n\r\n    .label-in-left-top {\r\n        display: flex;\r\n\r\n        .label-box {\r\n            display: flex;\r\n            align-items: start;\r\n        }\r\n    }\r\n\r\n    .content-box {\r\n\r\n        .tag-input-list {\r\n            padding: 0;\r\n            margin-bottom: 0;\r\n            display: flex;\r\n            flex-wrap: wrap; // 不写这个太窄的话会挤在一起\r\n\r\n            .list-item {\r\n                color: #7e8085;\r\n                list-style-type: none;\r\n                font-size: 14px;\r\n                padding: 3px 22px 3px 12px;\r\n                border-radius: 13px;\r\n                background-color: #f4f4f5;\r\n                position: relative;\r\n                margin-right: 6px;\r\n                margin-bottom: 6px;\r\n\r\n                .item-icon {\r\n                    color: #999ba1;\r\n                    position: absolute;\r\n                    right: 10px;\r\n                    bottom: 4px;\r\n                    cursor: pointer;\r\n                }\r\n            }\r\n        }\r\n    }\r\n\r\n    .tag-input-control {\r\n        flex: 1;\r\n\r\n        .input {\r\n            width: 100%;\r\n            outline: none;\r\n            border: none;\r\n        }\r\n    }\r\n}\r\n\r\n.focus {\r\n    border-color: #80bdff;\r\n    /* 设置输入框获得焦点时的边框颜色 */\r\n    box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.313);\r\n    /* 设置输入框获得焦点时的阴影效果 */\r\n}"],"sourceRoot":""}]);
+___CSS_LOADER_EXPORT___.push([module.id, ``, "",{"version":3,"sources":[],"names":[],"mappings":"","sourceRoot":""}]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 
@@ -614,164 +542,170 @@ var update = injectStylesIntoStyleTag_default()(cjs_ruleSet_1_rules_1_use_2_src/
 ;// CONCATENATED MODULE: ./src/index.tsx
 
 
-const TagInput = /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().forwardRef((_ref, ref) => {
+
+const AdouNewForm = /*#__PURE__*/(0,external_root_React_commonjs2_react_commonjs_react_amd_react_.forwardRef)((_ref, AdouFormRef) => {
   let {
-    suffixContent,
+    labelPosition,
+    inline,
     required,
-    isFormItem,
-    errMsg,
-    labelWidth,
-    commonSuffixIcon,
-    readOnly,
-    width,
-    label,
-    labelColor,
-    inputGroup = false,
-    labelPosition = "center",
-    name,
-    defaultValue = [],
-    onChange
+    children,
+    eachWordWidth = 21,
+    commonSuffixIcon = ""
   } = _ref;
-  const [inputList, setInputList] = (0,external_root_React_commonjs2_react_commonjs_react_amd_react_.useState)(defaultValue || []);
-  const [inputValue, setInputValue] = (0,external_root_React_commonjs2_react_commonjs_react_amd_react_.useState)("");
-  const [isHighlighted, setIsHighlighted] = (0,external_root_React_commonjs2_react_commonjs_react_amd_react_.useState)(false);
-  const addInput = () => {
-    // 因为state是异步的，所以要把数据先处理好再使用
-    const data = [...inputList, inputValue];
-    setInputList(data);
-    setInputValue("");
-    // 把数据传回给父组件
-    onChange && onChange(data);
-    setError(false);
+  const formRef = (0,external_root_React_commonjs2_react_commonjs_react_amd_react_.useRef)(null);
+  const getFormData = () => {
+    const formWrapper = formRef.current; // 获取 search-wrapper 的 DOM 元素
+    if (!formWrapper) return;
+    const isValid = validateForm();
+    if (!isValid) return false;
+
+    // 遍历所有表单元素
+    const formValues = {};
+    const formElements = formWrapper.querySelectorAll("input, select, textarea");
+    formElements.forEach(element => {
+      var _childRefs$current$na;
+      const {
+        name,
+        value,
+        tagName,
+        type
+      } = element;
+      if (!name) return;
+      const child = (_childRefs$current$na = childRefs.current[name]) === null || _childRefs$current$na === void 0 ? void 0 : _childRefs$current$na.current;
+      // 处理 input 元素
+      if (tagName === "INPUT") {
+        if (type === "checkbox") {
+          child === null || child === void 0 || child.validate();
+
+          // 如果是复选框，更新 formValues[name] 为选中的复选框的值的数组
+          if (!formValues[name]) {
+            formValues[name] = [];
+          }
+          if (element.checked) {
+            // 如果是 checkbox的话，会造出多个 input type="checkbox"的表单
+            formValues[name].push(value);
+          }
+        } else {
+          (child === null || child === void 0 ? void 0 : child.validate) && child.validate();
+          if (child.getValue) {
+            formValues[name] = child.getValue();
+          } else {
+            formValues[name] = value;
+          }
+        }
+      }
+      // 处理 select 元素
+      else if (tagName === "SELECT") {
+        if (child !== null && child !== void 0 && child.getValue) {
+          formValues[name] = child.getValue();
+        } else {
+          formValues[name] = element.value;
+        }
+      }
+      // 处理 textarea 元素
+      else if (tagName === "TEXTAREA") {
+        formValues[name] = value;
+      }
+    });
+
+    // 输出收集到的表单值
+
+    // 这里可以根据需要，将 formValues 传递给其他处理函数或者组件
+    return formValues;
   };
-  const handleInputChange = e => {
-    setInputValue(e.target.value);
-  };
-  const handleKeyDown = event => {
-    const value = event.target.value.trim(); // 会有一个空格存在，要去掉
-    if (!value) return;
-    let flag = false;
-    if (event.keyCode === 32 || event.keyCode === 13) {
-      event.preventDefault(); // 阻止默认行为，防止提交表单或失去焦点
-      flag = inputList.length > 0 && inputList.some(item => item === value);
-      !flag && addInput();
+  const clearForm = () => {
+    const formWrapper = formRef.current; // 获取 search-wrapper 的 DOM 元素
+    if (!formWrapper) return;
+
+    // 遍历所有child
+    for (let key in childRefs.current) {
+      let child = childRefs.current[key];
+      child.current && child.current.clear && child.current.clear();
     }
   };
-  const handleDeleteItem = item => {
-    const tagList = inputList.filter(value => item !== value);
-    if (!tagList.length) {
-      setError(true);
+  const validateForm = () => {
+    const formWrapper = formRef.current; // 获取 search-wrapper 的 DOM 元素
+    if (!formWrapper) return false;
+    let isValid = true; // 默认表单验证通过
+
+    // 遍历所有child
+    for (let key in childRefs.current) {
+      let child = childRefs.current[key];
+      const valid = child.current && child.current.validate && child.current.validate();
+      if (!valid) {
+        console.log("存在校验不通过的表单：", key);
+        isValid = false;
+      }
     }
-    setInputList(tagList);
-    onChange && onChange(tagList);
-    // 注意，这边不能直接用 inputList给 formData赋值，会出现不一致的情况
-  };
-  const handleBlur = () => {
-    // 注意，这边要在 inpuut失焦的时候触发，不能在 input change的时候触发，不然会出现校验错误
-    setIsHighlighted(false);
-  };
-  const handleFocus = () => {
-    setIsHighlighted(true);
-  };
-  const inputRef = (0,external_root_React_commonjs2_react_commonjs_react_amd_react_.useRef)();
-  const handleClickFormControl = () => {
-    inputRef.current.focus();
-  };
-  const getValue = () => {
-    return inputList || [];
-  };
-  // 校验方法
-  const [error, setError] = (0,external_root_React_commonjs2_react_commonjs_react_amd_react_.useState)(false);
-  const validate = () => {
-    if (!required) return true;
-    if (inputList.length) {
-      setError(false);
-      return true;
-    } else {
-      setError(true);
-      return false;
+    if (!isValid) {
+      console.log("表单校验失败，请填写所有必填项！");
     }
+    return isValid;
   };
-  // 清除内容方法
-  const clear = () => {
-    setInputList("");
+  const childRefs = (0,external_root_React_commonjs2_react_commonjs_react_amd_react_.useRef)({});
+  let maxLengthLabelWidth = 0;
+  const calcMaxLabelWidth = () => {
+    var _sortedLabelWidthList;
+    const labelWidthList = [];
+    external_root_React_commonjs2_react_commonjs_react_amd_react_default().Children.map(children, child => {
+      var _child$props;
+      labelWidthList.push((_child$props = child.props) === null || _child$props === void 0 ? void 0 : _child$props.label);
+    });
+    const sortedLabelWidthList = labelWidthList.sort((a, b) => a.length - b.length);
+    maxLengthLabelWidth = ((_sortedLabelWidthList = sortedLabelWidthList[sortedLabelWidthList.length - 1]) === null || _sortedLabelWidthList === void 0 ? void 0 : _sortedLabelWidthList.length) * eachWordWidth;
   };
-  const handleClickCommonSuffixIcon = () => {
-    clear();
-    setError(true);
+  const renderChildren = () => {
+    const renderChildren = [];
+    calcMaxLabelWidth();
+    // 这个方法可行
+    external_root_React_commonjs2_react_commonjs_react_amd_react_default().Children.map(children, child => {
+      const childRef = /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createRef(); // 创建一个 ref
+      // child.type 子元素自身（FormItem），检查其静态属性 displayName 是否满足条件
+      const enhancedChildren = /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().cloneElement(child, {
+        key: child.props.name,
+        ref: childRef,
+        labelWidth: maxLengthLabelWidth + "px",
+        commonSuffixIcon,
+        isFormItem: true,
+        ...(labelPosition ? {
+          labelPosition
+        } : {}),
+        // 动态添加 required 属性
+
+        ...(inline ? {
+          inline: true
+        } : {}),
+        // 动态添加 required 属性
+
+        ...(required ? {
+          required: true
+        } : {}) // 动态添加 required 属性
+
+        // 注意：一个组件只能有一个 ref，要么外面提供ref手动处理，要么在 Form组件下统一提供ref
+        // 可以自定义要不要在Form下给表单组件提供 ref
+        // [`${child.props.name === "test-select" ? "" : "ref"}`]: childRef
+      });
+      renderChildren.push(enhancedChildren);
+      // 将子组件的 ref 存储到 childRefs 中
+      if (child.props.name) {
+        childRefs.current[child.props.name] = childRef;
+      }
+    });
+    return renderChildren;
   };
-  // Expose validate method via ref
-  (0,external_root_React_commonjs2_react_commonjs_react_amd_react_.useImperativeHandle)(ref, () => ({
-    getValue,
-    validate,
-    clear
+
+  // 对外暴露的API
+  (0,external_root_React_commonjs2_react_commonjs_react_amd_react_.useImperativeHandle)(AdouFormRef, () => ({
+    getFormData,
+    clearForm,
+    validateForm
   }));
-  (0,external_root_React_commonjs2_react_commonjs_react_amd_react_.useEffect)(() => {
-    if (defaultValue.length) {
-      setInputList(defaultValue);
-    } else {
-      setInputList([]);
-    }
-  }, [defaultValue]);
   return /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("div", {
-    className: "tag-input-wrapper ".concat(!error && isFormItem && "mb-3"),
-    style: {
-      width
-    }
-  }, /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("div", {
-    className: "content-box ".concat(inputGroup ? "inputGroup" : "label-in-".concat(labelPosition))
-  }, /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("span", {
-    className: "label-box ".concat(inputGroup ? "input-group-text" : ""),
-    style: {
-      color: labelColor,
-      width: labelWidth
-    }
-  }, label), /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("div", {
-    className: "center"
-  }, /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("div", {
-    style: {
-      display: "flex",
-      flex: 1
-    },
-    onClick: handleClickFormControl,
-    className: "form-control ".concat(isHighlighted ? "focus" : "")
-  }, /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("ul", {
-    className: "tag-input-list"
-  }, inputList.length > 0 && inputList.map(item => {
-    return /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("li", {
-      className: "list-item",
-      key: item
-    }, item, /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("span", {
-      onClick: () => handleDeleteItem(item),
-      className: "item-icon"
-    }, "x"));
-  })), /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("div", {
-    className: "tag-input-control"
-  }, /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("input", {
-    readOnly: readOnly,
-    ref: inputRef,
-    name: name,
-    value: inputValue,
-    autoComplete: "off",
-    onFocus: handleFocus,
-    onBlur: handleBlur,
-    onChange: e => handleInputChange(e),
-    onKeyDown: handleKeyDown,
-    placeholder: "\u7A7A\u683C\u6216\u56DE\u8F66\u5206\u5272",
-    type: "text",
-    className: "input"
-  }))), suffixContent && /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("div", null, suffixContent)), commonSuffixIcon && /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("i", {
-    onClick: handleClickCommonSuffixIcon,
-    className: "".concat(commonSuffixIcon, " common-suffix-icon ms-2")
-  })), error && required && /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("div", {
-    className: "animate__animated animate__fadeIn",
-    style: {
-      color: "red",
-      paddingLeft: parseInt(labelWidth) > 120 ? "120px" : labelWidth
-    }
-  }, "".concat(errMsg || "".concat(label, "\u4E0D\u80FD\u4E3A\u7A7A"))));
+    className: "adou-new-form-wrapper flex-wrap ".concat(inline ? "d-flex" : ""),
+    ref: formRef
+  }, renderChildren());
 });
-/* harmony default export */ const src_0 = (TagInput);
+/* harmony default export */ const src_0 = (AdouNewForm);
 })();
 
 /******/ 	return __webpack_exports__;

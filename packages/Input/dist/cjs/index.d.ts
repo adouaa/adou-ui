@@ -2,6 +2,7 @@ import React from "react";
 import "./index.scss";
 export interface InputProps {
     name?: string;
+    inline?: boolean;
     isFormItem?: boolean;
     errMsg?: string;
     labelWidth?: any;
@@ -34,6 +35,7 @@ export interface InputRef {
 }
 declare const _default: React.ComponentType<Omit<{
     name?: string | undefined;
+    inline?: boolean | undefined;
     isFormItem?: boolean | undefined;
     errMsg?: string | undefined;
     labelWidth?: any;
