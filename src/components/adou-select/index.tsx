@@ -7,6 +7,9 @@ import ReactDOM from 'react-dom';
 
 export interface SelectProps {
     name?: string;
+    optionContentMaxHeight?: any;
+    minWidth?: any;
+    rounded?: boolean;
     inline?: boolean;
     isFormItem?: boolean;
     validate?: boolean;
@@ -33,6 +36,9 @@ export interface SelectProps {
 
 const Select = React.forwardRef((props: SelectProps, ref) => {
     const {
+        optionContentMaxHeight,
+        minWidth,
+        rounded,
         inline,
         commonSuffixIcon,
         isFormItem,

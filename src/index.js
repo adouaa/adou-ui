@@ -23,18 +23,22 @@ export {
  */
 import React from 'react';
 import ReactDOM from 'react-dom/client';
-// import App from './App-special-table';
+import App from './App-special-table';
 // import App from './App-copy-text';
-import App from './App-calendar';
+// import App from './App-calendar';
+// import App from './redux-test/App.tsx';
+
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './App.css';
 import './index.scss';
 // 把 App根组件渲染到 id为 root的 dom节点上
 import 'animate.css/animate.min.css';
+import store from './store/store.ts';
+import { Provider } from 'react-redux';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
-    <>
+    <Provider store={store}>
         <App />
-    </>
+    </Provider>
 );
