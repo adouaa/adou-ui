@@ -2,7 +2,6 @@ import React from "react";
 import "./index.scss";
 interface TagInputProps {
     name?: string;
-    suffixContent?: any;
     isFormItem?: boolean;
     required?: boolean;
     errMsg?: string;

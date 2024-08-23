@@ -616,7 +616,6 @@ var update = injectStylesIntoStyleTag_default()(cjs_ruleSet_1_rules_1_use_2_src/
 
 const TagInput = /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().forwardRef((_ref, ref) => {
   let {
-    suffixContent,
     required,
     isFormItem,
     errMsg,
@@ -707,7 +706,7 @@ const TagInput = /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react
     clear
   }));
   (0,external_root_React_commonjs2_react_commonjs_react_amd_react_.useEffect)(() => {
-    if (defaultValue.length) {
+    if (defaultValue !== null && defaultValue !== void 0 && defaultValue.length) {
       setInputList(defaultValue);
     } else {
       setInputList([]);
@@ -727,17 +726,14 @@ const TagInput = /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react
       width: labelWidth
     }
   }, label), /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("div", {
-    className: "center"
-  }, /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("div", {
     style: {
-      display: "flex",
-      flex: 1
+      display: "flex"
     },
     onClick: handleClickFormControl,
     className: "form-control ".concat(isHighlighted ? "focus" : "")
   }, /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("ul", {
     className: "tag-input-list"
-  }, inputList.length > 0 && inputList.map(item => {
+  }, Array.isArray(inputList) && inputList.map(item => {
     return /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("li", {
       className: "list-item",
       key: item
@@ -760,13 +756,13 @@ const TagInput = /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react
     placeholder: "\u7A7A\u683C\u6216\u56DE\u8F66\u5206\u5272",
     type: "text",
     className: "input"
-  }))), suffixContent && /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("div", null, suffixContent)), commonSuffixIcon && /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("i", {
+  }))), commonSuffixIcon && /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("i", {
     onClick: handleClickCommonSuffixIcon,
     className: "".concat(commonSuffixIcon, " common-suffix-icon ms-2")
   })), error && required && /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("div", {
     className: "animate__animated animate__fadeIn",
     style: {
-      color: "red",
+      color: "#DC3545",
       paddingLeft: parseInt(labelWidth) > 120 ? "120px" : labelWidth
     }
   }, "".concat(errMsg || "".concat(label, "\u4E0D\u80FD\u4E3A\u7A7A"))));

@@ -11,7 +11,6 @@ import { withTranslation } from "react-i18next";
 
 interface TagInputProps {
   name?: string;
-  suffixContent?: any;
   isFormItem?: boolean;
   required?: boolean;
   errMsg?: string;
@@ -30,7 +29,6 @@ interface TagInputProps {
 const TagInput = React.forwardRef(
   (
     {
-      suffixContent,
       required,
       isFormItem,
       errMsg,
@@ -135,7 +133,7 @@ const TagInput = React.forwardRef(
     }));
 
     useEffect(() => {
-      if (defaultValue.length) {
+      if (defaultValue?.length) {
         setInputList(defaultValue);
       } else {
         setInputList([]);
@@ -158,48 +156,44 @@ const TagInput = React.forwardRef(
           >
             {label}
           </span>
-          <div className="center">
-            <div
-              style={{ display: "flex", flex: 1 }}
-              onClick={handleClickFormControl}
-              className={`form-control ${isHighlighted ? "focus" : ""}`}
-            >
-              <ul className="tag-input-list">
-                {inputList.length > 0 &&
-                  inputList.map((item: any) => {
-                    return (
-                      <li className="list-item" key={item}>
-                        {item}
-                        <span
-                          onClick={() => handleDeleteItem(item)}
-                          className="item-icon"
-                        >
-                          x
-                        </span>
-                      </li>
-                    );
-                  })}
-              </ul>
-              <div className="tag-input-control">
-                <input
-                  readOnly={readOnly}
-                  ref={inputRef}
-                  name={name}
-                  value={inputValue}
-                  autoComplete="off"
-                  onFocus={handleFocus}
-                  onBlur={handleBlur}
-                  onChange={(e) => handleInputChange(e)}
-                  onKeyDown={handleKeyDown}
-                  placeholder="空格或回车分割"
-                  type="text"
-                  className="input"
-                ></input>
-              </div>
+          <div
+            style={{ display: "flex" }}
+            onClick={handleClickFormControl}
+            className={`form-control ${isHighlighted ? "focus" : ""}`}
+          >
+            <ul className="tag-input-list">
+              {Array.isArray(inputList) &&
+                inputList.map((item: any) => {
+                  return (
+                    <li className="list-item" key={item}>
+                      {item}
+                      <span
+                        onClick={() => handleDeleteItem(item)}
+                        className="item-icon"
+                      >
+                        x
+                      </span>
+                    </li>
+                  );
+                })}
+            </ul>
+            <div className="tag-input-control">
+              <input
+                readOnly={readOnly}
+                ref={inputRef}
+                name={name}
+                value={inputValue}
+                autoComplete="off"
+                onFocus={handleFocus}
+                onBlur={handleBlur}
+                onChange={(e) => handleInputChange(e)}
+                onKeyDown={handleKeyDown}
+                placeholder="空格或回车分割"
+                type="text"
+                className="input"
+              ></input>
             </div>
-            {suffixContent && <div>{suffixContent}</div>}
           </div>
-
           {commonSuffixIcon && (
             <i
               onClick={handleClickCommonSuffixIcon}
@@ -213,7 +207,7 @@ const TagInput = React.forwardRef(
           <div
             className="animate__animated animate__fadeIn"
             style={{
-              color: "red",
+              color: "#DC3545",
               paddingLeft: parseInt(labelWidth) > 120 ? "120px" : labelWidth,
             }}
           >{`${errMsg || `${label}不能为空`}`}</div>
@@ -222,6 +216,5 @@ const TagInput = React.forwardRef(
     );
   }
 );
-
 
 export default TagInput;
