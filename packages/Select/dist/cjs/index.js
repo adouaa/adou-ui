@@ -7204,8 +7204,9 @@ const Select = /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_a
     setError(false);
   };
   (0,external_root_React_commonjs2_react_commonjs_react_amd_react_.useEffect)(() => {
-    if (defaultValue) {
+    if (defaultValue || defaultValue === 0 || defaultValue === false) {
       const selectOption = options.find(option => option.value === defaultValue);
+      console.log(defaultValue, selectOption);
       setValue(selectOption);
     } else {
       setValue(""); // 如果没有默认值，重置为初始状态
@@ -7233,12 +7234,18 @@ const Select = /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_a
     setValue(e.target.value);
   };
   const getValue = () => {
-    return (value === null || value === void 0 ? void 0 : value.value) || value;
+    if (value !== null && value !== void 0 && value.value || (value === null || value === void 0 ? void 0 : value.value) === 0 || (value === null || value === void 0 ? void 0 : value.value) === false) {
+      return value.value;
+    } else {
+      return value;
+    }
   };
+
   // 校验方法
   const [error, setError] = (0,external_root_React_commonjs2_react_commonjs_react_amd_react_.useState)(false);
   const validate = () => {
     if (!required) return true;
+    console.log(value);
     if (value) {
       setError(false);
       return true;
@@ -7326,7 +7333,7 @@ const Select = /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_a
       background: transparent ? "transparent" : "#fff",
       flex: 1
     }
-  }, value !== null && value !== void 0 && value.value ? /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("span", {
+  }, value !== null && value !== void 0 && value.value || (value === null || value === void 0 ? void 0 : value.value) === 0 || (value === null || value === void 0 ? void 0 : value.value) === false ? /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("span", {
     className: "select-value"
   }, value.label) : /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("span", {
     className: "select-placeholder"

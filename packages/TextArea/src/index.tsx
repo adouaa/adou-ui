@@ -27,8 +27,8 @@ interface TextAreaProps {
 const TextArea: React.FC<TextAreaProps> = React.forwardRef(
   (props: TextAreaProps, ref) => {
     const {
-      isFormItem,
       errMsg,
+      isFormItem,
       labelWidth,
       labelColor,
       commonSuffixIcon,
@@ -89,7 +89,6 @@ const TextArea: React.FC<TextAreaProps> = React.forwardRef(
     }));
 
     const textareaClasses = classNames({
-      "mb-3": !error && isFormItem,
       "textarea-warpper": true,
       [externalClassName as string]: externalClassName,
     });
@@ -101,7 +100,10 @@ const TextArea: React.FC<TextAreaProps> = React.forwardRef(
     }, [defaultValue]);
 
     return (
-      <div className={textareaClasses} style={{ width }}>
+      <div
+        className={`${textareaClasses} ${!error && isFormItem && "mb-3"}`}
+        style={{ width }}
+      >
         <div
           className={`label-in-${labelPosition} ${
             inputGroup ? "input-group" : ""

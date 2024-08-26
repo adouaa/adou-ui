@@ -19,6 +19,7 @@ export interface InputProps {
     externalClassName?: string;
     prefixContent?: any;
     suffixContent?: any;
+    suffixContentType?: string;
     placeholder?: string;
     style?: React.CSSProperties;
     readOnly?: boolean;
@@ -52,6 +53,7 @@ declare const _default: React.ComponentType<Omit<{
     externalClassName?: string | undefined;
     prefixContent?: any;
     suffixContent?: any;
+    suffixContentType?: string | undefined;
     placeholder?: string | undefined;
     style?: React.CSSProperties | undefined;
     readOnly?: boolean | undefined;

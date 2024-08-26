@@ -29,6 +29,7 @@ export interface InputProps {
   externalClassName?: string;
   prefixContent?: any;
   suffixContent?: any;
+  suffixContentType?: string;
   placeholder?: string;
   style?: React.CSSProperties;
   readOnly?: boolean;
@@ -74,6 +75,7 @@ const Input: React.ForwardRefRenderFunction<InputRef, InputProps> = (
     externalClassName,
     prefixContent,
     suffixContent,
+    suffixContentType = "button",
     placeholder,
     style,
     readOnly,
@@ -221,11 +223,23 @@ const Input: React.ForwardRefRenderFunction<InputRef, InputProps> = (
           onFocus={(e) => handleFocus(e)}
           onClick={(e) => handleClick(e)}
           type={type}
-          className="form-control input"
+          className={`form-control input ${
+            suffixContent && suffixContentType === "button"
+              ? "suffix-content-btn"
+              : ""
+          }`}
           aria-label="Username"
           aria-describedby="basic-addon1"
         />
-        {suffixContent && <div>{suffixContent}</div>}
+        {suffixContent && (
+          <div
+            className={`${
+              suffixContentType === "button" ? "suffix-content-btn-wrapper" : ""
+            }`}
+          >
+            {suffixContent}
+          </div>
+        )}
 
         {commonSuffixIcon && (
           <i
@@ -233,13 +247,15 @@ const Input: React.ForwardRefRenderFunction<InputRef, InputProps> = (
             className={`${commonSuffixIcon} common-suffix-icon ms-2`}
           ></i>
         )}
-        <div
-          onClick={handleIconClick}
-          className="suffix-icon"
-          style={{ right: commonSuffixIcon && "32px" }}
-        >
-          {children}
-        </div>
+        {children && (
+          <div
+            onClick={handleIconClick}
+            className="suffix-icon"
+            style={{ right: commonSuffixIcon && "32px" }}
+          >
+            {children}
+          </div>
+        )}
       </div>
       {error && required && (
         <div
@@ -254,6 +270,5 @@ const Input: React.ForwardRefRenderFunction<InputRef, InputProps> = (
     </div>
   );
 };
-
 
 export default withTranslation()(Input);

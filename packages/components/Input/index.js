@@ -212,6 +212,19 @@ ___CSS_LOADER_EXPORT___.push([module.id, `@charset "UTF-8";
 .lable-in-control .content-box {
   flex: 1;
 }
+.lable-in-control .content-box .suffix-content-btn {
+  border-top-right-radius: 0 !important;
+  /* 去掉右上角的圆角 */
+  border-bottom-right-radius: 0 !important;
+  border-right: none;
+  /* 去掉右下角的圆角 */
+}
+.lable-in-control .content-box .suffix-content-btn-wrapper .btn {
+  border-top-left-radius: 0;
+  /* 去掉左上角的圆角 */
+  border-bottom-left-radius: 0;
+  /* 去掉左下角的圆角 */
+}
 .lable-in-control .label-in-center {
   display: flex;
 }
@@ -235,7 +248,7 @@ ___CSS_LOADER_EXPORT___.push([module.id, `@charset "UTF-8";
 
 .input-group-text {
   cursor: pointer;
-}`, "",{"version":3,"sources":["webpack://./src/index.scss"],"names":[],"mappings":"AAAA,gBAAgB;AAAhB;EACI;;eAAA;EAGA,kBAAA;EACA,WAAA;EACA,SAAA;EACA,SAAA;EACA,eAAA;EACA,gBAAA;EACA,0BAAA;EACA,WAAA;EACA,cAAA;AAEJ;AAAI;EACI,qBAAA;EACA,mBAAA;EACA,cAAA;AAER;;AAEA;EACI,aAAA;EACA,mBAAA;EACA,eAAA;AACJ;;AAEA;EACI,eAAA;EACA,eAAA;EACA,iBAAA;EACA,yBAAA;EACA,mBAAA;EACA,eAAA;AACJ;;AAGI;EACI,kBAAA;EACA,iBAAA;AAAR;AAII;EACI,OAAA;AAFR;AAUI;EACI,aAAA;AARR;AAUQ;EACI,QAAA;AARZ;AAYI;EACI,aAAA;AAVR;AAYQ;EACI,aAAA;EACA,kBAAA;AAVZ;AAaQ;EACI,QAAA;AAXZ;;AAkBI;EACI,mBAAA;AAfR;;AAmBA;EACI,eAAA;AAhBJ","sourcesContent":[".suffix-icon {\r\n    /* margin-left: -40px !important;\r\n    margin-top: 6px;\r\n    z-index: 9; */\r\n    position: absolute;\r\n    right: 12px;\r\n    top: 30px;\r\n    /* 垂直居中 */\r\n    cursor: pointer;\r\n    /* 鼠标悬停时显示指针样式 */\r\n    transition: transform 0.3s;\r\n    /* 添加过渡效果 */\r\n    color: #c6c6cd;\r\n\r\n    &:hover {\r\n        transform: scale(1.3);\r\n        /* 水平和垂直方向都放大1.5倍 */\r\n        color: #51515b;\r\n    }\r\n}\r\n\r\n.common-suffix-icon {\r\n    display: flex;\r\n    align-items: center;\r\n    cursor: pointer;\r\n}\r\n\r\n.label-box {\r\n    font-size: 14px;\r\n    min-width: 50px;\r\n    text-align: right;\r\n    justify-content: flex-end;\r\n    padding-right: 10px;\r\n    flex-wrap: wrap;\r\n}\r\n\r\n.lable-in-control {\r\n    .icon-input {\r\n        position: relative;\r\n        /* 让伪元素相对于输入框定位 */\r\n\r\n    }\r\n\r\n    .content-box {\r\n        flex: 1;\r\n\r\n        .label-box {}\r\n\r\n\r\n\r\n    }\r\n\r\n    .label-in-center {\r\n        display: flex;\r\n\r\n        .suffix-icon {\r\n            top: 7px;\r\n        }\r\n    }\r\n\r\n    .label-in-left-top {\r\n        display: flex;\r\n\r\n        .label-box {\r\n            display: flex;\r\n            align-items: start;\r\n        }\r\n\r\n        .suffix-icon {\r\n            top: 7px;\r\n        }\r\n    }\r\n\r\n}\r\n\r\n.input-group {\r\n    .suffix-icon {\r\n        top: 7px !important;\r\n    }\r\n}\r\n\r\n.input-group-text {\r\n    cursor: pointer;\r\n}"],"sourceRoot":""}]);
+}`, "",{"version":3,"sources":["webpack://./src/index.scss"],"names":[],"mappings":"AAAA,gBAAgB;AAAhB;EACI;;eAAA;EAGA,kBAAA;EACA,WAAA;EACA,SAAA;EACA,SAAA;EACA,eAAA;EACA,gBAAA;EACA,0BAAA;EACA,WAAA;EACA,cAAA;AAEJ;AAAI;EACI,qBAAA;EACA,mBAAA;EACA,cAAA;AAER;;AAEA;EACI,aAAA;EACA,mBAAA;EACA,eAAA;AACJ;;AAEA;EACI,eAAA;EACA,eAAA;EACA,iBAAA;EACA,yBAAA;EACA,mBAAA;EACA,eAAA;AACJ;;AAGI;EACI,kBAAA;EACA,iBAAA;AAAR;AAII;EACI,OAAA;AAFR;AAMQ;EACI,qCAAA;EACA,aAAA;EACA,wCAAA;EACA,kBAAA;EACA,aAAA;AAJZ;AAOQ;EACI,yBAAA;EACA,aAAA;EACA,4BAAA;EACA,aAAA;AALZ;AAWI;EACI,aAAA;AATR;AAWQ;EACI,QAAA;AATZ;AAaI;EACI,aAAA;AAXR;AAaQ;EACI,aAAA;EACA,kBAAA;AAXZ;AAcQ;EACI,QAAA;AAZZ;;AAmBI;EACI,mBAAA;AAhBR;;AAoBA;EACI,eAAA;AAjBJ","sourcesContent":[".suffix-icon {\r\n    /* margin-left: -40px !important;\r\n    margin-top: 6px;\r\n    z-index: 9; */\r\n    position: absolute;\r\n    right: 12px;\r\n    top: 30px;\r\n    /* 垂直居中 */\r\n    cursor: pointer;\r\n    /* 鼠标悬停时显示指针样式 */\r\n    transition: transform 0.3s;\r\n    /* 添加过渡效果 */\r\n    color: #c6c6cd;\r\n\r\n    &:hover {\r\n        transform: scale(1.3);\r\n        /* 水平和垂直方向都放大1.5倍 */\r\n        color: #51515b;\r\n    }\r\n}\r\n\r\n.common-suffix-icon {\r\n    display: flex;\r\n    align-items: center;\r\n    cursor: pointer;\r\n}\r\n\r\n.label-box {\r\n    font-size: 14px;\r\n    min-width: 50px;\r\n    text-align: right;\r\n    justify-content: flex-end;\r\n    padding-right: 10px;\r\n    flex-wrap: wrap;\r\n}\r\n\r\n.lable-in-control {\r\n    .icon-input {\r\n        position: relative;\r\n        /* 让伪元素相对于输入框定位 */\r\n\r\n    }\r\n\r\n    .content-box {\r\n        flex: 1;\r\n\r\n        .label-box {}\r\n\r\n        .suffix-content-btn {\r\n            border-top-right-radius: 0 !important;\r\n            /* 去掉右上角的圆角 */\r\n            border-bottom-right-radius: 0 !important;\r\n            border-right: none;\r\n            /* 去掉右下角的圆角 */\r\n        }\r\n\r\n        .suffix-content-btn-wrapper .btn {\r\n            border-top-left-radius: 0;\r\n            /* 去掉左上角的圆角 */\r\n            border-bottom-left-radius: 0;\r\n            /* 去掉左下角的圆角 */\r\n        }\r\n\r\n\r\n    }\r\n\r\n    .label-in-center {\r\n        display: flex;\r\n\r\n        .suffix-icon {\r\n            top: 7px;\r\n        }\r\n    }\r\n\r\n    .label-in-left-top {\r\n        display: flex;\r\n\r\n        .label-box {\r\n            display: flex;\r\n            align-items: start;\r\n        }\r\n\r\n        .suffix-icon {\r\n            top: 7px;\r\n        }\r\n    }\r\n\r\n}\r\n\r\n.input-group {\r\n    .suffix-icon {\r\n        top: 7px !important;\r\n    }\r\n}\r\n\r\n.input-group-text {\r\n    cursor: pointer;\r\n}"],"sourceRoot":""}]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 
@@ -1936,6 +1949,7 @@ const Input = (_ref, ref) => {
     externalClassName,
     prefixContent,
     suffixContent,
+    suffixContentType = "button",
     placeholder,
     style,
     readOnly,
@@ -2065,13 +2079,15 @@ const Input = (_ref, ref) => {
     onFocus: e => handleFocus(e),
     onClick: e => handleClick(e),
     type: type,
-    className: "form-control input",
+    className: "form-control input ".concat(suffixContent && suffixContentType === "button" ? "suffix-content-btn" : ""),
     "aria-label": "Username",
     "aria-describedby": "basic-addon1"
-  }), suffixContent && /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("div", null, suffixContent), commonSuffixIcon && /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("i", {
+  }), suffixContent && /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("div", {
+    className: "".concat(suffixContentType === "button" ? "suffix-content-btn-wrapper" : "")
+  }, suffixContent), commonSuffixIcon && /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("i", {
     onClick: handleClickCommonSuffixIcon,
     className: "".concat(commonSuffixIcon, " common-suffix-icon ms-2")
-  }), /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("div", {
+  }), children && /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("div", {
     onClick: handleIconClick,
     className: "suffix-icon",
     style: {

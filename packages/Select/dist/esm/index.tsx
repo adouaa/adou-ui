@@ -90,10 +90,12 @@ const Select = React.forwardRef((props: SelectProps, ref) => {
   };
 
   useEffect(() => {
-    if (defaultValue) {
+    if (defaultValue || defaultValue === 0 || defaultValue === false) {
       const selectOption = options.find(
         (option) => option.value === defaultValue
       );
+      console.log(defaultValue, selectOption);
+
       setValue(selectOption);
     } else {
       setValue(""); // 如果没有默认值，重置为初始状态
@@ -125,12 +127,19 @@ const Select = React.forwardRef((props: SelectProps, ref) => {
   };
 
   const getValue = () => {
-    return value?.value || value;
+    if (value?.value || value?.value === 0 || value?.value === false) {
+      return value.value;
+    } else {
+      return value;
+    }
   };
+  
   // 校验方法
   const [error, setError] = useState<boolean>(false);
   const validate = () => {
     if (!required) return true;
+    console.log(value);
+
     if (value) {
       setError(false);
       return true;
@@ -231,7 +240,7 @@ const Select = React.forwardRef((props: SelectProps, ref) => {
               flex: 1,
             }}
           >
-            {value?.value ? (
+            {value?.value || value?.value === 0 || value?.value === false ? (
               <span className="select-value">{value.label}</span>
             ) : (
               <span className="select-placeholder">{placeholder}</span>
