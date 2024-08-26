@@ -5,6 +5,7 @@ import classNames from 'classnames';
 
 interface TextAreaProps {
     name?: string;
+    isFormItem?: boolean;
     errMsg?: string;
     labelWidth?: any;
     commonSuffixIcon?: string;
@@ -26,6 +27,7 @@ interface TextAreaProps {
 const TextArea: React.FC<TextAreaProps> = React.forwardRef((props: TextAreaProps, ref) => {
     const {
         errMsg,
+        isFormItem,
         labelWidth,
         labelColor,
         commonSuffixIcon,
@@ -64,6 +66,7 @@ const TextArea: React.FC<TextAreaProps> = React.forwardRef((props: TextAreaProps
 
     const [error, setError] = useState<boolean>(false);
     const validate = () => {
+        if (!required) return;
         if (value) {
             setError(false);
             return true;
@@ -93,7 +96,7 @@ const TextArea: React.FC<TextAreaProps> = React.forwardRef((props: TextAreaProps
     }, [defaultValue]);
 
     return (
-        <div className={textareaClasses} style={{ width }}>
+        <div className={`${textareaClasses} ${!error && isFormItem && 'mb-3'}`} style={{ width }}>
             <div className={`label-in-${labelPosition} ${inputGroup ? 'input-group' : ''}`}>
                 {label && (
                     <span style={{ color: labelColor, width: labelWidth }} className={`${inputGroup ? 'input-group-text' : ''} label-box`}>
@@ -117,7 +120,10 @@ const TextArea: React.FC<TextAreaProps> = React.forwardRef((props: TextAreaProps
             {error && required && (
                 <div
                     className="animate__animated animate__fadeIn"
-                    style={{ color: 'red', paddingLeft: parseInt(labelWidth) > 120 ? '120px' : labelWidth }}
+                    style={{
+                        color: '#DC3545',
+                        paddingLeft: parseInt(labelWidth) > 120 ? '120px' : labelWidth,
+                    }}
                 >{`${errMsg || `${name}不能为空`}`}</div>
             )}
         </div>
