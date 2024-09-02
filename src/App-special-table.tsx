@@ -3,10 +3,18 @@ import Table, { EditableTableCell } from 'components/adou-table';
 import TabItem from 'components/adou-tabs/tab-item';
 import { useState } from 'react';
 import React from 'react';
+import store from 'store';
+import { connect } from 'react-redux';
 
-interface AppProps {}
+interface AppProps {
+    counter?: number;
+}
 
-const App = ({}: AppProps) => {
+const App = ({ counter }: AppProps) => {
+    const handleAddNumbers = (num: number) => {};
+
+    const handleSubNumbers = (num: number) => {};
+
     const testData = [
         {
             id: 'team001',
@@ -80,12 +88,25 @@ const App = ({}: AppProps) => {
     ];
 
     return (
-        <Table textPosition="center" collection expandAll={false} collapse data={testData} headLabels={headerLabels} tableStriped tableHover>
-            {headerLabels.map((label) => (
-                <EditableTableCell key={label.prop} prop={label.prop} label={label.label} />
-            ))}
-        </Table>
+        <>
+            <h1>num: {counter}</h1>
+            <button onClick={() => handleAddNumbers(1)}>+1</button>
+            <button onClick={() => handleSubNumbers(5)}>-5</button>
+            <hr />
+            <hr />
+            <Table textPosition="center" collection expandAll={false} collapse data={testData} headLabels={headerLabels} tableStriped tableHover>
+                {headerLabels.map((label) => (
+                    <EditableTableCell key={label.prop} prop={label.prop} label={label.label} />
+                ))}
+            </Table>
+        </>
     );
 };
 
-export default App;
+const mapFn = (state: any) => {
+    return {
+        counter: state.counter,
+    };
+};
+
+export default connect(mapFn)(App);

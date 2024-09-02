@@ -1,10 +1,7 @@
-import React, { useEffect, useState } from 'react';
-import { withTranslation } from 'react-i18next';
+import React, { useEffect, useRef, useState } from 'react';
 import ReactDOM from 'react-dom';
 
-// import "./index.css";
-
-interface ModalProps {
+export interface ModalProps {
     type?: string;
     title?: string;
     show: boolean;
@@ -20,6 +17,7 @@ interface ModalProps {
     onClose?: () => void;
     onConfirm?: () => void;
 }
+
 const Modal: React.FC<ModalProps> = ({
     type,
     title,
@@ -37,6 +35,15 @@ const Modal: React.FC<ModalProps> = ({
     onConfirm,
 }) => {
     const [visible, setVisible] = useState(false);
+    const [dragging, setDragging] = useState(false);
+    const [offset, setOffset] = useState({ x: 0, y: 0 });
+    const modalRef = useRef<HTMLDivElement>(null);
+
+    useEffect(() => {
+        setTimeout(() => {
+            setVisible(show);
+        }, 100);
+    }, [show]);
 
     const handleOnClose = () => {
         setVisible(false);
@@ -53,16 +60,54 @@ const Modal: React.FC<ModalProps> = ({
     };
 
     const handleOnConfirm = () => {
+        setVisible(false);
         setTimeout(() => {
             onConfirm && onConfirm();
         }, 100);
     };
 
+    // Drag related functions
+    const handleMouseDown = (e: React.MouseEvent) => {
+        if (modalRef.current) {
+            const rect = modalRef.current.getBoundingClientRect();
+            setOffset({
+                x: e.clientX - rect.left,
+                y: e.clientY - rect.top,
+            });
+            setDragging(true);
+        }
+    };
+
+    const handleMouseMove = (e: MouseEvent) => {
+        if (dragging && modalRef.current) {
+            const x = e.clientX; // 鼠标相对于视口的位置
+            const y = e.clientY + 60;
+            /* 
+                不能 - offset.x 和 offset.y，导致 handleMouseDown下的 setOff也没啥用
+                modalRef.current.style.left = `${x - offset.x}px`;
+                modalRef.current.style.top = `${y - offset.y}px`; 
+            */
+            modalRef.current.style.left = `${x}px`;
+            modalRef.current.style.top = `${y}px`;
+        }
+    };
+
+    const handleMouseUp = () => {
+        setDragging(false);
+    };
+
     useEffect(() => {
-        setTimeout(() => {
-            setVisible(show);
-        }, 100);
-    }, [show]);
+        if (dragging) {
+            window.addEventListener('mousemove', handleMouseMove);
+            window.addEventListener('mouseup', handleMouseUp);
+        }
+
+        return () => {
+            // setDragging(false); 当鼠标弹起来的时候，会执行这个useEffect，就会移除window的事件监听器，否则会一直执行
+            window.removeEventListener('mousemove', handleMouseMove);
+            window.removeEventListener('mouseup', handleMouseUp);
+        };
+    }, [dragging]);
 
     return (
         <>
@@ -77,39 +122,42 @@ const Modal: React.FC<ModalProps> = ({
                 ReactDOM.createPortal(
                     <div>
                         <div
+                            ref={modalRef}
                             className={`modal fade ${visible ? 'show ' : ''}`}
-                            style={{ display: show ? 'block' : 'none' }}
+                            style={{
+                                display: show ? 'block' : 'none',
+                                width: 'fit-content',
+                                height: 'fit-content',
+                                position: 'fixed',
+                                left: '50%',
+                                top: type === 'tips' ? '50%' : '30%',
+                                transform: 'translate(-50%, -50%)',
+                            }}
                             id="exampleModal"
                             tabIndex={-1}
                             aria-labelledby="exampleModalLabel"
                         >
                             <div className={`modal-dialog ${type === 'tip' ? 'modal-dialog-centered' : ''}`} style={{ maxWidth: 'fit-content' }}>
-                                <div className="modal-content" style={{ width: width }}>
-                                    <div className="modal-header">
+                                <div className="modal-content" style={{ width: width, minWidth: '300px' }}>
+                                    <div onMouseDown={handleMouseDown} style={{ cursor: 'move' }} className="modal-header">
                                         <h5 className="modal-title" id="exampleModalLabel">
                                             {title || '标题'}
                                         </h5>
                                         <button onClick={handleOnClose} type="button" className="btn-close" aria-label="Close"></button>
                                     </div>
                                     <div className="modal-body" style={overflowY ? { maxHeight: maxHeight, overflowY: 'auto' } : {}}>
-                                        {' '}
-                                        {/* 设置最大高度和滚动条 */}
                                         {children || '内容'}
                                     </div>
                                     <div className="modal-footer">
-                                        {showCancel ? (
-                                            <button type="button" className="btn btn-secondary" data-bs-dismiss="modal" onClick={handleOnCancel}>
+                                        {showCancel && (
+                                            <button type="button" className="btn btn-secondary" onClick={handleOnCancel}>
                                                 {cancelText || '取消'}
                                             </button>
-                                        ) : (
-                                            ''
                                         )}
-                                        {showConfirm ? (
+                                        {showConfirm && (
                                             <button type="button" className="btn btn-primary" onClick={handleOnConfirm}>
                                                 {confirmText || '确定'}
                                             </button>
-                                        ) : (
-                                            ''
                                         )}
                                     </div>
                                 </div>
@@ -123,4 +171,4 @@ const Modal: React.FC<ModalProps> = ({
     );
 };
 
-export default withTranslation()(Modal);
+export default Modal;
