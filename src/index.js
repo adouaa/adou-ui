@@ -30,7 +30,9 @@ import ReactDOM from 'react-dom/client';
 
 // import App from './router-test/App.tsx';
 
-import App from './App-Modal.tsx';
+// import App from './App-Modal.tsx';
+
+import App from './test-gpt/App.tsx';
 
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './App.css';

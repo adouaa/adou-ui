@@ -30,7 +30,7 @@
   },
   "include": [
     "src/**/*.ts", "src/**/*.tsx"
-, "src/App.tsx", "src/components/adou-globalModal/GlobalModalProvider.js"  ],
+, "src/App.tsx", "src/components/adou-globalModal/GlobalModalProvider.js", "src/test-gpt/MultiSelectDropdown.tsx"  ],
   "exclude": [
     "node_modules"
   ]

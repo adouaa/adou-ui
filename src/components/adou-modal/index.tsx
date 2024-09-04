@@ -38,6 +38,7 @@ const Modal: React.FC<ModalProps> = ({
     const [dragging, setDragging] = useState(false);
     const [offset, setOffset] = useState({ x: 0, y: 0 });
     const modalRef = useRef<HTMLDivElement>(null);
+    const contentRef = useRef<HTMLDivElement>(null);
 
     useEffect(() => {
         setTimeout(() => {
@@ -80,14 +81,10 @@ const Modal: React.FC<ModalProps> = ({
 
     const handleMouseMove = (e: MouseEvent) => {
         if (dragging && modalRef.current) {
-            const x = e.clientX; // 鼠标相对于视口的位置
-            const y = e.clientY + 60;
-            /* 
-                不能 - offset.x 和 offset.y，导致 handleMouseDown下的 setOff也没啥用
-                modalRef.current.style.left = `${x - offset.x}px`;
-                modalRef.current.style.top = `${y - offset.y}px`; 
-            */
-            modalRef.current.style.left = `${x}px`;
+            const width = modalRef.current.clientWidth;
+            const x = e.clientX - offset.x;
+            const y = e.clientY - offset.y;
+            modalRef.current.style.left = `${x + width / 2}px`; // 加上 width / 2 才能让鼠标在哪模态框就在哪，不会出现鼠标一直在模态框中间
             modalRef.current.style.top = `${y}px`;
         }
     };
@@ -103,21 +100,23 @@ const Modal: React.FC<ModalProps> = ({
         }
 
         return () => {
-            // setDragging(false); 当鼠标弹起来的时候，会执行这个useEffect，就会移除window的事件监听器，否则会一直执行
             window.removeEventListener('mousemove', handleMouseMove);
             window.removeEventListener('mouseup', handleMouseUp);
         };
     }, [dragging]);
 
+    useEffect(() => {
+        if (modalRef.current && contentRef.current) {
+            const contentHeight = contentRef.current.scrollHeight;
+            const windowHeight = window.innerHeight;
+            const modalHeight = modalRef.current.offsetHeight;
+            const top = contentHeight > windowHeight ? 60 : (windowHeight - modalHeight) / 2;
+            modalRef.current.style.top = `1%`;
+        }
+    }, [visible, children]);
+
     return (
         <>
-            {/* 
-            注意：展示的时候要先让整个 modal先 display: block，先在html结构中存在，然后再给它一个 show的类名
-                  关闭的的时候，要先 移除掉show的类名，然后再让整个 modal在结构中消失，即 display: none
-                  并且，要用 父组件传递的show && 来判断是否展示整个 div，不能用 visible，不然就同步了
-                  一定要记住先后原则：展示--先出现，再添加类名【show】 消失--先移除类名【show】，再消失。（不能两者一起添加或消失）
-                  否则，就不会有一个动画效果
-        */}
             {show &&
                 ReactDOM.createPortal(
                     <div>
@@ -130,8 +129,7 @@ const Modal: React.FC<ModalProps> = ({
                                 height: 'fit-content',
                                 position: 'fixed',
                                 left: '50%',
-                                top: type === 'tips' ? '50%' : '30%',
-                                transform: 'translate(-50%, -50%)',
+                                transform: 'translateX(-50%)',
                             }}
                             id="exampleModal"
                             tabIndex={-1}
@@ -145,7 +143,7 @@ const Modal: React.FC<ModalProps> = ({
                                         </h5>
                                         <button onClick={handleOnClose} type="button" className="btn-close" aria-label="Close"></button>
                                     </div>
-                                    <div className="modal-body" style={overflowY ? { maxHeight: maxHeight, overflowY: 'auto' } : {}}>
+                                    <div ref={contentRef} className="modal-body" style={overflowY ? { maxHeight: maxHeight, overflowY: 'auto' } : {}}>
                                         {children || '内容'}
                                     </div>
                                     <div className="modal-footer">
