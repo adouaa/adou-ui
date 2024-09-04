@@ -1,10 +1,7 @@
-import React, { useEffect, useState } from "react";
-import { withTranslation } from "react-i18next";
+import React, { useEffect, useRef, useState } from "react";
 import ReactDOM from "react-dom";
 
-// import "./index.css";
-
-interface ModalProps {
+export interface ModalProps {
   type?: string;
   title?: string;
   show: boolean;
@@ -20,6 +17,7 @@ interface ModalProps {
   onClose?: () => void;
   onConfirm?: () => void;
 }
+
 const Modal: React.FC<ModalProps> = ({
   type,
   title,
@@ -28,8 +26,8 @@ const Modal: React.FC<ModalProps> = ({
   confirmText,
   cancelText,
   maxHeight,
-  overflowY,
-  width,
+  overflowY = true,
+  width = "600px",
   showConfirm = true,
   showCancel = true,
   onCancel,
@@ -37,6 +35,16 @@ const Modal: React.FC<ModalProps> = ({
   onConfirm,
 }) => {
   const [visible, setVisible] = useState(false);
+  const [dragging, setDragging] = useState(false);
+  const [offset, setOffset] = useState({ x: 0, y: 0 });
+  const modalRef = useRef<HTMLDivElement>(null);
+  const contentRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    setTimeout(() => {
+      setVisible(show);
+    }, 100);
+  }, [show]);
 
   const handleOnClose = () => {
     setVisible(false);
@@ -53,32 +61,77 @@ const Modal: React.FC<ModalProps> = ({
   };
 
   const handleOnConfirm = () => {
+    setVisible(false);
     setTimeout(() => {
       onConfirm && onConfirm();
     }, 100);
   };
 
+  // Drag related functions
+  const handleMouseDown = (e: React.MouseEvent) => {
+    if (modalRef.current) {
+      const rect = modalRef.current.getBoundingClientRect();
+      setOffset({
+        x: e.clientX - rect.left,
+        y: e.clientY - rect.top,
+      });
+      setDragging(true);
+    }
+  };
+
+  const handleMouseMove = (e: MouseEvent) => {
+    if (dragging && modalRef.current) {
+      const width = modalRef.current.clientWidth;
+      const x = e.clientX - offset.x;
+      const y = e.clientY - offset.y;
+      modalRef.current.style.left = `${x + width / 2}px`;
+      modalRef.current.style.top = `${y}px`;
+    }
+  };
+
+  const handleMouseUp = () => {
+    setDragging(false);
+  };
+
   useEffect(() => {
-    setTimeout(() => {
-      setVisible(show);
-    }, 100);
-  }, [show]);
+    if (dragging) {
+      window.addEventListener("mousemove", handleMouseMove);
+      window.addEventListener("mouseup", handleMouseUp);
+    }
+
+    return () => {
+      window.removeEventListener("mousemove", handleMouseMove);
+      window.removeEventListener("mouseup", handleMouseUp);
+    };
+  }, [dragging]);
+
+  useEffect(() => {
+    if (modalRef.current && contentRef.current) {
+      const contentHeight = contentRef.current.scrollHeight;
+      const windowHeight = window.innerHeight;
+      const modalHeight = modalRef.current.offsetHeight;
+      const top =
+        contentHeight > windowHeight ? 60 : (windowHeight - modalHeight) / 2;
+      modalRef.current.style.top = `1%`;
+    }
+  }, [visible, children]);
 
   return (
     <>
-      {/* 
-            注意：展示的时候要先让整个 modal先 display: block，先在html结构中存在，然后再给它一个 show的类名
-                  关闭的的时候，要先 移除掉show的类名，然后再让整个 modal在结构中消失，即 display: none
-                  并且，要用 父组件传递的show && 来判断是否展示整个 div，不能用 visible，不然就同步了
-                  一定要记住先后原则：展示--先出现，再添加类名【show】 消失--先移除类名【show】，再消失。（不能两者一起添加或消失）
-                  否则，就不会有一个动画效果
-        */}
       {show &&
         ReactDOM.createPortal(
           <div>
             <div
+              ref={modalRef}
               className={`modal fade ${visible ? "show " : ""}`}
-              style={{ display: show ? "block" : "none" }}
+              style={{
+                display: show ? "block" : "none",
+                width: "fit-content",
+                height: "fit-content",
+                position: "fixed",
+                left: "50%",
+                transform: "translateX(-50%)",
+              }}
               id="exampleModal"
               tabIndex={-1}
               aria-labelledby="exampleModalLabel"
@@ -89,10 +142,17 @@ const Modal: React.FC<ModalProps> = ({
                 }`}
                 style={{ maxWidth: "fit-content" }}
               >
-                <div className="modal-content" style={{ width: width }}>
-                  <div className="modal-header">
+                <div
+                  className="modal-content"
+                  style={{ width: width, minWidth: "300px" }}
+                >
+                  <div
+                    onMouseDown={handleMouseDown}
+                    style={{ cursor: "move" }}
+                    className="modal-header"
+                  >
                     <h5 className="modal-title" id="exampleModalLabel">
-                      {title || "Modal title"}
+                      {title || "标题"}
                     </h5>
                     <button
                       onClick={handleOnClose}
@@ -102,6 +162,7 @@ const Modal: React.FC<ModalProps> = ({
                     ></button>
                   </div>
                   <div
+                    ref={contentRef}
                     className="modal-body"
                     style={
                       overflowY
@@ -109,24 +170,19 @@ const Modal: React.FC<ModalProps> = ({
                         : {}
                     }
                   >
-                    {" "}
-                    {/* 设置最大高度和滚动条 */}
-                    {children || "..."}
+                    {children || "内容"}
                   </div>
                   <div className="modal-footer">
-                    {showCancel ? (
+                    {showCancel && (
                       <button
                         type="button"
                         className="btn btn-secondary"
-                        data-bs-dismiss="modal"
                         onClick={handleOnCancel}
                       >
                         {cancelText || "取消"}
                       </button>
-                    ) : (
-                      ""
                     )}
-                    {showConfirm ? (
+                    {showConfirm && (
                       <button
                         type="button"
                         className="btn btn-primary"
@@ -134,8 +190,6 @@ const Modal: React.FC<ModalProps> = ({
                       >
                         {confirmText || "确定"}
                       </button>
-                    ) : (
-                      ""
                     )}
                   </div>
                 </div>
@@ -151,4 +205,4 @@ const Modal: React.FC<ModalProps> = ({
   );
 };
 
-export default withTranslation()(Modal);
+export default Modal;

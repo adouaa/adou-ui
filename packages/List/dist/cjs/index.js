@@ -11,7 +11,122 @@
 return /******/ (() => { // webpackBootstrap
 /******/ 	var __webpack_modules__ = ({
 
-/***/ 395:
+/***/ 191:
+/***/ ((module) => {
+
+"use strict";
+
+
+/*
+  MIT License http://www.opensource.org/licenses/mit-license.php
+  Author Tobias Koppers @sokra
+*/
+module.exports = function (cssWithMappingToString) {
+  var list = [];
+
+  // return the list of modules as css string
+  list.toString = function toString() {
+    return this.map(function (item) {
+      var content = "";
+      var needLayer = typeof item[5] !== "undefined";
+      if (item[4]) {
+        content += "@supports (".concat(item[4], ") {");
+      }
+      if (item[2]) {
+        content += "@media ".concat(item[2], " {");
+      }
+      if (needLayer) {
+        content += "@layer".concat(item[5].length > 0 ? " ".concat(item[5]) : "", " {");
+      }
+      content += cssWithMappingToString(item);
+      if (needLayer) {
+        content += "}";
+      }
+      if (item[2]) {
+        content += "}";
+      }
+      if (item[4]) {
+        content += "}";
+      }
+      return content;
+    }).join("");
+  };
+
+  // import a list of modules into the list
+  list.i = function i(modules, media, dedupe, supports, layer) {
+    if (typeof modules === "string") {
+      modules = [[null, modules, undefined]];
+    }
+    var alreadyImportedModules = {};
+    if (dedupe) {
+      for (var k = 0; k < this.length; k++) {
+        var id = this[k][0];
+        if (id != null) {
+          alreadyImportedModules[id] = true;
+        }
+      }
+    }
+    for (var _k = 0; _k < modules.length; _k++) {
+      var item = [].concat(modules[_k]);
+      if (dedupe && alreadyImportedModules[item[0]]) {
+        continue;
+      }
+      if (typeof layer !== "undefined") {
+        if (typeof item[5] === "undefined") {
+          item[5] = layer;
+        } else {
+          item[1] = "@layer".concat(item[5].length > 0 ? " ".concat(item[5]) : "", " {").concat(item[1], "}");
+          item[5] = layer;
+        }
+      }
+      if (media) {
+        if (!item[2]) {
+          item[2] = media;
+        } else {
+          item[1] = "@media ".concat(item[2], " {").concat(item[1], "}");
+          item[2] = media;
+        }
+      }
+      if (supports) {
+        if (!item[4]) {
+          item[4] = "".concat(supports);
+        } else {
+          item[1] = "@supports (".concat(item[4], ") {").concat(item[1], "}");
+          item[4] = supports;
+        }
+      }
+      list.push(item);
+    }
+  };
+  return list;
+};
+
+/***/ }),
+
+/***/ 73:
+/***/ ((module) => {
+
+"use strict";
+
+
+module.exports = function (item) {
+  var content = item[1];
+  var cssMapping = item[3];
+  if (!cssMapping) {
+    return content;
+  }
+  if (typeof btoa === "function") {
+    var base64 = btoa(unescape(encodeURIComponent(JSON.stringify(cssMapping))));
+    var data = "sourceMappingURL=data:application/json;charset=utf-8;base64,".concat(base64);
+    var sourceMapping = "/*# ".concat(data, " */");
+    return [content].concat([sourceMapping]).join("\n");
+  }
+  return [content].join("\n");
+};
+
+/***/ }),
+
+/***/ 281:
 /***/ (function(module, __unused_webpack_exports, __webpack_require__) {
 
 (function webpackUniversalModuleDefinition(root, factory) {
@@ -175,12 +290,12 @@ return /******/ (() => { // webpackBootstrap
 
         var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_1___default()(_node_modules_css_loader_dist_runtime_sourceMaps_js__WEBPACK_IMPORTED_MODULE_0___default());
         // Module
-        ___CSS_LOADER_EXPORT___.push([module.id, "@charset \"UTF-8\";\n.icon-input {\n  position: relative; /* \u8BA9\u4F2A\u5143\u7D20\u76F8\u5BF9\u4E8E\u8F93\u5165\u6846\u5B9A\u4F4D */\n}\n.icon-input .icon {\n  position: absolute;\n  right: 20px;\n  top: 20%; /* \u5782\u76F4\u5C45\u4E2D */\n  cursor: pointer; /* \u9F20\u6807\u60AC\u505C\u65F6\u663E\u793A\u6307\u9488\u6837\u5F0F */\n  transition: transform 0.3s; /* \u6DFB\u52A0\u8FC7\u6E21\u6548\u679C */\n  color: #c6c6cd;\n}\n.icon-input .icon:hover {\n  transform: scale(1.3); /* \u6C34\u5E73\u548C\u5782\u76F4\u65B9\u5411\u90FD\u653E\u59271.5\u500D */\n  color: #51515b;\n}", "", {
+        ___CSS_LOADER_EXPORT___.push([module.id, "@charset \"UTF-8\";\n.suffix-icon {\n  /* margin-left: -40px !important;\n  margin-top: 6px;\n  z-index: 9; */\n  position: absolute;\n  right: 12px;\n  top: 30px;\n  /* \u5782\u76F4\u5C45\u4E2D */\n  cursor: pointer;\n  /* \u9F20\u6807\u60AC\u505C\u65F6\u663E\u793A\u6307\u9488\u6837\u5F0F */\n  transition: transform 0.3s;\n  /* \u6DFB\u52A0\u8FC7\u6E21\u6548\u679C */\n  color: #c6c6cd;\n}\n.suffix-icon:hover {\n  transform: scale(1.3);\n  /* \u6C34\u5E73\u548C\u5782\u76F4\u65B9\u5411\u90FD\u653E\u59271.5\u500D */\n  color: #51515b;\n}\n\n.common-suffix-icon {\n  display: flex;\n  align-items: center;\n  cursor: pointer;\n}\n\n.label-box {\n  font-size: 14px;\n  min-width: 50px;\n  text-align: right;\n  justify-content: flex-end;\n  padding-right: 10px;\n  flex-wrap: wrap;\n}\n\n.lable-in-control .icon-input {\n  position: relative;\n  /* \u8BA9\u4F2A\u5143\u7D20\u76F8\u5BF9\u4E8E\u8F93\u5165\u6846\u5B9A\u4F4D */\n}\n.lable-in-control .content-box {\n  flex: 1;\n}\n.lable-in-control .content-box .suffix-content-btn {\n  border-top-right-radius: 0 !important;\n  /* \u53BB\u6389\u53F3\u4E0A\u89D2\u7684\u5706\u89D2 */\n  border-bottom-right-radius: 0 !important;\n  border-right: none;\n  /* \u53BB\u6389\u53F3\u4E0B\u89D2\u7684\u5706\u89D2 */\n}\n.lable-in-control .content-box .suffix-content-btn-wrapper .btn {\n  border-top-left-radius: 0;\n  /* \u53BB\u6389\u5DE6\u4E0A\u89D2\u7684\u5706\u89D2 */\n  border-bottom-left-radius: 0;\n  /* \u53BB\u6389\u5DE6\u4E0B\u89D2\u7684\u5706\u89D2 */\n}\n.lable-in-control .label-in-center {\n  display: flex;\n}\n.lable-in-control .label-in-center .suffix-icon {\n  top: 7px;\n}\n.lable-in-control .label-in-left-top {\n  display: flex;\n}\n.lable-in-control .label-in-left-top .label-box {\n  display: flex;\n  align-items: start;\n}\n.lable-in-control .label-in-left-top .suffix-icon {\n  top: 7px;\n}\n\n.input-group .suffix-icon {\n  top: 7px !important;\n}\n\n.input-group-text {\n  cursor: pointer;\n}", "", {
           "version": 3,
           "sources": ["webpack://./src/index.scss"],
           "names": [],
-          "mappings": "AAAA,gBAAgB;AAAhB;EACI,kBAAA,EAAA,iBAAA;AAEJ;AAAI;EACI,kBAAA;EACA,WAAA;EACA,QAAA,EAAA,SAAA;EACA,eAAA,EAAA,gBAAA;EACA,0BAAA,EAAA,WAAA;EACA,cAAA;AAER;AADQ;EACI,qBAAA,EAAA,mBAAA;EACA,cAAA;AAGZ",
-          "sourcesContent": [".icon-input {\r\n    position: relative; /* 让伪元素相对于输入框定位 */\r\n\r\n    .icon {\r\n        position: absolute;\r\n        right: 20px;\r\n        top: 20%;  /* 垂直居中 */\r\n        cursor: pointer;  /* 鼠标悬停时显示指针样式 */\r\n        transition: transform 0.3s; /* 添加过渡效果 */\r\n        color: #c6c6cd;\r\n        &:hover {\r\n            transform: scale(1.3); /* 水平和垂直方向都放大1.5倍 */\r\n            color: #51515b;\r\n        }\r\n    }\r\n}\r\n\r\n"],
+          "mappings": "AAAA,gBAAgB;AAAhB;EACI;;eAAA;EAGA,kBAAA;EACA,WAAA;EACA,SAAA;EACA,SAAA;EACA,eAAA;EACA,gBAAA;EACA,0BAAA;EACA,WAAA;EACA,cAAA;AAEJ;AAAI;EACI,qBAAA;EACA,mBAAA;EACA,cAAA;AAER;;AAEA;EACI,aAAA;EACA,mBAAA;EACA,eAAA;AACJ;;AAEA;EACI,eAAA;EACA,eAAA;EACA,iBAAA;EACA,yBAAA;EACA,mBAAA;EACA,eAAA;AACJ;;AAGI;EACI,kBAAA;EACA,iBAAA;AAAR;AAII;EACI,OAAA;AAFR;AAMQ;EACI,qCAAA;EACA,aAAA;EACA,wCAAA;EACA,kBAAA;EACA,aAAA;AAJZ;AAOQ;EACI,yBAAA;EACA,aAAA;EACA,4BAAA;EACA,aAAA;AALZ;AAWI;EACI,aAAA;AATR;AAWQ;EACI,QAAA;AATZ;AAaI;EACI,aAAA;AAXR;AAaQ;EACI,aAAA;EACA,kBAAA;AAXZ;AAcQ;EACI,QAAA;AAZZ;;AAmBI;EACI,mBAAA;AAhBR;;AAoBA;EACI,eAAA;AAjBJ",
+          "sourcesContent": [".suffix-icon {\r\n    /* margin-left: -40px !important;\r\n    margin-top: 6px;\r\n    z-index: 9; */\r\n    position: absolute;\r\n    right: 12px;\r\n    top: 30px;\r\n    /* 垂直居中 */\r\n    cursor: pointer;\r\n    /* 鼠标悬停时显示指针样式 */\r\n    transition: transform 0.3s;\r\n    /* 添加过渡效果 */\r\n    color: #c6c6cd;\r\n\r\n    &:hover {\r\n        transform: scale(1.3);\r\n        /* 水平和垂直方向都放大1.5倍 */\r\n        color: #51515b;\r\n    }\r\n}\r\n\r\n.common-suffix-icon {\r\n    display: flex;\r\n    align-items: center;\r\n    cursor: pointer;\r\n}\r\n\r\n.label-box {\r\n    font-size: 14px;\r\n    min-width: 50px;\r\n    text-align: right;\r\n    justify-content: flex-end;\r\n    padding-right: 10px;\r\n    flex-wrap: wrap;\r\n}\r\n\r\n.lable-in-control {\r\n    .icon-input {\r\n        position: relative;\r\n        /* 让伪元素相对于输入框定位 */\r\n\r\n    }\r\n\r\n    .content-box {\r\n        flex: 1;\r\n\r\n        .label-box {}\r\n\r\n        .suffix-content-btn {\r\n            border-top-right-radius: 0 !important;\r\n            /* 去掉右上角的圆角 */\r\n            border-bottom-right-radius: 0 !important;\r\n            border-right: none;\r\n            /* 去掉右下角的圆角 */\r\n        }\r\n\r\n        .suffix-content-btn-wrapper .btn {\r\n            border-top-left-radius: 0;\r\n            /* 去掉左上角的圆角 */\r\n            border-bottom-left-radius: 0;\r\n            /* 去掉左下角的圆角 */\r\n        }\r\n\r\n\r\n    }\r\n\r\n    .label-in-center {\r\n        display: flex;\r\n\r\n        .suffix-icon {\r\n            top: 7px;\r\n        }\r\n    }\r\n\r\n    .label-in-left-top {\r\n        display: flex;\r\n\r\n        .label-box {\r\n            display: flex;\r\n            align-items: start;\r\n        }\r\n\r\n        .suffix-icon {\r\n            top: 7px;\r\n        }\r\n    }\r\n\r\n}\r\n\r\n.input-group {\r\n    .suffix-icon {\r\n        top: 7px !important;\r\n    }\r\n}\r\n\r\n.input-group-text {\r\n    cursor: pointer;\r\n}"],
           "sourceRoot": ""
         }]);
         // Exports
@@ -329,12 +444,12 @@ return /******/ (() => { // webpackBootstrap
 
         /***/
       }),
-      /***/855: ( /***/(module, __unused_webpack_exports, __nested_webpack_require_12703__) => {
+      /***/855: ( /***/(module, __unused_webpack_exports, __nested_webpack_require_16009__) => {
         "use strict";
 
         /* istanbul ignore next  */
         function setAttributesWithoutAttributes(styleElement) {
-          var nonce =  true ? __nested_webpack_require_12703__.nc : 0;
+          var nonce =  true ? __nested_webpack_require_16009__.nc : 0;
           if (nonce) {
             styleElement.setAttribute("nonce", nonce);
           }
@@ -508,7 +623,7 @@ return /******/ (() => { // webpackBootstrap
     /******/
     /******/ // The require function
     /******/
-    function __nested_webpack_require_18626__(moduleId) {
+    function __nested_webpack_require_21932__(moduleId) {
       /******/ // Check if module is in cache
       /******/var cachedModule = __webpack_module_cache__[moduleId];
       /******/
@@ -527,7 +642,7 @@ return /******/ (() => { // webpackBootstrap
       /******/
       /******/ // Execute the module function
       /******/
-      __webpack_modules__[moduleId](module, module.exports, __nested_webpack_require_18626__);
+      __webpack_modules__[moduleId](module, module.exports, __nested_webpack_require_21932__);
       /******/
       /******/ // Return the exports of the module
       /******/
@@ -540,10 +655,10 @@ return /******/ (() => { // webpackBootstrap
     /******/
     (() => {
       /******/ // getDefaultExport function for compatibility with non-harmony modules
-      /******/__nested_webpack_require_18626__.n = module => {
+      /******/__nested_webpack_require_21932__.n = module => {
         /******/var getter = module && module.__esModule ? /******/() => module['default'] : /******/() => module;
         /******/
-        __nested_webpack_require_18626__.d(getter, {
+        __nested_webpack_require_21932__.d(getter, {
           a: getter
         });
         /******/
@@ -557,9 +672,9 @@ return /******/ (() => { // webpackBootstrap
     /******/
     (() => {
       /******/ // define getter functions for harmony exports
-      /******/__nested_webpack_require_18626__.d = (exports, definition) => {
+      /******/__nested_webpack_require_21932__.d = (exports, definition) => {
         /******/for (var key in definition) {
-          /******/if (__nested_webpack_require_18626__.o(definition, key) && !__nested_webpack_require_18626__.o(exports, key)) {
+          /******/if (__nested_webpack_require_21932__.o(definition, key) && !__nested_webpack_require_21932__.o(exports, key)) {
             /******/Object.defineProperty(exports, key, {
               enumerable: true,
               get: definition[key]
@@ -576,7 +691,7 @@ return /******/ (() => { // webpackBootstrap
     /******/ /* webpack/runtime/hasOwnProperty shorthand */
     /******/
     (() => {
-      /******/__nested_webpack_require_18626__.o = (obj, prop) => Object.prototype.hasOwnProperty.call(obj, prop);
+      /******/__nested_webpack_require_21932__.o = (obj, prop) => Object.prototype.hasOwnProperty.call(obj, prop);
       /******/
     })();
     /******/
@@ -584,7 +699,7 @@ return /******/ (() => { // webpackBootstrap
     /******/
     (() => {
       /******/ // define __esModule on exports
-      /******/__nested_webpack_require_18626__.r = exports => {
+      /******/__nested_webpack_require_21932__.r = exports => {
         /******/if (typeof Symbol !== 'undefined' && Symbol.toStringTag) {
           /******/Object.defineProperty(exports, Symbol.toStringTag, {
             value: 'Module'
@@ -603,7 +718,7 @@ return /******/ (() => { // webpackBootstrap
     /******/ /* webpack/runtime/nonce */
     /******/
     (() => {
-      /******/__nested_webpack_require_18626__.nc = undefined;
+      /******/__nested_webpack_require_21932__.nc = undefined;
       /******/
     })();
     /******/
@@ -614,19 +729,19 @@ return /******/ (() => { // webpackBootstrap
       "use strict";
 
       // ESM COMPAT FLAG
-      __nested_webpack_require_18626__.r(__nested_webpack_exports__);
+      __nested_webpack_require_21932__.r(__nested_webpack_exports__);
 
       // EXPORTS
-      __nested_webpack_require_18626__.d(__nested_webpack_exports__, {
+      __nested_webpack_require_21932__.d(__nested_webpack_exports__, {
         "default": () => ( /* binding */src_0)
       });
 
       // EXTERNAL MODULE: external {"root":"React","commonjs2":"react","commonjs":"react","amd":"react"}
-      var external_root_React_commonjs2_react_commonjs_react_amd_react_ = __nested_webpack_require_18626__(442);
-      var external_root_React_commonjs2_react_commonjs_react_amd_react_default = /*#__PURE__*/__nested_webpack_require_18626__.n(external_root_React_commonjs2_react_commonjs_react_amd_react_);
+      var external_root_React_commonjs2_react_commonjs_react_amd_react_ = __nested_webpack_require_21932__(442);
+      var external_root_React_commonjs2_react_commonjs_react_amd_react_default = /*#__PURE__*/__nested_webpack_require_21932__.n(external_root_React_commonjs2_react_commonjs_react_amd_react_);
       // EXTERNAL MODULE: ../../node_modules/void-elements/index.js
-      var void_elements = __nested_webpack_require_18626__(978);
-      var void_elements_default = /*#__PURE__*/__nested_webpack_require_18626__.n(void_elements);
+      var void_elements = __nested_webpack_require_21932__(978);
+      var void_elements_default = /*#__PURE__*/__nested_webpack_require_21932__.n(void_elements);
       ; // CONCATENATED MODULE: ../../node_modules/html-parse-stringify/dist/html-parse-stringify.module.js
 
       var t = /\s([^'"/\s><]+?)[\s/>]|([^\s=]+)=\s?(".*?"|'.*?')/g;
@@ -1772,28 +1887,28 @@ return /******/ (() => { // webpackBootstrap
         return '';
       };
       // EXTERNAL MODULE: ../../../node_modules/classnames/index.js
-      var classnames = __nested_webpack_require_18626__(650);
-      var classnames_default = /*#__PURE__*/__nested_webpack_require_18626__.n(classnames);
+      var classnames = __nested_webpack_require_21932__(650);
+      var classnames_default = /*#__PURE__*/__nested_webpack_require_21932__.n(classnames);
       // EXTERNAL MODULE: ../../node_modules/style-loader/dist/runtime/injectStylesIntoStyleTag.js
-      var injectStylesIntoStyleTag = __nested_webpack_require_18626__(591);
-      var injectStylesIntoStyleTag_default = /*#__PURE__*/__nested_webpack_require_18626__.n(injectStylesIntoStyleTag);
+      var injectStylesIntoStyleTag = __nested_webpack_require_21932__(591);
+      var injectStylesIntoStyleTag_default = /*#__PURE__*/__nested_webpack_require_21932__.n(injectStylesIntoStyleTag);
       // EXTERNAL MODULE: ../../node_modules/style-loader/dist/runtime/styleDomAPI.js
-      var styleDomAPI = __nested_webpack_require_18626__(740);
-      var styleDomAPI_default = /*#__PURE__*/__nested_webpack_require_18626__.n(styleDomAPI);
+      var styleDomAPI = __nested_webpack_require_21932__(740);
+      var styleDomAPI_default = /*#__PURE__*/__nested_webpack_require_21932__.n(styleDomAPI);
       // EXTERNAL MODULE: ../../node_modules/style-loader/dist/runtime/insertBySelector.js
-      var insertBySelector = __nested_webpack_require_18626__(128);
-      var insertBySelector_default = /*#__PURE__*/__nested_webpack_require_18626__.n(insertBySelector);
+      var insertBySelector = __nested_webpack_require_21932__(128);
+      var insertBySelector_default = /*#__PURE__*/__nested_webpack_require_21932__.n(insertBySelector);
       // EXTERNAL MODULE: ../../node_modules/style-loader/dist/runtime/setAttributesWithoutAttributes.js
-      var setAttributesWithoutAttributes = __nested_webpack_require_18626__(855);
-      var setAttributesWithoutAttributes_default = /*#__PURE__*/__nested_webpack_require_18626__.n(setAttributesWithoutAttributes);
+      var setAttributesWithoutAttributes = __nested_webpack_require_21932__(855);
+      var setAttributesWithoutAttributes_default = /*#__PURE__*/__nested_webpack_require_21932__.n(setAttributesWithoutAttributes);
       // EXTERNAL MODULE: ../../node_modules/style-loader/dist/runtime/insertStyleElement.js
-      var insertStyleElement = __nested_webpack_require_18626__(51);
-      var insertStyleElement_default = /*#__PURE__*/__nested_webpack_require_18626__.n(insertStyleElement);
+      var insertStyleElement = __nested_webpack_require_21932__(51);
+      var insertStyleElement_default = /*#__PURE__*/__nested_webpack_require_21932__.n(insertStyleElement);
       // EXTERNAL MODULE: ../../node_modules/style-loader/dist/runtime/styleTagTransform.js
-      var styleTagTransform = __nested_webpack_require_18626__(656);
-      var styleTagTransform_default = /*#__PURE__*/__nested_webpack_require_18626__.n(styleTagTransform);
+      var styleTagTransform = __nested_webpack_require_21932__(656);
+      var styleTagTransform_default = /*#__PURE__*/__nested_webpack_require_21932__.n(styleTagTransform);
       // EXTERNAL MODULE: ../../node_modules/css-loader/dist/cjs.js??ruleSet[1].rules[1].use[1]!../../node_modules/sass-loader/dist/cjs.js??ruleSet[1].rules[1].use[2]!./src/index.scss
-      var cjs_ruleSet_1_rules_1_use_2_src = __nested_webpack_require_18626__(483);
+      var cjs_ruleSet_1_rules_1_use_2_src = __nested_webpack_require_21932__(483);
       ; // CONCATENATED MODULE: ./src/index.scss
 
       var options = {};
@@ -1808,36 +1923,43 @@ return /******/ (() => { // webpackBootstrap
       const src = cjs_ruleSet_1_rules_1_use_2_src /* default */.A && cjs_ruleSet_1_rules_1_use_2_src /* default */.A.locals ? cjs_ruleSet_1_rules_1_use_2_src /* default */.A.locals : undefined;
       ; // CONCATENATED MODULE: ./src/index.tsx
 
-      const Input = props => {
-        // 获取 `FormContext.Provider` 提供提供的 `value` 值
-
-        const {
-          transparent,
-          children,
-          type = "text",
+      const Input = (_ref, ref) => {
+        let {
           name,
+          inline,
+          isFormItem,
+          errMsg,
+          labelWidth,
+          commonSuffixIcon,
+          inputGroup = false,
+          width,
+          label,
+          labelPosition = "center",
+          labelColor,
+          required = false,
+          type = "text",
+          defaultValue,
           size,
-          className,
+          externalClassName,
           prefixContent,
           suffixContent,
+          suffixContentType = "button",
           placeholder,
           style,
-          disabled,
-          defaultValue,
-          onChange,
+          readOnly,
+          transparent,
+          children,
           onClick,
           onFocus,
           onBlur,
-          setFormItemValue,
+          onChange,
           onIconClick
-        } = props;
-
-        // 确保value不会是undefined，如果defaultValue或formData中相应的值是undefined，则将其设为空字符串
-        const [value, setValue] = (0, external_root_React_commonjs2_react_commonjs_react_amd_react_.useState)(defaultValue !== null && defaultValue !== void 0 ? defaultValue : '');
+        } = _ref;
+        const inputRef = (0, external_root_React_commonjs2_react_commonjs_react_amd_react_.useRef)(null);
+        const [value, setValue] = (0, external_root_React_commonjs2_react_commonjs_react_amd_react_.useState)(defaultValue !== null && defaultValue !== void 0 ? defaultValue : "");
         const cls = classnames_default()({
-          "input-group": suffixContent || prefixContent,
           ["input-group-".concat(size)]: size,
-          [className]: className
+          [externalClassName]: externalClassName
         });
         const handleClick = function (e) {
           for (var _len = arguments.length, args = new Array(_len > 1 ? _len - 1 : 0), _key = 1; _key < _len; _key++) {
@@ -1852,17 +1974,14 @@ return /******/ (() => { // webpackBootstrap
           onFocus && onFocus(e, ...args);
         };
         const handleBlur = function (e) {
-          // 为了让父组件能拿到值，在点击确定按钮的时候，让Form调用每个表单项的检验方法
-          setFormItemValue && setFormItemValue(e.target.value);
           for (var _len3 = arguments.length, args = new Array(_len3 > 1 ? _len3 - 1 : 0), _key3 = 1; _key3 < _len3; _key3++) {
             args[_key3 - 1] = arguments[_key3];
           }
           onBlur && onBlur(e, ...args);
+          validate();
         };
         const handleChange = function (e) {
           setValue(e.target.value);
-          setFormItemValue && setFormItemValue(e.target.value);
-          // 根据 name 属性，更新 Form 中的数据源
           for (var _len4 = arguments.length, args = new Array(_len4 > 1 ? _len4 - 1 : 0), _key4 = 1; _key4 < _len4; _key4++) {
             args[_key4 - 1] = arguments[_key4];
           }
@@ -1871,60 +1990,111 @@ return /******/ (() => { // webpackBootstrap
         const handleIconClick = () => {
           onIconClick && onIconClick(value);
         };
-        (0, external_root_React_commonjs2_react_commonjs_react_amd_react_.useEffect)(() => {
-          if (defaultValue || Number(defaultValue) == 0) {
-            // 为了一上来就提交表单，这边有默认值也要给 父组件设置
-            setValue(defaultValue);
-            setFormItemValue && setFormItemValue(defaultValue);
+        const [error, setError] = (0, external_root_React_commonjs2_react_commonjs_react_amd_react_.useState)(false);
+        const validate = () => {
+          if (!required) return true;
+          // Example validation logic, replace with your actual validation needs
+          if (value) {
+            setError(false);
+            return true;
           } else {
-            // 不能直接写 setValue(defaultValue)
-            // 不知道为什么如果 defaultValue是空的话不会value赋值为 ""
-            // 所以只能写死为 ""
+            setError(true);
+            return false;
+          }
+        };
+        const clear = () => {
+          setValue("");
+        };
+        const handleClickCommonSuffixIcon = () => {
+          clear();
+          if (required) setError(true);
+        };
+
+        // Expose validate method via ref
+        (0, external_root_React_commonjs2_react_commonjs_react_amd_react_.useImperativeHandle)(ref, () => ({
+          validate,
+          clear
+        }));
+        (0, external_root_React_commonjs2_react_commonjs_react_amd_react_.useEffect)(() => {
+          if (defaultValue || defaultValue === 0) {
+            setValue(defaultValue);
+          } else {
             setValue("");
           }
         }, [defaultValue]);
-        return /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement(external_root_React_commonjs2_react_commonjs_react_amd_react_default().Fragment, null, /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("div", {
-          className: cls + "input-wrapper",
+
+        /**
+         * 获取组件的高度赋值给label
+         */
+        const wrapeerRef = (0, external_root_React_commonjs2_react_commonjs_react_amd_react_.useRef)();
+        (0, external_root_React_commonjs2_react_commonjs_react_amd_react_.useEffect)(() => {}, []);
+        return /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("div", {
+          className: "".concat(cls, " input-wrapper ").concat(inputGroup ? "" : "lable-in-control", " ").concat(!error && isFormItem && "mb-3"),
           style: {
-            flex: 1
+            width,
+            ...(inline ? {
+              flex: 1,
+              marginRight: "15px"
+            } : {})
           }
         }, /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("div", {
-          style: style,
-          className: "icon-input input-group"
+          ref: wrapeerRef,
+          className: "content-box icon-input ".concat(inputGroup ? "input-group" : "", " label-in-").concat(labelPosition)
         }, prefixContent && /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("span", {
           className: "input-group-text",
           id: "basic-addon1"
-        }, prefixContent), /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("input", {
+        }, prefixContent), label && /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("span", {
+          className: "label-box",
+          style: {
+            color: labelColor,
+            width: labelWidth,
+            alignItems: labelPosition === "left-top" ? "start" : "center",
+            ...(labelPosition !== "top" && {
+              display: "flex"
+            })
+          }
+        }, label), /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("input", {
+          ref: inputRef,
+          required: required,
           style: {
             borderRadius: "6px",
-            borderTopLeftRadius: prefixContent ? 0 : '6px',
-            borderBottomLeftRadius: prefixContent ? 0 : '6px',
-            ...(transparent ? {
-              backgroundColor: "transparent",
-              border: "transparent",
-              textAlign: "center"
-            } : {})
+            borderTopLeftRadius: prefixContent ? 0 : "6px",
+            borderBottomLeftRadius: prefixContent ? 0 : "6px",
+            background: transparent ? "transparent" : "#fff",
+            flex: 1
           },
           step: 1,
           name: name,
           value: value,
-          disabled: disabled,
+          readOnly: readOnly,
           placeholder: placeholder,
           onChange: handleChange,
-          onBlur: e => handleBlur(e, "hello1", 5561),
-          onFocus: e => handleFocus(e, "hello1", 5561),
-          onClick: e => handleClick(e, "hello", 556),
+          onBlur: e => handleBlur(e),
+          onFocus: e => handleFocus(e),
+          onClick: e => handleClick(e),
           type: type,
-          className: "form-control",
+          className: "form-control input ".concat(suffixContent && suffixContentType === "button" ? "suffix-content-btn" : ""),
           "aria-label": "Username",
           "aria-describedby": "basic-addon1"
-        }), /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("div", {
+        }), suffixContent && /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("div", {
+          className: "".concat(suffixContentType === "button" ? "suffix-content-btn-wrapper" : "")
+        }, suffixContent), commonSuffixIcon && /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("i", {
+          onClick: handleClickCommonSuffixIcon,
+          className: "".concat(commonSuffixIcon, " common-suffix-icon ms-2")
+        }), children && /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("div", {
           onClick: handleIconClick,
-          className: "icon"
-        }, children)), suffixContent && /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("span", {
-          className: "input-group-text",
-          id: "basic-addon2"
-        }, suffixContent)));
+          className: "suffix-icon",
+          style: {
+            right: commonSuffixIcon && "32px"
+          }
+        }, children)), error && required && /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("div", {
+          className: "animate__animated animate__fadeIn mb-1",
+          style: {
+            color: "#DC3545",
+            fontSize: "14px",
+            paddingLeft: parseInt(labelWidth) > 120 ? "120px" : labelWidth
+          }
+        }, "".concat(errMsg || "".concat(label, "\u4E0D\u80FD\u4E3A\u7A7A"))));
       };
       /* harmony default export */
       const src_0 = withTranslation()(Input);
@@ -1935,121 +2105,6 @@ return /******/ (() => { // webpackBootstrap
     /******/
   })();
 });
-
-/***/ }),
-
-/***/ 191:
-/***/ ((module) => {
-
-"use strict";
-
-
-/*
-  MIT License http://www.opensource.org/licenses/mit-license.php
-  Author Tobias Koppers @sokra
-*/
-module.exports = function (cssWithMappingToString) {
-  var list = [];
-
-  // return the list of modules as css string
-  list.toString = function toString() {
-    return this.map(function (item) {
-      var content = "";
-      var needLayer = typeof item[5] !== "undefined";
-      if (item[4]) {
-        content += "@supports (".concat(item[4], ") {");
-      }
-      if (item[2]) {
-        content += "@media ".concat(item[2], " {");
-      }
-      if (needLayer) {
-        content += "@layer".concat(item[5].length > 0 ? " ".concat(item[5]) : "", " {");
-      }
-      content += cssWithMappingToString(item);
-      if (needLayer) {
-        content += "}";
-      }
-      if (item[2]) {
-        content += "}";
-      }
-      if (item[4]) {
-        content += "}";
-      }
-      return content;
-    }).join("");
-  };
-
-  // import a list of modules into the list
-  list.i = function i(modules, media, dedupe, supports, layer) {
-    if (typeof modules === "string") {
-      modules = [[null, modules, undefined]];
-    }
-    var alreadyImportedModules = {};
-    if (dedupe) {
-      for (var k = 0; k < this.length; k++) {
-        var id = this[k][0];
-        if (id != null) {
-          alreadyImportedModules[id] = true;
-        }
-      }
-    }
-    for (var _k = 0; _k < modules.length; _k++) {
-      var item = [].concat(modules[_k]);
-      if (dedupe && alreadyImportedModules[item[0]]) {
-        continue;
-      }
-      if (typeof layer !== "undefined") {
-        if (typeof item[5] === "undefined") {
-          item[5] = layer;
-        } else {
-          item[1] = "@layer".concat(item[5].length > 0 ? " ".concat(item[5]) : "", " {").concat(item[1], "}");
-          item[5] = layer;
-        }
-      }
-      if (media) {
-        if (!item[2]) {
-          item[2] = media;
-        } else {
-          item[1] = "@media ".concat(item[2], " {").concat(item[1], "}");
-          item[2] = media;
-        }
-      }
-      if (supports) {
-        if (!item[4]) {
-          item[4] = "".concat(supports);
-        } else {
-          item[1] = "@supports (".concat(item[4], ") {").concat(item[1], "}");
-          item[4] = supports;
-        }
-      }
-      list.push(item);
-    }
-  };
-  return list;
-};
-
-/***/ }),
-
-/***/ 73:
-/***/ ((module) => {
-
-"use strict";
-
-
-module.exports = function (item) {
-  var content = item[1];
-  var cssMapping = item[3];
-  if (!cssMapping) {
-    return content;
-  }
-  if (typeof btoa === "function") {
-    var base64 = btoa(unescape(encodeURIComponent(JSON.stringify(cssMapping))));
-    var data = "sourceMappingURL=data:application/json;charset=utf-8;base64,".concat(base64);
-    var sourceMapping = "/*# ".concat(data, " */");
-    return [content].concat([sourceMapping]).join("\n");
-  }
-  return [content].join("\n");
-};
 
 /***/ }),
 
@@ -2636,7 +2691,7 @@ const ListNode_ListNode = _ref => {
     // 循环遍历每个父节点
     while (currentElement) {
       // 检查当前元素是否是 div 并且包含 'expanded' 类
-      if (currentElement.tagName === 'DIV' && currentElement.classList.contains('expanded')) {
+      if (currentElement.tagName === "DIV" && currentElement.classList.contains("expanded")) {
         expandedParents.push(currentElement);
       }
       // 移动到当前元素的父节点--类似递归的操作
@@ -2675,7 +2730,7 @@ const ListNode_ListNode = _ref => {
           // 找到list-node-wrapper的父节点
           const parent = child.parentNode;
           // 通过判断list-node-wrapper的父节点是否是 expanded，来决定要不要存入数组
-          if (parent.classList.contains('expanded')) {
+          if (parent.classList.contains("expanded")) {
             console.log("child = ", child);
             expandedChildrenList.push(child);
           }
@@ -2696,7 +2751,7 @@ const ListNode_ListNode = _ref => {
     }
   };
   const handleNodeNameClick = (node, e) => {
-    onItemClick && onItemClick(node);
+    // onItemClick && onItemClick(node);  // 注释掉，防止出现调用两次 onItemClick
   };
   const handleChildrenIconClick = node => {
     onIconClick && onIconClick(node);
@@ -2719,7 +2774,7 @@ const ListNode_ListNode = _ref => {
   };
   return (
     /*#__PURE__*/
-    // style={{whiteSpace: `${wrap ? "wrap" : "nowrap"}`}} 
+    // style={{whiteSpace: `${wrap ? "wrap" : "nowrap"}`}}
     // 整个树
     external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("div", {
       className: "list-node-wrapper"
@@ -2739,32 +2794,32 @@ const ListNode_ListNode = _ref => {
         fontSize: "16px"
       },
       onClick: e => handleFolderIconClick(node, e),
-      className: "icon fa fa-caret-".concat(isExpanded ? 'down' : 'right')
+      className: "icon fa fa-caret-".concat(isExpanded ? "down" : "right")
     }), /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("span", {
       onClick: e => handleNodeNameClick(node, e),
-      className: "item-name ".concat(node.children && node.children.length > 0 ? 'has-children' : 'no-children')
+      className: "item-name ".concat(node.children && node.children.length > 0 ? "has-children" : "no-children")
     }, node.name), /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("div", {
       className: "right-content",
       style: {
-        display: showOptIcons && isShowIcons ? 'block' : 'none'
+        display: showOptIcons && isShowIcons ? "block" : "none"
       }
     }, /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("i", {
       style: {
-        display: showAddIcon ? 'inline-block' : 'none'
+        display: showAddIcon ? "inline-block" : "none"
       },
       className: "icon fa fa-plus",
-      onClick: e => handleOptIconClick(e, 'add', node)
+      onClick: e => handleOptIconClick(e, "add", node)
     }), /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("i", {
       style: {
-        display: showEditIcon ? 'inline-block' : 'none'
+        display: showEditIcon ? "inline-block" : "none"
       },
       className: "icon fa fa-pencil",
-      onClick: e => handleOptIconClick(e, 'edit', node)
+      onClick: e => handleOptIconClick(e, "edit", node)
     }), /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("i", {
       className: "icon fa fa-trash",
-      onClick: e => handleOptIconClick(e, 'delete', node)
+      onClick: e => handleOptIconClick(e, "delete", node)
     }))), node.children && node.children.length > 0 && /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("div", {
-      className: "children ".concat(isExpanded ? 'expanded' : 'not-expand'),
+      className: "children ".concat(isExpanded ? "expanded" : "not-expand"),
       style: {
         maxHeight: childrenMaxHeight
       }
@@ -2793,8 +2848,8 @@ const ListNode_ListNode = _ref => {
   );
 };
 /* harmony default export */ const src_ListNode_0 = (ListNode_ListNode);
-// EXTERNAL MODULE: ../../node_modules/adou-ui/Input/index.js
-var Input = __webpack_require__(395);
+// EXTERNAL MODULE: ../components/Input/index.js
+var Input = __webpack_require__(281);
 var Input_default = /*#__PURE__*/__webpack_require__.n(Input);
 ;// CONCATENATED MODULE: ./src/index.tsx
 // List组件

@@ -1,13 +1,11 @@
 import React, {
-  useContext,
+  forwardRef,
   useEffect,
-  useImperativeHandle,
   useRef,
   useState,
+  useImperativeHandle,
 } from "react";
-import { withTranslation } from "react-i18next";
 import classNames from "classnames";
-
 import "./index.scss";
 
 export interface InputProps {
@@ -159,6 +157,8 @@ const Input: React.ForwardRefRenderFunction<InputRef, InputProps> = (
   }));
 
   useEffect(() => {
+    console.log(defaultValue);
+
     if (defaultValue || defaultValue === 0) {
       setValue(defaultValue);
     } else {
@@ -271,4 +271,6 @@ const Input: React.ForwardRefRenderFunction<InputRef, InputProps> = (
   );
 };
 
-export default withTranslation()(Input);
+Input.displayName = "Input";
+
+export default forwardRef(Input);
