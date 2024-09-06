@@ -1806,8 +1806,9 @@ const Tabs = props => {
     children,
     handleLabelClick,
     activeIndex = 0,
-    activeLabelColor = '#409eff',
-    tabStyle = 'common'
+    activeLabelColor = "#409eff",
+    tabStyle = "common",
+    contentPadding
   } = props;
   const handleLabelClickFn = index => {
     handleLabelClick && handleLabelClick(index);
@@ -1817,7 +1818,7 @@ const Tabs = props => {
     external_root_React_commonjs2_react_commonjs_react_amd_react_default().Children.map(children, child => {
       tabItems.push(child);
     });
-    return /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement((external_root_React_commonjs2_react_commonjs_react_amd_react_default()).Fragment, null, tabStyle === 'common' ? /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("div", {
+    return /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement((external_root_React_commonjs2_react_commonjs_react_amd_react_default()).Fragment, null, tabStyle === "common" ? /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("div", {
       className: "tabs-header"
     }, tabItems.map((child, index) => {
       var _child$props;
@@ -1825,13 +1826,13 @@ const Tabs = props => {
       return /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("div", {
         key: index
       }, /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("div", {
-        className: "tabs-header-item-box ".concat(index === 0 && 'first')
+        className: "tabs-header-item-box ".concat(index === 0 && "first")
       }, /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("div", {
         onClick: () => handleLabelClickFn(index),
-        className: "tabs-header-item  ".concat(activeIndex === index && 'active')
+        className: "tabs-header-item  ".concat(activeIndex === index && "active")
       }, child === null || child === void 0 || (_child$props = child.props) === null || _child$props === void 0 ? void 0 : _child$props.label)));
     })) : /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("ul", {
-      className: "nav nav-tabs m-2"
+      className: "nav nav-tabs mb-2"
     }, tabItems.map((child, index) => {
       return /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("li", {
         key: index,
@@ -1839,13 +1840,14 @@ const Tabs = props => {
         onClick: () => handleLabelClickFn(index)
       }, /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("a", {
         style: {
-          marginLeft: index === 0 ? '10px' : '',
-          color: index === activeIndex ? child.props.activeLabelColor || activeLabelColor : ''
+          marginLeft: index === 0 ? "10px" : "",
+          color: index === activeIndex ? child.props.activeLabelColor || activeLabelColor : "",
+          cursor: "pointer"
         },
-        className: "".concat(index === activeIndex ? 'active' : '', " nav-link"),
+        className: "".concat(index === activeIndex ? "active" : "", " nav-link"),
         "aria-current": "page"
       }, /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("i", {
-        className: child.props.prefixIcon + ' me-1'
+        className: child.props.prefixIcon + " me-1"
       }), child.props.label));
     })));
   };
@@ -1855,7 +1857,8 @@ const Tabs = props => {
       if (child) {
         const enhancedChildren = /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().cloneElement(child, {
           active: index === activeIndex,
-          key: index
+          key: index,
+          contentPadding
         });
         renderChildren.push(enhancedChildren);
       }
