@@ -7159,6 +7159,9 @@ var Utils = __webpack_require__(36);
 
 const Select = /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().forwardRef((props, ref) => {
   const {
+    suffixContent,
+    showLabel = true,
+    suffixContentType,
     inline,
     commonSuffixIcon,
     isFormItem,
@@ -7185,6 +7188,7 @@ const Select = /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_a
   const [newOptions, setNewOptions] = (0,external_root_React_commonjs2_react_commonjs_react_amd_react_.useState)(options || []);
   const [value, setValue] = (0,external_root_React_commonjs2_react_commonjs_react_amd_react_.useState)(defaultValue || {});
   const [showOptions, setShowOptions] = (0,external_root_React_commonjs2_react_commonjs_react_amd_react_.useState)(false);
+  const [calcMaxHeight, setCalcMaxHeight] = (0,external_root_React_commonjs2_react_commonjs_react_amd_react_.useState)(0);
 
   // 测试getAbsolutePosition
   const customSelectRef = (0,external_root_React_commonjs2_react_commonjs_react_amd_react_.useRef)();
@@ -7206,7 +7210,6 @@ const Select = /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_a
   (0,external_root_React_commonjs2_react_commonjs_react_amd_react_.useEffect)(() => {
     if (defaultValue || defaultValue === 0 || defaultValue === false) {
       const selectOption = options.find(option => option.value === defaultValue);
-      console.log(defaultValue, selectOption);
       setValue(selectOption);
     } else {
       setValue(""); // 如果没有默认值，重置为初始状态
@@ -7223,6 +7226,9 @@ const Select = /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_a
       setNewOptions(options);
     }
   }, [options]);
+  (0,external_root_React_commonjs2_react_commonjs_react_amd_react_.useEffect)(() => {
+    setCalcMaxHeight(newOptions.length * 34);
+  }, [newOptions]);
   const handleClick = e => {
     let classNameList = ["custom-select form-control"];
     let value = e.target;
@@ -7240,7 +7246,6 @@ const Select = /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_a
       return value;
     }
   };
-
   // 校验方法
   const [error, setError] = (0,external_root_React_commonjs2_react_commonjs_react_amd_react_.useState)(false);
   const validate = () => {
@@ -7312,7 +7317,7 @@ const Select = /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_a
   })) : /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("div", {
     onBlur: validate,
     className: "content-box label-in-".concat(labelPosition)
-  }, isFormItem && /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("span", {
+  }, isFormItem && showLabel && /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("span", {
     className: "label-box",
     style: {
       color: labelColor,
@@ -7343,11 +7348,16 @@ const Select = /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_a
   })), commonSuffixIcon && /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("i", {
     onClick: handleClickCommonSuffixIcon,
     className: "".concat(commonSuffixIcon, " common-suffix-icon ms-2")
-  }), /*#__PURE__*/external_root_ReactDOM_commonjs2_react_dom_commonjs_react_dom_amd_react_dom_default().createPortal( /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("div", {
+  }), suffixContent && /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("div", {
+    className: "".concat(suffixContentType === "button" ? "suffix-content-btn-wrapper" : "")
+  }, suffixContent), /*#__PURE__*/external_root_ReactDOM_commonjs2_react_dom_commonjs_react_dom_amd_react_dom_default().createPortal( /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("div", {
     style: {
       position: "absolute",
       top: customSelectContentPosition.y + customSelectContentPosition.height + "px",
-      left: customSelectContentPosition.x + "px"
+      left: customSelectContentPosition.x + "px",
+      ...(showOptions ? {
+        maxHeight: calcMaxHeight > parseInt(maxHeight) ? maxHeight : calcMaxHeight + "px"
+      } : {})
     },
     ref: contentRef,
     className: "custom-select-content ".concat(showOptions ? "custom-select-content-open" : "")

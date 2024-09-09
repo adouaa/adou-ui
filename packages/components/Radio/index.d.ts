@@ -2,7 +2,7 @@ import React from "react";
 import "./index.scss";
 interface RadioProps {
     name?: string;
-    labelStyle?: any;
+    isFormItem?: string;
     errMsg?: string;
     labelWidth?: any;
     commonSuffixIcon?: string;

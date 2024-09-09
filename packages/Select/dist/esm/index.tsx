@@ -14,6 +14,9 @@ import { getAbsolutePosition } from "adou-ui/Utils/index";
 
 export interface SelectProps {
   name?: string;
+  showLabel?: boolean;
+  suffixContent?: any;
+  suffixContentType?: string;
   inline?: boolean;
   isFormItem?: boolean;
   validate?: boolean;
@@ -40,6 +43,9 @@ export interface SelectProps {
 
 const Select = React.forwardRef((props: SelectProps, ref) => {
   const {
+    suffixContent,
+    showLabel = true,
+    suffixContentType,
     inline,
     commonSuffixIcon,
     isFormItem,
@@ -67,6 +73,7 @@ const Select = React.forwardRef((props: SelectProps, ref) => {
   const [newOptions, setNewOptions] = useState(options || []);
   const [value, setValue] = useState(defaultValue || {});
   const [showOptions, setShowOptions] = useState<boolean>(false);
+  const [calcMaxHeight, setCalcMaxHeight] = useState<number>(0);
 
   // 测试getAbsolutePosition
   const customSelectRef = useRef<any>();
@@ -94,7 +101,6 @@ const Select = React.forwardRef((props: SelectProps, ref) => {
       const selectOption = options.find(
         (option) => option.value === defaultValue
       );
-      console.log(defaultValue, selectOption);
 
       setValue(selectOption);
     } else {
@@ -113,6 +119,10 @@ const Select = React.forwardRef((props: SelectProps, ref) => {
       setNewOptions(options);
     }
   }, [options]);
+
+  useEffect(() => {
+    setCalcMaxHeight(newOptions.length * 34);
+  }, [newOptions]);
 
   const handleClick = (e: any) => {
     let classNameList = ["custom-select form-control"];
@@ -133,7 +143,6 @@ const Select = React.forwardRef((props: SelectProps, ref) => {
       return value;
     }
   };
-  
   // 校验方法
   const [error, setError] = useState<boolean>(false);
   const validate = () => {
@@ -215,7 +224,7 @@ const Select = React.forwardRef((props: SelectProps, ref) => {
           onBlur={validate}
           className={`content-box label-in-${labelPosition}`}
         >
-          {isFormItem && (
+          {isFormItem && showLabel && (
             <span
               className="label-box"
               style={{
@@ -260,6 +269,17 @@ const Select = React.forwardRef((props: SelectProps, ref) => {
               className={`${commonSuffixIcon} common-suffix-icon ms-2`}
             ></i>
           )}
+          {suffixContent && (
+            <div
+              className={`${
+                suffixContentType === "button"
+                  ? "suffix-content-btn-wrapper"
+                  : ""
+              }`}
+            >
+              {suffixContent}
+            </div>
+          )}
 
           {ReactDOM.createPortal(
             <div
@@ -270,6 +290,14 @@ const Select = React.forwardRef((props: SelectProps, ref) => {
                   customSelectContentPosition.height +
                   "px",
                 left: customSelectContentPosition.x + "px",
+                ...(showOptions
+                  ? {
+                      maxHeight:
+                        calcMaxHeight > parseInt(maxHeight!)
+                          ? maxHeight
+                          : calcMaxHeight + "px",
+                    }
+                  : {}),
               }}
               ref={contentRef}
               className={`custom-select-content ${

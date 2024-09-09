@@ -46,27 +46,30 @@
 
 }
 
-.content-box {
-    flex: 1;
-    align-items: stretch;
+.input-wrapper {
+    .content-box {
+        flex: 1;
+        align-items: stretch;
 
-    .label-box {}
+        .label-box {}
 
-    .suffix-content-btn {
-        border-top-right-radius: 0 !important;
-        /* 去掉右上角的圆角 */
-        border-bottom-right-radius: 0 !important;
-        border-right: none;
-        /* 去掉右下角的圆角 */
+        .suffix-content-btn {
+            border-top-right-radius: 0 !important;
+            /* 去掉右上角的圆角 */
+            border-bottom-right-radius: 0 !important;
+            border-right: none;
+            /* 去掉右下角的圆角 */
+        }
+
+        .suffix-content-btn-wrapper .btn {
+            border-top-left-radius: 0;
+            /* 去掉左上角的圆角 */
+            border-bottom-left-radius: 0;
+            /* 去掉左下角的圆角 */
+        }
+
+
     }
-
-    .suffix-content-btn-wrapper .btn {
-        border-top-left-radius: 0;
-        /* 去掉左上角的圆角 */
-        border-bottom-left-radius: 0;
-        /* 去掉左下角的圆角 */
-    }
-
 
 }
 

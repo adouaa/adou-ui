@@ -4,7 +4,7 @@ import "./index.scss";
 
 interface RadioProps {
   name?: string;
-  labelStyle?: any;
+  isFormItem?: string;
   errMsg?: string;
   labelWidth?: any;
   commonSuffixIcon?: string;
@@ -26,8 +26,8 @@ interface RadioProps {
 
 const Radio: React.ForwardRefRenderFunction<any, RadioProps> = (props, ref) => {
   const {
-    labelStyle,
     required,
+    isFormItem,
     errMsg,
     labelWidth,
     commonSuffixIcon,
@@ -95,7 +95,6 @@ const Radio: React.ForwardRefRenderFunction<any, RadioProps> = (props, ref) => {
   };
   const [error, setError] = useState<boolean>(false);
   const validate = () => {
-    if (!required) return true;
     // Example validation logic, replace with your actual validation needs
     if (optionsList.some((item: any) => item.checked)) {
       setError(false);
@@ -113,7 +112,8 @@ const Radio: React.ForwardRefRenderFunction<any, RadioProps> = (props, ref) => {
   }));
 
   const radioClasses = classNames({
-    "radio-wrapper": true,
+    "radio-warpper": true,
+    "mb-2": !error && isFormItem,
     [externalClassName as string]: externalClassName,
   });
 
@@ -126,7 +126,7 @@ const Radio: React.ForwardRefRenderFunction<any, RadioProps> = (props, ref) => {
       >
         {label && (
           <span
-            style={{ color: labelColor, width: labelWidth, ...labelStyle }}
+            style={{ color: labelColor, width: labelWidth }}
             className={`${inputGroup ? "input-group-text" : ""} label-box`}
           >
             {label}
@@ -170,7 +170,7 @@ const Radio: React.ForwardRefRenderFunction<any, RadioProps> = (props, ref) => {
         <div
           className="animate__animated animate__fadeIn"
           style={{
-            color: "#DC3545",
+            color: "red",
             paddingLeft: parseInt(labelWidth) > 120 ? "120px" : labelWidth,
           }}
         >{`${errMsg || `${name}不能为空`}`}</div>

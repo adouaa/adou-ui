@@ -2,6 +2,9 @@ import React from "react";
 import "./index.scss";
 export interface SelectProps {
     name?: string;
+    showLabel?: boolean;
+    suffixContent?: any;
+    suffixContentType?: string;
     inline?: boolean;
     isFormItem?: boolean;
     validate?: boolean;
@@ -28,6 +31,9 @@ export interface SelectProps {
 declare const _default: React.ComponentType<Omit<{
     ref?: React.LegacyRef<unknown> | undefined;
     name?: string | undefined;
+    showLabel?: boolean | undefined;
+    suffixContent?: any;
+    suffixContentType?: string | undefined;
     inline?: boolean | undefined;
     isFormItem?: boolean | undefined;
     validate?: boolean | undefined;

@@ -34,35 +34,5 @@ export interface InputProps {
 export interface InputRef {
     validate: () => void;
 }
-declare const _default: React.ComponentType<Omit<{
-    name?: string | undefined;
-    inline?: boolean | undefined;
-    isFormItem?: boolean | undefined;
-    errMsg?: string | undefined;
-    labelWidth?: any;
-    commonSuffixIcon?: string | undefined;
-    inputGroup?: boolean | undefined;
-    width?: any;
-    label?: string | undefined;
-    labelPosition?: "left-top" | "center" | "top" | undefined;
-    labelColor?: string | undefined;
-    required?: boolean | undefined;
-    type?: "number" | "text" | "datetime-local" | "date" | "time" | undefined;
-    defaultValue?: any;
-    size?: "large" | "middle" | "small" | undefined;
-    externalClassName?: string | undefined;
-    prefixContent?: any;
-    suffixContent?: any;
-    suffixContentType?: string | undefined;
-    placeholder?: string | undefined;
-    style?: React.CSSProperties | undefined;
-    readOnly?: boolean | undefined;
-    transparent?: boolean | undefined;
-    children?: any;
-    onClick?: ((e: React.MouseEvent<HTMLInputElement, MouseEvent>, ...args: any) => void) | undefined;
-    onFocus?: ((e: React.FocusEvent<HTMLInputElement, Element>, ...args: any) => void) | undefined;
-    onBlur?: ((e: React.FocusEvent<HTMLInputElement, Element>, ...args: any) => void) | undefined;
-    onChange?: ((value: any, ...args: any) => void) | undefined;
-    onIconClick?: ((value: string) => void) | undefined;
-}, keyof import("react-i18next").WithTranslation<N, undefined>> & import("react-i18next").WithTranslationProps>;
+declare const _default: React.ForwardRefExoticComponent<InputProps & React.RefAttributes<InputRef>>;
 export default _default;

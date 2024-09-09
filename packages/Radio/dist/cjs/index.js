@@ -649,8 +649,8 @@ var update = injectStylesIntoStyleTag_default()(cjs_ruleSet_1_rules_1_use_2_src/
 
 const Radio = (props, ref) => {
   const {
-    labelStyle,
     required,
+    isFormItem,
     errMsg,
     labelWidth,
     commonSuffixIcon,
@@ -706,7 +706,6 @@ const Radio = (props, ref) => {
   };
   const [error, setError] = (0,external_root_React_commonjs2_react_commonjs_react_amd_react_.useState)(false);
   const validate = () => {
-    if (!required) return true;
     // Example validation logic, replace with your actual validation needs
     if (optionsList.some(item => item.checked)) {
       setError(false);
@@ -723,7 +722,8 @@ const Radio = (props, ref) => {
     clear
   }));
   const radioClasses = classnames_default()({
-    "radio-wrapper": true,
+    "radio-warpper": true,
+    "mb-2": !error && isFormItem,
     [externalClassName]: externalClassName
   });
   return /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("div", {
@@ -733,8 +733,7 @@ const Radio = (props, ref) => {
   }, label && /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("span", {
     style: {
       color: labelColor,
-      width: labelWidth,
-      ...labelStyle
+      width: labelWidth
     },
     className: "".concat(inputGroup ? "input-group-text" : "", " label-box")
   }, label), /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("div", {
@@ -769,7 +768,7 @@ const Radio = (props, ref) => {
   })), error && required && /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("div", {
     className: "animate__animated animate__fadeIn",
     style: {
-      color: "#DC3545",
+      color: "red",
       paddingLeft: parseInt(labelWidth) > 120 ? "120px" : labelWidth
     }
   }, "".concat(errMsg || "".concat(name, "\u4E0D\u80FD\u4E3A\u7A7A"))));
