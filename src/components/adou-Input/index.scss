@@ -25,6 +25,12 @@
     cursor: pointer;
 }
 
+.common-suffix-icon {
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+}
+
 .label-box {
     font-size: 14px;
     min-width: 50px;
@@ -34,43 +40,58 @@
     flex-wrap: wrap;
 }
 
-.lable-in-control {
-    .icon-input {
-        position: relative;
-        /* 让伪元素相对于输入框定位 */
+.icon-input {
+    position: relative;
+    /* 让伪元素相对于输入框定位 */
 
-    }
+}
 
+.input-wrapper {
     .content-box {
         flex: 1;
+        align-items: stretch;
 
         .label-box {}
 
+        .suffix-content-btn {
+            border-top-right-radius: 0 !important;
+            /* 去掉右上角的圆角 */
+            border-bottom-right-radius: 0 !important;
+            border-right: none;
+            /* 去掉右下角的圆角 */
+        }
+
+        .suffix-content-btn-wrapper .btn {
+            border-top-left-radius: 0;
+            /* 去掉左上角的圆角 */
+            border-bottom-left-radius: 0;
+            /* 去掉左下角的圆角 */
+        }
 
 
     }
 
-    .label-in-center {
+}
+
+.label-in-center {
+    display: flex;
+
+    .suffix-icon {
+        top: 7px;
+    }
+}
+
+.label-in-left-top {
+    display: flex;
+
+    .label-box {
         display: flex;
-
-        .suffix-icon {
-            top: 7px;
-        }
+        align-items: start;
     }
 
-    .label-in-left-top {
-        display: flex;
-
-        .label-box {
-            display: flex;
-            align-items: start;
-        }
-
-        .suffix-icon {
-            top: 7px;
-        }
+    .suffix-icon {
+        top: 7px;
     }
-
 }
 
 .input-group {
@@ -82,3 +103,5 @@
 .input-group-text {
     cursor: pointer;
 }
+
+.lable-in-control {}

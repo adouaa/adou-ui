@@ -7,9 +7,9 @@ import ReactDOM from 'react-dom';
 
 export interface SelectProps {
     name?: string;
-    optionContentMaxHeight?: any;
-    minWidth?: any;
-    rounded?: boolean;
+    showLabel?: boolean;
+    suffixContent?: any;
+    suffixContentType?: string;
     inline?: boolean;
     isFormItem?: boolean;
     validate?: boolean;
@@ -36,9 +36,9 @@ export interface SelectProps {
 
 const Select = React.forwardRef((props: SelectProps, ref) => {
     const {
-        optionContentMaxHeight,
-        minWidth,
-        rounded,
+        suffixContent,
+        showLabel = true,
+        suffixContentType,
         inline,
         commonSuffixIcon,
         isFormItem,
@@ -66,6 +66,7 @@ const Select = React.forwardRef((props: SelectProps, ref) => {
     const [newOptions, setNewOptions] = useState(options || []);
     const [value, setValue] = useState(defaultValue || {});
     const [showOptions, setShowOptions] = useState<boolean>(false);
+    const [calcMaxHeight, setCalcMaxHeight] = useState<number>(0);
 
     // 测试getAbsolutePosition
     const customSelectRef = useRef<any>();
@@ -88,8 +89,9 @@ const Select = React.forwardRef((props: SelectProps, ref) => {
     };
 
     useEffect(() => {
-        if (defaultValue) {
+        if (defaultValue || defaultValue === 0 || defaultValue === false) {
             const selectOption = options.find((option) => option.value === defaultValue);
+
             setValue(selectOption);
         } else {
             setValue(''); // 如果没有默认值，重置为初始状态
@@ -108,6 +110,10 @@ const Select = React.forwardRef((props: SelectProps, ref) => {
         }
     }, [options]);
 
+    useEffect(() => {
+        setCalcMaxHeight(newOptions.length * 34);
+    }, [newOptions]);
+
     const handleClick = (e: any) => {
         let classNameList = ['custom-select form-control'];
         let value = e.target;
@@ -121,12 +127,18 @@ const Select = React.forwardRef((props: SelectProps, ref) => {
     };
 
     const getValue = () => {
-        return value?.value || value;
+        if (value?.value || value?.value === 0 || value?.value === false) {
+            return value.value;
+        } else {
+            return value;
+        }
     };
     // 校验方法
     const [error, setError] = useState<boolean>(false);
     const validate = () => {
         if (!required) return true;
+        console.log(value);
+
         if (value) {
             setError(false);
             return true;
@@ -182,7 +194,7 @@ const Select = React.forwardRef((props: SelectProps, ref) => {
                 </div>
             ) : (
                 <div onBlur={validate} className={`content-box label-in-${labelPosition}`}>
-                    {isFormItem && (
+                    {isFormItem && showLabel && (
                         <span
                             className="label-box"
                             style={{
@@ -207,10 +219,15 @@ const Select = React.forwardRef((props: SelectProps, ref) => {
                             flex: 1,
                         }}
                     >
-                        {value?.value ? <span className="select-value">{value.label}</span> : <span className="select-placeholder">{placeholder}</span>}
+                        {value?.value || value?.value === 0 || value?.value === false ? (
+                            <span className="select-value">{value.label}</span>
+                        ) : (
+                            <span className="select-placeholder">{placeholder}</span>
+                        )}
                         {<i onClick={(e: any) => handleDivClock(e)} className={`icon fa-solid fa-caret-right rotate-up ${showOptions ? 'rotate-up' : 'rotate-down'}`}></i>}
                     </div>
                     {commonSuffixIcon && <i onClick={handleClickCommonSuffixIcon} className={`${commonSuffixIcon} common-suffix-icon ms-2`}></i>}
+                    {suffixContent && <div className={`${suffixContentType === 'button' ? 'suffix-content-btn-wrapper' : ''}`}>{suffixContent}</div>}
 
                     {ReactDOM.createPortal(
                         <div
@@ -218,6 +235,11 @@ const Select = React.forwardRef((props: SelectProps, ref) => {
                                 position: 'absolute',
                                 top: customSelectContentPosition.y + customSelectContentPosition.height + 'px',
                                 left: customSelectContentPosition.x + 'px',
+                                ...(showOptions
+                                    ? {
+                                          maxHeight: calcMaxHeight > parseInt(maxHeight!) ? maxHeight : calcMaxHeight + 'px',
+                                      }
+                                    : {}),
                             }}
                             ref={contentRef}
                             className={`custom-select-content ${showOptions ? 'custom-select-content-open' : ''}`}
@@ -246,5 +268,4 @@ const Select = React.forwardRef((props: SelectProps, ref) => {
         </div>
     );
 });
-
 export default Select;
