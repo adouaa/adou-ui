@@ -5376,7 +5376,7 @@ ___CSS_LOADER_EXPORT___.push([module.id, `@charset "UTF-8";
   align-items: start;
 }
 
-.custom-select-content-open {
+.retrieve-select-content-open {
   max-height: 200px !important;
 }
 
@@ -5433,62 +5433,36 @@ ___CSS_LOADER_EXPORT___.push([module.id, `@charset "UTF-8";
   border: none;
 }
 
-.custom-select-content-open {
-  max-height: 200px !important;
-}
-
 .none-wrapper {
   display: flex;
   justify-content: center;
-}
-
-.custom-select-content {
-  width: 150px;
 }
 
 .multiple-input {
   min-width: 0;
 }
 
-.custom-select-content {
+.retrieve-select-content {
   background-color: #fff;
-  max-height: 200px;
-  overflow-y: auto;
+  max-height: 0px;
   position: absolute;
   z-index: 10000;
   border-radius: 4px;
   box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+  text-align-last: left;
+  overflow: auto;
+  transition: all 0.3s ease;
 }
-.custom-select-content .option-item {
+.retrieve-select-content .option-item {
   padding: 5px 10px;
 }
-.custom-select-content .option-item:hover {
+.retrieve-select-content .option-item:hover {
   background-color: #2783d8;
   cursor: pointer;
 }
-.custom-select-content .option-item:active {
+.retrieve-select-content .option-item:active {
   color: #fff;
   background-color: #2783d8;
-}
-
-.custom-select-content {
-  min-width: 200px;
-  text-align-last: left;
-  background-color: #fff;
-  max-height: 0;
-  /* 初始高度设为0，隐藏选项内容 */
-  overflow: auto;
-  /* 隐藏溢出内容 */
-  position: absolute;
-  z-index: 66666666;
-  border-radius: 4px;
-  box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
-  transition: max-height 0.3s ease;
-}
-
-.custom-select-content-open {
-  max-height: 100px;
-  /* 显示选项内容时的最大高度 */
 }
 
 .none-option {
@@ -5499,7 +5473,13 @@ ___CSS_LOADER_EXPORT___.push([module.id, `@charset "UTF-8";
   justify-content: center;
   align-items: center;
   color: #a4a3a3;
-}`, "",{"version":3,"sources":["webpack://./src/index.scss"],"names":[],"mappings":"AAAA,gBAAgB;AAIZ;EACI,kBAAA;EACA,OAAA;EACA,gBAAA;EACA,uBAAA;EACA,eAAA;AAFR;AAMI;EACI,eAAA;EACA,eAAA;EACA,2BAAA;EACA,eAAA;AAJR;AAQI;EACI,aAAA;EACA,mBAAA;AANR;AASI;EACI,aAAA;AAPR;AASQ;EACI,aAAA;EACA,kBAAA;AAPZ;;AAYA;EACI,4BAAA;AATJ;;AAYA;EACI,iBAAA;EACA,gBAAA;AATJ;;AAYA;EACI,yBAAA;EACA,aAAA;EACA,8BAAA;AATJ;;AAYA;EACI,aAAA;AATJ;;AAYA;EACI,YAAA;AATJ;;AAYA;EACI,aAAA;EACA,eAAA;AATJ;;AAYA;EACI,cAAA;EACA,eAAA;EACA,0BAAA;EACA,mBAAA;EACA,yBAAA;EACA,kBAAA;EACA,iBAAA;EACA,kBAAA;AATJ;;AAYA;EACI,kBAAA;EACA,WAAA;EACA,WAAA;EACA,eAAA;AATJ;;AAYA;EACI,OAAA;AATJ;;AAYA;EACI,gBAAA;EACA,WAAA;EACA,aAAA;EACA,YAAA;AATJ;;AAaA;EACI,4BAAA;AAVJ;;AAYA;EACI,aAAA;EACA,uBAAA;AATJ;;AAWA;EACI,YAAA;AARJ;;AAWA;EACI,YAAA;AARJ;;AAWA;EACI,sBAAA;EACA,iBAAA;EACA,gBAAA;EACA,kBAAA;EACA,cAAA;EACA,kBAAA;EACA,4CAAA;AARJ;AASI;EACI,iBAAA;AAPR;AAQQ;EACI,yBAAA;EACA,eAAA;AANZ;AAQQ;EACI,WAAA;EACA,yBAAA;AANZ;;AAWA;EACI,gBAAA;EACA,qBAAA;EACA,sBAAA;EACA,aAAA;EACA,mBAAA;EACA,cAAA;EACA,WAAA;EACA,kBAAA;EACA,iBAAA;EACA,kBAAA;EACA,4CAAA;EACA,gCAAA;AARJ;;AAWA;EACI,iBAAA;EACA,iBAAA;AARJ;;AAWA;EACI,YAAA;EACA,YAAA;EACA,eAAA;EACA,aAAA;EACA,uBAAA;EACA,mBAAA;EACA,cAAA;AARJ","sourcesContent":["\r\n.retrieve-select-wrapper {\r\n\r\n\r\n    .select-list-box {\r\n        position: relative;\r\n        flex: 1;\r\n        min-height: 38px;\r\n        cursor: text !important;\r\n        flex-wrap: wrap;\r\n    }\r\n\r\n\r\n    .label-box {\r\n        font-size: 14px;\r\n        min-width: 50px;\r\n        max-width: 120px !important;\r\n        flex-wrap: wrap;\r\n    }\r\n\r\n\r\n    .label-in-center {\r\n        display: flex;\r\n        align-items: center;\r\n    }\r\n\r\n    .label-in-left-top {\r\n        display: flex;\r\n\r\n        .label-box {\r\n            display: flex;\r\n            align-items: start;\r\n        }\r\n    }\r\n}\r\n\r\n.custom-select-content-open {\r\n    max-height: 200px !important;\r\n}\r\n\r\n.option-wrapper {\r\n    max-height: 200px;\r\n    overflow-y: auto;\r\n}\r\n\r\n.retrieve-select-active {\r\n    background-color: #2783d8;\r\n    display: flex;\r\n    justify-content: space-between;\r\n}\r\n\r\n.retrieve-select-option-wrapper {\r\n    padding: 14px;\r\n}\r\n\r\n.retrieve-select-active::after {\r\n    content: \"✔\";\r\n}\r\n\r\n.select-list {\r\n    display: flex;\r\n    flex-wrap: wrap;\r\n}\r\n\r\n.selected-option {\r\n    color: #7e8085;\r\n    font-size: 14px;\r\n    padding: 3px 22px 3px 12px;\r\n    border-radius: 13px;\r\n    background-color: #f4f4f5;\r\n    position: relative;\r\n    margin-right: 6px;\r\n    margin-bottom: 6px;\r\n}\r\n\r\n.option-icon {\r\n    position: absolute;\r\n    right: 10px;\r\n    bottom: 4px;\r\n    cursor: pointer;\r\n}\r\n\r\n.input-control {\r\n    flex: 1;\r\n}\r\n\r\n.retrieve-input {\r\n    min-width: 120px;\r\n    width: 100%;\r\n    outline: none;\r\n    border: none;\r\n}\r\n\r\n\r\n.custom-select-content-open {\r\n    max-height: 200px !important;\r\n}\r\n.none-wrapper {\r\n    display: flex;\r\n    justify-content: center;\r\n}\r\n.custom-select-content {\r\n    width: 150px;\r\n}\r\n\r\n.multiple-input {\r\n    min-width: 0\r\n}\r\n\r\n.custom-select-content {\r\n    background-color: #fff;\r\n    max-height: 200px;\r\n    overflow-y: auto;\r\n    position: absolute;\r\n    z-index: 10000;\r\n    border-radius: 4px;\r\n    box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;\r\n    .option-item {\r\n        padding: 5px 10px;\r\n        &:hover {\r\n            background-color: #2783d8;\r\n            cursor: pointer;\r\n        }\r\n        &:active {\r\n            color: #fff;\r\n            background-color: #2783d8;\r\n        }\r\n    }\r\n}\r\n\r\n.custom-select-content {\r\n    min-width: 200px;\r\n    text-align-last: left;\r\n    background-color: #fff;\r\n    max-height: 0;\r\n    /* 初始高度设为0，隐藏选项内容 */\r\n    overflow: auto;\r\n    /* 隐藏溢出内容 */\r\n    position: absolute;\r\n    z-index: 66666666;\r\n    border-radius: 4px;\r\n    box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;\r\n    transition: max-height 0.3s ease;\r\n}\r\n\r\n.custom-select-content-open {\r\n    max-height: 100px;\r\n    /* 显示选项内容时的最大高度 */\r\n}\r\n\r\n.none-option {\r\n    width: 200px;\r\n    height: 50px;\r\n    padding: 10px 0;\r\n    display: flex;\r\n    justify-content: center;\r\n    align-items: center;\r\n    color: #a4a3a3;\r\n}"],"sourceRoot":""}]);
+}
+
+.none-match {
+  height: 100px;
+  display: flex;
+  justify-content: flex-start;
+}`, "",{"version":3,"sources":["webpack://./src/index.scss"],"names":[],"mappings":"AAAA,gBAAgB;AAGZ;EACI,kBAAA;EACA,OAAA;EACA,gBAAA;EACA,uBAAA;EACA,eAAA;AADR;AAKI;EACI,eAAA;EACA,eAAA;EACA,2BAAA;EACA,eAAA;AAHR;AAOI;EACI,aAAA;EACA,mBAAA;AALR;AAQI;EACI,aAAA;AANR;AAQQ;EACI,aAAA;EACA,kBAAA;AANZ;;AAWA;EACI,4BAAA;AARJ;;AAWA;EACI,iBAAA;EACA,gBAAA;AARJ;;AAWA;EACI,yBAAA;EACA,aAAA;EACA,8BAAA;AARJ;;AAWA;EACI,aAAA;AARJ;;AAWA;EACI,YAAA;AARJ;;AAWA;EACI,aAAA;EACA,eAAA;AARJ;;AAWA;EACI,cAAA;EACA,eAAA;EACA,0BAAA;EACA,mBAAA;EACA,yBAAA;EACA,kBAAA;EACA,iBAAA;EACA,kBAAA;AARJ;;AAWA;EACI,kBAAA;EACA,WAAA;EACA,WAAA;EACA,eAAA;AARJ;;AAWA;EACI,OAAA;AARJ;;AAWA;EACI,gBAAA;EACA,WAAA;EACA,aAAA;EACA,YAAA;AARJ;;AAcA;EACI,aAAA;EACA,uBAAA;AAXJ;;AAeA;EACI,YAAA;AAZJ;;AAeA;EACI,sBAAA;EACA,eAAA;EACA,kBAAA;EACA,cAAA;EACA,kBAAA;EACA,4CAAA;EACA,qBAAA;EACA,cAAA;EACA,yBAAA;AAZJ;AAcI;EACI,iBAAA;AAZR;AAcQ;EACI,yBAAA;EACA,eAAA;AAZZ;AAeQ;EACI,WAAA;EACA,yBAAA;AAbZ;;AAqBA;EACI,YAAA;EACA,YAAA;EACA,eAAA;EACA,aAAA;EACA,uBAAA;EACA,mBAAA;EACA,cAAA;AAlBJ;;AAqBA;EACI,aAAA;EACA,aAAA;EACA,2BAAA;AAlBJ","sourcesContent":[".retrieve-select-wrapper {\r\n\r\n\r\n    .select-list-box {\r\n        position: relative;\r\n        flex: 1;\r\n        min-height: 38px;\r\n        cursor: text !important;\r\n        flex-wrap: wrap;\r\n    }\r\n\r\n\r\n    .label-box {\r\n        font-size: 14px;\r\n        min-width: 50px;\r\n        max-width: 120px !important;\r\n        flex-wrap: wrap;\r\n    }\r\n\r\n\r\n    .label-in-center {\r\n        display: flex;\r\n        align-items: center;\r\n    }\r\n\r\n    .label-in-left-top {\r\n        display: flex;\r\n\r\n        .label-box {\r\n            display: flex;\r\n            align-items: start;\r\n        }\r\n    }\r\n}\r\n\r\n.retrieve-select-content-open {\r\n    max-height: 200px !important;\r\n}\r\n\r\n.option-wrapper {\r\n    max-height: 200px;\r\n    overflow-y: auto;\r\n}\r\n\r\n.retrieve-select-active {\r\n    background-color: #2783d8;\r\n    display: flex;\r\n    justify-content: space-between;\r\n}\r\n\r\n.retrieve-select-option-wrapper {\r\n    padding: 14px;\r\n}\r\n\r\n.retrieve-select-active::after {\r\n    content: \"✔\";\r\n}\r\n\r\n.select-list {\r\n    display: flex;\r\n    flex-wrap: wrap;\r\n}\r\n\r\n.selected-option {\r\n    color: #7e8085;\r\n    font-size: 14px;\r\n    padding: 3px 22px 3px 12px;\r\n    border-radius: 13px;\r\n    background-color: #f4f4f5;\r\n    position: relative;\r\n    margin-right: 6px;\r\n    margin-bottom: 6px;\r\n}\r\n\r\n.option-icon {\r\n    position: absolute;\r\n    right: 10px;\r\n    bottom: 4px;\r\n    cursor: pointer;\r\n}\r\n\r\n.input-control {\r\n    flex: 1;\r\n}\r\n\r\n.retrieve-input {\r\n    min-width: 120px;\r\n    width: 100%;\r\n    outline: none;\r\n    border: none;\r\n}\r\n\r\n\r\n\r\n\r\n.none-wrapper {\r\n    display: flex;\r\n    justify-content: center;\r\n}\r\n\r\n\r\n.multiple-input {\r\n    min-width: 0\r\n}\r\n\r\n.retrieve-select-content {\r\n    background-color: #fff;\r\n    max-height: 0px;\r\n    position: absolute;\r\n    z-index: 10000;\r\n    border-radius: 4px;\r\n    box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;\r\n    text-align-last: left;\r\n    overflow: auto;\r\n    transition: all 0.3s ease;\r\n\r\n    .option-item {\r\n        padding: 5px 10px;\r\n\r\n        &:hover {\r\n            background-color: #2783d8;\r\n            cursor: pointer;\r\n        }\r\n\r\n        &:active {\r\n            color: #fff;\r\n            background-color: #2783d8;\r\n        }\r\n    }\r\n}\r\n\r\n\r\n\r\n\r\n.none-option {\r\n    width: 200px;\r\n    height: 50px;\r\n    padding: 10px 0;\r\n    display: flex;\r\n    justify-content: center;\r\n    align-items: center;\r\n    color: #a4a3a3;\r\n}\r\n\r\n.none-match {\r\n    height: 100px;\r\n    display: flex;\r\n    justify-content: flex-start;\r\n}"],"sourceRoot":""}]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 
@@ -6000,6 +5980,10 @@ var Utils = __webpack_require__(36);
 const RetrievrSelect = /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().forwardRef((props, ref) => {
   const {
     isFormItem,
+    inline,
+    suffixContent,
+    suffixContentType,
+    contentWidth,
     attribute = "value",
     required,
     errMsg,
@@ -6035,6 +6019,8 @@ const RetrievrSelect = /*#__PURE__*/external_root_React_commonjs2_react_commonjs
   // 是否展示选中的选项
   const [selectedOptions, setSelectedOptions] = (0,external_root_React_commonjs2_react_commonjs_react_amd_react_.useState)([]); // 选中的选项展示在 框中
   const [showSelectedOptions, setShowSelectedOptions] = (0,external_root_React_commonjs2_react_commonjs_react_amd_react_.useState)(false);
+  // 新增open来做动画
+  const [open, setOpen] = (0,external_root_React_commonjs2_react_commonjs_react_amd_react_.useState)(false);
   let selectedOptionRefs = [];
   let optionItemRefs = [];
 
@@ -6057,7 +6043,11 @@ const RetrievrSelect = /*#__PURE__*/external_root_React_commonjs2_react_commonjs
       if (currentSelectList.length) {
         setError(false);
       } else {
-        setError(true);
+        if (!required) {
+          setError(false);
+        } else {
+          setError(true);
+        }
       }
     } else {
       // 点击未选择的项
@@ -6100,6 +6090,9 @@ const RetrievrSelect = /*#__PURE__*/external_root_React_commonjs2_react_commonjs
     }
     setShowSelectedOptions(true);
     setShowOptions(false);
+    setTimeout(() => {
+      setOpen(false);
+    }, 10);
   };
   const handleInputClick = e => {
     setIsHighlighted(true);
@@ -6145,6 +6138,9 @@ const RetrievrSelect = /*#__PURE__*/external_root_React_commonjs2_react_commonjs
     setCustomSelectContentPosition(position);
     e.stopPropagation(); // 阻止事件冒泡
     setShowOptions(true);
+    setTimeout(() => {
+      setOpen(true);
+    }, 10);
   };
 
   // select类型的收集做特殊处理
@@ -6189,6 +6185,9 @@ const RetrievrSelect = /*#__PURE__*/external_root_React_commonjs2_react_commonjs
       if (!classNames.includes(e.target.className)) {
         setIsHighlighted(false);
         setShowOptions(false);
+        setTimeout(() => {
+          setOpen(false);
+        }, 10);
       } else {}
     });
   }, []);
@@ -6298,7 +6297,11 @@ const RetrievrSelect = /*#__PURE__*/external_root_React_commonjs2_react_commonjs
   return /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("div", {
     className: retrieveSelectClasses,
     style: {
-      width
+      width,
+      ...(inline && !width ? {
+        flex: 1,
+        marginRight: "15px"
+      } : {})
     },
     onBlur: validate
   }, /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("div", {
@@ -6357,14 +6360,17 @@ const RetrievrSelect = /*#__PURE__*/external_root_React_commonjs2_react_commonjs
   }))), commonSuffixIcon && /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("i", {
     onClick: handleClickCommonSuffixIcon,
     className: "".concat(commonSuffixIcon, " common-suffix-icon ms-2")
-  })), /*#__PURE__*/external_root_ReactDOM_commonjs2_react_dom_commonjs_react_dom_amd_react_dom_default().createPortal(!readOnly && showOptions && /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("div", {
+  }), suffixContent && /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("div", {
+    className: "".concat(suffixContentType === "button" ? "suffix-content-btn-wrapper" : "")
+  }, suffixContent)), /*#__PURE__*/external_root_ReactDOM_commonjs2_react_dom_commonjs_react_dom_amd_react_dom_default().createPortal(!readOnly && showOptions && /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("div", {
     style: {
+      width: contentWidth,
       position: "absolute",
       top: customSelectContentPosition.y + customSelectContentPosition.height + "px",
       left: customSelectContentPosition.x + "px"
     },
-    className: " custom-select-content ".concat(showOptions ? "custom-select-content-open" : "")
-  }, optionList === null || optionList === void 0 ? void 0 : optionList.map((option, index) => {
+    className: "retrieve-select-content ".concat(open ? "retrieve-select-content-open" : "")
+  }, (optionList === null || optionList === void 0 ? void 0 : optionList.length) > 0 ? optionList === null || optionList === void 0 ? void 0 : optionList.map((option, index) => {
     // --巧妙
     return /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("div", {
       ref: optionItemRefs[index],
@@ -6372,7 +6378,9 @@ const RetrievrSelect = /*#__PURE__*/external_root_React_commonjs2_react_commonjs
       onClick: () => handleSelect(option),
       className: "option-item ".concat(option.selected && "retrieve-select-active")
     }, option.label);
-  })), document.body), error && required && /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("div", {
+  }) : /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("div", {
+    className: "none-match ps-2"
+  }, "\u65E0\u5339\u914D\u8BB0\u5F55~")), document.body), error && required && /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("div", {
     className: "animate__animated animate__fadeIn mb-1",
     style: {
       color: "#DC3545",

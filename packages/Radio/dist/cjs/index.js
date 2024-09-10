@@ -672,7 +672,7 @@ const Radio = (props, ref) => {
       // Initialize optionsList with checked property
       setOptionsList(options.map(option => ({
         ...option,
-        checked: defaultValue && option.value === defaultValue
+        checked: defaultValue && (option.value === defaultValue || option.label === defaultValue)
       })));
     }
   }, [defaultValue, options]);
@@ -723,7 +723,7 @@ const Radio = (props, ref) => {
   }));
   const radioClasses = classnames_default()({
     "radio-warpper": true,
-    "mb-2": !error && isFormItem,
+    "mb-3": !error && isFormItem,
     [externalClassName]: externalClassName
   });
   return /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("div", {
@@ -739,11 +739,10 @@ const Radio = (props, ref) => {
   }, label), /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("div", {
     className: "option-box",
     style: {
-      display: inline ? "flex" : "",
-      marginTop: "6px"
+      display: inline ? "flex" : ""
     }
-  }, optionsList === null || optionsList === void 0 ? void 0 : optionsList.map(item => /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("div", {
-    key: item.value,
+  }, optionsList === null || optionsList === void 0 ? void 0 : optionsList.map((item, index) => /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("div", {
+    key: item.value + index,
     className: "form-check",
     style: {
       marginRight: "20px"

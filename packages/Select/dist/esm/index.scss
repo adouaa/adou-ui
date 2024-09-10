@@ -81,6 +81,19 @@
             max-width: 120px !important;
             flex-wrap: wrap;
         }
+
+        .suffix-content-btn-wrapper .btn {
+            border-top-left-radius: 0;
+            /* 去掉左上角的圆角 */
+            border-bottom-left-radius: 0;
+            /* 去掉左下角的圆角 */
+        }
+
+        .suffix-content-text-wrapper {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
     }
 
     .label-in-center {

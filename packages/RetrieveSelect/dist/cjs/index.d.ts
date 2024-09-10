@@ -2,6 +2,10 @@ import React from "react";
 import "./index.scss";
 export interface SelectProps {
     name?: string;
+    inline?: boolean;
+    suffixContent?: any;
+    suffixContentType?: string;
+    contentWidth?: any;
     isFormItem?: boolean;
     attribute?: string;
     required?: boolean;

@@ -1,20 +1,27 @@
-.label-in-center {
-    display: flex;
-    align-items: center;
-}
+.textarea-warpper {
 
-.label-in-left-top {
-    display: flex;
+    .label-in-center {
+        display: flex;
+        align-items: center;
+    }
+
+    .label-in-left-top {
+        display: flex;
+
+        .label-box {
+            display: flex;
+            align-items: start;
+        }
+    }
 
     .label-box {
-        display: flex;
-        align-items: start;
+        font-size: 14px;
+        min-width: 50px;
+        max-width: 120px !important;
+        flex-wrap: wrap;
     }
-}
 
-.label-box {
-    font-size: 14px;
-    min-width: 50px;
-    max-width: 120px !important;
-    flex-wrap: wrap;
+    .form-control {
+        flex: 1;
+    }
 }

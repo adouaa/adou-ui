@@ -543,9 +543,10 @@ var update = injectStylesIntoStyleTag_default()(cjs_ruleSet_1_rules_1_use_2_src/
 
 
 
-const AdouNewForm = /*#__PURE__*/(0,external_root_React_commonjs2_react_commonjs_react_amd_react_.forwardRef)((_ref, AdouFormRef) => {
+const Form = /*#__PURE__*/(0,external_root_React_commonjs2_react_commonjs_react_amd_react_.forwardRef)((_ref, AdouFormRef) => {
   let {
     labelPosition,
+    labelColor = "rgb(63 109 184)",
     inline,
     required,
     children,
@@ -649,7 +650,10 @@ const AdouNewForm = /*#__PURE__*/(0,external_root_React_commonjs2_react_commonjs
     const labelWidthList = [];
     external_root_React_commonjs2_react_commonjs_react_amd_react_default().Children.map(children, child => {
       var _child$props;
-      labelWidthList.push((_child$props = child.props) === null || _child$props === void 0 ? void 0 : _child$props.label);
+      if ((_child$props = child.props) !== null && _child$props !== void 0 && _child$props.label) {
+        var _child$props2;
+        labelWidthList.push((_child$props2 = child.props) === null || _child$props2 === void 0 ? void 0 : _child$props2.label);
+      }
     });
     const sortedLabelWidthList = labelWidthList.sort((a, b) => a.length - b.length);
     maxLengthLabelWidth = ((_sortedLabelWidthList = sortedLabelWidthList[sortedLabelWidthList.length - 1]) === null || _sortedLabelWidthList === void 0 ? void 0 : _sortedLabelWidthList.length) * eachWordWidth;
@@ -659,36 +663,43 @@ const AdouNewForm = /*#__PURE__*/(0,external_root_React_commonjs2_react_commonjs
     calcMaxLabelWidth();
     // 这个方法可行
     external_root_React_commonjs2_react_commonjs_react_amd_react_default().Children.map(children, child => {
-      const childRef = /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createRef(); // 创建一个 ref
-      // child.type 子元素自身（FormItem），检查其静态属性 displayName 是否满足条件
-      const enhancedChildren = /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().cloneElement(child, {
-        key: child.props.name,
-        ref: childRef,
-        labelWidth: maxLengthLabelWidth + "px",
-        commonSuffixIcon,
-        isFormItem: true,
-        ...(labelPosition ? {
-          labelPosition
-        } : {}),
-        // 动态添加 required 属性
+      var _child$props3;
+      if (!((_child$props3 = child.props) !== null && _child$props3 !== void 0 && _child$props3.name)) {
+        renderChildren.push(child);
+      } else {
+        const childRef = /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createRef(); // 创建一个 ref
+        // child.type 子元素自身（FormItem），检查其静态属性 displayName 是否满足条件
+        const enhancedChildren = /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().cloneElement(child, {
+          key: child.props.name,
+          ref: childRef,
+          labelWidth: maxLengthLabelWidth + "px",
+          commonSuffixIcon,
+          isFormItem: true,
+          ...(labelPosition ? {
+            labelPosition
+          } : {}),
+          // 动态添加 required 属性
 
-        ...(inline ? {
-          inline: true
-        } : {}),
-        // 动态添加 required 属性
+          ...(inline ? {
+            inline: true
+          } : {}),
+          // 动态添加 required 属性
 
-        ...(required ? {
-          required: true
-        } : {}) // 动态添加 required 属性
+          ...(required ? {
+            required: true
+          } : {}),
+          // 动态添加 required 属性
+          labelColor
 
-        // 注意：一个组件只能有一个 ref，要么外面提供ref手动处理，要么在 Form组件下统一提供ref
-        // 可以自定义要不要在Form下给表单组件提供 ref
-        // [`${child.props.name === "test-select" ? "" : "ref"}`]: childRef
-      });
-      renderChildren.push(enhancedChildren);
-      // 将子组件的 ref 存储到 childRefs 中
-      if (child.props.name) {
-        childRefs.current[child.props.name] = childRef;
+          // 注意：一个组件只能有一个 ref，要么外面提供ref手动处理，要么在 Form组件下统一提供ref
+          // 可以自定义要不要在Form下给表单组件提供 ref
+          // [`${child.props.name === "test-select" ? "" : "ref"}`]: childRef
+        });
+        renderChildren.push(enhancedChildren);
+        // 将子组件的 ref 存储到 childRefs 中
+        if (child.props.name) {
+          childRefs.current[child.props.name] = childRef;
+        }
       }
     });
     return renderChildren;
@@ -705,7 +716,7 @@ const AdouNewForm = /*#__PURE__*/(0,external_root_React_commonjs2_react_commonjs
     ref: formRef
   }, renderChildren());
 });
-/* harmony default export */ const src_0 = (AdouNewForm);
+/* harmony default export */ const src_0 = (Form);
 })();
 
 /******/ 	return __webpack_exports__;

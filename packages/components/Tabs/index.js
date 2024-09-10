@@ -172,6 +172,9 @@ var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBP
 ___CSS_LOADER_EXPORT___.push([module.id, `.tabs-box .nav .nav-link {
   color: #000;
 }
+.tabs-box .nav .nav-link.active {
+  background: linear-gradient(#dafbff, #fff) !important;
+}
 .tabs-box .tabs-header {
   display: flex;
   border-bottom: 1px solid #dcdfe6;
@@ -192,7 +195,8 @@ ___CSS_LOADER_EXPORT___.push([module.id, `.tabs-box .nav .nav-link {
   border-bottom: 1px solid #409eff;
   color: #409eff;
   box-sizing: border-box;
-}`, "",{"version":3,"sources":["webpack://./src/index.scss"],"names":[],"mappings":"AAEQ;EACI,WAAA;AADZ;AAKI;EACI,aAAA;EACA,gCAAA;AAHR;AAKQ;EACI,eAAA;AAHZ;AAKY;EACI,eAAA;EACA,mBAAA;EACA,eAAA;EACA,eAAA;AAHhB;AAOQ;EACI,iBAAA;AALZ;AAQQ;EACI,gCAAA;EACA,cAAA;EACA,sBAAA;AANZ","sourcesContent":[".tabs-box {\n    .nav {\n        .nav-link {\n            color: #000;\n        }\n    }\n\n    .tabs-header {\n        display: flex;\n        border-bottom: 1px solid #dcdfe6;\n\n        .tabs-header-item-box {\n            padding: 0 15px;\n\n            .tabs-header-item {\n                padding: 10px 0;\n                margin-bottom: -1px;\n                font-size: 14px;\n                cursor: pointer;\n            }\n        }\n\n        .tabs-header-item-box.first {\n            padding-left: 0px;\n        }\n\n        .tabs-header-item.active {\n            border-bottom: 1px solid #409eff;\n            color: #409eff;\n            box-sizing: border-box;\n        }\n\n    }\n}"],"sourceRoot":""}]);
+  background: linear-gradient(#dafbff, #fff);
+}`, "",{"version":3,"sources":["webpack://./src/index.scss"],"names":[],"mappings":"AAEQ;EACI,WAAA;AADZ;AAIQ;EACI,qDAAA;AAFZ;AAMI;EACI,aAAA;EACA,gCAAA;AAJR;AAMQ;EACI,eAAA;AAJZ;AAMY;EACI,eAAA;EACA,mBAAA;EACA,eAAA;EACA,eAAA;AAJhB;AAQQ;EACI,iBAAA;AANZ;AASQ;EACI,gCAAA;EACA,cAAA;EACA,sBAAA;EACA,0CAAA;AAPZ","sourcesContent":[".tabs-box {\n    .nav {\n        .nav-link {\n            color: #000;\n        }\n\n        .nav-link.active {\n            background: linear-gradient(#dafbff, #fff) !important;\n        }\n    }\n\n    .tabs-header {\n        display: flex;\n        border-bottom: 1px solid #dcdfe6;\n\n        .tabs-header-item-box {\n            padding: 0 15px;\n\n            .tabs-header-item {\n                padding: 10px 0;\n                margin-bottom: -1px;\n                font-size: 14px;\n                cursor: pointer;\n            }\n        }\n\n        .tabs-header-item-box.first {\n            padding-left: 0px;\n        }\n\n        .tabs-header-item.active {\n            border-bottom: 1px solid #409eff;\n            color: #409eff;\n            box-sizing: border-box;\n            background: linear-gradient(#dafbff, #fff),\n        }\n\n    }\n}"],"sourceRoot":""}]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 
@@ -1810,8 +1814,8 @@ const Tabs = props => {
     tabStyle = "common",
     contentPadding
   } = props;
-  const handleLabelClickFn = index => {
-    handleLabelClick && handleLabelClick(index);
+  const handleLabelClickFn = (index, itemInfo) => {
+    handleLabelClick && handleLabelClick(index, itemInfo);
   };
   const renderHeader = () => {
     const tabItems = [];
@@ -1828,7 +1832,7 @@ const Tabs = props => {
       }, /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("div", {
         className: "tabs-header-item-box ".concat(index === 0 && "first")
       }, /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("div", {
-        onClick: () => handleLabelClickFn(index),
+        onClick: () => handleLabelClickFn(index, child),
         className: "tabs-header-item  ".concat(activeIndex === index && "active")
       }, child === null || child === void 0 || (_child$props = child.props) === null || _child$props === void 0 ? void 0 : _child$props.label)));
     })) : /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("ul", {
@@ -1837,7 +1841,7 @@ const Tabs = props => {
       return /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("li", {
         key: index,
         className: "nav-item d-flex",
-        onClick: () => handleLabelClickFn(index)
+        onClick: () => handleLabelClickFn(index, child)
       }, /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("a", {
         style: {
           marginLeft: index === 0 ? "10px" : "",

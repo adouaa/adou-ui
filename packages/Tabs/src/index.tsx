@@ -22,8 +22,8 @@ const Tabs = (props: TabsProps) => {
     contentPadding,
   } = props;
 
-  const handleLabelClickFn = (index: number) => {
-    handleLabelClick && handleLabelClick(index);
+  const handleLabelClickFn = (index: number, itemInfo: any) => {
+    handleLabelClick && handleLabelClick(index, itemInfo);
   };
 
   const renderHeader = () => {
@@ -44,7 +44,7 @@ const Tabs = (props: TabsProps) => {
                     className={`tabs-header-item-box ${index === 0 && "first"}`}
                   >
                     <div
-                      onClick={() => handleLabelClickFn(index)}
+                      onClick={() => handleLabelClickFn(index, child)}
                       className={`tabs-header-item  ${
                         activeIndex === index && "active"
                       }`}
@@ -63,7 +63,7 @@ const Tabs = (props: TabsProps) => {
                 <li
                   key={index}
                   className="nav-item d-flex"
-                  onClick={() => handleLabelClickFn(index)}
+                  onClick={() => handleLabelClickFn(index, child)}
                 >
                   <a
                     style={{

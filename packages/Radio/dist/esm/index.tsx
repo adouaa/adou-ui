@@ -52,7 +52,9 @@ const Radio: React.ForwardRefRenderFunction<any, RadioProps> = (props, ref) => {
       setOptionsList(
         options.map((option) => ({
           ...option,
-          checked: defaultValue && option.value === defaultValue,
+          checked:
+            defaultValue &&
+            (option.value === defaultValue || option.label === defaultValue),
         }))
       );
     }
@@ -113,7 +115,7 @@ const Radio: React.ForwardRefRenderFunction<any, RadioProps> = (props, ref) => {
 
   const radioClasses = classNames({
     "radio-warpper": true,
-    "mb-2": !error && isFormItem,
+    "mb-3": !error && isFormItem,
     [externalClassName as string]: externalClassName,
   });
 
@@ -132,13 +134,10 @@ const Radio: React.ForwardRefRenderFunction<any, RadioProps> = (props, ref) => {
             {label}
           </span>
         )}
-        <div
-          className="option-box"
-          style={{ display: inline ? "flex" : "", marginTop: "6px" }}
-        >
-          {optionsList?.map((item) => (
+        <div className="option-box" style={{ display: inline ? "flex" : "" }}>
+          {optionsList?.map((item, index) => (
             <div
-              key={item.value}
+              key={item.value + index}
               className="form-check"
               style={{ marginRight: "20px" }}
             >
@@ -178,5 +177,4 @@ const Radio: React.ForwardRefRenderFunction<any, RadioProps> = (props, ref) => {
     </div>
   );
 };
-
 export default React.forwardRef(Radio);

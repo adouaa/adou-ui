@@ -24,7 +24,7 @@ export interface SelectProps {
   labelWidth?: any;
   commonSuffixIcon?: string;
   width?: any;
-  label?: string;
+  label?: any;
   labelPosition?: "left-top" | "center" | "top";
   inputGroup?: boolean;
   labelColor?: string;
@@ -147,7 +147,6 @@ const Select = React.forwardRef((props: SelectProps, ref) => {
   const [error, setError] = useState<boolean>(false);
   const validate = () => {
     if (!required) return true;
-    console.log(value);
 
     if (value) {
       setError(false);
@@ -188,7 +187,10 @@ const Select = React.forwardRef((props: SelectProps, ref) => {
   return (
     <div
       className={wrapperClassName}
-      style={{ width, ...(inline ? { flex: 1, marginRight: "15px" } : {}) }}
+      style={{
+        width,
+        ...(inline && !width ? { flex: 1, marginRight: "15px" } : {}),
+      }}
     >
       <select style={{ display: "none" }} name={name}>
         <option value={value?.value}>{value?.label}</option>
@@ -273,8 +275,8 @@ const Select = React.forwardRef((props: SelectProps, ref) => {
             <div
               className={`${
                 suffixContentType === "button"
-                  ? "suffix-content-btn-wrapper"
-                  : ""
+                  ? "suffix-content-btn-wrapper ms-2"
+                  : "suffix-content-text-wrapper ms-2"
               }`}
             >
               {suffixContent}

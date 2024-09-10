@@ -806,7 +806,6 @@ const Input = (_ref, ref) => {
     clear
   }));
   (0,external_root_React_commonjs2_react_commonjs_react_amd_react_.useEffect)(() => {
-    console.log(defaultValue);
     if (defaultValue || defaultValue === 0) {
       setValue(defaultValue);
     } else {
@@ -823,7 +822,7 @@ const Input = (_ref, ref) => {
     className: "".concat(cls, " input-wrapper ").concat(inputGroup ? "" : "lable-in-control", " ").concat(!error && isFormItem && "mb-3"),
     style: {
       width,
-      ...(inline ? {
+      ...(inline && !width ? {
         flex: 1,
         marginRight: "15px"
       } : {})
@@ -868,7 +867,7 @@ const Input = (_ref, ref) => {
     "aria-label": "Username",
     "aria-describedby": "basic-addon1"
   }), suffixContent && /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("div", {
-    className: "".concat(suffixContentType === "button" ? "suffix-content-btn-wrapper" : "")
+    className: "".concat(suffixContentType === "button" ? "suffix-content-btn-wrapper ms-2" : "suffix-content-text-wrapper ms-2")
   }, suffixContent), commonSuffixIcon && /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("i", {
     onClick: handleClickCommonSuffixIcon,
     className: "".concat(commonSuffixIcon, " common-suffix-icon ms-2")

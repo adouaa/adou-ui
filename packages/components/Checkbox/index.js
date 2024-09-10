@@ -142,7 +142,10 @@ module.exports = function (item) {
 
 var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_1___default()((_node_modules_css_loader_dist_runtime_sourceMaps_js__WEBPACK_IMPORTED_MODULE_0___default()));
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, `.checkbox-wrapper .inputGroup {
+___CSS_LOADER_EXPORT___.push([module.id, `.checkbox-wrapper .content-box {
+  align-items: center;
+}
+.checkbox-wrapper .inputGroup {
   display: flex;
   align-items: center;
 }
@@ -154,6 +157,7 @@ ___CSS_LOADER_EXPORT___.push([module.id, `.checkbox-wrapper .inputGroup {
 }
 .checkbox-wrapper .option-box {
   width: 100%;
+  flex: 1;
 }
 .checkbox-wrapper .label-in-center {
   display: flex;
@@ -164,7 +168,7 @@ ___CSS_LOADER_EXPORT___.push([module.id, `.checkbox-wrapper .inputGroup {
 .checkbox-wrapper .label-in-left-top .label-box {
   display: flex;
   align-items: start;
-}`, "",{"version":3,"sources":["webpack://./src/index.scss"],"names":[],"mappings":"AACI;EACI,aAAA;EACA,mBAAA;AAAR;AAGI;EACI,eAAA;EACA,eAAA;EACA,2BAAA;EACA,eAAA;AADR;AAII;EACI,WAAA;AAFR;AAKI;EACI,aAAA;AAHR;AAMI;EACI,aAAA;AAJR;AAMQ;EACI,aAAA;EACA,kBAAA;AAJZ","sourcesContent":[".checkbox-wrapper {\r\n    .inputGroup {\r\n        display: flex;\r\n        align-items: center;\r\n    }\r\n\r\n    .label-box {\r\n        font-size: 14px;\r\n        min-width: 50px;\r\n        max-width: 120px !important;\r\n        flex-wrap: wrap;\r\n    }\r\n\r\n    .option-box {\r\n        width: 100%;\r\n    }\r\n\r\n    .label-in-center {\r\n        display: flex;\r\n    }\r\n\r\n    .label-in-left-top {\r\n        display: flex;\r\n\r\n        .label-box {\r\n            display: flex;\r\n            align-items: start;\r\n\r\n        }\r\n    }\r\n}"],"sourceRoot":""}]);
+}`, "",{"version":3,"sources":["webpack://./src/index.scss"],"names":[],"mappings":"AACI;EACI,mBAAA;AAAR;AAGI;EACI,aAAA;EACA,mBAAA;AADR;AAII;EACI,eAAA;EACA,eAAA;EACA,2BAAA;EACA,eAAA;AAFR;AAKI;EACI,WAAA;EACA,OAAA;AAHR;AAMI;EACI,aAAA;AAJR;AAOI;EACI,aAAA;AALR;AAOQ;EACI,aAAA;EACA,kBAAA;AALZ","sourcesContent":[".checkbox-wrapper {\r\n    .content-box {\r\n        align-items: center;\r\n    }\r\n\r\n    .inputGroup {\r\n        display: flex;\r\n        align-items: center;\r\n    }\r\n\r\n    .label-box {\r\n        font-size: 14px;\r\n        min-width: 50px;\r\n        max-width: 120px !important;\r\n        flex-wrap: wrap;\r\n    }\r\n\r\n    .option-box {\r\n        width: 100%;\r\n        flex: 1;\r\n    }\r\n\r\n    .label-in-center {\r\n        display: flex;\r\n    }\r\n\r\n    .label-in-left-top {\r\n        display: flex;\r\n\r\n        .label-box {\r\n            display: flex;\r\n            align-items: start;\r\n\r\n        }\r\n    }\r\n}"],"sourceRoot":""}]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 

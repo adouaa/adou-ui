@@ -12,7 +12,7 @@ export interface SelectProps {
     labelWidth?: any;
     commonSuffixIcon?: string;
     width?: any;
-    label?: string;
+    label?: any;
     labelPosition?: "left-top" | "center" | "top";
     inputGroup?: boolean;
     labelColor?: string;
@@ -41,7 +41,7 @@ declare const _default: React.ComponentType<Omit<{
     labelWidth?: any;
     commonSuffixIcon?: string | undefined;
     width?: any;
-    label?: string | undefined;
+    label?: any;
     labelPosition?: "left-top" | "center" | "top" | undefined;
     inputGroup?: boolean | undefined;
     labelColor?: string | undefined;

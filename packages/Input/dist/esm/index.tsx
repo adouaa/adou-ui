@@ -157,8 +157,6 @@ const Input: React.ForwardRefRenderFunction<InputRef, InputProps> = (
   }));
 
   useEffect(() => {
-    console.log(defaultValue);
-
     if (defaultValue || defaultValue === 0) {
       setValue(defaultValue);
     } else {
@@ -177,7 +175,10 @@ const Input: React.ForwardRefRenderFunction<InputRef, InputProps> = (
       className={`${cls} input-wrapper ${
         inputGroup ? "" : "lable-in-control"
       } ${!error && isFormItem && "mb-3"}`}
-      style={{ width, ...(inline ? { flex: 1, marginRight: "15px" } : {}) }}
+      style={{
+        width,
+        ...(inline && !width ? { flex: 1, marginRight: "15px" } : {}),
+      }}
     >
       <div
         ref={wrapeerRef}
@@ -234,7 +235,9 @@ const Input: React.ForwardRefRenderFunction<InputRef, InputProps> = (
         {suffixContent && (
           <div
             className={`${
-              suffixContentType === "button" ? "suffix-content-btn-wrapper" : ""
+              suffixContentType === "button"
+                ? "suffix-content-btn-wrapper ms-2"
+                : "suffix-content-text-wrapper ms-2"
             }`}
           >
             {suffixContent}
@@ -270,7 +273,6 @@ const Input: React.ForwardRefRenderFunction<InputRef, InputProps> = (
     </div>
   );
 };
-
 Input.displayName = "Input";
 
 export default forwardRef(Input);

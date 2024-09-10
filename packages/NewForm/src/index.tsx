@@ -8,8 +8,9 @@ import {
 import React from "react";
 import "./index.scss";
 
-interface AdouNewFormProps {
+interface FormProps {
   children?: any;
+  labelColor?: string;
   eachWordWidth?: number;
   commonSuffixIcon?: any;
   required?: boolean;
@@ -17,16 +18,17 @@ interface AdouNewFormProps {
   labelPosition?: "center" | "top" | "left-top";
 }
 
-const AdouNewForm = forwardRef(
+const Form = forwardRef(
   (
     {
       labelPosition,
+      labelColor = "rgb(63 109 184)",
       inline,
       required,
       children,
       eachWordWidth = 21,
       commonSuffixIcon = "",
-    }: AdouNewFormProps,
+    }: FormProps,
     AdouFormRef
   ) => {
     const formRef = useRef<any>(null);
@@ -135,7 +137,9 @@ const AdouNewForm = forwardRef(
     const calcMaxLabelWidth = () => {
       const labelWidthList: any = [];
       React.Children.map(children, (child) => {
-        labelWidthList.push(child.props?.label);
+        if (child.props?.label) {
+          labelWidthList.push(child.props?.label);
+        }
       });
       const sortedLabelWidthList = labelWidthList.sort(
         (a: string, b: string) => a.length - b.length
@@ -150,28 +154,33 @@ const AdouNewForm = forwardRef(
       calcMaxLabelWidth();
       // 这个方法可行
       React.Children.map(children, (child) => {
-        const childRef = React.createRef<any>(); // 创建一个 ref
-        // child.type 子元素自身（FormItem），检查其静态属性 displayName 是否满足条件
-        const enhancedChildren = React.cloneElement(child, {
-          key: child.props.name,
-          ref: childRef,
-          labelWidth: maxLengthLabelWidth + "px",
-          commonSuffixIcon,
-          isFormItem: true,
-          ...(labelPosition ? { labelPosition } : {}), // 动态添加 required 属性
+        if (!child.props?.name) {
+          renderChildren.push(child);
+        } else {
+          const childRef = React.createRef<any>(); // 创建一个 ref
+          // child.type 子元素自身（FormItem），检查其静态属性 displayName 是否满足条件
+          const enhancedChildren = React.cloneElement(child, {
+            key: child.props.name,
+            ref: childRef,
+            labelWidth: maxLengthLabelWidth + "px",
+            commonSuffixIcon,
+            isFormItem: true,
+            ...(labelPosition ? { labelPosition } : {}), // 动态添加 required 属性
 
-          ...(inline ? { inline: true } : {}), // 动态添加 required 属性
+            ...(inline ? { inline: true } : {}), // 动态添加 required 属性
 
-          ...(required ? { required: true } : {}), // 动态添加 required 属性
+            ...(required ? { required: true } : {}), // 动态添加 required 属性
+            labelColor,
 
-          // 注意：一个组件只能有一个 ref，要么外面提供ref手动处理，要么在 Form组件下统一提供ref
-          // 可以自定义要不要在Form下给表单组件提供 ref
-          // [`${child.props.name === "test-select" ? "" : "ref"}`]: childRef
-        });
-        renderChildren.push(enhancedChildren);
-        // 将子组件的 ref 存储到 childRefs 中
-        if (child.props.name) {
-          childRefs.current[child.props.name] = childRef;
+            // 注意：一个组件只能有一个 ref，要么外面提供ref手动处理，要么在 Form组件下统一提供ref
+            // 可以自定义要不要在Form下给表单组件提供 ref
+            // [`${child.props.name === "test-select" ? "" : "ref"}`]: childRef
+          });
+          renderChildren.push(enhancedChildren);
+          // 将子组件的 ref 存储到 childRefs 中
+          if (child.props.name) {
+            childRefs.current[child.props.name] = childRef;
+          }
         }
       });
       return renderChildren;
@@ -195,4 +204,4 @@ const AdouNewForm = forwardRef(
   }
 );
 
-export default AdouNewForm;
+export default Form;

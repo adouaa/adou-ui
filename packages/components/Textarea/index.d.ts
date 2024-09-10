@@ -2,6 +2,7 @@ import React from "react";
 import "./index.scss";
 interface TextAreaProps {
     name?: string;
+    inline?: boolean;
     isFormItem?: boolean;
     errMsg?: string;
     labelWidth?: any;
@@ -15,7 +16,7 @@ interface TextAreaProps {
     required?: boolean;
     ref?: any;
     defaultValue?: string;
-    label?: string;
+    label?: any;
     placeholder?: string;
     disabled?: boolean;
     onChangeOK?: (value: any, ...args: any) => void;

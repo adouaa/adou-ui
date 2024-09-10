@@ -142,25 +142,26 @@ module.exports = function (item) {
 
 var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_1___default()((_node_modules_css_loader_dist_runtime_sourceMaps_js__WEBPACK_IMPORTED_MODULE_0___default()));
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, `.label-in-center {
+___CSS_LOADER_EXPORT___.push([module.id, `.textarea-warpper .label-in-center {
   display: flex;
   align-items: center;
 }
-
-.label-in-left-top {
+.textarea-warpper .label-in-left-top {
   display: flex;
 }
-.label-in-left-top .label-box {
+.textarea-warpper .label-in-left-top .label-box {
   display: flex;
   align-items: start;
 }
-
-.label-box {
+.textarea-warpper .label-box {
   font-size: 14px;
   min-width: 50px;
   max-width: 120px !important;
   flex-wrap: wrap;
-}`, "",{"version":3,"sources":["webpack://./src/index.scss"],"names":[],"mappings":"AAAA;EACI,aAAA;EACA,mBAAA;AACJ;;AAEA;EACI,aAAA;AACJ;AACI;EACI,aAAA;EACA,kBAAA;AACR;;AAGA;EACI,eAAA;EACA,eAAA;EACA,2BAAA;EACA,eAAA;AAAJ","sourcesContent":[".label-in-center {\r\n    display: flex;\r\n    align-items: center;\r\n}\r\n\r\n.label-in-left-top {\r\n    display: flex;\r\n\r\n    .label-box {\r\n        display: flex;\r\n        align-items: start;\r\n    }\r\n}\r\n\r\n.label-box {\r\n    font-size: 14px;\r\n    min-width: 50px;\r\n    max-width: 120px !important;\r\n    flex-wrap: wrap;\r\n}"],"sourceRoot":""}]);
+}
+.textarea-warpper .form-control {
+  flex: 1;
+}`, "",{"version":3,"sources":["webpack://./src/index.scss"],"names":[],"mappings":"AAEI;EACI,aAAA;EACA,mBAAA;AADR;AAII;EACI,aAAA;AAFR;AAIQ;EACI,aAAA;EACA,kBAAA;AAFZ;AAMI;EACI,eAAA;EACA,eAAA;EACA,2BAAA;EACA,eAAA;AAJR;AAOI;EACI,OAAA;AALR","sourcesContent":[".textarea-warpper {\r\n\r\n    .label-in-center {\r\n        display: flex;\r\n        align-items: center;\r\n    }\r\n\r\n    .label-in-left-top {\r\n        display: flex;\r\n\r\n        .label-box {\r\n            display: flex;\r\n            align-items: start;\r\n        }\r\n    }\r\n\r\n    .label-box {\r\n        font-size: 14px;\r\n        min-width: 50px;\r\n        max-width: 120px !important;\r\n        flex-wrap: wrap;\r\n    }\r\n\r\n    .form-control {\r\n        flex: 1;\r\n    }\r\n}"],"sourceRoot":""}]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 
@@ -645,8 +646,9 @@ var classnames_default = /*#__PURE__*/__webpack_require__.n(classnames);
 
 const TextArea = /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().forwardRef((props, ref) => {
   const {
-    isFormItem,
     errMsg,
+    inline,
+    isFormItem,
     labelWidth,
     labelColor,
     commonSuffixIcon,
@@ -702,7 +704,6 @@ const TextArea = /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react
     clear
   }));
   const textareaClasses = classnames_default()({
-    "mb-3": !error && isFormItem,
     "textarea-warpper": true,
     [externalClassName]: externalClassName
   });
@@ -712,7 +713,7 @@ const TextArea = /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react
     }
   }, [defaultValue]);
   return /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("div", {
-    className: textareaClasses,
+    className: "".concat(textareaClasses, " ").concat(!error && isFormItem && "mb-3"),
     style: {
       width
     }
@@ -725,6 +726,13 @@ const TextArea = /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react
     },
     className: "".concat(inputGroup ? "input-group-text" : "", " label-box")
   }, label), /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("textarea", {
+    style: {
+      width,
+      ...(inline && !width ? {
+        flex: 1,
+        marginRight: "15px"
+      } : {})
+    },
     readOnly: readOnly,
     required: required,
     name: name,
