@@ -7225,7 +7225,7 @@ const Select = /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_a
     } else {
       setValue(""); // 如果没有默认值，重置为初始状态
     }
-  }, [defaultValue]);
+  }, [defaultValue, options]);
   (0,external_root_React_commonjs2_react_commonjs_react_amd_react_.useEffect)(() => {
     // setValue({}) // 不知道要不要加 -- 不能加，加完之后会出现默认值无法赋值。。。
 

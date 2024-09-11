@@ -7,5 +7,7 @@ declare const _default: React.ComponentType<Omit<{
     activeLabelColor?: string | undefined;
     tabStyle?: "common" | "bootstrap" | undefined;
     contentPadding?: string | undefined;
+    clearOnChange?: boolean | undefined;
+    lineaGradient?: string | undefined;
 }, keyof import("react-i18next").WithTranslation<N, undefined>> & import("react-i18next").WithTranslationProps>;
 export default _default;

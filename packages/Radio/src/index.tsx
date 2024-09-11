@@ -1,5 +1,5 @@
 import classNames from "classnames";
-import React, { useEffect, useImperativeHandle, useState } from "react";
+import React, { useEffect, useId, useImperativeHandle, useState } from "react";
 import "./index.scss";
 
 interface RadioProps {
@@ -77,9 +77,9 @@ const Radio: React.ForwardRefRenderFunction<any, RadioProps> = (props, ref) => {
   };
 
   const getValue = () => {
-    return (
-      optionsList.filter((option: any) => option.checked)?.[0]?.value || ""
-    );
+    const checkedItem = optionsList.filter((option: any) => option.checked);
+
+    return checkedItem?.[0]?.value || checkedItem?.[0]?.label || "";
   };
 
   // 清除内容方法
@@ -97,6 +97,10 @@ const Radio: React.ForwardRefRenderFunction<any, RadioProps> = (props, ref) => {
   };
   const [error, setError] = useState<boolean>(false);
   const validate = () => {
+    if (!required) {
+      setError(false);
+      return true;
+    }
     // Example validation logic, replace with your actual validation needs
     if (optionsList.some((item: any) => item.checked)) {
       setError(false);
@@ -177,4 +181,5 @@ const Radio: React.ForwardRefRenderFunction<any, RadioProps> = (props, ref) => {
     </div>
   );
 };
+
 export default React.forwardRef(Radio);

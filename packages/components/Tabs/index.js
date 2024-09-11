@@ -1807,12 +1807,14 @@ var update = injectStylesIntoStyleTag_default()(cjs_ruleSet_1_rules_1_use_2_src/
 
 const Tabs = props => {
   const {
+    lineaGradient = "#dafbff, #fff",
     children,
     handleLabelClick,
     activeIndex = 0,
     activeLabelColor = "#409eff",
     tabStyle = "common",
-    contentPadding
+    contentPadding,
+    clearOnChange = true
   } = props;
   const handleLabelClickFn = (index, itemInfo) => {
     handleLabelClick && handleLabelClick(index, itemInfo);
@@ -1846,7 +1848,10 @@ const Tabs = props => {
         style: {
           marginLeft: index === 0 ? "10px" : "",
           color: index === activeIndex ? child.props.activeLabelColor || activeLabelColor : "",
-          cursor: "pointer"
+          cursor: "pointer",
+          ...(index === activeIndex ? {
+            background: "linear-gradient(".concat(lineaGradient, ")")
+          } : {})
         },
         className: "".concat(index === activeIndex ? "active" : "", " nav-link"),
         "aria-current": "page"
@@ -1862,7 +1867,8 @@ const Tabs = props => {
         const enhancedChildren = /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().cloneElement(child, {
           active: index === activeIndex,
           key: index,
-          contentPadding
+          contentPadding,
+          clearOnChange
         });
         renderChildren.push(enhancedChildren);
       }

@@ -10,16 +10,20 @@ interface TabsProps {
   activeLabelColor?: string;
   tabStyle?: "common" | "bootstrap";
   contentPadding?: string;
+  clearOnChange?: boolean;
+  lineaGradient?: string;
 }
 
 const Tabs = (props: TabsProps) => {
   const {
+    lineaGradient = "#dafbff, #fff",
     children,
     handleLabelClick,
     activeIndex = 0,
     activeLabelColor = "#409eff",
     tabStyle = "common",
     contentPadding,
+    clearOnChange = true,
   } = props;
 
   const handleLabelClickFn = (index: number, itemInfo: any) => {
@@ -73,6 +77,11 @@ const Tabs = (props: TabsProps) => {
                           ? child.props.activeLabelColor || activeLabelColor
                           : "",
                       cursor: "pointer",
+                      ...(index === activeIndex
+                        ? {
+                            background: `linear-gradient(${lineaGradient})`,
+                          }
+                        : {}),
                     }}
                     className={`${
                       index === activeIndex ? "active" : ""
@@ -99,6 +108,7 @@ const Tabs = (props: TabsProps) => {
           active: index === activeIndex,
           key: index,
           contentPadding,
+          clearOnChange,
         });
         renderChildren.push(enhancedChildren);
       }

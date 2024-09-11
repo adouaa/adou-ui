@@ -69,7 +69,7 @@ const Form = forwardRef(
             if (child.getValue) {
               formValues[name] = child.getValue();
             } else {
-              formValues[name] = value;
+              formValues[name] = type === "number" ? Number(value) : value;
             }
           }
         }

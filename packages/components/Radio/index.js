@@ -689,8 +689,9 @@ const Radio = (props, ref) => {
     setError(false);
   };
   const getValue = () => {
-    var _optionsList$filter;
-    return ((_optionsList$filter = optionsList.filter(option => option.checked)) === null || _optionsList$filter === void 0 || (_optionsList$filter = _optionsList$filter[0]) === null || _optionsList$filter === void 0 ? void 0 : _optionsList$filter.value) || "";
+    var _checkedItem$, _checkedItem$2;
+    const checkedItem = optionsList.filter(option => option.checked);
+    return (checkedItem === null || checkedItem === void 0 || (_checkedItem$ = checkedItem[0]) === null || _checkedItem$ === void 0 ? void 0 : _checkedItem$.value) || (checkedItem === null || checkedItem === void 0 || (_checkedItem$2 = checkedItem[0]) === null || _checkedItem$2 === void 0 ? void 0 : _checkedItem$2.label) || "";
   };
 
   // 清除内容方法
@@ -706,6 +707,10 @@ const Radio = (props, ref) => {
   };
   const [error, setError] = (0,external_root_React_commonjs2_react_commonjs_react_amd_react_.useState)(false);
   const validate = () => {
+    if (!required) {
+      setError(false);
+      return true;
+    }
     // Example validation logic, replace with your actual validation needs
     if (optionsList.some(item => item.checked)) {
       setError(false);

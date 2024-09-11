@@ -591,7 +591,7 @@ const Form = /*#__PURE__*/(0,external_root_React_commonjs2_react_commonjs_react_
           if (child.getValue) {
             formValues[name] = child.getValue();
           } else {
-            formValues[name] = value;
+            formValues[name] = type === "number" ? Number(value) : value;
           }
         }
       }

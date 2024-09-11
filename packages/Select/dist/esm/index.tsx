@@ -106,7 +106,7 @@ const Select = React.forwardRef((props: SelectProps, ref) => {
     } else {
       setValue(""); // 如果没有默认值，重置为初始状态
     }
-  }, [defaultValue]);
+  }, [defaultValue, options]);
 
   useEffect(() => {
     // setValue({}) // 不知道要不要加 -- 不能加，加完之后会出现默认值无法赋值。。。
