@@ -2,6 +2,8 @@ import React from "react";
 import "./index.scss";
 export interface SelectProps {
     name?: string;
+    labelKey?: string;
+    valueKey?: string;
     inline?: boolean;
     suffixContent?: any;
     suffixContentType?: string;
@@ -31,5 +33,5 @@ interface RetrieveSelectProps extends SelectProps {
     onRetrieveSelectChange?: (selectedOptions: any[]) => void;
     onDelete?: () => void;
 }
-declare const _default: React.FC<RetrieveSelectProps>;
-export default _default;
+declare const RetrievrSelect: React.FC<RetrieveSelectProps>;
+export default RetrievrSelect;

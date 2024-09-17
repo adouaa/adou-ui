@@ -69,14 +69,20 @@
     background-color: #f4f4f5;
     position: relative;
     margin-right: 6px;
-    margin-bottom: 6px;
+    // margin-bottom: 6px;
 }
 
 .option-icon {
     position: absolute;
-    right: 10px;
-    bottom: 4px;
+    right: 6px;
+    top: -2px;
     cursor: pointer;
+    transition: all 0.3s ease;
+
+    &:hover {
+        color: #dc3545;
+        scale: 1.2;
+    }
 }
 
 .input-control {

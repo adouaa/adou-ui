@@ -554,11 +554,14 @@ const Form = /*#__PURE__*/(0,external_root_React_commonjs2_react_commonjs_react_
     commonSuffixIcon = ""
   } = _ref;
   const formRef = (0,external_root_React_commonjs2_react_commonjs_react_amd_react_.useRef)(null);
-  const getFormData = () => {
+  const getFormData = function () {
+    let needCheck = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : true;
     const formWrapper = formRef.current; // 获取 search-wrapper 的 DOM 元素
     if (!formWrapper) return;
-    const isValid = validateForm();
-    if (!isValid) return false;
+    if (needCheck) {
+      const isValid = validateForm();
+      if (!isValid) return false;
+    }
 
     // 遍历所有表单元素
     const formValues = {};
@@ -576,8 +579,6 @@ const Form = /*#__PURE__*/(0,external_root_React_commonjs2_react_commonjs_react_
       // 处理 input 元素
       if (tagName === "INPUT") {
         if (type === "checkbox") {
-          child === null || child === void 0 || child.validate();
-
           // 如果是复选框，更新 formValues[name] 为选中的复选框的值的数组
           if (!formValues[name]) {
             formValues[name] = [];
@@ -587,8 +588,7 @@ const Form = /*#__PURE__*/(0,external_root_React_commonjs2_react_commonjs_react_
             formValues[name].push(value);
           }
         } else {
-          (child === null || child === void 0 ? void 0 : child.validate) && child.validate();
-          if (child.getValue) {
+          if (child !== null && child !== void 0 && child.getValue) {
             formValues[name] = child.getValue();
           } else {
             formValues[name] = type === "number" ? Number(value) : value;
@@ -650,7 +650,7 @@ const Form = /*#__PURE__*/(0,external_root_React_commonjs2_react_commonjs_react_
     const labelWidthList = [];
     external_root_React_commonjs2_react_commonjs_react_amd_react_default().Children.map(children, child => {
       var _child$props;
-      if ((_child$props = child.props) !== null && _child$props !== void 0 && _child$props.label) {
+      if (child !== null && child !== void 0 && (_child$props = child.props) !== null && _child$props !== void 0 && _child$props.label) {
         var _child$props2;
         labelWidthList.push((_child$props2 = child.props) === null || _child$props2 === void 0 ? void 0 : _child$props2.label);
       }
@@ -664,7 +664,7 @@ const Form = /*#__PURE__*/(0,external_root_React_commonjs2_react_commonjs_react_
     // 这个方法可行
     external_root_React_commonjs2_react_commonjs_react_amd_react_default().Children.map(children, child => {
       var _child$props3;
-      if (!((_child$props3 = child.props) !== null && _child$props3 !== void 0 && _child$props3.name)) {
+      if (!(child !== null && child !== void 0 && (_child$props3 = child.props) !== null && _child$props3 !== void 0 && _child$props3.name)) {
         renderChildren.push(child);
       } else {
         const childRef = /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createRef(); // 创建一个 ref

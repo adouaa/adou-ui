@@ -2,6 +2,8 @@ import React from "react";
 import "./index.scss";
 interface RadioProps {
     name?: string;
+    key?: string;
+    width?: any;
     isFormItem?: string;
     errMsg?: string;
     labelWidth?: any;

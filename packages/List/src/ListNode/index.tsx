@@ -3,6 +3,10 @@ import "./index.scss";
 
 interface ListNodeProps {
   children?: any;
+  activeBgc?: any;
+  deleteIconClass?: string;
+  addIconClass?: string;
+  editIconClass?: string;
   node: any;
   isTree: boolean;
   showOptIcons?: boolean;
@@ -21,8 +25,12 @@ interface ListNodeProps {
 }
 
 const ListNode = ({
+  activeBgc = "#2783d8",
+  addIconClass,
+  deleteIconClass,
+  editIconClass,
   prefixTag,
-  showTag = false,
+  showTag = true,
   children,
   wrap = true,
   node,
@@ -159,7 +167,7 @@ const ListNode = ({
   };
 
   const handleNodeNameClick = (node: any, e: any) => {
-    // onItemClick && onItemClick(node);  // 注释掉，防止出现调用两次 onItemClick
+    // onItemClick && onItemClick(node); // 注释掉，防止出现调用两次 onItemClick
   };
 
   const handleChildrenIconClick = (node: any) => {
@@ -193,6 +201,11 @@ const ListNode = ({
       <div className="node-item">
         {/* handleItemClick: 整个树节点的点击事件 */}
         <div
+          style={{
+            ...(Number(activeId) === Number(node.id)
+              ? { backgroundColor: activeBgc }
+              : ""),
+          }}
           className={`left-content ${
             Number(activeId) === Number(node.id) && "active"
           }`}
@@ -202,7 +215,11 @@ const ListNode = ({
         >
           {/* 最左边的tag */}
           <div className={`prefix-tag`}>
-            <i className={prefixTag}></i>
+            <i
+              className={`${prefixTag} ${
+                activeId === node.id ? "text-white" : ""
+              }`}
+            ></i>
           </div>
           {/* 展示标志 */}
           {showTag && renderTag()}
@@ -231,16 +248,16 @@ const ListNode = ({
           >
             <i
               style={{ display: showAddIcon ? "inline-block" : "none" }}
-              className="icon fa fa-plus"
+              className={`icon fa ${addIconClass || "fa-plus text-success"}`}
               onClick={(e) => handleOptIconClick(e, "add", node)}
             ></i>
             <i
               style={{ display: showEditIcon ? "inline-block" : "none" }}
-              className="icon fa fa-pencil"
+              className={`icon fa ${editIconClass || "fa-pencil text-warning"}`}
               onClick={(e) => handleOptIconClick(e, "edit", node)}
             ></i>
             <i
-              className="icon fa fa-trash"
+              className={`icon fa ${deleteIconClass || "fa-trash text-danger"}`}
               onClick={(e) => handleOptIconClick(e, "delete", node)}
             ></i>
           </div>
@@ -256,6 +273,9 @@ const ListNode = ({
               // 或许只是为了写个占位，代表需要触发父组件的这个回调函数？
               // 如果是传递的属性的话，是需要写的,像父组件那样子写，用的参数是父组件传递过来的，类似父组件那样再写一遍
               <ListNode
+                addIconClass={addIconClass}
+                editIconClass={editIconClass}
+                deleteIconClass={deleteIconClass}
                 prefixTag={prefixTag}
                 showTag={showTag}
                 children={children}

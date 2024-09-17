@@ -4,6 +4,8 @@ import "./index.scss";
 
 interface RadioProps {
   name?: string;
+  key?: string;
+  width?: any;
   isFormItem?: string;
   errMsg?: string;
   labelWidth?: any;
@@ -26,7 +28,9 @@ interface RadioProps {
 
 const Radio: React.ForwardRefRenderFunction<any, RadioProps> = (props, ref) => {
   const {
+    key,
     required,
+    width,
     isFormItem,
     errMsg,
     labelWidth,
@@ -43,6 +47,8 @@ const Radio: React.ForwardRefRenderFunction<any, RadioProps> = (props, ref) => {
     defaultValue,
     onChangeOK,
   } = props;
+
+  const radioId = useId();
 
   const [optionsList, setOptionsList] = useState(options || []);
 
@@ -66,12 +72,16 @@ const Radio: React.ForwardRefRenderFunction<any, RadioProps> = (props, ref) => {
   });
 
   const handleChange = (item: any) => {
-    setOptionsList((prevOptions) =>
-      prevOptions.map((option) => ({
+    console.log("item: ", item);
+    const data = optionsList.map((option) => {
+      console.log("option: ", option);
+      return {
         ...option,
         checked: option.value === item.value,
-      }))
-    );
+      };
+    });
+    console.log("data: ", data);
+    setOptionsList(data);
     onChangeOK && onChangeOK(item);
     setError(false);
   };
@@ -124,7 +134,13 @@ const Radio: React.ForwardRefRenderFunction<any, RadioProps> = (props, ref) => {
   });
 
   return (
-    <div className={radioClasses}>
+    <div
+      className={radioClasses}
+      style={{
+        width,
+        ...(inline && !width ? { flex: 1, marginRight: "15px" } : {}),
+      }}
+    >
       <div
         className={`content-box ${
           inputGroup ? "inputGroup" : `label-in-${labelPosition}`
@@ -140,23 +156,22 @@ const Radio: React.ForwardRefRenderFunction<any, RadioProps> = (props, ref) => {
         )}
         <div className="option-box" style={{ display: inline ? "flex" : "" }}>
           {optionsList?.map((item, index) => (
-            <div
-              key={item.value + index}
-              className="form-check"
-              style={{ marginRight: "20px" }}
-            >
+            <div key={item.value + index} className="form-check me-2">
               <input
                 disabled={item.disabled}
                 className={cls}
                 type="radio"
                 name={name}
-                id={item.id}
+                id={radioId + index + ""}
                 checked={item.checked || false} // Ensure checked is boolean
                 onChange={() => handleChange(item)}
                 value={item.value}
                 readOnly={readOnly}
               />
-              <label className="form-check-label" htmlFor={item.id}>
+              <label
+                className="form-check-label"
+                htmlFor={radioId + index + ""}
+              >
                 {item.label || "Default Radio"}
               </label>
             </div>

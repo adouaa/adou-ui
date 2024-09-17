@@ -114,7 +114,9 @@ const Modal = _ref => {
     show,
     children,
     confirmText,
+    confirmBtnClass = "primary",
     cancelText,
+    cancelmBtnClass = "secondary",
     maxHeight,
     overflowY = true,
     width = "600px",
@@ -150,7 +152,7 @@ const Modal = _ref => {
     }, 100);
   };
   const handleOnConfirm = () => {
-    setVisible(false);
+    // setVisible(false);
     setTimeout(() => {
       onConfirm && onConfirm();
     }, 100);
@@ -167,12 +169,15 @@ const Modal = _ref => {
       setDragging(true);
     }
   };
+
+  // 当 x = e.clientX  并且  modalRef.current.style.left = `${x}px`的时候，鼠标会一直处于模态框头部的中间位置
+  // 以下写法可以保证 鼠标在正确的位置，用上 offset 和 width 进行计算，比较合理
   const handleMouseMove = e => {
     if (dragging && modalRef.current) {
-      const width = modalRef.current.clientWidth;
+      const clientWidth = modalRef.current.clientWidth;
       const x = e.clientX - offset.x;
       const y = e.clientY - offset.y;
-      modalRef.current.style.left = "".concat(x + width / 2, "px");
+      modalRef.current.style.left = "".concat(x + clientWidth / 2, "px");
       modalRef.current.style.top = "".concat(y, "px");
     }
   };
@@ -194,8 +199,10 @@ const Modal = _ref => {
       const contentHeight = contentRef.current.scrollHeight;
       const windowHeight = window.innerHeight;
       const modalHeight = modalRef.current.offsetHeight;
-      const top = contentHeight > windowHeight ? 60 : (windowHeight - modalHeight) / 2;
-      modalRef.current.style.top = "1%";
+      /* const top =
+        contentHeight > windowHeight ? 60 : (windowHeight - modalHeight) / 2; */
+      const top = type === "tip" ? "25%" : "1%";
+      modalRef.current.style.top = top;
     }
   }, [visible, children]);
   return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement((react__WEBPACK_IMPORTED_MODULE_0___default().Fragment), null, show && /*#__PURE__*/react_dom__WEBPACK_IMPORTED_MODULE_1___default().createPortal( /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", {
@@ -207,7 +214,7 @@ const Modal = _ref => {
       height: "fit-content",
       position: "fixed",
       left: "50%",
-      transform: "translateX(-50%)"
+      transform: "translate(-50%)"
     },
     id: "exampleModal",
     tabIndex: -1,
@@ -248,11 +255,11 @@ const Modal = _ref => {
     className: "modal-footer"
   }, showCancel && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("button", {
     type: "button",
-    className: "btn btn-secondary",
+    className: "btn btn-".concat(cancelmBtnClass),
     onClick: handleOnCancel
   }, cancelText || "取消"), showConfirm && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("button", {
     type: "button",
-    className: "btn btn-primary",
+    className: "btn btn-".concat(confirmBtnClass),
     onClick: handleOnConfirm
   }, confirmText || "确定"))))), visible ? /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", {
     className: "modal-backdrop fade ".concat(visible && "show")

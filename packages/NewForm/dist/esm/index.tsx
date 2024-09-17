@@ -33,12 +33,14 @@ const Form = forwardRef(
   ) => {
     const formRef = useRef<any>(null);
 
-    const getFormData = () => {
+    const getFormData = (needCheck: boolean = true) => {
       const formWrapper = formRef.current; // 获取 search-wrapper 的 DOM 元素
       if (!formWrapper) return;
 
-      const isValid = validateForm();
-      if (!isValid) return false;
+      if (needCheck) {
+        const isValid = validateForm();
+        if (!isValid) return false;
+      }
 
       // 遍历所有表单元素
       const formValues: any = {};
@@ -53,8 +55,6 @@ const Form = forwardRef(
         // 处理 input 元素
         if (tagName === "INPUT") {
           if (type === "checkbox") {
-            child?.validate();
-
             // 如果是复选框，更新 formValues[name] 为选中的复选框的值的数组
             if (!formValues[name]) {
               formValues[name] = [];
@@ -64,9 +64,7 @@ const Form = forwardRef(
               formValues[name].push(value);
             }
           } else {
-            child?.validate && child.validate();
-
-            if (child.getValue) {
+            if (child?.getValue) {
               formValues[name] = child.getValue();
             } else {
               formValues[name] = type === "number" ? Number(value) : value;
@@ -137,7 +135,7 @@ const Form = forwardRef(
     const calcMaxLabelWidth = () => {
       const labelWidthList: any = [];
       React.Children.map(children, (child) => {
-        if (child.props?.label) {
+        if (child?.props?.label) {
           labelWidthList.push(child.props?.label);
         }
       });
@@ -154,7 +152,7 @@ const Form = forwardRef(
       calcMaxLabelWidth();
       // 这个方法可行
       React.Children.map(children, (child) => {
-        if (!child.props?.name) {
+        if (!child?.props?.name) {
           renderChildren.push(child);
         } else {
           const childRef = React.createRef<any>(); // 创建一个 ref
@@ -203,5 +201,4 @@ const Form = forwardRef(
     );
   }
 );
-
 export default Form;

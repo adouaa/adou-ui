@@ -98,6 +98,8 @@ const TextArea: React.FC<TextAreaProps> = React.forwardRef(
     useEffect(() => {
       if (defaultValue) {
         setValue(defaultValue);
+      } else {
+        setValue("");
       }
     }, [defaultValue]);
 
@@ -149,7 +151,7 @@ const TextArea: React.FC<TextAreaProps> = React.forwardRef(
               color: "#DC3545",
               paddingLeft: parseInt(labelWidth) > 120 ? "120px" : labelWidth,
             }}
-          >{`${errMsg || `${name}不能为空`}`}</div>
+          >{`${errMsg || `${label || name}不能为空`}`}</div>
         )}
       </div>
     );

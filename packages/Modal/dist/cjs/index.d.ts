@@ -5,7 +5,9 @@ export interface ModalProps {
     show: boolean;
     children?: any;
     confirmText?: string;
+    confirmBtnClass?: string;
     cancelText?: string;
+    cancelmBtnClass?: string;
     maxHeight?: any;
     overflowY?: boolean;
     width?: string;

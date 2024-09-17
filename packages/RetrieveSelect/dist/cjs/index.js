@@ -5412,14 +5412,18 @@ ___CSS_LOADER_EXPORT___.push([module.id, `@charset "UTF-8";
   background-color: #f4f4f5;
   position: relative;
   margin-right: 6px;
-  margin-bottom: 6px;
 }
 
 .option-icon {
   position: absolute;
-  right: 10px;
-  bottom: 4px;
+  right: 6px;
+  top: -2px;
   cursor: pointer;
+  transition: all 0.3s ease;
+}
+.option-icon:hover {
+  color: #dc3545;
+  scale: 1.2;
 }
 
 .input-control {
@@ -5479,7 +5483,7 @@ ___CSS_LOADER_EXPORT___.push([module.id, `@charset "UTF-8";
   height: 100px;
   display: flex;
   justify-content: flex-start;
-}`, "",{"version":3,"sources":["webpack://./src/index.scss"],"names":[],"mappings":"AAAA,gBAAgB;AAGZ;EACI,kBAAA;EACA,OAAA;EACA,gBAAA;EACA,uBAAA;EACA,eAAA;AADR;AAKI;EACI,eAAA;EACA,eAAA;EACA,2BAAA;EACA,eAAA;AAHR;AAOI;EACI,aAAA;EACA,mBAAA;AALR;AAQI;EACI,aAAA;AANR;AAQQ;EACI,aAAA;EACA,kBAAA;AANZ;;AAWA;EACI,4BAAA;AARJ;;AAWA;EACI,iBAAA;EACA,gBAAA;AARJ;;AAWA;EACI,yBAAA;EACA,aAAA;EACA,8BAAA;AARJ;;AAWA;EACI,aAAA;AARJ;;AAWA;EACI,YAAA;AARJ;;AAWA;EACI,aAAA;EACA,eAAA;AARJ;;AAWA;EACI,cAAA;EACA,eAAA;EACA,0BAAA;EACA,mBAAA;EACA,yBAAA;EACA,kBAAA;EACA,iBAAA;EACA,kBAAA;AARJ;;AAWA;EACI,kBAAA;EACA,WAAA;EACA,WAAA;EACA,eAAA;AARJ;;AAWA;EACI,OAAA;AARJ;;AAWA;EACI,gBAAA;EACA,WAAA;EACA,aAAA;EACA,YAAA;AARJ;;AAcA;EACI,aAAA;EACA,uBAAA;AAXJ;;AAeA;EACI,YAAA;AAZJ;;AAeA;EACI,sBAAA;EACA,eAAA;EACA,kBAAA;EACA,cAAA;EACA,kBAAA;EACA,4CAAA;EACA,qBAAA;EACA,cAAA;EACA,yBAAA;AAZJ;AAcI;EACI,iBAAA;AAZR;AAcQ;EACI,yBAAA;EACA,eAAA;AAZZ;AAeQ;EACI,WAAA;EACA,yBAAA;AAbZ;;AAqBA;EACI,YAAA;EACA,YAAA;EACA,eAAA;EACA,aAAA;EACA,uBAAA;EACA,mBAAA;EACA,cAAA;AAlBJ;;AAqBA;EACI,aAAA;EACA,aAAA;EACA,2BAAA;AAlBJ","sourcesContent":[".retrieve-select-wrapper {\r\n\r\n\r\n    .select-list-box {\r\n        position: relative;\r\n        flex: 1;\r\n        min-height: 38px;\r\n        cursor: text !important;\r\n        flex-wrap: wrap;\r\n    }\r\n\r\n\r\n    .label-box {\r\n        font-size: 14px;\r\n        min-width: 50px;\r\n        max-width: 120px !important;\r\n        flex-wrap: wrap;\r\n    }\r\n\r\n\r\n    .label-in-center {\r\n        display: flex;\r\n        align-items: center;\r\n    }\r\n\r\n    .label-in-left-top {\r\n        display: flex;\r\n\r\n        .label-box {\r\n            display: flex;\r\n            align-items: start;\r\n        }\r\n    }\r\n}\r\n\r\n.retrieve-select-content-open {\r\n    max-height: 200px !important;\r\n}\r\n\r\n.option-wrapper {\r\n    max-height: 200px;\r\n    overflow-y: auto;\r\n}\r\n\r\n.retrieve-select-active {\r\n    background-color: #2783d8;\r\n    display: flex;\r\n    justify-content: space-between;\r\n}\r\n\r\n.retrieve-select-option-wrapper {\r\n    padding: 14px;\r\n}\r\n\r\n.retrieve-select-active::after {\r\n    content: \"✔\";\r\n}\r\n\r\n.select-list {\r\n    display: flex;\r\n    flex-wrap: wrap;\r\n}\r\n\r\n.selected-option {\r\n    color: #7e8085;\r\n    font-size: 14px;\r\n    padding: 3px 22px 3px 12px;\r\n    border-radius: 13px;\r\n    background-color: #f4f4f5;\r\n    position: relative;\r\n    margin-right: 6px;\r\n    margin-bottom: 6px;\r\n}\r\n\r\n.option-icon {\r\n    position: absolute;\r\n    right: 10px;\r\n    bottom: 4px;\r\n    cursor: pointer;\r\n}\r\n\r\n.input-control {\r\n    flex: 1;\r\n}\r\n\r\n.retrieve-input {\r\n    min-width: 120px;\r\n    width: 100%;\r\n    outline: none;\r\n    border: none;\r\n}\r\n\r\n\r\n\r\n\r\n.none-wrapper {\r\n    display: flex;\r\n    justify-content: center;\r\n}\r\n\r\n\r\n.multiple-input {\r\n    min-width: 0\r\n}\r\n\r\n.retrieve-select-content {\r\n    background-color: #fff;\r\n    max-height: 0px;\r\n    position: absolute;\r\n    z-index: 10000;\r\n    border-radius: 4px;\r\n    box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;\r\n    text-align-last: left;\r\n    overflow: auto;\r\n    transition: all 0.3s ease;\r\n\r\n    .option-item {\r\n        padding: 5px 10px;\r\n\r\n        &:hover {\r\n            background-color: #2783d8;\r\n            cursor: pointer;\r\n        }\r\n\r\n        &:active {\r\n            color: #fff;\r\n            background-color: #2783d8;\r\n        }\r\n    }\r\n}\r\n\r\n\r\n\r\n\r\n.none-option {\r\n    width: 200px;\r\n    height: 50px;\r\n    padding: 10px 0;\r\n    display: flex;\r\n    justify-content: center;\r\n    align-items: center;\r\n    color: #a4a3a3;\r\n}\r\n\r\n.none-match {\r\n    height: 100px;\r\n    display: flex;\r\n    justify-content: flex-start;\r\n}"],"sourceRoot":""}]);
+}`, "",{"version":3,"sources":["webpack://./src/index.scss"],"names":[],"mappings":"AAAA,gBAAgB;AAGZ;EACI,kBAAA;EACA,OAAA;EACA,gBAAA;EACA,uBAAA;EACA,eAAA;AADR;AAKI;EACI,eAAA;EACA,eAAA;EACA,2BAAA;EACA,eAAA;AAHR;AAOI;EACI,aAAA;EACA,mBAAA;AALR;AAQI;EACI,aAAA;AANR;AAQQ;EACI,aAAA;EACA,kBAAA;AANZ;;AAWA;EACI,4BAAA;AARJ;;AAWA;EACI,iBAAA;EACA,gBAAA;AARJ;;AAWA;EACI,yBAAA;EACA,aAAA;EACA,8BAAA;AARJ;;AAWA;EACI,aAAA;AARJ;;AAWA;EACI,YAAA;AARJ;;AAWA;EACI,aAAA;EACA,eAAA;AARJ;;AAWA;EACI,cAAA;EACA,eAAA;EACA,0BAAA;EACA,mBAAA;EACA,yBAAA;EACA,kBAAA;EACA,iBAAA;AARJ;;AAYA;EACI,kBAAA;EACA,UAAA;EACA,SAAA;EACA,eAAA;EACA,yBAAA;AATJ;AAWI;EACI,cAAA;EACA,UAAA;AATR;;AAaA;EACI,OAAA;AAVJ;;AAaA;EACI,gBAAA;EACA,WAAA;EACA,aAAA;EACA,YAAA;AAVJ;;AAgBA;EACI,aAAA;EACA,uBAAA;AAbJ;;AAiBA;EACI,YAAA;AAdJ;;AAiBA;EACI,sBAAA;EACA,eAAA;EACA,kBAAA;EACA,cAAA;EACA,kBAAA;EACA,4CAAA;EACA,qBAAA;EACA,cAAA;EACA,yBAAA;AAdJ;AAgBI;EACI,iBAAA;AAdR;AAgBQ;EACI,yBAAA;EACA,eAAA;AAdZ;AAiBQ;EACI,WAAA;EACA,yBAAA;AAfZ;;AAuBA;EACI,YAAA;EACA,YAAA;EACA,eAAA;EACA,aAAA;EACA,uBAAA;EACA,mBAAA;EACA,cAAA;AApBJ;;AAuBA;EACI,aAAA;EACA,aAAA;EACA,2BAAA;AApBJ","sourcesContent":[".retrieve-select-wrapper {\r\n\r\n\r\n    .select-list-box {\r\n        position: relative;\r\n        flex: 1;\r\n        min-height: 38px;\r\n        cursor: text !important;\r\n        flex-wrap: wrap;\r\n    }\r\n\r\n\r\n    .label-box {\r\n        font-size: 14px;\r\n        min-width: 50px;\r\n        max-width: 120px !important;\r\n        flex-wrap: wrap;\r\n    }\r\n\r\n\r\n    .label-in-center {\r\n        display: flex;\r\n        align-items: center;\r\n    }\r\n\r\n    .label-in-left-top {\r\n        display: flex;\r\n\r\n        .label-box {\r\n            display: flex;\r\n            align-items: start;\r\n        }\r\n    }\r\n}\r\n\r\n.retrieve-select-content-open {\r\n    max-height: 200px !important;\r\n}\r\n\r\n.option-wrapper {\r\n    max-height: 200px;\r\n    overflow-y: auto;\r\n}\r\n\r\n.retrieve-select-active {\r\n    background-color: #2783d8;\r\n    display: flex;\r\n    justify-content: space-between;\r\n}\r\n\r\n.retrieve-select-option-wrapper {\r\n    padding: 14px;\r\n}\r\n\r\n.retrieve-select-active::after {\r\n    content: \"✔\";\r\n}\r\n\r\n.select-list {\r\n    display: flex;\r\n    flex-wrap: wrap;\r\n}\r\n\r\n.selected-option {\r\n    color: #7e8085;\r\n    font-size: 14px;\r\n    padding: 3px 22px 3px 12px;\r\n    border-radius: 13px;\r\n    background-color: #f4f4f5;\r\n    position: relative;\r\n    margin-right: 6px;\r\n    // margin-bottom: 6px;\r\n}\r\n\r\n.option-icon {\r\n    position: absolute;\r\n    right: 6px;\r\n    top: -2px;\r\n    cursor: pointer;\r\n    transition: all 0.3s ease;\r\n\r\n    &:hover {\r\n        color: #dc3545;\r\n        scale: 1.2;\r\n    }\r\n}\r\n\r\n.input-control {\r\n    flex: 1;\r\n}\r\n\r\n.retrieve-input {\r\n    min-width: 120px;\r\n    width: 100%;\r\n    outline: none;\r\n    border: none;\r\n}\r\n\r\n\r\n\r\n\r\n.none-wrapper {\r\n    display: flex;\r\n    justify-content: center;\r\n}\r\n\r\n\r\n.multiple-input {\r\n    min-width: 0\r\n}\r\n\r\n.retrieve-select-content {\r\n    background-color: #fff;\r\n    max-height: 0px;\r\n    position: absolute;\r\n    z-index: 10000;\r\n    border-radius: 4px;\r\n    box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;\r\n    text-align-last: left;\r\n    overflow: auto;\r\n    transition: all 0.3s ease;\r\n\r\n    .option-item {\r\n        padding: 5px 10px;\r\n\r\n        &:hover {\r\n            background-color: #2783d8;\r\n            cursor: pointer;\r\n        }\r\n\r\n        &:active {\r\n            color: #fff;\r\n            background-color: #2783d8;\r\n        }\r\n    }\r\n}\r\n\r\n\r\n\r\n\r\n.none-option {\r\n    width: 200px;\r\n    height: 50px;\r\n    padding: 10px 0;\r\n    display: flex;\r\n    justify-content: center;\r\n    align-items: center;\r\n    color: #a4a3a3;\r\n}\r\n\r\n.none-match {\r\n    height: 100px;\r\n    display: flex;\r\n    justify-content: flex-start;\r\n}"],"sourceRoot":""}]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 
@@ -5970,7 +5974,33 @@ var external_root_ReactDOM_commonjs2_react_dom_commonjs_react_dom_amd_react_dom_
 var external_root_ReactDOM_commonjs2_react_dom_commonjs_react_dom_amd_react_dom_default = /*#__PURE__*/__webpack_require__.n(external_root_ReactDOM_commonjs2_react_dom_commonjs_react_dom_amd_react_dom_);
 // EXTERNAL MODULE: ../components/Utils/index.js
 var Utils = __webpack_require__(36);
+;// CONCATENATED MODULE: ./src/utils/useClickOutside.js
+
+const useClickOutside = cb => {
+  const [isOpen, setIsOpen] = (0,external_root_React_commonjs2_react_commonjs_react_amd_react_.useState)(false);
+  const dropdownRef = (0,external_root_React_commonjs2_react_commonjs_react_amd_react_.useRef)(null);
+  (0,external_root_React_commonjs2_react_commonjs_react_amd_react_.useEffect)(() => {
+    const handleClickOutside = event => {
+      if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
+        setIsOpen(false);
+        cb && cb();
+      }
+    };
+    document.addEventListener("click", handleClickOutside);
+    return () => {
+      document.removeEventListener("click", handleClickOutside);
+    };
+  }, [dropdownRef]);
+  const toggleDropdown = () => setIsOpen(!isOpen);
+  return {
+    isOpen,
+    dropdownRef,
+    toggleDropdown
+  };
+};
+/* harmony default export */ const utils_useClickOutside = (useClickOutside);
 ;// CONCATENATED MODULE: ./src/index.tsx
+
 
 
 
@@ -5980,6 +6010,8 @@ var Utils = __webpack_require__(36);
 const RetrievrSelect = /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().forwardRef((props, ref) => {
   const {
     isFormItem,
+    labelKey = "label",
+    valueKey = "value",
     inline,
     suffixContent,
     suffixContentType,
@@ -6006,38 +6038,26 @@ const RetrievrSelect = /*#__PURE__*/external_root_React_commonjs2_react_commonjs
     onRetrieveSelectChange,
     onDelete
   } = props;
-
-  // 获取 `FormContext.Provider` 提供提供的 `value` 值
-
-  // const [value, setValue] = useState(defaultValue || ""); // 给个 || ""就会让 input为受苦状态
-  // 注意！！！如果发现状态没有按预知的方向变化的话，就考虑用 xxxRef来替代。。。
-  // const prevSelectedValueRef = useRef<string>(defaultValue || "");
   const searchValueRef = (0,external_root_React_commonjs2_react_commonjs_react_amd_react_.useRef)(defaultValue || "");
   const [tempOptions, setTempOptions] = (0,external_root_React_commonjs2_react_commonjs_react_amd_react_.useState)(options || []);
   const [showOptions, setShowOptions] = (0,external_root_React_commonjs2_react_commonjs_react_amd_react_.useState)(false);
-  const [optionList, setOptionList] = (0,external_root_React_commonjs2_react_commonjs_react_amd_react_.useState)(options); // 多选主要是靠这个来展示哪个选项被打钩
-  // 是否展示选中的选项
-  const [selectedOptions, setSelectedOptions] = (0,external_root_React_commonjs2_react_commonjs_react_amd_react_.useState)([]); // 选中的选项展示在 框中
+  const [optionList, setOptionList] = (0,external_root_React_commonjs2_react_commonjs_react_amd_react_.useState)(options);
+  const [selectedOptions, setSelectedOptions] = (0,external_root_React_commonjs2_react_commonjs_react_amd_react_.useState)([]);
   const [showSelectedOptions, setShowSelectedOptions] = (0,external_root_React_commonjs2_react_commonjs_react_amd_react_.useState)(false);
-  // 新增open来做动画
-  const [open, setOpen] = (0,external_root_React_commonjs2_react_commonjs_react_amd_react_.useState)(false);
-  let selectedOptionRefs = [];
-  let optionItemRefs = [];
-
-  // 框高亮
   const [isHighlighted, setIsHighlighted] = (0,external_root_React_commonjs2_react_commonjs_react_amd_react_.useState)(false);
-  const filterdOption = option => {
-    optionList.forEach(item => {
-      if (item.value === option.value) {
-        item.selected = false;
-      }
-    });
-    setOptionList(optionList); // 这句竟然加和不加都可以。。。
-  };
+  const retrieveInputRef = (0,external_root_React_commonjs2_react_commonjs_react_amd_react_.useRef)();
+  const selectListRef = (0,external_root_React_commonjs2_react_commonjs_react_amd_react_.useRef)();
+  const retrieveSelectWrapperFormControlRef = (0,external_root_React_commonjs2_react_commonjs_react_amd_react_.useRef)();
+  const customretrieveSelectRef = (0,external_root_React_commonjs2_react_commonjs_react_amd_react_.useRef)();
+  const contentRef = (0,external_root_React_commonjs2_react_commonjs_react_amd_react_.useRef)();
+  const [customSelectContentPosition, setCustomSelectContentPosition] = (0,external_root_React_commonjs2_react_commonjs_react_amd_react_.useState)({});
+  const {
+    isOpen,
+    dropdownRef,
+    toggleDropdown
+  } = utils_useClickOutside(() => setShowOptions(false));
   const handleSelect = option => {
-    const currentSelectList = optionList.filter(item => item.value != option.value).filter(i => i.selected);
-
-    // 如果是点击已经选择的项
+    const currentSelectList = optionList.filter(item => item[valueKey] != option[valueKey]).filter(i => i.selected);
     if (option.selected) {
       option.selected = false;
       if (currentSelectList.length) {
@@ -6050,13 +6070,11 @@ const RetrievrSelect = /*#__PURE__*/external_root_React_commonjs2_react_commonjs
         }
       }
     } else {
-      // 点击未选择的项
       setError(false);
       if (single) {
-        // 如果是单选
         setOptionList(preArr => {
           return preArr.map(item => {
-            if (item.value === option.value) {
+            if (item[valueKey] === option[valueKey]) {
               item.selected = true;
             } else {
               item.selected = false;
@@ -6065,12 +6083,10 @@ const RetrievrSelect = /*#__PURE__*/external_root_React_commonjs2_react_commonjs
           });
         });
       } else {
-        // 多选
         setOptionList(preArr => {
           return preArr.map(item => {
             if (!item.selected) {
-              // 如果是未选择，这时候再去做判断即可
-              if (item.value === option.value) {
+              if (item[valueKey] === option[valueKey]) {
                 item.selected = true;
               }
             }
@@ -6079,39 +6095,33 @@ const RetrievrSelect = /*#__PURE__*/external_root_React_commonjs2_react_commonjs
         });
       }
     }
-    let hasSelected = selectedOptions.some(item => item.label === option.label);
+    let hasSelected = selectedOptions.some(item => item[labelKey] === option[labelKey]);
     if (single) {
       setSelectedOptions(hasSelected ? [] : [option]);
       onRetrieveSelectChange && onRetrieveSelectChange(option);
     } else {
       const currentSelectedOptions = [...selectedOptions, option];
-      setSelectedOptions(hasSelected ? selectedOptions.filter(item => item.value !== option.value) : currentSelectedOptions);
+      setSelectedOptions(hasSelected ? selectedOptions.filter(item => item[valueKey] !== option[valueKey]) : currentSelectedOptions);
       onRetrieveSelectChange && onRetrieveSelectChange(option);
     }
     setShowSelectedOptions(true);
-    setShowOptions(false);
     setTimeout(() => {
-      setOpen(false);
+      toggleDropdown();
     }, 10);
   };
   const handleInputClick = e => {
     setIsHighlighted(true);
-    // 这个时候也要重新过滤数据
   };
   const handleInputChange = e => {
     let value = e.target.value;
     searchValueRef.current = value;
     onInputChange && onInputChange(e.target.value);
-    // 输入改变的时候重新过滤
   };
-
-  // 选项的ref数组--巧妙
-
   const handleDeleteItem = item => {
     const selectedList = selectedOptions.filter(option => option !== item);
     setSelectedOptions(selectedList);
     setOptionList(optionList.map(v => {
-      if (v.label === item.label) {
+      if (v[labelKey] === item[labelKey]) {
         v.selected = false;
       }
       return v;
@@ -6120,35 +6130,27 @@ const RetrievrSelect = /*#__PURE__*/external_root_React_commonjs2_react_commonjs
     onDelete && onDelete();
   };
   const handleBlur = () => {};
-
-  // 一些用来判断选项是否展示的的Ref
-  const retrieveInputRef = (0,external_root_React_commonjs2_react_commonjs_react_amd_react_.useRef)();
-  const selectListRef = (0,external_root_React_commonjs2_react_commonjs_react_amd_react_.useRef)();
-  // 巧妙
-
-  const retrieveSelectWrapperFormControlRef = (0,external_root_React_commonjs2_react_commonjs_react_amd_react_.useRef)();
-
-  // 点击外边wrapper，展示选项
   const handleWrapperClick = e => {
     if (readOnly) return;
     retrieveInputRef.current && retrieveInputRef.current.focus();
-    setIsHighlighted(true); // 重新让框高亮
-    // 新增使用createPortal来定位下拉框
+    setIsHighlighted(true);
     const position = (0,Utils.getAbsolutePosition)(retrieveSelectWrapperFormControlRef.current, 0, 0);
     setCustomSelectContentPosition(position);
-    e.stopPropagation(); // 阻止事件冒泡
-    setShowOptions(true);
-    setTimeout(() => {
-      setOpen(true);
-    }, 10);
-  };
+    if (!isOpen) {
+      toggleDropdown();
 
-  // select类型的收集做特殊处理
+      // e.stopPropagation(); 这里不能加，否则会导致Select展开的时候点击RetrieveSelect无法关闭Select的选项
+      setTimeout(() => {
+        setShowOptions(true);
+      }, 10);
+    } else {
+      setShowOptions(false);
+      toggleDropdown();
+    }
+  };
   const getValue = () => {
     return selectedOptions;
   };
-
-  // 校验方法
   const [error, setError] = (0,external_root_React_commonjs2_react_commonjs_react_amd_react_.useState)(false);
   const validate = () => {
     if (!required) return true;
@@ -6160,7 +6162,6 @@ const RetrievrSelect = /*#__PURE__*/external_root_React_commonjs2_react_commonjs
       return false;
     }
   };
-  // 清除内容方法
   const clear = () => {
     setSelectedOptions([]);
     setOptionList(optionList.map(option => {
@@ -6172,25 +6173,11 @@ const RetrievrSelect = /*#__PURE__*/external_root_React_commonjs2_react_commonjs
     clear();
     if (required) setError(true);
   };
-  // Expose validateInput method via ref
   (0,external_root_React_commonjs2_react_commonjs_react_amd_react_.useImperativeHandle)(ref, () => ({
     getValue,
     validate,
     clear
   }));
-  (0,external_root_React_commonjs2_react_commonjs_react_amd_react_.useEffect)(() => {
-    window.addEventListener("click", e => {
-      // 用类名方便
-      let classNames = ["retrieve-input", "option-icon", "option-item retrieve-select-active", "select-list", "selected-option", "retrieve-select-wrapper form-control ", "retrieve-select-wrapper form-control focus"];
-      if (!classNames.includes(e.target.className)) {
-        setIsHighlighted(false);
-        setShowOptions(false);
-        setTimeout(() => {
-          setOpen(false);
-        }, 10);
-      } else {}
-    });
-  }, []);
   const judgeOptionsByAttribute = (arr, item) => {
     arr.forEach(i => {
       if (i[attribute] === item[attribute]) {
@@ -6204,25 +6191,13 @@ const RetrievrSelect = /*#__PURE__*/external_root_React_commonjs2_react_commonjs
     "retrieve-select-wrapper": true,
     [externalClassName]: externalClassName
   });
-
-  // 定位
-  // 测试getAbsolutePosition
-  const customretrieveSelectRef = (0,external_root_React_commonjs2_react_commonjs_react_amd_react_.useRef)();
-  const contentRef = (0,external_root_React_commonjs2_react_commonjs_react_amd_react_.useRef)();
-  const [customSelectContentPosition, setCustomSelectContentPosition] = (0,external_root_React_commonjs2_react_commonjs_react_amd_react_.useState)({});
-
-  // 让多选框默认展示父组件传递过来的值
   (0,external_root_React_commonjs2_react_commonjs_react_amd_react_.useEffect)(() => {
     let arr = [];
-    let tempFilterdOptions = []; // 这个好像可有可无啦
-
-    // 如果是单项选择
+    let tempFilterdOptions = [];
     if (single) {
-      // 如果有默认值
       if (defaultValue) {
         tempOptions.some(option => {
-          // 讲匹配到的值添加到arr(下边的selectedOptions)中
-          option.value === defaultValue && arr.push(option);
+          option[valueKey] === defaultValue && arr.push(option);
           return false;
         });
         if (arr !== null && arr !== void 0 && arr.length) {
@@ -6233,29 +6208,27 @@ const RetrievrSelect = /*#__PURE__*/external_root_React_commonjs2_react_commonjs
               preArr === null || preArr === void 0 || preArr.forEach(item => {
                 tempFilterdOptions.push({
                   ...item,
-                  selected: arr.some(i => i.value === item.value)
+                  selected: arr.some(i => i[valueKey] === item[valueKey])
                 });
               });
               return tempFilterdOptions;
             });
           }, 0);
+        } else {
+          setSelectedOptions([]);
         }
       } else {
         setOptionList(options === null || options === void 0 ? void 0 : options.map(item => {
           item.selected = false;
           return item;
         }));
+        setSelectedOptions([]);
       }
     } else {
-      // 如果是多项选择
-      console.log("多选");
       if (defaultValue !== null && defaultValue !== void 0 && defaultValue.length) {
-        // setFormItemValue && setFormItemValue(defaultValue);
         defaultValue === null || defaultValue === void 0 || defaultValue.map(item => {
-          // 使用默认值去查找option中匹配到的值
           tempOptions.some(option => {
-            // 讲匹配到的值添加到arr(下边的selectedOptions)中
-            option.value === item.value && arr.push(option);
+            option[valueKey] === item[valueKey] && arr.push(option);
             return false;
           });
           return false;
@@ -6268,7 +6241,7 @@ const RetrievrSelect = /*#__PURE__*/external_root_React_commonjs2_react_commonjs
               preArr === null || preArr === void 0 || preArr.forEach(item => {
                 tempFilterdOptions.push({
                   ...item,
-                  selected: arr.some(i => i.value === item.value)
+                  selected: arr.some(i => i[valueKey] === item[valueKey])
                 });
               });
               return tempFilterdOptions;
@@ -6289,12 +6262,12 @@ const RetrievrSelect = /*#__PURE__*/external_root_React_commonjs2_react_commonjs
         judgeOptionsByAttribute(options, item);
       });
     } else {
-      // setTempOptions(options);
       setOptionList(options);
     }
-    setTempOptions(options); // 这个临时变量一定要赋值，不然 selectedOptions会出现问题
+    setTempOptions(options);
   }, [options]);
   return /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("div", {
+    ref: dropdownRef,
     className: retrieveSelectClasses,
     style: {
       width,
@@ -6330,21 +6303,20 @@ const RetrievrSelect = /*#__PURE__*/external_root_React_commonjs2_react_commonjs
   }, showSelected && showSelectedOptions && (selectedOptions === null || selectedOptions === void 0 ? void 0 : selectedOptions.map((option, index) => {
     return /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("option", {
       key: index,
-      value: option.value
+      value: option[valueKey]
     });
   }))), /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("div", {
     ref: selectListRef,
     className: "select-list"
   }, showSelected && showSelectedOptions && (selectedOptions === null || selectedOptions === void 0 ? void 0 : selectedOptions.map((option, index) => {
     return /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("div", {
-      ref: selectedOptionRefs[index],
       className: "selected-option",
-      key: option.value,
+      key: option[valueKey],
       style: {}
-    }, option.label, /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("span", {
+    }, option[labelKey], /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("i", {
       onClick: () => handleDeleteItem(option),
-      className: "option-icon"
-    }, "x"));
+      className: "option-icon fa-regular fa-circle-xmark"
+    }));
   }))), /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("div", {
     className: "input-control"
   }, /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("input", {
@@ -6362,22 +6334,21 @@ const RetrievrSelect = /*#__PURE__*/external_root_React_commonjs2_react_commonjs
     className: "".concat(commonSuffixIcon, " common-suffix-icon ms-2")
   }), suffixContent && /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("div", {
     className: "".concat(suffixContentType === "button" ? "suffix-content-btn-wrapper" : "")
-  }, suffixContent)), /*#__PURE__*/external_root_ReactDOM_commonjs2_react_dom_commonjs_react_dom_amd_react_dom_default().createPortal(!readOnly && showOptions && /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("div", {
+  }, suffixContent)), /*#__PURE__*/external_root_ReactDOM_commonjs2_react_dom_commonjs_react_dom_amd_react_dom_default().createPortal(!readOnly && isOpen && /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("div", {
+    ref: contentRef,
     style: {
       width: contentWidth,
       position: "absolute",
       top: customSelectContentPosition.y + customSelectContentPosition.height + "px",
       left: customSelectContentPosition.x + "px"
     },
-    className: "retrieve-select-content ".concat(open ? "retrieve-select-content-open" : "")
+    className: "retrieve-select-content ".concat(showOptions ? "retrieve-select-content-open" : "")
   }, (optionList === null || optionList === void 0 ? void 0 : optionList.length) > 0 ? optionList === null || optionList === void 0 ? void 0 : optionList.map((option, index) => {
-    // --巧妙
     return /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("div", {
-      ref: optionItemRefs[index],
       key: index,
       onClick: () => handleSelect(option),
       className: "option-item ".concat(option.selected && "retrieve-select-active")
-    }, option.label);
+    }, option[labelKey]);
   }) : /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("div", {
     className: "none-match ps-2"
   }, "\u65E0\u5339\u914D\u8BB0\u5F55~")), document.body), error && required && /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("div", {

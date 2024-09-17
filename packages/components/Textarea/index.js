@@ -710,6 +710,8 @@ const TextArea = /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react
   (0,external_root_React_commonjs2_react_commonjs_react_amd_react_.useEffect)(() => {
     if (defaultValue) {
       setValue(defaultValue);
+    } else {
+      setValue("");
     }
   }, [defaultValue]);
   return /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("div", {
@@ -752,7 +754,7 @@ const TextArea = /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react
       color: "#DC3545",
       paddingLeft: parseInt(labelWidth) > 120 ? "120px" : labelWidth
     }
-  }, "".concat(errMsg || "".concat(name, "\u4E0D\u80FD\u4E3A\u7A7A"))));
+  }, "".concat(errMsg || "".concat(label || name, "\u4E0D\u80FD\u4E3A\u7A7A"))));
 });
 /* harmony default export */ const src_0 = (TextArea);
 })();

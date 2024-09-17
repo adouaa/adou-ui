@@ -1,12 +1,6 @@
 import getAbsolutePosition from "./libs/getAbsolutePositionOfStage";
 import convertToTag from "./libs/convertToTag";
-import { GlobalModalProvider, GlobalModalContext } from "./libs/GlobalModalProvider";
 import useNavigateTo from "./hooks/useNavigateTo";
+import useClickOutside from "./hooks/useClickOutside";
 
-export {
-    getAbsolutePosition,
-    convertToTag,
-    GlobalModalProvider,
-    GlobalModalContext,
-    useNavigateTo
-}
+export { getAbsolutePosition, convertToTag, useNavigateTo, useClickOutside };

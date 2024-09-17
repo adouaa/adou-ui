@@ -46,18 +46,6 @@ module.exports = __WEBPACK_EXTERNAL_MODULE__442__;
 /******/ 	}
 /******/ 	
 /************************************************************************/
-/******/ 	/* webpack/runtime/compat get default export */
-/******/ 	(() => {
-/******/ 		// getDefaultExport function for compatibility with non-harmony modules
-/******/ 		__webpack_require__.n = (module) => {
-/******/ 			var getter = module && module.__esModule ?
-/******/ 				() => (module['default']) :
-/******/ 				() => (module);
-/******/ 			__webpack_require__.d(getter, { a: getter });
-/******/ 			return getter;
-/******/ 		};
-/******/ 	})();
-/******/ 	
 /******/ 	/* webpack/runtime/define property getters */
 /******/ 	(() => {
 /******/ 		// define getter functions for harmony exports
@@ -95,10 +83,9 @@ __webpack_require__.r(__webpack_exports__);
 
 // EXPORTS
 __webpack_require__.d(__webpack_exports__, {
-  GlobalModalContext: () => (/* reexport */ GlobalModalContext),
-  GlobalModalProvider: () => (/* reexport */ GlobalModalProvider),
   convertToTag: () => (/* reexport */ libs_convertToTag),
   getAbsolutePosition: () => (/* reexport */ libs_getAbsolutePositionOfStage),
+  useClickOutside: () => (/* reexport */ hooks_useClickOutside),
   useNavigateTo: () => (/* reexport */ hooks_useNavigateTo)
 });
 
@@ -141,74 +128,6 @@ const convertToTag = str => {
   return tags;
 };
 /* harmony default export */ const libs_convertToTag = (convertToTag);
-// EXTERNAL MODULE: external {"root":"React","commonjs2":"react","commonjs":"react","amd":"react"}
-var external_root_React_commonjs2_react_commonjs_react_amd_react_ = __webpack_require__(442);
-var external_root_React_commonjs2_react_commonjs_react_amd_react_default = /*#__PURE__*/__webpack_require__.n(external_root_React_commonjs2_react_commonjs_react_amd_react_);
-;// CONCATENATED MODULE: ./src/libs/GlobalModalProvider.js
-
-const GlobalModalContext = /*#__PURE__*/(0,external_root_React_commonjs2_react_commonjs_react_amd_react_.createContext)();
-const GlobalModalProvider = _ref => {
-  let {
-    children
-  } = _ref;
-  const [globalModalData, setGlobalModalData] = (0,external_root_React_commonjs2_react_commonjs_react_amd_react_.useState)({
-    open: false,
-    content: '',
-    title: '',
-    confirmText: '',
-    cancelText: "",
-    callback: null,
-    overflowY: false,
-    width: "",
-    maxHeight: ""
-  });
-  const showGlobalModal = _ref2 => {
-    let {
-      type,
-      content,
-      title,
-      confirmText,
-      cancelText,
-      maxHeight,
-      overflowY,
-      width,
-      callback
-    } = _ref2;
-    setGlobalModalData({
-      type,
-      open: true,
-      content,
-      title,
-      confirmText,
-      cancelText,
-      maxHeight,
-      overflowY,
-      width,
-      callback
-    });
-  };
-  const hideGlobalModal = () => {
-    setGlobalModalData({
-      open: false,
-      content: '',
-      title: '',
-      confirmText: '',
-      cancelText: "",
-      maxHeight: 0,
-      overflowY: false,
-      width: 0,
-      callback: null
-    });
-  };
-  return /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement(GlobalModalContext.Provider, {
-    value: {
-      globalModalData,
-      showGlobalModal,
-      hideGlobalModal
-    }
-  }, children);
-};
-
 ;// CONCATENATED MODULE: ../../node_modules/@remix-run/router/dist/router.js
 /**
  * @remix-run/router v1.5.0
@@ -3919,6 +3838,8 @@ function getTargetMatch(matches, location) {
 } //#endregion
 
 
+// EXTERNAL MODULE: external {"root":"React","commonjs2":"react","commonjs":"react","amd":"react"}
+var external_root_React_commonjs2_react_commonjs_react_amd_react_ = __webpack_require__(442);
 ;// CONCATENATED MODULE: ../../node_modules/react-router/dist/index.js
 /**
  * React Router v6.10.0
@@ -5167,6 +5088,31 @@ const useNavigateTo = () => {
   return navigateTo;
 };
 /* harmony default export */ const hooks_useNavigateTo = (useNavigateTo);
+;// CONCATENATED MODULE: ./src/hooks/useClickOutside.js
+
+const useClickOutside = cb => {
+  const [isOpen, setIsOpen] = (0,external_root_React_commonjs2_react_commonjs_react_amd_react_.useState)(false);
+  const dropdownRef = (0,external_root_React_commonjs2_react_commonjs_react_amd_react_.useRef)(null);
+  (0,external_root_React_commonjs2_react_commonjs_react_amd_react_.useEffect)(() => {
+    const handleClickOutside = event => {
+      if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
+        setIsOpen(false);
+        cb && cb();
+      }
+    };
+    document.addEventListener("click", handleClickOutside);
+    return () => {
+      document.removeEventListener("click", handleClickOutside);
+    };
+  }, [dropdownRef]);
+  const toggleDropdown = () => setIsOpen(!isOpen);
+  return {
+    isOpen,
+    dropdownRef,
+    toggleDropdown
+  };
+};
+/* harmony default export */ const hooks_useClickOutside = (useClickOutside);
 ;// CONCATENATED MODULE: ./src/index.tsx
 
 

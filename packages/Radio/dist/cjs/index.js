@@ -649,7 +649,9 @@ var update = injectStylesIntoStyleTag_default()(cjs_ruleSet_1_rules_1_use_2_src/
 
 const Radio = (props, ref) => {
   const {
+    key,
     required,
+    width,
     isFormItem,
     errMsg,
     labelWidth,
@@ -666,6 +668,7 @@ const Radio = (props, ref) => {
     defaultValue,
     onChangeOK
   } = props;
+  const radioId = (0,external_root_React_commonjs2_react_commonjs_react_amd_react_.useId)();
   const [optionsList, setOptionsList] = (0,external_root_React_commonjs2_react_commonjs_react_amd_react_.useState)(options || []);
   (0,external_root_React_commonjs2_react_commonjs_react_amd_react_.useEffect)(() => {
     if (options) {
@@ -681,10 +684,16 @@ const Radio = (props, ref) => {
     [externalClassName]: externalClassName
   });
   const handleChange = item => {
-    setOptionsList(prevOptions => prevOptions.map(option => ({
-      ...option,
-      checked: option.value === item.value
-    })));
+    console.log("item: ", item);
+    const data = optionsList.map(option => {
+      console.log("option: ", option);
+      return {
+        ...option,
+        checked: option.value === item.value
+      };
+    });
+    console.log("data: ", data);
+    setOptionsList(data);
     onChangeOK && onChangeOK(item);
     setError(false);
   };
@@ -732,7 +741,14 @@ const Radio = (props, ref) => {
     [externalClassName]: externalClassName
   });
   return /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("div", {
-    className: radioClasses
+    className: radioClasses,
+    style: {
+      width,
+      ...(inline && !width ? {
+        flex: 1,
+        marginRight: "15px"
+      } : {})
+    }
   }, /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("div", {
     className: "content-box ".concat(inputGroup ? "inputGroup" : "label-in-".concat(labelPosition))
   }, label && /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("span", {
@@ -748,16 +764,13 @@ const Radio = (props, ref) => {
     }
   }, optionsList === null || optionsList === void 0 ? void 0 : optionsList.map((item, index) => /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("div", {
     key: item.value + index,
-    className: "form-check",
-    style: {
-      marginRight: "20px"
-    }
+    className: "form-check me-2"
   }, /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("input", {
     disabled: item.disabled,
     className: cls,
     type: "radio",
     name: name,
-    id: item.id,
+    id: radioId + index + "",
     checked: item.checked || false // Ensure checked is boolean
     ,
     onChange: () => handleChange(item),
@@ -765,7 +778,7 @@ const Radio = (props, ref) => {
     readOnly: readOnly
   }), /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("label", {
     className: "form-check-label",
-    htmlFor: item.id
+    htmlFor: radioId + index + ""
   }, item.label || "Default Radio")))), commonSuffixIcon && /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("i", {
     onClick: handleClickCommonSuffixIcon,
     className: "".concat(commonSuffixIcon, " common-suffix-icon ms-2")

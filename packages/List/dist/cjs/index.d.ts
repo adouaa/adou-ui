@@ -1,4 +1,4 @@
-import React from 'react';
+import React from "react";
 export type NodeType = {
     id: string;
     name: string;
@@ -7,6 +7,10 @@ export type NodeType = {
 };
 interface ListProps {
     data?: any[];
+    activeBgc?: any;
+    deleteIconClass?: string;
+    addIconClass?: string;
+    editIconClass?: string;
     isTree?: boolean;
     maxWidth?: any;
     maxHeight?: any;
@@ -24,5 +28,5 @@ interface ListProps {
     onIconClick?: (node: any) => void;
     onOptIconClick?: (type: string, node: any) => void;
 }
-declare const List: ({ prefixTag, showSearch, showTag, children, wrap, data, isTree, showOptIcons, showAddIcon, showEditIcon, activeId, maxWidth, maxHeight, onToggle, onItemClick, onIconClick, onOptIconClick }: ListProps) => React.JSX.Element;
+declare const List: React.ForwardRefExoticComponent<ListProps & React.RefAttributes<unknown>>;
 export default List;
