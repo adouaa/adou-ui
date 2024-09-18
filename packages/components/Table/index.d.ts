@@ -1,11 +1,20 @@
 import React from "react";
-import EditableTableCell from "./adou-editableTableCell";
-export { EditableTableCell };
+import TableCell from "./TableCell";
+import "./index.scss";
+export { TableCell };
 declare const _default: React.ComponentType<Omit<{
     data: any;
     children?: any;
     eidtable?: boolean | undefined;
+    textPosition?: "center" | "left" | "right" | "justify" | undefined;
     onEditOK?: ((data: any) => void) | undefined;
+    showIndex?: boolean | undefined;
+    single?: boolean | undefined;
+    id?: string | undefined;
+    trPointer?: boolean | undefined;
+    collection?: boolean | undefined;
+    collapse?: boolean | undefined;
+    expandAll?: boolean | undefined;
     size?: "lg" | "sm" | undefined;
     headLabels?: any;
     propsData?: any;
@@ -24,5 +33,6 @@ declare const _default: React.ComponentType<Omit<{
     divider?: boolean | undefined;
     maxHeight?: string | undefined;
     minHeight?: string | undefined;
+    onRowDoubleClick?: ((row: any) => void) | undefined;
 }, keyof import("react-i18next").WithTranslation<N, undefined>> & import("react-i18next").WithTranslationProps>;
 export default _default;
