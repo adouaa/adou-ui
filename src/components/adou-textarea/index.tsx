@@ -1,10 +1,11 @@
-import { forwardRef, useContext, useEffect, useImperativeHandle, useState } from 'react';
+import { useEffect, useImperativeHandle, useState } from 'react';
 import React from 'react';
 import './index.scss';
 import classNames from 'classnames';
 
 interface TextAreaProps {
     name?: string;
+    inline?: boolean;
     isFormItem?: boolean;
     errMsg?: string;
     labelWidth?: any;
@@ -18,16 +19,18 @@ interface TextAreaProps {
     required?: boolean;
     ref?: any;
     defaultValue?: string;
-    label?: string;
+    label?: any;
     placeholder?: string;
     disabled?: boolean;
     onChangeOK?: (value: any, ...args: any) => void;
+    onFormDataChange?: (key: string, value: any) => void;
 }
 
 const TextArea: React.FC<TextAreaProps> = React.forwardRef((props: TextAreaProps, ref) => {
     const {
-        isFormItem,
         errMsg,
+        inline,
+        isFormItem,
         labelWidth,
         labelColor,
         commonSuffixIcon,
@@ -43,6 +46,7 @@ const TextArea: React.FC<TextAreaProps> = React.forwardRef((props: TextAreaProps
         disabled,
         defaultValue,
         onChangeOK,
+        onFormDataChange,
     } = props;
 
     // 获取 `FormContext.Provider` 提供提供的 `value` 值
@@ -53,6 +57,7 @@ const TextArea: React.FC<TextAreaProps> = React.forwardRef((props: TextAreaProps
         setValue(e.target.value); // 手动将表单的value值赋值
         // context.handleChange(context.name, e.target.value) // 这边不能直接用 handleChange来赋值，会出现赋值错误的情况
         onChangeOK && onChangeOK(e.target.value, ...args);
+        onFormDataChange && onFormDataChange(name!, e.target.value);
     };
 
     const handleBlur = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
@@ -85,7 +90,6 @@ const TextArea: React.FC<TextAreaProps> = React.forwardRef((props: TextAreaProps
     }));
 
     const textareaClasses = classNames({
-        'mb-3': !error && isFormItem,
         'textarea-warpper': true,
         [externalClassName as string]: externalClassName,
     });
@@ -93,11 +97,13 @@ const TextArea: React.FC<TextAreaProps> = React.forwardRef((props: TextAreaProps
     useEffect(() => {
         if (defaultValue) {
             setValue(defaultValue);
+        } else {
+            setValue('');
         }
     }, [defaultValue]);
 
     return (
-        <div className={textareaClasses} style={{ width }}>
+        <div className={`${textareaClasses} ${!error && isFormItem && 'mb-3'}`} style={{ width }}>
             <div className={`label-in-${labelPosition} ${inputGroup ? 'input-group' : ''}`}>
                 {label && (
                     <span style={{ color: labelColor, width: labelWidth }} className={`${inputGroup ? 'input-group-text' : ''} label-box`}>
@@ -105,6 +111,10 @@ const TextArea: React.FC<TextAreaProps> = React.forwardRef((props: TextAreaProps
                     </span>
                 )}
                 <textarea
+                    style={{
+                        width,
+                        ...(inline && !width ? { flex: 1, marginRight: '15px' } : {}),
+                    }}
                     readOnly={readOnly}
                     required={required}
                     name={name}
@@ -125,7 +135,7 @@ const TextArea: React.FC<TextAreaProps> = React.forwardRef((props: TextAreaProps
                         color: '#DC3545',
                         paddingLeft: parseInt(labelWidth) > 120 ? '120px' : labelWidth,
                     }}
-                >{`${errMsg || `${name}不能为空`}`}</div>
+                >{`${errMsg || `${label || name}不能为空`}`}</div>
             )}
         </div>
     );

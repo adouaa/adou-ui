@@ -1,6 +1,6 @@
 import { useState, useEffect, useRef } from 'react';
 
-const useClickOutside = () => {
+const useClickOutside = (cb) => {
     const [isOpen, setIsOpen] = useState(false);
     const dropdownRef = useRef(null);
 
@@ -8,12 +8,13 @@ const useClickOutside = () => {
         const handleClickOutside = (event) => {
             if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
                 setIsOpen(false);
+                cb && cb();
             }
         };
 
-        document.addEventListener('mousedown', handleClickOutside);
+        document.addEventListener('click', handleClickOutside);
         return () => {
-            document.removeEventListener('mousedown', handleClickOutside);
+            document.removeEventListener('click', handleClickOutside);
         };
     }, [dropdownRef]);
 

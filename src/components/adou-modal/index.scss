@@ -1,0 +1,34 @@
+.modal {
+    /* 模态框的样式 */
+    opacity: 0;
+    transform: scale(0.9);
+    animation: modal-animation 0.3s ease;
+}
+
+.modal.modalVisible {
+    /* 模态框显示时的样式 */
+    opacity: 1;
+    transform: scale(1);
+}
+
+@keyframes modal-animation {
+    0% {
+        opacity: 0;
+        transform: scale(0.9);
+    }
+
+    100% {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+
+
+
+.modal-overlay.show {
+    opacity: 1;
+}
+
+.modal-backdrop {
+    animation: modal-mask 0.3s ease;
+}

@@ -3,6 +3,9 @@ import React, { useEffect, useState, forwardRef, ForwardRefRenderFunction, useIm
 import './index.scss';
 
 interface CheckboxProps {
+    valueKey?: string;
+    labelKey?: string;
+    returnType?: 'str' | 'obj';
     name?: string;
     isFormItem?: boolean;
     errMsg?: string;
@@ -20,10 +23,14 @@ interface CheckboxProps {
     inline?: boolean;
     wrap?: boolean;
     onChange?: (item: { label: string; value: string }[]) => void;
+    onFormDataChange?: (key: string, value: any) => void;
 }
 
 const Checkbox: ForwardRefRenderFunction<any, CheckboxProps> = (
     {
+        valueKey = 'value',
+        labelKey = 'label',
+        returnType,
         name,
         isFormItem,
         errMsg,
@@ -42,6 +49,7 @@ const Checkbox: ForwardRefRenderFunction<any, CheckboxProps> = (
         defaultValue,
         wrap = true,
         onChange,
+        onFormDataChange,
     },
     ref
 ) => {
@@ -52,9 +60,9 @@ const Checkbox: ForwardRefRenderFunction<any, CheckboxProps> = (
         } else if (Array.isArray(defaultValue)) {
             if (Array.isArray(defaultValue) && typeof defaultValue[0] !== 'string') {
                 return defaultValue!.some((item) => item.value === value);
-            } else {
-                return defaultValue.includes(value as any);
             }
+        } else {
+            return defaultValue?.[valueKey] === value || defaultValue?.[labelKey] === value;
         }
         return false;
     };
@@ -74,16 +82,15 @@ const Checkbox: ForwardRefRenderFunction<any, CheckboxProps> = (
     const handleChange = (item: { label: string; value: string }) => {
         const updatedOptions = optionsList.map((option) => {
             if (option.value === item.value) {
-                console.log('相等');
-
                 option.checked = !option.checked;
             }
             return option;
         });
-        console.log(updatedOptions);
 
         setOptionsList(updatedOptions);
-        onChange && onChange(updatedOptions.filter((opt) => opt.checked));
+        const data = updatedOptions.filter((opt) => opt.checked);
+        onChange && onChange(data);
+        onFormDataChange && onFormDataChange(name!, data);
         if (updatedOptions.some((option: any) => option.checked)) {
             setError(false);
         } else {
@@ -140,8 +147,6 @@ const Checkbox: ForwardRefRenderFunction<any, CheckboxProps> = (
         setOptionsList(updatedOptions);
     }, [defaultValue, options]);
 
-    useEffect(() => {}, [defaultValue]);
-
     return (
         <div className={checkboxClasses}>
             <div className={`content-box d-flex ${inputGroup ? 'inputGroup' : `label-in-${labelPosition}`}`}>
@@ -175,7 +180,7 @@ const Checkbox: ForwardRefRenderFunction<any, CheckboxProps> = (
                                 readOnly={readOnly}
                             />
                             <label className="form-check-label" htmlFor={item.value}>
-                                {item.label || 'Default Checkbox'}
+                                {item[labelKey] || 'Default Checkbox'}
                             </label>
                         </div>
                     ))}

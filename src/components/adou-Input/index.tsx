@@ -21,6 +21,7 @@ export interface InputProps {
     externalClassName?: string;
     prefixContent?: any;
     suffixContent?: any;
+    suffixContentType?: string;
     placeholder?: string;
     style?: React.CSSProperties;
     readOnly?: boolean;
@@ -31,6 +32,7 @@ export interface InputProps {
     onBlur?: (e: React.FocusEvent<HTMLInputElement, Element>, ...args: any) => void;
     onChange?: (value: any, ...args: any) => void;
     onIconClick?: (value: string) => void;
+    onFormDataChange?: (key: string, value: any) => void;
 }
 
 export interface InputRef {
@@ -57,6 +59,7 @@ const Input: React.ForwardRefRenderFunction<InputRef, InputProps> = (
         externalClassName,
         prefixContent,
         suffixContent,
+        suffixContentType = 'button',
         placeholder,
         style,
         readOnly,
@@ -67,6 +70,7 @@ const Input: React.ForwardRefRenderFunction<InputRef, InputProps> = (
         onBlur,
         onChange,
         onIconClick,
+        onFormDataChange,
     },
     ref
 ) => {
@@ -94,6 +98,7 @@ const Input: React.ForwardRefRenderFunction<InputRef, InputProps> = (
     const handleChange = (e: React.ChangeEvent<HTMLInputElement>, ...args: any) => {
         setValue(e.target.value);
         onChange && onChange(e.target.value, ...args);
+        onFormDataChange && onFormDataChange(name!, e.target.value);
     };
 
     const handleIconClick = () => {
@@ -144,7 +149,10 @@ const Input: React.ForwardRefRenderFunction<InputRef, InputProps> = (
     return (
         <div
             className={`${cls} input-wrapper ${inputGroup ? '' : 'lable-in-control'} ${!error && isFormItem && 'mb-3'}`}
-            style={{ width, ...(inline ? { flex: 1, marginRight: '15px' } : {}) }}
+            style={{
+                width,
+                ...(inline && !width ? { flex: 1, marginRight: '15px' } : {}),
+            }}
         >
             <div ref={wrapeerRef} className={`content-box icon-input ${inputGroup ? 'input-group' : ''} label-in-${labelPosition}`}>
                 {prefixContent && (
@@ -185,16 +193,20 @@ const Input: React.ForwardRefRenderFunction<InputRef, InputProps> = (
                     onFocus={(e) => handleFocus(e)}
                     onClick={(e) => handleClick(e)}
                     type={type}
-                    className="form-control input"
+                    className={`form-control input ${suffixContent && suffixContentType === 'button' ? 'suffix-content-btn' : ''}`}
                     aria-label="Username"
                     aria-describedby="basic-addon1"
                 />
-                {suffixContent && <div>{suffixContent}</div>}
+                {suffixContent && (
+                    <div className={`${suffixContentType === 'button' ? 'suffix-content-btn-wrapper ms-2' : 'suffix-content-text-wrapper ms-2'}`}>{suffixContent}</div>
+                )}
 
                 {commonSuffixIcon && <i onClick={handleClickCommonSuffixIcon} className={`${commonSuffixIcon} common-suffix-icon ms-2`}></i>}
-                <div onClick={handleIconClick} className="suffix-icon" style={{ right: commonSuffixIcon && '32px' }}>
-                    {children}
-                </div>
+                {children && (
+                    <div onClick={handleIconClick} className="suffix-icon" style={{ right: commonSuffixIcon && '32px' }}>
+                        {children}
+                    </div>
+                )}
             </div>
             {error && required && (
                 <div
@@ -209,7 +221,6 @@ const Input: React.ForwardRefRenderFunction<InputRef, InputProps> = (
         </div>
     );
 };
-
 Input.displayName = 'Input';
 
 export default forwardRef(Input);

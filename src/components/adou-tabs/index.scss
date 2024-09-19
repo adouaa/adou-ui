@@ -3,7 +3,12 @@
         .nav-link {
             color: #000;
         }
+
+        .nav-link.active {
+            background: linear-gradient(#dafbff, #fff) !important;
+        }
     }
+
     .tabs-header {
         display: flex;
         border-bottom: 1px solid #dcdfe6;
@@ -18,15 +23,17 @@
                 cursor: pointer;
             }
         }
+
         .tabs-header-item-box.first {
             padding-left: 0px;
         }
-        
+
         .tabs-header-item.active {
             border-bottom: 1px solid #409eff;
             color: #409eff;
             box-sizing: border-box;
+            background: linear-gradient(#dafbff, #fff),
         }
-        
+
     }
 }

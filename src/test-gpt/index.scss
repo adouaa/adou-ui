@@ -1,13 +1,16 @@
 .multi-select-dropdown {
     position: relative;
-    width: 300px;
+    width: 600px;
     font-family: 'Roboto', sans-serif;
     border-radius: 4px;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
 .dropdown-header {
+    height: 36px;
+    line-height: 36px;
     padding: 10px;
+    padding-left: 5px;
     border: 1px solid #ccc;
     border-radius: 4px;
     cursor: pointer;
@@ -75,11 +78,25 @@
     border-color: #1976d2;
 }
 
-.dropdown-option {
+.options-table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.options-table th,
+.options-table td {
     padding: 10px;
+    border-bottom: 1px solid #ccc;
+    text-align: left;
+}
+
+.options-table th {
+    background-color: #f5f5f5;
+    font-weight: bold;
+}
+
+.dropdown-option {
     cursor: pointer;
-    display: flex;
-    align-items: center;
     transition: background-color 0.3s ease;
 }
 

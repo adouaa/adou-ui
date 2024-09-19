@@ -452,26 +452,18 @@ const EventCalendar = ({ date, wrapperHeight, contentHeight, data = [], modalCon
                     <div className="left">
                         <div className="month-select">
                             <AdouSelect
-                                rounded
+                                // rounded
                                 placeholder="January"
                                 defaultValue={currentDate.getMonth()}
                                 onChange={handleCurrentMonthChange}
-                                minWidth={'120px'}
+                                // minWidth={'120px'}
                                 width={'120px'}
-                                optionContentMaxHeight={'300px'}
+                                // optionContentMaxHeight={'300px'}
                                 options={months}
                             ></AdouSelect>
                         </div>
                         <div className="year-select ms-2 me-2">
-                            <AdouSelect
-                                rounded
-                                defaultValue={currentDate.getFullYear()}
-                                onChange={handleCurrentYearChange}
-                                minWidth={'80px'}
-                                width={'80px'}
-                                optionContentMaxHeight={'300px'}
-                                options={years}
-                            ></AdouSelect>
+                            <AdouSelect defaultValue={currentDate.getFullYear()} onChange={handleCurrentYearChange} width={'80px'} options={years}></AdouSelect>
                         </div>
                     </div>
                     <div className="right">

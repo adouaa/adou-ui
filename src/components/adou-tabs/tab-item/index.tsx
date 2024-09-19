@@ -6,6 +6,7 @@ interface TabItemProps {
     children?: any;
     active?: boolean;
     contentPadding?: string;
+    prefixIcon?: string;
 }
 
 const TabItem = (props: TabItemProps) => {
