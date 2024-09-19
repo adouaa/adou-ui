@@ -142,10 +142,7 @@ module.exports = function (item) {
 
 var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_1___default()((_node_modules_css_loader_dist_runtime_sourceMaps_js__WEBPACK_IMPORTED_MODULE_0___default()));
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, `.checkbox-wrapper .content-box {
-  align-items: center;
-}
-.checkbox-wrapper .inputGroup {
+___CSS_LOADER_EXPORT___.push([module.id, `.checkbox-wrapper .inputGroup {
   display: flex;
   align-items: center;
 }
@@ -156,7 +153,6 @@ ___CSS_LOADER_EXPORT___.push([module.id, `.checkbox-wrapper .content-box {
   flex-wrap: wrap;
 }
 .checkbox-wrapper .option-box {
-  width: 100%;
   flex: 1;
 }
 .checkbox-wrapper .label-in-center {
@@ -168,7 +164,7 @@ ___CSS_LOADER_EXPORT___.push([module.id, `.checkbox-wrapper .content-box {
 .checkbox-wrapper .label-in-left-top .label-box {
   display: flex;
   align-items: start;
-}`, "",{"version":3,"sources":["webpack://./src/index.scss"],"names":[],"mappings":"AACI;EACI,mBAAA;AAAR;AAGI;EACI,aAAA;EACA,mBAAA;AADR;AAII;EACI,eAAA;EACA,eAAA;EACA,2BAAA;EACA,eAAA;AAFR;AAKI;EACI,WAAA;EACA,OAAA;AAHR;AAMI;EACI,aAAA;AAJR;AAOI;EACI,aAAA;AALR;AAOQ;EACI,aAAA;EACA,kBAAA;AALZ","sourcesContent":[".checkbox-wrapper {\r\n    .content-box {\r\n        align-items: center;\r\n    }\r\n\r\n    .inputGroup {\r\n        display: flex;\r\n        align-items: center;\r\n    }\r\n\r\n    .label-box {\r\n        font-size: 14px;\r\n        min-width: 50px;\r\n        max-width: 120px !important;\r\n        flex-wrap: wrap;\r\n    }\r\n\r\n    .option-box {\r\n        width: 100%;\r\n        flex: 1;\r\n    }\r\n\r\n    .label-in-center {\r\n        display: flex;\r\n    }\r\n\r\n    .label-in-left-top {\r\n        display: flex;\r\n\r\n        .label-box {\r\n            display: flex;\r\n            align-items: start;\r\n\r\n        }\r\n    }\r\n}"],"sourceRoot":""}]);
+}`, "",{"version":3,"sources":["webpack://./src/index.scss"],"names":[],"mappings":"AACI;EACI,aAAA;EACA,mBAAA;AAAR;AAGI;EACI,eAAA;EACA,eAAA;EACA,2BAAA;EACA,eAAA;AADR;AAII;EACI,OAAA;AAFR;AAKI;EACI,aAAA;AAHR;AAMI;EACI,aAAA;AAJR;AAMQ;EACI,aAAA;EACA,kBAAA;AAJZ","sourcesContent":[".checkbox-wrapper {\r\n    .inputGroup {\r\n        display: flex;\r\n        align-items: center;\r\n    }\r\n\r\n    .label-box {\r\n        font-size: 14px;\r\n        min-width: 50px;\r\n        max-width: 120px !important;\r\n        flex-wrap: wrap;\r\n    }\r\n\r\n    .option-box {\r\n        flex: 1;\r\n    }\r\n\r\n    .label-in-center {\r\n        display: flex;\r\n    }\r\n\r\n    .label-in-left-top {\r\n        display: flex;\r\n\r\n        .label-box {\r\n            display: flex;\r\n            align-items: start;\r\n\r\n        }\r\n    }\r\n}"],"sourceRoot":""}]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 
@@ -652,6 +648,9 @@ var update = injectStylesIntoStyleTag_default()(cjs_ruleSet_1_rules_1_use_2_src/
 
 const Checkbox = (_ref, ref) => {
   let {
+    valueKey = 'value',
+    labelKey = 'label',
+    returnType,
     name,
     isFormItem,
     errMsg,
@@ -669,18 +668,19 @@ const Checkbox = (_ref, ref) => {
     // defaultValue = [], defaultValue不能给成数组默认值，不然会无限循环
     defaultValue,
     wrap = true,
-    onChange
+    onChange,
+    onFormDataChange
   } = _ref;
   // Function to check if an option should be checked
   const isChecked = (value, defaultValue) => {
-    if (typeof defaultValue === "string") {
+    if (typeof defaultValue === 'string') {
       return value === defaultValue;
     } else if (Array.isArray(defaultValue)) {
-      if (Array.isArray(defaultValue) && typeof defaultValue[0] !== "string") {
+      if (Array.isArray(defaultValue) && typeof defaultValue[0] !== 'string') {
         return defaultValue.some(item => item.value === value);
-      } else {
-        return defaultValue.includes(value);
       }
+    } else {
+      return (defaultValue === null || defaultValue === void 0 ? void 0 : defaultValue[valueKey]) === value || (defaultValue === null || defaultValue === void 0 ? void 0 : defaultValue[labelKey]) === value;
     }
     return false;
   };
@@ -692,19 +692,19 @@ const Checkbox = (_ref, ref) => {
   }));
   const [optionsList, setOptionsList] = (0,external_root_React_commonjs2_react_commonjs_react_amd_react_.useState)(initialOptions);
   const cls = classnames_default()({
-    "form-check-input": true
+    'form-check-input': true
   });
   const handleChange = item => {
     const updatedOptions = optionsList.map(option => {
       if (option.value === item.value) {
-        console.log("相等");
         option.checked = !option.checked;
       }
       return option;
     });
-    console.log(updatedOptions);
     setOptionsList(updatedOptions);
-    onChange && onChange(updatedOptions.filter(opt => opt.checked));
+    const data = updatedOptions.filter(opt => opt.checked);
+    onChange && onChange(data);
+    onFormDataChange && onFormDataChange(name, data);
     if (updatedOptions.some(option => option.checked)) {
       setError(false);
     } else {
@@ -742,8 +742,8 @@ const Checkbox = (_ref, ref) => {
     clear
   }));
   const checkboxClasses = classnames_default()({
-    "mb-3": !error && isFormItem,
-    "checkbox-wrapper": true,
+    'mb-3': !error && isFormItem,
+    'checkbox-wrapper': true,
     [externalClassName]: externalClassName
   });
   (0,external_root_React_commonjs2_react_commonjs_react_amd_react_.useEffect)(() => {
@@ -754,28 +754,27 @@ const Checkbox = (_ref, ref) => {
     }));
     setOptionsList(updatedOptions);
   }, [defaultValue, options]);
-  (0,external_root_React_commonjs2_react_commonjs_react_amd_react_.useEffect)(() => {}, [defaultValue]);
   return /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("div", {
     className: checkboxClasses
   }, /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("div", {
-    className: "content-box d-flex ".concat(inputGroup ? "inputGroup" : "label-in-".concat(labelPosition))
+    className: "content-box d-flex ".concat(inputGroup ? 'inputGroup' : "label-in-".concat(labelPosition))
   }, label && /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("span", {
     style: {
       color: labelColor,
       width: labelWidth
     },
-    className: "".concat(inputGroup ? "input-group-text" : "", " label-box")
+    className: "".concat(inputGroup ? 'input-group-text' : '', " label-box")
   }, label), /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("div", {
     className: "option-box",
     style: {
-      display: inline ? "flex" : ""
+      display: inline ? 'flex' : ''
     }
   }, optionsList.map(item => /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("div", {
     key: item.value,
     className: "form-check",
     style: {
-      textAlign: "left",
-      marginRight: "20px",
+      textAlign: 'left',
+      marginRight: '20px',
       marginBottom: 0
     }
   }, /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("input", {
@@ -794,15 +793,15 @@ const Checkbox = (_ref, ref) => {
   }), /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("label", {
     className: "form-check-label",
     htmlFor: item.value
-  }, item.label || "Default Checkbox")))), commonSuffixIcon && /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("i", {
+  }, item[labelKey] || 'Default Checkbox')))), commonSuffixIcon && /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("i", {
     onClick: handleClickCommonSuffixIcon,
     className: "".concat(commonSuffixIcon, " common-suffix-icon ms-2")
   })), error && required && /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("div", {
     className: "animate__animated animate__fadeIn mb-1",
     style: {
-      color: "#DC3545",
-      fontSize: "14px",
-      paddingLeft: parseInt(labelWidth) > 120 ? "120px" : labelWidth
+      color: '#DC3545',
+      fontSize: '14px',
+      paddingLeft: parseInt(labelWidth) > 120 ? '120px' : labelWidth
     }
   }, "".concat(errMsg || "".concat(name, "\u4E0D\u80FD\u4E3A\u7A7A"))));
 };

@@ -47,6 +47,7 @@ export interface InputProps {
   ) => void;
   onChange?: (value: any, ...args: any) => void;
   onIconClick?: (value: string) => void;
+  onFormDataChange?: (key: string, value: any) => void;
 }
 
 export interface InputRef {
@@ -84,6 +85,7 @@ const Input: React.ForwardRefRenderFunction<InputRef, InputProps> = (
     onBlur,
     onChange,
     onIconClick,
+    onFormDataChange,
   },
   ref
 ) => {
@@ -123,6 +125,7 @@ const Input: React.ForwardRefRenderFunction<InputRef, InputProps> = (
   ) => {
     setValue(e.target.value);
     onChange && onChange(e.target.value, ...args);
+    onFormDataChange && onFormDataChange(name!, e.target.value);
   };
 
   const handleIconClick = () => {

@@ -33,14 +33,16 @@
         min-width: 200px;
         text-align-last: left;
         background-color: #fff;
-        max-height: 0;
-        /* 初始高度设为0，隐藏选项内容 */
         overflow: hidden;
         /* 隐藏溢出内容 */
         position: absolute;
         z-index: 999;
         box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
-        transition: max-height 0.3s ease;
+        transition: opacity 0.3s ease, visibility 0.3s ease, transform 0.3s ease;
+        opacity: 0;
+        visibility: hidden;
+        transform: scaleY(0);
+        transform-origin: top;
 
         /* 添加高度变化的过渡效果 */
         .option {
@@ -59,8 +61,9 @@
     }
 
     .open {
-        max-height: 200px;
-        /* 显示选项内容时的最大高度 */
+        opacity: 1;
+        visibility: visible;
+        transform: scaleY(1);
     }
 
     .icon {
@@ -147,15 +150,17 @@
     min-width: 200px;
     text-align-last: left;
     background-color: #fff;
-    max-height: 0;
-    /* 初始高度设为0，隐藏选项内容 */
-    overflow: auto;
+    overflow: hidden;
     /* 隐藏溢出内容 */
     position: absolute;
     z-index: 66666666;
     border-radius: 4px;
     box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
-    transition: max-height 0.3s ease;
+    transition: opacity 0.3s ease, visibility 0.3s ease, transform 0.3s ease;
+    opacity: 0;
+    visibility: hidden;
+    transform: scaleY(0);
+    transform-origin: top;
 
     /* 添加高度变化的过渡效果 */
     .option {
@@ -170,12 +175,20 @@
             color: #fff;
             background-color: #2783d8;
         }
+
+        &.focused {
+            background-color: #e0e0e0;
+            /* 高亮当前聚焦的选项 */
+        }
     }
 }
 
 .custom-select-content-open {
-    max-height: 100px;
-    /* 显示选项内容时的最大高度 */
+    opacity: 1;
+    visibility: visible;
+    transform: scaleY(1);
+    overflow-y: auto;
+    /* 允许垂直滚动 */
 }
 
 .none-option {

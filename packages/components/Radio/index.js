@@ -165,7 +165,7 @@ ___CSS_LOADER_EXPORT___.push([module.id, `.inputGroup {
 .label-in-left-top .label-box {
   display: flex;
   align-items: start;
-}`, "",{"version":3,"sources":["webpack://./src/index.scss"],"names":[],"mappings":"AAAA;EACI,aAAA;EACA,mBAAA;AACJ;;AAGA;EACI,eAAA;EACA,eAAA;EACA,2BAAA;EACA,eAAA;AAAJ;;AAIA;EACI,aAAA;EACA,mBAAA;AADJ;;AAIA;EACI,aAAA;AADJ;AAGI;EACI,aAAA;EACA,kBAAA;AADR","sourcesContent":[".inputGroup {\r\n    display: flex;\r\n    align-items: center;\r\n}\r\n\r\n\r\n.label-box {\r\n    font-size: 14px;\r\n    min-width: 50px;\r\n    max-width: 120px !important;\r\n    flex-wrap: wrap;\r\n}\r\n    \r\n\r\n.label-in-center {\r\n    display: flex;\r\n    align-items: center;\r\n}\r\n\r\n.label-in-left-top {\r\n    display: flex;\r\n\r\n    .label-box {\r\n        display: flex;\r\n        align-items: start;\r\n    }\r\n}"],"sourceRoot":""}]);
+}`, "",{"version":3,"sources":["webpack://./src/index.scss"],"names":[],"mappings":"AAAA;EACI,aAAA;EACA,mBAAA;AACJ;;AAGA;EACI,eAAA;EACA,eAAA;EACA,2BAAA;EACA,eAAA;AAAJ;;AAIA;EACI,aAAA;EACA,mBAAA;AADJ;;AAIA;EACI,aAAA;AADJ;AAGI;EACI,aAAA;EACA,kBAAA;AADR","sourcesContent":[".inputGroup {\r\n    display: flex;\r\n    align-items: center;\r\n}\r\n\r\n\r\n.label-box {\r\n    font-size: 14px;\r\n    min-width: 50px;\r\n    max-width: 120px !important;\r\n    flex-wrap: wrap;\r\n}\r\n\r\n\r\n.label-in-center {\r\n    display: flex;\r\n    align-items: center;\r\n}\r\n\r\n.label-in-left-top {\r\n    display: flex;\r\n\r\n    .label-box {\r\n        display: flex;\r\n        align-items: start;\r\n    }\r\n}"],"sourceRoot":""}]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 
@@ -649,6 +649,9 @@ var update = injectStylesIntoStyleTag_default()(cjs_ruleSet_1_rules_1_use_2_src/
 
 const Radio = (props, ref) => {
   const {
+    valueKey = 'value',
+    labelKey = 'label',
+    returnType,
     key,
     required,
     width,
@@ -658,7 +661,7 @@ const Radio = (props, ref) => {
     commonSuffixIcon,
     readOnly,
     inputGroup = false,
-    labelPosition = "center",
+    labelPosition = 'center',
     labelColor,
     label,
     name,
@@ -666,41 +669,50 @@ const Radio = (props, ref) => {
     inline = true,
     options,
     defaultValue,
-    onChangeOK
+    onChangeOK,
+    onFormDataChange
   } = props;
   const radioId = (0,external_root_React_commonjs2_react_commonjs_react_amd_react_.useId)();
   const [optionsList, setOptionsList] = (0,external_root_React_commonjs2_react_commonjs_react_amd_react_.useState)(options || []);
   (0,external_root_React_commonjs2_react_commonjs_react_amd_react_.useEffect)(() => {
     if (options) {
-      // Initialize optionsList with checked property
-      setOptionsList(options.map(option => ({
-        ...option,
-        checked: defaultValue && (option.value === defaultValue || option.label === defaultValue)
-      })));
+      if (typeof defaultValue === 'object') {
+        setOptionsList(options.map(option => ({
+          ...option,
+          checked: defaultValue && (option[valueKey] === defaultValue[valueKey] || option[labelKey] === defaultValue[labelKey])
+        })));
+      } else {
+        setOptionsList(options.map(option => ({
+          ...option,
+          checked: defaultValue && (option[valueKey] === defaultValue || option[labelKey] === defaultValue)
+        })));
+      }
     }
   }, [defaultValue, options]);
   const cls = classnames_default()({
-    "form-check-input": true,
+    'form-check-input': true,
     [externalClassName]: externalClassName
   });
   const handleChange = item => {
-    console.log("item: ", item);
     const data = optionsList.map(option => {
-      console.log("option: ", option);
       return {
         ...option,
-        checked: option.value === item.value
+        checked: option[valueKey] === item[valueKey]
       };
     });
-    console.log("data: ", data);
     setOptionsList(data);
     onChangeOK && onChangeOK(item);
+    if (returnType === 'obj') {
+      onFormDataChange && onFormDataChange(name, item);
+    } else {
+      onFormDataChange && onFormDataChange(name, item[valueKey] || item[labelKey]);
+    }
     setError(false);
   };
   const getValue = () => {
     var _checkedItem$, _checkedItem$2;
     const checkedItem = optionsList.filter(option => option.checked);
-    return (checkedItem === null || checkedItem === void 0 || (_checkedItem$ = checkedItem[0]) === null || _checkedItem$ === void 0 ? void 0 : _checkedItem$.value) || (checkedItem === null || checkedItem === void 0 || (_checkedItem$2 = checkedItem[0]) === null || _checkedItem$2 === void 0 ? void 0 : _checkedItem$2.label) || "";
+    return (checkedItem === null || checkedItem === void 0 || (_checkedItem$ = checkedItem[0]) === null || _checkedItem$ === void 0 ? void 0 : _checkedItem$[valueKey]) || (checkedItem === null || checkedItem === void 0 || (_checkedItem$2 = checkedItem[0]) === null || _checkedItem$2 === void 0 ? void 0 : _checkedItem$2[labelKey]) || '';
   };
 
   // 清除内容方法
@@ -736,8 +748,8 @@ const Radio = (props, ref) => {
     clear
   }));
   const radioClasses = classnames_default()({
-    "radio-warpper": true,
-    "mb-3": !error && isFormItem,
+    'radio-warpper': true,
+    'mb-3': !error && isFormItem,
     [externalClassName]: externalClassName
   });
   return /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("div", {
@@ -746,47 +758,47 @@ const Radio = (props, ref) => {
       width,
       ...(inline && !width ? {
         flex: 1,
-        marginRight: "15px"
+        marginRight: '15px'
       } : {})
     }
   }, /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("div", {
-    className: "content-box ".concat(inputGroup ? "inputGroup" : "label-in-".concat(labelPosition))
+    className: "content-box ".concat(inputGroup ? 'inputGroup' : "label-in-".concat(labelPosition))
   }, label && /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("span", {
     style: {
       color: labelColor,
       width: labelWidth
     },
-    className: "".concat(inputGroup ? "input-group-text" : "", " label-box")
+    className: "".concat(inputGroup ? 'input-group-text' : '', " label-box")
   }, label), /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("div", {
     className: "option-box",
     style: {
-      display: inline ? "flex" : ""
+      display: inline ? 'flex' : ''
     }
   }, optionsList === null || optionsList === void 0 ? void 0 : optionsList.map((item, index) => /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("div", {
-    key: item.value + index,
+    key: item[valueKey] + index,
     className: "form-check me-2"
   }, /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("input", {
     disabled: item.disabled,
     className: cls,
     type: "radio",
     name: name,
-    id: radioId + index + "",
+    id: radioId + index + '',
     checked: item.checked || false // Ensure checked is boolean
     ,
     onChange: () => handleChange(item),
-    value: item.value,
+    value: item[valueKey],
     readOnly: readOnly
   }), /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("label", {
     className: "form-check-label",
-    htmlFor: radioId + index + ""
-  }, item.label || "Default Radio")))), commonSuffixIcon && /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("i", {
+    htmlFor: radioId + index + ''
+  }, item[labelKey] || 'Default Radio')))), commonSuffixIcon && /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("i", {
     onClick: handleClickCommonSuffixIcon,
     className: "".concat(commonSuffixIcon, " common-suffix-icon ms-2")
   })), error && required && /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("div", {
     className: "animate__animated animate__fadeIn",
     style: {
-      color: "red",
-      paddingLeft: parseInt(labelWidth) > 120 ? "120px" : labelWidth
+      color: 'red',
+      paddingLeft: parseInt(labelWidth) > 120 ? '120px' : labelWidth
     }
   }, "".concat(errMsg || "".concat(name, "\u4E0D\u80FD\u4E3A\u7A7A"))));
 };

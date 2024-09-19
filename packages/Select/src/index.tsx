@@ -10,16 +10,20 @@ import {
 import React from "react";
 import "./index.scss";
 import ReactDOM from "react-dom";
-import { getAbsolutePosition } from "adou-ui/Utils/index";
+import { getAbsolutePosition, useClickOutside } from "adou-ui/Utils/index";
 
 export interface SelectProps {
-  name?: string;
+  returnType?: "str" | "obj";
+  showEmpty?: boolean;
+  showDefaultValue?: boolean;
+  labelKey?: string;
+  valueKey?: string;
   showLabel?: boolean;
   suffixContent?: any;
   suffixContentType?: string;
   inline?: boolean;
   isFormItem?: boolean;
-  validate?: boolean;
+  name?: string;
   errMsg?: string;
   labelWidth?: any;
   commonSuffixIcon?: string;
@@ -38,11 +42,15 @@ export interface SelectProps {
   transparent?: boolean;
   maxHeight?: string;
   onChange?: (e?: any, ...args: any) => void;
-  showEmpty?: boolean;
+  onFormDataChange?: (key: string, value: any) => void;
 }
 
 const Select = React.forwardRef((props: SelectProps, ref) => {
   const {
+    returnType,
+    showDefaultValue = false,
+    labelKey = "label",
+    valueKey = "value",
     suffixContent,
     showLabel = true,
     suffixContentType,
@@ -66,53 +74,74 @@ const Select = React.forwardRef((props: SelectProps, ref) => {
     externalClassName,
     readOnly,
     transparent,
-    maxHeight,
+    maxHeight = "200px",
     onChange,
+    onFormDataChange,
   } = props;
+
+  const { isOpen, dropdownRef, toggleDropdown } = useClickOutside();
 
   const [newOptions, setNewOptions] = useState(options || []);
   const [value, setValue] = useState(defaultValue || {});
-  const [showOptions, setShowOptions] = useState<boolean>(false);
   const [calcMaxHeight, setCalcMaxHeight] = useState<number>(0);
+  const [isDropdownOpen, setIsDropdownOpen] = useState<boolean>(false);
+  const [focusedIndex, setFocusedIndex] = useState<number>(-1); // 新增状态，用于跟踪当前聚焦的选项
 
-  // 测试getAbsolutePosition
   const customSelectRef = useRef<any>();
   const contentRef = useRef<any>();
   const [customSelectContentPosition, setCustomSelectContentPosition] =
     useState<any>({});
 
-  const handleDivClock = (e: any) => {
-    // 新增使用createPortal来定位下拉框
+  const handleDivClick = (e: any) => {
     const position = getAbsolutePosition(customSelectRef.current, 0, 0);
     setCustomSelectContentPosition(position);
-    e.stopPropagation(); // 阻止事件冒泡
-    !readOnly && setShowOptions(!showOptions);
+    if (!isDropdownOpen) {
+      toggleDropdown();
+      setIsDropdownOpen(true);
+    }
   };
 
   const handleSelect = (item: any) => {
     setValue(item);
     onChange && onChange(item);
-    setShowOptions(false);
     setError(false);
+    toggleDropdown();
+    setIsDropdownOpen(false);
+    // 新增onFormDataChange来修改外部传入的数据
+    if (returnType === "obj") {
+      onFormDataChange && onFormDataChange(name!, item);
+    } else {
+      onFormDataChange && onFormDataChange(name!, item[valueKey]);
+    }
   };
 
   useEffect(() => {
-    if (defaultValue || defaultValue === 0 || defaultValue === false) {
-      const selectOption = options.find(
-        (option) => option.value === defaultValue
-      );
-
-      setValue(selectOption);
+    // 如果是必须展示默认值，不通过列表匹配的话，进入这个判断
+    if (showDefaultValue) {
+      if (typeof defaultValue !== "object") {
+        setValue({ [valueKey]: defaultValue, [labelKey]: defaultValue });
+      }
     } else {
-      setValue(""); // 如果没有默认值，重置为初始状态
+      if (typeof defaultValue === "object") {
+        const selectOption = options.find(
+          (option) => option[valueKey] === defaultValue[valueKey]
+        );
+        setValue(selectOption);
+      } else {
+        if (defaultValue || defaultValue === 0 || defaultValue === false) {
+          const selectOption = options.find(
+            (option) => option[valueKey] === defaultValue
+          );
+          setValue(selectOption);
+        } else {
+          setValue("");
+        }
+      }
     }
   }, [defaultValue, options]);
 
   useEffect(() => {
-    // setValue({}) // 不知道要不要加 -- 不能加，加完之后会出现默认值无法赋值。。。
-
     if (showEmpty) {
-      // 创建一个新数组，将 "空" 选项添加在数组的开头
       const enhancedOptions = [...options];
       setNewOptions(enhancedOptions);
     } else {
@@ -121,29 +150,37 @@ const Select = React.forwardRef((props: SelectProps, ref) => {
   }, [options]);
 
   useEffect(() => {
-    setCalcMaxHeight(newOptions.length * 34);
+    setCalcMaxHeight(newOptions.length * 34 || 100);
   }, [newOptions]);
 
-  const handleClick = (e: any) => {
-    let classNameList = ["custom-select form-control"];
-    let value = e.target;
-    if (!classNameList.includes(value.className)) {
-      setShowOptions(false);
-    }
-  };
-
   const handleSelectChange = (e: any) => {
-    setValue(e.target.value);
+    setValue(e.target[valueKey]);
   };
 
   const getValue = () => {
-    if (value?.value || value?.value === 0 || value?.value === false) {
-      return value.value;
+    // 不能加这个逻辑，这样会导致手动选择另外的选项，返回的还是 defaultValue
+    /* if (showDefaultValue) {
+      return defaultValue;
+    } */
+
+    if (
+      value?.[valueKey] ||
+      value?.[valueKey] === 0 ||
+      value?.[valueKey] === false
+    ) {
+      // 感觉可有可无
+      if (returnType === "obj") {
+        onFormDataChange && onFormDataChange(name!, value);
+      } else {
+        onFormDataChange &&
+          onFormDataChange(name!, value[valueKey] || value[labelKey]);
+      }
+      return value[valueKey] || value[labelKey];
     } else {
       return value;
     }
   };
-  // 校验方法
+
   const [error, setError] = useState<boolean>(false);
   const validate = () => {
     if (!required) return true;
@@ -156,7 +193,7 @@ const Select = React.forwardRef((props: SelectProps, ref) => {
       return false;
     }
   };
-  // 清除内容方法
+
   const clear = () => {
     setValue("");
   };
@@ -165,7 +202,7 @@ const Select = React.forwardRef((props: SelectProps, ref) => {
     clear();
     setError(true);
   };
-  // Expose validateInput method via ref
+
   useImperativeHandle(ref, () => ({
     validate,
     clear,
@@ -176,16 +213,54 @@ const Select = React.forwardRef((props: SelectProps, ref) => {
     externalClassName || ""
   }`.trim();
 
-  useEffect(() => {
-    window.addEventListener("click", handleClick);
+  // 全部都 通过 KeyDown来关闭下拉列表项
+  const handleKeyDown = (event: React.KeyboardEvent<HTMLDivElement>) => {
+    if (event.key === "Tab") {
+      // 当下拉项展开的时候进入这个回调，来关闭下拉项
+      if (isOpen) {
+        toggleDropdown();
+        setIsDropdownOpen(false);
+      }
+      return; // 让焦点移动到下一个表单元素
+    } else if (isOpen) {
+      if (event.key === "ArrowUp") {
+        event.preventDefault();
+        setFocusedIndex((prevIndex) =>
+          prevIndex <= 0 ? newOptions.length - 1 : prevIndex - 1
+        );
+      } else if (event.key === "ArrowDown") {
+        event.preventDefault();
+        setFocusedIndex((prevIndex) =>
+          prevIndex >= newOptions.length - 1 ? 0 : prevIndex + 1
+        );
+      } else if (event.key === "Enter" && focusedIndex !== -1) {
+        event.preventDefault();
+        handleSelect(newOptions[focusedIndex]);
+      }
+    }
+  };
 
-    return () => {
-      window.removeEventListener("click", handleClick);
-    };
-  });
+  // 全部都 通过 focus来展开下拉列表项
+  const handleFocus = (event: any) => {
+    const position = getAbsolutePosition(customSelectRef.current, 0, 0);
+    setCustomSelectContentPosition(position);
+    toggleDropdown();
+    setIsDropdownOpen(true);
+  };
+
+  useEffect(() => {
+    if (!isOpen) {
+      setIsDropdownOpen(false);
+      setFocusedIndex(-1); // 重置聚焦索引
+    }
+  }, [isOpen]);
 
   return (
     <div
+      onFocus={handleFocus}
+      onKeyDown={handleKeyDown}
+      tabIndex={0}
+      ref={dropdownRef}
       className={wrapperClassName}
       style={{
         width,
@@ -193,8 +268,9 @@ const Select = React.forwardRef((props: SelectProps, ref) => {
       }}
     >
       <select style={{ display: "none" }} name={name}>
-        <option value={value?.value}>{value?.label}</option>
+        <option value={value?.[valueKey]}>{value?.[labelKey]}</option>
       </select>
+      {/* inputGroup风格 */}
       {inputGroup ? (
         <div className="input-group">
           <label className="input-group-text" htmlFor="inputGroupSelect01">
@@ -203,14 +279,14 @@ const Select = React.forwardRef((props: SelectProps, ref) => {
           <select
             onBlur={validate}
             onChange={handleSelectChange}
-            value={value?.value}
+            value={value?.[valueKey]}
             disabled={readOnly}
             className="form-select"
             id="inputGroupSelect01"
           >
             {newOptions?.map((option: any) => (
-              <option key={option.value} value={option.value}>
-                {option.label}
+              <option key={option[valueKey]} value={option[valueKey]}>
+                {option[labelKey]}
               </option>
             ))}
           </select>
@@ -242,8 +318,7 @@ const Select = React.forwardRef((props: SelectProps, ref) => {
           )}
           <div
             ref={customSelectRef}
-            onClick={(e: any) => handleDivClock(e)}
-            tabIndex={1}
+            onClick={(e: any) => handleDivClick(e)}
             className="custom-select form-control"
             style={{
               textAlign: "left",
@@ -251,16 +326,18 @@ const Select = React.forwardRef((props: SelectProps, ref) => {
               flex: 1,
             }}
           >
-            {value?.value || value?.value === 0 || value?.value === false ? (
-              <span className="select-value">{value.label}</span>
+            {value?.[valueKey] ||
+            value?.[valueKey] === 0 ||
+            value?.[valueKey] === false ? (
+              <span className="select-value">{value[labelKey]}</span>
             ) : (
               <span className="select-placeholder">{placeholder}</span>
             )}
             {
               <i
-                onClick={(e: any) => handleDivClock(e)}
+                onClick={(e: any) => toggleDropdown()}
                 className={`icon fa-solid fa-caret-right rotate-up ${
-                  showOptions ? "rotate-up" : "rotate-down"
+                  isOpen ? "rotate-up" : "rotate-down"
                 }`}
               ></i>
             }
@@ -292,7 +369,7 @@ const Select = React.forwardRef((props: SelectProps, ref) => {
                   customSelectContentPosition.height +
                   "px",
                 left: customSelectContentPosition.x + "px",
-                ...(showOptions
+                ...(isOpen
                   ? {
                       maxHeight:
                         calcMaxHeight > parseInt(maxHeight!)
@@ -303,19 +380,28 @@ const Select = React.forwardRef((props: SelectProps, ref) => {
               }}
               ref={contentRef}
               className={`custom-select-content ${
-                showOptions ? "custom-select-content-open" : ""
+                isOpen ? "custom-select-content-open" : ""
               }`}
             >
-              {showOptions &&
-                newOptions.map((item) => (
-                  <div
-                    onClick={() => handleSelect(item)}
-                    className="option"
-                    key={item.value}
-                  >
-                    {item.label}
-                  </div>
-                ))}
+              {isOpen && (
+                <div className={`option-box`}>
+                  {newOptions.length > 0 ? (
+                    newOptions.map((item, index) => (
+                      <div
+                        onClick={() => handleSelect(item)}
+                        className={`option ${
+                          focusedIndex === index ? "focused" : ""
+                        }`}
+                        key={item[valueKey]}
+                      >
+                        {item[labelKey]}
+                      </div>
+                    ))
+                  ) : (
+                    <div className="none-match ps-2">No content</div>
+                  )}
+                </div>
+              )}
             </div>,
             document.body
           )}
@@ -327,12 +413,14 @@ const Select = React.forwardRef((props: SelectProps, ref) => {
           style={{
             color: "#DC3545",
             fontSize: "14px",
-            paddingLeft: parseInt(labelWidth) > 120 ? "120px" : labelWidth,
+            paddingLeft:
+              parseInt(labelWidth) > 120
+                ? "120px"
+                : parseInt(labelWidth) + 20 + "px",
           }}
-        >{`${errMsg || `${name}不能为空`}`}</div>
+        >{`${errMsg || `${label || name}不能为空`}`}</div>
       )}
     </div>
   );
 });
-
 export default withTranslation()(Select);

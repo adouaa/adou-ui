@@ -11,7 +11,7 @@ interface TextAreaProps {
     externalClassName?: string;
     width?: any;
     inputGroup?: boolean;
-    labelPosition?: "left-top" | "center" | "top" | "input-group";
+    labelPosition?: 'left-top' | 'center' | 'top' | 'input-group';
     labelColor?: string;
     required?: boolean;
     ref?: any;
@@ -20,6 +20,7 @@ interface TextAreaProps {
     placeholder?: string;
     disabled?: boolean;
     onChangeOK?: (value: any, ...args: any) => void;
+    onFormDataChange?: (key: string, value: any) => void;
 }
 declare const TextArea: React.FC<TextAreaProps>;
 export default TextArea;

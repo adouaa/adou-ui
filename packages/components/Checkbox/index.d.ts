@@ -1,6 +1,9 @@
 import React from "react";
 import "./index.scss";
 interface CheckboxProps {
+    valueKey?: string;
+    labelKey?: string;
+    returnType?: 'str' | 'obj';
     name?: string;
     isFormItem?: boolean;
     errMsg?: string;
@@ -9,7 +12,7 @@ interface CheckboxProps {
     readOnly?: boolean;
     inputGroup?: boolean;
     label?: string;
-    labelPosition?: "left-top" | "center" | "top" | "input-group";
+    labelPosition?: 'left-top' | 'center' | 'top' | 'input-group';
     labelColor?: string;
     required?: boolean;
     defaultValue?: string | string[] | {
@@ -27,6 +30,7 @@ interface CheckboxProps {
         label: string;
         value: string;
     }[]) => void;
+    onFormDataChange?: (key: string, value: any) => void;
 }
 declare const _default: React.ForwardRefExoticComponent<CheckboxProps & React.RefAttributes<any>>;
 export default _default;

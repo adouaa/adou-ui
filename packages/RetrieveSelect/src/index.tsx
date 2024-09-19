@@ -7,9 +7,11 @@ import { getAbsolutePosition } from "adou-ui/Utils/index";
 import useClickOutside from "./utils/useClickOutside";
 
 export interface SelectProps {
-  name?: string;
+  returnType?: "str" | "obj";
+  showDefaultValue?: boolean;
   labelKey?: string;
   valueKey?: string;
+  name?: string;
   inline?: boolean;
   suffixContent?: any;
   suffixContentType?: string;
@@ -34,6 +36,7 @@ export interface SelectProps {
   showSelected?: boolean;
   single?: boolean;
   onInputChange?: (e?: any, ...args: any) => void;
+  onFormDataChange?: (key: string, value: any) => void;
 }
 
 interface RetrieveSelectProps extends SelectProps {
@@ -44,6 +47,9 @@ interface RetrieveSelectProps extends SelectProps {
 const RetrievrSelect: React.FC<RetrieveSelectProps> = React.forwardRef(
   (props: RetrieveSelectProps, ref) => {
     const {
+      returnType,
+      showDefaultValue,
+      placeholder = "请输入",
       isFormItem,
       labelKey = "label",
       valueKey = "value",
@@ -72,6 +78,7 @@ const RetrievrSelect: React.FC<RetrieveSelectProps> = React.forwardRef(
       onInputChange,
       onRetrieveSelectChange,
       onDelete,
+      onFormDataChange,
     } = props;
 
     const searchValueRef = useRef<string>(defaultValue || "");
@@ -81,6 +88,7 @@ const RetrievrSelect: React.FC<RetrieveSelectProps> = React.forwardRef(
     const [selectedOptions, setSelectedOptions] = useState<any[]>([]);
     const [showSelectedOptions, setShowSelectedOptions] = useState(false);
     const [isHighlighted, setIsHighlighted] = useState(false);
+    const [focusedIndex, setFocusedIndex] = useState<number>(-1); // 新增状态，用于跟踪当前聚焦的选项
 
     const retrieveInputRef = useRef<any>();
     const selectListRef = useRef<any>();
@@ -90,9 +98,10 @@ const RetrievrSelect: React.FC<RetrieveSelectProps> = React.forwardRef(
     const [customSelectContentPosition, setCustomSelectContentPosition] =
       useState<any>({});
 
-    const { isOpen, dropdownRef, toggleDropdown } = useClickOutside(() =>
-      setShowOptions(false)
-    );
+    const { isOpen, dropdownRef, toggleDropdown } = useClickOutside(() => {
+      setShowOptions(false);
+      setFocusedIndex(-1);
+    });
 
     const handleSelect = (option: any) => {
       const currentSelectList = optionList
@@ -140,18 +149,24 @@ const RetrievrSelect: React.FC<RetrieveSelectProps> = React.forwardRef(
         (item) => item[labelKey] === option[labelKey]
       );
       if (single) {
-        setSelectedOptions(hasSelected ? [] : [option]);
+        const data = hasSelected ? [] : [option];
+        setSelectedOptions(data);
         onRetrieveSelectChange && onRetrieveSelectChange(option);
+        if (returnType === "obj") {
+          onFormDataChange && onFormDataChange(name!, data[0]);
+        } else {
+          onFormDataChange && onFormDataChange(name!, data[0]?.[valueKey]);
+        }
       } else {
         const currentSelectedOptions = [...selectedOptions, option];
-        setSelectedOptions(
-          hasSelected
-            ? selectedOptions.filter(
-                (item: any) => item[valueKey] !== option[valueKey]
-              )
-            : currentSelectedOptions
-        );
-        onRetrieveSelectChange && onRetrieveSelectChange(option);
+        const data = hasSelected
+          ? selectedOptions.filter(
+              (item: any) => item[valueKey] !== option[valueKey]
+            )
+          : currentSelectedOptions;
+        setSelectedOptions(data);
+        onRetrieveSelectChange && onRetrieveSelectChange(data);
+        onFormDataChange && onFormDataChange(name!, data);
       }
       setShowSelectedOptions(true);
 
@@ -165,9 +180,10 @@ const RetrievrSelect: React.FC<RetrieveSelectProps> = React.forwardRef(
     };
 
     const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-      let value = e.target.value;
+      let value = e.target?.value;
       searchValueRef.current = value;
-      onInputChange && onInputChange(e.target.value);
+      onInputChange && onInputChange(e.target?.value);
+      // 搜索词修改时也需要展示选项
     };
 
     const handleDeleteItem = (item: any) => {
@@ -189,7 +205,7 @@ const RetrievrSelect: React.FC<RetrieveSelectProps> = React.forwardRef(
 
     const handleWrapperClick = (e: any) => {
       if (readOnly) return;
-      retrieveInputRef.current && retrieveInputRef.current.focus();
+      // retrieveInputRef.current && retrieveInputRef.current.focus();
       setIsHighlighted(true);
       const position = getAbsolutePosition(
         retrieveSelectWrapperFormControlRef.current,
@@ -199,6 +215,10 @@ const RetrievrSelect: React.FC<RetrieveSelectProps> = React.forwardRef(
       setCustomSelectContentPosition(position);
       if (!isOpen) {
         toggleDropdown();
+      }
+      // 为了适配通过tab键来定位聚焦，把这些点击的逻辑去掉
+      /* if (!isOpen) {
+        toggleDropdown();
 
         // e.stopPropagation(); 这里不能加，否则会导致Select展开的时候点击RetrieveSelect无法关闭Select的选项
         setTimeout(() => {
@@ -207,7 +227,7 @@ const RetrievrSelect: React.FC<RetrieveSelectProps> = React.forwardRef(
       } else {
         setShowOptions(false);
         toggleDropdown();
-      }
+      } */
     };
 
     const getValue = () => {
@@ -262,32 +282,90 @@ const RetrievrSelect: React.FC<RetrieveSelectProps> = React.forwardRef(
       [externalClassName as string]: externalClassName,
     });
 
+    const handleFocus = (event: any) => {
+      console.log("focus: ");
+      setIsHighlighted(true);
+      toggleDropdown();
+      const position = getAbsolutePosition(
+        retrieveSelectWrapperFormControlRef.current,
+        0,
+        0
+      );
+      setCustomSelectContentPosition(position);
+      setTimeout(() => {
+        setShowOptions(true);
+      }, 10);
+    };
+
+    // 全部都 通过 KeyDown来关闭下拉列表项
+    const handleKeyDown = (event: React.KeyboardEvent<HTMLDivElement>) => {
+      console.log("tab: ");
+      if (event.key === "Tab") {
+        // 当下拉项展开的时候进入这个回调，来关闭下拉项
+        if (isOpen) {
+          toggleDropdown();
+        }
+        return; // 让焦点移动到下一个表单元素
+      } else if (event.key === "ArrowUp") {
+        console.log("FocusedIndex: ", focusedIndex);
+        event.preventDefault();
+        setFocusedIndex((prevIndex) =>
+          prevIndex <= 0 ? optionList.length - 1 : prevIndex - 1
+        );
+      } else if (event.key === "ArrowDown") {
+        event.preventDefault();
+        setFocusedIndex((prevIndex) =>
+          prevIndex >= optionList.length - 1 ? 0 : prevIndex + 1
+        );
+      } else if (event.key === "Enter") {
+        event.preventDefault();
+        handleSelect(optionList[focusedIndex]);
+      } else if (event.key === "Escape") {
+        setShowOptions(false);
+      }
+    };
+
     useEffect(() => {
       let arr: any[] = [];
-      let tempFilterdOptions: any[] = [];
-
       if (single) {
         if (defaultValue) {
-          tempOptions.some((option: any) => {
-            option[valueKey] === defaultValue && arr.push(option);
-            return false;
-          });
-          if (arr?.length) {
-            setSelectedOptions(arr);
-            setShowSelectedOptions(true);
-            setTimeout(() => {
+          if (showDefaultValue) {
+            if (typeof defaultValue === "object" && defaultValue[valueKey]) {
+              setSelectedOptions([defaultValue]);
+              setShowSelectedOptions(true);
               setOptionList((preArr) => {
-                preArr?.forEach((item) => {
-                  tempFilterdOptions.push({
+                return preArr?.map((item) => ({
+                  ...item,
+                  selected: defaultValue[valueKey] === item[valueKey],
+                }));
+              });
+            }
+          } else {
+            if (typeof defaultValue === "object") {
+              tempOptions.some((option: any) => {
+                option[valueKey] === defaultValue[valueKey] && arr.push(option);
+                return false;
+              });
+            } else {
+              tempOptions.some((option: any) => {
+                option[valueKey] === defaultValue && arr.push(option);
+                return false;
+              });
+            }
+            if (arr?.length) {
+              setSelectedOptions(arr);
+              setShowSelectedOptions(true);
+              setTimeout(() => {
+                setOptionList((preArr) => {
+                  return preArr?.map((item) => ({
                     ...item,
                     selected: arr.some((i) => i[valueKey] === item[valueKey]),
-                  });
+                  }));
                 });
-                return tempFilterdOptions;
-              });
-            }, 0);
-          } else {
-            setSelectedOptions([]);
+              }, 0);
+            } else {
+              setSelectedOptions([]);
+            }
           }
         } else {
           setOptionList(
@@ -313,13 +391,10 @@ const RetrievrSelect: React.FC<RetrieveSelectProps> = React.forwardRef(
             setShowSelectedOptions(true);
             setTimeout(() => {
               setOptionList((preArr) => {
-                preArr?.forEach((item) => {
-                  tempFilterdOptions.push({
-                    ...item,
-                    selected: arr.some((i) => i[valueKey] === item[valueKey]),
-                  });
-                });
-                return tempFilterdOptions;
+                return preArr?.map((item) => ({
+                  ...item,
+                  selected: arr.some((i) => i[valueKey] === item[valueKey]),
+                }));
               });
             }, 0);
           }
@@ -343,10 +418,15 @@ const RetrievrSelect: React.FC<RetrieveSelectProps> = React.forwardRef(
         setOptionList(options);
       }
       setTempOptions(options);
+      if (!isOpen) {
+        toggleDropdown();
+      }
     }, [options]);
 
     return (
       <div
+        onFocus={handleFocus}
+        onKeyDown={handleKeyDown}
         ref={dropdownRef}
         className={retrieveSelectClasses}
         style={{
@@ -381,7 +461,7 @@ const RetrievrSelect: React.FC<RetrieveSelectProps> = React.forwardRef(
                 showSelectedOptions &&
                 selectedOptions?.map((option, index) => {
                   return <option key={index} value={option[valueKey]}></option>;
-                })}
+                })}{" "}
             </select>
             <div ref={selectListRef} className="select-list">
               {showSelected &&
@@ -389,15 +469,18 @@ const RetrievrSelect: React.FC<RetrieveSelectProps> = React.forwardRef(
                 selectedOptions?.map((option, index) => {
                   return (
                     <div
-                      className="selected-option"
+                      className={`${
+                        single ? "selected-option-single" : "selected-option"
+                      }`}
                       key={option[valueKey]}
-                      style={{}}
                     >
-                      {option[labelKey]}
-                      <i
-                        onClick={() => handleDeleteItem(option)}
-                        className="option-icon fa-regular fa-circle-xmark"
-                      ></i>
+                      {option[labelKey] || "无"}
+                      {!single && (
+                        <i
+                          onClick={() => handleDeleteItem(option)}
+                          className="option-icon fa-regular fa-circle-xmark"
+                        ></i>
+                      )}
                     </div>
                   );
                 })}
@@ -405,7 +488,7 @@ const RetrievrSelect: React.FC<RetrieveSelectProps> = React.forwardRef(
             <div className="input-control">
               <input
                 ref={retrieveInputRef}
-                placeholder="输入关键词"
+                placeholder={placeholder}
                 onChange={(e) => handleInputChange(e)}
                 onClick={handleInputClick}
                 readOnly={readOnly}
@@ -435,23 +518,24 @@ const RetrievrSelect: React.FC<RetrieveSelectProps> = React.forwardRef(
           )}
         </div>
         {ReactDOM.createPortal(
-          !readOnly && isOpen && (
-            <div
-              ref={contentRef}
-              style={{
-                width: contentWidth,
-                position: "absolute",
-                top:
-                  customSelectContentPosition.y +
-                  customSelectContentPosition.height +
-                  "px",
-                left: customSelectContentPosition.x + "px",
-              }}
-              className={`retrieve-select-content ${
-                showOptions ? "retrieve-select-content-open" : ""
-              }`}
-            >
-              {optionList?.length > 0 ? (
+          <div
+            ref={contentRef}
+            style={{
+              width: contentWidth,
+              position: "absolute",
+              top:
+                customSelectContentPosition.y +
+                customSelectContentPosition.height +
+                "px",
+              left: customSelectContentPosition.x + "px",
+            }}
+            className={`retrieve-select-content ${
+              showOptions ? "retrieve-select-content-open" : ""
+            }`}
+          >
+            {!readOnly &&
+              isOpen &&
+              (optionList?.length > 0 ? (
                 optionList?.map((option: any, index: number) => {
                   return (
                     <div
@@ -459,17 +543,16 @@ const RetrievrSelect: React.FC<RetrieveSelectProps> = React.forwardRef(
                       onClick={() => handleSelect(option)}
                       className={`option-item ${
                         option.selected && "retrieve-select-active"
-                      }`}
+                      } ${focusedIndex === index && "retrieve-select-focused"}`}
                     >
                       {option[labelKey]}
                     </div>
                   );
                 })
               ) : (
-                <div className="none-match ps-2">无匹配记录~</div>
-              )}
-            </div>
-          ),
+                <div className="none-match ps-2 font-italic">No content</div>
+              ))}
+          </div>,
           document.body
         )}
         {error && required && (

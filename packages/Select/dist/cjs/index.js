@@ -209,23 +209,6 @@ module.exports = {
     }
     /******/
     /************************************************************************/
-    /******/ /* webpack/runtime/compat get default export */
-    /******/
-    (() => {
-      /******/ // getDefaultExport function for compatibility with non-harmony modules
-      /******/__nested_webpack_require_918__.n = module => {
-        /******/var getter = module && module.__esModule ? /******/() => module['default'] : /******/() => module;
-        /******/
-        __nested_webpack_require_918__.d(getter, {
-          a: getter
-        });
-        /******/
-        return getter;
-        /******/
-      };
-      /******/
-    })();
-    /******/
     /******/ /* webpack/runtime/define property getters */
     /******/
     (() => {
@@ -282,10 +265,9 @@ module.exports = {
 
       // EXPORTS
       __nested_webpack_require_918__.d(__nested_webpack_exports__, {
-        GlobalModalContext: () => ( /* reexport */GlobalModalContext),
-        GlobalModalProvider: () => ( /* reexport */GlobalModalProvider),
         convertToTag: () => ( /* reexport */libs_convertToTag),
         getAbsolutePosition: () => ( /* reexport */libs_getAbsolutePositionOfStage),
+        useClickOutside: () => ( /* reexport */hooks_useClickOutside),
         useNavigateTo: () => ( /* reexport */hooks_useNavigateTo)
       });
       ; // CONCATENATED MODULE: ./src/libs/getAbsolutePositionOfStage.js
@@ -329,73 +311,6 @@ module.exports = {
       };
       /* harmony default export */
       const libs_convertToTag = convertToTag;
-      // EXTERNAL MODULE: external {"root":"React","commonjs2":"react","commonjs":"react","amd":"react"}
-      var external_root_React_commonjs2_react_commonjs_react_amd_react_ = __nested_webpack_require_918__(442);
-      var external_root_React_commonjs2_react_commonjs_react_amd_react_default = /*#__PURE__*/__nested_webpack_require_918__.n(external_root_React_commonjs2_react_commonjs_react_amd_react_);
-      ; // CONCATENATED MODULE: ./src/libs/GlobalModalProvider.js
-
-      const GlobalModalContext = /*#__PURE__*/(0, external_root_React_commonjs2_react_commonjs_react_amd_react_.createContext)();
-      const GlobalModalProvider = _ref => {
-        let {
-          children
-        } = _ref;
-        const [globalModalData, setGlobalModalData] = (0, external_root_React_commonjs2_react_commonjs_react_amd_react_.useState)({
-          open: false,
-          content: '',
-          title: '',
-          confirmText: '',
-          cancelText: "",
-          callback: null,
-          overflowY: false,
-          width: "",
-          maxHeight: ""
-        });
-        const showGlobalModal = _ref2 => {
-          let {
-            type,
-            content,
-            title,
-            confirmText,
-            cancelText,
-            maxHeight,
-            overflowY,
-            width,
-            callback
-          } = _ref2;
-          setGlobalModalData({
-            type,
-            open: true,
-            content,
-            title,
-            confirmText,
-            cancelText,
-            maxHeight,
-            overflowY,
-            width,
-            callback
-          });
-        };
-        const hideGlobalModal = () => {
-          setGlobalModalData({
-            open: false,
-            content: '',
-            title: '',
-            confirmText: '',
-            cancelText: "",
-            maxHeight: 0,
-            overflowY: false,
-            width: 0,
-            callback: null
-          });
-        };
-        return /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement(GlobalModalContext.Provider, {
-          value: {
-            globalModalData,
-            showGlobalModal,
-            hideGlobalModal
-          }
-        }, children);
-      };
       ; // CONCATENATED MODULE: ../../node_modules/@remix-run/router/dist/router.js
       /**
        * @remix-run/router v1.5.0
@@ -4105,6 +4020,8 @@ module.exports = {
         return pathMatches[pathMatches.length - 1];
       } //#endregion
 
+      // EXTERNAL MODULE: external {"root":"React","commonjs2":"react","commonjs":"react","amd":"react"}
+      var external_root_React_commonjs2_react_commonjs_react_amd_react_ = __nested_webpack_require_918__(442);
       ; // CONCATENATED MODULE: ../../node_modules/react-router/dist/index.js
       /**
        * React Router v6.10.0
@@ -5350,6 +5267,32 @@ module.exports = {
       };
       /* harmony default export */
       const hooks_useNavigateTo = useNavigateTo;
+      ; // CONCATENATED MODULE: ./src/hooks/useClickOutside.js
+
+      const useClickOutside = cb => {
+        const [isOpen, setIsOpen] = (0, external_root_React_commonjs2_react_commonjs_react_amd_react_.useState)(false);
+        const dropdownRef = (0, external_root_React_commonjs2_react_commonjs_react_amd_react_.useRef)(null);
+        (0, external_root_React_commonjs2_react_commonjs_react_amd_react_.useEffect)(() => {
+          const handleClickOutside = event => {
+            if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
+              setIsOpen(false);
+              cb && cb();
+            }
+          };
+          document.addEventListener("click", handleClickOutside);
+          return () => {
+            document.removeEventListener("click", handleClickOutside);
+          };
+        }, [dropdownRef]);
+        const toggleDropdown = () => setIsOpen(!isOpen);
+        return {
+          isOpen,
+          dropdownRef,
+          toggleDropdown
+        };
+      };
+      /* harmony default export */
+      const hooks_useClickOutside = useClickOutside;
       ; // CONCATENATED MODULE: ./src/index.tsx
     })();
 
@@ -5408,14 +5351,16 @@ ___CSS_LOADER_EXPORT___.push([module.id, `@charset "UTF-8";
   min-width: 200px;
   text-align-last: left;
   background-color: #fff;
-  max-height: 0;
-  /* 初始高度设为0，隐藏选项内容 */
   overflow: hidden;
   /* 隐藏溢出内容 */
   position: absolute;
   z-index: 999;
   box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
-  transition: max-height 0.3s ease;
+  transition: opacity 0.3s ease, visibility 0.3s ease, transform 0.3s ease;
+  opacity: 0;
+  visibility: hidden;
+  transform: scaleY(0);
+  transform-origin: top;
   /* 添加高度变化的过渡效果 */
 }
 .select-wrapper .content .option {
@@ -5430,8 +5375,9 @@ ___CSS_LOADER_EXPORT___.push([module.id, `@charset "UTF-8";
   background-color: #2783d8;
 }
 .select-wrapper .open {
-  max-height: 200px;
-  /* 显示选项内容时的最大高度 */
+  opacity: 1;
+  visibility: visible;
+  transform: scaleY(1);
 }
 .select-wrapper .icon {
   position: absolute;
@@ -5507,15 +5453,17 @@ ___CSS_LOADER_EXPORT___.push([module.id, `@charset "UTF-8";
   min-width: 200px;
   text-align-last: left;
   background-color: #fff;
-  max-height: 0;
-  /* 初始高度设为0，隐藏选项内容 */
-  overflow: auto;
+  overflow: hidden;
   /* 隐藏溢出内容 */
   position: absolute;
   z-index: 66666666;
   border-radius: 4px;
   box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
-  transition: max-height 0.3s ease;
+  transition: opacity 0.3s ease, visibility 0.3s ease, transform 0.3s ease;
+  opacity: 0;
+  visibility: hidden;
+  transform: scaleY(0);
+  transform-origin: top;
   /* 添加高度变化的过渡效果 */
 }
 .custom-select-content .option {
@@ -5529,10 +5477,17 @@ ___CSS_LOADER_EXPORT___.push([module.id, `@charset "UTF-8";
   color: #fff;
   background-color: #2783d8;
 }
+.custom-select-content .option.focused {
+  background-color: #e0e0e0;
+  /* 高亮当前聚焦的选项 */
+}
 
 .custom-select-content-open {
-  max-height: 100px;
-  /* 显示选项内容时的最大高度 */
+  opacity: 1;
+  visibility: visible;
+  transform: scaleY(1);
+  overflow-y: auto;
+  /* 允许垂直滚动 */
 }
 
 .none-option {
@@ -5543,7 +5498,7 @@ ___CSS_LOADER_EXPORT___.push([module.id, `@charset "UTF-8";
   justify-content: center;
   align-items: center;
   color: #a4a3a3;
-}`, "",{"version":3,"sources":["webpack://./src/index.scss"],"names":[],"mappings":"AAAA,gBAAgB;AAAhB;EAKI,kBAAA;AAFJ;AAFI;EACI,aAAA;AAIR;AACI;;EAEI,cAAA;EACA,cAAA;EACA,gBAAA;EACA,mBAAA;EACA,uBAAA;AACR;AAEI;EACI,WAAA;AAAR;AAGI;EACI,YAAA;EACA,kBAAA;EACA,eAAA;AADR;AAGQ;EACI,+BAAA;EACA,WAAA;AADZ;AAKI;EACI,gBAAA;EACA,qBAAA;EACA,sBAAA;EACA,aAAA;EACA,mBAAA;EACA,gBAAA;EACA,WAAA;EACA,kBAAA;EACA,YAAA;EACA,4CAAA;EACA,gCAAA;EAEA,gBAAA;AAJR;AAKQ;EACI,iBAAA;AAHZ;AAKY;EACI,yBAAA;EACA,eAAA;AAHhB;AAMY;EACI,WAAA;EACA,yBAAA;AAJhB;AASI;EACI,iBAAA;EACA,iBAAA;AAPR;AAUI;EACI,kBAAA;EACA,SAAA;EACA,WAAA;EACA,0BAAA;AARR;AAUQ;EACI,qBAAA;AARZ;AAaQ;EACI,eAAA;EACA,eAAA;EACA,2BAAA;EACA,eAAA;AAXZ;AAcQ;EACI,yBAAA;EACA,aAAA;EACA,4BAAA;EACA,aAAA;AAZZ;AAeQ;EACI,aAAA;EACA,mBAAA;EACA,uBAAA;AAbZ;AAiBI;EACI,aAAA;AAfR;AAkBI;EACI,aAAA;AAhBR;AAkBQ;EACI,aAAA;EACA,kBAAA;AAhBZ;;AAqBA;EACI,wBAAA;EACA,mBAAA;AAlBJ;;AAqBA;EACI,uBAAA;EACA,eAAA;AAlBJ;;AAqBA,YAAA;AACA;EACI,UAAA;EACA,UAAA;AAlBJ;;AAqBA;EACI,mBAAA;EACA,WAAA;AAlBJ;;AAqBA;EACI,gBAAA;EACA,YAAA;EACA,kBAAA;EACA,YAAA;AAlBJ;;AAqBA,YAAA;AACA;EACI,gBAAA;AAlBJ;;AAqBA;EACI,gBAAA;EACA,qBAAA;EACA,sBAAA;EACA,aAAA;EACA,mBAAA;EACA,cAAA;EACA,WAAA;EACA,kBAAA;EACA,iBAAA;EACA,kBAAA;EACA,4CAAA;EACA,gCAAA;EAEA,gBAAA;AAnBJ;AAoBI;EACI,iBAAA;AAlBR;AAoBQ;EACI,yBAAA;EACA,eAAA;AAlBZ;AAqBQ;EACI,WAAA;EACA,yBAAA;AAnBZ;;AAwBA;EACI,iBAAA;EACA,iBAAA;AArBJ;;AAwBA;EACI,YAAA;EACA,YAAA;EACA,eAAA;EACA,aAAA;EACA,uBAAA;EACA,mBAAA;EACA,cAAA;AArBJ","sourcesContent":[".select-wrapper {\r\n    select option:first-child {\r\n        display: none;\r\n    }\r\n\r\n    position: relative;\r\n\r\n    .select-placeholder,\r\n    .select-value {\r\n        display: block;\r\n        color: #7d7d7d;\r\n        overflow: hidden;\r\n        white-space: nowrap;\r\n        text-overflow: ellipsis;\r\n    }\r\n\r\n    .select-value {\r\n        color: #000;\r\n    }\r\n\r\n    .custom-select {\r\n        height: 38px;\r\n        position: relative;\r\n        cursor: pointer;\r\n\r\n        i {\r\n            transition: transform 0.3s ease;\r\n            /* 添加过渡效果 */\r\n        }\r\n    }\r\n\r\n    .content {\r\n        min-width: 200px;\r\n        text-align-last: left;\r\n        background-color: #fff;\r\n        max-height: 0;\r\n        /* 初始高度设为0，隐藏选项内容 */\r\n        overflow: hidden;\r\n        /* 隐藏溢出内容 */\r\n        position: absolute;\r\n        z-index: 999;\r\n        box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;\r\n        transition: max-height 0.3s ease;\r\n\r\n        /* 添加高度变化的过渡效果 */\r\n        .option {\r\n            padding: 5px 10px;\r\n\r\n            &:hover {\r\n                background-color: #f6f6f6;\r\n                cursor: pointer;\r\n            }\r\n\r\n            &:active {\r\n                color: #fff;\r\n                background-color: #2783d8;\r\n            }\r\n        }\r\n    }\r\n\r\n    .open {\r\n        max-height: 200px;\r\n        /* 显示选项内容时的最大高度 */\r\n    }\r\n\r\n    .icon {\r\n        position: absolute;\r\n        top: 10px;\r\n        right: 14px;\r\n        transition: transform 0.2s;\r\n\r\n        &:hover {\r\n            transform: scale(1.4);\r\n        }\r\n    }\r\n\r\n    .content-box {\r\n        .label-box {\r\n            font-size: 14px;\r\n            min-width: 50px;\r\n            max-width: 120px !important;\r\n            flex-wrap: wrap;\r\n        }\r\n\r\n        .suffix-content-btn-wrapper .btn {\r\n            border-top-left-radius: 0;\r\n            /* 去掉左上角的圆角 */\r\n            border-bottom-left-radius: 0;\r\n            /* 去掉左下角的圆角 */\r\n        }\r\n\r\n        .suffix-content-text-wrapper {\r\n            display: flex;\r\n            align-items: center;\r\n            justify-content: center;\r\n        }\r\n    }\r\n\r\n    .label-in-center {\r\n        display: flex;\r\n    }\r\n\r\n    .label-in-left-top {\r\n        display: flex;\r\n\r\n        .label-box {\r\n            display: flex;\r\n            align-items: start;\r\n        }\r\n    }\r\n}\r\n\r\n.rotate-up {\r\n    transform: rotate(90deg);\r\n    /* 旋转-180度，向上箭头样式 */\r\n}\r\n\r\n.rotate-down {\r\n    transform: rotate(0deg);\r\n    /* 不旋转，向下箭头样式 */\r\n}\r\n\r\n/* 定义滚动条样式 */\r\n::-webkit-scrollbar {\r\n    width: 8px;\r\n    /* 滚动条宽度 */\r\n}\r\n\r\n::-webkit-scrollbar-track {\r\n    background: #f1f1f1;\r\n    /* 滚动条背景色 */\r\n}\r\n\r\n::-webkit-scrollbar-thumb {\r\n    background: #888;\r\n    /* 滚动条滑块颜色 */\r\n    border-radius: 2px;\r\n    /* 滚动条滑块圆角 */\r\n}\r\n\r\n/* 悬停时滑块样式 */\r\n::-webkit-scrollbar-thumb:hover {\r\n    background: #555;\r\n}\r\n\r\n.custom-select-content {\r\n    min-width: 200px;\r\n    text-align-last: left;\r\n    background-color: #fff;\r\n    max-height: 0;\r\n    /* 初始高度设为0，隐藏选项内容 */\r\n    overflow: auto;\r\n    /* 隐藏溢出内容 */\r\n    position: absolute;\r\n    z-index: 66666666;\r\n    border-radius: 4px;\r\n    box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;\r\n    transition: max-height 0.3s ease;\r\n\r\n    /* 添加高度变化的过渡效果 */\r\n    .option {\r\n        padding: 5px 10px;\r\n\r\n        &:hover {\r\n            background-color: #f6f6f6;\r\n            cursor: pointer;\r\n        }\r\n\r\n        &:active {\r\n            color: #fff;\r\n            background-color: #2783d8;\r\n        }\r\n    }\r\n}\r\n\r\n.custom-select-content-open {\r\n    max-height: 100px;\r\n    /* 显示选项内容时的最大高度 */\r\n}\r\n\r\n.none-option {\r\n    width: 200px;\r\n    height: 50px;\r\n    padding: 10px 0;\r\n    display: flex;\r\n    justify-content: center;\r\n    align-items: center;\r\n    color: #a4a3a3;\r\n}"],"sourceRoot":""}]);
+}`, "",{"version":3,"sources":["webpack://./src/index.scss"],"names":[],"mappings":"AAAA,gBAAgB;AAAhB;EAKI,kBAAA;AAFJ;AAFI;EACI,aAAA;AAIR;AACI;;EAEI,cAAA;EACA,cAAA;EACA,gBAAA;EACA,mBAAA;EACA,uBAAA;AACR;AAEI;EACI,WAAA;AAAR;AAGI;EACI,YAAA;EACA,kBAAA;EACA,eAAA;AADR;AAGQ;EACI,+BAAA;EACA,WAAA;AADZ;AAKI;EACI,gBAAA;EACA,qBAAA;EACA,sBAAA;EACA,gBAAA;EACA,WAAA;EACA,kBAAA;EACA,YAAA;EACA,4CAAA;EACA,wEAAA;EACA,UAAA;EACA,kBAAA;EACA,oBAAA;EACA,qBAAA;EAEA,gBAAA;AAJR;AAKQ;EACI,iBAAA;AAHZ;AAKY;EACI,yBAAA;EACA,eAAA;AAHhB;AAMY;EACI,WAAA;EACA,yBAAA;AAJhB;AASI;EACI,UAAA;EACA,mBAAA;EACA,oBAAA;AAPR;AAUI;EACI,kBAAA;EACA,SAAA;EACA,WAAA;EACA,0BAAA;AARR;AAUQ;EACI,qBAAA;AARZ;AAaQ;EACI,eAAA;EACA,eAAA;EACA,2BAAA;EACA,eAAA;AAXZ;AAcQ;EACI,yBAAA;EACA,aAAA;EACA,4BAAA;EACA,aAAA;AAZZ;AAeQ;EACI,aAAA;EACA,mBAAA;EACA,uBAAA;AAbZ;AAiBI;EACI,aAAA;AAfR;AAkBI;EACI,aAAA;AAhBR;AAkBQ;EACI,aAAA;EACA,kBAAA;AAhBZ;;AAqBA;EACI,wBAAA;EACA,mBAAA;AAlBJ;;AAqBA;EACI,uBAAA;EACA,eAAA;AAlBJ;;AAqBA,YAAA;AACA;EACI,UAAA;EACA,UAAA;AAlBJ;;AAqBA;EACI,mBAAA;EACA,WAAA;AAlBJ;;AAqBA;EACI,gBAAA;EACA,YAAA;EACA,kBAAA;EACA,YAAA;AAlBJ;;AAqBA,YAAA;AACA;EACI,gBAAA;AAlBJ;;AAqBA;EACI,gBAAA;EACA,qBAAA;EACA,sBAAA;EACA,gBAAA;EACA,WAAA;EACA,kBAAA;EACA,iBAAA;EACA,kBAAA;EACA,4CAAA;EACA,wEAAA;EACA,UAAA;EACA,kBAAA;EACA,oBAAA;EACA,qBAAA;EAEA,gBAAA;AAnBJ;AAoBI;EACI,iBAAA;AAlBR;AAoBQ;EACI,yBAAA;EACA,eAAA;AAlBZ;AAqBQ;EACI,WAAA;EACA,yBAAA;AAnBZ;AAsBQ;EACI,yBAAA;EACA,cAAA;AApBZ;;AAyBA;EACI,UAAA;EACA,mBAAA;EACA,oBAAA;EACA,gBAAA;EACA,WAAA;AAtBJ;;AAyBA;EACI,YAAA;EACA,YAAA;EACA,eAAA;EACA,aAAA;EACA,uBAAA;EACA,mBAAA;EACA,cAAA;AAtBJ","sourcesContent":[".select-wrapper {\r\n    select option:first-child {\r\n        display: none;\r\n    }\r\n\r\n    position: relative;\r\n\r\n    .select-placeholder,\r\n    .select-value {\r\n        display: block;\r\n        color: #7d7d7d;\r\n        overflow: hidden;\r\n        white-space: nowrap;\r\n        text-overflow: ellipsis;\r\n    }\r\n\r\n    .select-value {\r\n        color: #000;\r\n    }\r\n\r\n    .custom-select {\r\n        height: 38px;\r\n        position: relative;\r\n        cursor: pointer;\r\n\r\n        i {\r\n            transition: transform 0.3s ease;\r\n            /* 添加过渡效果 */\r\n        }\r\n    }\r\n\r\n    .content {\r\n        min-width: 200px;\r\n        text-align-last: left;\r\n        background-color: #fff;\r\n        overflow: hidden;\r\n        /* 隐藏溢出内容 */\r\n        position: absolute;\r\n        z-index: 999;\r\n        box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;\r\n        transition: opacity 0.3s ease, visibility 0.3s ease, transform 0.3s ease;\r\n        opacity: 0;\r\n        visibility: hidden;\r\n        transform: scaleY(0);\r\n        transform-origin: top;\r\n\r\n        /* 添加高度变化的过渡效果 */\r\n        .option {\r\n            padding: 5px 10px;\r\n\r\n            &:hover {\r\n                background-color: #f6f6f6;\r\n                cursor: pointer;\r\n            }\r\n\r\n            &:active {\r\n                color: #fff;\r\n                background-color: #2783d8;\r\n            }\r\n        }\r\n    }\r\n\r\n    .open {\r\n        opacity: 1;\r\n        visibility: visible;\r\n        transform: scaleY(1);\r\n    }\r\n\r\n    .icon {\r\n        position: absolute;\r\n        top: 10px;\r\n        right: 14px;\r\n        transition: transform 0.2s;\r\n\r\n        &:hover {\r\n            transform: scale(1.4);\r\n        }\r\n    }\r\n\r\n    .content-box {\r\n        .label-box {\r\n            font-size: 14px;\r\n            min-width: 50px;\r\n            max-width: 120px !important;\r\n            flex-wrap: wrap;\r\n        }\r\n\r\n        .suffix-content-btn-wrapper .btn {\r\n            border-top-left-radius: 0;\r\n            /* 去掉左上角的圆角 */\r\n            border-bottom-left-radius: 0;\r\n            /* 去掉左下角的圆角 */\r\n        }\r\n\r\n        .suffix-content-text-wrapper {\r\n            display: flex;\r\n            align-items: center;\r\n            justify-content: center;\r\n        }\r\n    }\r\n\r\n    .label-in-center {\r\n        display: flex;\r\n    }\r\n\r\n    .label-in-left-top {\r\n        display: flex;\r\n\r\n        .label-box {\r\n            display: flex;\r\n            align-items: start;\r\n        }\r\n    }\r\n}\r\n\r\n.rotate-up {\r\n    transform: rotate(90deg);\r\n    /* 旋转-180度，向上箭头样式 */\r\n}\r\n\r\n.rotate-down {\r\n    transform: rotate(0deg);\r\n    /* 不旋转，向下箭头样式 */\r\n}\r\n\r\n/* 定义滚动条样式 */\r\n::-webkit-scrollbar {\r\n    width: 8px;\r\n    /* 滚动条宽度 */\r\n}\r\n\r\n::-webkit-scrollbar-track {\r\n    background: #f1f1f1;\r\n    /* 滚动条背景色 */\r\n}\r\n\r\n::-webkit-scrollbar-thumb {\r\n    background: #888;\r\n    /* 滚动条滑块颜色 */\r\n    border-radius: 2px;\r\n    /* 滚动条滑块圆角 */\r\n}\r\n\r\n/* 悬停时滑块样式 */\r\n::-webkit-scrollbar-thumb:hover {\r\n    background: #555;\r\n}\r\n\r\n.custom-select-content {\r\n    min-width: 200px;\r\n    text-align-last: left;\r\n    background-color: #fff;\r\n    overflow: hidden;\r\n    /* 隐藏溢出内容 */\r\n    position: absolute;\r\n    z-index: 66666666;\r\n    border-radius: 4px;\r\n    box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;\r\n    transition: opacity 0.3s ease, visibility 0.3s ease, transform 0.3s ease;\r\n    opacity: 0;\r\n    visibility: hidden;\r\n    transform: scaleY(0);\r\n    transform-origin: top;\r\n\r\n    /* 添加高度变化的过渡效果 */\r\n    .option {\r\n        padding: 5px 10px;\r\n\r\n        &:hover {\r\n            background-color: #f6f6f6;\r\n            cursor: pointer;\r\n        }\r\n\r\n        &:active {\r\n            color: #fff;\r\n            background-color: #2783d8;\r\n        }\r\n\r\n        &.focused {\r\n            background-color: #e0e0e0;\r\n            /* 高亮当前聚焦的选项 */\r\n        }\r\n    }\r\n}\r\n\r\n.custom-select-content-open {\r\n    opacity: 1;\r\n    visibility: visible;\r\n    transform: scaleY(1);\r\n    overflow-y: auto;\r\n    /* 允许垂直滚动 */\r\n}\r\n\r\n.none-option {\r\n    width: 200px;\r\n    height: 50px;\r\n    padding: 10px 0;\r\n    display: flex;\r\n    justify-content: center;\r\n    align-items: center;\r\n    color: #a4a3a3;\r\n}"],"sourceRoot":""}]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 
@@ -7170,6 +7125,10 @@ var Utils = __webpack_require__(36);
 
 const Select = /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().forwardRef((props, ref) => {
   const {
+    returnType,
+    showDefaultValue = false,
+    labelKey = "label",
+    valueKey = "value",
     suffixContent,
     showLabel = true,
     suffixContentType,
@@ -7193,44 +7152,70 @@ const Select = /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_a
     externalClassName,
     readOnly,
     transparent,
-    maxHeight,
-    onChange
+    maxHeight = "200px",
+    onChange,
+    onFormDataChange
   } = props;
+  const {
+    isOpen,
+    dropdownRef,
+    toggleDropdown
+  } = (0,Utils.useClickOutside)();
   const [newOptions, setNewOptions] = (0,external_root_React_commonjs2_react_commonjs_react_amd_react_.useState)(options || []);
   const [value, setValue] = (0,external_root_React_commonjs2_react_commonjs_react_amd_react_.useState)(defaultValue || {});
-  const [showOptions, setShowOptions] = (0,external_root_React_commonjs2_react_commonjs_react_amd_react_.useState)(false);
   const [calcMaxHeight, setCalcMaxHeight] = (0,external_root_React_commonjs2_react_commonjs_react_amd_react_.useState)(0);
+  const [isDropdownOpen, setIsDropdownOpen] = (0,external_root_React_commonjs2_react_commonjs_react_amd_react_.useState)(false);
+  const [focusedIndex, setFocusedIndex] = (0,external_root_React_commonjs2_react_commonjs_react_amd_react_.useState)(-1); // 新增状态，用于跟踪当前聚焦的选项
 
-  // 测试getAbsolutePosition
   const customSelectRef = (0,external_root_React_commonjs2_react_commonjs_react_amd_react_.useRef)();
   const contentRef = (0,external_root_React_commonjs2_react_commonjs_react_amd_react_.useRef)();
   const [customSelectContentPosition, setCustomSelectContentPosition] = (0,external_root_React_commonjs2_react_commonjs_react_amd_react_.useState)({});
-  const handleDivClock = e => {
-    // 新增使用createPortal来定位下拉框
+  const handleDivClick = e => {
     const position = (0,Utils.getAbsolutePosition)(customSelectRef.current, 0, 0);
     setCustomSelectContentPosition(position);
-    e.stopPropagation(); // 阻止事件冒泡
-    !readOnly && setShowOptions(!showOptions);
+    if (!isDropdownOpen) {
+      toggleDropdown();
+      setIsDropdownOpen(true);
+    }
   };
   const handleSelect = item => {
     setValue(item);
     onChange && onChange(item);
-    setShowOptions(false);
     setError(false);
+    toggleDropdown();
+    setIsDropdownOpen(false);
+    // 新增onFormDataChange来修改外部传入的数据
+    if (returnType === "obj") {
+      onFormDataChange && onFormDataChange(name, item);
+    } else {
+      onFormDataChange && onFormDataChange(name, item[valueKey]);
+    }
   };
   (0,external_root_React_commonjs2_react_commonjs_react_amd_react_.useEffect)(() => {
-    if (defaultValue || defaultValue === 0 || defaultValue === false) {
-      const selectOption = options.find(option => option.value === defaultValue);
-      setValue(selectOption);
+    // 如果是必须展示默认值，不通过列表匹配的话，进入这个判断
+    if (showDefaultValue) {
+      if (typeof defaultValue !== "object") {
+        setValue({
+          [valueKey]: defaultValue,
+          [labelKey]: defaultValue
+        });
+      }
     } else {
-      setValue(""); // 如果没有默认值，重置为初始状态
+      if (typeof defaultValue === "object") {
+        const selectOption = options.find(option => option[valueKey] === defaultValue[valueKey]);
+        setValue(selectOption);
+      } else {
+        if (defaultValue || defaultValue === 0 || defaultValue === false) {
+          const selectOption = options.find(option => option[valueKey] === defaultValue);
+          setValue(selectOption);
+        } else {
+          setValue("");
+        }
+      }
     }
   }, [defaultValue, options]);
   (0,external_root_React_commonjs2_react_commonjs_react_amd_react_.useEffect)(() => {
-    // setValue({}) // 不知道要不要加 -- 不能加，加完之后会出现默认值无法赋值。。。
-
     if (showEmpty) {
-      // 创建一个新数组，将 "空" 选项添加在数组的开头
       const enhancedOptions = [...options];
       setNewOptions(enhancedOptions);
     } else {
@@ -7238,26 +7223,29 @@ const Select = /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_a
     }
   }, [options]);
   (0,external_root_React_commonjs2_react_commonjs_react_amd_react_.useEffect)(() => {
-    setCalcMaxHeight(newOptions.length * 34);
+    setCalcMaxHeight(newOptions.length * 34 || 100);
   }, [newOptions]);
-  const handleClick = e => {
-    let classNameList = ["custom-select form-control"];
-    let value = e.target;
-    if (!classNameList.includes(value.className)) {
-      setShowOptions(false);
-    }
-  };
   const handleSelectChange = e => {
-    setValue(e.target.value);
+    setValue(e.target[valueKey]);
   };
   const getValue = () => {
-    if (value !== null && value !== void 0 && value.value || (value === null || value === void 0 ? void 0 : value.value) === 0 || (value === null || value === void 0 ? void 0 : value.value) === false) {
-      return value.value;
+    // 不能加这个逻辑，这样会导致手动选择另外的选项，返回的还是 defaultValue
+    /* if (showDefaultValue) {
+      return defaultValue;
+    } */
+
+    if (value !== null && value !== void 0 && value[valueKey] || (value === null || value === void 0 ? void 0 : value[valueKey]) === 0 || (value === null || value === void 0 ? void 0 : value[valueKey]) === false) {
+      // 感觉可有可无
+      if (returnType === "obj") {
+        onFormDataChange && onFormDataChange(name, value);
+      } else {
+        onFormDataChange && onFormDataChange(name, value[valueKey] || value[labelKey]);
+      }
+      return value[valueKey] || value[labelKey];
     } else {
       return value;
     }
   };
-  // 校验方法
   const [error, setError] = (0,external_root_React_commonjs2_react_commonjs_react_amd_react_.useState)(false);
   const validate = () => {
     if (!required) return true;
@@ -7269,7 +7257,6 @@ const Select = /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_a
       return false;
     }
   };
-  // 清除内容方法
   const clear = () => {
     setValue("");
   };
@@ -7277,20 +7264,54 @@ const Select = /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_a
     clear();
     setError(true);
   };
-  // Expose validateInput method via ref
   (0,external_root_React_commonjs2_react_commonjs_react_amd_react_.useImperativeHandle)(ref, () => ({
     validate,
     clear,
     getValue
   }));
   const wrapperClassName = "select-wrapper ".concat(!error && isFormItem && "mb-3", " ").concat(externalClassName || "").trim();
+
+  // 全部都 通过 KeyDown来关闭下拉列表项
+  const handleKeyDown = event => {
+    if (event.key === "Tab") {
+      // 当下拉项展开的时候进入这个回调，来关闭下拉项
+      if (isOpen) {
+        toggleDropdown();
+        setIsDropdownOpen(false);
+      }
+      return; // 让焦点移动到下一个表单元素
+    } else if (isOpen) {
+      if (event.key === "ArrowUp") {
+        event.preventDefault();
+        setFocusedIndex(prevIndex => prevIndex <= 0 ? newOptions.length - 1 : prevIndex - 1);
+      } else if (event.key === "ArrowDown") {
+        event.preventDefault();
+        setFocusedIndex(prevIndex => prevIndex >= newOptions.length - 1 ? 0 : prevIndex + 1);
+      } else if (event.key === "Enter" && focusedIndex !== -1) {
+        event.preventDefault();
+        handleSelect(newOptions[focusedIndex]);
+      }
+    }
+  };
+
+  // 全部都 通过 focus来展开下拉列表项
+  const handleFocus = event => {
+    const position = (0,Utils.getAbsolutePosition)(customSelectRef.current, 0, 0);
+    setCustomSelectContentPosition(position);
+    toggleDropdown();
+    setIsDropdownOpen(true);
+  };
   (0,external_root_React_commonjs2_react_commonjs_react_amd_react_.useEffect)(() => {
-    window.addEventListener("click", handleClick);
-    return () => {
-      window.removeEventListener("click", handleClick);
-    };
-  });
+    if (!isOpen) {
+      setIsDropdownOpen(false);
+      setFocusedIndex(-1); // 重置聚焦索引
+    }
+  }, [isOpen]);
   return /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("div", {
+    onFocus: handleFocus,
+    onKeyDown: handleKeyDown,
+    tabIndex: 0,
+    ref: dropdownRef,
     className: wrapperClassName,
     style: {
       width,
@@ -7305,8 +7326,8 @@ const Select = /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_a
     },
     name: name
   }, /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("option", {
-    value: value === null || value === void 0 ? void 0 : value.value
-  }, value === null || value === void 0 ? void 0 : value.label)), inputGroup ? /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("div", {
+    value: value === null || value === void 0 ? void 0 : value[valueKey]
+  }, value === null || value === void 0 ? void 0 : value[labelKey])), inputGroup ? /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("div", {
     className: "input-group"
   }, /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("label", {
     className: "input-group-text",
@@ -7314,14 +7335,14 @@ const Select = /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_a
   }, label), /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("select", {
     onBlur: validate,
     onChange: handleSelectChange,
-    value: value === null || value === void 0 ? void 0 : value.value,
+    value: value === null || value === void 0 ? void 0 : value[valueKey],
     disabled: readOnly,
     className: "form-select",
     id: "inputGroupSelect01"
   }, newOptions === null || newOptions === void 0 ? void 0 : newOptions.map(option => /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("option", {
-    key: option.value,
-    value: option.value
-  }, option.label))), commonSuffixIcon && /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("i", {
+    key: option[valueKey],
+    value: option[valueKey]
+  }, option[labelKey]))), commonSuffixIcon && /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("i", {
     onClick: handleClickCommonSuffixIcon,
     className: "".concat(commonSuffixIcon, " common-suffix-icon ms-2")
   })) : /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("div", {
@@ -7340,21 +7361,20 @@ const Select = /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_a
     }
   }, label), /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("div", {
     ref: customSelectRef,
-    onClick: e => handleDivClock(e),
-    tabIndex: 1,
+    onClick: e => handleDivClick(e),
     className: "custom-select form-control",
     style: {
       textAlign: "left",
       background: transparent ? "transparent" : "#fff",
       flex: 1
     }
-  }, value !== null && value !== void 0 && value.value || (value === null || value === void 0 ? void 0 : value.value) === 0 || (value === null || value === void 0 ? void 0 : value.value) === false ? /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("span", {
+  }, value !== null && value !== void 0 && value[valueKey] || (value === null || value === void 0 ? void 0 : value[valueKey]) === 0 || (value === null || value === void 0 ? void 0 : value[valueKey]) === false ? /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("span", {
     className: "select-value"
-  }, value.label) : /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("span", {
+  }, value[labelKey]) : /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("span", {
     className: "select-placeholder"
   }, placeholder), /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("i", {
-    onClick: e => handleDivClock(e),
-    className: "icon fa-solid fa-caret-right rotate-up ".concat(showOptions ? "rotate-up" : "rotate-down")
+    onClick: e => toggleDropdown(),
+    className: "icon fa-solid fa-caret-right rotate-up ".concat(isOpen ? "rotate-up" : "rotate-down")
   })), commonSuffixIcon && /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("i", {
     onClick: handleClickCommonSuffixIcon,
     className: "".concat(commonSuffixIcon, " common-suffix-icon ms-2")
@@ -7365,24 +7385,28 @@ const Select = /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_a
       position: "absolute",
       top: customSelectContentPosition.y + customSelectContentPosition.height + "px",
       left: customSelectContentPosition.x + "px",
-      ...(showOptions ? {
+      ...(isOpen ? {
         maxHeight: calcMaxHeight > parseInt(maxHeight) ? maxHeight : calcMaxHeight + "px"
       } : {})
     },
     ref: contentRef,
-    className: "custom-select-content ".concat(showOptions ? "custom-select-content-open" : "")
-  }, showOptions && newOptions.map(item => /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("div", {
+    className: "custom-select-content ".concat(isOpen ? "custom-select-content-open" : "")
+  }, isOpen && /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("div", {
+    className: "option-box"
+  }, newOptions.length > 0 ? newOptions.map((item, index) => /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("div", {
     onClick: () => handleSelect(item),
-    className: "option",
-    key: item.value
-  }, item.label))), document.body)), error && required && /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("div", {
+    className: "option ".concat(focusedIndex === index ? "focused" : ""),
+    key: item[valueKey]
+  }, item[labelKey])) : /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("div", {
+    className: "none-match ps-2"
+  }, "No content"))), document.body)), error && required && /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("div", {
     className: "animate__animated animate__fadeIn mb-1",
     style: {
       color: "#DC3545",
       fontSize: "14px",
-      paddingLeft: parseInt(labelWidth) > 120 ? "120px" : labelWidth
+      paddingLeft: parseInt(labelWidth) > 120 ? "120px" : parseInt(labelWidth) + 20 + "px"
     }
-  }, "".concat(errMsg || "".concat(name, "\u4E0D\u80FD\u4E3A\u7A7A"))));
+  }, "".concat(errMsg || "".concat(label || name, "\u4E0D\u80FD\u4E3A\u7A7A"))));
 });
 /* harmony default export */ const src_0 = (withTranslation()(Select));
 })();

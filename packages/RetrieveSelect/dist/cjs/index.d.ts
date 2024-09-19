@@ -1,9 +1,11 @@
 import React from "react";
 import "./index.scss";
 export interface SelectProps {
-    name?: string;
+    returnType?: "str" | "obj";
+    showDefaultValue?: boolean;
     labelKey?: string;
     valueKey?: string;
+    name?: string;
     inline?: boolean;
     suffixContent?: any;
     suffixContentType?: string;
@@ -28,6 +30,7 @@ export interface SelectProps {
     showSelected?: boolean;
     single?: boolean;
     onInputChange?: (e?: any, ...args: any) => void;
+    onFormDataChange?: (key: string, value: any) => void;
 }
 interface RetrieveSelectProps extends SelectProps {
     onRetrieveSelectChange?: (selectedOptions: any[]) => void;

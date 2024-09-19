@@ -1,13 +1,17 @@
 import React from "react";
 import "./index.scss";
 export interface SelectProps {
-    name?: string;
+    returnType?: "str" | "obj";
+    showEmpty?: boolean;
+    showDefaultValue?: boolean;
+    labelKey?: string;
+    valueKey?: string;
     showLabel?: boolean;
     suffixContent?: any;
     suffixContentType?: string;
     inline?: boolean;
     isFormItem?: boolean;
-    validate?: boolean;
+    name?: string;
     errMsg?: string;
     labelWidth?: any;
     commonSuffixIcon?: string;
@@ -26,17 +30,21 @@ export interface SelectProps {
     transparent?: boolean;
     maxHeight?: string;
     onChange?: (e?: any, ...args: any) => void;
-    showEmpty?: boolean;
+    onFormDataChange?: (key: string, value: any) => void;
 }
 declare const _default: React.ComponentType<Omit<{
     ref?: React.LegacyRef<unknown> | undefined;
-    name?: string | undefined;
+    returnType?: "str" | "obj" | undefined;
+    showEmpty?: boolean | undefined;
+    showDefaultValue?: boolean | undefined;
+    labelKey?: string | undefined;
+    valueKey?: string | undefined;
     showLabel?: boolean | undefined;
     suffixContent?: any;
     suffixContentType?: string | undefined;
     inline?: boolean | undefined;
     isFormItem?: boolean | undefined;
-    validate?: boolean | undefined;
+    name?: string | undefined;
     errMsg?: string | undefined;
     labelWidth?: any;
     commonSuffixIcon?: string | undefined;
@@ -55,7 +63,7 @@ declare const _default: React.ComponentType<Omit<{
     transparent?: boolean | undefined;
     maxHeight?: string | undefined;
     onChange?: ((e?: any, ...args: any) => void) | undefined;
-    showEmpty?: boolean | undefined;
+    onFormDataChange?: ((key: string, value: any) => void) | undefined;
     key?: React.Key | null | undefined;
 }, keyof import("react-i18next").WithTranslation<N, undefined>> & import("react-i18next").WithTranslationProps>;
 export default _default;

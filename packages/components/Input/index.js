@@ -743,7 +743,8 @@ const Input = (_ref, ref) => {
     onFocus,
     onBlur,
     onChange,
-    onIconClick
+    onIconClick,
+    onFormDataChange
   } = _ref;
   const inputRef = (0,external_root_React_commonjs2_react_commonjs_react_amd_react_.useRef)(null);
   const [value, setValue] = (0,external_root_React_commonjs2_react_commonjs_react_amd_react_.useState)(defaultValue !== null && defaultValue !== void 0 ? defaultValue : "");
@@ -776,6 +777,7 @@ const Input = (_ref, ref) => {
       args[_key4 - 1] = arguments[_key4];
     }
     onChange && onChange(e.target.value, ...args);
+    onFormDataChange && onFormDataChange(name, e.target.value);
   };
   const handleIconClick = () => {
     onIconClick && onIconClick(value);
