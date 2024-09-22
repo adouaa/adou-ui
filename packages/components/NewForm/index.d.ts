@@ -1,6 +1,6 @@
 import React from "react";
-import "./index.scss";
 interface FormProps {
+    data?: any;
     children?: any;
     labelColor?: string;
     eachWordWidth?: number;
@@ -8,6 +8,7 @@ interface FormProps {
     required?: boolean;
     inline?: boolean;
     labelPosition?: "center" | "top" | "left-top";
+    onFormDataChange?: (key: string, value: any) => void;
 }
 declare const Form: React.ForwardRefExoticComponent<FormProps & React.RefAttributes<unknown>>;
 export default Form;

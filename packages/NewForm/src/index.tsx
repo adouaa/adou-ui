@@ -6,9 +6,9 @@ import {
   useState,
 } from "react";
 import React from "react";
-import "./index.scss";
 
 interface FormProps {
+  data?: any;
   children?: any;
   labelColor?: string;
   eachWordWidth?: number;
@@ -16,11 +16,13 @@ interface FormProps {
   required?: boolean;
   inline?: boolean;
   labelPosition?: "center" | "top" | "left-top";
+  onFormDataChange?: (key: string, value: any) => void;
 }
 
 const Form = forwardRef(
   (
     {
+      data = {},
       labelPosition,
       labelColor = "rgb(63 109 184)",
       inline,
@@ -28,10 +30,30 @@ const Form = forwardRef(
       children,
       eachWordWidth = 21,
       commonSuffixIcon = "",
+      onFormDataChange,
     }: FormProps,
     AdouFormRef
   ) => {
+    const [formData, setFormData] = useState<any>(data);
+
     const formRef = useRef<any>(null);
+
+    const handleChangeData = (key: string, value: any) => {
+      setFormData((prevData: any) => ({
+        ...prevData,
+        [key]: value,
+      }));
+      onFormDataChange && onFormDataChange(key, value);
+    };
+
+    const getData = (needCheck: boolean = true) => {
+      if (needCheck) {
+        const isValid = validateForm();
+        if (!isValid) return false;
+      }
+
+      return formData;
+    };
 
     const getFormData = (needCheck: boolean = true) => {
       const formWrapper = formRef.current; // 获取 search-wrapper 的 DOM 元素
@@ -169,6 +191,8 @@ const Form = forwardRef(
 
             ...(required ? { required: true } : {}), // 动态添加 required 属性
             labelColor,
+            onFormDataChange: handleChangeData,
+            defaultValue: data[child.props.name],
 
             // 注意：一个组件只能有一个 ref，要么外面提供ref手动处理，要么在 Form组件下统一提供ref
             // 可以自定义要不要在Form下给表单组件提供 ref
@@ -187,9 +211,14 @@ const Form = forwardRef(
     // 对外暴露的API
     useImperativeHandle(AdouFormRef, () => ({
       getFormData,
+      getData,
       clearForm,
       validateForm,
     }));
+
+    useEffect(() => {
+      setFormData(data);
+    }, [data]);
 
     return (
       <div

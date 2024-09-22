@@ -5090,27 +5090,18 @@ const useNavigateTo = () => {
 /* harmony default export */ const hooks_useNavigateTo = (useNavigateTo);
 ;// CONCATENATED MODULE: ./src/hooks/useClickOutside.js
 
-const useClickOutside = cb => {
-  const [isOpen, setIsOpen] = (0,external_root_React_commonjs2_react_commonjs_react_amd_react_.useState)(false);
-  const dropdownRef = (0,external_root_React_commonjs2_react_commonjs_react_amd_react_.useRef)(null);
+const useClickOutside = (ref, callback) => {
   (0,external_root_React_commonjs2_react_commonjs_react_amd_react_.useEffect)(() => {
     const handleClickOutside = event => {
-      if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
-        setIsOpen(false);
-        cb && cb();
+      if (ref.current && !ref.current.contains(event.target)) {
+        callback && callback();
       }
     };
-    document.addEventListener("click", handleClickOutside);
+    document.addEventListener("mousedown", handleClickOutside);
     return () => {
-      document.removeEventListener("click", handleClickOutside);
+      document.removeEventListener("mousedown", handleClickOutside);
     };
-  }, [dropdownRef]);
-  const toggleDropdown = () => setIsOpen(!isOpen);
-  return {
-    isOpen,
-    dropdownRef,
-    toggleDropdown
-  };
+  }, [ref, callback]);
 };
 /* harmony default export */ const hooks_useClickOutside = (useClickOutside);
 ;// CONCATENATED MODULE: ./src/index.tsx
