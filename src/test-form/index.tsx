@@ -10,11 +10,11 @@ interface FormProps {
     required?: boolean;
     inline?: boolean;
     labelPosition?: 'center' | 'top' | 'left-top';
-    onDataChange?: (key: string, value: any) => void;
+    onFormDataChange?: (key: string, value: any) => void;
 }
 
 const Form = forwardRef(
-    ({ data = {}, labelPosition, labelColor = 'rgb(63 109 184)', inline, required, children, eachWordWidth = 21, commonSuffixIcon = '', onDataChange }: FormProps, AdouFormRef) => {
+    ({ data = {}, labelPosition, labelColor = 'rgb(63 109 184)', inline, required, children, eachWordWidth = 21, commonSuffixIcon = '', onFormDataChange }: FormProps, AdouFormRef) => {
         const [formData, setFormData] = useState<any>(data);
 
         const formRef = useRef<any>(null);
@@ -24,7 +24,7 @@ const Form = forwardRef(
                 ...prevData,
                 [key]: value,
             }));
-            onDataChange && onDataChange(key, value);
+            onFormDataChange && onFormDataChange(key, value);
         };
 
         const getData = (needCheck: boolean = true) => {

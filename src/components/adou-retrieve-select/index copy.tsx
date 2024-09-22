@@ -8,7 +8,6 @@ import getAbsolutePosition from '../../utils/getAbsolutePosition';
 import useClickOutside from 'utils/hooks/useClickOutside';
 
 export interface SelectProps {
-    activeColor?: { font: string; bgc: string };
     returnType?: 'str' | 'obj';
     showDefaultValue?: boolean;
     labelKey?: string;
@@ -48,9 +47,8 @@ interface RetrieveSelectProps extends SelectProps {
 
 const RetrievrSelect: React.FC<RetrieveSelectProps> = React.forwardRef((props: RetrieveSelectProps, ref) => {
     const {
-        activeColor = { font: '#fff', bgc: '#2783d8' },
         returnType,
-        showDefaultValue = true,
+        showDefaultValue,
         placeholder = '请输入',
         isFormItem,
         labelKey = 'label',
@@ -489,12 +487,8 @@ const RetrievrSelect: React.FC<RetrieveSelectProps> = React.forwardRef((props: R
                                 return (
                                     <div
                                         key={index}
-                                        style={{
-                                            color: option.selected ? activeColor.font : '#000',
-                                            backgroundColor: option.selected ? activeColor.bgc : '',
-                                        }}
                                         onClick={() => handleSelect(option)}
-                                        className={`retrieve-select-option ${option.selected && 'retrieve-select-option-active'} ${focusedIndex === index && 'retrieve-select-option-focused'}`}
+                                        className={`option-item ${option.selected && 'retrieve-select-active'} ${focusedIndex === index && 'retrieve-select-focused'}`}
                                     >
                                         {option[labelKey]}
                                     </div>

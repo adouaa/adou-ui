@@ -23,16 +23,27 @@ const App = () => {
     const formRef = useRef<any>(null);
 
     // 处理表单数据变化
-    const handleDataChange = (key: string, value: any) => {
+    const handleFormDataChange = (key: string, value: any) => {
         setData((preData: any) => ({
             ...preData,
             ...{ [key]: value },
         }));
     };
 
+    const handleSubmit = () => {
+        console.log(formRef.current.getData());
+    };
+    const handleChange = () => {
+        setData((preData: any) => ({
+            ...preData,
+            f1: { label: '包子', value: 'baozi' },
+        }));
+    };
+
     useEffect(() => {
         setTimeout(() => {
             setData({
+                // f1: { label: '饺子', value: 'jiaozi' },
                 name: 'John Doe',
                 age: 30,
                 foods: { label: '鲁菜肉夹馍', value: 'roujiamo' },
@@ -47,11 +58,13 @@ const App = () => {
     return (
         <div>
             <h1>Form Example</h1>
-            <FormComponent data={data} onDataChange={handleDataChange} ref={formRef}>
+            <button onClick={handleChange}>Change</button>
+
+            <FormComponent data={data} onFormDataChange={handleFormDataChange} ref={formRef}>
                 <AdouInput label="Name" name="name"></AdouInput>
                 <AdouInput label="Age" name="age"></AdouInput>
                 <Select returnType="obj" options={foods} label="Food" name="foods"></Select>
-                <RetrievrSelect showDefaultValue returnType="obj" options={foods} label="F1" name="f1"></RetrievrSelect>
+                <RetrievrSelect single={false} returnType="obj" options={foods} label="F1" name="f1"></RetrievrSelect>
                 <TextArea label="富文本" name="text"></TextArea>
                 <TagInput label="标签" name="tags"></TagInput>
                 <AdouRadio returnType="obj" options={foods} label="单选" name="radio"></AdouRadio>
@@ -61,7 +74,7 @@ const App = () => {
                 <h2>Current Data:</h2>
                 <pre>{JSON.stringify(data, null, 2)}</pre>
             </div>
-            <button onClick={() => console.log(formRef.current.getData())}>Submit</button>
+            <button onClick={handleSubmit}>Submit</button>
         </div>
     );
 };

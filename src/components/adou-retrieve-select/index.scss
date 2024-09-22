@@ -39,8 +39,9 @@
     overflow-y: auto;
 }
 
-.retrieve-select-active {
-    background-color: #2783d8 !important;
+.retrieve-select-option-active {
+    font-weight: bold;
+    background-color: #2783d8;
     display: flex;
     justify-content: space-between;
 }
@@ -49,7 +50,7 @@
     padding: 14px;
 }
 
-.retrieve-select-active::after {
+.retrieve-select-option-active::after {
     content: "✔";
 }
 
@@ -102,6 +103,7 @@
 }
 
 .retrieve-select-content {
+    min-width: 200px;
     background-color: #fff;
     position: absolute;
     z-index: 10000;
@@ -115,8 +117,9 @@
     transform: scaleY(0);
     transform-origin: top;
 
-    .option-item {
+    .retrieve-select-option {
         padding: 5px 10px;
+        // margin-bottom: 2px;
 
         &:hover {
             background-color: #f0f0f0;
@@ -125,7 +128,7 @@
 
         &:active {
             color: #fff;
-            background-color: #2783d8 !important;
+            // background-color: #2783d8 !important;
         }
     }
 }
@@ -147,7 +150,7 @@
     color: #a4a3a3;
 }
 
-.retrieve-select-focused {
+.retrieve-select-option-focused {
     background-color: #e0e0e0;
     /* 高亮当前聚焦的选项 */
 }

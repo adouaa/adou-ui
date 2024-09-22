@@ -7,6 +7,7 @@ import ReactDOM from 'react-dom';
 import useClickOutside from 'utils/hooks/useClickOutside';
 
 export interface SelectProps {
+    activeColor?: { font: string; bgc: string };
     returnType?: 'str' | 'obj';
     showEmpty?: boolean;
     showDefaultValue?: boolean;
@@ -41,6 +42,7 @@ export interface SelectProps {
 
 const Select = React.forwardRef((props: SelectProps, ref) => {
     const {
+        activeColor = { font: '#fff', bgc: '#2783d8' },
         returnType,
         showDefaultValue = false,
         labelKey = 'label',
@@ -320,7 +322,15 @@ const Select = React.forwardRef((props: SelectProps, ref) => {
                                 <div className={`option-box`}>
                                     {newOptions.length > 0 ? (
                                         newOptions.map((item, index) => (
-                                            <div onClick={() => handleSelect(item)} className={`option ${focusedIndex === index ? 'focused' : ''}`} key={item[valueKey]}>
+                                            <div
+                                                onClick={() => handleSelect(item)}
+                                                style={{
+                                                    color: value[valueKey] === item[valueKey] ? activeColor.font : '#000',
+                                                    backgroundColor: value[valueKey] === item[valueKey] ? activeColor.bgc : '',
+                                                }}
+                                                className={`select-option ${value[valueKey] === item[valueKey] ? 'select-option-active' : ''} ${focusedIndex === index ? 'focused' : ''}`}
+                                                key={item[valueKey]}
+                                            >
                                                 {item[labelKey]}
                                             </div>
                                         ))

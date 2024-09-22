@@ -34,7 +34,9 @@ import ReactDOM from 'react-dom/client';
 
 // import App from './test-gpt/App.tsx';
 
-import App from "./test-form/App.tsx"
+// import App from "./test-form/App.tsx"
+
+import App from './test-dialog/App.tsx';
 
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './App.css';
