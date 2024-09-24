@@ -7,6 +7,7 @@ import "./index.scss";
 export { TableCell };
 
 interface TableProps {
+  maxWidth?: any;
   showIndex?: boolean;
   single?: boolean;
   id?: string;
@@ -42,6 +43,7 @@ interface TableProps {
 
 const Table = (props: TableProps) => {
   const {
+    maxWidth,
     showIndex = true,
     single = true,
     id = "id",
@@ -138,19 +140,21 @@ const Table = (props: TableProps) => {
               <>
                 {/* 复选框 */}
                 <th scope="col" style={{ width: "50px" }}>
-                  <input
-                    checked={checkedAll}
-                    onChange={handleCheckedAllChange}
-                    type="checkbox"
-                  />
+                  {!single && (
+                    <input
+                      checked={checkedAll}
+                      onChange={handleCheckedAllChange}
+                      type={single ? "radio" : "checkbox"}
+                    />
+                  )}
                 </th>
               </>
             )}
             {/* 索引 */}
             {showIndex && (
               <>
-                {/* 复选框 */}
-                <th scope="col" style={{ width: "50px" }}></th>
+                {/* 索引框 */}
+                <th scope="col" style={{ minWidth: "50px" }}></th>
               </>
             )}
             {array &&
@@ -159,6 +163,7 @@ const Table = (props: TableProps) => {
                   return (
                     <th
                       style={{
+                        whiteSpace: "nowrap",
                         width:
                           widthObject[(child as React.ReactElement).props.prop],
                       }}
@@ -181,18 +186,21 @@ const Table = (props: TableProps) => {
               return (
                 <Fragment key={data[id]}>
                   <tr
-                    onClick={handleRowClick}
-                    onDoubleClick={() => handleRowDoubleClick(data)}
+                    onClick={() => handleRowClick(data)}
+                    // onDoubleClick={() => handleRowDoubleClick(data)}
                     key={rowIndex}
                     className={`tr-content ${data.checked ? "tr-checked" : ""}`}
                     style={{ ...(trPointer ? { cursor: "pointer" } : "") }}
                   >
                     {collection && (
+                      // 复选框
                       <td scope="row" style={{ width: "50px" }}>
                         <input
+                          name={data[id]}
+                          id={data[id]}
                           checked={data.checked}
                           onChange={(e) => handleCheckboxChange(e, data)}
-                          type="checkbox"
+                          type={single ? "radio" : "checkbox"}
                         />
                       </td>
                     )}
@@ -234,16 +242,22 @@ const Table = (props: TableProps) => {
                         } as React.Attributes);
                         return (
                           <td
-                            className={`${"text-" + textPositionObject[prop]}`}
+                            className={`${"text-" + textPositionObject[prop]} `}
                             style={{
                               verticalAlign: verticalAlignObject[prop],
                               width:
                                 widthObject[
                                   (child as React.ReactElement).props.prop
                                 ],
+                              maxWidth:
+                                maxWidth ||
+                                (child as React.ReactElement).props.maxWidth,
                               overflowWrap: "break-word",
                               wordWrap: "break-word",
                               wordBreak: "break-word",
+                              // 如果要默认展示一行，并且x轴太长可以滚动的话，则设置为nowrap
+                              // 注意：此时，外部设置的 width就没作用了，表格会自己根据内容来设置宽度
+                              whiteSpace: "nowrap",
                               [`${
                                 !colIndex && data.children ? "paddingLeft" : ""
                               }`]: "35px",
@@ -270,14 +284,17 @@ const Table = (props: TableProps) => {
                           [`${!data.collapse ? "display" : ""}`]: "none",
                         }}
                       >
+                        {/* 复选框框 */}
                         {collection && (
                           <td scope="row" style={{ width: "50px" }}>
                             <input
+                              name={childData[id]}
+                              id={childData[id]}
                               checked={childData.checked}
                               onChange={(e: any) =>
                                 handleCheckboxChange(e, childData)
                               }
-                              type="checkbox"
+                              type={single ? "radio" : "checkbox"}
                             />
                           </td>
                         )}
@@ -372,7 +389,7 @@ const Table = (props: TableProps) => {
     const finalChecked: boolean = !row.checked;
     setTableData((preArr: any) => {
       return preArr.map((item: any) => {
-        if (item.id === row.id) {
+        if (item[id] === row[id]) {
           item.checked = !item.checked;
         } else {
           if (single) {
@@ -394,14 +411,31 @@ const Table = (props: TableProps) => {
    *
    * 单击tr
    */
-  const handleRowClick = () => {};
+  const handleRowClick = (row: any) => {
+    const finalChecked: boolean = !row.checked;
+    setTableData((preArr: any) => {
+      return preArr.map((item: any) => {
+        if (item[id] === row[id]) {
+          item.checked = !item.checked;
+        } else {
+          if (single) {
+            item.checked = false;
+          }
+        }
+        return item;
+      });
+    });
+
+    onRowDoubleClick && onRowDoubleClick(row);
+  };
 
   const handleCheckboxChange = (e: any, row: any) => {
     const checked = e.target.checked;
     row.checked = checked;
     setTableData((preArr: any) => {
       return preArr.map((item: any) => {
-        if (item.id === row.id) {
+        if (item[id] === row[id]) {
+          console.log("jinlaile: ");
           item.checked = checked;
         }
         return item;
@@ -412,7 +446,7 @@ const Table = (props: TableProps) => {
 
   function areAllChecked(data: any[]): any {
     // 遍历数组中的每个对象
-    return data.every((item) => {
+    return data?.every((item) => {
       // 检查当前对象的 `checked` 属性
       if (!item.checked) return false;
 
@@ -447,6 +481,7 @@ const Table = (props: TableProps) => {
   };
 
   useEffect(() => {
+    console.log("data: ", data);
     const checkedAll = areAllChecked(data);
     setCheckedAll(checkedAll);
     if (collapse) {

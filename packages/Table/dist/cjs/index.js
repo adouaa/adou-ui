@@ -808,7 +808,8 @@ module.exports = {
           onFocus,
           onBlur,
           onChange,
-          onIconClick
+          onIconClick,
+          onFormDataChange
         } = _ref;
         const inputRef = (0, external_root_React_commonjs2_react_commonjs_react_amd_react_.useRef)(null);
         const [value, setValue] = (0, external_root_React_commonjs2_react_commonjs_react_amd_react_.useState)(defaultValue !== null && defaultValue !== void 0 ? defaultValue : "");
@@ -841,6 +842,7 @@ module.exports = {
             args[_key4 - 1] = arguments[_key4];
           }
           onChange && onChange(e.target.value, ...args);
+          onFormDataChange && onFormDataChange(name, e.target.value);
         };
         const handleIconClick = () => {
           onIconClick && onIconClick(value);
@@ -964,6 +966,63 @@ module.exports = {
 
 /***/ }),
 
+/***/ 648:
+/***/ ((module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   A: () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _node_modules_css_loader_dist_runtime_sourceMaps_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(73);
+/* harmony import */ var _node_modules_css_loader_dist_runtime_sourceMaps_js__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_css_loader_dist_runtime_sourceMaps_js__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(191);
+/* harmony import */ var _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_1__);
+// Imports
+
+
+var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_1___default()((_node_modules_css_loader_dist_runtime_sourceMaps_js__WEBPACK_IMPORTED_MODULE_0___default()));
+// Module
+___CSS_LOADER_EXPORT___.push([module.id, `@charset "UTF-8";
+.table-cell-wrapper {
+  box-sizing: border-box;
+}
+.table-cell-wrapper .able-table-cell-content {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.table-cell-wrapper .able-table-cell-content .collapse-icon {
+  margin-top: 4px;
+  font-size: 12px;
+  padding: 0 10px;
+  transition: transform 0.3s ease;
+  cursor: pointer;
+  z-index: 1;
+  margin-bottom: 6px;
+}
+.table-cell-wrapper .able-table-cell-content .rotate-down {
+  transform: rotate(90deg);
+  margin-top: 5px;
+  /* 不旋转，向下箭头样式 */
+}
+.table-cell-wrapper .able-table-cell-content .collapse-icon:not(.rotate-down) {
+  margin-top: 5px;
+}
+.table-cell-wrapper .text-in-one-line {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.table-cell-wrapper .table-cell-value-left {
+  flex: 1;
+  text-align-last: left;
+}`, "",{"version":3,"sources":["webpack://./src/TableCell/index.scss"],"names":[],"mappings":"AAAA,gBAAgB;AAAhB;EACI,sBAAA;AAEJ;AAAI;EACI,aAAA;EACA,uBAAA;EACA,mBAAA;AAER;AAAQ;EACI,eAAA;EACA,eAAA;EACA,eAAA;EACA,+BAAA;EACA,eAAA;EACA,UAAA;EACA,kBAAA;AAEZ;AACQ;EACI,wBAAA;EACA,eAAA;EACA,eAAA;AACZ;AAEQ;EACI,eAAA;AAAZ;AAKI;EACI,mBAAA;EACA,gBAAA;EACA,uBAAA;AAHR;AAMI;EACI,OAAA;EACA,qBAAA;AAJR","sourcesContent":[".table-cell-wrapper {\r\n    box-sizing: border-box;\r\n\r\n    .able-table-cell-content {\r\n        display: flex;\r\n        justify-content: center;\r\n        align-items: center;\r\n\r\n        .collapse-icon {\r\n            margin-top: 4px;\r\n            font-size: 12px;\r\n            padding: 0 10px;\r\n            transition: transform .3s ease; // 旋转动画\r\n            cursor: pointer;\r\n            z-index: 1;\r\n            margin-bottom: 6px;\r\n        }\r\n\r\n        .rotate-down {\r\n            transform: rotate(90deg);\r\n            margin-top: 5px;\r\n            /* 不旋转，向下箭头样式 */\r\n        }\r\n\r\n        .collapse-icon:not(.rotate-down) {\r\n            margin-top: 5px;\r\n        }\r\n\r\n    }\r\n\r\n    .text-in-one-line {\r\n        white-space: nowrap;\r\n        overflow: hidden;\r\n        text-overflow: ellipsis;\r\n    }\r\n\r\n    .table-cell-value-left {\r\n        flex: 1;\r\n        text-align-last: left;\r\n    }\r\n}"],"sourceRoot":""}]);
+// Exports
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
+
+
+/***/ }),
+
 /***/ 483:
 /***/ ((module, __webpack_exports__, __webpack_require__) => {
 
@@ -981,18 +1040,35 @@ module.exports = {
 var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_1___default()((_node_modules_css_loader_dist_runtime_sourceMaps_js__WEBPACK_IMPORTED_MODULE_0___default()));
 // Module
 ___CSS_LOADER_EXPORT___.push([module.id, `@charset "UTF-8";
-.collapse-table-td {
+.table-wrapper {
+  scrollbar-width: thin;
+  scrollbar-color: #ccc #f5f5f5;
+  /* 默认情况下，表格行被隐藏 */
+  /* 当表格行显示时 */
+}
+.table-wrapper::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+.table-wrapper::-webkit-scrollbar-track {
+  background: #f5f5f5;
+}
+.table-wrapper::-webkit-scrollbar-thumb {
+  background: #ccc;
+  border-radius: 4px;
+}
+.table-wrapper::-webkit-scrollbar-thumb:hover {
+  background: #aaa;
+}
+.table-wrapper .collapse-table-td {
   display: flex;
   justify-content: center;
   align-items: center;
 }
-
-tbody > tr {
+.table-wrapper tbody > tr {
   transition: max-height 0.3s ease-in-out;
 }
-
-/* 默认情况下，表格行被隐藏 */
-.collapse-tr {
+.table-wrapper .collapse-tr {
   transition: opacity 0.5s ease, transform 0.5s ease;
   opacity: 0;
   transform: scaleY(0);
@@ -1001,24 +1077,29 @@ tbody > tr {
   /* 让缩放从顶部开始 */
   overflow: hidden;
 }
-
-/* 当表格行显示时 */
-.collapse-tr.show {
+.table-wrapper .collapse-tr.show {
   opacity: 1;
   transform: scaleY(1);
   /* 还原到原始高度 */
 }
-
-.tr-checked {
+.table-wrapper .tr-checked {
   background-color: #ecf5ff;
 }
-
-.tr-content {
+.table-wrapper .tr-content {
   transition: background-color 0.3s ease;
 }
-.tr-content:hover {
+.table-wrapper .tr-content:hover {
   background-color: #ecf5ff;
-}`, "",{"version":3,"sources":["webpack://./src/index.scss"],"names":[],"mappings":"AAAA,gBAAgB;AAAhB;EACI,aAAA;EACA,uBAAA;EACA,mBAAA;AAEJ;;AAKA;EACI,uCAAA;AAFJ;;AAKA,iBAAA;AACA;EACI,kDAAA;EACA,UAAA;EACA,oBAAA;EACA,kBAAA;EACA,qBAAA;EACA,aAAA;EACA,gBAAA;AAFJ;;AAKA,YAAA;AACA;EACI,UAAA;EACA,oBAAA;EACA,YAAA;AAFJ;;AAKA;EACI,yBAAA;AAFJ;;AAKA;EACI,sCAAA;AAFJ;AAII;EACI,yBAAA;AAFR","sourcesContent":[".collapse-table-td {\r\n    display: flex;\r\n    justify-content: center;\r\n    align-items: center;\r\n    // line-height: 0.8;\r\n}\r\n\r\n\r\n\r\n// 添加展开的动画\r\ntbody>tr {\r\n    transition: max-height 0.3s ease-in-out;\r\n}\r\n\r\n/* 默认情况下，表格行被隐藏 */\r\n.collapse-tr {\r\n    transition: opacity 0.5s ease, transform 0.5s ease;\r\n    opacity: 0;\r\n    transform: scaleY(0);\r\n    /* 使用 scaleY 来隐藏 */\r\n    transform-origin: top;\r\n    /* 让缩放从顶部开始 */\r\n    overflow: hidden;\r\n}\r\n\r\n/* 当表格行显示时 */\r\n.collapse-tr.show {\r\n    opacity: 1;\r\n    transform: scaleY(1);\r\n    /* 还原到原始高度 */\r\n}\r\n\r\n.tr-checked {\r\n    background-color: #ecf5ff;\r\n}\r\n\r\n.tr-content {\r\n    transition: background-color 0.3s ease;\r\n\r\n    &:hover {\r\n        background-color: #ecf5ff;\r\n    }\r\n}"],"sourceRoot":""}]);
+}
+
+.ellipsis-1 {
+  white-space: nowrap;
+  /* 不换行 */
+  overflow: hidden;
+  /* 隐藏超出部分 */
+  text-overflow: ellipsis;
+  /* 使用省略号表示超出部分 */
+}`, "",{"version":3,"sources":["webpack://./src/index.scss"],"names":[],"mappings":"AAAA,gBAAgB;AAAhB;EAEI,qBAAA;EACA,6BAAA;EAiCA,iBAAA;EAWA,YAAA;AAzCJ;AAAI;EACI,UAAA;EACA,WAAA;AAER;AACI;EACI,mBAAA;AACR;AAEI;EACI,gBAAA;EACA,kBAAA;AAAR;AAGI;EACI,gBAAA;AADR;AAII;EACI,aAAA;EACA,uBAAA;EACA,mBAAA;AAFR;AAOI;EACI,uCAAA;AALR;AASI;EACI,kDAAA;EACA,UAAA;EACA,oBAAA;EACA,kBAAA;EACA,qBAAA;EACA,aAAA;EACA,gBAAA;AAPR;AAWI;EACI,UAAA;EACA,oBAAA;EACA,YAAA;AATR;AAYI;EACI,yBAAA;AAVR;AAaI;EACI,sCAAA;AAXR;AAaQ;EACI,yBAAA;AAXZ;;AAgBA;EACI,mBAAA;EACA,QAAA;EACA,gBAAA;EACA,WAAA;EACA,uBAAA;EACA,gBAAA;AAbJ","sourcesContent":[".table-wrapper {\r\n    // Firefox 滚动条样式\r\n    scrollbar-width: thin; // 设置滚动条宽度为 thin\r\n    scrollbar-color: #ccc #f5f5f5; // 设置滚动条颜色\r\n\r\n    // Webkit 滚动条样式\r\n    &::-webkit-scrollbar {\r\n        width: 8px; // 设置垂直滚动条宽度\r\n        height: 8px; // 设置水平滚动条宽度\r\n    }\r\n\r\n    &::-webkit-scrollbar-track {\r\n        background: #f5f5f5; // 设置滚动条轨道颜色\r\n    }\r\n\r\n    &::-webkit-scrollbar-thumb {\r\n        background: #ccc; // 设置滚动条滑块颜色\r\n        border-radius: 4px; // 设置滚动条滑块圆角\r\n    }\r\n\r\n    &::-webkit-scrollbar-thumb:hover {\r\n        background: #aaa; // 设置滚动条滑块悬停颜色\r\n    }\r\n\r\n    .collapse-table-td {\r\n        display: flex;\r\n        justify-content: center;\r\n        align-items: center;\r\n        // line-height: 0.8;\r\n    }\r\n\r\n    // 添加展开的动画\r\n    tbody>tr {\r\n        transition: max-height 0.3s ease-in-out;\r\n    }\r\n\r\n    /* 默认情况下，表格行被隐藏 */\r\n    .collapse-tr {\r\n        transition: opacity 0.5s ease, transform 0.5s ease;\r\n        opacity: 0;\r\n        transform: scaleY(0);\r\n        /* 使用 scaleY 来隐藏 */\r\n        transform-origin: top;\r\n        /* 让缩放从顶部开始 */\r\n        overflow: hidden;\r\n    }\r\n\r\n    /* 当表格行显示时 */\r\n    .collapse-tr.show {\r\n        opacity: 1;\r\n        transform: scaleY(1);\r\n        /* 还原到原始高度 */\r\n    }\r\n\r\n    .tr-checked {\r\n        background-color: #ecf5ff;\r\n    }\r\n\r\n    .tr-content {\r\n        transition: background-color 0.3s ease;\r\n\r\n        &:hover {\r\n            background-color: #ecf5ff;\r\n        }\r\n    }\r\n}\r\n\r\n.ellipsis-1 {\r\n    white-space: nowrap;\r\n    /* 不换行 */\r\n    overflow: hidden;\r\n    /* 隐藏超出部分 */\r\n    text-overflow: ellipsis;\r\n    /* 使用省略号表示超出部分 */\r\n}"],"sourceRoot":""}]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 
@@ -1438,7 +1519,7 @@ __webpack_require__.r(__webpack_exports__);
 
 // EXPORTS
 __webpack_require__.d(__webpack_exports__, {
-  TableCell: () => (/* reexport */ src_TableCell),
+  TableCell: () => (/* reexport */ src_TableCell_0),
   "default": () => (/* binding */ src_0)
 });
 
@@ -2649,12 +2730,63 @@ var selectOrdinal = function selectOrdinal() {
 // EXTERNAL MODULE: ../components/Input/index.js
 var Input = __webpack_require__(281);
 var Input_default = /*#__PURE__*/__webpack_require__.n(Input);
+// EXTERNAL MODULE: ../../node_modules/style-loader/dist/runtime/injectStylesIntoStyleTag.js
+var injectStylesIntoStyleTag = __webpack_require__(591);
+var injectStylesIntoStyleTag_default = /*#__PURE__*/__webpack_require__.n(injectStylesIntoStyleTag);
+// EXTERNAL MODULE: ../../node_modules/style-loader/dist/runtime/styleDomAPI.js
+var styleDomAPI = __webpack_require__(740);
+var styleDomAPI_default = /*#__PURE__*/__webpack_require__.n(styleDomAPI);
+// EXTERNAL MODULE: ../../node_modules/style-loader/dist/runtime/insertBySelector.js
+var insertBySelector = __webpack_require__(128);
+var insertBySelector_default = /*#__PURE__*/__webpack_require__.n(insertBySelector);
+// EXTERNAL MODULE: ../../node_modules/style-loader/dist/runtime/setAttributesWithoutAttributes.js
+var setAttributesWithoutAttributes = __webpack_require__(855);
+var setAttributesWithoutAttributes_default = /*#__PURE__*/__webpack_require__.n(setAttributesWithoutAttributes);
+// EXTERNAL MODULE: ../../node_modules/style-loader/dist/runtime/insertStyleElement.js
+var insertStyleElement = __webpack_require__(51);
+var insertStyleElement_default = /*#__PURE__*/__webpack_require__.n(insertStyleElement);
+// EXTERNAL MODULE: ../../node_modules/style-loader/dist/runtime/styleTagTransform.js
+var styleTagTransform = __webpack_require__(656);
+var styleTagTransform_default = /*#__PURE__*/__webpack_require__.n(styleTagTransform);
+// EXTERNAL MODULE: ../../node_modules/css-loader/dist/cjs.js??ruleSet[1].rules[1].use[1]!../../node_modules/sass-loader/dist/cjs.js??ruleSet[1].rules[1].use[2]!./src/TableCell/index.scss
+var TableCell = __webpack_require__(648);
+;// CONCATENATED MODULE: ./src/TableCell/index.scss
+
+      
+      
+      
+      
+      
+      
+      
+      
+      
+
+var options = {};
+
+options.styleTagTransform = (styleTagTransform_default());
+options.setAttributes = (setAttributesWithoutAttributes_default());
+
+      options.insert = insertBySelector_default().bind(null, "head");
+    
+options.domAPI = (styleDomAPI_default());
+options.insertStyleElement = (insertStyleElement_default());
+
+var update = injectStylesIntoStyleTag_default()(TableCell/* default */.A, options);
+
+
+
+
+       /* harmony default export */ const src_TableCell = (TableCell/* default */.A && TableCell/* default */.A.locals ? TableCell/* default */.A.locals : undefined);
+
 ;// CONCATENATED MODULE: ./src/TableCell/index.tsx
 
 
 
-const TableCell = props => {
+
+const TableCell_TableCell = props => {
   const {
+    maxWidth,
     render,
     rowData,
     prop,
@@ -2715,30 +2847,14 @@ const TableCell = props => {
     onChange: e => handleChange(e),
     onBlur: e => handleBlur(e)
   })) : /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("div", {
+    className: "ellipsis-1",
     style: {
-      minWidth: "100px"
+      minWidth: "100px",
+      maxWidth
     }
   }, editedValue)));
 };
-/* harmony default export */ const src_TableCell = (withTranslation()(TableCell));
-// EXTERNAL MODULE: ../../node_modules/style-loader/dist/runtime/injectStylesIntoStyleTag.js
-var injectStylesIntoStyleTag = __webpack_require__(591);
-var injectStylesIntoStyleTag_default = /*#__PURE__*/__webpack_require__.n(injectStylesIntoStyleTag);
-// EXTERNAL MODULE: ../../node_modules/style-loader/dist/runtime/styleDomAPI.js
-var styleDomAPI = __webpack_require__(740);
-var styleDomAPI_default = /*#__PURE__*/__webpack_require__.n(styleDomAPI);
-// EXTERNAL MODULE: ../../node_modules/style-loader/dist/runtime/insertBySelector.js
-var insertBySelector = __webpack_require__(128);
-var insertBySelector_default = /*#__PURE__*/__webpack_require__.n(insertBySelector);
-// EXTERNAL MODULE: ../../node_modules/style-loader/dist/runtime/setAttributesWithoutAttributes.js
-var setAttributesWithoutAttributes = __webpack_require__(855);
-var setAttributesWithoutAttributes_default = /*#__PURE__*/__webpack_require__.n(setAttributesWithoutAttributes);
-// EXTERNAL MODULE: ../../node_modules/style-loader/dist/runtime/insertStyleElement.js
-var insertStyleElement = __webpack_require__(51);
-var insertStyleElement_default = /*#__PURE__*/__webpack_require__.n(insertStyleElement);
-// EXTERNAL MODULE: ../../node_modules/style-loader/dist/runtime/styleTagTransform.js
-var styleTagTransform = __webpack_require__(656);
-var styleTagTransform_default = /*#__PURE__*/__webpack_require__.n(styleTagTransform);
+/* harmony default export */ const src_TableCell_0 = (withTranslation()(TableCell_TableCell));
 // EXTERNAL MODULE: ../../node_modules/css-loader/dist/cjs.js??ruleSet[1].rules[1].use[1]!../../node_modules/sass-loader/dist/cjs.js??ruleSet[1].rules[1].use[2]!./src/index.scss
 var cjs_ruleSet_1_rules_1_use_2_src = __webpack_require__(483);
 ;// CONCATENATED MODULE: ./src/index.scss
@@ -2753,17 +2869,17 @@ var cjs_ruleSet_1_rules_1_use_2_src = __webpack_require__(483);
       
       
 
-var options = {};
+var src_options = {};
 
-options.styleTagTransform = (styleTagTransform_default());
-options.setAttributes = (setAttributesWithoutAttributes_default());
+src_options.styleTagTransform = (styleTagTransform_default());
+src_options.setAttributes = (setAttributesWithoutAttributes_default());
 
-      options.insert = insertBySelector_default().bind(null, "head");
+      src_options.insert = insertBySelector_default().bind(null, "head");
     
-options.domAPI = (styleDomAPI_default());
-options.insertStyleElement = (insertStyleElement_default());
+src_options.domAPI = (styleDomAPI_default());
+src_options.insertStyleElement = (insertStyleElement_default());
 
-var update = injectStylesIntoStyleTag_default()(cjs_ruleSet_1_rules_1_use_2_src/* default */.A, options);
+var src_update = injectStylesIntoStyleTag_default()(cjs_ruleSet_1_rules_1_use_2_src/* default */.A, src_options);
 
 
 
@@ -2779,6 +2895,7 @@ var update = injectStylesIntoStyleTag_default()(cjs_ruleSet_1_rules_1_use_2_src/
 
 const Table = props => {
   const {
+    maxWidth,
     showIndex = true,
     single = true,
     id = "id",
@@ -2866,19 +2983,20 @@ const Table = props => {
       style: {
         width: "50px"
       }
-    }, /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("input", {
+    }, !single && /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("input", {
       checked: checkedAll,
       onChange: handleCheckedAllChange,
-      type: "checkbox"
+      type: single ? "radio" : "checkbox"
     }))), showIndex && /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement((external_root_React_commonjs2_react_commonjs_react_amd_react_default()).Fragment, null, /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("th", {
       scope: "col",
       style: {
-        width: "50px"
+        minWidth: "50px"
       }
     })), array && array.map((child, rowIndex) => {
       if (child !== null && child !== void 0 && child.props) {
         return /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("th", {
           style: {
+            whiteSpace: "nowrap",
             width: widthObject[child.props.prop]
           },
           className: "".concat("text-" + textPositionObject[child.props.prop]),
@@ -2892,8 +3010,9 @@ const Table = props => {
       return /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement(external_root_React_commonjs2_react_commonjs_react_amd_react_.Fragment, {
         key: data[id]
       }, /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("tr", {
-        onClick: handleRowClick,
-        onDoubleClick: () => handleRowDoubleClick(data),
+        onClick: () => handleRowClick(data)
+        // onDoubleClick={() => handleRowDoubleClick(data)}
+        ,
         key: rowIndex,
         className: "tr-content ".concat(data.checked ? "tr-checked" : ""),
         style: {
@@ -2901,15 +3020,20 @@ const Table = props => {
             cursor: "pointer"
           } : "")
         }
-      }, collection && /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("td", {
+      }, collection &&
+      /*#__PURE__*/
+      // 复选框
+      external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("td", {
         scope: "row",
         style: {
           width: "50px"
         }
       }, /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("input", {
+        name: data[id],
+        id: data[id],
         checked: data.checked,
         onChange: e => handleCheckboxChange(e, data),
-        type: "checkbox"
+        type: single ? "radio" : "checkbox"
       })), showIndex &&
       /*#__PURE__*/
       // 索引框
@@ -2942,13 +3066,17 @@ const Table = props => {
             width: widthObject[child.props.prop]
           });
           return /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("td", {
-            className: "".concat("text-" + textPositionObject[prop]),
+            className: "".concat("text-" + textPositionObject[prop], " "),
             style: {
               verticalAlign: verticalAlignObject[prop],
               width: widthObject[child.props.prop],
+              maxWidth: maxWidth || child.props.maxWidth,
               overflowWrap: "break-word",
               wordWrap: "break-word",
               wordBreak: "break-word",
+              // 如果要默认展示一行，并且x轴太长可以滚动的话，则设置为nowrap
+              // 注意：此时，外部设置的 width就没作用了，表格会自己根据内容来设置宽度
+              whiteSpace: "nowrap",
               ["".concat(!colIndex && data.children ? "paddingLeft" : "")]: "35px"
             },
             key: colIndex
@@ -2968,9 +3096,11 @@ const Table = props => {
           width: "50px"
         }
       }, /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("input", {
+        name: childData[id],
+        id: childData[id],
         checked: childData.checked,
         onChange: e => handleCheckboxChange(e, childData),
-        type: "checkbox"
+        type: single ? "radio" : "checkbox"
       })), showIndex && /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("th", {
         className: "text-center",
         style: {
@@ -3033,7 +3163,7 @@ const Table = props => {
     const finalChecked = !row.checked;
     setTableData(preArr => {
       return preArr.map(item => {
-        if (item.id === row.id) {
+        if (item[id] === row[id]) {
           item.checked = !item.checked;
         } else {
           if (single) {
@@ -3054,13 +3184,29 @@ const Table = props => {
    *
    * 单击tr
    */
-  const handleRowClick = () => {};
+  const handleRowClick = row => {
+    const finalChecked = !row.checked;
+    setTableData(preArr => {
+      return preArr.map(item => {
+        if (item[id] === row[id]) {
+          item.checked = !item.checked;
+        } else {
+          if (single) {
+            item.checked = false;
+          }
+        }
+        return item;
+      });
+    });
+    onRowDoubleClick && onRowDoubleClick(row);
+  };
   const handleCheckboxChange = (e, row) => {
     const checked = e.target.checked;
     row.checked = checked;
     setTableData(preArr => {
       return preArr.map(item => {
-        if (item.id === row.id) {
+        if (item[id] === row[id]) {
+          console.log("jinlaile: ");
           item.checked = checked;
         }
         return item;
@@ -3070,7 +3216,7 @@ const Table = props => {
   };
   function areAllChecked(data) {
     // 遍历数组中的每个对象
-    return data.every(item => {
+    return data === null || data === void 0 ? void 0 : data.every(item => {
       // 检查当前对象的 `checked` 属性
       if (!item.checked) return false;
 
@@ -3099,6 +3245,7 @@ const Table = props => {
     setTableData(updateCheckedState(tabelData));
   };
   (0,external_root_React_commonjs2_react_commonjs_react_amd_react_.useEffect)(() => {
+    console.log("data: ", data);
     const checkedAll = areAllChecked(data);
     setCheckedAll(checkedAll);
     if (collapse) {
@@ -3121,7 +3268,7 @@ const Table = props => {
     className: cls
   }, renderCollapseChildren())));
 };
-Table.TableCell = src_TableCell;
+Table.TableCell = src_TableCell_0;
 /* harmony default export */ const src_0 = (withTranslation()(Table));
 })();
 

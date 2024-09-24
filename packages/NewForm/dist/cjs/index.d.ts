@@ -1,5 +1,6 @@
 import React from "react";
 interface FormProps {
+    oneLine?: boolean;
     data?: any;
     children?: any;
     labelColor?: string;

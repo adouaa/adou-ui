@@ -7,6 +7,7 @@ import { getAbsolutePosition } from "adou-ui/Utils/index";
 import useClickOutside from "./utils/useClickOutside";
 
 export interface SelectProps {
+  activeColor?: { font: string; bgc: string };
   returnType?: "str" | "obj";
   showDefaultValue?: boolean;
   labelKey?: string;
@@ -47,10 +48,11 @@ interface RetrieveSelectProps extends SelectProps {
 const RetrievrSelect: React.FC<RetrieveSelectProps> = React.forwardRef(
   (props: RetrieveSelectProps, ref) => {
     const {
+      activeColor = { font: "#fff", bgc: "#2783d8" },
       returnType,
       showDefaultValue,
       placeholder = "请输入",
-      isFormItem,
+      isFormItem = true,
       labelKey = "label",
       valueKey = "value",
       inline,
@@ -104,6 +106,7 @@ const RetrievrSelect: React.FC<RetrieveSelectProps> = React.forwardRef(
     });
 
     const handleSelect = (option: any) => {
+      retrieveInputRef.current.value = "";
       const currentSelectList = optionList
         .filter((item: any) => item[valueKey] != option[valueKey])
         .filter((i: any) => i.selected);
@@ -540,10 +543,17 @@ const RetrievrSelect: React.FC<RetrieveSelectProps> = React.forwardRef(
                   return (
                     <div
                       key={index}
+                      style={{
+                        color: option.selected ? activeColor.font : "#000",
+                        backgroundColor: option.selected ? activeColor.bgc : "",
+                      }}
                       onClick={() => handleSelect(option)}
-                      className={`option-item ${
-                        option.selected && "retrieve-select-active"
-                      } ${focusedIndex === index && "retrieve-select-focused"}`}
+                      className={`retrieve-select-option ${
+                        option.selected && "retrieve-select-option-active"
+                      } ${
+                        focusedIndex === index &&
+                        "retrieve-select-option-focused"
+                      }`}
                     >
                       {option[labelKey]}
                     </div>

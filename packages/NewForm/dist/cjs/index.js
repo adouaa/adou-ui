@@ -100,6 +100,7 @@ __webpack_require__.r(__webpack_exports__);
 
 const Form = /*#__PURE__*/(0,react__WEBPACK_IMPORTED_MODULE_0__.forwardRef)((_ref, AdouFormRef) => {
   let {
+    oneLine = false,
     data = {},
     labelPosition,
     labelColor = "rgb(63 109 184)",
@@ -247,7 +248,7 @@ const Form = /*#__PURE__*/(0,react__WEBPACK_IMPORTED_MODULE_0__.forwardRef)((_re
           ref: childRef,
           labelWidth: maxLengthLabelWidth + "px",
           commonSuffixIcon,
-          isFormItem: true,
+          isFormItem: !oneLine,
           ...(labelPosition ? {
             labelPosition
           } : {}),

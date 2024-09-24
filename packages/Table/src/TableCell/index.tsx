@@ -1,8 +1,10 @@
 import AdouInput from "adou-ui/Input";
 import React, { useEffect, useRef, useState } from "react";
 import { withTranslation } from "react-i18next";
+import "./index.scss";
 
 interface TableCellProps {
+  maxWidth?: any;
   children?: any;
   prop?: string;
   label?: string;
@@ -22,6 +24,7 @@ interface TableCellProps {
 
 const TableCell = (props: TableCellProps) => {
   const {
+    maxWidth,
     render,
     rowData,
     prop,
@@ -88,7 +91,9 @@ const TableCell = (props: TableCellProps) => {
               />
             </div>
           ) : (
-            <div style={{ minWidth: "100px" }}>{editedValue}</div>
+            <div className="ellipsis-1" style={{ minWidth: "100px", maxWidth }}>
+              {editedValue}
+            </div>
           )}
         </div>
       )}

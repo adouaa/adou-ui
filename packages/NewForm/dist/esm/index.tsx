@@ -8,6 +8,7 @@ import {
 import React from "react";
 
 interface FormProps {
+  oneLine?: boolean;
   data?: any;
   children?: any;
   labelColor?: string;
@@ -22,6 +23,7 @@ interface FormProps {
 const Form = forwardRef(
   (
     {
+      oneLine = false,
       data = {},
       labelPosition,
       labelColor = "rgb(63 109 184)",
@@ -184,7 +186,7 @@ const Form = forwardRef(
             ref: childRef,
             labelWidth: maxLengthLabelWidth + "px",
             commonSuffixIcon,
-            isFormItem: true,
+            isFormItem: !oneLine,
             ...(labelPosition ? { labelPosition } : {}), // 动态添加 required 属性
 
             ...(inline ? { inline: true } : {}), // 动态添加 required 属性
@@ -230,4 +232,5 @@ const Form = forwardRef(
     );
   }
 );
+
 export default Form;

@@ -1,6 +1,10 @@
 import React from "react";
 import "./index.scss";
 export interface SelectProps {
+    activeColor?: {
+        font: string;
+        bgc: string;
+    };
     returnType?: "str" | "obj";
     showDefaultValue?: boolean;
     labelKey?: string;

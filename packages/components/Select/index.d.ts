@@ -1,6 +1,10 @@
 import React from "react";
 import "./index.scss";
 export interface SelectProps {
+    activeColor?: {
+        font: string;
+        bgc: string;
+    };
     returnType?: "str" | "obj";
     showEmpty?: boolean;
     showDefaultValue?: boolean;
@@ -34,6 +38,10 @@ export interface SelectProps {
 }
 declare const _default: React.ComponentType<Omit<{
     ref?: React.LegacyRef<unknown> | undefined;
+    activeColor?: {
+        font: string;
+        bgc: string;
+    } | undefined;
     returnType?: "str" | "obj" | undefined;
     showEmpty?: boolean | undefined;
     showDefaultValue?: boolean | undefined;

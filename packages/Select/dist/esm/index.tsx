@@ -13,6 +13,7 @@ import ReactDOM from "react-dom";
 import { getAbsolutePosition, useClickOutside } from "adou-ui/Utils/index";
 
 export interface SelectProps {
+  activeColor?: { font: string; bgc: string };
   returnType?: "str" | "obj";
   showEmpty?: boolean;
   showDefaultValue?: boolean;
@@ -47,6 +48,7 @@ export interface SelectProps {
 
 const Select = React.forwardRef((props: SelectProps, ref) => {
   const {
+    activeColor = { font: "#fff", bgc: "#2783d8" },
     returnType,
     showDefaultValue = false,
     labelKey = "label",
@@ -108,7 +110,7 @@ const Select = React.forwardRef((props: SelectProps, ref) => {
     toggleDropdown();
     setIsDropdownOpen(false);
     // 新增onFormDataChange来修改外部传入的数据
-    if (returnType === "obj") {
+    if (returnType === "obj" || showDefaultValue) {
       onFormDataChange && onFormDataChange(name!, item);
     } else {
       onFormDataChange && onFormDataChange(name!, item[valueKey]);
@@ -120,6 +122,8 @@ const Select = React.forwardRef((props: SelectProps, ref) => {
     if (showDefaultValue) {
       if (typeof defaultValue !== "object") {
         setValue({ [valueKey]: defaultValue, [labelKey]: defaultValue });
+      } else if (typeof defaultValue === "object") {
+        setValue(defaultValue);
       }
     } else {
       if (typeof defaultValue === "object") {
@@ -160,8 +164,8 @@ const Select = React.forwardRef((props: SelectProps, ref) => {
   const getValue = () => {
     // 不能加这个逻辑，这样会导致手动选择另外的选项，返回的还是 defaultValue
     /* if (showDefaultValue) {
-      return defaultValue;
-    } */
+        return defaultValue;
+      } */
 
     if (
       value?.[valueKey] ||
@@ -302,7 +306,7 @@ const Select = React.forwardRef((props: SelectProps, ref) => {
           onBlur={validate}
           className={`content-box label-in-${labelPosition}`}
         >
-          {isFormItem && showLabel && (
+          {showLabel && (
             <span
               className="label-box"
               style={{
@@ -389,9 +393,21 @@ const Select = React.forwardRef((props: SelectProps, ref) => {
                     newOptions.map((item, index) => (
                       <div
                         onClick={() => handleSelect(item)}
-                        className={`option ${
-                          focusedIndex === index ? "focused" : ""
-                        }`}
+                        style={{
+                          color:
+                            value[valueKey] === item[valueKey]
+                              ? activeColor.font
+                              : "#000",
+                          backgroundColor:
+                            value[valueKey] === item[valueKey]
+                              ? activeColor.bgc
+                              : "",
+                        }}
+                        className={`select-option ${
+                          value[valueKey] === item[valueKey]
+                            ? "select-option-active"
+                            : ""
+                        } ${focusedIndex === index ? "focused" : ""}`}
                         key={item[valueKey]}
                       >
                         {item[labelKey]}
@@ -423,4 +439,5 @@ const Select = React.forwardRef((props: SelectProps, ref) => {
     </div>
   );
 });
+
 export default withTranslation()(Select);

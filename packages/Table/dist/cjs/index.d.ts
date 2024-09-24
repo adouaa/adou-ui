@@ -4,6 +4,7 @@ import "./index.scss";
 export { TableCell };
 declare const _default: React.ComponentType<Omit<{
     data: any;
+    maxWidth?: any;
     children?: any;
     eidtable?: boolean | undefined;
     textPosition?: "center" | "left" | "right" | "justify" | undefined;
