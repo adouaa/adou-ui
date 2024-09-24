@@ -34,7 +34,7 @@ const Dialog: React.FC<DialogProps> = ({
     type = '',
     maxHeight = '500px',
     width = '600px',
-    maxWidth = '600px',
+    maxWidth,
     onCancel,
     onClose = () => {},
     onConfirm = () => {},
@@ -82,14 +82,19 @@ const Dialog: React.FC<DialogProps> = ({
 
     return (
         <>
-            pos = {JSON.stringify(position)}
             {(isOpen || isAnimating) &&
                 ReactDOM.createPortal(
                     <div className={`dialog-overlay ${show ? 'open' : ''}`}>
                         <div
                             ref={dialogRef}
                             className={`dialog ${show ? 'open' : ''}`}
-                            style={{ top: `${position.y - 20}px`, left: `${position.x}px`, transform: `translateY(${firstOpen ? '20px' : '0'})`, width, maxWidth }}
+                            style={{
+                                top: `${position.y - 20}px`,
+                                left: `${position.x}px`,
+                                transform: `translateY(${firstOpen ? '20px' : '0'})`,
+                                width,
+                                maxWidth,
+                            }}
                         >
                             <div className="dialog-header p-2" onMouseDown={handleMouseDown}>
                                 <span className="fs-5">{title}</span>

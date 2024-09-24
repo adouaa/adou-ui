@@ -29,36 +29,6 @@
         }
     }
 
-    .content {
-        min-width: 200px;
-        text-align-last: left;
-        background-color: #fff;
-        overflow: hidden;
-        /* 隐藏溢出内容 */
-        position: absolute;
-        z-index: 999;
-        box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
-        transition: opacity 0.3s ease, visibility 0.3s ease, transform 0.3s ease;
-        opacity: 0;
-        visibility: hidden;
-        transform: scaleY(0);
-        transform-origin: top;
-
-        /* 添加高度变化的过渡效果 */
-        .option {
-            padding: 5px 10px;
-
-            &:hover {
-                background-color: #f6f6f6;
-                cursor: pointer;
-            }
-
-            &:active {
-                color: #fff;
-                background-color: #2783d8;
-            }
-        }
-    }
 
     .open {
         opacity: 1;
@@ -81,7 +51,7 @@
         .label-box {
             font-size: 14px;
             min-width: 50px;
-            max-width: 120px !important;
+            // max-width: 120px !important;
             flex-wrap: wrap;
         }
 
@@ -163,7 +133,7 @@
     transform-origin: top;
 
     /* 添加高度变化的过渡效果 */
-    .option {
+    .select-option {
         padding: 5px 10px;
 
         &:hover {
@@ -181,6 +151,10 @@
             /* 高亮当前聚焦的选项 */
         }
     }
+
+    .select-option-active {
+        font-weight: bold;
+    }
 }
 
 .custom-select-content-open {
@@ -194,9 +168,13 @@
 .none-option {
     width: 200px;
     height: 50px;
+
+    color: #a4a3a3;
+}
+
+.none-match {
     padding: 10px 0;
-    display: flex;
-    justify-content: center;
-    align-items: center;
+    height: 100px;
+    font-style: italic;
     color: #a4a3a3;
 }
