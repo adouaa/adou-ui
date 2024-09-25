@@ -25,6 +25,12 @@
     cursor: pointer;
 }
 
+.common-suffix-icon {
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+}
+
 .label-box {
     font-size: 14px;
     min-width: 50px;
@@ -34,15 +40,16 @@
     flex-wrap: wrap;
 }
 
-.lable-in-control {
-    .icon-input {
-        position: relative;
-        /* 让伪元素相对于输入框定位 */
+.icon-input {
+    position: relative;
+    /* 让伪元素相对于输入框定位 */
 
-    }
+}
 
+.input-wrapper {
     .content-box {
         flex: 1;
+        align-items: stretch;
 
         .label-box {}
 
@@ -61,30 +68,35 @@
             /* 去掉左下角的圆角 */
         }
 
-
-    }
-
-    .label-in-center {
-        display: flex;
-
-        .suffix-icon {
-            top: 7px;
-        }
-    }
-
-    .label-in-left-top {
-        display: flex;
-
-        .label-box {
+        .suffix-content-text-wrapper {
             display: flex;
-            align-items: start;
+            align-items: center;
+            justify-content: center;
         }
 
-        .suffix-icon {
-            top: 7px;
-        }
     }
 
+}
+
+.label-in-center {
+    display: flex;
+
+    .suffix-icon {
+        top: 7px;
+    }
+}
+
+.label-in-left-top {
+    display: flex;
+
+    .label-box {
+        display: flex;
+        align-items: start;
+    }
+
+    .suffix-icon {
+        top: 7px;
+    }
 }
 
 .input-group {
@@ -96,3 +108,5 @@
 .input-group-text {
     cursor: pointer;
 }
+
+.lable-in-control {}

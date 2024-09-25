@@ -146,7 +146,10 @@ const Input: React.ForwardRefRenderFunction<InputRef, InputProps> = (
     return (
         <div
             className={`${cls} input-wrapper ${inputGroup ? '' : 'lable-in-control'} ${!error && isFormItem && 'mb-3'}`}
-            style={{ width, ...(inline ? { flex: 1, marginRight: '15px' } : {}) }}
+            style={{
+                width,
+                ...(inline && !width ? { flex: 1, marginRight: '15px' } : {}),
+            }}
         >
             <div ref={wrapeerRef} className={`content-box icon-input ${inputGroup ? 'input-group' : ''} label-in-${labelPosition}`}>
                 {prefixContent && (
@@ -191,7 +194,7 @@ const Input: React.ForwardRefRenderFunction<InputRef, InputProps> = (
                     aria-label="Username"
                     aria-describedby="basic-addon1"
                 />
-                {suffixContent && <div className={`${suffixContentType === 'button' ? 'suffix-content-btn-wrapper' : ''}`}>{suffixContent}</div>}
+                {suffixContent && <div className={`${suffixContentType === 'button' ? 'suffix-content-btn-wrapper' : 'suffix-content-text-wrapper'}`}>{suffixContent}</div>}
 
                 {commonSuffixIcon && <i onClick={handleClickCommonSuffixIcon} className={`${commonSuffixIcon} common-suffix-icon ms-2`}></i>}
                 {children && (

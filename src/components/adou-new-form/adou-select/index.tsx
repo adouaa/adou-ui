@@ -111,6 +111,7 @@ const Select = React.forwardRef((props: SelectProps, ref) => {
     };
 
     useEffect(() => {
+        console.log('defaultValue: ', defaultValue);
         // 如果是必须展示默认值，不通过列表匹配的话，进入这个判断
         if (showDefaultValue) {
             if (typeof defaultValue !== 'object') {
@@ -121,7 +122,10 @@ const Select = React.forwardRef((props: SelectProps, ref) => {
         } else {
             if (typeof defaultValue === 'object') {
                 const selectOption = options.find((option) => option[valueKey] === defaultValue[valueKey]);
-                setValue(selectOption);
+                // 如果没有找到匹配项，则不设置选中项
+                if (selectOption) {
+                    setValue(selectOption);
+                }
             } else {
                 if (defaultValue || defaultValue === 0 || defaultValue === false) {
                     const selectOption = options.find((option) => option[valueKey] === defaultValue);

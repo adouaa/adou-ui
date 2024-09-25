@@ -1,5 +1,6 @@
 .dialog-overlay {
     position: fixed;
+    z-index: 999; // z-index应该加在最外层的父级才有作用
     top: 0;
     left: 0;
     width: 100%;
@@ -25,6 +26,7 @@
     width: 400px;
     max-width: 90%;
     position: absolute;
+    // z-index: 999;
     transform: scale(0.9);
     opacity: 0;
     transition: transform 0.3s ease-in-out, opacity 0.3s ease-in-out;
@@ -41,6 +43,8 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
+    padding-left: 15px !important;
+    padding-top: 0px !important;
 
 }
 
