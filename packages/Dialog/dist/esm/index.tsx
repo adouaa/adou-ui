@@ -6,6 +6,7 @@ import Button from "adou-ui/Button";
 import "./index.scss";
 
 interface DialogProps {
+  canConfirm?: boolean;
   clickOutside?: boolean;
   confirmText?: string;
   cancelText?: string;
@@ -23,6 +24,7 @@ interface DialogProps {
   onConfirm?: () => void;
 }
 const Dialog: React.FC<DialogProps> = ({
+  canConfirm = true,
   clickOutside = true,
   confirmText = "确定",
   cancelText = "取消",
@@ -116,6 +118,7 @@ const Dialog: React.FC<DialogProps> = ({
                   {cancelText}
                 </Button>
                 <Button
+                  disabled={!canConfirm}
                   className={`btn-${confirmBtnClass}`}
                   size="md"
                   onClickOK={onConfirm}
@@ -130,5 +133,4 @@ const Dialog: React.FC<DialogProps> = ({
     </>
   );
 };
-
 export default Dialog;

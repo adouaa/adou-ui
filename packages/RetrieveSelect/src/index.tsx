@@ -50,7 +50,7 @@ const RetrievrSelect: React.FC<RetrieveSelectProps> = React.forwardRef(
     const {
       activeColor = { font: "#fff", bgc: "#2783d8" },
       returnType,
-      showDefaultValue,
+      showDefaultValue = true,
       placeholder = "请输入",
       isFormItem = true,
       labelKey = "label",

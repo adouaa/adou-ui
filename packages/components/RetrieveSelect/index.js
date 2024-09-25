@@ -241,6 +241,7 @@ module.exports = function (item) {
         convertToTag: () => ( /* reexport */libs_convertToTag),
         getAbsolutePosition: () => ( /* reexport */libs_getAbsolutePositionOfStage),
         useClickOutside: () => ( /* reexport */hooks_useClickOutside),
+        useDrag: () => ( /* reexport */hooks_useDrag),
         useNavigateTo: () => ( /* reexport */hooks_useNavigateTo)
       });
       ; // CONCATENATED MODULE: ./src/libs/getAbsolutePositionOfStage.js
@@ -5249,14 +5250,102 @@ module.exports = function (item) {
               callback && callback();
             }
           };
-          document.addEventListener("mousedown", handleClickOutside);
+          document.addEventListener('mousedown', handleClickOutside);
           return () => {
-            document.removeEventListener("mousedown", handleClickOutside);
+            document.removeEventListener('mousedown', handleClickOutside);
           };
         }, [ref, callback]);
       };
       /* harmony default export */
       const hooks_useClickOutside = useClickOutside;
+      ; // CONCATENATED MODULE: ./src/hooks/useDrag.js
+
+      const useDrag = function (elementRef) {
+        let isDialog = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : false;
+        let autoStyle = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : true;
+        let initialPosition = arguments.length > 3 && arguments[3] !== undefined ? arguments[3] : {
+          x: 0,
+          y: 0
+        };
+        const [isDragging, setIsDragging] = (0, external_root_React_commonjs2_react_commonjs_react_amd_react_.useState)(false);
+        const [dragOffset, setDragOffset] = (0, external_root_React_commonjs2_react_commonjs_react_amd_react_.useState)({
+          x: 0,
+          y: 0
+        });
+        const [position, setPosition] = (0, external_root_React_commonjs2_react_commonjs_react_amd_react_.useState)(initialPosition);
+        const elementFirstPositionRef = (0, external_root_React_commonjs2_react_commonjs_react_amd_react_.useRef)(null);
+        const handleMouseMove = e => {
+          // 处于拖动状态
+          if (isDragging) {
+            if (!isDialog) {
+              var _elementFirstPosition, _elementFirstPosition2;
+              // 如果不是弹窗，要减去元素一开始在浏览器中的位置(因为顶部和左部都会有别的元素占着)
+              setPosition({
+                x: e.clientX - dragOffset.x - ((_elementFirstPosition = elementFirstPositionRef.current) === null || _elementFirstPosition === void 0 ? void 0 : _elementFirstPosition.left),
+                y: e.clientY - dragOffset.y - ((_elementFirstPosition2 = elementFirstPositionRef.current) === null || _elementFirstPosition2 === void 0 ? void 0 : _elementFirstPosition2.top)
+              });
+            } else {
+              // 如果是弹窗，则不用减
+              setPosition({
+                x: e.clientX - dragOffset.x,
+                y: e.clientY - dragOffset.y
+              });
+            }
+          }
+        };
+        const handleMouseUp = () => {
+          setIsDragging(false);
+        };
+
+        // 绑定事件
+        (0, external_root_React_commonjs2_react_commonjs_react_amd_react_.useEffect)(() => {
+          if (isDragging) {
+            document.addEventListener("mousemove", handleMouseMove);
+            document.addEventListener("mouseup", handleMouseUp);
+          } else {
+            document.removeEventListener("mousemove", handleMouseMove);
+            document.removeEventListener("mouseup", handleMouseUp);
+          }
+          return () => {
+            document.removeEventListener("mousemove", handleMouseMove);
+            document.removeEventListener("mouseup", handleMouseUp);
+          };
+        }, [isDragging]);
+
+        // 如果需要自动设置样式的话，在这边处理
+        (0, external_root_React_commonjs2_react_commonjs_react_amd_react_.useEffect)(() => {
+          if (autoStyle && elementRef.current) {
+            elementRef.current.style.position = "relative";
+            elementRef.current.style.top = position.y + "px";
+            elementRef.current.style.left = position.x + "px";
+            elementRef.current.style.cursor = "move";
+          }
+        }, [position]);
+        const handleMouseDown = e => {
+          // 点击的时候获取当前元素距离浏览器的位置
+          const dialogRect = elementRef.current.getBoundingClientRect();
+          setIsDragging(true);
+          // 因为弹窗一开始有 left和top，所以要减去 当前元素位置的left 和 top
+          // 而其他元素在哪就是在哪，不需要减，所以要判断是弹窗还是普通元素哦 ---- 这两句注释没用了
+          setDragOffset({
+            // 减去当前元素距离浏览器的位置
+            x: e.clientX - dialogRect.left,
+            y: e.clientY - dialogRect.top
+          });
+        };
+        (0, external_root_React_commonjs2_react_commonjs_react_amd_react_.useEffect)(() => {
+          // 如果元素的定位是 relative的话，需要再元素挂载完之后，去记录一开始距离浏览器的位置
+          if (elementRef.current) {
+            elementFirstPositionRef.current = elementRef.current.getBoundingClientRect();
+          }
+        }, [elementRef]);
+        return {
+          position,
+          handleMouseDown
+        };
+      };
+      /* harmony default export */
+      const hooks_useDrag = useDrag;
       ; // CONCATENATED MODULE: ./src/index.tsx
     })();
 
@@ -5958,7 +6047,7 @@ const RetrievrSelect = /*#__PURE__*/external_root_React_commonjs2_react_commonjs
       bgc: "#2783d8"
     },
     returnType,
-    showDefaultValue,
+    showDefaultValue = true,
     placeholder = "请输入",
     isFormItem = true,
     labelKey = "label",

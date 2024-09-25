@@ -886,6 +886,7 @@ var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBP
 // Module
 ___CSS_LOADER_EXPORT___.push([module.id, `.dialog-overlay {
   position: fixed;
+  z-index: 999;
   top: 0;
   left: 0;
   width: 100%;
@@ -910,7 +911,6 @@ ___CSS_LOADER_EXPORT___.push([module.id, `.dialog-overlay {
   width: 400px;
   max-width: 90%;
   position: absolute;
-  z-index: 999;
   transform: scale(0.9);
   opacity: 0;
   transition: transform 0.3s ease-in-out, opacity 0.3s ease-in-out;
@@ -926,6 +926,8 @@ ___CSS_LOADER_EXPORT___.push([module.id, `.dialog-overlay {
   display: flex;
   justify-content: space-between;
   align-items: center;
+  padding-left: 15px !important;
+  padding-top: 0px !important;
 }
 
 .dialog-close {
@@ -952,7 +954,7 @@ ___CSS_LOADER_EXPORT___.push([module.id, `.dialog-overlay {
 .hover-scale:hover {
   color: red;
   transform: scale(1.2);
-}`, "",{"version":3,"sources":["webpack://./src/index.scss"],"names":[],"mappings":"AAAA;EACI,eAAA;EACA,MAAA;EACA,OAAA;EACA,WAAA;EACA,YAAA;EACA,oCAAA;EACA,aAAA;EACA,uBAAA;EACA,mBAAA;EACA,UAAA;EACA,kBAAA;EACA,iEAAA;AACJ;AACI;EACI,UAAA;EACA,mBAAA;AACR;;AAGA;EACI,uBAAA;EACA,kBAAA;EACA,yCAAA;EACA,YAAA;EACA,cAAA;EACA,kBAAA;EACA,YAAA;EACA,qBAAA;EACA,UAAA;EACA,gEAAA;AAAJ;AAEI;EACI,mBAAA;EACA,UAAA;AAAR;;AAIA;EACI,gCAAA;EACA,YAAA;EACA,aAAA;EACA,8BAAA;EACA,mBAAA;AADJ;;AAKA;EACI,cAAA;EACA,gBAAA;EACA,YAAA;EACA,eAAA;EACA,eAAA;EACA,aAAA;AAFJ;;AAKA;EACI,aAAA;EACA,cAAA;AAFJ;;AAMA;EACI,6BAAA;AAHJ;;AAMA;EACI,yBAAA;AAHJ;AAKI;EACI,UAAA;EACA,qBAAA;AAHR","sourcesContent":[".dialog-overlay {\r\n    position: fixed;\r\n    top: 0;\r\n    left: 0;\r\n    width: 100%;\r\n    height: 100%;\r\n    background-color: rgba(0, 0, 0, 0.5);\r\n    display: flex;\r\n    justify-content: center;\r\n    align-items: center;\r\n    opacity: 0;\r\n    visibility: hidden;\r\n    transition: opacity 0.3s ease-in-out, visibility 0.3s ease-in-out;\r\n\r\n    &.open {\r\n        opacity: 1;\r\n        visibility: visible;\r\n    }\r\n}\r\n\r\n.dialog {\r\n    background-color: white;\r\n    border-radius: 4px;\r\n    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);\r\n    width: 400px;\r\n    max-width: 90%;\r\n    position: absolute;\r\n    z-index: 999;\r\n    transform: scale(0.9);\r\n    opacity: 0;\r\n    transition: transform 0.3s ease-in-out, opacity 0.3s ease-in-out;\r\n\r\n    &.open {\r\n        transform: scale(1);\r\n        opacity: 1;\r\n    }\r\n}\r\n\r\n.dialog-header {\r\n    border-bottom: 1px solid #e0e0e0;\r\n    cursor: move;\r\n    display: flex;\r\n    justify-content: space-between;\r\n    align-items: center;\r\n\r\n}\r\n\r\n.dialog-close {\r\n    color: #b0aaaa;\r\n    background: none;\r\n    border: none;\r\n    font-size: 36px;\r\n    cursor: pointer;\r\n    outline: none;\r\n}\r\n\r\n.dialog-content {\r\n    padding: 16px;\r\n    overflow: auto;\r\n\r\n}\r\n\r\n.dialog-footer {\r\n    border-top: 1px solid #e0e0e0;\r\n}\r\n\r\n.hover-scale {\r\n    transition: all 0.3s ease;\r\n\r\n    &:hover {\r\n        color: red;\r\n        transform: scale(1.2);\r\n    }\r\n}"],"sourceRoot":""}]);
+}`, "",{"version":3,"sources":["webpack://./src/index.scss"],"names":[],"mappings":"AAAA;EACI,eAAA;EACA,YAAA;EACA,MAAA;EACA,OAAA;EACA,WAAA;EACA,YAAA;EACA,oCAAA;EACA,aAAA;EACA,uBAAA;EACA,mBAAA;EACA,UAAA;EACA,kBAAA;EACA,iEAAA;AACJ;AACI;EACI,UAAA;EACA,mBAAA;AACR;;AAGA;EACI,uBAAA;EACA,kBAAA;EACA,yCAAA;EACA,YAAA;EACA,cAAA;EACA,kBAAA;EAEA,qBAAA;EACA,UAAA;EACA,gEAAA;AADJ;AAGI;EACI,mBAAA;EACA,UAAA;AADR;;AAKA;EACI,gCAAA;EACA,YAAA;EACA,aAAA;EACA,8BAAA;EACA,mBAAA;EACA,6BAAA;EACA,2BAAA;AAFJ;;AAMA;EACI,cAAA;EACA,gBAAA;EACA,YAAA;EACA,eAAA;EACA,eAAA;EACA,aAAA;AAHJ;;AAMA;EACI,aAAA;EACA,cAAA;AAHJ;;AAOA;EACI,6BAAA;AAJJ;;AAOA;EACI,yBAAA;AAJJ;AAMI;EACI,UAAA;EACA,qBAAA;AAJR","sourcesContent":[".dialog-overlay {\r\n    position: fixed;\r\n    z-index: 999; // z-index应该加在最外层的父级才有作用\r\n    top: 0;\r\n    left: 0;\r\n    width: 100%;\r\n    height: 100%;\r\n    background-color: rgba(0, 0, 0, 0.5);\r\n    display: flex;\r\n    justify-content: center;\r\n    align-items: center;\r\n    opacity: 0;\r\n    visibility: hidden;\r\n    transition: opacity 0.3s ease-in-out, visibility 0.3s ease-in-out;\r\n\r\n    &.open {\r\n        opacity: 1;\r\n        visibility: visible;\r\n    }\r\n}\r\n\r\n.dialog {\r\n    background-color: white;\r\n    border-radius: 4px;\r\n    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);\r\n    width: 400px;\r\n    max-width: 90%;\r\n    position: absolute;\r\n    // z-index: 999;\r\n    transform: scale(0.9);\r\n    opacity: 0;\r\n    transition: transform 0.3s ease-in-out, opacity 0.3s ease-in-out;\r\n\r\n    &.open {\r\n        transform: scale(1);\r\n        opacity: 1;\r\n    }\r\n}\r\n\r\n.dialog-header {\r\n    border-bottom: 1px solid #e0e0e0;\r\n    cursor: move;\r\n    display: flex;\r\n    justify-content: space-between;\r\n    align-items: center;\r\n    padding-left: 15px !important;\r\n    padding-top: 0px !important;\r\n\r\n}\r\n\r\n.dialog-close {\r\n    color: #b0aaaa;\r\n    background: none;\r\n    border: none;\r\n    font-size: 36px;\r\n    cursor: pointer;\r\n    outline: none;\r\n}\r\n\r\n.dialog-content {\r\n    padding: 16px;\r\n    overflow: auto;\r\n\r\n}\r\n\r\n.dialog-footer {\r\n    border-top: 1px solid #e0e0e0;\r\n}\r\n\r\n.hover-scale {\r\n    transition: all 0.3s ease;\r\n\r\n    &:hover {\r\n        color: red;\r\n        transform: scale(1.2);\r\n    }\r\n}"],"sourceRoot":""}]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 
@@ -1485,6 +1487,7 @@ var update = injectStylesIntoStyleTag_default()(cjs_ruleSet_1_rules_1_use_2_src/
 
 const Dialog = _ref => {
   let {
+    canConfirm = true,
     clickOutside = true,
     confirmText = "确定",
     cancelText = "取消",
@@ -1575,6 +1578,7 @@ const Dialog = _ref => {
     size: "md",
     onClickOK: onCancel !== null && onCancel !== void 0 ? onCancel : onClose
   }, cancelText), /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement((Button_default()), {
+    disabled: !canConfirm,
     className: "btn-".concat(confirmBtnClass),
     size: "md",
     onClickOK: onConfirm

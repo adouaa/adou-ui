@@ -30,7 +30,6 @@ export interface InputProps {
     onBlur?: (e: React.FocusEvent<HTMLInputElement, Element>, ...args: any) => void;
     onChange?: (value: any, ...args: any) => void;
     onIconClick?: (value: string) => void;
-    onFormDataChange?: (key: string, value: any) => void;
 }
 export interface InputRef {
     validate: () => void;

@@ -68,6 +68,11 @@
             /* 去掉左下角的圆角 */
         }
 
+        .suffix-content-text-wrapper {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
 
     }
 
