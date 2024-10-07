@@ -1,5 +1,5 @@
 import Button from 'components/adou-button';
-import Collapse from 'components/adou-collapse';
+import Collapse from 'components/adou-collapseX';
 import ResizableSidebar from 'components/adou-resizeable-sliderbar';
 import TimeLine from 'components/adou-time-line';
 import TimeLineItem from 'components/adou-time-line/adou-time-line-item';

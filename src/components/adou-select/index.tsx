@@ -1,5 +1,4 @@
-import { withTranslation } from 'react-i18next';
-import { ChangeEvent, useContext, useEffect, useImperativeHandle, useRef, useState } from 'react';
+import { useEffect, useImperativeHandle, useRef, useState } from 'react';
 import './index.scss';
 import React from 'react';
 import getAbsolutePositionOfStage from '../../utils/getAbsolutePosition';

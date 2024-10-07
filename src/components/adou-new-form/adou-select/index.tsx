@@ -2,9 +2,9 @@ import { withTranslation } from 'react-i18next';
 import { ChangeEvent, useContext, useEffect, useImperativeHandle, useRef, useState } from 'react';
 import './index.scss';
 import React from 'react';
-import getAbsolutePositionOfStage from 'utils/getAbsolutePosition';
+import getAbsolutePosition from 'utils/getAbsolutePosition';
 import ReactDOM from 'react-dom';
-import useClickOutside from 'utils/hooks/useClickOutside';
+import useClickOutside from 'hooks/useClickOutside';
 
 export interface SelectProps {
     activeColor?: { font: string; bgc: string };
@@ -75,7 +75,9 @@ const Select = React.forwardRef((props: SelectProps, ref) => {
         onFormDataChange,
     } = props;
 
-    const { isOpen, dropdownRef, toggleDropdown } = useClickOutside();
+    const [isShow, setIsShow] = useState<boolean>(false);
+
+    // const { isShow, selectWrapperRef, handleClose } = useClickOutside();
 
     const [newOptions, setNewOptions] = useState(options || []);
     const [value, setValue] = useState(defaultValue || {});
@@ -83,15 +85,21 @@ const Select = React.forwardRef((props: SelectProps, ref) => {
     const [isDropdownOpen, setIsDropdownOpen] = useState<boolean>(false);
     const [focusedIndex, setFocusedIndex] = useState<number>(-1); // 新增状态，用于跟踪当前聚焦的选项
 
+    const selectWrapperRef = useRef<any>(null);
     const customSelectRef = useRef<any>();
     const contentRef = useRef<any>();
     const [customSelectContentPosition, setCustomSelectContentPosition] = useState<any>({});
 
+    const handleClose = () => {
+        if (isShow) validate(); // 打开后的关闭再去校验有没有值
+        setIsShow((prev: boolean) => !prev);
+    };
+
     const handleDivClick = (e: any) => {
-        const position = getAbsolutePositionOfStage(customSelectRef.current, 0, 0);
+        const position = getAbsolutePosition(customSelectRef.current, 0, 0);
         setCustomSelectContentPosition(position);
         if (!isDropdownOpen) {
-            toggleDropdown();
+            handleClose();
             setIsDropdownOpen(true);
         }
     };
@@ -100,7 +108,7 @@ const Select = React.forwardRef((props: SelectProps, ref) => {
         setValue(item);
         onChange && onChange(item);
         setError(false);
-        toggleDropdown();
+        handleClose();
         setIsDropdownOpen(false);
         // 新增onFormDataChange来修改外部传入的数据
         if (returnType === 'obj' || showDefaultValue) {
@@ -108,10 +116,10 @@ const Select = React.forwardRef((props: SelectProps, ref) => {
         } else {
             onFormDataChange && onFormDataChange(name!, item[valueKey]);
         }
+        setError(false);
     };
 
     useEffect(() => {
-        console.log('defaultValue: ', defaultValue);
         // 如果是必须展示默认值，不通过列表匹配的话，进入这个判断
         if (showDefaultValue) {
             if (typeof defaultValue !== 'object') {
@@ -134,6 +142,10 @@ const Select = React.forwardRef((props: SelectProps, ref) => {
                     setValue('');
                 }
             }
+        }
+        // 如果有值，则自动做校验，防止一开始没值出现空提示，后面切换了有值还是出现空提示的错误
+        if (defaultValue) {
+            setError(false);
         }
     }, [defaultValue, options]);
 
@@ -207,12 +219,12 @@ const Select = React.forwardRef((props: SelectProps, ref) => {
     const handleKeyDown = (event: React.KeyboardEvent<HTMLDivElement>) => {
         if (event.key === 'Tab') {
             // 当下拉项展开的时候进入这个回调，来关闭下拉项
-            if (isOpen) {
-                toggleDropdown();
+            if (isShow) {
+                handleClose();
                 setIsDropdownOpen(false);
             }
             return; // 让焦点移动到下一个表单元素
-        } else if (isOpen) {
+        } else if (isShow) {
             if (event.key === 'ArrowUp') {
                 event.preventDefault();
                 setFocusedIndex((prevIndex) => (prevIndex <= 0 ? newOptions.length - 1 : prevIndex - 1));
@@ -228,31 +240,34 @@ const Select = React.forwardRef((props: SelectProps, ref) => {
 
     // 全部都 通过 focus来展开下拉列表项
     const handleFocus = (event: any) => {
-        const position = getAbsolutePositionOfStage(customSelectRef.current, 0, 0);
+        const position = getAbsolutePosition(customSelectRef.current, 0, 0);
         setCustomSelectContentPosition(position);
-        toggleDropdown();
+        handleClose();
         setIsDropdownOpen(true);
     };
 
     useEffect(() => {
-        if (!isOpen) {
+        if (!isShow) {
             setIsDropdownOpen(false);
             setFocusedIndex(-1); // 重置聚焦索引
         }
-    }, [isOpen]);
+    }, [isShow]);
+
+    useClickOutside([selectWrapperRef, contentRef], handleClose, contentRef.current && isShow);
 
     return (
         <div
             onFocus={handleFocus}
             onKeyDown={handleKeyDown}
             tabIndex={0}
-            ref={dropdownRef}
+            ref={selectWrapperRef}
             className={wrapperClassName}
             style={{
                 width,
                 ...(inline && !width ? { flex: 1, marginRight: '15px' } : {}),
             }}
         >
+            {String(isShow)}
             <select style={{ display: 'none' }} name={name}>
                 <option value={value?.[valueKey]}>{value?.[labelKey]}</option>
             </select>
@@ -302,7 +317,7 @@ const Select = React.forwardRef((props: SelectProps, ref) => {
                         ) : (
                             <span className="select-placeholder">{placeholder}</span>
                         )}
-                        {<i onClick={(e: any) => toggleDropdown()} className={`icon fa-solid fa-caret-right rotate-up ${isOpen ? 'rotate-up' : 'rotate-down'}`}></i>}
+                        {<i onClick={(e: any) => handleClose()} className={`icon fa-solid fa-caret-right rotate-up ${isShow ? 'rotate-up' : 'rotate-down'}`}></i>}
                     </div>
                     {commonSuffixIcon && <i onClick={handleClickCommonSuffixIcon} className={`${commonSuffixIcon} common-suffix-icon ms-2`}></i>}
                     {suffixContent && (
@@ -315,16 +330,16 @@ const Select = React.forwardRef((props: SelectProps, ref) => {
                                 position: 'absolute',
                                 top: customSelectContentPosition.y + customSelectContentPosition.height + 'px',
                                 left: customSelectContentPosition.x + 'px',
-                                ...(isOpen
+                                ...(isShow
                                     ? {
                                           maxHeight: calcMaxHeight > parseInt(maxHeight!) ? maxHeight : calcMaxHeight + 'px',
                                       }
                                     : {}),
                             }}
                             ref={contentRef}
-                            className={`custom-select-content ${isOpen ? 'custom-select-content-open' : ''}`}
+                            className={`custom-select-content ${isShow ? 'custom-select-content-open' : ''}`}
                         >
-                            {isOpen && (
+                            {isShow && (
                                 <div className={`option-box`}>
                                     {newOptions.length > 0 ? (
                                         newOptions.map((item, index) => (
@@ -365,5 +380,4 @@ const Select = React.forwardRef((props: SelectProps, ref) => {
         </div>
     );
 });
-
 export default Select;

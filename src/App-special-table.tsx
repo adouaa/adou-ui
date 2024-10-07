@@ -1,4 +1,3 @@
-import Collapse from 'components/adou-collapse';
 import Table, { EditableTableCell } from 'components/adou-table';
 import TabItem from 'components/adou-tabs/tab-item';
 import { useState } from 'react';
