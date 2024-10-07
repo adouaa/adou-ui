@@ -7218,25 +7218,29 @@ const Select = /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_a
     onChange,
     onFormDataChange
   } = props;
-  const {
-    isOpen,
-    dropdownRef,
-    toggleDropdown
-  } = (0,Utils.useClickOutside)();
+  const [isShow, setIsShow] = (0,external_root_React_commonjs2_react_commonjs_react_amd_react_.useState)(false);
+
+  // const { isShow, selectWrapperRef, handleClose } = useClickOutside();
+
   const [newOptions, setNewOptions] = (0,external_root_React_commonjs2_react_commonjs_react_amd_react_.useState)(options || []);
   const [value, setValue] = (0,external_root_React_commonjs2_react_commonjs_react_amd_react_.useState)(defaultValue || {});
   const [calcMaxHeight, setCalcMaxHeight] = (0,external_root_React_commonjs2_react_commonjs_react_amd_react_.useState)(0);
   const [isDropdownOpen, setIsDropdownOpen] = (0,external_root_React_commonjs2_react_commonjs_react_amd_react_.useState)(false);
   const [focusedIndex, setFocusedIndex] = (0,external_root_React_commonjs2_react_commonjs_react_amd_react_.useState)(-1); // 新增状态，用于跟踪当前聚焦的选项
 
+  const selectWrapperRef = (0,external_root_React_commonjs2_react_commonjs_react_amd_react_.useRef)(null);
   const customSelectRef = (0,external_root_React_commonjs2_react_commonjs_react_amd_react_.useRef)();
   const contentRef = (0,external_root_React_commonjs2_react_commonjs_react_amd_react_.useRef)();
   const [customSelectContentPosition, setCustomSelectContentPosition] = (0,external_root_React_commonjs2_react_commonjs_react_amd_react_.useState)({});
+  const handleClose = () => {
+    if (isShow) validate(); // 打开后的关闭再去校验有没有值
+    setIsShow(prev => !prev);
+  };
   const handleDivClick = e => {
     const position = (0,Utils.getAbsolutePosition)(customSelectRef.current, 0, 0);
     setCustomSelectContentPosition(position);
     if (!isDropdownOpen) {
-      toggleDropdown();
+      handleClose();
       setIsDropdownOpen(true);
     }
   };
@@ -7244,7 +7248,7 @@ const Select = /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_a
     setValue(item);
     onChange && onChange(item);
     setError(false);
-    toggleDropdown();
+    handleClose();
     setIsDropdownOpen(false);
     // 新增onFormDataChange来修改外部传入的数据
     if (returnType === "obj" || showDefaultValue) {
@@ -7252,9 +7256,9 @@ const Select = /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_a
     } else {
       onFormDataChange && onFormDataChange(name, item[valueKey]);
     }
+    setError(false);
   };
   (0,external_root_React_commonjs2_react_commonjs_react_amd_react_.useEffect)(() => {
-    console.log("defaultValue: ", defaultValue);
     // 如果是必须展示默认值，不通过列表匹配的话，进入这个判断
     if (showDefaultValue) {
       if (typeof defaultValue !== "object") {
@@ -7280,6 +7284,10 @@ const Select = /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_a
           setValue("");
         }
       }
+    }
+    // 如果有值，则自动做校验，防止一开始没值出现空提示，后面切换了有值还是出现空提示的错误
+    if (defaultValue) {
+      setError(false);
     }
   }, [defaultValue, options]);
   (0,external_root_React_commonjs2_react_commonjs_react_amd_react_.useEffect)(() => {
@@ -7343,12 +7351,12 @@ const Select = /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_a
   const handleKeyDown = event => {
     if (event.key === "Tab") {
       // 当下拉项展开的时候进入这个回调，来关闭下拉项
-      if (isOpen) {
-        toggleDropdown();
+      if (isShow) {
+        handleClose();
         setIsDropdownOpen(false);
       }
       return; // 让焦点移动到下一个表单元素
-    } else if (isOpen) {
+    } else if (isShow) {
       if (event.key === "ArrowUp") {
         event.preventDefault();
         setFocusedIndex(prevIndex => prevIndex <= 0 ? newOptions.length - 1 : prevIndex - 1);
@@ -7366,20 +7374,21 @@ const Select = /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_a
   const handleFocus = event => {
     const position = (0,Utils.getAbsolutePosition)(customSelectRef.current, 0, 0);
     setCustomSelectContentPosition(position);
-    toggleDropdown();
+    handleClose();
     setIsDropdownOpen(true);
   };
   (0,external_root_React_commonjs2_react_commonjs_react_amd_react_.useEffect)(() => {
-    if (!isOpen) {
+    if (!isShow) {
       setIsDropdownOpen(false);
       setFocusedIndex(-1); // 重置聚焦索引
     }
-  }, [isOpen]);
+  }, [isShow]);
+  (0,Utils.useClickOutside)([selectWrapperRef, contentRef], handleClose, contentRef.current && isShow);
   return /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("div", {
     onFocus: handleFocus,
     onKeyDown: handleKeyDown,
     tabIndex: 0,
-    ref: dropdownRef,
+    ref: selectWrapperRef,
     className: wrapperClassName,
     style: {
       width,
@@ -7441,8 +7450,8 @@ const Select = /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_a
   }, value[labelKey]) : /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("span", {
     className: "select-placeholder"
   }, placeholder), /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("i", {
-    onClick: e => toggleDropdown(),
-    className: "icon fa-solid fa-caret-right rotate-up ".concat(isOpen ? "rotate-up" : "rotate-down")
+    onClick: e => handleClose(),
+    className: "icon fa-solid fa-caret-right rotate-up ".concat(isShow ? "rotate-up" : "rotate-down")
   })), commonSuffixIcon && /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("i", {
     onClick: handleClickCommonSuffixIcon,
     className: "".concat(commonSuffixIcon, " common-suffix-icon ms-2")
@@ -7453,13 +7462,13 @@ const Select = /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_a
       position: "absolute",
       top: customSelectContentPosition.y + customSelectContentPosition.height + "px",
       left: customSelectContentPosition.x + "px",
-      ...(isOpen ? {
+      ...(isShow ? {
         maxHeight: calcMaxHeight > parseInt(maxHeight) ? maxHeight : calcMaxHeight + "px"
       } : {})
     },
     ref: contentRef,
-    className: "custom-select-content ".concat(isOpen ? "custom-select-content-open" : "")
-  }, isOpen && /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("div", {
+    className: "custom-select-content ".concat(isShow ? "custom-select-content-open" : "")
+  }, isShow && /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("div", {
     className: "option-box"
   }, newOptions.length > 0 ? newOptions.map((item, index) => /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("div", {
     onClick: () => handleSelect(item),

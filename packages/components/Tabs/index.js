@@ -172,9 +172,6 @@ var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBP
 ___CSS_LOADER_EXPORT___.push([module.id, `.tabs-box .nav .nav-link {
   color: #000;
 }
-.tabs-box .nav .nav-link.active {
-  background: linear-gradient(#dafbff, #fff) !important;
-}
 .tabs-box .tabs-header {
   display: flex;
   border-bottom: 1px solid #dcdfe6;
@@ -196,7 +193,17 @@ ___CSS_LOADER_EXPORT___.push([module.id, `.tabs-box .nav .nav-link {
   color: #409eff;
   box-sizing: border-box;
   background: linear-gradient(#dafbff, #fff);
-}`, "",{"version":3,"sources":["webpack://./src/index.scss"],"names":[],"mappings":"AAEQ;EACI,WAAA;AADZ;AAIQ;EACI,qDAAA;AAFZ;AAMI;EACI,aAAA;EACA,gCAAA;AAJR;AAMQ;EACI,eAAA;AAJZ;AAMY;EACI,eAAA;EACA,mBAAA;EACA,eAAA;EACA,eAAA;AAJhB;AAQQ;EACI,iBAAA;AANZ;AASQ;EACI,gCAAA;EACA,cAAA;EACA,sBAAA;EACA,0CAAA;AAPZ","sourcesContent":[".tabs-box {\n    .nav {\n        .nav-link {\n            color: #000;\n        }\n\n        .nav-link.active {\n            background: linear-gradient(#dafbff, #fff) !important;\n        }\n    }\n\n    .tabs-header {\n        display: flex;\n        border-bottom: 1px solid #dcdfe6;\n\n        .tabs-header-item-box {\n            padding: 0 15px;\n\n            .tabs-header-item {\n                padding: 10px 0;\n                margin-bottom: -1px;\n                font-size: 14px;\n                cursor: pointer;\n            }\n        }\n\n        .tabs-header-item-box.first {\n            padding-left: 0px;\n        }\n\n        .tabs-header-item.active {\n            border-bottom: 1px solid #409eff;\n            color: #409eff;\n            box-sizing: border-box;\n            background: linear-gradient(#dafbff, #fff),\n        }\n\n    }\n}"],"sourceRoot":""}]);
+}
+.tabs-box .header-wrapper {
+  position: relative;
+}
+.tabs-box .header-wrapper .extra-content {
+  position: absolute;
+  z-index: 99;
+  right: 0;
+  top: 0;
+  cursor: pointer;
+}`, "",{"version":3,"sources":["webpack://./src/index.scss"],"names":[],"mappings":"AAEQ;EACI,WAAA;AADZ;AAOI;EACI,aAAA;EACA,gCAAA;AALR;AAOQ;EACI,eAAA;AALZ;AAOY;EACI,eAAA;EACA,mBAAA;EACA,eAAA;EACA,eAAA;AALhB;AASQ;EACI,iBAAA;AAPZ;AAUQ;EACI,gCAAA;EACA,cAAA;EACA,sBAAA;EACA,0CAAA;AARZ;AAcI;EACI,kBAAA;AAZR;AAcQ;EACI,kBAAA;EACA,WAAA;EACA,QAAA;EACA,MAAA;EACA,eAAA;AAZZ","sourcesContent":[".tabs-box {\n    .nav {\n        .nav-link {\n            color: #000;\n        }\n\n        .nav-link.active {}\n    }\n\n    .tabs-header {\n        display: flex;\n        border-bottom: 1px solid #dcdfe6;\n\n        .tabs-header-item-box {\n            padding: 0 15px;\n\n            .tabs-header-item {\n                padding: 10px 0;\n                margin-bottom: -1px;\n                font-size: 14px;\n                cursor: pointer;\n            }\n        }\n\n        .tabs-header-item-box.first {\n            padding-left: 0px;\n        }\n\n        .tabs-header-item.active {\n            border-bottom: 1px solid #409eff;\n            color: #409eff;\n            box-sizing: border-box;\n            background: linear-gradient(#dafbff, #fff),\n        }\n\n\n    }\n\n    .header-wrapper {\n        position: relative;\n\n        .extra-content {\n            position: absolute;\n            z-index: 99;\n            right: 0;\n            top: 0;\n            cursor: pointer;\n        }\n    }\n}"],"sourceRoot":""}]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 
@@ -1807,6 +1814,8 @@ var update = injectStylesIntoStyleTag_default()(cjs_ruleSet_1_rules_1_use_2_src/
 
 const Tabs = props => {
   const {
+    showExtraContent,
+    commonExtraContent,
     lineaGradient = "#dafbff, #fff",
     children,
     handleLabelClick,
@@ -1816,6 +1825,8 @@ const Tabs = props => {
     contentPadding,
     clearOnChange = true
   } = props;
+  const [updateKey, setupdateKey] = (0,external_root_React_commonjs2_react_commonjs_react_amd_react_.useState)(0);
+  const content = (0,external_root_React_commonjs2_react_commonjs_react_amd_react_.useRef)();
   const handleLabelClickFn = (index, itemInfo) => {
     handleLabelClick && handleLabelClick(index, itemInfo);
   };
@@ -1825,6 +1836,8 @@ const Tabs = props => {
       tabItems.push(child);
     });
     return /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement((external_root_React_commonjs2_react_commonjs_react_amd_react_default()).Fragment, null, tabStyle === "common" ? /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("div", {
+      className: "header-wrapper"
+    }, /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("div", {
       className: "tabs-header"
     }, tabItems.map((child, index) => {
       var _child$props;
@@ -1837,7 +1850,11 @@ const Tabs = props => {
         onClick: () => handleLabelClickFn(index, child),
         className: "tabs-header-item  ".concat(activeIndex === index && "active")
       }, child === null || child === void 0 || (_child$props = child.props) === null || _child$props === void 0 ? void 0 : _child$props.label)));
-    })) : /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("ul", {
+    })), showExtraContent && /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("div", {
+      className: "extra-content"
+    }, commonExtraContent)) : /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("div", {
+      className: "header-wrapper"
+    }, /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("ul", {
       className: "nav nav-tabs mb-2"
     }, tabItems.map((child, index) => {
       return /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("li", {
@@ -1858,12 +1875,32 @@ const Tabs = props => {
       }, /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("i", {
         className: child.props.prefixIcon + " me-1"
       }), child.props.label));
-    })));
+    })), showExtraContent && /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("div", {
+      className: "extra-content"
+    }, content.current)));
   };
+  const renderExtraContent = () => {
+    external_root_React_commonjs2_react_commonjs_react_amd_react_default().Children.map(children, (child, index) => {
+      if (child) {
+        if (index === activeIndex) {
+          content.current = child.props.extraContent;
+        }
+      }
+    });
+  };
+  (0,external_root_React_commonjs2_react_commonjs_react_amd_react_.useEffect)(() => {
+    renderExtraContent();
+    // 因为extraContent是用ref保存的，
+    // 所以为了在切换回来的时候重新渲染extraContent的内容，需要强制修改state来重新渲染页面
+    setupdateKey(updateKey + 1);
+  }, [activeIndex]);
   const renderContent = () => {
     const renderChildren = [];
     external_root_React_commonjs2_react_commonjs_react_amd_react_default().Children.map(children, (child, index) => {
       if (child) {
+        if (index === activeIndex) {
+          content.current = child.props.extraContent;
+        }
         const enhancedChildren = /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().cloneElement(child, {
           active: index === activeIndex,
           key: index,

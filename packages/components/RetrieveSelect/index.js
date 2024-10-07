@@ -6042,6 +6042,7 @@ const useClickOutside = cb => {
 
 const RetrievrSelect = /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().forwardRef((props, ref) => {
   const {
+    maxHeight = "300px",
     activeColor = {
       font: "#fff",
       bgc: "#2783d8"
@@ -6147,7 +6148,7 @@ const RetrievrSelect = /*#__PURE__*/external_root_React_commonjs2_react_commonjs
       const data = hasSelected ? [] : [option];
       setSelectedOptions(data);
       onRetrieveSelectChange && onRetrieveSelectChange(option);
-      if (returnType === "obj") {
+      if (returnType === "obj" || showDefaultValue) {
         onFormDataChange && onFormDataChange(name, data[0]);
       } else {
         var _data$;
@@ -6214,6 +6215,7 @@ const RetrievrSelect = /*#__PURE__*/external_root_React_commonjs2_react_commonjs
   };
   const [error, setError] = (0,external_root_React_commonjs2_react_commonjs_react_amd_react_.useState)(false);
   const validate = () => {
+    console.log("selectedOptions: ", selectedOptions);
     if (!required) return true;
     if (selectedOptions.length) {
       setError(false);
@@ -6241,7 +6243,7 @@ const RetrievrSelect = /*#__PURE__*/external_root_React_commonjs2_react_commonjs
   }));
   const judgeOptionsByAttribute = (arr, item) => {
     arr.forEach(i => {
-      if (i[attribute] === item[attribute]) {
+      if (i[valueKey] === item[valueKey]) {
         i.selected = true;
       }
     });
@@ -6291,13 +6293,23 @@ const RetrievrSelect = /*#__PURE__*/external_root_React_commonjs2_react_commonjs
     if (single) {
       if (defaultValue) {
         if (showDefaultValue) {
-          if (typeof defaultValue === "object" && defaultValue[valueKey]) {
+          // 如果 defaultValue 是对象，并且 valueKey属性有值，则根据 valueKey 找到对应的 option
+          if (typeof defaultValue === "object" && defaultValue[valueKey] !== undefined && defaultValue[valueKey] !== null && defaultValue[valueKey] !== 0) {
             setSelectedOptions([defaultValue]);
             setShowSelectedOptions(true);
             setOptionList(preArr => {
               return preArr === null || preArr === void 0 ? void 0 : preArr.map(item => ({
                 ...item,
                 selected: defaultValue[valueKey] === item[valueKey]
+              }));
+            });
+          } else {
+            // 如果 defaultValue没值，则数据置空
+            setSelectedOptions([]);
+            setOptionList(preArr => {
+              return preArr === null || preArr === void 0 ? void 0 : preArr.map(item => ({
+                ...item,
+                selected: false
               }));
             });
           }
@@ -6363,6 +6375,9 @@ const RetrievrSelect = /*#__PURE__*/external_root_React_commonjs2_react_commonjs
         }));
       }
     }
+    if (defaultValue) {
+      setError(false);
+    }
   }, [defaultValue, tempOptions]);
   (0,external_root_React_commonjs2_react_commonjs_react_amd_react_.useEffect)(() => {
     if (selectedOptions.length) {
@@ -6425,7 +6440,7 @@ const RetrievrSelect = /*#__PURE__*/external_root_React_commonjs2_react_commonjs
     return /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("div", {
       className: "".concat(single ? "selected-option-single" : "selected-option"),
       key: option[valueKey]
-    }, option[labelKey] || "无", !single && /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("i", {
+    }, option[labelKey], !single && /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("i", {
       onClick: () => handleDeleteItem(option),
       className: "option-icon fa-regular fa-circle-xmark"
     }));
@@ -6445,14 +6460,15 @@ const RetrievrSelect = /*#__PURE__*/external_root_React_commonjs2_react_commonjs
     onClick: handleClickCommonSuffixIcon,
     className: "".concat(commonSuffixIcon, " common-suffix-icon ms-2")
   }), suffixContent && /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("div", {
-    className: "".concat(suffixContentType === "button" ? "suffix-content-btn-wrapper" : "")
+    className: "".concat(suffixContentType === "button" ? "suffix-content-btn-wrapper" : "ms-2")
   }, suffixContent)), /*#__PURE__*/external_root_ReactDOM_commonjs2_react_dom_commonjs_react_dom_amd_react_dom_default().createPortal( /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("div", {
     ref: contentRef,
     style: {
       width: contentWidth,
       position: "absolute",
       top: customSelectContentPosition.y + customSelectContentPosition.height + "px",
-      left: customSelectContentPosition.x + "px"
+      left: customSelectContentPosition.x + "px",
+      maxHeight
     },
     className: "retrieve-select-content ".concat(showOptions ? "retrieve-select-content-open" : "")
   }, !readOnly && isOpen && ((optionList === null || optionList === void 0 ? void 0 : optionList.length) > 0 ? optionList === null || optionList === void 0 ? void 0 : optionList.map((option, index) => {
@@ -6472,9 +6488,9 @@ const RetrievrSelect = /*#__PURE__*/external_root_React_commonjs2_react_commonjs
     style: {
       color: "#DC3545",
       fontSize: "14px",
-      paddingLeft: parseInt(labelWidth) > 120 ? "120px" : labelWidth
+      paddingLeft: parseInt(labelWidth) > 120 ? "120px" : parseFloat(labelWidth) + 20 + "px"
     }
-  }, "".concat(errMsg || "".concat(name, "\u4E0D\u80FD\u4E3A\u7A7A"))));
+  }, "".concat(errMsg || "".concat(label, "\u4E0D\u80FD\u4E3A\u7A7A"))));
 });
 /* harmony default export */ const src_0 = (RetrievrSelect);
 })();

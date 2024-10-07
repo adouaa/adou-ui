@@ -47,6 +47,7 @@ export interface InputProps {
   ) => void;
   onChange?: (value: any, ...args: any) => void;
   onIconClick?: (value: string) => void;
+  onFormDataChange?: (key: string, value: any) => void;
 }
 
 export interface InputRef {
@@ -84,6 +85,7 @@ const Input: React.ForwardRefRenderFunction<InputRef, InputProps> = (
     onBlur,
     onChange,
     onIconClick,
+    onFormDataChange,
   },
   ref
 ) => {
@@ -121,8 +123,10 @@ const Input: React.ForwardRefRenderFunction<InputRef, InputProps> = (
     e: React.ChangeEvent<HTMLInputElement>,
     ...args: any
   ) => {
-    setValue(e.target.value);
-    onChange && onChange(e.target.value, ...args);
+    const value = e.target.value;
+    setValue(value);
+    onChange && onChange(value, ...args);
+    onFormDataChange && onFormDataChange(name!, value);
   };
 
   const handleIconClick = () => {
@@ -161,6 +165,10 @@ const Input: React.ForwardRefRenderFunction<InputRef, InputProps> = (
       setValue(defaultValue);
     } else {
       setValue("");
+    }
+
+    if (defaultValue) {
+      setError(false);
     }
   }, [defaultValue]);
 
@@ -237,7 +245,7 @@ const Input: React.ForwardRefRenderFunction<InputRef, InputProps> = (
             className={`${
               suffixContentType === "button"
                 ? "suffix-content-btn-wrapper"
-                : "suffix-content-text-wrapper"
+                : "suffix-content-text-wrapper ms-1"
             }`}
           >
             {suffixContent}
@@ -266,7 +274,10 @@ const Input: React.ForwardRefRenderFunction<InputRef, InputProps> = (
           style={{
             color: "#DC3545",
             fontSize: "14px",
-            paddingLeft: parseInt(labelWidth) > 120 ? "120px" : labelWidth,
+            paddingLeft:
+              parseInt(labelWidth) > 120
+                ? "120px"
+                : parseFloat(labelWidth) + 20 + "px",
           }}
         >{`${errMsg || `${label}不能为空`}`}</div>
       )}

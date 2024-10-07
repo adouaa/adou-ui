@@ -7,6 +7,7 @@ import { getAbsolutePosition } from "adou-ui/Utils/index";
 import useClickOutside from "./utils/useClickOutside";
 
 export interface SelectProps {
+  maxHeight?: string;
   activeColor?: { font: string; bgc: string };
   returnType?: "str" | "obj";
   showDefaultValue?: boolean;
@@ -48,6 +49,7 @@ interface RetrieveSelectProps extends SelectProps {
 const RetrievrSelect: React.FC<RetrieveSelectProps> = React.forwardRef(
   (props: RetrieveSelectProps, ref) => {
     const {
+      maxHeight = "300px",
       activeColor = { font: "#fff", bgc: "#2783d8" },
       returnType,
       showDefaultValue = true,
@@ -155,7 +157,7 @@ const RetrievrSelect: React.FC<RetrieveSelectProps> = React.forwardRef(
         const data = hasSelected ? [] : [option];
         setSelectedOptions(data);
         onRetrieveSelectChange && onRetrieveSelectChange(option);
-        if (returnType === "obj") {
+        if (returnType === "obj" || showDefaultValue) {
           onFormDataChange && onFormDataChange(name!, data[0]);
         } else {
           onFormDataChange && onFormDataChange(name!, data[0]?.[valueKey]);
@@ -239,6 +241,7 @@ const RetrievrSelect: React.FC<RetrieveSelectProps> = React.forwardRef(
 
     const [error, setError] = useState<boolean>(false);
     const validate = () => {
+      console.log("selectedOptions: ", selectedOptions);
       if (!required) return true;
       if (selectedOptions.length) {
         setError(false);
@@ -272,7 +275,7 @@ const RetrievrSelect: React.FC<RetrieveSelectProps> = React.forwardRef(
 
     const judgeOptionsByAttribute = (arr: any, item: any) => {
       arr.forEach((i: any) => {
-        if (i[attribute] === item[attribute]) {
+        if (i[valueKey] === item[valueKey]) {
           i.selected = true;
         }
       });
@@ -333,13 +336,28 @@ const RetrievrSelect: React.FC<RetrieveSelectProps> = React.forwardRef(
       if (single) {
         if (defaultValue) {
           if (showDefaultValue) {
-            if (typeof defaultValue === "object" && defaultValue[valueKey]) {
+            // 如果 defaultValue 是对象，并且 valueKey属性有值，则根据 valueKey 找到对应的 option
+            if (
+              typeof defaultValue === "object" &&
+              defaultValue[valueKey] !== undefined &&
+              defaultValue[valueKey] !== null &&
+              defaultValue[valueKey] !== 0
+            ) {
               setSelectedOptions([defaultValue]);
               setShowSelectedOptions(true);
               setOptionList((preArr) => {
                 return preArr?.map((item) => ({
                   ...item,
                   selected: defaultValue[valueKey] === item[valueKey],
+                }));
+              });
+            } else {
+              // 如果 defaultValue没值，则数据置空
+              setSelectedOptions([]);
+              setOptionList((preArr) => {
+                return preArr?.map((item) => ({
+                  ...item,
+                  selected: false,
                 }));
               });
             }
@@ -410,6 +428,9 @@ const RetrievrSelect: React.FC<RetrieveSelectProps> = React.forwardRef(
           );
         }
       }
+      if (defaultValue) {
+        setError(false);
+      }
     }, [defaultValue, tempOptions]);
 
     useEffect(() => {
@@ -477,7 +498,7 @@ const RetrievrSelect: React.FC<RetrieveSelectProps> = React.forwardRef(
                       }`}
                       key={option[valueKey]}
                     >
-                      {option[labelKey] || "无"}
+                      {option[labelKey]}
                       {!single && (
                         <i
                           onClick={() => handleDeleteItem(option)}
@@ -513,7 +534,7 @@ const RetrievrSelect: React.FC<RetrieveSelectProps> = React.forwardRef(
               className={`${
                 suffixContentType === "button"
                   ? "suffix-content-btn-wrapper"
-                  : ""
+                  : "ms-2"
               }`}
             >
               {suffixContent}
@@ -531,6 +552,7 @@ const RetrievrSelect: React.FC<RetrieveSelectProps> = React.forwardRef(
                 customSelectContentPosition.height +
                 "px",
               left: customSelectContentPosition.x + "px",
+              maxHeight,
             }}
             className={`retrieve-select-content ${
               showOptions ? "retrieve-select-content-open" : ""
@@ -571,9 +593,12 @@ const RetrievrSelect: React.FC<RetrieveSelectProps> = React.forwardRef(
             style={{
               color: "#DC3545",
               fontSize: "14px",
-              paddingLeft: parseInt(labelWidth) > 120 ? "120px" : labelWidth,
+              paddingLeft:
+                parseInt(labelWidth) > 120
+                  ? "120px"
+                  : parseFloat(labelWidth) + 20 + "px",
             }}
-          >{`${errMsg || `${name}不能为空`}`}</div>
+          >{`${errMsg || `${label}不能为空`}`}</div>
         )}
       </div>
     );

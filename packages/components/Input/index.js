@@ -748,7 +748,8 @@ const Input = (_ref, ref) => {
     onFocus,
     onBlur,
     onChange,
-    onIconClick
+    onIconClick,
+    onFormDataChange
   } = _ref;
   const inputRef = (0,external_root_React_commonjs2_react_commonjs_react_amd_react_.useRef)(null);
   const [value, setValue] = (0,external_root_React_commonjs2_react_commonjs_react_amd_react_.useState)(defaultValue !== null && defaultValue !== void 0 ? defaultValue : "");
@@ -776,11 +777,13 @@ const Input = (_ref, ref) => {
     validate();
   };
   const handleChange = function (e) {
-    setValue(e.target.value);
+    const value = e.target.value;
+    setValue(value);
     for (var _len4 = arguments.length, args = new Array(_len4 > 1 ? _len4 - 1 : 0), _key4 = 1; _key4 < _len4; _key4++) {
       args[_key4 - 1] = arguments[_key4];
     }
-    onChange && onChange(e.target.value, ...args);
+    onChange && onChange(value, ...args);
+    onFormDataChange && onFormDataChange(name, value);
   };
   const handleIconClick = () => {
     onIconClick && onIconClick(value);
@@ -815,6 +818,9 @@ const Input = (_ref, ref) => {
       setValue(defaultValue);
     } else {
       setValue("");
+    }
+    if (defaultValue) {
+      setError(false);
     }
   }, [defaultValue]);
 
@@ -872,7 +878,7 @@ const Input = (_ref, ref) => {
     "aria-label": "Username",
     "aria-describedby": "basic-addon1"
   }), suffixContent && /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("div", {
-    className: "".concat(suffixContentType === "button" ? "suffix-content-btn-wrapper" : "suffix-content-text-wrapper")
+    className: "".concat(suffixContentType === "button" ? "suffix-content-btn-wrapper" : "suffix-content-text-wrapper ms-1")
   }, suffixContent), commonSuffixIcon && /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("i", {
     onClick: handleClickCommonSuffixIcon,
     className: "".concat(commonSuffixIcon, " common-suffix-icon ms-2")
@@ -887,7 +893,7 @@ const Input = (_ref, ref) => {
     style: {
       color: "#DC3545",
       fontSize: "14px",
-      paddingLeft: parseInt(labelWidth) > 120 ? "120px" : labelWidth
+      paddingLeft: parseInt(labelWidth) > 120 ? "120px" : parseFloat(labelWidth) + 20 + "px"
     }
   }, "".concat(errMsg || "".concat(label, "\u4E0D\u80FD\u4E3A\u7A7A"))));
 };

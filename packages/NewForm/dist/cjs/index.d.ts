@@ -1,5 +1,6 @@
 import React from "react";
 interface FormProps {
+    onSubmit?: () => void;
     oneLine?: boolean;
     data?: any;
     children?: any;

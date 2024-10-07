@@ -1,6 +1,8 @@
 import React from "react";
 import "./index.scss";
 declare const _default: React.ComponentType<Omit<{
+    showExtraContent?: boolean | undefined;
+    commonExtraContent?: any;
     children?: any;
     handleLabelClick?: any;
     activeIndex?: number | undefined;

@@ -656,7 +656,7 @@ const TextArea = /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react
     externalClassName,
     width,
     inputGroup = false,
-    labelPosition = 'center',
+    labelPosition = "center",
     required = false,
     name,
     label,
@@ -669,7 +669,7 @@ const TextArea = /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react
 
   // 获取 `FormContext.Provider` 提供提供的 `value` 值
 
-  const [value, setValue] = (0,external_root_React_commonjs2_react_commonjs_react_amd_react_.useState)(defaultValue !== null && defaultValue !== void 0 ? defaultValue : '');
+  const [value, setValue] = (0,external_root_React_commonjs2_react_commonjs_react_amd_react_.useState)(defaultValue !== null && defaultValue !== void 0 ? defaultValue : "");
   const handleChange = function (e) {
     setValue(e.target.value); // 手动将表单的value值赋值
     // context.handleChange(context.name, e.target.value) // 这边不能直接用 handleChange来赋值，会出现赋值错误的情况
@@ -683,7 +683,7 @@ const TextArea = /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react
     validate();
   };
   const handleClickCommonSuffixIcon = () => {
-    setValue('');
+    setValue("");
     setError(true);
   };
   const [error, setError] = (0,external_root_React_commonjs2_react_commonjs_react_amd_react_.useState)(false);
@@ -698,7 +698,7 @@ const TextArea = /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react
     }
   };
   const clear = () => {
-    setValue('');
+    setValue("");
   };
   // Expose validateInput method via ref
   (0,external_root_React_commonjs2_react_commonjs_react_amd_react_.useImperativeHandle)(ref, () => ({
@@ -706,35 +706,38 @@ const TextArea = /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react
     clear
   }));
   const textareaClasses = classnames_default()({
-    'textarea-warpper': true,
+    "textarea-warpper": true,
     [externalClassName]: externalClassName
   });
   (0,external_root_React_commonjs2_react_commonjs_react_amd_react_.useEffect)(() => {
     if (defaultValue) {
       setValue(defaultValue);
     } else {
-      setValue('');
+      setValue("");
+    }
+    if (defaultValue) {
+      setError(false);
     }
   }, [defaultValue]);
   return /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("div", {
-    className: "".concat(textareaClasses, " ").concat(!error && isFormItem && 'mb-3'),
+    className: "".concat(textareaClasses, " ").concat(!error && isFormItem && "mb-3"),
     style: {
       width
     }
   }, /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("div", {
-    className: "label-in-".concat(labelPosition, " ").concat(inputGroup ? 'input-group' : '')
+    className: "label-in-".concat(labelPosition, " ").concat(inputGroup ? "input-group" : "")
   }, label && /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("span", {
     style: {
       color: labelColor,
       width: labelWidth
     },
-    className: "".concat(inputGroup ? 'input-group-text' : '', " label-box")
+    className: "".concat(inputGroup ? "input-group-text" : "", " label-box")
   }, label), /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("textarea", {
     style: {
       width,
       ...(inline && !width ? {
         flex: 1,
-        marginRight: '15px'
+        marginRight: "15px"
       } : {})
     },
     readOnly: readOnly,
@@ -753,8 +756,8 @@ const TextArea = /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react
   })), error && required && /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("div", {
     className: "animate__animated animate__fadeIn",
     style: {
-      color: '#DC3545',
-      paddingLeft: parseInt(labelWidth) > 120 ? '120px' : labelWidth
+      color: "#DC3545",
+      paddingLeft: parseInt(labelWidth) > 120 ? "120px" : parseFloat(labelWidth) + 20 + "px"
     }
   }, "".concat(errMsg || "".concat(label || name, "\u4E0D\u80FD\u4E3A\u7A7A"))));
 });

@@ -1,9 +1,9 @@
 {
-  "name": "adou-live-search",
+  "name": "adou-live-search-select",
   "version": "0.0.0",
-  "description": "LiveSearch组件",
+  "description": "LiveSearchSelect组件",
   "keywords": [
-    "LiveSearch"
+    "LiveSearchSelect"
   ],
   "author": "郑英杰 <1041137820@qq.com>",
   "homepage": "https://github.com/adouaa/adou-ui#readme",

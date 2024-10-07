@@ -101,7 +101,7 @@ __webpack_require__.r(__webpack_exports__);
 const Form = /*#__PURE__*/(0,react__WEBPACK_IMPORTED_MODULE_0__.forwardRef)((_ref, AdouFormRef) => {
   let {
     oneLine = false,
-    data = {},
+    data,
     labelPosition,
     labelColor = "rgb(63 109 184)",
     inline,
@@ -109,9 +109,10 @@ const Form = /*#__PURE__*/(0,react__WEBPACK_IMPORTED_MODULE_0__.forwardRef)((_re
     children,
     eachWordWidth = 21,
     commonSuffixIcon = "",
-    onFormDataChange
+    onFormDataChange,
+    onSubmit
   } = _ref;
-  const [formData, setFormData] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(data);
+  const [formData, setFormData] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(data || {});
   const formRef = (0,react__WEBPACK_IMPORTED_MODULE_0__.useRef)(null);
   const handleChangeData = (key, value) => {
     setFormData(prevData => ({
@@ -205,11 +206,15 @@ const Form = /*#__PURE__*/(0,react__WEBPACK_IMPORTED_MODULE_0__.forwardRef)((_re
 
     // 遍历所有child
     for (let key in childRefs.current) {
+      var _child$current;
       let child = childRefs.current[key];
-      const valid = child.current && child.current.validate && child.current.validate();
-      if (!valid) {
-        console.log("存在校验不通过的表单：", key);
-        isValid = false;
+      // 如果该表单组件没有validate方法，代表不做校验
+      if ((_child$current = child.current) !== null && _child$current !== void 0 && _child$current.validate) {
+        const valid = child.current && child.current.validate && child.current.validate();
+        if (!valid) {
+          console.log("存在校验不通过的表单：", key);
+          isValid = false;
+        }
       }
     }
     if (!isValid) {
@@ -273,6 +278,7 @@ const Form = /*#__PURE__*/(0,react__WEBPACK_IMPORTED_MODULE_0__.forwardRef)((_re
         });
         renderChildren.push(enhancedChildren);
         // 将子组件的 ref 存储到 childRefs 中
+        // 如果子组件内部没有用 useImperativeHandle来暴露东西的话，chidRef.current就是null
         if (child.props.name) {
           childRefs.current[child.props.name] = childRef;
         }
@@ -291,9 +297,18 @@ const Form = /*#__PURE__*/(0,react__WEBPACK_IMPORTED_MODULE_0__.forwardRef)((_re
   (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(() => {
     setFormData(data);
   }, [data]);
+  const handleKeyDown = event => {
+    // 检查是否按下了 Ctrl + Enter
+    if (event.ctrlKey && event.key === "q") {
+      console.log("// 检查是否按下了 Ctrl + Enter: ");
+      event.preventDefault(); // 阻止默认行为
+      onSubmit && onSubmit(); // 触发提交事件
+    }
+  };
   return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", {
     className: "adou-new-form-wrapper flex-wrap ".concat(inline ? "d-flex" : ""),
-    ref: formRef
+    ref: formRef,
+    onKeyDown: handleKeyDown
   }, renderChildren());
 });
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (Form);

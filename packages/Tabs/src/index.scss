@@ -4,9 +4,7 @@
             color: #000;
         }
 
-        .nav-link.active {
-            background: linear-gradient(#dafbff, #fff) !important;
-        }
+        .nav-link.active {}
     }
 
     .tabs-header {
@@ -35,5 +33,18 @@
             background: linear-gradient(#dafbff, #fff),
         }
 
+
+    }
+
+    .header-wrapper {
+        position: relative;
+
+        .extra-content {
+            position: absolute;
+            z-index: 99;
+            right: 0;
+            top: 0;
+            cursor: pointer;
+        }
     }
 }

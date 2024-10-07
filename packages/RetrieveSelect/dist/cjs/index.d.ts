@@ -1,6 +1,7 @@
 import React from "react";
 import "./index.scss";
 export interface SelectProps {
+    maxHeight?: string;
     activeColor?: {
         font: string;
         bgc: string;

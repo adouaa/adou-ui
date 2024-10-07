@@ -5091,10 +5091,17 @@ const useNavigateTo = () => {
 /* harmony default export */ const hooks_useNavigateTo = (useNavigateTo);
 ;// CONCATENATED MODULE: ./src/hooks/useClickOutside.js
 
-const useClickOutside = (ref, callback) => {
+const useClickOutside = function (refs, callback) {
+  let enabled = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : true;
   (0,external_root_React_commonjs2_react_commonjs_react_amd_react_.useEffect)(() => {
+    const judge = event => {
+      return refs.some(ref => {
+        var _ref$current;
+        return (_ref$current = ref.current) === null || _ref$current === void 0 ? void 0 : _ref$current.contains(event.target);
+      });
+    };
     const handleClickOutside = event => {
-      if (ref.current && !ref.current.contains(event.target)) {
+      if (enabled && refs.length && !judge(event)) {
         callback && callback();
       }
     };
@@ -5102,7 +5109,7 @@ const useClickOutside = (ref, callback) => {
     return () => {
       document.removeEventListener('mousedown', handleClickOutside);
     };
-  }, [ref, callback]);
+  }, [refs, callback, enabled]);
 };
 /* harmony default export */ const hooks_useClickOutside = (useClickOutside);
 ;// CONCATENATED MODULE: ./src/hooks/useDrag.js

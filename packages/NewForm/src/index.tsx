@@ -6,8 +6,8 @@ import {
   useState,
 } from "react";
 import React from "react";
-
 interface FormProps {
+  onSubmit?: () => void;
   oneLine?: boolean;
   data?: any;
   children?: any;
@@ -24,7 +24,7 @@ const Form = forwardRef(
   (
     {
       oneLine = false,
-      data = {},
+      data,
       labelPosition,
       labelColor = "rgb(63 109 184)",
       inline,
@@ -33,10 +33,11 @@ const Form = forwardRef(
       eachWordWidth = 21,
       commonSuffixIcon = "",
       onFormDataChange,
+      onSubmit,
     }: FormProps,
     AdouFormRef
   ) => {
-    const [formData, setFormData] = useState<any>(data);
+    const [formData, setFormData] = useState<any>(data || {});
 
     const formRef = useRef<any>(null);
 
@@ -135,13 +136,16 @@ const Form = forwardRef(
       // 遍历所有child
       for (let key in childRefs.current) {
         let child = childRefs.current[key];
-        const valid =
-          child.current && child.current.validate && child.current.validate();
+        // 如果该表单组件没有validate方法，代表不做校验
+        if (child.current?.validate) {
+          const valid =
+            child.current && child.current.validate && child.current.validate();
 
-        if (!valid) {
-          console.log("存在校验不通过的表单：", key);
+          if (!valid) {
+            console.log("存在校验不通过的表单：", key);
 
-          isValid = false;
+            isValid = false;
+          }
         }
       }
 
@@ -202,6 +206,7 @@ const Form = forwardRef(
           });
           renderChildren.push(enhancedChildren);
           // 将子组件的 ref 存储到 childRefs 中
+          // 如果子组件内部没有用 useImperativeHandle来暴露东西的话，chidRef.current就是null
           if (child.props.name) {
             childRefs.current[child.props.name] = childRef;
           }
@@ -222,15 +227,24 @@ const Form = forwardRef(
       setFormData(data);
     }, [data]);
 
+    const handleKeyDown = (event: React.KeyboardEvent<HTMLDivElement>) => {
+      // 检查是否按下了 Ctrl + Enter
+      if (event.ctrlKey && event.key === "q") {
+        console.log("// 检查是否按下了 Ctrl + Enter: ");
+        event.preventDefault(); // 阻止默认行为
+        onSubmit && onSubmit(); // 触发提交事件
+      }
+    };
+
     return (
       <div
         className={`adou-new-form-wrapper flex-wrap ${inline ? "d-flex" : ""}`}
         ref={formRef}
+        onKeyDown={handleKeyDown}
       >
         {renderChildren()}
       </div>
     );
   }
 );
-
 export default Form;

@@ -11,7 +11,7 @@ interface TextAreaProps {
     externalClassName?: string;
     width?: any;
     inputGroup?: boolean;
-    labelPosition?: 'left-top' | 'center' | 'top' | 'input-group';
+    labelPosition?: "left-top" | "center" | "top" | "input-group";
     labelColor?: string;
     required?: boolean;
     ref?: any;

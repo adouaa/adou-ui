@@ -1,161 +1,240 @@
-import React, { createContext, forwardRef, useImperativeHandle, useState } from 'react'
-
-import FormItem from "./FormItem";
-
-export { FormItem };
-
-// 基于 FormContext 下发表单数据源以及修改方法
-export const FormContext = createContext({})
-
-export interface FormContextProps {
-  handleChange?: any;
-  name?: string;
-  formData?: any;
-  handleValidate?: any;
-  checkValidate?: any;
-  registerFormItem?: any;
-}
+import {
+  forwardRef,
+  useEffect,
+  useImperativeHandle,
+  useRef,
+  useState,
+} from "react";
+import React from "react";
 
 interface FormProps {
-  children?: any,
-  name?: string,
-  labelWidth?: number,
-  labelAlignX?: "left" | "right",
-  inline?: boolean,
-  errorInline?: boolean,
-  commonSuffixContent?: any,
-  onSuffixIconClick?: any;
+  oneLine?: boolean;
+  data?: any;
+  children?: any;
+  labelColor?: string;
+  eachWordWidth?: number;
+  commonSuffixIcon?: any;
+  required?: boolean;
+  inline?: boolean;
+  labelPosition?: "center" | "top" | "left-top";
+  onFormDataChange?: (key: string, value: any) => void;
 }
 
-const Form = forwardRef((props: FormProps, formRef) => {
+const Form = forwardRef(
+  (
+    {
+      oneLine = false,
+      data,
+      labelPosition,
+      labelColor = "rgb(63 109 184)",
+      inline,
+      required,
+      children,
+      eachWordWidth = 21,
+      commonSuffixIcon = "",
+      onFormDataChange,
+    }: FormProps,
+    AdouFormRef
+  ) => {
+    const [formData, setFormData] = useState<any>(data || {});
 
-  const {
-    commonSuffixContent,
-    inline = false,
-    errorInline = false,
-    labelAlignX,
-    name,
-    labelWidth,
-    onSuffixIconClick
-  } = props;
+    const formRef = useRef<any>(null);
 
+    const handleChangeData = (key: string, value: any) => {
+      setFormData((prevData: any) => ({
+        ...prevData,
+        [key]: value,
+      }));
+      onFormDataChange && onFormDataChange(key, value);
+    };
 
-  // 统一管理表单数据源
-  const [formData, setFormData] = useState({})
-
-  const [validation, setValidation] = useState(true);
-
-
-  // 对外暴露的API
-  useImperativeHandle(formRef, () => ({
-    // 表单提交
-    submitForm: (callback: any) => {
-      callback && callback({ ...formData });
-    },
-    validate: (callback: any) => {
-      let isValid = true;
-      formItems.forEach(item => {
-        const validationResult = item.handleValidate(formData);
-        if (!validationResult && item.validate) isValid = false; // 假设validate方法返回false表示验证失败
-      });
-      callback && callback(isValid);
-    },
-    // 表单重置
-    resetForm: () => {
-      let data: any = { ...formData }
-      Object.keys(data).forEach((item) => {
-        data[item] = "";
-      })
-      formItems.forEach(item => {
-        item.handleValidate(formData, true); // 在重置表单的时候将错误也清除掉--好像没用
-      })
-      setFormData(data);
-    },
-
-    // 表单重新验证
-    reValidate: () => {
-      formItems.forEach(item => {
-        // 不知道为什么在 FormItem中无法通过 context.formData来获取数据，所以这边直接在父组件这里传递过去
-        item.handleValidate(formData);
-      });
-    }
-  }))
-
-  // Form表单内的表单项修改统一的赋值方法
-  const handleChange = (name?: string, value?: string) => {
-    setFormData({
-      ...formData,
-      [name as string]: value,
-    })
-  }
-
-  // 提交表单判断是否通过验证
-  const handleValidate = (validate: boolean) => {
-    setValidation(validate)
-  }
-
-
-  // 添加一个状态来保存FormItem的引用或校验函数列表
-  const [formItems, setFormItems] = useState<any[]>([]);
-  const registerFormItem = (item: any) => {
-    setFormItems((prevArr: any) => [...prevArr, item]);
-  };
-
-  // 计算出最长的label
-  let maxLabelLength = 0;
-  let array: any = [];
-  if (!props.children.length) {
-    array.push(props.children);
-  } else {
-    array = props.children;
-  }
-
-  array.forEach((item: any) => {
-    if (maxLabelLength < item?.props?.label?.length) {
-      maxLabelLength = item.props.label.length;
-    }
-  })
-
-
-  const renderContent = () => {
-    const renderChildren: any = []
-
-    // 这个方法可行
-    React.Children.map(props.children, (child) => {
-      // child.type 子元素自身（FormItem），检查其静态属性 displayName 是否满足条件
-      if (child?.type?.displayName === 'formItem') {
-        const enhancedChildren = React.cloneElement(child, {
-          maxLabelLength,
-          labelAlignX,
-          labelWidth,
-          key: child.props.name, // 给每个组件一个 key
-          errorInline,
-          commonSuffixContent,
-          onSuffixIconClick
-        })
-        renderChildren.push(enhancedChildren)
+    const getData = (needCheck: boolean = true) => {
+      if (needCheck) {
+        const isValid = validateForm();
+        if (!isValid) return false;
       }
 
-    })
+      return formData;
+    };
 
-    // 这边不能直接用 props.children.forEach，会报错：props.children.forEach is not a function
-    // 具体原因不清楚，但是可以用上面那个的方法
-    // props.children?.forEach((item: any) => {
-    //   if (item.type.displayName === "formItem") {
-    //     renderChildren.push(item)
-    //   }
-    // })
-    return renderChildren
+    const getFormData = (needCheck: boolean = true) => {
+      const formWrapper = formRef.current; // 获取 search-wrapper 的 DOM 元素
+      if (!formWrapper) return;
+
+      if (needCheck) {
+        const isValid = validateForm();
+        if (!isValid) return false;
+      }
+
+      // 遍历所有表单元素
+      const formValues: any = {};
+      const formElements = formWrapper.querySelectorAll(
+        "input, select, textarea"
+      );
+
+      formElements.forEach((element: any) => {
+        const { name, value, tagName, type } = element;
+        if (!name) return;
+        const child = childRefs.current[name]?.current;
+        // 处理 input 元素
+        if (tagName === "INPUT") {
+          if (type === "checkbox") {
+            // 如果是复选框，更新 formValues[name] 为选中的复选框的值的数组
+            if (!formValues[name]) {
+              formValues[name] = [];
+            }
+            if (element.checked) {
+              // 如果是 checkbox的话，会造出多个 input type="checkbox"的表单
+              formValues[name].push(value);
+            }
+          } else {
+            if (child?.getValue) {
+              formValues[name] = child.getValue();
+            } else {
+              formValues[name] = type === "number" ? Number(value) : value;
+            }
+          }
+        }
+        // 处理 select 元素
+        else if (tagName === "SELECT") {
+          if (child?.getValue) {
+            formValues[name] = child.getValue();
+          } else {
+            formValues[name] = element.value;
+          }
+        }
+        // 处理 textarea 元素
+        else if (tagName === "TEXTAREA") {
+          formValues[name] = value;
+        }
+      });
+
+      // 输出收集到的表单值
+
+      // 这里可以根据需要，将 formValues 传递给其他处理函数或者组件
+      return formValues;
+    };
+
+    const clearForm = () => {
+      const formWrapper = formRef.current; // 获取 search-wrapper 的 DOM 元素
+      if (!formWrapper) return;
+
+      // 遍历所有child
+      for (let key in childRefs.current) {
+        let child = childRefs.current[key];
+        child.current && child.current.clear && child.current.clear();
+      }
+    };
+
+    const validateForm = () => {
+      const formWrapper = formRef.current; // 获取 search-wrapper 的 DOM 元素
+      if (!formWrapper) return false;
+
+      let isValid = true; // 默认表单验证通过
+
+      // 遍历所有child
+      for (let key in childRefs.current) {
+        let child = childRefs.current[key];
+        // 如果该表单组件没有validate方法，代表不做校验
+        if (child.current?.validate) {
+          const valid =
+            child.current && child.current.validate && child.current.validate();
+
+          if (!valid) {
+            console.log("存在校验不通过的表单：", key);
+
+            isValid = false;
+          }
+        }
+      }
+
+      if (!isValid) {
+        console.log("表单校验失败，请填写所有必填项！");
+      }
+
+      return isValid;
+    };
+
+    const childRefs = useRef<{ [key: string]: React.MutableRefObject<any> }>(
+      {}
+    );
+    let maxLengthLabelWidth: number = 0;
+    const calcMaxLabelWidth = () => {
+      const labelWidthList: any = [];
+      React.Children.map(children, (child) => {
+        if (child?.props?.label) {
+          labelWidthList.push(child.props?.label);
+        }
+      });
+      const sortedLabelWidthList = labelWidthList.sort(
+        (a: string, b: string) => a.length - b.length
+      );
+      maxLengthLabelWidth =
+        sortedLabelWidthList[sortedLabelWidthList.length - 1]?.length *
+        eachWordWidth;
+    };
+
+    const renderChildren = () => {
+      const renderChildren: any = [];
+      calcMaxLabelWidth();
+      // 这个方法可行
+      React.Children.map(children, (child) => {
+        if (!child?.props?.name) {
+          renderChildren.push(child);
+        } else {
+          const childRef = React.createRef<any>(); // 创建一个 ref
+          // child.type 子元素自身（FormItem），检查其静态属性 displayName 是否满足条件
+          const enhancedChildren = React.cloneElement(child, {
+            key: child.props.name,
+            ref: childRef,
+            labelWidth: maxLengthLabelWidth + "px",
+            commonSuffixIcon,
+            isFormItem: !oneLine,
+            ...(labelPosition ? { labelPosition } : {}), // 动态添加 required 属性
+
+            ...(inline ? { inline: true } : {}), // 动态添加 required 属性
+
+            ...(required ? { required: true } : {}), // 动态添加 required 属性
+            labelColor,
+            onFormDataChange: handleChangeData,
+            defaultValue: data[child.props.name],
+
+            // 注意：一个组件只能有一个 ref，要么外面提供ref手动处理，要么在 Form组件下统一提供ref
+            // 可以自定义要不要在Form下给表单组件提供 ref
+            // [`${child.props.name === "test-select" ? "" : "ref"}`]: childRef
+          });
+          renderChildren.push(enhancedChildren);
+          // 将子组件的 ref 存储到 childRefs 中
+          // 如果子组件内部没有用 useImperativeHandle来暴露东西的话，chidRef.current就是null
+          if (child.props.name) {
+            childRefs.current[child.props.name] = childRef;
+          }
+        }
+      });
+      return renderChildren;
+    };
+
+    // 对外暴露的API
+    useImperativeHandle(AdouFormRef, () => ({
+      getFormData,
+      getData,
+      clearForm,
+      validateForm,
+    }));
+
+    useEffect(() => {
+      setFormData(data);
+    }, [data]);
+
+    return (
+      <div
+        className={`adou-new-form-wrapper flex-wrap ${inline ? "d-flex" : ""}`}
+        ref={formRef}
+      >
+        {renderChildren()}
+      </div>
+    );
   }
+);
 
-  // 传入数据源以及数据源的修改方法，子孙后代都可读取 value 中的值
-  return <FormContext.Provider value={{ formData, handleChange, handleValidate, registerFormItem }}>
-    <div className={`${inline ? "form-wrapper" : ""}`}>
-      {renderContent()}
-    </div>
-  </FormContext.Provider>
-})
-
-Form.displayName = 'form'
-
-export default Form
+export default Form;
