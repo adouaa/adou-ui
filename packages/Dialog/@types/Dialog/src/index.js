@@ -39,6 +39,29 @@ const Dialog = ({ canConfirm = true, clickOutside = true, confirmText = "确定"
     const [initialPosition, setInitialPosition] = (0, react_1.useState)({ x: 0, y: 0 });
     const [firstOpen, setFirstOpen] = (0, react_1.useState)(false);
     const { position, handleMouseDown } = (0, useDrag_1.default)(dialogRef, true, false);
+    const handleKeyDown = (event) => {
+        if (event.key === "Enter") {
+            onConfirm && onConfirm();
+        }
+    };
+    (0, react_1.useEffect)(() => {
+        if (show) {
+            if (dialogRef.current) {
+                const dialogWidth = dialogRef.current.offsetWidth;
+                const dialogHeight = dialogRef.current.offsetHeight;
+                const initialX = (window.innerWidth - dialogWidth) / 2;
+                const initialY = (window.innerHeight - dialogHeight) / 2;
+                dialogRef.current.style.top = `${type === "tip" ? `${initialY}px` : "2%"}`;
+                dialogRef.current.style.left = `${initialX}px`;
+                setTimeout(() => {
+                    dialogRef.current.focus(); // 将焦点设置到 modal
+                }, 100);
+            }
+        }
+        setTimeout(() => {
+            setFirstOpen(show);
+        }, 10);
+    }, [show]);
     (0, react_1.useEffect)(() => {
         if (isOpen) {
             setTimeout(() => {
@@ -54,25 +77,10 @@ const Dialog = ({ canConfirm = true, clickOutside = true, confirmText = "确定"
             }, 100);
         }
     }, [isOpen, type]);
-    (0, react_1.useEffect)(() => {
-        if (show) {
-            if (dialogRef.current) {
-                const dialogWidth = dialogRef.current.offsetWidth;
-                const dialogHeight = dialogRef.current.offsetHeight;
-                const initialX = (window.innerWidth - dialogWidth) / 2;
-                const initialY = (window.innerHeight - dialogHeight) / 2;
-                dialogRef.current.style.top = `${type === "tip" ? `${initialY}px` : "2%"}`;
-                dialogRef.current.style.left = `${initialX}px`;
-            }
-        }
-        setTimeout(() => {
-            setFirstOpen(show);
-        }, 10);
-    }, [show]);
     (0, useClickOutside_1.default)(dialogRef, clickOutside && onClose);
     return (react_1.default.createElement(react_1.default.Fragment, null, (isOpen || isAnimating) &&
         react_dom_1.default.createPortal(react_1.default.createElement("div", { className: `dialog-overlay ${show ? "open" : ""}` },
-            react_1.default.createElement("div", { ref: dialogRef, className: `dialog ${show ? "open" : ""}`, style: {
+            react_1.default.createElement("div", { onKeyDown: handleKeyDown, tabIndex: 0, ref: dialogRef, className: `dialog ${show ? "open" : ""}`, style: {
                     top: `${position.y - 20}px`,
                     left: `${position.x}px`,
                     transform: `translateY(${firstOpen ? "20px" : "0"})`,

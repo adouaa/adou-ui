@@ -481,7 +481,6 @@ const Table = (props: TableProps) => {
   };
 
   useEffect(() => {
-    console.log("data: ", data);
     const checkedAll = areAllChecked(data);
     setCheckedAll(checkedAll);
     if (collapse) {

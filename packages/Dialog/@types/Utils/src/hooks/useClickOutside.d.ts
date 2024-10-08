@@ -1,2 +1,2 @@
 export default useClickOutside;
-declare function useClickOutside(ref: any, callback: any): void;
+declare function useClickOutside(refs: any, callback: any, enabled?: boolean): void;

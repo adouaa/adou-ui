@@ -292,12 +292,12 @@ module.exports = {
 
         var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_1___default()(_node_modules_css_loader_dist_runtime_sourceMaps_js__WEBPACK_IMPORTED_MODULE_0___default());
         // Module
-        ___CSS_LOADER_EXPORT___.push([module.id, "@charset \"UTF-8\";\n.suffix-icon {\n  /* margin-left: -40px !important;\n  margin-top: 6px;\n  z-index: 9; */\n  position: absolute;\n  right: 12px;\n  top: 30px;\n  /* \u5782\u76F4\u5C45\u4E2D */\n  cursor: pointer;\n  /* \u9F20\u6807\u60AC\u505C\u65F6\u663E\u793A\u6307\u9488\u6837\u5F0F */\n  transition: transform 0.3s;\n  /* \u6DFB\u52A0\u8FC7\u6E21\u6548\u679C */\n  color: #c6c6cd;\n}\n.suffix-icon:hover {\n  transform: scale(1.3);\n  /* \u6C34\u5E73\u548C\u5782\u76F4\u65B9\u5411\u90FD\u653E\u59271.5\u500D */\n  color: #51515b;\n}\n\n.common-suffix-icon {\n  display: flex;\n  align-items: center;\n  cursor: pointer;\n}\n\n.common-suffix-icon {\n  display: flex;\n  align-items: center;\n  cursor: pointer;\n}\n\n.label-box {\n  font-size: 14px;\n  min-width: 50px;\n  text-align: right;\n  justify-content: flex-end;\n  padding-right: 10px;\n  flex-wrap: wrap;\n}\n\n.icon-input {\n  position: relative;\n  /* \u8BA9\u4F2A\u5143\u7D20\u76F8\u5BF9\u4E8E\u8F93\u5165\u6846\u5B9A\u4F4D */\n}\n\n.input-wrapper .content-box {\n  flex: 1;\n  align-items: stretch;\n}\n.input-wrapper .content-box .suffix-content-btn {\n  border-top-right-radius: 0 !important;\n  /* \u53BB\u6389\u53F3\u4E0A\u89D2\u7684\u5706\u89D2 */\n  border-bottom-right-radius: 0 !important;\n  border-right: none;\n  /* \u53BB\u6389\u53F3\u4E0B\u89D2\u7684\u5706\u89D2 */\n}\n.input-wrapper .content-box .suffix-content-btn-wrapper .btn {\n  border-top-left-radius: 0;\n  /* \u53BB\u6389\u5DE6\u4E0A\u89D2\u7684\u5706\u89D2 */\n  border-bottom-left-radius: 0;\n  /* \u53BB\u6389\u5DE6\u4E0B\u89D2\u7684\u5706\u89D2 */\n}\n\n.label-in-center {\n  display: flex;\n}\n.label-in-center .suffix-icon {\n  top: 7px;\n}\n\n.label-in-left-top {\n  display: flex;\n}\n.label-in-left-top .label-box {\n  display: flex;\n  align-items: start;\n}\n.label-in-left-top .suffix-icon {\n  top: 7px;\n}\n\n.input-group .suffix-icon {\n  top: 7px !important;\n}\n\n.input-group-text {\n  cursor: pointer;\n}", "", {
+        ___CSS_LOADER_EXPORT___.push([module.id, "@charset \"UTF-8\";\n.suffix-icon {\n  /* margin-left: -40px !important;\n  margin-top: 6px;\n  z-index: 9; */\n  position: absolute;\n  right: 12px;\n  top: 30px;\n  /* \u5782\u76F4\u5C45\u4E2D */\n  cursor: pointer;\n  /* \u9F20\u6807\u60AC\u505C\u65F6\u663E\u793A\u6307\u9488\u6837\u5F0F */\n  transition: transform 0.3s;\n  /* \u6DFB\u52A0\u8FC7\u6E21\u6548\u679C */\n  color: #c6c6cd;\n}\n.suffix-icon:hover {\n  transform: scale(1.3);\n  /* \u6C34\u5E73\u548C\u5782\u76F4\u65B9\u5411\u90FD\u653E\u59271.5\u500D */\n  color: #51515b;\n}\n\n.common-suffix-icon {\n  display: flex;\n  align-items: center;\n  cursor: pointer;\n}\n\n.common-suffix-icon {\n  display: flex;\n  align-items: center;\n  cursor: pointer;\n}\n\n.label-box {\n  font-size: 14px;\n  min-width: 50px;\n  text-align: right;\n  justify-content: flex-end;\n  padding-right: 10px;\n  flex-wrap: wrap;\n}\n\n.icon-input {\n  position: relative;\n  /* \u8BA9\u4F2A\u5143\u7D20\u76F8\u5BF9\u4E8E\u8F93\u5165\u6846\u5B9A\u4F4D */\n}\n\n.input-wrapper .content-box {\n  flex: 1;\n  align-items: stretch;\n}\n.input-wrapper .content-box .suffix-content-btn {\n  border-top-right-radius: 0 !important;\n  /* \u53BB\u6389\u53F3\u4E0A\u89D2\u7684\u5706\u89D2 */\n  border-bottom-right-radius: 0 !important;\n  border-right: none;\n  /* \u53BB\u6389\u53F3\u4E0B\u89D2\u7684\u5706\u89D2 */\n}\n.input-wrapper .content-box .suffix-content-btn-wrapper .btn {\n  border-top-left-radius: 0;\n  /* \u53BB\u6389\u5DE6\u4E0A\u89D2\u7684\u5706\u89D2 */\n  border-bottom-left-radius: 0;\n  /* \u53BB\u6389\u5DE6\u4E0B\u89D2\u7684\u5706\u89D2 */\n}\n.input-wrapper .content-box .suffix-content-text-wrapper {\n  display: flex;\n  align-items: center;\n  justify-content: center;\n}\n\n.label-in-center {\n  display: flex;\n}\n.label-in-center .suffix-icon {\n  top: 7px;\n}\n\n.label-in-left-top {\n  display: flex;\n}\n.label-in-left-top .label-box {\n  display: flex;\n  align-items: start;\n}\n.label-in-left-top .suffix-icon {\n  top: 7px;\n}\n\n.input-group .suffix-icon {\n  top: 7px !important;\n}\n\n.input-group-text {\n  cursor: pointer;\n}", "", {
           "version": 3,
           "sources": ["webpack://./src/index.scss"],
           "names": [],
-          "mappings": "AAAA,gBAAgB;AAAhB;EACI;;eAAA;EAGA,kBAAA;EACA,WAAA;EACA,SAAA;EACA,SAAA;EACA,eAAA;EACA,gBAAA;EACA,0BAAA;EACA,WAAA;EACA,cAAA;AAEJ;AAAI;EACI,qBAAA;EACA,mBAAA;EACA,cAAA;AAER;;AAEA;EACI,aAAA;EACA,mBAAA;EACA,eAAA;AACJ;;AAEA;EACI,aAAA;EACA,mBAAA;EACA,eAAA;AACJ;;AAEA;EACI,eAAA;EACA,eAAA;EACA,iBAAA;EACA,yBAAA;EACA,mBAAA;EACA,eAAA;AACJ;;AAEA;EACI,kBAAA;EACA,iBAAA;AACJ;;AAII;EACI,OAAA;EACA,oBAAA;AADR;AAKQ;EACI,qCAAA;EACA,aAAA;EACA,wCAAA;EACA,kBAAA;EACA,aAAA;AAHZ;AAMQ;EACI,yBAAA;EACA,aAAA;EACA,4BAAA;EACA,aAAA;AAJZ;;AAYA;EACI,aAAA;AATJ;AAWI;EACI,QAAA;AATR;;AAaA;EACI,aAAA;AAVJ;AAYI;EACI,aAAA;EACA,kBAAA;AAVR;AAaI;EACI,QAAA;AAXR;;AAgBI;EACI,mBAAA;AAbR;;AAiBA;EACI,eAAA;AAdJ",
-          "sourcesContent": [".suffix-icon {\r\n    /* margin-left: -40px !important;\r\n    margin-top: 6px;\r\n    z-index: 9; */\r\n    position: absolute;\r\n    right: 12px;\r\n    top: 30px;\r\n    /* 垂直居中 */\r\n    cursor: pointer;\r\n    /* 鼠标悬停时显示指针样式 */\r\n    transition: transform 0.3s;\r\n    /* 添加过渡效果 */\r\n    color: #c6c6cd;\r\n\r\n    &:hover {\r\n        transform: scale(1.3);\r\n        /* 水平和垂直方向都放大1.5倍 */\r\n        color: #51515b;\r\n    }\r\n}\r\n\r\n.common-suffix-icon {\r\n    display: flex;\r\n    align-items: center;\r\n    cursor: pointer;\r\n}\r\n\r\n.common-suffix-icon {\r\n    display: flex;\r\n    align-items: center;\r\n    cursor: pointer;\r\n}\r\n\r\n.label-box {\r\n    font-size: 14px;\r\n    min-width: 50px;\r\n    text-align: right;\r\n    justify-content: flex-end;\r\n    padding-right: 10px;\r\n    flex-wrap: wrap;\r\n}\r\n\r\n.icon-input {\r\n    position: relative;\r\n    /* 让伪元素相对于输入框定位 */\r\n\r\n}\r\n\r\n.input-wrapper {\r\n    .content-box {\r\n        flex: 1;\r\n        align-items: stretch;\r\n\r\n        .label-box {}\r\n\r\n        .suffix-content-btn {\r\n            border-top-right-radius: 0 !important;\r\n            /* 去掉右上角的圆角 */\r\n            border-bottom-right-radius: 0 !important;\r\n            border-right: none;\r\n            /* 去掉右下角的圆角 */\r\n        }\r\n\r\n        .suffix-content-btn-wrapper .btn {\r\n            border-top-left-radius: 0;\r\n            /* 去掉左上角的圆角 */\r\n            border-bottom-left-radius: 0;\r\n            /* 去掉左下角的圆角 */\r\n        }\r\n\r\n\r\n    }\r\n\r\n}\r\n\r\n.label-in-center {\r\n    display: flex;\r\n\r\n    .suffix-icon {\r\n        top: 7px;\r\n    }\r\n}\r\n\r\n.label-in-left-top {\r\n    display: flex;\r\n\r\n    .label-box {\r\n        display: flex;\r\n        align-items: start;\r\n    }\r\n\r\n    .suffix-icon {\r\n        top: 7px;\r\n    }\r\n}\r\n\r\n.input-group {\r\n    .suffix-icon {\r\n        top: 7px !important;\r\n    }\r\n}\r\n\r\n.input-group-text {\r\n    cursor: pointer;\r\n}\r\n\r\n.lable-in-control {}"],
+          "mappings": "AAAA,gBAAgB;AAAhB;EACI;;eAAA;EAGA,kBAAA;EACA,WAAA;EACA,SAAA;EACA,SAAA;EACA,eAAA;EACA,gBAAA;EACA,0BAAA;EACA,WAAA;EACA,cAAA;AAEJ;AAAI;EACI,qBAAA;EACA,mBAAA;EACA,cAAA;AAER;;AAEA;EACI,aAAA;EACA,mBAAA;EACA,eAAA;AACJ;;AAEA;EACI,aAAA;EACA,mBAAA;EACA,eAAA;AACJ;;AAEA;EACI,eAAA;EACA,eAAA;EACA,iBAAA;EACA,yBAAA;EACA,mBAAA;EACA,eAAA;AACJ;;AAEA;EACI,kBAAA;EACA,iBAAA;AACJ;;AAII;EACI,OAAA;EACA,oBAAA;AADR;AAKQ;EACI,qCAAA;EACA,aAAA;EACA,wCAAA;EACA,kBAAA;EACA,aAAA;AAHZ;AAMQ;EACI,yBAAA;EACA,aAAA;EACA,4BAAA;EACA,aAAA;AAJZ;AAOQ;EACI,aAAA;EACA,mBAAA;EACA,uBAAA;AALZ;;AAYA;EACI,aAAA;AATJ;AAWI;EACI,QAAA;AATR;;AAaA;EACI,aAAA;AAVJ;AAYI;EACI,aAAA;EACA,kBAAA;AAVR;AAaI;EACI,QAAA;AAXR;;AAgBI;EACI,mBAAA;AAbR;;AAiBA;EACI,eAAA;AAdJ",
+          "sourcesContent": [".suffix-icon {\r\n    /* margin-left: -40px !important;\r\n    margin-top: 6px;\r\n    z-index: 9; */\r\n    position: absolute;\r\n    right: 12px;\r\n    top: 30px;\r\n    /* 垂直居中 */\r\n    cursor: pointer;\r\n    /* 鼠标悬停时显示指针样式 */\r\n    transition: transform 0.3s;\r\n    /* 添加过渡效果 */\r\n    color: #c6c6cd;\r\n\r\n    &:hover {\r\n        transform: scale(1.3);\r\n        /* 水平和垂直方向都放大1.5倍 */\r\n        color: #51515b;\r\n    }\r\n}\r\n\r\n.common-suffix-icon {\r\n    display: flex;\r\n    align-items: center;\r\n    cursor: pointer;\r\n}\r\n\r\n.common-suffix-icon {\r\n    display: flex;\r\n    align-items: center;\r\n    cursor: pointer;\r\n}\r\n\r\n.label-box {\r\n    font-size: 14px;\r\n    min-width: 50px;\r\n    text-align: right;\r\n    justify-content: flex-end;\r\n    padding-right: 10px;\r\n    flex-wrap: wrap;\r\n}\r\n\r\n.icon-input {\r\n    position: relative;\r\n    /* 让伪元素相对于输入框定位 */\r\n\r\n}\r\n\r\n.input-wrapper {\r\n    .content-box {\r\n        flex: 1;\r\n        align-items: stretch;\r\n\r\n        .label-box {}\r\n\r\n        .suffix-content-btn {\r\n            border-top-right-radius: 0 !important;\r\n            /* 去掉右上角的圆角 */\r\n            border-bottom-right-radius: 0 !important;\r\n            border-right: none;\r\n            /* 去掉右下角的圆角 */\r\n        }\r\n\r\n        .suffix-content-btn-wrapper .btn {\r\n            border-top-left-radius: 0;\r\n            /* 去掉左上角的圆角 */\r\n            border-bottom-left-radius: 0;\r\n            /* 去掉左下角的圆角 */\r\n        }\r\n\r\n        .suffix-content-text-wrapper {\r\n            display: flex;\r\n            align-items: center;\r\n            justify-content: center;\r\n        }\r\n\r\n    }\r\n\r\n}\r\n\r\n.label-in-center {\r\n    display: flex;\r\n\r\n    .suffix-icon {\r\n        top: 7px;\r\n    }\r\n}\r\n\r\n.label-in-left-top {\r\n    display: flex;\r\n\r\n    .label-box {\r\n        display: flex;\r\n        align-items: start;\r\n    }\r\n\r\n    .suffix-icon {\r\n        top: 7px;\r\n    }\r\n}\r\n\r\n.input-group {\r\n    .suffix-icon {\r\n        top: 7px !important;\r\n    }\r\n}\r\n\r\n.input-group-text {\r\n    cursor: pointer;\r\n}\r\n\r\n.lable-in-control {}"],
           "sourceRoot": ""
         }]);
         // Exports
@@ -446,12 +446,12 @@ module.exports = {
 
         /***/
       }),
-      /***/855: ( /***/(module, __unused_webpack_exports, __nested_webpack_require_15595__) => {
+      /***/855: ( /***/(module, __unused_webpack_exports, __nested_webpack_require_15931__) => {
         "use strict";
 
         /* istanbul ignore next  */
         function setAttributesWithoutAttributes(styleElement) {
-          var nonce =  true ? __nested_webpack_require_15595__.nc : 0;
+          var nonce =  true ? __nested_webpack_require_15931__.nc : 0;
           if (nonce) {
             styleElement.setAttribute("nonce", nonce);
           }
@@ -625,7 +625,7 @@ module.exports = {
     /******/
     /******/ // The require function
     /******/
-    function __nested_webpack_require_21518__(moduleId) {
+    function __nested_webpack_require_21854__(moduleId) {
       /******/ // Check if module is in cache
       /******/var cachedModule = __webpack_module_cache__[moduleId];
       /******/
@@ -644,7 +644,7 @@ module.exports = {
       /******/
       /******/ // Execute the module function
       /******/
-      __webpack_modules__[moduleId](module, module.exports, __nested_webpack_require_21518__);
+      __webpack_modules__[moduleId](module, module.exports, __nested_webpack_require_21854__);
       /******/
       /******/ // Return the exports of the module
       /******/
@@ -657,10 +657,10 @@ module.exports = {
     /******/
     (() => {
       /******/ // getDefaultExport function for compatibility with non-harmony modules
-      /******/__nested_webpack_require_21518__.n = module => {
+      /******/__nested_webpack_require_21854__.n = module => {
         /******/var getter = module && module.__esModule ? /******/() => module['default'] : /******/() => module;
         /******/
-        __nested_webpack_require_21518__.d(getter, {
+        __nested_webpack_require_21854__.d(getter, {
           a: getter
         });
         /******/
@@ -674,9 +674,9 @@ module.exports = {
     /******/
     (() => {
       /******/ // define getter functions for harmony exports
-      /******/__nested_webpack_require_21518__.d = (exports, definition) => {
+      /******/__nested_webpack_require_21854__.d = (exports, definition) => {
         /******/for (var key in definition) {
-          /******/if (__nested_webpack_require_21518__.o(definition, key) && !__nested_webpack_require_21518__.o(exports, key)) {
+          /******/if (__nested_webpack_require_21854__.o(definition, key) && !__nested_webpack_require_21854__.o(exports, key)) {
             /******/Object.defineProperty(exports, key, {
               enumerable: true,
               get: definition[key]
@@ -693,7 +693,7 @@ module.exports = {
     /******/ /* webpack/runtime/hasOwnProperty shorthand */
     /******/
     (() => {
-      /******/__nested_webpack_require_21518__.o = (obj, prop) => Object.prototype.hasOwnProperty.call(obj, prop);
+      /******/__nested_webpack_require_21854__.o = (obj, prop) => Object.prototype.hasOwnProperty.call(obj, prop);
       /******/
     })();
     /******/
@@ -701,7 +701,7 @@ module.exports = {
     /******/
     (() => {
       /******/ // define __esModule on exports
-      /******/__nested_webpack_require_21518__.r = exports => {
+      /******/__nested_webpack_require_21854__.r = exports => {
         /******/if (typeof Symbol !== 'undefined' && Symbol.toStringTag) {
           /******/Object.defineProperty(exports, Symbol.toStringTag, {
             value: 'Module'
@@ -720,7 +720,7 @@ module.exports = {
     /******/ /* webpack/runtime/nonce */
     /******/
     (() => {
-      /******/__nested_webpack_require_21518__.nc = undefined;
+      /******/__nested_webpack_require_21854__.nc = undefined;
       /******/
     })();
     /******/
@@ -731,39 +731,39 @@ module.exports = {
       "use strict";
 
       // ESM COMPAT FLAG
-      __nested_webpack_require_21518__.r(__nested_webpack_exports__);
+      __nested_webpack_require_21854__.r(__nested_webpack_exports__);
 
       // EXPORTS
-      __nested_webpack_require_21518__.d(__nested_webpack_exports__, {
+      __nested_webpack_require_21854__.d(__nested_webpack_exports__, {
         "default": () => ( /* binding */src_0)
       });
 
       // EXTERNAL MODULE: external {"root":"React","commonjs2":"react","commonjs":"react","amd":"react"}
-      var external_root_React_commonjs2_react_commonjs_react_amd_react_ = __nested_webpack_require_21518__(442);
-      var external_root_React_commonjs2_react_commonjs_react_amd_react_default = /*#__PURE__*/__nested_webpack_require_21518__.n(external_root_React_commonjs2_react_commonjs_react_amd_react_);
+      var external_root_React_commonjs2_react_commonjs_react_amd_react_ = __nested_webpack_require_21854__(442);
+      var external_root_React_commonjs2_react_commonjs_react_amd_react_default = /*#__PURE__*/__nested_webpack_require_21854__.n(external_root_React_commonjs2_react_commonjs_react_amd_react_);
       // EXTERNAL MODULE: ../../../node_modules/classnames/index.js
-      var classnames = __nested_webpack_require_21518__(650);
-      var classnames_default = /*#__PURE__*/__nested_webpack_require_21518__.n(classnames);
+      var classnames = __nested_webpack_require_21854__(650);
+      var classnames_default = /*#__PURE__*/__nested_webpack_require_21854__.n(classnames);
       // EXTERNAL MODULE: ../../node_modules/style-loader/dist/runtime/injectStylesIntoStyleTag.js
-      var injectStylesIntoStyleTag = __nested_webpack_require_21518__(591);
-      var injectStylesIntoStyleTag_default = /*#__PURE__*/__nested_webpack_require_21518__.n(injectStylesIntoStyleTag);
+      var injectStylesIntoStyleTag = __nested_webpack_require_21854__(591);
+      var injectStylesIntoStyleTag_default = /*#__PURE__*/__nested_webpack_require_21854__.n(injectStylesIntoStyleTag);
       // EXTERNAL MODULE: ../../node_modules/style-loader/dist/runtime/styleDomAPI.js
-      var styleDomAPI = __nested_webpack_require_21518__(740);
-      var styleDomAPI_default = /*#__PURE__*/__nested_webpack_require_21518__.n(styleDomAPI);
+      var styleDomAPI = __nested_webpack_require_21854__(740);
+      var styleDomAPI_default = /*#__PURE__*/__nested_webpack_require_21854__.n(styleDomAPI);
       // EXTERNAL MODULE: ../../node_modules/style-loader/dist/runtime/insertBySelector.js
-      var insertBySelector = __nested_webpack_require_21518__(128);
-      var insertBySelector_default = /*#__PURE__*/__nested_webpack_require_21518__.n(insertBySelector);
+      var insertBySelector = __nested_webpack_require_21854__(128);
+      var insertBySelector_default = /*#__PURE__*/__nested_webpack_require_21854__.n(insertBySelector);
       // EXTERNAL MODULE: ../../node_modules/style-loader/dist/runtime/setAttributesWithoutAttributes.js
-      var setAttributesWithoutAttributes = __nested_webpack_require_21518__(855);
-      var setAttributesWithoutAttributes_default = /*#__PURE__*/__nested_webpack_require_21518__.n(setAttributesWithoutAttributes);
+      var setAttributesWithoutAttributes = __nested_webpack_require_21854__(855);
+      var setAttributesWithoutAttributes_default = /*#__PURE__*/__nested_webpack_require_21854__.n(setAttributesWithoutAttributes);
       // EXTERNAL MODULE: ../../node_modules/style-loader/dist/runtime/insertStyleElement.js
-      var insertStyleElement = __nested_webpack_require_21518__(51);
-      var insertStyleElement_default = /*#__PURE__*/__nested_webpack_require_21518__.n(insertStyleElement);
+      var insertStyleElement = __nested_webpack_require_21854__(51);
+      var insertStyleElement_default = /*#__PURE__*/__nested_webpack_require_21854__.n(insertStyleElement);
       // EXTERNAL MODULE: ../../node_modules/style-loader/dist/runtime/styleTagTransform.js
-      var styleTagTransform = __nested_webpack_require_21518__(656);
-      var styleTagTransform_default = /*#__PURE__*/__nested_webpack_require_21518__.n(styleTagTransform);
+      var styleTagTransform = __nested_webpack_require_21854__(656);
+      var styleTagTransform_default = /*#__PURE__*/__nested_webpack_require_21854__.n(styleTagTransform);
       // EXTERNAL MODULE: ../../node_modules/css-loader/dist/cjs.js??ruleSet[1].rules[1].use[1]!../../node_modules/sass-loader/dist/cjs.js??ruleSet[1].rules[1].use[2]!./src/index.scss
-      var cjs_ruleSet_1_rules_1_use_2_src = __nested_webpack_require_21518__(483);
+      var cjs_ruleSet_1_rules_1_use_2_src = __nested_webpack_require_21854__(483);
       ; // CONCATENATED MODULE: ./src/index.scss
 
       var options = {};
@@ -837,12 +837,13 @@ module.exports = {
           validate();
         };
         const handleChange = function (e) {
-          setValue(e.target.value);
+          const value = e.target.value;
+          setValue(value);
           for (var _len4 = arguments.length, args = new Array(_len4 > 1 ? _len4 - 1 : 0), _key4 = 1; _key4 < _len4; _key4++) {
             args[_key4 - 1] = arguments[_key4];
           }
-          onChange && onChange(e.target.value, ...args);
-          onFormDataChange && onFormDataChange(name, e.target.value);
+          onChange && onChange(value, ...args);
+          onFormDataChange && onFormDataChange(name, value);
         };
         const handleIconClick = () => {
           onIconClick && onIconClick(value);
@@ -877,6 +878,9 @@ module.exports = {
             setValue(defaultValue);
           } else {
             setValue("");
+          }
+          if (defaultValue) {
+            setError(false);
           }
         }, [defaultValue]);
 
@@ -934,7 +938,7 @@ module.exports = {
           "aria-label": "Username",
           "aria-describedby": "basic-addon1"
         }), suffixContent && /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("div", {
-          className: "".concat(suffixContentType === "button" ? "suffix-content-btn-wrapper ms-2" : "suffix-content-text-wrapper ms-2")
+          className: "".concat(suffixContentType === "button" ? "suffix-content-btn-wrapper" : "suffix-content-text-wrapper ms-1")
         }, suffixContent), commonSuffixIcon && /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("i", {
           onClick: handleClickCommonSuffixIcon,
           className: "".concat(commonSuffixIcon, " common-suffix-icon ms-2")
@@ -949,7 +953,7 @@ module.exports = {
           style: {
             color: "#DC3545",
             fontSize: "14px",
-            paddingLeft: parseInt(labelWidth) > 120 ? "120px" : labelWidth
+            paddingLeft: parseInt(labelWidth) > 120 ? "120px" : parseFloat(labelWidth) + 20 + "px"
           }
         }, "".concat(errMsg || "".concat(label, "\u4E0D\u80FD\u4E3A\u7A7A"))));
       };
@@ -963,63 +967,6 @@ module.exports = {
     /******/
   })();
 });
-
-/***/ }),
-
-/***/ 648:
-/***/ ((module, __webpack_exports__, __webpack_require__) => {
-
-"use strict";
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   A: () => (__WEBPACK_DEFAULT_EXPORT__)
-/* harmony export */ });
-/* harmony import */ var _node_modules_css_loader_dist_runtime_sourceMaps_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(73);
-/* harmony import */ var _node_modules_css_loader_dist_runtime_sourceMaps_js__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_css_loader_dist_runtime_sourceMaps_js__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(191);
-/* harmony import */ var _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_1__);
-// Imports
-
-
-var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_1___default()((_node_modules_css_loader_dist_runtime_sourceMaps_js__WEBPACK_IMPORTED_MODULE_0___default()));
-// Module
-___CSS_LOADER_EXPORT___.push([module.id, `@charset "UTF-8";
-.table-cell-wrapper {
-  box-sizing: border-box;
-}
-.table-cell-wrapper .able-table-cell-content {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-.table-cell-wrapper .able-table-cell-content .collapse-icon {
-  margin-top: 4px;
-  font-size: 12px;
-  padding: 0 10px;
-  transition: transform 0.3s ease;
-  cursor: pointer;
-  z-index: 1;
-  margin-bottom: 6px;
-}
-.table-cell-wrapper .able-table-cell-content .rotate-down {
-  transform: rotate(90deg);
-  margin-top: 5px;
-  /* 不旋转，向下箭头样式 */
-}
-.table-cell-wrapper .able-table-cell-content .collapse-icon:not(.rotate-down) {
-  margin-top: 5px;
-}
-.table-cell-wrapper .text-in-one-line {
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
-}
-.table-cell-wrapper .table-cell-value-left {
-  flex: 1;
-  text-align-last: left;
-}`, "",{"version":3,"sources":["webpack://./src/TableCell/index.scss"],"names":[],"mappings":"AAAA,gBAAgB;AAAhB;EACI,sBAAA;AAEJ;AAAI;EACI,aAAA;EACA,uBAAA;EACA,mBAAA;AAER;AAAQ;EACI,eAAA;EACA,eAAA;EACA,eAAA;EACA,+BAAA;EACA,eAAA;EACA,UAAA;EACA,kBAAA;AAEZ;AACQ;EACI,wBAAA;EACA,eAAA;EACA,eAAA;AACZ;AAEQ;EACI,eAAA;AAAZ;AAKI;EACI,mBAAA;EACA,gBAAA;EACA,uBAAA;AAHR;AAMI;EACI,OAAA;EACA,qBAAA;AAJR","sourcesContent":[".table-cell-wrapper {\r\n    box-sizing: border-box;\r\n\r\n    .able-table-cell-content {\r\n        display: flex;\r\n        justify-content: center;\r\n        align-items: center;\r\n\r\n        .collapse-icon {\r\n            margin-top: 4px;\r\n            font-size: 12px;\r\n            padding: 0 10px;\r\n            transition: transform .3s ease; // 旋转动画\r\n            cursor: pointer;\r\n            z-index: 1;\r\n            margin-bottom: 6px;\r\n        }\r\n\r\n        .rotate-down {\r\n            transform: rotate(90deg);\r\n            margin-top: 5px;\r\n            /* 不旋转，向下箭头样式 */\r\n        }\r\n\r\n        .collapse-icon:not(.rotate-down) {\r\n            margin-top: 5px;\r\n        }\r\n\r\n    }\r\n\r\n    .text-in-one-line {\r\n        white-space: nowrap;\r\n        overflow: hidden;\r\n        text-overflow: ellipsis;\r\n    }\r\n\r\n    .table-cell-value-left {\r\n        flex: 1;\r\n        text-align-last: left;\r\n    }\r\n}"],"sourceRoot":""}]);
-// Exports
-/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
-
 
 /***/ }),
 
@@ -1083,13 +1030,13 @@ ___CSS_LOADER_EXPORT___.push([module.id, `@charset "UTF-8";
   /* 还原到原始高度 */
 }
 .table-wrapper .tr-checked {
-  background-color: #ecf5ff;
+  background-color: #cce2fa !important;
 }
 .table-wrapper .tr-content {
   transition: background-color 0.3s ease;
 }
 .table-wrapper .tr-content:hover {
-  background-color: #ecf5ff;
+  background-color: #e7ebee;
 }
 
 .ellipsis-1 {
@@ -1099,7 +1046,7 @@ ___CSS_LOADER_EXPORT___.push([module.id, `@charset "UTF-8";
   /* 隐藏超出部分 */
   text-overflow: ellipsis;
   /* 使用省略号表示超出部分 */
-}`, "",{"version":3,"sources":["webpack://./src/index.scss"],"names":[],"mappings":"AAAA,gBAAgB;AAAhB;EAEI,qBAAA;EACA,6BAAA;EAiCA,iBAAA;EAWA,YAAA;AAzCJ;AAAI;EACI,UAAA;EACA,WAAA;AAER;AACI;EACI,mBAAA;AACR;AAEI;EACI,gBAAA;EACA,kBAAA;AAAR;AAGI;EACI,gBAAA;AADR;AAII;EACI,aAAA;EACA,uBAAA;EACA,mBAAA;AAFR;AAOI;EACI,uCAAA;AALR;AASI;EACI,kDAAA;EACA,UAAA;EACA,oBAAA;EACA,kBAAA;EACA,qBAAA;EACA,aAAA;EACA,gBAAA;AAPR;AAWI;EACI,UAAA;EACA,oBAAA;EACA,YAAA;AATR;AAYI;EACI,yBAAA;AAVR;AAaI;EACI,sCAAA;AAXR;AAaQ;EACI,yBAAA;AAXZ;;AAgBA;EACI,mBAAA;EACA,QAAA;EACA,gBAAA;EACA,WAAA;EACA,uBAAA;EACA,gBAAA;AAbJ","sourcesContent":[".table-wrapper {\r\n    // Firefox 滚动条样式\r\n    scrollbar-width: thin; // 设置滚动条宽度为 thin\r\n    scrollbar-color: #ccc #f5f5f5; // 设置滚动条颜色\r\n\r\n    // Webkit 滚动条样式\r\n    &::-webkit-scrollbar {\r\n        width: 8px; // 设置垂直滚动条宽度\r\n        height: 8px; // 设置水平滚动条宽度\r\n    }\r\n\r\n    &::-webkit-scrollbar-track {\r\n        background: #f5f5f5; // 设置滚动条轨道颜色\r\n    }\r\n\r\n    &::-webkit-scrollbar-thumb {\r\n        background: #ccc; // 设置滚动条滑块颜色\r\n        border-radius: 4px; // 设置滚动条滑块圆角\r\n    }\r\n\r\n    &::-webkit-scrollbar-thumb:hover {\r\n        background: #aaa; // 设置滚动条滑块悬停颜色\r\n    }\r\n\r\n    .collapse-table-td {\r\n        display: flex;\r\n        justify-content: center;\r\n        align-items: center;\r\n        // line-height: 0.8;\r\n    }\r\n\r\n    // 添加展开的动画\r\n    tbody>tr {\r\n        transition: max-height 0.3s ease-in-out;\r\n    }\r\n\r\n    /* 默认情况下，表格行被隐藏 */\r\n    .collapse-tr {\r\n        transition: opacity 0.5s ease, transform 0.5s ease;\r\n        opacity: 0;\r\n        transform: scaleY(0);\r\n        /* 使用 scaleY 来隐藏 */\r\n        transform-origin: top;\r\n        /* 让缩放从顶部开始 */\r\n        overflow: hidden;\r\n    }\r\n\r\n    /* 当表格行显示时 */\r\n    .collapse-tr.show {\r\n        opacity: 1;\r\n        transform: scaleY(1);\r\n        /* 还原到原始高度 */\r\n    }\r\n\r\n    .tr-checked {\r\n        background-color: #ecf5ff;\r\n    }\r\n\r\n    .tr-content {\r\n        transition: background-color 0.3s ease;\r\n\r\n        &:hover {\r\n            background-color: #ecf5ff;\r\n        }\r\n    }\r\n}\r\n\r\n.ellipsis-1 {\r\n    white-space: nowrap;\r\n    /* 不换行 */\r\n    overflow: hidden;\r\n    /* 隐藏超出部分 */\r\n    text-overflow: ellipsis;\r\n    /* 使用省略号表示超出部分 */\r\n}"],"sourceRoot":""}]);
+}`, "",{"version":3,"sources":["webpack://./src/index.scss"],"names":[],"mappings":"AAAA,gBAAgB;AAAhB;EAEI,qBAAA;EACA,6BAAA;EAiCA,iBAAA;EAWA,YAAA;AAzCJ;AAAI;EACI,UAAA;EACA,WAAA;AAER;AACI;EACI,mBAAA;AACR;AAEI;EACI,gBAAA;EACA,kBAAA;AAAR;AAGI;EACI,gBAAA;AADR;AAII;EACI,aAAA;EACA,uBAAA;EACA,mBAAA;AAFR;AAOI;EACI,uCAAA;AALR;AASI;EACI,kDAAA;EACA,UAAA;EACA,oBAAA;EACA,kBAAA;EACA,qBAAA;EACA,aAAA;EACA,gBAAA;AAPR;AAWI;EACI,UAAA;EACA,oBAAA;EACA,YAAA;AATR;AAYI;EACI,oCAAA;AAVR;AAaI;EACI,sCAAA;AAXR;AAaQ;EACI,yBAAA;AAXZ;;AAgBA;EACI,mBAAA;EACA,QAAA;EACA,gBAAA;EACA,WAAA;EACA,uBAAA;EACA,gBAAA;AAbJ","sourcesContent":[".table-wrapper {\r\n    // Firefox 滚动条样式\r\n    scrollbar-width: thin; // 设置滚动条宽度为 thin\r\n    scrollbar-color: #ccc #f5f5f5; // 设置滚动条颜色\r\n\r\n    // Webkit 滚动条样式\r\n    &::-webkit-scrollbar {\r\n        width: 8px; // 设置垂直滚动条宽度\r\n        height: 8px; // 设置水平滚动条宽度\r\n    }\r\n\r\n    &::-webkit-scrollbar-track {\r\n        background: #f5f5f5; // 设置滚动条轨道颜色\r\n    }\r\n\r\n    &::-webkit-scrollbar-thumb {\r\n        background: #ccc; // 设置滚动条滑块颜色\r\n        border-radius: 4px; // 设置滚动条滑块圆角\r\n    }\r\n\r\n    &::-webkit-scrollbar-thumb:hover {\r\n        background: #aaa; // 设置滚动条滑块悬停颜色\r\n    }\r\n\r\n    .collapse-table-td {\r\n        display: flex;\r\n        justify-content: center;\r\n        align-items: center;\r\n        // line-height: 0.8;\r\n    }\r\n\r\n    // 添加展开的动画\r\n    tbody>tr {\r\n        transition: max-height 0.3s ease-in-out;\r\n    }\r\n\r\n    /* 默认情况下，表格行被隐藏 */\r\n    .collapse-tr {\r\n        transition: opacity 0.5s ease, transform 0.5s ease;\r\n        opacity: 0;\r\n        transform: scaleY(0);\r\n        /* 使用 scaleY 来隐藏 */\r\n        transform-origin: top;\r\n        /* 让缩放从顶部开始 */\r\n        overflow: hidden;\r\n    }\r\n\r\n    /* 当表格行显示时 */\r\n    .collapse-tr.show {\r\n        opacity: 1;\r\n        transform: scaleY(1);\r\n        /* 还原到原始高度 */\r\n    }\r\n\r\n    .tr-checked {\r\n        background-color: #cce2fa !important;\r\n    }\r\n\r\n    .tr-content {\r\n        transition: background-color 0.3s ease;\r\n\r\n        &:hover {\r\n            background-color: #e7ebee;\r\n        }\r\n    }\r\n}\r\n\r\n.ellipsis-1 {\r\n    white-space: nowrap;\r\n    /* 不换行 */\r\n    overflow: hidden;\r\n    /* 隐藏超出部分 */\r\n    text-overflow: ellipsis;\r\n    /* 使用省略号表示超出部分 */\r\n}"],"sourceRoot":""}]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 
@@ -1519,7 +1466,7 @@ __webpack_require__.r(__webpack_exports__);
 
 // EXPORTS
 __webpack_require__.d(__webpack_exports__, {
-  TableCell: () => (/* reexport */ src_TableCell_0),
+  TableCell: () => (/* reexport */ src_TableCell),
   "default": () => (/* binding */ src_0)
 });
 
@@ -2730,61 +2677,11 @@ var selectOrdinal = function selectOrdinal() {
 // EXTERNAL MODULE: ../components/Input/index.js
 var Input = __webpack_require__(281);
 var Input_default = /*#__PURE__*/__webpack_require__.n(Input);
-// EXTERNAL MODULE: ../../node_modules/style-loader/dist/runtime/injectStylesIntoStyleTag.js
-var injectStylesIntoStyleTag = __webpack_require__(591);
-var injectStylesIntoStyleTag_default = /*#__PURE__*/__webpack_require__.n(injectStylesIntoStyleTag);
-// EXTERNAL MODULE: ../../node_modules/style-loader/dist/runtime/styleDomAPI.js
-var styleDomAPI = __webpack_require__(740);
-var styleDomAPI_default = /*#__PURE__*/__webpack_require__.n(styleDomAPI);
-// EXTERNAL MODULE: ../../node_modules/style-loader/dist/runtime/insertBySelector.js
-var insertBySelector = __webpack_require__(128);
-var insertBySelector_default = /*#__PURE__*/__webpack_require__.n(insertBySelector);
-// EXTERNAL MODULE: ../../node_modules/style-loader/dist/runtime/setAttributesWithoutAttributes.js
-var setAttributesWithoutAttributes = __webpack_require__(855);
-var setAttributesWithoutAttributes_default = /*#__PURE__*/__webpack_require__.n(setAttributesWithoutAttributes);
-// EXTERNAL MODULE: ../../node_modules/style-loader/dist/runtime/insertStyleElement.js
-var insertStyleElement = __webpack_require__(51);
-var insertStyleElement_default = /*#__PURE__*/__webpack_require__.n(insertStyleElement);
-// EXTERNAL MODULE: ../../node_modules/style-loader/dist/runtime/styleTagTransform.js
-var styleTagTransform = __webpack_require__(656);
-var styleTagTransform_default = /*#__PURE__*/__webpack_require__.n(styleTagTransform);
-// EXTERNAL MODULE: ../../node_modules/css-loader/dist/cjs.js??ruleSet[1].rules[1].use[1]!../../node_modules/sass-loader/dist/cjs.js??ruleSet[1].rules[1].use[2]!./src/TableCell/index.scss
-var TableCell = __webpack_require__(648);
-;// CONCATENATED MODULE: ./src/TableCell/index.scss
-
-      
-      
-      
-      
-      
-      
-      
-      
-      
-
-var options = {};
-
-options.styleTagTransform = (styleTagTransform_default());
-options.setAttributes = (setAttributesWithoutAttributes_default());
-
-      options.insert = insertBySelector_default().bind(null, "head");
-    
-options.domAPI = (styleDomAPI_default());
-options.insertStyleElement = (insertStyleElement_default());
-
-var update = injectStylesIntoStyleTag_default()(TableCell/* default */.A, options);
-
-
-
-
-       /* harmony default export */ const src_TableCell = (TableCell/* default */.A && TableCell/* default */.A.locals ? TableCell/* default */.A.locals : undefined);
-
 ;// CONCATENATED MODULE: ./src/TableCell/index.tsx
 
 
 
-
-const TableCell_TableCell = props => {
+const TableCell = props => {
   const {
     maxWidth,
     render,
@@ -2824,7 +2721,7 @@ const TableCell_TableCell = props => {
     setEditedValue(value);
   }, [value]);
   return /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("div", {
-    className: "table-cell",
+    className: "table-cell d-flex",
     style: {
       width: "100%"
     }
@@ -2854,7 +2751,25 @@ const TableCell_TableCell = props => {
     }
   }, editedValue)));
 };
-/* harmony default export */ const src_TableCell_0 = (withTranslation()(TableCell_TableCell));
+/* harmony default export */ const src_TableCell = (withTranslation()(TableCell));
+// EXTERNAL MODULE: ../../node_modules/style-loader/dist/runtime/injectStylesIntoStyleTag.js
+var injectStylesIntoStyleTag = __webpack_require__(591);
+var injectStylesIntoStyleTag_default = /*#__PURE__*/__webpack_require__.n(injectStylesIntoStyleTag);
+// EXTERNAL MODULE: ../../node_modules/style-loader/dist/runtime/styleDomAPI.js
+var styleDomAPI = __webpack_require__(740);
+var styleDomAPI_default = /*#__PURE__*/__webpack_require__.n(styleDomAPI);
+// EXTERNAL MODULE: ../../node_modules/style-loader/dist/runtime/insertBySelector.js
+var insertBySelector = __webpack_require__(128);
+var insertBySelector_default = /*#__PURE__*/__webpack_require__.n(insertBySelector);
+// EXTERNAL MODULE: ../../node_modules/style-loader/dist/runtime/setAttributesWithoutAttributes.js
+var setAttributesWithoutAttributes = __webpack_require__(855);
+var setAttributesWithoutAttributes_default = /*#__PURE__*/__webpack_require__.n(setAttributesWithoutAttributes);
+// EXTERNAL MODULE: ../../node_modules/style-loader/dist/runtime/insertStyleElement.js
+var insertStyleElement = __webpack_require__(51);
+var insertStyleElement_default = /*#__PURE__*/__webpack_require__.n(insertStyleElement);
+// EXTERNAL MODULE: ../../node_modules/style-loader/dist/runtime/styleTagTransform.js
+var styleTagTransform = __webpack_require__(656);
+var styleTagTransform_default = /*#__PURE__*/__webpack_require__.n(styleTagTransform);
 // EXTERNAL MODULE: ../../node_modules/css-loader/dist/cjs.js??ruleSet[1].rules[1].use[1]!../../node_modules/sass-loader/dist/cjs.js??ruleSet[1].rules[1].use[2]!./src/index.scss
 var cjs_ruleSet_1_rules_1_use_2_src = __webpack_require__(483);
 ;// CONCATENATED MODULE: ./src/index.scss
@@ -2869,17 +2784,17 @@ var cjs_ruleSet_1_rules_1_use_2_src = __webpack_require__(483);
       
       
 
-var src_options = {};
+var options = {};
 
-src_options.styleTagTransform = (styleTagTransform_default());
-src_options.setAttributes = (setAttributesWithoutAttributes_default());
+options.styleTagTransform = (styleTagTransform_default());
+options.setAttributes = (setAttributesWithoutAttributes_default());
 
-      src_options.insert = insertBySelector_default().bind(null, "head");
+      options.insert = insertBySelector_default().bind(null, "head");
     
-src_options.domAPI = (styleDomAPI_default());
-src_options.insertStyleElement = (insertStyleElement_default());
+options.domAPI = (styleDomAPI_default());
+options.insertStyleElement = (insertStyleElement_default());
 
-var src_update = injectStylesIntoStyleTag_default()(cjs_ruleSet_1_rules_1_use_2_src/* default */.A, src_options);
+var update = injectStylesIntoStyleTag_default()(cjs_ruleSet_1_rules_1_use_2_src/* default */.A, options);
 
 
 
@@ -3245,7 +3160,6 @@ const Table = props => {
     setTableData(updateCheckedState(tabelData));
   };
   (0,external_root_React_commonjs2_react_commonjs_react_amd_react_.useEffect)(() => {
-    console.log("data: ", data);
     const checkedAll = areAllChecked(data);
     setCheckedAll(checkedAll);
     if (collapse) {
@@ -3268,7 +3182,7 @@ const Table = props => {
     className: cls
   }, renderCollapseChildren())));
 };
-Table.TableCell = src_TableCell_0;
+Table.TableCell = src_TableCell;
 /* harmony default export */ const src_0 = (withTranslation()(Table));
 })();
 

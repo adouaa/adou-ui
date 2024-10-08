@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import "./index.scss";
 
 interface ListNodeProps {
+  bgc?: string;
   children?: any;
   activeBgc?: any;
   deleteIconClass?: string;
@@ -26,6 +27,7 @@ interface ListNodeProps {
 
 const ListNode = ({
   activeBgc = "#2783d8",
+  bgc = "transparent",
   addIconClass,
   deleteIconClass,
   editIconClass,
@@ -202,6 +204,7 @@ const ListNode = ({
         {/* handleItemClick: 整个树节点的点击事件 */}
         <div
           style={{
+            backgroundColor: node.bgc,
             ...(Number(activeId) === Number(node.id)
               ? { backgroundColor: activeBgc }
               : ""),
@@ -233,6 +236,7 @@ const ListNode = ({
           )}
           {/* 节点名字 */}
           <span
+            style={{ whiteSpace: `${wrap ? "normal" : "nowrap"}` }}
             onClick={(e) => handleNodeNameClick(node, e)}
             className={`item-name ${
               node.children && node.children.length > 0
@@ -300,5 +304,6 @@ const ListNode = ({
     </div>
   );
 };
+
 
 export default ListNode;

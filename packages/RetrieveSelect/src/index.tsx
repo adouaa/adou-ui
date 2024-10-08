@@ -61,7 +61,6 @@ const RetrievrSelect: React.FC<RetrieveSelectProps> = React.forwardRef(
       suffixContent,
       suffixContentType,
       contentWidth,
-      attribute = "value",
       required,
       errMsg,
       labelWidth,
@@ -108,6 +107,7 @@ const RetrievrSelect: React.FC<RetrieveSelectProps> = React.forwardRef(
     });
 
     const handleSelect = (option: any) => {
+      if (!option) return;
       retrieveInputRef.current.value = "";
       const currentSelectList = optionList
         .filter((item: any) => item[valueKey] != option[valueKey])
@@ -156,7 +156,7 @@ const RetrievrSelect: React.FC<RetrieveSelectProps> = React.forwardRef(
       if (single) {
         const data = hasSelected ? [] : [option];
         setSelectedOptions(data);
-        onRetrieveSelectChange && onRetrieveSelectChange(option);
+        onRetrieveSelectChange && onRetrieveSelectChange(hasSelected ? {} : option);
         if (returnType === "obj" || showDefaultValue) {
           onFormDataChange && onFormDataChange(name!, data[0]);
         } else {
@@ -241,7 +241,6 @@ const RetrievrSelect: React.FC<RetrieveSelectProps> = React.forwardRef(
 
     const [error, setError] = useState<boolean>(false);
     const validate = () => {
-      console.log("selectedOptions: ", selectedOptions);
       if (!required) return true;
       if (selectedOptions.length) {
         setError(false);
@@ -289,7 +288,6 @@ const RetrievrSelect: React.FC<RetrieveSelectProps> = React.forwardRef(
     });
 
     const handleFocus = (event: any) => {
-      console.log("focus: ");
       setIsHighlighted(true);
       toggleDropdown();
       const position = getAbsolutePosition(
@@ -305,7 +303,6 @@ const RetrievrSelect: React.FC<RetrieveSelectProps> = React.forwardRef(
 
     // 全部都 通过 KeyDown来关闭下拉列表项
     const handleKeyDown = (event: React.KeyboardEvent<HTMLDivElement>) => {
-      console.log("tab: ");
       if (event.key === "Tab") {
         // 当下拉项展开的时候进入这个回调，来关闭下拉项
         if (isOpen) {
@@ -442,9 +439,10 @@ const RetrievrSelect: React.FC<RetrieveSelectProps> = React.forwardRef(
         setOptionList(options);
       }
       setTempOptions(options);
-      if (!isOpen) {
+      // 不应该有这个逻辑
+      /* if (!isOpen) {
         toggleDropdown();
-      }
+      } */
     }, [options]);
 
     return (

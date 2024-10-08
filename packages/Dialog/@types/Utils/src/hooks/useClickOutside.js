@@ -1,10 +1,13 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 const react_1 = require("react");
-const useClickOutside = (ref, callback) => {
+const useClickOutside = (refs, callback, enabled = true) => {
     (0, react_1.useEffect)(() => {
+        const judge = (event) => {
+            return refs.some((ref) => ref.current?.contains(event.target));
+        };
         const handleClickOutside = (event) => {
-            if (ref.current && !ref.current.contains(event.target)) {
+            if (enabled && refs.length && !judge(event)) {
                 callback && callback();
             }
         };
@@ -12,7 +15,7 @@ const useClickOutside = (ref, callback) => {
         return () => {
             document.removeEventListener('mousedown', handleClickOutside);
         };
-    }, [ref, callback]);
+    }, [refs, callback, enabled]);
 };
 exports.default = useClickOutside;
 //# sourceMappingURL=useClickOutside.js.map

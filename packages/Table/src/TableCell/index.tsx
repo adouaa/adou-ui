@@ -1,7 +1,6 @@
 import AdouInput from "adou-ui/Input";
 import React, { useEffect, useRef, useState } from "react";
 import { withTranslation } from "react-i18next";
-import "./index.scss";
 
 interface TableCellProps {
   maxWidth?: any;
@@ -65,7 +64,7 @@ const TableCell = (props: TableCellProps) => {
   }, [value]);
 
   return (
-    <div className="table-cell" style={{ width: "100%" }}>
+    <div className="table-cell d-flex" style={{ width: "100%" }}>
       {render ? (
         render(editedValue, rowData, rowIndex, prop, colIndex)
       ) : (

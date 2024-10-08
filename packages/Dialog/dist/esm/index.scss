@@ -35,6 +35,10 @@
         transform: scale(1);
         opacity: 1;
     }
+
+    &:focus {
+        outline: none;
+    }
 }
 
 .dialog-header {

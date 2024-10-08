@@ -53,14 +53,14 @@
     }
 
     .tr-checked {
-        background-color: #ecf5ff;
+        background-color: #cce2fa !important;
     }
 
     .tr-content {
         transition: background-color 0.3s ease;
 
         &:hover {
-            background-color: #ecf5ff;
+            background-color: #e7ebee;
         }
     }
 }

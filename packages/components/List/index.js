@@ -265,12 +265,12 @@ module.exports = function (item) {
 
         var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_1___default()(_node_modules_css_loader_dist_runtime_sourceMaps_js__WEBPACK_IMPORTED_MODULE_0___default());
         // Module
-        ___CSS_LOADER_EXPORT___.push([module.id, "@charset \"UTF-8\";\n.suffix-icon {\n  /* margin-left: -40px !important;\n  margin-top: 6px;\n  z-index: 9; */\n  position: absolute;\n  right: 12px;\n  top: 30px;\n  /* \u5782\u76F4\u5C45\u4E2D */\n  cursor: pointer;\n  /* \u9F20\u6807\u60AC\u505C\u65F6\u663E\u793A\u6307\u9488\u6837\u5F0F */\n  transition: transform 0.3s;\n  /* \u6DFB\u52A0\u8FC7\u6E21\u6548\u679C */\n  color: #c6c6cd;\n}\n.suffix-icon:hover {\n  transform: scale(1.3);\n  /* \u6C34\u5E73\u548C\u5782\u76F4\u65B9\u5411\u90FD\u653E\u59271.5\u500D */\n  color: #51515b;\n}\n\n.common-suffix-icon {\n  display: flex;\n  align-items: center;\n  cursor: pointer;\n}\n\n.common-suffix-icon {\n  display: flex;\n  align-items: center;\n  cursor: pointer;\n}\n\n.label-box {\n  font-size: 14px;\n  min-width: 50px;\n  text-align: right;\n  justify-content: flex-end;\n  padding-right: 10px;\n  flex-wrap: wrap;\n}\n\n.icon-input {\n  position: relative;\n  /* \u8BA9\u4F2A\u5143\u7D20\u76F8\u5BF9\u4E8E\u8F93\u5165\u6846\u5B9A\u4F4D */\n}\n\n.input-wrapper .content-box {\n  flex: 1;\n  align-items: stretch;\n}\n.input-wrapper .content-box .suffix-content-btn {\n  border-top-right-radius: 0 !important;\n  /* \u53BB\u6389\u53F3\u4E0A\u89D2\u7684\u5706\u89D2 */\n  border-bottom-right-radius: 0 !important;\n  border-right: none;\n  /* \u53BB\u6389\u53F3\u4E0B\u89D2\u7684\u5706\u89D2 */\n}\n.input-wrapper .content-box .suffix-content-btn-wrapper .btn {\n  border-top-left-radius: 0;\n  /* \u53BB\u6389\u5DE6\u4E0A\u89D2\u7684\u5706\u89D2 */\n  border-bottom-left-radius: 0;\n  /* \u53BB\u6389\u5DE6\u4E0B\u89D2\u7684\u5706\u89D2 */\n}\n\n.label-in-center {\n  display: flex;\n}\n.label-in-center .suffix-icon {\n  top: 7px;\n}\n\n.label-in-left-top {\n  display: flex;\n}\n.label-in-left-top .label-box {\n  display: flex;\n  align-items: start;\n}\n.label-in-left-top .suffix-icon {\n  top: 7px;\n}\n\n.input-group .suffix-icon {\n  top: 7px !important;\n}\n\n.input-group-text {\n  cursor: pointer;\n}", "", {
+        ___CSS_LOADER_EXPORT___.push([module.id, "@charset \"UTF-8\";\n.suffix-icon {\n  /* margin-left: -40px !important;\n  margin-top: 6px;\n  z-index: 9; */\n  position: absolute;\n  right: 12px;\n  top: 30px;\n  /* \u5782\u76F4\u5C45\u4E2D */\n  cursor: pointer;\n  /* \u9F20\u6807\u60AC\u505C\u65F6\u663E\u793A\u6307\u9488\u6837\u5F0F */\n  transition: transform 0.3s;\n  /* \u6DFB\u52A0\u8FC7\u6E21\u6548\u679C */\n  color: #c6c6cd;\n}\n.suffix-icon:hover {\n  transform: scale(1.3);\n  /* \u6C34\u5E73\u548C\u5782\u76F4\u65B9\u5411\u90FD\u653E\u59271.5\u500D */\n  color: #51515b;\n}\n\n.common-suffix-icon {\n  display: flex;\n  align-items: center;\n  cursor: pointer;\n}\n\n.common-suffix-icon {\n  display: flex;\n  align-items: center;\n  cursor: pointer;\n}\n\n.label-box {\n  font-size: 14px;\n  min-width: 50px;\n  text-align: right;\n  justify-content: flex-end;\n  padding-right: 10px;\n  flex-wrap: wrap;\n}\n\n.icon-input {\n  position: relative;\n  /* \u8BA9\u4F2A\u5143\u7D20\u76F8\u5BF9\u4E8E\u8F93\u5165\u6846\u5B9A\u4F4D */\n}\n\n.input-wrapper .content-box {\n  flex: 1;\n  align-items: stretch;\n}\n.input-wrapper .content-box .suffix-content-btn {\n  border-top-right-radius: 0 !important;\n  /* \u53BB\u6389\u53F3\u4E0A\u89D2\u7684\u5706\u89D2 */\n  border-bottom-right-radius: 0 !important;\n  border-right: none;\n  /* \u53BB\u6389\u53F3\u4E0B\u89D2\u7684\u5706\u89D2 */\n}\n.input-wrapper .content-box .suffix-content-btn-wrapper .btn {\n  border-top-left-radius: 0;\n  /* \u53BB\u6389\u5DE6\u4E0A\u89D2\u7684\u5706\u89D2 */\n  border-bottom-left-radius: 0;\n  /* \u53BB\u6389\u5DE6\u4E0B\u89D2\u7684\u5706\u89D2 */\n}\n.input-wrapper .content-box .suffix-content-text-wrapper {\n  display: flex;\n  align-items: center;\n  justify-content: center;\n}\n\n.label-in-center {\n  display: flex;\n}\n.label-in-center .suffix-icon {\n  top: 7px;\n}\n\n.label-in-left-top {\n  display: flex;\n}\n.label-in-left-top .label-box {\n  display: flex;\n  align-items: start;\n}\n.label-in-left-top .suffix-icon {\n  top: 7px;\n}\n\n.input-group .suffix-icon {\n  top: 7px !important;\n}\n\n.input-group-text {\n  cursor: pointer;\n}", "", {
           "version": 3,
           "sources": ["webpack://./src/index.scss"],
           "names": [],
-          "mappings": "AAAA,gBAAgB;AAAhB;EACI;;eAAA;EAGA,kBAAA;EACA,WAAA;EACA,SAAA;EACA,SAAA;EACA,eAAA;EACA,gBAAA;EACA,0BAAA;EACA,WAAA;EACA,cAAA;AAEJ;AAAI;EACI,qBAAA;EACA,mBAAA;EACA,cAAA;AAER;;AAEA;EACI,aAAA;EACA,mBAAA;EACA,eAAA;AACJ;;AAEA;EACI,aAAA;EACA,mBAAA;EACA,eAAA;AACJ;;AAEA;EACI,eAAA;EACA,eAAA;EACA,iBAAA;EACA,yBAAA;EACA,mBAAA;EACA,eAAA;AACJ;;AAEA;EACI,kBAAA;EACA,iBAAA;AACJ;;AAII;EACI,OAAA;EACA,oBAAA;AADR;AAKQ;EACI,qCAAA;EACA,aAAA;EACA,wCAAA;EACA,kBAAA;EACA,aAAA;AAHZ;AAMQ;EACI,yBAAA;EACA,aAAA;EACA,4BAAA;EACA,aAAA;AAJZ;;AAYA;EACI,aAAA;AATJ;AAWI;EACI,QAAA;AATR;;AAaA;EACI,aAAA;AAVJ;AAYI;EACI,aAAA;EACA,kBAAA;AAVR;AAaI;EACI,QAAA;AAXR;;AAgBI;EACI,mBAAA;AAbR;;AAiBA;EACI,eAAA;AAdJ",
-          "sourcesContent": [".suffix-icon {\r\n    /* margin-left: -40px !important;\r\n    margin-top: 6px;\r\n    z-index: 9; */\r\n    position: absolute;\r\n    right: 12px;\r\n    top: 30px;\r\n    /* 垂直居中 */\r\n    cursor: pointer;\r\n    /* 鼠标悬停时显示指针样式 */\r\n    transition: transform 0.3s;\r\n    /* 添加过渡效果 */\r\n    color: #c6c6cd;\r\n\r\n    &:hover {\r\n        transform: scale(1.3);\r\n        /* 水平和垂直方向都放大1.5倍 */\r\n        color: #51515b;\r\n    }\r\n}\r\n\r\n.common-suffix-icon {\r\n    display: flex;\r\n    align-items: center;\r\n    cursor: pointer;\r\n}\r\n\r\n.common-suffix-icon {\r\n    display: flex;\r\n    align-items: center;\r\n    cursor: pointer;\r\n}\r\n\r\n.label-box {\r\n    font-size: 14px;\r\n    min-width: 50px;\r\n    text-align: right;\r\n    justify-content: flex-end;\r\n    padding-right: 10px;\r\n    flex-wrap: wrap;\r\n}\r\n\r\n.icon-input {\r\n    position: relative;\r\n    /* 让伪元素相对于输入框定位 */\r\n\r\n}\r\n\r\n.input-wrapper {\r\n    .content-box {\r\n        flex: 1;\r\n        align-items: stretch;\r\n\r\n        .label-box {}\r\n\r\n        .suffix-content-btn {\r\n            border-top-right-radius: 0 !important;\r\n            /* 去掉右上角的圆角 */\r\n            border-bottom-right-radius: 0 !important;\r\n            border-right: none;\r\n            /* 去掉右下角的圆角 */\r\n        }\r\n\r\n        .suffix-content-btn-wrapper .btn {\r\n            border-top-left-radius: 0;\r\n            /* 去掉左上角的圆角 */\r\n            border-bottom-left-radius: 0;\r\n            /* 去掉左下角的圆角 */\r\n        }\r\n\r\n\r\n    }\r\n\r\n}\r\n\r\n.label-in-center {\r\n    display: flex;\r\n\r\n    .suffix-icon {\r\n        top: 7px;\r\n    }\r\n}\r\n\r\n.label-in-left-top {\r\n    display: flex;\r\n\r\n    .label-box {\r\n        display: flex;\r\n        align-items: start;\r\n    }\r\n\r\n    .suffix-icon {\r\n        top: 7px;\r\n    }\r\n}\r\n\r\n.input-group {\r\n    .suffix-icon {\r\n        top: 7px !important;\r\n    }\r\n}\r\n\r\n.input-group-text {\r\n    cursor: pointer;\r\n}\r\n\r\n.lable-in-control {}"],
+          "mappings": "AAAA,gBAAgB;AAAhB;EACI;;eAAA;EAGA,kBAAA;EACA,WAAA;EACA,SAAA;EACA,SAAA;EACA,eAAA;EACA,gBAAA;EACA,0BAAA;EACA,WAAA;EACA,cAAA;AAEJ;AAAI;EACI,qBAAA;EACA,mBAAA;EACA,cAAA;AAER;;AAEA;EACI,aAAA;EACA,mBAAA;EACA,eAAA;AACJ;;AAEA;EACI,aAAA;EACA,mBAAA;EACA,eAAA;AACJ;;AAEA;EACI,eAAA;EACA,eAAA;EACA,iBAAA;EACA,yBAAA;EACA,mBAAA;EACA,eAAA;AACJ;;AAEA;EACI,kBAAA;EACA,iBAAA;AACJ;;AAII;EACI,OAAA;EACA,oBAAA;AADR;AAKQ;EACI,qCAAA;EACA,aAAA;EACA,wCAAA;EACA,kBAAA;EACA,aAAA;AAHZ;AAMQ;EACI,yBAAA;EACA,aAAA;EACA,4BAAA;EACA,aAAA;AAJZ;AAOQ;EACI,aAAA;EACA,mBAAA;EACA,uBAAA;AALZ;;AAYA;EACI,aAAA;AATJ;AAWI;EACI,QAAA;AATR;;AAaA;EACI,aAAA;AAVJ;AAYI;EACI,aAAA;EACA,kBAAA;AAVR;AAaI;EACI,QAAA;AAXR;;AAgBI;EACI,mBAAA;AAbR;;AAiBA;EACI,eAAA;AAdJ",
+          "sourcesContent": [".suffix-icon {\r\n    /* margin-left: -40px !important;\r\n    margin-top: 6px;\r\n    z-index: 9; */\r\n    position: absolute;\r\n    right: 12px;\r\n    top: 30px;\r\n    /* 垂直居中 */\r\n    cursor: pointer;\r\n    /* 鼠标悬停时显示指针样式 */\r\n    transition: transform 0.3s;\r\n    /* 添加过渡效果 */\r\n    color: #c6c6cd;\r\n\r\n    &:hover {\r\n        transform: scale(1.3);\r\n        /* 水平和垂直方向都放大1.5倍 */\r\n        color: #51515b;\r\n    }\r\n}\r\n\r\n.common-suffix-icon {\r\n    display: flex;\r\n    align-items: center;\r\n    cursor: pointer;\r\n}\r\n\r\n.common-suffix-icon {\r\n    display: flex;\r\n    align-items: center;\r\n    cursor: pointer;\r\n}\r\n\r\n.label-box {\r\n    font-size: 14px;\r\n    min-width: 50px;\r\n    text-align: right;\r\n    justify-content: flex-end;\r\n    padding-right: 10px;\r\n    flex-wrap: wrap;\r\n}\r\n\r\n.icon-input {\r\n    position: relative;\r\n    /* 让伪元素相对于输入框定位 */\r\n\r\n}\r\n\r\n.input-wrapper {\r\n    .content-box {\r\n        flex: 1;\r\n        align-items: stretch;\r\n\r\n        .label-box {}\r\n\r\n        .suffix-content-btn {\r\n            border-top-right-radius: 0 !important;\r\n            /* 去掉右上角的圆角 */\r\n            border-bottom-right-radius: 0 !important;\r\n            border-right: none;\r\n            /* 去掉右下角的圆角 */\r\n        }\r\n\r\n        .suffix-content-btn-wrapper .btn {\r\n            border-top-left-radius: 0;\r\n            /* 去掉左上角的圆角 */\r\n            border-bottom-left-radius: 0;\r\n            /* 去掉左下角的圆角 */\r\n        }\r\n\r\n        .suffix-content-text-wrapper {\r\n            display: flex;\r\n            align-items: center;\r\n            justify-content: center;\r\n        }\r\n\r\n    }\r\n\r\n}\r\n\r\n.label-in-center {\r\n    display: flex;\r\n\r\n    .suffix-icon {\r\n        top: 7px;\r\n    }\r\n}\r\n\r\n.label-in-left-top {\r\n    display: flex;\r\n\r\n    .label-box {\r\n        display: flex;\r\n        align-items: start;\r\n    }\r\n\r\n    .suffix-icon {\r\n        top: 7px;\r\n    }\r\n}\r\n\r\n.input-group {\r\n    .suffix-icon {\r\n        top: 7px !important;\r\n    }\r\n}\r\n\r\n.input-group-text {\r\n    cursor: pointer;\r\n}\r\n\r\n.lable-in-control {}"],
           "sourceRoot": ""
         }]);
         // Exports
@@ -419,12 +419,12 @@ module.exports = function (item) {
 
         /***/
       }),
-      /***/855: ( /***/(module, __unused_webpack_exports, __nested_webpack_require_15595__) => {
+      /***/855: ( /***/(module, __unused_webpack_exports, __nested_webpack_require_15931__) => {
         "use strict";
 
         /* istanbul ignore next  */
         function setAttributesWithoutAttributes(styleElement) {
-          var nonce =  true ? __nested_webpack_require_15595__.nc : 0;
+          var nonce =  true ? __nested_webpack_require_15931__.nc : 0;
           if (nonce) {
             styleElement.setAttribute("nonce", nonce);
           }
@@ -598,7 +598,7 @@ module.exports = function (item) {
     /******/
     /******/ // The require function
     /******/
-    function __nested_webpack_require_21518__(moduleId) {
+    function __nested_webpack_require_21854__(moduleId) {
       /******/ // Check if module is in cache
       /******/var cachedModule = __webpack_module_cache__[moduleId];
       /******/
@@ -617,7 +617,7 @@ module.exports = function (item) {
       /******/
       /******/ // Execute the module function
       /******/
-      __webpack_modules__[moduleId](module, module.exports, __nested_webpack_require_21518__);
+      __webpack_modules__[moduleId](module, module.exports, __nested_webpack_require_21854__);
       /******/
       /******/ // Return the exports of the module
       /******/
@@ -630,10 +630,10 @@ module.exports = function (item) {
     /******/
     (() => {
       /******/ // getDefaultExport function for compatibility with non-harmony modules
-      /******/__nested_webpack_require_21518__.n = module => {
+      /******/__nested_webpack_require_21854__.n = module => {
         /******/var getter = module && module.__esModule ? /******/() => module['default'] : /******/() => module;
         /******/
-        __nested_webpack_require_21518__.d(getter, {
+        __nested_webpack_require_21854__.d(getter, {
           a: getter
         });
         /******/
@@ -647,9 +647,9 @@ module.exports = function (item) {
     /******/
     (() => {
       /******/ // define getter functions for harmony exports
-      /******/__nested_webpack_require_21518__.d = (exports, definition) => {
+      /******/__nested_webpack_require_21854__.d = (exports, definition) => {
         /******/for (var key in definition) {
-          /******/if (__nested_webpack_require_21518__.o(definition, key) && !__nested_webpack_require_21518__.o(exports, key)) {
+          /******/if (__nested_webpack_require_21854__.o(definition, key) && !__nested_webpack_require_21854__.o(exports, key)) {
             /******/Object.defineProperty(exports, key, {
               enumerable: true,
               get: definition[key]
@@ -666,7 +666,7 @@ module.exports = function (item) {
     /******/ /* webpack/runtime/hasOwnProperty shorthand */
     /******/
     (() => {
-      /******/__nested_webpack_require_21518__.o = (obj, prop) => Object.prototype.hasOwnProperty.call(obj, prop);
+      /******/__nested_webpack_require_21854__.o = (obj, prop) => Object.prototype.hasOwnProperty.call(obj, prop);
       /******/
     })();
     /******/
@@ -674,7 +674,7 @@ module.exports = function (item) {
     /******/
     (() => {
       /******/ // define __esModule on exports
-      /******/__nested_webpack_require_21518__.r = exports => {
+      /******/__nested_webpack_require_21854__.r = exports => {
         /******/if (typeof Symbol !== 'undefined' && Symbol.toStringTag) {
           /******/Object.defineProperty(exports, Symbol.toStringTag, {
             value: 'Module'
@@ -693,7 +693,7 @@ module.exports = function (item) {
     /******/ /* webpack/runtime/nonce */
     /******/
     (() => {
-      /******/__nested_webpack_require_21518__.nc = undefined;
+      /******/__nested_webpack_require_21854__.nc = undefined;
       /******/
     })();
     /******/
@@ -704,39 +704,39 @@ module.exports = function (item) {
       "use strict";
 
       // ESM COMPAT FLAG
-      __nested_webpack_require_21518__.r(__nested_webpack_exports__);
+      __nested_webpack_require_21854__.r(__nested_webpack_exports__);
 
       // EXPORTS
-      __nested_webpack_require_21518__.d(__nested_webpack_exports__, {
+      __nested_webpack_require_21854__.d(__nested_webpack_exports__, {
         "default": () => ( /* binding */src_0)
       });
 
       // EXTERNAL MODULE: external {"root":"React","commonjs2":"react","commonjs":"react","amd":"react"}
-      var external_root_React_commonjs2_react_commonjs_react_amd_react_ = __nested_webpack_require_21518__(442);
-      var external_root_React_commonjs2_react_commonjs_react_amd_react_default = /*#__PURE__*/__nested_webpack_require_21518__.n(external_root_React_commonjs2_react_commonjs_react_amd_react_);
+      var external_root_React_commonjs2_react_commonjs_react_amd_react_ = __nested_webpack_require_21854__(442);
+      var external_root_React_commonjs2_react_commonjs_react_amd_react_default = /*#__PURE__*/__nested_webpack_require_21854__.n(external_root_React_commonjs2_react_commonjs_react_amd_react_);
       // EXTERNAL MODULE: ../../../node_modules/classnames/index.js
-      var classnames = __nested_webpack_require_21518__(650);
-      var classnames_default = /*#__PURE__*/__nested_webpack_require_21518__.n(classnames);
+      var classnames = __nested_webpack_require_21854__(650);
+      var classnames_default = /*#__PURE__*/__nested_webpack_require_21854__.n(classnames);
       // EXTERNAL MODULE: ../../node_modules/style-loader/dist/runtime/injectStylesIntoStyleTag.js
-      var injectStylesIntoStyleTag = __nested_webpack_require_21518__(591);
-      var injectStylesIntoStyleTag_default = /*#__PURE__*/__nested_webpack_require_21518__.n(injectStylesIntoStyleTag);
+      var injectStylesIntoStyleTag = __nested_webpack_require_21854__(591);
+      var injectStylesIntoStyleTag_default = /*#__PURE__*/__nested_webpack_require_21854__.n(injectStylesIntoStyleTag);
       // EXTERNAL MODULE: ../../node_modules/style-loader/dist/runtime/styleDomAPI.js
-      var styleDomAPI = __nested_webpack_require_21518__(740);
-      var styleDomAPI_default = /*#__PURE__*/__nested_webpack_require_21518__.n(styleDomAPI);
+      var styleDomAPI = __nested_webpack_require_21854__(740);
+      var styleDomAPI_default = /*#__PURE__*/__nested_webpack_require_21854__.n(styleDomAPI);
       // EXTERNAL MODULE: ../../node_modules/style-loader/dist/runtime/insertBySelector.js
-      var insertBySelector = __nested_webpack_require_21518__(128);
-      var insertBySelector_default = /*#__PURE__*/__nested_webpack_require_21518__.n(insertBySelector);
+      var insertBySelector = __nested_webpack_require_21854__(128);
+      var insertBySelector_default = /*#__PURE__*/__nested_webpack_require_21854__.n(insertBySelector);
       // EXTERNAL MODULE: ../../node_modules/style-loader/dist/runtime/setAttributesWithoutAttributes.js
-      var setAttributesWithoutAttributes = __nested_webpack_require_21518__(855);
-      var setAttributesWithoutAttributes_default = /*#__PURE__*/__nested_webpack_require_21518__.n(setAttributesWithoutAttributes);
+      var setAttributesWithoutAttributes = __nested_webpack_require_21854__(855);
+      var setAttributesWithoutAttributes_default = /*#__PURE__*/__nested_webpack_require_21854__.n(setAttributesWithoutAttributes);
       // EXTERNAL MODULE: ../../node_modules/style-loader/dist/runtime/insertStyleElement.js
-      var insertStyleElement = __nested_webpack_require_21518__(51);
-      var insertStyleElement_default = /*#__PURE__*/__nested_webpack_require_21518__.n(insertStyleElement);
+      var insertStyleElement = __nested_webpack_require_21854__(51);
+      var insertStyleElement_default = /*#__PURE__*/__nested_webpack_require_21854__.n(insertStyleElement);
       // EXTERNAL MODULE: ../../node_modules/style-loader/dist/runtime/styleTagTransform.js
-      var styleTagTransform = __nested_webpack_require_21518__(656);
-      var styleTagTransform_default = /*#__PURE__*/__nested_webpack_require_21518__.n(styleTagTransform);
+      var styleTagTransform = __nested_webpack_require_21854__(656);
+      var styleTagTransform_default = /*#__PURE__*/__nested_webpack_require_21854__.n(styleTagTransform);
       // EXTERNAL MODULE: ../../node_modules/css-loader/dist/cjs.js??ruleSet[1].rules[1].use[1]!../../node_modules/sass-loader/dist/cjs.js??ruleSet[1].rules[1].use[2]!./src/index.scss
-      var cjs_ruleSet_1_rules_1_use_2_src = __nested_webpack_require_21518__(483);
+      var cjs_ruleSet_1_rules_1_use_2_src = __nested_webpack_require_21854__(483);
       ; // CONCATENATED MODULE: ./src/index.scss
 
       var options = {};
@@ -781,7 +781,8 @@ module.exports = function (item) {
           onFocus,
           onBlur,
           onChange,
-          onIconClick
+          onIconClick,
+          onFormDataChange
         } = _ref;
         const inputRef = (0, external_root_React_commonjs2_react_commonjs_react_amd_react_.useRef)(null);
         const [value, setValue] = (0, external_root_React_commonjs2_react_commonjs_react_amd_react_.useState)(defaultValue !== null && defaultValue !== void 0 ? defaultValue : "");
@@ -809,11 +810,13 @@ module.exports = function (item) {
           validate();
         };
         const handleChange = function (e) {
-          setValue(e.target.value);
+          const value = e.target.value;
+          setValue(value);
           for (var _len4 = arguments.length, args = new Array(_len4 > 1 ? _len4 - 1 : 0), _key4 = 1; _key4 < _len4; _key4++) {
             args[_key4 - 1] = arguments[_key4];
           }
-          onChange && onChange(e.target.value, ...args);
+          onChange && onChange(value, ...args);
+          onFormDataChange && onFormDataChange(name, value);
         };
         const handleIconClick = () => {
           onIconClick && onIconClick(value);
@@ -848,6 +851,9 @@ module.exports = function (item) {
             setValue(defaultValue);
           } else {
             setValue("");
+          }
+          if (defaultValue) {
+            setError(false);
           }
         }, [defaultValue]);
 
@@ -905,7 +911,7 @@ module.exports = function (item) {
           "aria-label": "Username",
           "aria-describedby": "basic-addon1"
         }), suffixContent && /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("div", {
-          className: "".concat(suffixContentType === "button" ? "suffix-content-btn-wrapper ms-2" : "suffix-content-text-wrapper ms-2")
+          className: "".concat(suffixContentType === "button" ? "suffix-content-btn-wrapper" : "suffix-content-text-wrapper ms-1")
         }, suffixContent), commonSuffixIcon && /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("i", {
           onClick: handleClickCommonSuffixIcon,
           className: "".concat(commonSuffixIcon, " common-suffix-icon ms-2")
@@ -920,7 +926,7 @@ module.exports = function (item) {
           style: {
             color: "#DC3545",
             fontSize: "14px",
-            paddingLeft: parseInt(labelWidth) > 120 ? "120px" : labelWidth
+            paddingLeft: parseInt(labelWidth) > 120 ? "120px" : parseFloat(labelWidth) + 20 + "px"
           }
         }, "".concat(errMsg || "".concat(label, "\u4E0D\u80FD\u4E3A\u7A7A"))));
       };
@@ -963,7 +969,8 @@ ___CSS_LOADER_EXPORT___.push([module.id, `@charset "UTF-8";
   align-items: center;
   /* display: inline-block; // 这个加上就会把这个盒子的宽度变成跟内容的宽度一样，而不会是根据父容器的宽度 */
   padding: 3px 20px 3px 14px;
-  position: relative; /* 添加相对定位--好像没用 */
+  position: relative;
+  /* 添加相对定位--好像没用 */
   min-width: 120px;
   cursor: pointer;
 }
@@ -990,62 +997,61 @@ ___CSS_LOADER_EXPORT___.push([module.id, `@charset "UTF-8";
   color: #f67878;
   white-space: nowrap;
 }
-.list-node-wrapper .node-item .left-content .icon {
-  width: 8px;
-  margin: 0 6px;
-}
 .list-node-wrapper .node-item .left-content .item-name {
   word-break: break-all;
 }
 .list-node-wrapper .node-item .left-content .right-content {
-  padding: 0 5px;
+  padding: 1px;
   position: absolute;
   border-radius: 4px;
-  top: 2px;
   right: 10px;
   color: #606266;
   background-color: #fff;
   z-index: 999;
 }
 .list-node-wrapper .node-item .left-content .right-content i {
-  margin: 0 6px;
+  margin: 0 4px;
 }
 .list-node-wrapper .node-item .no-children {
   padding-left: 16px;
 }
 .list-node-wrapper .children {
   padding-left: 10px;
-  max-height: 0; /* 初始状态下高度为0 */
-  overflow-y: hidden; /* 隐藏溢出内容 */
+  max-height: 0;
+  /* 初始状态下高度为0 */
+  overflow-y: hidden;
+  /* 隐藏溢出内容 */
 }
 .list-node-wrapper .children.not-expand {
   transition: max-height 0.25s ease;
 }
 .list-node-wrapper .children.expanded {
   overflow-y: clip;
-  transition: max-height 0.3s ease; /* 添加过渡效果 */
-  max-height: 1000px; /* 展开时高度自动适应内容 */
+  transition: max-height 0.3s ease;
+  /* 添加过渡效果 */
+  max-height: 1000px;
+  /* 展开时高度自动适应内容 */
 }
 
 /* 修改滚动条的样式 */
 ::-webkit-scrollbar {
-  width: 8px; /* 设置滚动条宽度 */
+  width: 8px;
+  /* 设置滚动条宽度 */
 }
 
 /* 修改滚动条轨道的样式 */
-::-webkit-scrollbar-track {
-  background: #f1f1f1; /* 设置滚动条轨道背景色 */
-}
-
 /* 修改滚动条滑块的样式 */
 ::-webkit-scrollbar-thumb {
-  background: #888; /* 设置滚动条滑块颜色 */
+  background: #888;
+  /* 设置滚动条滑块颜色 */
+  border-radius: 6px;
 }
 
 /* 鼠标悬停在滚动条上时的样式 */
 ::-webkit-scrollbar-thumb:hover {
-  background: #555; /* 设置滚动条滑块在鼠标悬停时的颜色 */
-}`, "",{"version":3,"sources":["webpack://./src/ListNode/index.scss"],"names":[],"mappings":"AAAA,gBAAgB;AAAhB;EACI,cAAA;EACA,eAAA;AAEJ;AAAQ;EAEI,aAAA;EACA,mBAAA;EACA,oEAAA;EACA,0BAAA;EAEA,kBAAA,EAAA,iBAAA;EACA,gBAAA;EACA,eAAA;AAAZ;AACY;EACI,yBAAA;AAChB;AACY;EACI,WAAA;EACA,yBAAA;AAChB;AACY;EACI,eAAA;EACA,gBAAA;EACA,kBAAA;EACA,yBAAA;EACA,cAAA;EACA,mBAAA;AAChB;AACY;EACI,eAAA;EACA,gBAAA;EACA,kBAAA;EACA,yBAAA;EACA,cAAA;EACA,mBAAA;AAChB;AAEY;EACI,UAAA;EACA,aAAA;AAAhB;AAEY;EACI,qBAAA;AAAhB;AAEY;EACI,cAAA;EACA,kBAAA;EACA,kBAAA;EACA,QAAA;EACA,WAAA;EACA,cAAA;EACA,sBAAA;EACA,YAAA;AAAhB;AACgB;EACI,aAAA;AACpB;AAMQ;EACI,kBAAA;AAJZ;AAOI;EACI,kBAAA;EACA,aAAA,EAAA,cAAA;EACA,kBAAA,EAAA,WAAA;AALR;AAMQ;EACI,iCAAA;AAJZ;AAMQ;EACI,gBAAA;EACA,gCAAA,EAAA,WAAA;EACA,kBAAA,EAAA,gBAAA;AAJZ;;AASA,aAAA;AACA;EACI,UAAA,EAAA,YAAA;AANJ;;AASE,eAAA;AACA;EACE,mBAAA,EAAA,eAAA;AANJ;;AASE,eAAA;AACA;EACE,gBAAA,EAAA,cAAA;AANJ;;AASE,kBAAA;AACA;EACE,gBAAA,EAAA,qBAAA;AANJ","sourcesContent":[".list-node-wrapper {\r\n    color: #606266;\r\n    font-size: 14px;\r\n    .node-item {\r\n        .left-content {\r\n            // 使用 display 会出现 hover背景色和 active高亮色宽度比较短，但是没事。。\r\n            display: flex;\r\n            align-items: center;\r\n            /* display: inline-block; // 这个加上就会把这个盒子的宽度变成跟内容的宽度一样，而不会是根据父容器的宽度 */\r\n            padding: 3px 20px 3px 14px;\r\n            // white-space: wrap;\r\n            position: relative; /* 添加相对定位--好像没用 */\r\n            min-width: 120px;\r\n            cursor: pointer;\r\n            &:hover {\r\n                background-color: #f6f6f6;\r\n            }\r\n            &.active {\r\n                color: #fff;\r\n                background-color: #2783d8;\r\n            }\r\n            .tag1 {\r\n                font-size: 12px;\r\n                padding: 2px 6px;\r\n                border-radius: 6px;\r\n                background-color: #f0f9eb;\r\n                color: #6dc442;\r\n                white-space: nowrap;\r\n            }\r\n            .tag2 {\r\n                font-size: 12px;\r\n                padding: 2px 6px;\r\n                border-radius: 6px;\r\n                background-color: #fef0f0;\r\n                color: #f67878;\r\n                white-space: nowrap;\r\n\r\n            }\r\n            .icon {\r\n                width: 8px;\r\n                margin: 0 6px;\r\n            }\r\n            .item-name {\r\n                word-break: break-all; // 树节点 的名字太长让它换行\r\n            }\r\n            .right-content {\r\n                padding: 0 5px;\r\n                position: absolute;\r\n                border-radius: 4px;\r\n                top: 2px;\r\n                right: 10px;\r\n                color: #606266;\r\n                background-color: #fff;\r\n                z-index: 999;\r\n                i {\r\n                    margin: 0 6px;\r\n                }\r\n            }\r\n        }\r\n        \r\n        .has-children {\r\n        }\r\n        .no-children {\r\n            padding-left: 16px;\r\n        }\r\n    }\r\n    .children {\r\n        padding-left: 10px;\r\n        max-height: 0; /* 初始状态下高度为0 */\r\n        overflow-y: hidden; /* 隐藏溢出内容 */\r\n        &.not-expand {\r\n            transition: max-height .25s ease; //这个加上过度效果会出现点击的节点的内部闪现x轴滚动条\r\n        }\r\n        &.expanded {\r\n            overflow-y: clip; // 这句话加上就不会出现很多歌滚动条。。。\r\n            transition: max-height .3s ease; /* 添加过渡效果 */\r\n            max-height: 1000px; /* 展开时高度自动适应内容 */\r\n        }\r\n    }\r\n}\r\n\r\n/* 修改滚动条的样式 */\r\n::-webkit-scrollbar {\r\n    width: 8px; /* 设置滚动条宽度 */\r\n  }\r\n  \r\n  /* 修改滚动条轨道的样式 */\r\n  ::-webkit-scrollbar-track {\r\n    background: #f1f1f1; /* 设置滚动条轨道背景色 */\r\n  }\r\n  \r\n  /* 修改滚动条滑块的样式 */\r\n  ::-webkit-scrollbar-thumb {\r\n    background: #888; /* 设置滚动条滑块颜色 */\r\n  }\r\n  \r\n  /* 鼠标悬停在滚动条上时的样式 */\r\n  ::-webkit-scrollbar-thumb:hover {\r\n    background: #555; /* 设置滚动条滑块在鼠标悬停时的颜色 */\r\n  }"],"sourceRoot":""}]);
+  background: #555;
+  /* 设置滚动条滑块在鼠标悬停时的颜色 */
+}`, "",{"version":3,"sources":["webpack://./src/ListNode/index.scss"],"names":[],"mappings":"AAAA,gBAAgB;AAAhB;EACI,cAAA;EACA,eAAA;AAEJ;AACQ;EAEI,aAAA;EACA,mBAAA;EACA,oEAAA;EACA,0BAAA;EAEA,kBAAA;EACA,iBAAA;EACA,gBAAA;EACA,eAAA;AADZ;AAGY;EACI,yBAAA;AADhB;AAIY;EACI,WAAA;EACA,yBAAA;AAFhB;AAKY;EACI,eAAA;EACA,gBAAA;EACA,kBAAA;EACA,yBAAA;EACA,cAAA;EACA,mBAAA;AAHhB;AAMY;EACI,eAAA;EACA,gBAAA;EACA,kBAAA;EACA,yBAAA;EACA,cAAA;EACA,mBAAA;AAJhB;AAUY;EACI,qBAAA;AARhB;AAWY;EACI,YAAA;EACA,kBAAA;EACA,kBAAA;EAEA,WAAA;EACA,cAAA;EACA,sBAAA;EACA,YAAA;AAVhB;AAagB;EACI,aAAA;AAXpB;AAkBQ;EACI,kBAAA;AAhBZ;AAoBI;EACI,kBAAA;EACA,aAAA;EACA,cAAA;EACA,kBAAA;EAEA,WAAA;AAnBR;AAoBQ;EACI,iCAAA;AAlBZ;AAqBQ;EACI,gBAAA;EACA,gCAAA;EACA,WAAA;EACA,kBAAA;EACA,gBAAA;AAnBZ;;AAwBA,aAAA;AACA;EACI,UAAA;EACA,YAAA;AArBJ;;AAwBA,eAAA;AAKA,eAAA;AACA;EACI,gBAAA;EACA,cAAA;EACA,kBAAA;AAzBJ;;AA4BA,kBAAA;AACA;EACI,gBAAA;EACA,qBAAA;AAzBJ","sourcesContent":[".list-node-wrapper {\r\n    color: #606266;\r\n    font-size: 14px;\r\n\r\n    .node-item {\r\n        .left-content {\r\n            // 使用 display 会出现 hover背景色和 active高亮色宽度比较短，但是没事。。\r\n            display: flex;\r\n            align-items: center;\r\n            /* display: inline-block; // 这个加上就会把这个盒子的宽度变成跟内容的宽度一样，而不会是根据父容器的宽度 */\r\n            padding: 3px 20px 3px 14px;\r\n            // white-space: wrap;\r\n            position: relative;\r\n            /* 添加相对定位--好像没用 */\r\n            min-width: 120px;\r\n            cursor: pointer;\r\n\r\n            &:hover {\r\n                background-color: #f6f6f6;\r\n            }\r\n\r\n            &.active {\r\n                color: #fff;\r\n                background-color: #2783d8;\r\n            }\r\n\r\n            .tag1 {\r\n                font-size: 12px;\r\n                padding: 2px 6px;\r\n                border-radius: 6px;\r\n                background-color: #f0f9eb;\r\n                color: #6dc442;\r\n                white-space: nowrap;\r\n            }\r\n\r\n            .tag2 {\r\n                font-size: 12px;\r\n                padding: 2px 6px;\r\n                border-radius: 6px;\r\n                background-color: #fef0f0;\r\n                color: #f67878;\r\n                white-space: nowrap;\r\n\r\n            }\r\n\r\n\r\n\r\n            .item-name {\r\n                word-break: break-all; // 树节点 的名字太长让它换行\r\n            }\r\n\r\n            .right-content {\r\n                padding: 1px;\r\n                position: absolute;\r\n                border-radius: 4px;\r\n                // top: 2px;\r\n                right: 10px;\r\n                color: #606266;\r\n                background-color: #fff;\r\n                z-index: 999;\r\n\r\n\r\n                i {\r\n                    margin: 0 4px;\r\n                }\r\n            }\r\n        }\r\n\r\n        .has-children {}\r\n\r\n        .no-children {\r\n            padding-left: 16px;\r\n        }\r\n    }\r\n\r\n    .children {\r\n        padding-left: 10px;\r\n        max-height: 0;\r\n        /* 初始状态下高度为0 */\r\n        overflow-y: hidden;\r\n\r\n        /* 隐藏溢出内容 */\r\n        &.not-expand {\r\n            transition: max-height .25s ease; //这个加上过度效果会出现点击的节点的内部闪现x轴滚动条\r\n        }\r\n\r\n        &.expanded {\r\n            overflow-y: clip; // 这句话加上就不会出现很多歌滚动条。。。\r\n            transition: max-height .3s ease;\r\n            /* 添加过渡效果 */\r\n            max-height: 1000px;\r\n            /* 展开时高度自动适应内容 */\r\n        }\r\n    }\r\n}\r\n\r\n/* 修改滚动条的样式 */\r\n::-webkit-scrollbar {\r\n    width: 8px;\r\n    /* 设置滚动条宽度 */\r\n}\r\n\r\n/* 修改滚动条轨道的样式 */\r\n::-webkit-scrollbar-track {\r\n    // background: #f1f1f1; /* 设置滚动条轨道背景色 */\r\n}\r\n\r\n/* 修改滚动条滑块的样式 */\r\n::-webkit-scrollbar-thumb {\r\n    background: #888;\r\n    /* 设置滚动条滑块颜色 */\r\n    border-radius: 6px;\r\n}\r\n\r\n/* 鼠标悬停在滚动条上时的样式 */\r\n::-webkit-scrollbar-thumb:hover {\r\n    background: #555;\r\n    /* 设置滚动条滑块在鼠标悬停时的颜色 */\r\n}"],"sourceRoot":""}]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 
@@ -1458,6 +1464,7 @@ var update = injectStylesIntoStyleTag_default()(ListNode/* default */.A, options
 const ListNode_ListNode = _ref => {
   let {
     activeBgc = "#2783d8",
+    bgc = "transparent",
     addIconClass,
     deleteIconClass,
     editIconClass,
@@ -1615,6 +1622,7 @@ const ListNode_ListNode = _ref => {
       className: "node-item"
     }, /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("div", {
       style: {
+        backgroundColor: node.bgc,
         ...(Number(activeId) === Number(node.id) ? {
           backgroundColor: activeBgc
         } : "")
@@ -1634,6 +1642,9 @@ const ListNode_ListNode = _ref => {
       onClick: e => handleFolderIconClick(node, e),
       className: "icon fa fa-caret-".concat(isExpanded ? "down" : "right")
     }), /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("span", {
+      style: {
+        whiteSpace: "".concat(wrap ? "normal" : "nowrap")
+      },
       onClick: e => handleNodeNameClick(node, e),
       className: "item-name ".concat(node.children && node.children.length > 0 ? "has-children" : "no-children")
     }, node.name), /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("div", {

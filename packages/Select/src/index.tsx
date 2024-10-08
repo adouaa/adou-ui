@@ -253,7 +253,9 @@ const Select = React.forwardRef((props: SelectProps, ref) => {
         setFocusedIndex((prevIndex) =>
           prevIndex >= newOptions.length - 1 ? 0 : prevIndex + 1
         );
-      } else if (event.key === "Enter" && focusedIndex !== -1) {
+      } else if (event.key === "Enter") {
+        handleClose();
+        if (focusedIndex == -1) return;
         event.preventDefault();
         handleSelect(newOptions[focusedIndex]);
       }

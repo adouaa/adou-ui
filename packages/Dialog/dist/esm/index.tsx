@@ -49,6 +49,33 @@ const Dialog: React.FC<DialogProps> = ({
 
   const { position, handleMouseDown } = useDrag(dialogRef, true, false);
 
+  const handleKeyDown = (event: React.KeyboardEvent) => {
+    if (event.key === "Enter") {
+      onConfirm && onConfirm();
+    }
+  };
+
+  useEffect(() => {
+    if (show) {
+      if (dialogRef.current) {
+        const dialogWidth = dialogRef.current.offsetWidth;
+        const dialogHeight = dialogRef.current.offsetHeight;
+        const initialX = (window.innerWidth - dialogWidth) / 2;
+        const initialY = (window.innerHeight - dialogHeight) / 2;
+        dialogRef.current.style.top = `${
+          type === "tip" ? `${initialY}px` : "2%"
+        }`;
+        dialogRef.current.style.left = `${initialX}px`;
+        setTimeout(() => {
+          dialogRef.current.focus(); // 将焦点设置到 modal
+        }, 100);
+      }
+    }
+    setTimeout(() => {
+      setFirstOpen(show);
+    }, 10);
+  }, [show]);
+
   useEffect(() => {
     if (isOpen) {
       setTimeout(() => {
@@ -64,24 +91,6 @@ const Dialog: React.FC<DialogProps> = ({
     }
   }, [isOpen, type]);
 
-  useEffect(() => {
-    if (show) {
-      if (dialogRef.current) {
-        const dialogWidth = dialogRef.current.offsetWidth;
-        const dialogHeight = dialogRef.current.offsetHeight;
-        const initialX = (window.innerWidth - dialogWidth) / 2;
-        const initialY = (window.innerHeight - dialogHeight) / 2;
-        dialogRef.current.style.top = `${
-          type === "tip" ? `${initialY}px` : "2%"
-        }`;
-        dialogRef.current.style.left = `${initialX}px`;
-      }
-    }
-    setTimeout(() => {
-      setFirstOpen(show);
-    }, 10);
-  }, [show]);
-
   useClickOutside(dialogRef, clickOutside && onClose);
 
   return (
@@ -90,6 +99,8 @@ const Dialog: React.FC<DialogProps> = ({
         ReactDOM.createPortal(
           <div className={`dialog-overlay ${show ? "open" : ""}`}>
             <div
+              onKeyDown={handleKeyDown}
+              tabIndex={0}
               ref={dialogRef}
               className={`dialog ${show ? "open" : ""}`}
               style={{
@@ -133,4 +144,5 @@ const Dialog: React.FC<DialogProps> = ({
     </>
   );
 };
+
 export default Dialog;

@@ -5243,10 +5243,17 @@ module.exports = function (item) {
       const hooks_useNavigateTo = useNavigateTo;
       ; // CONCATENATED MODULE: ./src/hooks/useClickOutside.js
 
-      const useClickOutside = (ref, callback) => {
+      const useClickOutside = function (refs, callback) {
+        let enabled = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : true;
         (0, external_root_React_commonjs2_react_commonjs_react_amd_react_.useEffect)(() => {
+          const judge = event => {
+            return refs.some(ref => {
+              var _ref$current;
+              return (_ref$current = ref.current) === null || _ref$current === void 0 ? void 0 : _ref$current.contains(event.target);
+            });
+          };
           const handleClickOutside = event => {
-            if (ref.current && !ref.current.contains(event.target)) {
+            if (enabled && refs.length && !judge(event)) {
               callback && callback();
             }
           };
@@ -5254,7 +5261,7 @@ module.exports = function (item) {
           return () => {
             document.removeEventListener('mousedown', handleClickOutside);
           };
-        }, [ref, callback]);
+        }, [refs, callback, enabled]);
       };
       /* harmony default export */
       const hooks_useClickOutside = useClickOutside;
@@ -6057,7 +6064,6 @@ const RetrievrSelect = /*#__PURE__*/external_root_React_commonjs2_react_commonjs
     suffixContent,
     suffixContentType,
     contentWidth,
-    attribute = "value",
     required,
     errMsg,
     labelWidth,
@@ -6104,6 +6110,7 @@ const RetrievrSelect = /*#__PURE__*/external_root_React_commonjs2_react_commonjs
     setFocusedIndex(-1);
   });
   const handleSelect = option => {
+    if (!option) return;
     retrieveInputRef.current.value = "";
     const currentSelectList = optionList.filter(item => item[valueKey] != option[valueKey]).filter(i => i.selected);
     if (option.selected) {
@@ -6147,7 +6154,7 @@ const RetrievrSelect = /*#__PURE__*/external_root_React_commonjs2_react_commonjs
     if (single) {
       const data = hasSelected ? [] : [option];
       setSelectedOptions(data);
-      onRetrieveSelectChange && onRetrieveSelectChange(option);
+      onRetrieveSelectChange && onRetrieveSelectChange(hasSelected ? {} : option);
       if (returnType === "obj" || showDefaultValue) {
         onFormDataChange && onFormDataChange(name, data[0]);
       } else {
@@ -6215,7 +6222,6 @@ const RetrievrSelect = /*#__PURE__*/external_root_React_commonjs2_react_commonjs
   };
   const [error, setError] = (0,external_root_React_commonjs2_react_commonjs_react_amd_react_.useState)(false);
   const validate = () => {
-    console.log("selectedOptions: ", selectedOptions);
     if (!required) return true;
     if (selectedOptions.length) {
       setError(false);
@@ -6255,7 +6261,6 @@ const RetrievrSelect = /*#__PURE__*/external_root_React_commonjs2_react_commonjs
     [externalClassName]: externalClassName
   });
   const handleFocus = event => {
-    console.log("focus: ");
     setIsHighlighted(true);
     toggleDropdown();
     const position = (0,Utils.getAbsolutePosition)(retrieveSelectWrapperFormControlRef.current, 0, 0);
@@ -6267,7 +6272,6 @@ const RetrievrSelect = /*#__PURE__*/external_root_React_commonjs2_react_commonjs
 
   // 全部都 通过 KeyDown来关闭下拉列表项
   const handleKeyDown = event => {
-    console.log("tab: ");
     if (event.key === "Tab") {
       // 当下拉项展开的时候进入这个回调，来关闭下拉项
       if (isOpen) {
@@ -6388,9 +6392,10 @@ const RetrievrSelect = /*#__PURE__*/external_root_React_commonjs2_react_commonjs
       setOptionList(options);
     }
     setTempOptions(options);
-    if (!isOpen) {
+    // 不应该有这个逻辑
+    /* if (!isOpen) {
       toggleDropdown();
-    }
+    } */
   }, [options]);
   return /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("div", {
     onFocus: handleFocus,
