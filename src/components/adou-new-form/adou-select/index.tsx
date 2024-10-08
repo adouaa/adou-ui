@@ -231,7 +231,9 @@ const Select = React.forwardRef((props: SelectProps, ref) => {
             } else if (event.key === 'ArrowDown') {
                 event.preventDefault();
                 setFocusedIndex((prevIndex) => (prevIndex >= newOptions.length - 1 ? 0 : prevIndex + 1));
-            } else if (event.key === 'Enter' && focusedIndex !== -1) {
+            } else if (event.key === 'Enter') {
+                handleClose();
+                if (focusedIndex == -1) return;
                 event.preventDefault();
                 handleSelect(newOptions[focusedIndex]);
             }
@@ -267,7 +269,6 @@ const Select = React.forwardRef((props: SelectProps, ref) => {
                 ...(inline && !width ? { flex: 1, marginRight: '15px' } : {}),
             }}
         >
-            {String(isShow)}
             <select style={{ display: 'none' }} name={name}>
                 <option value={value?.[valueKey]}>{value?.[labelKey]}</option>
             </select>
@@ -380,4 +381,5 @@ const Select = React.forwardRef((props: SelectProps, ref) => {
         </div>
     );
 });
+
 export default Select;
