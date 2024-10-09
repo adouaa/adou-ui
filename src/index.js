@@ -38,7 +38,7 @@ import ReactDOM from 'react-dom/client';
 
 // import App from './test-dialog/App.tsx';
 
-// import App from './test-tooltip/App.tsx';
+import App from './test-tooltip/App.tsx';
 
 // import App from './test-according/App.tsx';
 
@@ -46,7 +46,7 @@ import ReactDOM from 'react-dom/client';
 
 // import App from './test-cascader-select/App.tsx';
 
-import App from './test-toast/App.tsx';
+// import App from './test-toast/App.tsx';
 
 // import App from './test-horizon-scroll-view/App.tsx';
 

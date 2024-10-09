@@ -13,10 +13,13 @@
   white-space: nowrap;
   opacity: 0;
   transition: opacity 0.2s ease-in-out;
-  pointer-events: none;
+  // pointer-events: none;
+  /* 防止鼠标事件穿透到 Tooltip 后面的元素 */
 
   &.show-tool-tip {
     opacity: 1;
+    pointer-events: auto;
+    /* 启用鼠标事件 */
   }
 
   &.adou-tooltip-top {
