@@ -87,7 +87,7 @@
 }
 
 .retrieve-input {
-    min-width: 120px;
+    // min-width: 120px;
     width: 100%;
     outline: none;
     border: none;
@@ -151,6 +151,6 @@
 }
 
 .retrieve-select-option-focused {
-    background-color: #e0e0e0;
+    background-color: #e0e0e0 !important;
     /* 高亮当前聚焦的选项 */
 }

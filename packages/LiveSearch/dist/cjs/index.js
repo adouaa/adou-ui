@@ -5243,10 +5243,17 @@ module.exports = function (item) {
       const hooks_useNavigateTo = useNavigateTo;
       ; // CONCATENATED MODULE: ./src/hooks/useClickOutside.js
 
-      const useClickOutside = (ref, callback) => {
+      const useClickOutside = function (refs, callback) {
+        let enabled = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : true;
         (0, external_root_React_commonjs2_react_commonjs_react_amd_react_.useEffect)(() => {
+          const judge = event => {
+            return refs.some(ref => {
+              var _ref$current;
+              return (_ref$current = ref.current) === null || _ref$current === void 0 ? void 0 : _ref$current.contains(event.target);
+            });
+          };
           const handleClickOutside = event => {
-            if (ref.current && !ref.current.contains(event.target)) {
+            if (enabled && refs.length && !judge(event)) {
               callback && callback();
             }
           };
@@ -5254,7 +5261,7 @@ module.exports = function (item) {
           return () => {
             document.removeEventListener('mousedown', handleClickOutside);
           };
-        }, [ref, callback]);
+        }, [refs, callback, enabled]);
       };
       /* harmony default export */
       const hooks_useClickOutside = useClickOutside;
@@ -5455,7 +5462,6 @@ ___CSS_LOADER_EXPORT___.push([module.id, `@charset "UTF-8";
 }
 
 .retrieve-input {
-  min-width: 120px;
   width: 100%;
   outline: none;
   border: none;
@@ -5514,9 +5520,9 @@ ___CSS_LOADER_EXPORT___.push([module.id, `@charset "UTF-8";
 }
 
 .retrieve-select-option-focused {
-  background-color: #e0e0e0;
+  background-color: #e0e0e0 !important;
   /* 高亮当前聚焦的选项 */
-}`, "",{"version":3,"sources":["webpack://./src/index.scss"],"names":[],"mappings":"AAAA,gBAAgB;AACZ;EACI,kBAAA;EACA,OAAA;EACA,gBAAA;EACA,uBAAA;EACA,eAAA;AACR;AAEI;EACI,eAAA;EACA,eAAA;EAEA,eAAA;AADR;AAII;EACI,aAAA;EACA,mBAAA;AAFR;AAKI;EACI,aAAA;AAHR;AAKQ;EACI,aAAA;EACA,kBAAA;AAHZ;;AAQA;EACI,qBAAA;EACA,8BAAA;EACA,+BAAA;AALJ;;AAQA;EACI,gBAAA;AALJ;;AAQA;EACI,iBAAA;EACA,yBAAA;EACA,aAAA;EACA,8BAAA;AALJ;;AAQA;EACI,aAAA;AALJ;;AAQA;EACI,YAAA;AALJ;;AAQA;EACI,aAAA;EACA,eAAA;AALJ;;AAQA;EACI,cAAA;EACA,eAAA;EACA,0BAAA;EACA,mBAAA;EACA,yBAAA;EACA,kBAAA;EACA,iBAAA;AALJ;;AAQA;EACI,kBAAA;EACA,UAAA;EACA,SAAA;EACA,eAAA;EACA,yBAAA;AALJ;AAOI;EACI,cAAA;EACA,qBAAA;AALR;;AASA;EACI,OAAA;AANJ;;AASA;EACI,gBAAA;EACA,WAAA;EACA,aAAA;EACA,YAAA;AANJ;;AASA;EACI,aAAA;EACA,uBAAA;AANJ;;AASA;EACI,YAAA;AANJ;;AASA;EACI,gBAAA;EACA,sBAAA;EACA,kBAAA;EACA,cAAA;EACA,kBAAA;EACA,4CAAA;EACA,qBAAA;EACA,cAAA;EACA,wEAAA;EACA,UAAA;EACA,kBAAA;EACA,oBAAA;EACA,qBAAA;AANJ;AAQI;EACI,iBAAA;AANR;AASQ;EACI,yBAAA;EACA,eAAA;AAPZ;AAUQ;EACI,WAAA;AARZ;;AAcA;EACI,YAAA;EACA,YAAA;EACA,eAAA;EACA,aAAA;EACA,uBAAA;EACA,mBAAA;EACA,cAAA;AAXJ;;AAcA;EACI,eAAA;EACA,aAAA;EACA,kBAAA;EACA,cAAA;AAXJ;;AAcA;EACI,yBAAA;EACA,cAAA;AAXJ","sourcesContent":[".retrieve-select-wrapper {\r\n    .select-list-box {\r\n        position: relative;\r\n        flex: 1;\r\n        min-height: 38px;\r\n        cursor: text !important;\r\n        flex-wrap: wrap;\r\n    }\r\n\r\n    .label-box {\r\n        font-size: 14px;\r\n        min-width: 50px;\r\n        // max-width: 120px !important;\r\n        flex-wrap: wrap;\r\n    }\r\n\r\n    .label-in-center {\r\n        display: flex;\r\n        align-items: center;\r\n    }\r\n\r\n    .label-in-left-top {\r\n        display: flex;\r\n\r\n        .label-box {\r\n            display: flex;\r\n            align-items: start;\r\n        }\r\n    }\r\n}\r\n\r\n.retrieve-select-content-open {\r\n    opacity: 1 !important;\r\n    visibility: visible !important;\r\n    transform: scaleY(1) !important;\r\n}\r\n\r\n.option-wrapper {\r\n    overflow-y: auto;\r\n}\r\n\r\n.retrieve-select-option-active {\r\n    font-weight: bold;\r\n    background-color: #2783d8;\r\n    display: flex;\r\n    justify-content: space-between;\r\n}\r\n\r\n.retrieve-select-option-wrapper {\r\n    padding: 14px;\r\n}\r\n\r\n.retrieve-select-option-active::after {\r\n    content: \"✔\";\r\n}\r\n\r\n.select-list {\r\n    display: flex;\r\n    flex-wrap: wrap;\r\n}\r\n\r\n.selected-option {\r\n    color: #7e8085;\r\n    font-size: 14px;\r\n    padding: 3px 22px 3px 12px;\r\n    border-radius: 13px;\r\n    background-color: #f4f4f5;\r\n    position: relative;\r\n    margin-right: 6px;\r\n}\r\n\r\n.option-icon {\r\n    position: absolute;\r\n    right: 6px;\r\n    top: -2px;\r\n    cursor: pointer;\r\n    transition: all 0.3s ease;\r\n\r\n    &:hover {\r\n        color: #dc3545;\r\n        transform: scale(1.2);\r\n    }\r\n}\r\n\r\n.input-control {\r\n    flex: 1;\r\n}\r\n\r\n.retrieve-input {\r\n    min-width: 120px;\r\n    width: 100%;\r\n    outline: none;\r\n    border: none;\r\n}\r\n\r\n.none-wrapper {\r\n    display: flex;\r\n    justify-content: center;\r\n}\r\n\r\n.multiple-input {\r\n    min-width: 0;\r\n}\r\n\r\n.retrieve-select-content {\r\n    min-width: 200px;\r\n    background-color: #fff;\r\n    position: absolute;\r\n    z-index: 10000;\r\n    border-radius: 4px;\r\n    box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;\r\n    text-align-last: left;\r\n    overflow: auto;\r\n    transition: opacity 0.3s ease, visibility 0.3s ease, transform 0.3s ease;\r\n    opacity: 0;\r\n    visibility: hidden;\r\n    transform: scaleY(0);\r\n    transform-origin: top;\r\n\r\n    .retrieve-select-option {\r\n        padding: 5px 10px;\r\n        // margin-bottom: 2px;\r\n\r\n        &:hover {\r\n            background-color: #f0f0f0;\r\n            cursor: pointer;\r\n        }\r\n\r\n        &:active {\r\n            color: #fff;\r\n            // background-color: #2783d8 !important;\r\n        }\r\n    }\r\n}\r\n\r\n.none-option {\r\n    width: 200px;\r\n    height: 50px;\r\n    padding: 10px 0;\r\n    display: flex;\r\n    justify-content: center;\r\n    align-items: center;\r\n    color: #a4a3a3;\r\n}\r\n\r\n.none-match {\r\n    padding: 10px 0;\r\n    height: 100px;\r\n    font-style: italic;\r\n    color: #a4a3a3;\r\n}\r\n\r\n.retrieve-select-option-focused {\r\n    background-color: #e0e0e0;\r\n    /* 高亮当前聚焦的选项 */\r\n}"],"sourceRoot":""}]);
+}`, "",{"version":3,"sources":["webpack://./src/index.scss"],"names":[],"mappings":"AAAA,gBAAgB;AACZ;EACI,kBAAA;EACA,OAAA;EACA,gBAAA;EACA,uBAAA;EACA,eAAA;AACR;AAEI;EACI,eAAA;EACA,eAAA;EAEA,eAAA;AADR;AAII;EACI,aAAA;EACA,mBAAA;AAFR;AAKI;EACI,aAAA;AAHR;AAKQ;EACI,aAAA;EACA,kBAAA;AAHZ;;AAQA;EACI,qBAAA;EACA,8BAAA;EACA,+BAAA;AALJ;;AAQA;EACI,gBAAA;AALJ;;AAQA;EACI,iBAAA;EACA,yBAAA;EACA,aAAA;EACA,8BAAA;AALJ;;AAQA;EACI,aAAA;AALJ;;AAQA;EACI,YAAA;AALJ;;AAQA;EACI,aAAA;EACA,eAAA;AALJ;;AAQA;EACI,cAAA;EACA,eAAA;EACA,0BAAA;EACA,mBAAA;EACA,yBAAA;EACA,kBAAA;EACA,iBAAA;AALJ;;AAQA;EACI,kBAAA;EACA,UAAA;EACA,SAAA;EACA,eAAA;EACA,yBAAA;AALJ;AAOI;EACI,cAAA;EACA,qBAAA;AALR;;AASA;EACI,OAAA;AANJ;;AASA;EAEI,WAAA;EACA,aAAA;EACA,YAAA;AAPJ;;AAUA;EACI,aAAA;EACA,uBAAA;AAPJ;;AAUA;EACI,YAAA;AAPJ;;AAUA;EACI,gBAAA;EACA,sBAAA;EACA,kBAAA;EACA,cAAA;EACA,kBAAA;EACA,4CAAA;EACA,qBAAA;EACA,cAAA;EACA,wEAAA;EACA,UAAA;EACA,kBAAA;EACA,oBAAA;EACA,qBAAA;AAPJ;AASI;EACI,iBAAA;AAPR;AAUQ;EACI,yBAAA;EACA,eAAA;AARZ;AAWQ;EACI,WAAA;AATZ;;AAeA;EACI,YAAA;EACA,YAAA;EACA,eAAA;EACA,aAAA;EACA,uBAAA;EACA,mBAAA;EACA,cAAA;AAZJ;;AAeA;EACI,eAAA;EACA,aAAA;EACA,kBAAA;EACA,cAAA;AAZJ;;AAeA;EACI,oCAAA;EACA,cAAA;AAZJ","sourcesContent":[".retrieve-select-wrapper {\r\n    .select-list-box {\r\n        position: relative;\r\n        flex: 1;\r\n        min-height: 38px;\r\n        cursor: text !important;\r\n        flex-wrap: wrap;\r\n    }\r\n\r\n    .label-box {\r\n        font-size: 14px;\r\n        min-width: 50px;\r\n        // max-width: 120px !important;\r\n        flex-wrap: wrap;\r\n    }\r\n\r\n    .label-in-center {\r\n        display: flex;\r\n        align-items: center;\r\n    }\r\n\r\n    .label-in-left-top {\r\n        display: flex;\r\n\r\n        .label-box {\r\n            display: flex;\r\n            align-items: start;\r\n        }\r\n    }\r\n}\r\n\r\n.retrieve-select-content-open {\r\n    opacity: 1 !important;\r\n    visibility: visible !important;\r\n    transform: scaleY(1) !important;\r\n}\r\n\r\n.option-wrapper {\r\n    overflow-y: auto;\r\n}\r\n\r\n.retrieve-select-option-active {\r\n    font-weight: bold;\r\n    background-color: #2783d8;\r\n    display: flex;\r\n    justify-content: space-between;\r\n}\r\n\r\n.retrieve-select-option-wrapper {\r\n    padding: 14px;\r\n}\r\n\r\n.retrieve-select-option-active::after {\r\n    content: \"✔\";\r\n}\r\n\r\n.select-list {\r\n    display: flex;\r\n    flex-wrap: wrap;\r\n}\r\n\r\n.selected-option {\r\n    color: #7e8085;\r\n    font-size: 14px;\r\n    padding: 3px 22px 3px 12px;\r\n    border-radius: 13px;\r\n    background-color: #f4f4f5;\r\n    position: relative;\r\n    margin-right: 6px;\r\n}\r\n\r\n.option-icon {\r\n    position: absolute;\r\n    right: 6px;\r\n    top: -2px;\r\n    cursor: pointer;\r\n    transition: all 0.3s ease;\r\n\r\n    &:hover {\r\n        color: #dc3545;\r\n        transform: scale(1.2);\r\n    }\r\n}\r\n\r\n.input-control {\r\n    flex: 1;\r\n}\r\n\r\n.retrieve-input {\r\n    // min-width: 120px;\r\n    width: 100%;\r\n    outline: none;\r\n    border: none;\r\n}\r\n\r\n.none-wrapper {\r\n    display: flex;\r\n    justify-content: center;\r\n}\r\n\r\n.multiple-input {\r\n    min-width: 0;\r\n}\r\n\r\n.retrieve-select-content {\r\n    min-width: 200px;\r\n    background-color: #fff;\r\n    position: absolute;\r\n    z-index: 10000;\r\n    border-radius: 4px;\r\n    box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;\r\n    text-align-last: left;\r\n    overflow: auto;\r\n    transition: opacity 0.3s ease, visibility 0.3s ease, transform 0.3s ease;\r\n    opacity: 0;\r\n    visibility: hidden;\r\n    transform: scaleY(0);\r\n    transform-origin: top;\r\n\r\n    .retrieve-select-option {\r\n        padding: 5px 10px;\r\n        // margin-bottom: 2px;\r\n\r\n        &:hover {\r\n            background-color: #f0f0f0;\r\n            cursor: pointer;\r\n        }\r\n\r\n        &:active {\r\n            color: #fff;\r\n            // background-color: #2783d8 !important;\r\n        }\r\n    }\r\n}\r\n\r\n.none-option {\r\n    width: 200px;\r\n    height: 50px;\r\n    padding: 10px 0;\r\n    display: flex;\r\n    justify-content: center;\r\n    align-items: center;\r\n    color: #a4a3a3;\r\n}\r\n\r\n.none-match {\r\n    padding: 10px 0;\r\n    height: 100px;\r\n    font-style: italic;\r\n    color: #a4a3a3;\r\n}\r\n\r\n.retrieve-select-option-focused {\r\n    background-color: #e0e0e0 !important;\r\n    /* 高亮当前聚焦的选项 */\r\n}"],"sourceRoot":""}]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 
@@ -6081,7 +6087,8 @@ const LiveSearch = /*#__PURE__*/external_root_React_commonjs2_react_commonjs_rea
     setFocusedIndex(-1);
   });
   const handleSelect = option => {
-    const currentSelectList = optionList.filter(item => item[valueKey] != option[valueKey]).filter(i => i.selected);
+    if (!option) return;
+    const currentSelectList = optionList === null || optionList === void 0 ? void 0 : optionList.filter(item => (item === null || item === void 0 ? void 0 : item[valueKey]) != (option === null || option === void 0 ? void 0 : option[valueKey])).filter(i => i.selected);
     if (option.selected) {
       option.selected = false;
       if (currentSelectList.length) {
@@ -6120,12 +6127,12 @@ const LiveSearch = /*#__PURE__*/external_root_React_commonjs2_react_commonjs_rea
         });
       }
     }
-    let hasSelected = selectedOptions.some(item => item[labelKey] === option[labelKey]);
+    let hasSelected = selectedOptions === null || selectedOptions === void 0 ? void 0 : selectedOptions.some(item => item[labelKey] === option[labelKey]);
     if (single) {
       var _data$;
       const data = hasSelected ? [] : [option];
       setSelectedOptions(data);
-      onLiveSearchChange && onLiveSearchChange(option);
+      onLiveSearchChange && onLiveSearchChange(hasSelected ? {} : option);
       onFormDataChange && onFormDataChange(name, (_data$ = data[0]) === null || _data$ === void 0 ? void 0 : _data$[valueKey]);
     } else {
       const currentSelectedOptions = [...selectedOptions, option];
@@ -6150,7 +6157,7 @@ const LiveSearch = /*#__PURE__*/external_root_React_commonjs2_react_commonjs_rea
     onFormDataChange && onFormDataChange(name, value);
     // 输入词修改时也需要展示选项
     // 【注意：关键是把最开始的列表值存到一个state中，然后再用这个state去过滤，然后再赋值给要展示的列表】
-    const filterdOptions = originlOptions.filter(item => String(item[labelKey]).includes(value) // 刚好如果输入是空的，就会展示所有的
+    const filterdOptions = originlOptions === null || originlOptions === void 0 ? void 0 : originlOptions.filter(item => String(item[labelKey]).includes(value) // 刚好如果输入是空的，就会展示所有的
     );
     setOptionList(filterdOptions);
   };
@@ -6219,7 +6226,7 @@ const LiveSearch = /*#__PURE__*/external_root_React_commonjs2_react_commonjs_rea
     clear
   }));
   const judgeOptionsByAttribute = (arr, item) => {
-    arr.forEach(i => {
+    arr === null || arr === void 0 || arr.forEach(i => {
       if (i[valueKey] === item[valueKey]) {
         i.selected = true;
       }
@@ -6250,15 +6257,15 @@ const LiveSearch = /*#__PURE__*/external_root_React_commonjs2_react_commonjs_rea
       }
       return; // 让焦点移动到下一个表单元素
     } else if (event.key === "ArrowUp") {
-      console.log("FocusedIndex: ", focusedIndex);
       event.preventDefault();
       setFocusedIndex(prevIndex => prevIndex <= 0 ? optionList.length - 1 : prevIndex - 1);
     } else if (event.key === "ArrowDown") {
       event.preventDefault();
       setFocusedIndex(prevIndex => prevIndex >= optionList.length - 1 ? 0 : prevIndex + 1);
     } else if (event.key === "Enter") {
+      toggleDropdown();
       event.preventDefault();
-      handleSelect(optionList[focusedIndex]);
+      handleSelect(optionList === null || optionList === void 0 ? void 0 : optionList[focusedIndex]);
     } else if (event.key === "Escape") {
       setShowOptions(false);
     }
@@ -6266,7 +6273,7 @@ const LiveSearch = /*#__PURE__*/external_root_React_commonjs2_react_commonjs_rea
   (0,external_root_React_commonjs2_react_commonjs_react_amd_react_.useEffect)(() => {
     if (defaultValue) {
       let arr = [];
-      originlOptions.some(option => {
+      originlOptions === null || originlOptions === void 0 || originlOptions.some(option => {
         option[labelKey] === defaultValue && arr.push(option);
         return false;
       });
@@ -6289,18 +6296,18 @@ const LiveSearch = /*#__PURE__*/external_root_React_commonjs2_react_commonjs_rea
     }
   }, [defaultValue, originlOptions]);
   (0,external_root_React_commonjs2_react_commonjs_react_amd_react_.useEffect)(() => {
-    console.log("useEffect -----> options: ");
     if (selectedOptions.length) {
-      selectedOptions.forEach(item => {
+      selectedOptions === null || selectedOptions === void 0 || selectedOptions.forEach(item => {
         judgeOptionsByAttribute(options, item);
       });
     } else {
       setOptionList(options);
     }
     setOriginOptions(options);
-    if (!isOpen) {
+    // 不应该有这个逻辑吧，不然会出现列表一变化就展示列表
+    /* if (!isOpen) {
       toggleDropdown();
-    }
+    } */
   }, [options]);
   return /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("div", {
     onFocus: handleFocus,

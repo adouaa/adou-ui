@@ -110,8 +110,9 @@ const LiveSearch: React.FC<LiveSearchProps> = React.forwardRef(
     });
 
     const handleSelect = (option: any) => {
+      if (!option) return;
       const currentSelectList = optionList
-        .filter((item: any) => item[valueKey] != option[valueKey])
+        ?.filter((item: any) => item?.[valueKey] != option?.[valueKey])
         .filter((i: any) => i.selected);
 
       if (option.selected) {
@@ -152,13 +153,13 @@ const LiveSearch: React.FC<LiveSearchProps> = React.forwardRef(
           });
         }
       }
-      let hasSelected = selectedOptions.some(
+      let hasSelected = selectedOptions?.some(
         (item) => item[labelKey] === option[labelKey]
       );
       if (single) {
         const data = hasSelected ? [] : [option];
         setSelectedOptions(data);
-        onLiveSearchChange && onLiveSearchChange(option);
+        onLiveSearchChange && onLiveSearchChange(hasSelected ? {} : option);
         onFormDataChange && onFormDataChange(name!, data[0]?.[valueKey]);
       } else {
         const currentSelectedOptions = [...selectedOptions, option];
@@ -189,7 +190,7 @@ const LiveSearch: React.FC<LiveSearchProps> = React.forwardRef(
       onFormDataChange && onFormDataChange(name!, value);
       // 输入词修改时也需要展示选项
       // 【注意：关键是把最开始的列表值存到一个state中，然后再用这个state去过滤，然后再赋值给要展示的列表】
-      const filterdOptions = originlOptions.filter(
+      const filterdOptions = originlOptions?.filter(
         (item: any) => String(item[labelKey]).includes(value) // 刚好如果输入是空的，就会展示所有的
       );
       setOptionList(filterdOptions);
@@ -277,7 +278,7 @@ const LiveSearch: React.FC<LiveSearchProps> = React.forwardRef(
     }));
 
     const judgeOptionsByAttribute = (arr: any, item: any) => {
-      arr.forEach((i: any) => {
+      arr?.forEach((i: any) => {
         if (i[valueKey] === item[valueKey]) {
           i.selected = true;
         }
@@ -314,7 +315,6 @@ const LiveSearch: React.FC<LiveSearchProps> = React.forwardRef(
         }
         return; // 让焦点移动到下一个表单元素
       } else if (event.key === "ArrowUp") {
-        console.log("FocusedIndex: ", focusedIndex);
         event.preventDefault();
         setFocusedIndex((prevIndex) =>
           prevIndex <= 0 ? optionList.length - 1 : prevIndex - 1
@@ -325,8 +325,9 @@ const LiveSearch: React.FC<LiveSearchProps> = React.forwardRef(
           prevIndex >= optionList.length - 1 ? 0 : prevIndex + 1
         );
       } else if (event.key === "Enter") {
+        toggleDropdown();
         event.preventDefault();
-        handleSelect(optionList[focusedIndex]);
+        handleSelect(optionList?.[focusedIndex]);
       } else if (event.key === "Escape") {
         setShowOptions(false);
       }
@@ -335,7 +336,7 @@ const LiveSearch: React.FC<LiveSearchProps> = React.forwardRef(
     useEffect(() => {
       if (defaultValue) {
         let arr: any[] = [];
-        originlOptions.some((option: any) => {
+        originlOptions?.some((option: any) => {
           option[labelKey] === defaultValue && arr.push(option);
           return false;
         });
@@ -360,18 +361,18 @@ const LiveSearch: React.FC<LiveSearchProps> = React.forwardRef(
     }, [defaultValue, originlOptions]);
 
     useEffect(() => {
-      console.log("useEffect -----> options: ");
       if (selectedOptions.length) {
-        selectedOptions.forEach((item: any) => {
+        selectedOptions?.forEach((item: any) => {
           judgeOptionsByAttribute(options, item);
         });
       } else {
         setOptionList(options);
       }
       setOriginOptions(options);
-      if (!isOpen) {
+      // 不应该有这个逻辑吧，不然会出现列表一变化就展示列表
+      /* if (!isOpen) {
         toggleDropdown();
-      }
+      } */
     }, [options]);
 
     return (
@@ -505,5 +506,6 @@ const LiveSearch: React.FC<LiveSearchProps> = React.forwardRef(
     );
   }
 );
+
 
 export default LiveSearch;

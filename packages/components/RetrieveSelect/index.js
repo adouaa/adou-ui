@@ -6016,27 +6016,25 @@ var external_root_ReactDOM_commonjs2_react_dom_commonjs_react_dom_amd_react_dom_
 var Utils = __webpack_require__(36);
 ;// CONCATENATED MODULE: ./src/utils/useClickOutside.js
 
-const useClickOutside = cb => {
-  const [isOpen, setIsOpen] = (0,external_root_React_commonjs2_react_commonjs_react_amd_react_.useState)(false);
-  const dropdownRef = (0,external_root_React_commonjs2_react_commonjs_react_amd_react_.useRef)(null);
+const useClickOutside = function (refs, callback) {
+  let enabled = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : true;
   (0,external_root_React_commonjs2_react_commonjs_react_amd_react_.useEffect)(() => {
+    const judge = event => {
+      return refs.some(ref => {
+        var _ref$current;
+        return (_ref$current = ref.current) === null || _ref$current === void 0 ? void 0 : _ref$current.contains(event.target);
+      });
+    };
     const handleClickOutside = event => {
-      if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
-        setIsOpen(false);
-        cb && cb();
+      if (enabled && refs.length && !judge(event)) {
+        callback && callback();
       }
     };
-    document.addEventListener("click", handleClickOutside);
+    document.addEventListener("mousedown", handleClickOutside);
     return () => {
-      document.removeEventListener("click", handleClickOutside);
+      document.removeEventListener("mousedown", handleClickOutside);
     };
-  }, [dropdownRef]);
-  const toggleDropdown = () => setIsOpen(!isOpen);
-  return {
-    isOpen,
-    dropdownRef,
-    toggleDropdown
-  };
+  }, [refs, callback, enabled]);
 };
 /* harmony default export */ const utils_useClickOutside = (useClickOutside);
 ;// CONCATENATED MODULE: ./src/index.tsx
@@ -6094,21 +6092,25 @@ const RetrievrSelect = /*#__PURE__*/external_root_React_commonjs2_react_commonjs
   const [showSelectedOptions, setShowSelectedOptions] = (0,external_root_React_commonjs2_react_commonjs_react_amd_react_.useState)(false);
   const [isHighlighted, setIsHighlighted] = (0,external_root_React_commonjs2_react_commonjs_react_amd_react_.useState)(false);
   const [focusedIndex, setFocusedIndex] = (0,external_root_React_commonjs2_react_commonjs_react_amd_react_.useState)(-1); // 新增状态，用于跟踪当前聚焦的选项
-
+  const [isInputFocusing, setIsInputFocusing] = (0,external_root_React_commonjs2_react_commonjs_react_amd_react_.useState)(false);
+  const [isOpen, setIsOpen] = (0,external_root_React_commonjs2_react_commonjs_react_amd_react_.useState)(false);
+  const dropdownRef = (0,external_root_React_commonjs2_react_commonjs_react_amd_react_.useRef)(null);
   const retrieveInputRef = (0,external_root_React_commonjs2_react_commonjs_react_amd_react_.useRef)();
   const selectListRef = (0,external_root_React_commonjs2_react_commonjs_react_amd_react_.useRef)();
   const retrieveSelectWrapperFormControlRef = (0,external_root_React_commonjs2_react_commonjs_react_amd_react_.useRef)();
-  const customretrieveSelectRef = (0,external_root_React_commonjs2_react_commonjs_react_amd_react_.useRef)();
   const contentRef = (0,external_root_React_commonjs2_react_commonjs_react_amd_react_.useRef)();
   const [customSelectContentPosition, setCustomSelectContentPosition] = (0,external_root_React_commonjs2_react_commonjs_react_amd_react_.useState)({});
-  const {
-    isOpen,
-    dropdownRef,
-    toggleDropdown
-  } = utils_useClickOutside(() => {
+  const toggleDropdown = () => {
+    setIsOpen(prev => !prev);
+  };
+  const handleClose = () => {
+    setIsOpen(false);
     setShowOptions(false);
+    setIsInputFocusing(false);
+    retrieveInputRef.current.value = "";
     setFocusedIndex(-1);
-  });
+  };
+  utils_useClickOutside([retrieveSelectWrapperFormControlRef, contentRef], handleClose, isOpen && contentRef.current);
   const handleSelect = option => {
     if (!option) return;
     retrieveInputRef.current.value = "";
@@ -6169,19 +6171,32 @@ const RetrievrSelect = /*#__PURE__*/external_root_React_commonjs2_react_commonjs
       onFormDataChange && onFormDataChange(name, data);
     }
     setShowSelectedOptions(true);
-    setTimeout(() => {
-      toggleDropdown();
-    }, 10);
+    setShowOptions(false);
+    setIsOpen(false);
+    setIsInputFocusing(false);
+    setFocusedIndex(-1);
   };
   const handleInputClick = e => {
     setIsHighlighted(true);
+  };
+
+  // 输入框聚焦
+  const handleInputFocus = () => {
+    var _selectedOptions$;
+    setIsInputFocusing(single);
+    retrieveInputRef.current.value = ((_selectedOptions$ = selectedOptions[0]) === null || _selectedOptions$ === void 0 ? void 0 : _selectedOptions$[labelKey]) || "";
+    retrieveInputRef.current.select();
   };
   const handleInputChange = e => {
     var _e$target, _e$target2;
     let value = (_e$target = e.target) === null || _e$target === void 0 ? void 0 : _e$target.value;
     searchValueRef.current = value;
     onInputChange && onInputChange((_e$target2 = e.target) === null || _e$target2 === void 0 ? void 0 : _e$target2.value);
-    // 搜索词修改时也需要展示选项
+    // 搜索词修改时也需要展示选项--为了防止有值的时候 handleFocus无法打开
+    setIsOpen(true);
+    setTimeout(() => {
+      setShowOptions(true);
+    }, 10);
   };
   const handleDeleteItem = item => {
     const selectedList = selectedOptions.filter(option => option !== item);
@@ -6197,12 +6212,13 @@ const RetrievrSelect = /*#__PURE__*/external_root_React_commonjs2_react_commonjs
   };
   const handleBlur = () => {};
   const handleWrapperClick = e => {
+    console.log("wrapper: ");
     if (readOnly) return;
     // retrieveInputRef.current && retrieveInputRef.current.focus();
     setIsHighlighted(true);
     const position = (0,Utils.getAbsolutePosition)(retrieveSelectWrapperFormControlRef.current, 0, 0);
     setCustomSelectContentPosition(position);
-    if (!isOpen) {
+    if (!isOpen && selectedOptions.length === 0) {
       toggleDropdown();
     }
     // 为了适配通过tab键来定位聚焦，把这些点击的逻辑去掉
@@ -6261,13 +6277,17 @@ const RetrievrSelect = /*#__PURE__*/external_root_React_commonjs2_react_commonjs
     [externalClassName]: externalClassName
   });
   const handleFocus = event => {
+    console.log("focus: ");
     setIsHighlighted(true);
-    toggleDropdown();
+    // 没值的时候打开
+    if (!readOnly && !isOpen && selectedOptions.length === 0) {
+      toggleDropdown(); // 键盘tab过来的时候打开下拉框
+      setTimeout(() => {
+        setShowOptions(true);
+      }, 10);
+    }
     const position = (0,Utils.getAbsolutePosition)(retrieveSelectWrapperFormControlRef.current, 0, 0);
     setCustomSelectContentPosition(position);
-    setTimeout(() => {
-      setShowOptions(true);
-    }, 10);
   };
 
   // 全部都 通过 KeyDown来关闭下拉列表项
@@ -6287,9 +6307,15 @@ const RetrievrSelect = /*#__PURE__*/external_root_React_commonjs2_react_commonjs
       setFocusedIndex(prevIndex => prevIndex >= optionList.length - 1 ? 0 : prevIndex + 1);
     } else if (event.key === "Enter") {
       event.preventDefault();
-      handleSelect(optionList[focusedIndex]);
+      handleSelect(optionList === null || optionList === void 0 ? void 0 : optionList[focusedIndex]);
     } else if (event.key === "Escape") {
       setShowOptions(false);
+    }
+  };
+  const handleInputKeyDown = event => {
+    if (event.key === "Tab") {
+      retrieveInputRef.current.value = ""; // tab走的时候要清空输入框
+      setIsInputFocusing(false); // 记住tab走的时候要吧 isInputFocusing 设置为false
     }
   };
   (0,external_root_React_commonjs2_react_commonjs_react_amd_react_.useEffect)(() => {
@@ -6298,7 +6324,7 @@ const RetrievrSelect = /*#__PURE__*/external_root_React_commonjs2_react_commonjs
       if (defaultValue) {
         if (showDefaultValue) {
           // 如果 defaultValue 是对象，并且 valueKey属性有值，则根据 valueKey 找到对应的 option
-          if (typeof defaultValue === "object" && defaultValue[valueKey] !== undefined && defaultValue[valueKey] !== null && defaultValue[valueKey] !== 0) {
+          if (defaultValue && typeof defaultValue === "object" && defaultValue[valueKey] !== undefined && defaultValue[valueKey] !== null && defaultValue[valueKey] !== 0) {
             setSelectedOptions([defaultValue]);
             setShowSelectedOptions(true);
             setOptionList(preArr => {
@@ -6318,7 +6344,7 @@ const RetrievrSelect = /*#__PURE__*/external_root_React_commonjs2_react_commonjs
             });
           }
         } else {
-          if (typeof defaultValue === "object") {
+          if (typeof defaultValue === "object" && defaultValue[valueKey]) {
             tempOptions.some(option => {
               option[valueKey] === defaultValue[valueKey] && arr.push(option);
               return false;
@@ -6400,7 +6426,6 @@ const RetrievrSelect = /*#__PURE__*/external_root_React_commonjs2_react_commonjs
   return /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("div", {
     onFocus: handleFocus,
     onKeyDown: handleKeyDown,
-    ref: dropdownRef,
     className: retrieveSelectClasses,
     style: {
       width,
@@ -6441,7 +6466,7 @@ const RetrievrSelect = /*#__PURE__*/external_root_React_commonjs2_react_commonjs
   })), " "), /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("div", {
     ref: selectListRef,
     className: "select-list"
-  }, showSelected && showSelectedOptions && (selectedOptions === null || selectedOptions === void 0 ? void 0 : selectedOptions.map((option, index) => {
+  }, !isInputFocusing && showSelected && showSelectedOptions && (selectedOptions === null || selectedOptions === void 0 ? void 0 : selectedOptions.map((option, index) => {
     return /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("div", {
       className: "".concat(single ? "selected-option-single" : "selected-option"),
       key: option[valueKey]
@@ -6452,8 +6477,10 @@ const RetrievrSelect = /*#__PURE__*/external_root_React_commonjs2_react_commonjs
   }))), /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("div", {
     className: "input-control"
   }, /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("input", {
+    onKeyDown: handleInputKeyDown,
     ref: retrieveInputRef,
-    placeholder: placeholder,
+    placeholder: isInputFocusing ? placeholder : "",
+    onFocus: handleInputFocus,
     onChange: e => handleInputChange(e),
     onClick: handleInputClick,
     readOnly: readOnly,

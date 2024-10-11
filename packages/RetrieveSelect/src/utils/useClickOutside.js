@@ -1,30 +1,22 @@
-import { useState, useEffect, useRef } from "react";
+import { useEffect } from "react";
 
-const useClickOutside = (cb) => {
-  const [isOpen, setIsOpen] = useState(false);
-  const dropdownRef = useRef(null);
-
+const useClickOutside = (refs, callback, enabled = true) => {
   useEffect(() => {
+    const judge = (event) => {
+      return refs.some((ref) => ref.current?.contains(event.target));
+    };
     const handleClickOutside = (event) => {
-      if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
-        setIsOpen(false);
-        cb && cb();
+      if (enabled && refs.length && !judge(event)) {
+        callback && callback();
       }
     };
 
-    document.addEventListener("click", handleClickOutside);
+    document.addEventListener("mousedown", handleClickOutside);
+
     return () => {
-      document.removeEventListener("click", handleClickOutside);
+      document.removeEventListener("mousedown", handleClickOutside);
     };
-  }, [dropdownRef]);
-
-  const toggleDropdown = () => setIsOpen(!isOpen);
-
-  return {
-    isOpen,
-    dropdownRef,
-    toggleDropdown,
-  };
+  }, [refs, callback, enabled]);
 };
 
 export default useClickOutside;

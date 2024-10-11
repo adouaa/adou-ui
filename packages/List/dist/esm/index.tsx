@@ -17,6 +17,7 @@ export type NodeType = {
 };
 
 interface ListProps {
+  overflowY?: boolean;
   data?: any[];
   activeBgc?: any;
   deleteIconClass?: string;
@@ -43,6 +44,7 @@ interface ListProps {
 const List = forwardRef(
   (
     {
+      overflowY = true,
       activeBgc,
       deleteIconClass,
       addIconClass,
@@ -122,7 +124,7 @@ const List = forwardRef(
     }, [activeId]);
 
     return (
-      <div className="list-wrapper" style={{ flex: 1 }}>
+      <div className="list-wrapper" style={{ flex: 1, height: "100%" }}>
         {showSearch && (
           <div className="showSearch mb-2">
             <Input
@@ -136,7 +138,11 @@ const List = forwardRef(
         <div
           ref={listRef}
           className="list-content"
-          style={{ maxWidth: maxWidth, maxHeight: maxHeight, overflow: "auto" }}
+          style={{
+            maxWidth: maxWidth,
+            maxHeight: maxHeight,
+            overflow: overflowY ? "auto" : "",
+          }}
         >
           {data &&
             data.map((item: any) => (

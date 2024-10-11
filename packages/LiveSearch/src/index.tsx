@@ -190,7 +190,7 @@ const LiveSearch: React.FC<LiveSearchProps> = React.forwardRef(
       onFormDataChange && onFormDataChange(name!, value);
       // 输入词修改时也需要展示选项
       // 【注意：关键是把最开始的列表值存到一个state中，然后再用这个state去过滤，然后再赋值给要展示的列表】
-      const filterdOptions = originlOptions.filter(
+      const filterdOptions = originlOptions?.filter(
         (item: any) => String(item[labelKey]).includes(value) // 刚好如果输入是空的，就会展示所有的
       );
       setOptionList(filterdOptions);
@@ -327,7 +327,7 @@ const LiveSearch: React.FC<LiveSearchProps> = React.forwardRef(
       } else if (event.key === "Enter") {
         toggleDropdown();
         event.preventDefault();
-        handleSelect(optionList[focusedIndex]);
+        handleSelect(optionList?.[focusedIndex]);
       } else if (event.key === "Escape") {
         setShowOptions(false);
       }
@@ -506,5 +506,6 @@ const LiveSearch: React.FC<LiveSearchProps> = React.forwardRef(
     );
   }
 );
+
 
 export default LiveSearch;

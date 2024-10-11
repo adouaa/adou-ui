@@ -6,6 +6,7 @@ export type NodeType = {
     children: NodeType[];
 };
 interface ListProps {
+    overflowY?: boolean;
     data?: any[];
     activeBgc?: any;
     deleteIconClass?: string;
