@@ -2,16 +2,21 @@ import React, { useRef, useState, useEffect } from 'react';
 import './index.scss'; // 自定义样式
 
 interface ResizableSidebarProps {
+    contentFlex?: boolean;
+    initialWidth?: number;
+    initialHeight?: any;
+    minDragWidth?: number;
     minWidth?: number;
-    maxWidth?: number;
+    maxWidth?: any;
     children?: any;
 }
 
-const ResizableSidebar = ({ minWidth = 280, maxWidth = 500, children }: ResizableSidebarProps) => {
+const ResizableSidebar = ({ contentFlex = true, initialWidth = 0, initialHeight = 0, minDragWidth = 0, minWidth = 0, maxWidth = '500px', children }: ResizableSidebarProps) => {
     const sidebarRef = useRef<any>(null);
     const [isResizing, setIsResizing] = useState(false);
-    const [currentSidebarWidth, setCurrentSidebarWidth] = useState(320); // 最新宽度
+    const [currentSidebarWidth, setCurrentSidebarWidth] = useState(initialWidth ? maxWidth : initialWidth); // 最新宽度
     const [initialSideBarWidth, setInitialSideBarWidth] = useState<number>(0); // 记录初始宽度
+    const [initialSiderBarHeight, setInitialSiderBarHeight] = useState<any>(initialHeight);
     const [isDragging, setIsDragging] = useState<boolean>(false);
     const resizeableContainerRef = useRef<any>();
     const siderBarRef = useRef<any>();
@@ -19,9 +24,6 @@ const ResizableSidebar = ({ minWidth = 280, maxWidth = 500, children }: Resizabl
     useEffect(() => {
         const handleMouseMove = (event: any) => {
             if (!isResizing) return;
-            console.log(event.clientX);
-            console.log(sidebarRef.current.getBoundingClientRect().left);
-            console.log(event.clientX - sidebarRef.current.getBoundingClientRect().left);
 
             setCurrentSidebarWidth(event.clientX - sidebarRef.current.getBoundingClientRect().left);
         };
@@ -44,9 +46,8 @@ const ResizableSidebar = ({ minWidth = 280, maxWidth = 500, children }: Resizabl
     };
 
     const toggleSidebar = () => {
-        console.log(currentSidebarWidth);
-
-        setCurrentSidebarWidth(currentSidebarWidth === 320 ? 500 : 320); // 假设展开宽度为300
+        console.log('currentSidebarWidth: ', currentSidebarWidth > minWidth ? 0 : parseFloat(maxWidth));
+        setCurrentSidebarWidth(parseFloat(currentSidebarWidth) > minWidth ? 0 : maxWidth); // 假设展开宽度为300
     };
 
     const handleMouseDown = (e: React.MouseEvent) => {
@@ -61,22 +62,24 @@ const ResizableSidebar = ({ minWidth = 280, maxWidth = 500, children }: Resizabl
 
     const handleDrag = (e: React.DragEvent<HTMLDivElement>) => {
         e.preventDefault();
-        if (e.clientX >= maxWidth) {
+
+        const rect = resizeableContainerRef.current.getBoundingClientRect();
+        const calcWidth = e.clientX - rect.left; // 计算当前鼠标的位置和元素距离浏览器左边位置的差来做新宽度
+        if (calcWidth > parseFloat(maxWidth)) {
             setCurrentSidebarWidth(maxWidth);
-        } else if (e.clientX <= minWidth) {
-            setCurrentSidebarWidth(minWidth);
         } else {
-            setCurrentSidebarWidth(e.clientX);
+            setCurrentSidebarWidth(calcWidth + 'px');
         }
     };
 
     const handleDragEnd = (e: React.DragEvent<HTMLDivElement>) => {
-        if (e.clientX >= maxWidth) {
+        const rect = resizeableContainerRef.current.getBoundingClientRect();
+        const calcWidth = e.clientX - rect.left; // 计算当前鼠标的位置和元素距离浏览器左边位置的差来做新宽度
+        e.preventDefault();
+        if (calcWidth > parseFloat(maxWidth)) {
             setCurrentSidebarWidth(maxWidth);
-        } else if (e.clientX <= minWidth) {
-            setCurrentSidebarWidth(minWidth);
         } else {
-            setCurrentSidebarWidth(e.clientX);
+            setCurrentSidebarWidth(calcWidth + 'px');
         }
         setIsDragging(false);
     };
@@ -86,10 +89,28 @@ const ResizableSidebar = ({ minWidth = 280, maxWidth = 500, children }: Resizabl
         return content.offsetWidth;
     };
 
+    useEffect(() => {
+        // 延迟执行，因为父元素的内容可能是异步去获取的
+        setTimeout(() => {
+            setInitialSiderBarHeight(resizeableContainerRef.current?.parentElement?.offsetHeight);
+        }, 1200);
+    }, [resizeableContainerRef.current]);
+
     return (
         <>
-            <div ref={resizeableContainerRef} className={`resizable-sidebar ${isDragging ? 'draging' : ''}`} style={{ width: `${currentSidebarWidth || 320}px` }}>
-                <div className="content">{children}</div>
+            <div
+                ref={resizeableContainerRef}
+                className={`resizable-sidebar pe-1 ${isDragging ? 'draging' : ''}`}
+                style={{
+                    width: `${currentSidebarWidth}`,
+                    height: initialHeight || initialSiderBarHeight + 'px' || 0,
+                    paddingLeft: '5px',
+                    // overflow: currentSidebarWidth === maxWidth ? "auto" : "hidden",
+                }}
+            >
+                <div className="content" style={{ display: contentFlex ? 'flex' : '' }}>
+                    {children}
+                </div>
                 {/* 滚动条 */}
                 <div
                     ref={siderBarRef}
@@ -102,6 +123,13 @@ const ResizableSidebar = ({ minWidth = 280, maxWidth = 500, children }: Resizabl
                     onDragEnd={handleDragEnd}
                     onDragStart={handleDragStart}
                 ></div>
+                {initialHeight > 0 || initialSiderBarHeight > 0 ? (
+                    <div className="toggle-btn" onClick={toggleSidebar}>
+                        <i className={`fa-solid text-white ${currentSidebarWidth <= minWidth ? 'fa-angles-right' : 'fa-angles-left'}`}></i>
+                    </div>
+                ) : (
+                    ''
+                )}
             </div>
         </>
     );

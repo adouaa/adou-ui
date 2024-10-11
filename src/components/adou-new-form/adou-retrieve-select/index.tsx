@@ -3,7 +3,7 @@ import React, { useImperativeHandle } from 'react';
 import './index.scss';
 import { useEffect, useRef, useState } from 'react';
 import ReactDOM from 'react-dom';
-import useClickOutside from '../../../utils/hooks/useClickOutside';
+import useClickOutside from '../../../hooks/useClickOutside';
 import getAbsolutePosition from 'utils/getAbsolutePosition';
 
 export interface SelectProps {
@@ -92,19 +92,35 @@ const RetrievrSelect: React.FC<RetrieveSelectProps> = React.forwardRef(
     const [showSelectedOptions, setShowSelectedOptions] = useState(false);
     const [isHighlighted, setIsHighlighted] = useState(false);
     const [focusedIndex, setFocusedIndex] = useState<number>(-1); // 新增状态，用于跟踪当前聚焦的选项
+    const [isInputFocusing, setIsInputFocusing] = useState<boolean>(false);
+
+    const [isOpen, setIsOpen] = useState<boolean>(false);
+    const dropdownRef = useRef<any>(null);
 
     const retrieveInputRef = useRef<any>();
     const selectListRef = useRef<any>();
     const retrieveSelectWrapperFormControlRef = useRef<any>();
-    const customretrieveSelectRef = useRef<any>();
     const contentRef = useRef<any>();
     const [customSelectContentPosition, setCustomSelectContentPosition] =
       useState<any>({});
 
-    const { isOpen, dropdownRef, toggleDropdown } = useClickOutside(() => {
+    const toggleDropdown = () => {
+      setIsOpen((prev: boolean) => !prev);
+    };
+
+    const handleClose = () => {
+      setIsOpen(false);
       setShowOptions(false);
+      setIsInputFocusing(false);
+      retrieveInputRef.current.value = "";
       setFocusedIndex(-1);
-    });
+    };
+
+    useClickOutside(
+      [retrieveSelectWrapperFormControlRef, contentRef],
+      handleClose,
+      isOpen && contentRef.current
+    );
 
     const handleSelect = (option: any) => {
       if (!option) return;
@@ -156,7 +172,8 @@ const RetrievrSelect: React.FC<RetrieveSelectProps> = React.forwardRef(
       if (single) {
         const data = hasSelected ? [] : [option];
         setSelectedOptions(data);
-        onRetrieveSelectChange && onRetrieveSelectChange(hasSelected ? {} : option);
+        onRetrieveSelectChange &&
+          onRetrieveSelectChange(hasSelected ? {} : option);
         if (returnType === "obj" || showDefaultValue) {
           onFormDataChange && onFormDataChange(name!, data[0]);
         } else {
@@ -175,20 +192,33 @@ const RetrievrSelect: React.FC<RetrieveSelectProps> = React.forwardRef(
       }
       setShowSelectedOptions(true);
 
-      setTimeout(() => {
-        toggleDropdown();
-      }, 10);
+      setShowOptions(false);
+      setIsOpen(false);
+      setIsInputFocusing(false);
+
+      setFocusedIndex(-1);
     };
 
     const handleInputClick = (e: any) => {
       setIsHighlighted(true);
     };
 
+    // 输入框聚焦
+    const handleInputFocus = () => {
+      setIsInputFocusing(single);
+      retrieveInputRef.current.value = selectedOptions[0]?.[labelKey] || "";
+      retrieveInputRef.current.select();
+    };
+
     const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
       let value = e.target?.value;
       searchValueRef.current = value;
       onInputChange && onInputChange(e.target?.value);
-      // 搜索词修改时也需要展示选项
+      // 搜索词修改时也需要展示选项--为了防止有值的时候 handleFocus无法打开
+      setIsOpen(true);
+      setTimeout(() => {
+        setShowOptions(true);
+      }, 10);
     };
 
     const handleDeleteItem = (item: any) => {
@@ -209,6 +239,7 @@ const RetrievrSelect: React.FC<RetrieveSelectProps> = React.forwardRef(
     const handleBlur = () => {};
 
     const handleWrapperClick = (e: any) => {
+      console.log("wrapper: ");
       if (readOnly) return;
       // retrieveInputRef.current && retrieveInputRef.current.focus();
       setIsHighlighted(true);
@@ -218,7 +249,7 @@ const RetrievrSelect: React.FC<RetrieveSelectProps> = React.forwardRef(
         0
       );
       setCustomSelectContentPosition(position);
-      if (!isOpen) {
+      if (!isOpen && selectedOptions.length === 0) {
         toggleDropdown();
       }
       // 为了适配通过tab键来定位聚焦，把这些点击的逻辑去掉
@@ -288,17 +319,21 @@ const RetrievrSelect: React.FC<RetrieveSelectProps> = React.forwardRef(
     });
 
     const handleFocus = (event: any) => {
+      console.log("focus: ");
       setIsHighlighted(true);
-      toggleDropdown();
+      // 没值的时候打开
+      if (!readOnly && !isOpen && selectedOptions.length === 0) {
+        toggleDropdown(); // 键盘tab过来的时候打开下拉框
+        setTimeout(() => {
+          setShowOptions(true);
+        }, 10);
+      }
       const position = getAbsolutePosition(
         retrieveSelectWrapperFormControlRef.current,
         0,
         0
       );
       setCustomSelectContentPosition(position);
-      setTimeout(() => {
-        setShowOptions(true);
-      }, 10);
     };
 
     // 全部都 通过 KeyDown来关闭下拉列表项
@@ -322,9 +357,16 @@ const RetrievrSelect: React.FC<RetrieveSelectProps> = React.forwardRef(
         );
       } else if (event.key === "Enter") {
         event.preventDefault();
-        handleSelect(optionList[focusedIndex]);
+        handleSelect(optionList?.[focusedIndex]);
       } else if (event.key === "Escape") {
         setShowOptions(false);
+      }
+    };
+
+    const handleInputKeyDown = (event: React.KeyboardEvent<HTMLDivElement>) => {
+      if (event.key === "Tab") {
+        retrieveInputRef.current.value = ""; // tab走的时候要清空输入框
+        setIsInputFocusing(false); // 记住tab走的时候要吧 isInputFocusing 设置为false
       }
     };
 
@@ -335,6 +377,7 @@ const RetrievrSelect: React.FC<RetrieveSelectProps> = React.forwardRef(
           if (showDefaultValue) {
             // 如果 defaultValue 是对象，并且 valueKey属性有值，则根据 valueKey 找到对应的 option
             if (
+              defaultValue &&
               typeof defaultValue === "object" &&
               defaultValue[valueKey] !== undefined &&
               defaultValue[valueKey] !== null &&
@@ -359,7 +402,7 @@ const RetrievrSelect: React.FC<RetrieveSelectProps> = React.forwardRef(
               });
             }
           } else {
-            if (typeof defaultValue === "object") {
+            if (typeof defaultValue === "object" && defaultValue[valueKey]) {
               tempOptions.some((option: any) => {
                 option[valueKey] === defaultValue[valueKey] && arr.push(option);
                 return false;
@@ -449,7 +492,6 @@ const RetrievrSelect: React.FC<RetrieveSelectProps> = React.forwardRef(
       <div
         onFocus={handleFocus}
         onKeyDown={handleKeyDown}
-        ref={dropdownRef}
         className={retrieveSelectClasses}
         style={{
           width,
@@ -486,7 +528,8 @@ const RetrievrSelect: React.FC<RetrieveSelectProps> = React.forwardRef(
                 })}{" "}
             </select>
             <div ref={selectListRef} className="select-list">
-              {showSelected &&
+              {!isInputFocusing &&
+                showSelected &&
                 showSelectedOptions &&
                 selectedOptions?.map((option, index) => {
                   return (
@@ -509,8 +552,10 @@ const RetrievrSelect: React.FC<RetrieveSelectProps> = React.forwardRef(
             </div>
             <div className="input-control">
               <input
+                onKeyDown={handleInputKeyDown}
                 ref={retrieveInputRef}
-                placeholder={placeholder}
+                placeholder={isInputFocusing ? placeholder : ""}
+                onFocus={handleInputFocus}
                 onChange={(e) => handleInputChange(e)}
                 onClick={handleInputClick}
                 readOnly={readOnly}

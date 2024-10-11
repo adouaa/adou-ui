@@ -180,7 +180,7 @@ const LiveSearch: React.FC<LiveSearchProps> = React.forwardRef((props: LiveSearc
         onFormDataChange && onFormDataChange(name!, value);
         // 输入词修改时也需要展示选项
         // 【注意：关键是把最开始的列表值存到一个state中，然后再用这个state去过滤，然后再赋值给要展示的列表】
-        const filterdOptions = originlOptions.filter(
+        const filterdOptions = originlOptions?.filter(
             (item: any) => String(item[labelKey]).includes(value) // 刚好如果输入是空的，就会展示所有的
         );
         setOptionList(filterdOptions);
@@ -214,16 +214,16 @@ const LiveSearch: React.FC<LiveSearchProps> = React.forwardRef((props: LiveSearc
         }
         // 为了适配通过tab键来定位聚焦，把这些点击的逻辑去掉
         /* if (!isOpen) {
-        toggleDropdown();
-
-        // e.stopPropagation(); 这里不能加，否则会导致Select展开的时候点击LiveSearch无法关闭Select的选项
-        setTimeout(() => {
-          setShowOptions(true);
-        }, 10);
-      } else {
-        setShowOptions(false);
-        toggleDropdown();
-      } */
+          toggleDropdown();
+  
+          // e.stopPropagation(); 这里不能加，否则会导致Select展开的时候点击LiveSearch无法关闭Select的选项
+          setTimeout(() => {
+            setShowOptions(true);
+          }, 10);
+        } else {
+          setShowOptions(false);
+          toggleDropdown();
+        } */
     };
 
     const getValue = () => {
@@ -305,7 +305,7 @@ const LiveSearch: React.FC<LiveSearchProps> = React.forwardRef((props: LiveSearc
         } else if (event.key === 'Enter') {
             toggleDropdown();
             event.preventDefault();
-            handleSelect(optionList[focusedIndex]);
+            handleSelect(optionList?.[focusedIndex]);
         } else if (event.key === 'Escape') {
             setShowOptions(false);
         }
@@ -349,8 +349,8 @@ const LiveSearch: React.FC<LiveSearchProps> = React.forwardRef((props: LiveSearc
         setOriginOptions(options);
         // 不应该有这个逻辑吧，不然会出现列表一变化就展示列表
         /* if (!isOpen) {
-        toggleDropdown();
-      } */
+          toggleDropdown();
+        } */
     }, [options]);
 
     return (
