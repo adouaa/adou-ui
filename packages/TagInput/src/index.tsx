@@ -41,7 +41,7 @@ const TagInput = React.forwardRef(
       inputGroup = false,
       labelPosition = "center",
       name,
-      defaultValue = [],
+      defaultValue,
       onChange,
     }: TagInputProps,
     ref
@@ -91,6 +91,8 @@ const TagInput = React.forwardRef(
     const handleBlur = () => {
       // 注意，这边要在 inpuut失焦的时候触发，不能在 input change的时候触发，不然会出现校验错误
       setIsHighlighted(false);
+      // 失焦之后就直接让 input输入了但是为保存的值清空，防止用户出现误解，优化体验
+      setInputValue("");
     };
 
     const handleFocus = () => {

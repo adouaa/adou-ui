@@ -1,6 +1,7 @@
 import React from "react";
 import "./index.scss";
 declare const _default: React.ComponentType<Omit<{
+    extraData?: any;
     showExtraContent?: boolean | undefined;
     commonExtraContent?: any;
     children?: any;

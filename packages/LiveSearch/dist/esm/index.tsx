@@ -424,6 +424,9 @@ const LiveSearch: React.FC<LiveSearchProps> = React.forwardRef(
                 aria-describedby="basic-addon1"
               />
             </div>
+            <div className="icon-box">
+              <i className="icon small text-secondary fa-solid fa-magnifying-glass"></i>
+            </div>
           </div>
           {commonSuffixIcon && (
             <i
@@ -506,6 +509,5 @@ const LiveSearch: React.FC<LiveSearchProps> = React.forwardRef(
     );
   }
 );
-
 
 export default LiveSearch;

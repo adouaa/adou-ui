@@ -7,6 +7,7 @@ import { getAbsolutePosition } from "adou-ui/Utils/index";
 import useClickOutside from "./utils/useClickOutside";
 
 export interface SelectProps {
+  maxSelectedListWidth?: any;
   maxHeight?: string;
   activeColor?: { font: string; bgc: string };
   returnType?: "str" | "obj";
@@ -49,6 +50,7 @@ interface RetrieveSelectProps extends SelectProps {
 const RetrievrSelect: React.FC<RetrieveSelectProps> = React.forwardRef(
   (props: RetrieveSelectProps, ref) => {
     const {
+      maxSelectedListWidth,
       maxHeight = "300px",
       activeColor = { font: "#fff", bgc: "#2783d8" },
       returnType,
@@ -89,7 +91,7 @@ const RetrievrSelect: React.FC<RetrieveSelectProps> = React.forwardRef(
     const [showOptions, setShowOptions] = useState(false);
     const [optionList, setOptionList] = useState(options);
     const [selectedOptions, setSelectedOptions] = useState<any[]>([]);
-    const [showSelectedOptions, setShowSelectedOptions] = useState(false);
+    const [showSelectedList, setShowSelectedList] = useState(false);
     const [isHighlighted, setIsHighlighted] = useState(false);
     const [focusedIndex, setFocusedIndex] = useState<number>(-1); // 新增状态，用于跟踪当前聚焦的选项
     const [isInputFocusing, setIsInputFocusing] = useState<boolean>(false);
@@ -109,10 +111,12 @@ const RetrievrSelect: React.FC<RetrieveSelectProps> = React.forwardRef(
     };
 
     const handleClose = () => {
+      console.log("close: ");
       setIsOpen(false);
       setShowOptions(false);
       setIsInputFocusing(false);
       retrieveInputRef.current.value = "";
+      validate(); // 不能在 div onBlur的时候调用这个函数
       setFocusedIndex(-1);
     };
 
@@ -190,7 +194,7 @@ const RetrievrSelect: React.FC<RetrieveSelectProps> = React.forwardRef(
         onRetrieveSelectChange && onRetrieveSelectChange(data);
         onFormDataChange && onFormDataChange(name!, data);
       }
-      setShowSelectedOptions(true);
+      setShowSelectedList(true);
 
       setShowOptions(false);
       setIsOpen(false);
@@ -334,6 +338,7 @@ const RetrievrSelect: React.FC<RetrieveSelectProps> = React.forwardRef(
         0
       );
       setCustomSelectContentPosition(position);
+      retrieveInputRef.current?.focus();
     };
 
     // 全部都 通过 KeyDown来关闭下拉列表项
@@ -384,7 +389,7 @@ const RetrievrSelect: React.FC<RetrieveSelectProps> = React.forwardRef(
               defaultValue[valueKey] !== 0
             ) {
               setSelectedOptions([defaultValue]);
-              setShowSelectedOptions(true);
+              setShowSelectedList(true);
               setOptionList((preArr) => {
                 return preArr?.map((item) => ({
                   ...item,
@@ -415,7 +420,7 @@ const RetrievrSelect: React.FC<RetrieveSelectProps> = React.forwardRef(
             }
             if (arr?.length) {
               setSelectedOptions(arr);
-              setShowSelectedOptions(true);
+              setShowSelectedList(true);
               setTimeout(() => {
                 setOptionList((preArr) => {
                   return preArr?.map((item) => ({
@@ -449,7 +454,7 @@ const RetrievrSelect: React.FC<RetrieveSelectProps> = React.forwardRef(
 
           if (arr?.length) {
             setSelectedOptions(arr);
-            setShowSelectedOptions(true);
+            setShowSelectedList(true);
             setTimeout(() => {
               setOptionList((preArr) => {
                 return preArr?.map((item) => ({
@@ -497,7 +502,6 @@ const RetrievrSelect: React.FC<RetrieveSelectProps> = React.forwardRef(
           width,
           ...(inline && !width ? { flex: 1, marginRight: "15px" } : {}),
         }}
-        onBlur={validate}
       >
         <div
           className={`content-box ${
@@ -511,7 +515,7 @@ const RetrievrSelect: React.FC<RetrieveSelectProps> = React.forwardRef(
             {label}
           </span>
           <div
-            style={{ display: "flex", flexWrap: "wrap" }}
+            style={{ display: "flex", flexWrap: single ? "nowrap" : "wrap" }}
             ref={retrieveSelectWrapperFormControlRef}
             tabIndex={0}
             onBlur={handleBlur}
@@ -522,20 +526,26 @@ const RetrievrSelect: React.FC<RetrieveSelectProps> = React.forwardRef(
           >
             <select style={{ display: "none" }} name={name}>
               {showSelected &&
-                showSelectedOptions &&
+                showSelectedList &&
                 selectedOptions?.map((option, index) => {
                   return <option key={index} value={option[valueKey]}></option>;
                 })}{" "}
             </select>
+
             <div ref={selectListRef} className="select-list">
               {!isInputFocusing &&
                 showSelected &&
-                showSelectedOptions &&
+                showSelectedList &&
                 selectedOptions?.map((option, index) => {
                   return (
                     <div
+                      style={{
+                        ...(single ? { maxWidth: maxSelectedListWidth } : {}),
+                      }}
                       className={`${
-                        single ? "selected-option-single" : "selected-option"
+                        single
+                          ? "selected-option-single ellipsis-1"
+                          : "selected-option"
                       }`}
                       key={option[valueKey]}
                     >
@@ -564,6 +574,13 @@ const RetrievrSelect: React.FC<RetrieveSelectProps> = React.forwardRef(
                 aria-label="Username"
                 aria-describedby="basic-addon1"
               />
+            </div>
+            <div className="icon-box">
+              <i
+                className={`icon text-secondary fa-solid fa-angle-right ${
+                  isOpen ? "rotate-up" : "rotate-down"
+                }`}
+              ></i>
             </div>
           </div>
           {commonSuffixIcon && (

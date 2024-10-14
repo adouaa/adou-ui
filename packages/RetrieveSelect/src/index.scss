@@ -27,6 +27,12 @@
             align-items: start;
         }
     }
+
+    .icon-box {
+        .icon {
+            transition: transform 0.2s;
+        }
+    }
 }
 
 .retrieve-select-content-open {
@@ -87,7 +93,7 @@
 }
 
 .retrieve-input {
-    min-width: 120px;
+    // min-width: 120px;
     width: 100%;
     outline: none;
     border: none;

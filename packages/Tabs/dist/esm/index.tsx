@@ -2,7 +2,9 @@ import React, { useEffect, useRef, useState } from "react";
 import { withTranslation } from "react-i18next";
 
 import "./index.scss";
+
 interface TabsProps {
+  extraData?: any;
   showExtraContent?: boolean;
   commonExtraContent?: any;
   children?: any;
@@ -17,6 +19,7 @@ interface TabsProps {
 
 const Tabs = (props: TabsProps) => {
   const {
+    extraData,
     showExtraContent,
     commonExtraContent,
     lineaGradient = "#dafbff, #fff",
@@ -119,18 +122,7 @@ const Tabs = (props: TabsProps) => {
     );
   };
 
-  const renderExtraContent = () => {
-    React.Children.map(children, (child: any, index) => {
-      if (child) {
-        if (index === activeIndex) {
-          content.current = child.props.extraContent;
-        }
-      }
-    });
-  };
-
   useEffect(() => {
-    renderExtraContent();
     // 因为extraContent是用ref保存的，
     // 所以为了在切换回来的时候重新渲染extraContent的内容，需要强制修改state来重新渲染页面
     setupdateKey(updateKey + 1);

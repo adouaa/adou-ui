@@ -199,11 +199,10 @@ ___CSS_LOADER_EXPORT___.push([module.id, `.tabs-box .nav .nav-link {
 }
 .tabs-box .header-wrapper .extra-content {
   position: absolute;
-  z-index: 99;
   right: 0;
   top: 0;
   cursor: pointer;
-}`, "",{"version":3,"sources":["webpack://./src/index.scss"],"names":[],"mappings":"AAEQ;EACI,WAAA;AADZ;AAOI;EACI,aAAA;EACA,gCAAA;AALR;AAOQ;EACI,eAAA;AALZ;AAOY;EACI,eAAA;EACA,mBAAA;EACA,eAAA;EACA,eAAA;AALhB;AASQ;EACI,iBAAA;AAPZ;AAUQ;EACI,gCAAA;EACA,cAAA;EACA,sBAAA;EACA,0CAAA;AARZ;AAcI;EACI,kBAAA;AAZR;AAcQ;EACI,kBAAA;EACA,WAAA;EACA,QAAA;EACA,MAAA;EACA,eAAA;AAZZ","sourcesContent":[".tabs-box {\n    .nav {\n        .nav-link {\n            color: #000;\n        }\n\n        .nav-link.active {}\n    }\n\n    .tabs-header {\n        display: flex;\n        border-bottom: 1px solid #dcdfe6;\n\n        .tabs-header-item-box {\n            padding: 0 15px;\n\n            .tabs-header-item {\n                padding: 10px 0;\n                margin-bottom: -1px;\n                font-size: 14px;\n                cursor: pointer;\n            }\n        }\n\n        .tabs-header-item-box.first {\n            padding-left: 0px;\n        }\n\n        .tabs-header-item.active {\n            border-bottom: 1px solid #409eff;\n            color: #409eff;\n            box-sizing: border-box;\n            background: linear-gradient(#dafbff, #fff),\n        }\n\n\n    }\n\n    .header-wrapper {\n        position: relative;\n\n        .extra-content {\n            position: absolute;\n            z-index: 99;\n            right: 0;\n            top: 0;\n            cursor: pointer;\n        }\n    }\n}"],"sourceRoot":""}]);
+}`, "",{"version":3,"sources":["webpack://./src/index.scss"],"names":[],"mappings":"AAEQ;EACI,WAAA;AADZ;AAOI;EACI,aAAA;EACA,gCAAA;AALR;AAOQ;EACI,eAAA;AALZ;AAOY;EACI,eAAA;EACA,mBAAA;EACA,eAAA;EACA,eAAA;AALhB;AASQ;EACI,iBAAA;AAPZ;AAUQ;EACI,gCAAA;EACA,cAAA;EACA,sBAAA;EACA,0CAAA;AARZ;AAcI;EACI,kBAAA;AAZR;AAcQ;EACI,kBAAA;EACA,QAAA;EACA,MAAA;EACA,eAAA;AAZZ","sourcesContent":[".tabs-box {\n    .nav {\n        .nav-link {\n            color: #000;\n        }\n\n        .nav-link.active {}\n    }\n\n    .tabs-header {\n        display: flex;\n        border-bottom: 1px solid #dcdfe6;\n\n        .tabs-header-item-box {\n            padding: 0 15px;\n\n            .tabs-header-item {\n                padding: 10px 0;\n                margin-bottom: -1px;\n                font-size: 14px;\n                cursor: pointer;\n            }\n        }\n\n        .tabs-header-item-box.first {\n            padding-left: 0px;\n        }\n\n        .tabs-header-item.active {\n            border-bottom: 1px solid #409eff;\n            color: #409eff;\n            box-sizing: border-box;\n            background: linear-gradient(#dafbff, #fff),\n        }\n\n\n    }\n\n    .header-wrapper {\n        position: relative;\n\n        .extra-content {\n            position: absolute;\n            right: 0;\n            top: 0;\n            cursor: pointer;\n        }\n    }\n}"],"sourceRoot":""}]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 
@@ -1814,6 +1813,7 @@ var update = injectStylesIntoStyleTag_default()(cjs_ruleSet_1_rules_1_use_2_src/
 
 const Tabs = props => {
   const {
+    extraData,
     showExtraContent,
     commonExtraContent,
     lineaGradient = "#dafbff, #fff",
@@ -1879,17 +1879,7 @@ const Tabs = props => {
       className: "extra-content"
     }, content.current)));
   };
-  const renderExtraContent = () => {
-    external_root_React_commonjs2_react_commonjs_react_amd_react_default().Children.map(children, (child, index) => {
-      if (child) {
-        if (index === activeIndex) {
-          content.current = child.props.extraContent;
-        }
-      }
-    });
-  };
   (0,external_root_React_commonjs2_react_commonjs_react_amd_react_.useEffect)(() => {
-    renderExtraContent();
     // 因为extraContent是用ref保存的，
     // 所以为了在切换回来的时候重新渲染extraContent的内容，需要强制修改state来重新渲染页面
     setupdateKey(updateKey + 1);

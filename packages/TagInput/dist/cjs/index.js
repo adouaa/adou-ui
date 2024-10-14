@@ -145,12 +145,7 @@ ___CSS_LOADER_EXPORT___.push([module.id, `@charset "UTF-8";
   height: 100%;
   margin-top: 10px;
 }
-.tag-input-wrapper .center {
-  display: flex;
-  flex: 1;
-}
 .tag-input-wrapper .form-control {
-  flex: 1;
   cursor: text;
 }
 .tag-input-wrapper .inputGroup {
@@ -205,6 +200,7 @@ ___CSS_LOADER_EXPORT___.push([module.id, `@charset "UTF-8";
   width: 100%;
   outline: none;
   border: none;
+  color: #adb5bd;
 }
 
 .focus {
@@ -212,7 +208,7 @@ ___CSS_LOADER_EXPORT___.push([module.id, `@charset "UTF-8";
   /* 设置输入框获得焦点时的边框颜色 */
   box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.313);
   /* 设置输入框获得焦点时的阴影效果 */
-}`, "",{"version":3,"sources":["webpack://./src/index.scss"],"names":[],"mappings":"AAAA,gBAAgB;AAAhB;EACI,YAAA;EACA,gBAAA;AAEJ;AAAI;EACI,aAAA;EACA,OAAA;AAER;AACI;EACI,OAAA;EACA,YAAA;AACR;AAGI;EACI,aAAA;EACA,mBAAA;AADR;AAKI;EACI,eAAA;EACA,eAAA;EACA,2BAAA;EACA,eAAA;AAHR;AAOI;EACI,aAAA;EACA,mBAAA;AALR;AAQI;EACI,aAAA;AANR;AAQQ;EACI,aAAA;EACA,kBAAA;AANZ;AAYQ;EACI,UAAA;EACA,gBAAA;EACA,aAAA;EACA,eAAA;AAVZ;AAYY;EACI,cAAA;EACA,qBAAA;EACA,eAAA;EACA,0BAAA;EACA,mBAAA;EACA,yBAAA;EACA,kBAAA;EACA,iBAAA;EACA,kBAAA;AAVhB;AAYgB;EACI,cAAA;EACA,kBAAA;EACA,WAAA;EACA,WAAA;EACA,eAAA;AAVpB;AAgBI;EACI,OAAA;AAdR;AAgBQ;EACI,WAAA;EACA,aAAA;EACA,YAAA;AAdZ;;AAmBA;EACI,qBAAA;EACA,oBAAA;EACA,iDAAA;EACA,oBAAA;AAhBJ","sourcesContent":[".tag-input-wrapper {\r\n    height: 100%;\r\n    margin-top: 10px;\r\n\r\n    .center {\r\n        display: flex;\r\n        flex: 1;\r\n    }\r\n\r\n    .form-control {\r\n        flex: 1;\r\n        cursor: text;\r\n    }\r\n\r\n\r\n    .inputGroup {\r\n        display: flex;\r\n        align-items: center;\r\n    }\r\n\r\n\r\n    .label-box {\r\n        font-size: 14px;\r\n        min-width: 50px;\r\n        max-width: 120px !important;\r\n        flex-wrap: wrap;\r\n    }\r\n\r\n\r\n    .label-in-center {\r\n        display: flex;\r\n        align-items: center;\r\n    }\r\n\r\n    .label-in-left-top {\r\n        display: flex;\r\n\r\n        .label-box {\r\n            display: flex;\r\n            align-items: start;\r\n        }\r\n    }\r\n\r\n    .content-box {\r\n\r\n        .tag-input-list {\r\n            padding: 0;\r\n            margin-bottom: 0;\r\n            display: flex;\r\n            flex-wrap: wrap; // 不写这个太窄的话会挤在一起\r\n\r\n            .list-item {\r\n                color: #7e8085;\r\n                list-style-type: none;\r\n                font-size: 14px;\r\n                padding: 3px 22px 3px 12px;\r\n                border-radius: 13px;\r\n                background-color: #f4f4f5;\r\n                position: relative;\r\n                margin-right: 6px;\r\n                margin-bottom: 6px;\r\n\r\n                .item-icon {\r\n                    color: #999ba1;\r\n                    position: absolute;\r\n                    right: 10px;\r\n                    bottom: 4px;\r\n                    cursor: pointer;\r\n                }\r\n            }\r\n        }\r\n    }\r\n\r\n    .tag-input-control {\r\n        flex: 1;\r\n\r\n        .input {\r\n            width: 100%;\r\n            outline: none;\r\n            border: none;\r\n        }\r\n    }\r\n}\r\n\r\n.focus {\r\n    border-color: #80bdff;\r\n    /* 设置输入框获得焦点时的边框颜色 */\r\n    box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.313);\r\n    /* 设置输入框获得焦点时的阴影效果 */\r\n}"],"sourceRoot":""}]);
+}`, "",{"version":3,"sources":["webpack://./src/index.scss"],"names":[],"mappings":"AAAA,gBAAgB;AAAhB;EACI,YAAA;EACA,gBAAA;AAEJ;AAAI;EACI,YAAA;AAER;AACI;EACI,aAAA;EACA,mBAAA;AACR;AAGI;EACI,eAAA;EACA,eAAA;EACA,2BAAA;EACA,eAAA;AADR;AAKI;EACI,aAAA;EACA,mBAAA;AAHR;AAMI;EACI,aAAA;AAJR;AAMQ;EACI,aAAA;EACA,kBAAA;AAJZ;AAUQ;EACI,UAAA;EACA,gBAAA;EACA,aAAA;EACA,eAAA;AARZ;AAUY;EACI,cAAA;EACA,qBAAA;EACA,eAAA;EACA,0BAAA;EACA,mBAAA;EACA,yBAAA;EACA,kBAAA;EACA,iBAAA;EACA,kBAAA;AARhB;AAUgB;EACI,cAAA;EACA,kBAAA;EACA,WAAA;EACA,WAAA;EACA,eAAA;AARpB;AAcI;EACI,OAAA;AAZR;AAcQ;EACI,WAAA;EACA,aAAA;EACA,YAAA;EACA,cAAA;AAZZ;;AAiBA;EACI,qBAAA;EACA,oBAAA;EACA,iDAAA;EACA,oBAAA;AAdJ","sourcesContent":[".tag-input-wrapper {\r\n    height: 100%;\r\n    margin-top: 10px;\r\n\r\n    .form-control {\r\n        cursor: text;\r\n    }\r\n\r\n    .inputGroup {\r\n        display: flex;\r\n        align-items: center;\r\n    }\r\n\r\n\r\n    .label-box {\r\n        font-size: 14px;\r\n        min-width: 50px;\r\n        max-width: 120px !important;\r\n        flex-wrap: wrap;\r\n    }\r\n\r\n\r\n    .label-in-center {\r\n        display: flex;\r\n        align-items: center;\r\n    }\r\n\r\n    .label-in-left-top {\r\n        display: flex;\r\n\r\n        .label-box {\r\n            display: flex;\r\n            align-items: start;\r\n        }\r\n    }\r\n\r\n    .content-box {\r\n\r\n        .tag-input-list {\r\n            padding: 0;\r\n            margin-bottom: 0;\r\n            display: flex;\r\n            flex-wrap: wrap; // 不写这个太窄的话会挤在一起\r\n\r\n            .list-item {\r\n                color: #7e8085;\r\n                list-style-type: none;\r\n                font-size: 14px;\r\n                padding: 3px 22px 3px 12px;\r\n                border-radius: 13px;\r\n                background-color: #f4f4f5;\r\n                position: relative;\r\n                margin-right: 6px;\r\n                margin-bottom: 6px;\r\n\r\n                .item-icon {\r\n                    color: #999ba1;\r\n                    position: absolute;\r\n                    right: 10px;\r\n                    bottom: 4px;\r\n                    cursor: pointer;\r\n                }\r\n            }\r\n        }\r\n    }\r\n\r\n    .tag-input-control {\r\n        flex: 1;\r\n\r\n        .input {\r\n            width: 100%;\r\n            outline: none;\r\n            border: none;\r\n            color: #adb5bd;\r\n        }\r\n    }\r\n}\r\n\r\n.focus {\r\n    border-color: #80bdff;\r\n    /* 设置输入框获得焦点时的边框颜色 */\r\n    box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.313);\r\n    /* 设置输入框获得焦点时的阴影效果 */\r\n}"],"sourceRoot":""}]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 
@@ -628,7 +624,7 @@ const TagInput = /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react
     inputGroup = false,
     labelPosition = "center",
     name,
-    defaultValue = [],
+    defaultValue,
     onChange
   } = _ref;
   const [inputList, setInputList] = (0,external_root_React_commonjs2_react_commonjs_react_amd_react_.useState)(defaultValue || []);
@@ -668,6 +664,8 @@ const TagInput = /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react
   const handleBlur = () => {
     // 注意，这边要在 inpuut失焦的时候触发，不能在 input change的时候触发，不然会出现校验错误
     setIsHighlighted(false);
+    // 失焦之后就直接让 input输入了但是为保存的值清空，防止用户出现误解，优化体验
+    setInputValue("");
   };
   const handleFocus = () => {
     setIsHighlighted(true);

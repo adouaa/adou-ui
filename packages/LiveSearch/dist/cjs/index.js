@@ -6353,6 +6353,10 @@ const LiveSearch = /*#__PURE__*/external_root_React_commonjs2_react_commonjs_rea
     className: "retrieve-input ".concat(type === "number" ? "text-end" : ""),
     "aria-label": "Username",
     "aria-describedby": "basic-addon1"
+  })), /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("div", {
+    className: "icon-box"
+  }, /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("i", {
+    className: "icon small text-secondary fa-solid fa-magnifying-glass"
   }))), commonSuffixIcon && /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("i", {
     onClick: handleClickCommonSuffixIcon,
     className: "".concat(commonSuffixIcon, " common-suffix-icon ms-2")
