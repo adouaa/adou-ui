@@ -27,6 +27,12 @@
             align-items: start;
         }
     }
+
+    .icon-box {
+        .icon {
+            transition: transform 0.2s;
+        }
+    }
 }
 
 .retrieve-select-content-open {

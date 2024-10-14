@@ -391,6 +391,9 @@ const LiveSearch: React.FC<LiveSearchProps> = React.forwardRef((props: LiveSearc
                             aria-describedby="basic-addon1"
                         />
                     </div>
+                    <div className="icon-box">
+                        <i className="icon small text-secondary fa-solid fa-magnifying-glass"></i>
+                    </div>
                 </div>
                 {commonSuffixIcon && <i onClick={handleClickCommonSuffixIcon} className={`${commonSuffixIcon} common-suffix-icon ms-2`}></i>}
                 {suffixContent && <div className={`${suffixContentType === 'button' ? 'suffix-content-btn-wrapper' : 'ms-1'}`}>{suffixContent}</div>}

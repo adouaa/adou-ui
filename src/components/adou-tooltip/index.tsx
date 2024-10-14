@@ -42,12 +42,16 @@ const Tooltip: React.FC<TooltipProps> = ({ show = true, text, position = 'top', 
             if (!isEnterTooltipRef.current) {
                 setIsVisible(false);
             }
-        }, 300);
+        }, 200);
         setTimeout(() => {
             if (!isEnterTooltipRef.current) {
                 setIsShow(false);
             }
-        }, 500);
+        }, 250);
+    };
+
+    const handleClick = (e: React.MouseEvent) => {
+        e.stopPropagation(); // 阻止事件的冒泡
     };
 
     /**
@@ -66,10 +70,10 @@ const Tooltip: React.FC<TooltipProps> = ({ show = true, text, position = 'top', 
         isEnterTooltipRef.current = false;
         setTimeout(() => {
             setIsVisible(false);
-        }, 300);
+        }, 100);
         setTimeout(() => {
             setIsShow(false);
-        }, 500);
+        }, 150);
     };
 
     return (
@@ -79,6 +83,7 @@ const Tooltip: React.FC<TooltipProps> = ({ show = true, text, position = 'top', 
             </div>
             {text && show && isShow && (
                 <div
+                    onClick={handleClick}
                     onMouseEnter={handleMouseEnterTooltip}
                     onMouseLeave={handleMouseLeaveTooltip}
                     className={`adou-tooltip ${isVisible ? 'show-tool-tip' : ''} adou-tooltip-${position}`}

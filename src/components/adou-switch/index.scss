@@ -1,0 +1,55 @@
+.switch-wrapper {
+
+    .switch-content,
+    .switch-content-lg {
+        cursor: pointer;
+        position: relative;
+        width: 60px;
+        height: 28px;
+        border-radius: 18px;
+        // background-color: #409eff;
+        background-color: #ccc;
+        transition: background-color 0.3s;
+
+        .switch-dot,
+        .switch-dot-lg {
+            transition: all 0.3s;
+
+            width: 24px;
+            height: 24px;
+            border-radius: 50%;
+            background-color: #fff;
+            position: absolute;
+            top: 50%;
+            left: 2px;
+            transform: translate(0, -50%);
+        }
+    }
+
+    .switch-content-md {
+        width: 50px;
+        height: 22px;
+
+        .switch-dot-md {
+            width: 18px;
+            height: 18px;
+        }
+    }
+
+    .switch-content-sm {
+        width: 40px;
+        height: 18px;
+
+        .switch-dot-sm {
+            width: 14px;
+            height: 14px;
+        }
+    }
+
+    .switch-content.disabled {
+        cursor: not-allowed;
+        opacity: 0.5;
+    }
+
+
+}

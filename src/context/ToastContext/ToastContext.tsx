@@ -77,31 +77,32 @@ export const ToastProvider: React.FC<ToastProviderProps> = ({ children }) => {
         const countdownIntervalRef = countdownIntervalsRef.current?.find((interval: any) => interval && interval.id === id);
         clearTimeout(timerRef.current);
         clearInterval(countdownIntervalRef.current);
-        setToasts((prev) =>
+        /* setToasts((prev) =>
             prev.map((toast) => {
                 if (toast.id === id) {
                     return { ...toast }; // 暂停倒计时
                 }
                 return toast;
             })
-        );
+        ); */
     };
 
+    // 注意：鼠标移出的时候要先找到鼠标移出的是定时器和计时器，然后清除掉对应的定时器和计时器，再恢复定时器和计时器
     const handleMouseLeave = (id: number) => {
         const toast = toasts.find((toast) => toast.id === id);
         if (!toast) return;
 
-        // 先找到鼠标移入的定时器
+        // 1. 先找到鼠标移入的定时器和计时器
         const timerRef = timersRef.current?.find((timer: any) => timer && timer.id === id);
         const countdownIntervalRef = countdownIntervalsRef.current?.find((interval: any) => interval && interval.id === id);
 
-        // 再清除该计时器
+        // 2. 再清除对应的定时器和计时器(如果dsq和计时器有值的话)
         if (timerRef) clearTimeout(timerRef.current);
         if (countdownIntervalRef) clearInterval(countdownIntervalRef.current);
 
         const remainingTime = toast.remainingTime;
 
-        // 重新启动消失动画和倒计时
+        // 3. 重新启动消失动画和倒计时
         timerRef.current = setTimeout(() => {
             setToasts((prev) => prev.map((toast) => (toast.id === id ? { ...toast, disappearing: true } : toast)));
             setTimeout(() => {

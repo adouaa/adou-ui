@@ -116,7 +116,7 @@ const ResizableSidebar = ({ contentFlex = true, initialWidth = 0, initialHeight 
                     ref={siderBarRef}
                     draggable={true}
                     style={{ opacity: 0, right: isDragging ? '-5px' : '-2px' }}
-                    className={`resize-handle`}
+                    className={`resize-handle-bar`}
                     onMouseUp={handleDragEnd}
                     onMouseDown={handleMouseDown}
                     onDrag={handleDrag}

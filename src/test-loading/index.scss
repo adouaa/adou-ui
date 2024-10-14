@@ -1,0 +1,20 @@
+.title {
+    color: #333;
+
+    .underline-text {
+        display: inline;
+        font-size: 36px;
+        font-weight: bold;
+        /* 使文字颜色透明 */
+        background: linear-gradient(to right, #ff7e5f, #8e8782) no-repeat right bottom;
+        background-size: 0 2px;
+        transition: background-size 1300ms;
+
+        /* 渐变背景色 */
+        /* 将背景裁剪为文字形状 */
+        &:hover {
+            background-position-x: left;
+            background-size: 100% 2px;
+        }
+    }
+}
