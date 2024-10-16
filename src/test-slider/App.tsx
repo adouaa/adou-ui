@@ -12,6 +12,7 @@ const App = () => {
             <h1>Custom Slider Component</h1>
             <h2>Single Value Slider</h2>
             <Slider sliderWidth={'800px'} range max={50} showInput value={singleValue} />
+            <Slider sliderWidth={'800px'} max={100} showInput value={singleValue} />
             <h2>Range Slider</h2>
             <Slider min={0} max={100} step={10} value={rangeValues} range />
         </div>

@@ -14,21 +14,19 @@ interface SliderProps {
     onChange?: () => void;
 }
 const Slider = ({ range, sliderWidth, min = 0, max, step, value, showStops = true, showInput, onChange }: SliderProps) => {
-    const [sliderButton1Left, setSliderButton1Left] = useState<any>(0);
-    const [sliderButton2Left, setSliderButton2Left] = useState<any>(0);
+    const [sliderButtonLeft, setSliderButtonLeft] = useState<any>(0);
     const [sliderBarWidth, setSliderBarWidth] = useState<any>();
     const [stops, setStops] = useState<any[]>([]);
     const [inputValue, setInputValue] = useState<number>(0);
 
     const sliderRunwayRef = useRef<any>(null);
     const [eachPercentValue, setEachPercentValue] = useState<number>(1);
-    const isButton2MoveRef = useRef<boolean>(false);
 
     const calculateByStep = (offsetX: number, sliderRect: any) => {
         const percent = (offsetX / sliderRect.width) * 100;
         const stepPercent = percent / parseFloat(step! + '%');
         const newValue = Math.round(stepPercent) * step! + '%';
-        setSliderButton1Left(newValue);
+        setSliderButtonLeft(newValue);
         setSliderBarWidth(newValue);
     };
     const handleRunwayClick = (e: any) => {
@@ -42,31 +40,26 @@ const Slider = ({ range, sliderWidth, min = 0, max, step, value, showStops = tru
             calculateByStep(offsetX, sliderRect);
         } else {
             const newValue = (offsetX / sliderRect.width) * 100 + '%';
-            isButton2MoveRef.current ? setSliderButton2Left(newValue) : setSliderButton1Left(newValue);
-            !range && setSliderBarWidth(newValue);
+            setSliderButtonLeft(newValue);
+            setSliderBarWidth(newValue);
             setInputValue(Math.round(parseFloat(newValue) / eachPercentValue));
         }
     };
 
-    const handleBtnMouseDown = (e: any, isTwo?: boolean) => {
-        console.log('down: ');
-        isButton2MoveRef.current = isTwo!;
-        // e.stopPropagation(); // 确保事件不冒泡
+    const handleBtnMouseDown = (e: any) => {
+        e.preventDefault();
         const sliderRect = sliderRunwayRef.current.getBoundingClientRect();
 
         // 按钮点击后，按钮移动的逻辑
         const btnMoveHandler = (moveEvent: MouseEvent) => {
-            console.log('move: ');
             const offsetX = moveEvent.clientX - sliderRect.left;
             if (step && !showInput) {
                 calculateByStep(offsetX, sliderRect);
             } else {
                 const newValue = Math.max(0, Math.min(offsetX / sliderRect.width, 1)) * 100 + '%';
-                isTwo ? setSliderButton2Left(newValue) : setSliderButton1Left(newValue);
-                if (!range) {
-                    setSliderBarWidth(newValue);
-                    setInputValue(Math.round(parseFloat(newValue) / eachPercentValue));
-                }
+                setSliderButtonLeft(newValue);
+                setSliderBarWidth(newValue);
+                setInputValue(Math.round(parseFloat(newValue) / eachPercentValue));
             }
         };
 
@@ -85,6 +78,7 @@ const Slider = ({ range, sliderWidth, min = 0, max, step, value, showStops = tru
     const calcEachPercentValue = () => {
         const diffrence = max! - min!;
         setEachPercentValue(100 / diffrence);
+        console.log('100 / diffrence: ', 100 / diffrence);
     };
     const generateStops = () => {
         let length: number = 0;
@@ -102,7 +96,7 @@ const Slider = ({ range, sliderWidth, min = 0, max, step, value, showStops = tru
             value = min!;
         }
         setInputValue(value);
-        setSliderButton1Left(value * eachPercentValue + '%');
+        setSliderButtonLeft(value * eachPercentValue + '%');
         setSliderBarWidth(value * eachPercentValue + '%');
     };
 
@@ -113,45 +107,21 @@ const Slider = ({ range, sliderWidth, min = 0, max, step, value, showStops = tru
         calcEachPercentValue();
     }, []);
 
-    useEffect(() => {
-        const diffAbs = Math.abs(parseFloat(sliderButton2Left) - parseFloat(sliderButton1Left));
-        if (range) {
-            setSliderBarWidth(diffAbs + '%');
-            setInputValue(Math.round(diffAbs / eachPercentValue));
-        }
-    }, [sliderButton1Left, sliderButton2Left]);
-
     return (
         <div className="slider">
-            <div
-                style={{ width: sliderWidth }}
-                className="slider-runway me-3"
-                ref={sliderRunwayRef}
-                onMouseDown={handleRunwayClick}
-                onClick={handleRunwayClick}
-                onMouseUp={handleMouseUp}
-            >
-                <div
-                    className="slider-bar bg-primary"
-                    style={{ width: sliderBarWidth, left: parseFloat(sliderButton2Left) > parseFloat(sliderButton1Left) ? sliderButton1Left : sliderButton2Left }}
-                ></div>
+            <div style={{ width: sliderWidth }} className="slider-runway me-3" ref={sliderRunwayRef} onClick={handleRunwayClick} onMouseUp={handleMouseUp}>
+                <div className="slider-bar bg-primary" style={{ width: sliderBarWidth }}></div>
 
                 {/* 因为要展示 Tooltip，所以让一开始的 slider-button移动改成他的父组件 wrapper移动，
                     然后再把slider-button作为 Tooltip所挂载的内容
                     注意：Tooltip所挂载的元素不能有 transformY的属性，不然位置不对
                 */}
-                <div className="slider-button-wrapper1" style={{ left: sliderButton1Left }}>
-                    <Tooltip text={String(Math.round(parseFloat(sliderButton1Left) / eachPercentValue))}>
+                <div className="slider-button-wrapper1" style={{ left: sliderButtonLeft }}>
+                    <Tooltip text={String(Math.round(parseFloat(sliderButtonLeft) / eachPercentValue))}>
                         <div onMouseDown={handleBtnMouseDown} className="slider-button"></div>
                     </Tooltip>
                 </div>
-                {range && (
-                    <div className="slider-button-wrapper2" style={{ left: sliderButton2Left, backgroundColor: 'red' }}>
-                        <Tooltip text={String(Math.round(parseFloat(sliderButton2Left) / eachPercentValue))}>
-                            <div onMouseDown={(e: React.MouseEvent) => handleBtnMouseDown(e, true)} className="slider-button"></div>
-                        </Tooltip>
-                    </div>
-                )}
+
                 {step && !showInput && (
                     <div className="slider-stop-box">
                         {stops.map((item: any, index: number) => (
