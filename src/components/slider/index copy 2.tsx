@@ -3,6 +3,7 @@ import './index.scss';
 import Tooltip from 'components/adou-tooltip';
 
 interface SliderProps {
+    sliderWidth?: any;
     min?: number;
     max?: number;
     step?: number;
@@ -12,8 +13,7 @@ interface SliderProps {
     showInput?: boolean;
     onChange?: () => void;
 }
-const Slider = ({ min, max, step, value, showStops = true, showInput, onChange }: SliderProps) => {
-    const [tempValue, setTempValue] = useState(value || 0);
+const Slider = ({ range, sliderWidth, min = 0, max, step, value, showStops = true, showInput, onChange }: SliderProps) => {
     const [sliderButtonLeft, setSliderButtonLeft] = useState<any>(0);
     const [sliderBarWidth, setSliderBarWidth] = useState<any>();
     const [stops, setStops] = useState<any[]>([]);
@@ -109,18 +109,19 @@ const Slider = ({ min, max, step, value, showStops = true, showInput, onChange }
 
     return (
         <div className="slider">
-            <div className="slider-runway me-3" ref={sliderRunwayRef} onClick={handleRunwayClick} onMouseUp={handleMouseUp}>
+            <div style={{ width: sliderWidth }} className="slider-runway me-3" ref={sliderRunwayRef} onClick={handleRunwayClick} onMouseUp={handleMouseUp}>
                 <div className="slider-bar bg-primary" style={{ width: sliderBarWidth }}></div>
 
                 {/* 因为要展示 Tooltip，所以让一开始的 slider-button移动改成他的父组件 wrapper移动，
                     然后再把slider-button作为 Tooltip所挂载的内容
                     注意：Tooltip所挂载的元素不能有 transformY的属性，不然位置不对
                 */}
-                <div className="slider-button-wrapper" style={{ left: sliderButtonLeft }}>
+                <div className="slider-button-wrapper1" style={{ left: sliderButtonLeft }}>
                     <Tooltip text={String(Math.round(parseFloat(sliderButtonLeft) / eachPercentValue))}>
                         <div onMouseDown={handleBtnMouseDown} className="slider-button"></div>
                     </Tooltip>
                 </div>
+
                 {step && !showInput && (
                     <div className="slider-stop-box">
                         {stops.map((item: any, index: number) => (
