@@ -51,12 +51,16 @@ const Tooltip: React.FC<TooltipProps> = ({
       if (!isEnterTooltipRef.current) {
         setIsVisible(false);
       }
-    }, 300);
+    }, 200);
     setTimeout(() => {
       if (!isEnterTooltipRef.current) {
         setIsShow(false);
       }
-    }, 500);
+    }, 300);
+  };
+
+  const handleClick = (e: React.MouseEvent) => {
+    e.stopPropagation(); // 阻止事件的冒泡
   };
 
   /**
@@ -75,14 +79,14 @@ const Tooltip: React.FC<TooltipProps> = ({
     isEnterTooltipRef.current = false;
     setTimeout(() => {
       setIsVisible(false);
-    }, 300);
+    }, 200);
     setTimeout(() => {
       setIsShow(false);
-    }, 500);
+    }, 300);
   };
 
   return (
-    <div className={`adou-tooltip-wrapper ${wrapperClassname}`}>
+    <div className={`adou-tooltip-wrapper ${wrapperClassname || ""}`}>
       <div
         className="content"
         ref={tooltipRef}
@@ -93,6 +97,7 @@ const Tooltip: React.FC<TooltipProps> = ({
       </div>
       {text && show && isShow && (
         <div
+          onClick={handleClick}
           onMouseEnter={handleMouseEnterTooltip}
           onMouseLeave={handleMouseLeaveTooltip}
           className={`adou-tooltip ${

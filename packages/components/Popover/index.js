@@ -141,82 +141,86 @@ module.exports = function (item) {
 var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_1___default()((_node_modules_css_loader_dist_runtime_sourceMaps_js__WEBPACK_IMPORTED_MODULE_0___default()));
 // Module
 ___CSS_LOADER_EXPORT___.push([module.id, `@charset "UTF-8";
-.adou-tooltip-wrapper {
+.adou-popover-wrapper {
   position: relative;
 }
 
-.adou-tooltip {
+.adou-popover {
+  min-width: 150px;
   position: absolute;
-  background-color: #333;
-  color: #fff;
+  background-color: white;
+  color: #606266;
   padding: 5px 10px;
   border-radius: 4px;
   font-size: 14px;
   white-space: nowrap;
   opacity: 0;
   transition: opacity 0.2s ease-in-out;
+  box-shadow: 0px 0px 12px rgba(0, 0, 0, 0.12);
+  border: 1px solid #e4e7ed;
+  z-index: 1;
   /* 防止鼠标事件穿透到 Tooltip 后面的元素 */
 }
-.adou-tooltip.show-tool-tip {
+.adou-popover.show-tool-tip {
   opacity: 1;
   pointer-events: auto;
   /* 启用鼠标事件 */
 }
-.adou-tooltip.adou-tooltip-top {
+.adou-popover.adou-popover-top {
   bottom: 100%;
   left: 50%;
-  transform: translate(-50%, -10px);
+  transform: translate(-50%, -20px);
 }
-.adou-tooltip.adou-tooltip-bottom {
+.adou-popover.adou-popover-bottom {
   top: 100%;
   left: 50%;
   transform: translate(-50%, 10px);
 }
-.adou-tooltip.adou-tooltip-left {
+.adou-popover.adou-popover-left {
   right: 100%;
   top: 50%;
   transform: translate(-10px, -50%);
 }
-.adou-tooltip.adou-tooltip-right {
+.adou-popover.adou-popover-right {
   left: 100%;
   top: 50%;
   transform: translate(10px, -50%);
 }
 
-.adou-tooltip-arrow {
+.adou-popover-arrow {
   position: absolute;
   width: 0;
   height: 0;
   border-style: solid;
 }
-.adou-tooltip-arrow.adou-tooltip-arrow-top {
-  border-width: 5px 5px 0 5px;
-  border-color: #333 transparent transparent transparent;
-  bottom: -5px;
+.adou-popover-arrow.adou-popover-arrow-top {
+  border-width: 8px 8px 0 8px;
+  border-color: #fff transparent transparent transparent;
+  bottom: -8px;
   left: 50%;
   transform: translateX(-50%);
 }
-.adou-tooltip-arrow.adou-tooltip-arrow-bottom {
-  border-width: 0 5px 5px 5px;
-  border-color: transparent transparent #333 transparent;
-  top: -5px;
+.adou-popover-arrow.adou-popover-arrow-bottom {
+  border-width: 0 8px 8px 8px;
+  border-color: transparent transparent #fff transparent;
+  top: -8px;
   left: 50%;
   transform: translateX(-50%);
 }
-.adou-tooltip-arrow.adou-tooltip-arrow-left {
-  border-width: 5px 0 5px 5px;
-  border-color: transparent transparent transparent #333;
-  right: -5px;
+.adou-popover-arrow.adou-popover-arrow-left {
+  border-width: 8px 0 8px 8px;
+  border-color: transparent transparent transparent #fff;
+  right: -8px;
   top: 50%;
   transform: translateY(-50%);
 }
-.adou-tooltip-arrow.adou-tooltip-arrow-right {
-  border-width: 5px 5px 5px 0;
-  border-color: transparent #333 transparent transparent;
-  left: -5px;
+.adou-popover-arrow.adou-popover-arrow-right {
+  border-width: 8px 8px 8px 0;
+  border-color: transparent #fff transparent transparent;
+  left: -8px;
   top: 50%;
   transform: translateY(-50%);
-}`, "",{"version":3,"sources":["webpack://./src/index.scss"],"names":[],"mappings":"AAAA,gBAAgB;AAAhB;EACE,kBAAA;AAEF;;AACA;EACE,kBAAA;EACA,sBAAA;EACA,WAAA;EACA,iBAAA;EACA,kBAAA;EACA,eAAA;EACA,mBAAA;EACA,UAAA;EACA,oCAAA;EAEA,4BAAA;AACF;AACE;EACE,UAAA;EACA,oBAAA;EACA,WAAA;AACJ;AAEE;EACE,YAAA;EACA,SAAA;EACA,iCAAA;AAAJ;AAGE;EACE,SAAA;EACA,SAAA;EACA,gCAAA;AADJ;AAIE;EACE,WAAA;EACA,QAAA;EACA,iCAAA;AAFJ;AAKE;EACE,UAAA;EACA,QAAA;EACA,gCAAA;AAHJ;;AAOA;EACE,kBAAA;EACA,QAAA;EACA,SAAA;EACA,mBAAA;AAJF;AAME;EACE,2BAAA;EACA,sDAAA;EACA,YAAA;EACA,SAAA;EACA,2BAAA;AAJJ;AAOE;EACE,2BAAA;EACA,sDAAA;EACA,SAAA;EACA,SAAA;EACA,2BAAA;AALJ;AAQE;EACE,2BAAA;EACA,sDAAA;EACA,WAAA;EACA,QAAA;EACA,2BAAA;AANJ;AASE;EACE,2BAAA;EACA,sDAAA;EACA,UAAA;EACA,QAAA;EACA,2BAAA;AAPJ","sourcesContent":[".adou-tooltip-wrapper {\r\n  position: relative;\r\n}\r\n\r\n.adou-tooltip {\r\n  position: absolute;\r\n  background-color: #333;\r\n  color: #fff;\r\n  padding: 5px 10px;\r\n  border-radius: 4px;\r\n  font-size: 14px;\r\n  white-space: nowrap;\r\n  opacity: 0;\r\n  transition: opacity 0.2s ease-in-out;\r\n  // pointer-events: none;\r\n  /* 防止鼠标事件穿透到 Tooltip 后面的元素 */\r\n\r\n  &.show-tool-tip {\r\n    opacity: 1;\r\n    pointer-events: auto;\r\n    /* 启用鼠标事件 */\r\n  }\r\n\r\n  &.adou-tooltip-top {\r\n    bottom: 100%;\r\n    left: 50%;\r\n    transform: translate(-50%, -10px);\r\n  }\r\n\r\n  &.adou-tooltip-bottom {\r\n    top: 100%;\r\n    left: 50%;\r\n    transform: translate(-50%, 10px);\r\n  }\r\n\r\n  &.adou-tooltip-left {\r\n    right: 100%;\r\n    top: 50%;\r\n    transform: translate(-10px, -50%);\r\n  }\r\n\r\n  &.adou-tooltip-right {\r\n    left: 100%;\r\n    top: 50%;\r\n    transform: translate(10px, -50%);\r\n  }\r\n}\r\n\r\n.adou-tooltip-arrow {\r\n  position: absolute;\r\n  width: 0;\r\n  height: 0;\r\n  border-style: solid;\r\n\r\n  &.adou-tooltip-arrow-top {\r\n    border-width: 5px 5px 0 5px;\r\n    border-color: #333 transparent transparent transparent;\r\n    bottom: -5px;\r\n    left: 50%;\r\n    transform: translateX(-50%);\r\n  }\r\n\r\n  &.adou-tooltip-arrow-bottom {\r\n    border-width: 0 5px 5px 5px;\r\n    border-color: transparent transparent #333 transparent;\r\n    top: -5px;\r\n    left: 50%;\r\n    transform: translateX(-50%);\r\n  }\r\n\r\n  &.adou-tooltip-arrow-left {\r\n    border-width: 5px 0 5px 5px;\r\n    border-color: transparent transparent transparent #333;\r\n    right: -5px;\r\n    top: 50%;\r\n    transform: translateY(-50%);\r\n  }\r\n\r\n  &.adou-tooltip-arrow-right {\r\n    border-width: 5px 5px 5px 0;\r\n    border-color: transparent #333 transparent transparent;\r\n    left: -5px;\r\n    top: 50%;\r\n    transform: translateY(-50%);\r\n  }\r\n}"],"sourceRoot":""}]);
+}`, "",{"version":3,"sources":["webpack://./src/index.scss"],"names":[],"mappings":"AAAA,gBAAgB;AAAhB;EACE,kBAAA;AAEF;;AACA;EACE,gBAAA;EACA,kBAAA;EACA,uBAAA;EACA,cAAA;EACA,iBAAA;EACA,kBAAA;EACA,eAAA;EACA,mBAAA;EACA,UAAA;EACA,oCAAA;EACA,4CAAA;EACA,yBAAA;EACA,UAAA;EAEA,4BAAA;AACF;AACE;EACE,UAAA;EACA,oBAAA;EACA,WAAA;AACJ;AAEE;EACE,YAAA;EACA,SAAA;EACA,iCAAA;AAAJ;AAGE;EACE,SAAA;EACA,SAAA;EACA,gCAAA;AADJ;AAIE;EACE,WAAA;EACA,QAAA;EACA,iCAAA;AAFJ;AAKE;EACE,UAAA;EACA,QAAA;EACA,gCAAA;AAHJ;;AAOA;EACE,kBAAA;EACA,QAAA;EACA,SAAA;EACA,mBAAA;AAJF;AAME;EACE,2BAAA;EACA,sDAAA;EACA,YAAA;EACA,SAAA;EACA,2BAAA;AAJJ;AAOE;EACE,2BAAA;EACA,sDAAA;EACA,SAAA;EACA,SAAA;EACA,2BAAA;AALJ;AAQE;EACE,2BAAA;EACA,sDAAA;EACA,WAAA;EACA,QAAA;EACA,2BAAA;AANJ;AASE;EACE,2BAAA;EACA,sDAAA;EACA,UAAA;EACA,QAAA;EACA,2BAAA;AAPJ","sourcesContent":[".adou-popover-wrapper {\r\n  position: relative;\r\n}\r\n\r\n.adou-popover {\r\n  min-width: 150px;\r\n  position: absolute;\r\n  background-color: white;\r\n  color: #606266;\r\n  padding: 5px 10px;\r\n  border-radius: 4px;\r\n  font-size: 14px;\r\n  white-space: nowrap;\r\n  opacity: 0;\r\n  transition: opacity 0.2s ease-in-out;\r\n  box-shadow: 0px 0px 12px rgba(0, 0, 0, .12);\r\n  border: 1px solid #e4e7ed;\r\n  z-index: 1;\r\n  // pointer-events: none;\r\n  /* 防止鼠标事件穿透到 Tooltip 后面的元素 */\r\n\r\n  &.show-tool-tip {\r\n    opacity: 1;\r\n    pointer-events: auto;\r\n    /* 启用鼠标事件 */\r\n  }\r\n\r\n  &.adou-popover-top {\r\n    bottom: 100%;\r\n    left: 50%;\r\n    transform: translate(-50%, -20px);\r\n  }\r\n\r\n  &.adou-popover-bottom {\r\n    top: 100%;\r\n    left: 50%;\r\n    transform: translate(-50%, 10px);\r\n  }\r\n\r\n  &.adou-popover-left {\r\n    right: 100%;\r\n    top: 50%;\r\n    transform: translate(-10px, -50%);\r\n  }\r\n\r\n  &.adou-popover-right {\r\n    left: 100%;\r\n    top: 50%;\r\n    transform: translate(10px, -50%);\r\n  }\r\n}\r\n\r\n.adou-popover-arrow {\r\n  position: absolute;\r\n  width: 0;\r\n  height: 0;\r\n  border-style: solid;\r\n\r\n  &.adou-popover-arrow-top {\r\n    border-width: 8px 8px 0 8px;\r\n    border-color: #fff transparent transparent transparent;\r\n    bottom: -8px;\r\n    left: 50%;\r\n    transform: translateX(-50%);\r\n  }\r\n\r\n  &.adou-popover-arrow-bottom {\r\n    border-width: 0 8px 8px 8px;\r\n    border-color: transparent transparent #fff transparent;\r\n    top: -8px;\r\n    left: 50%;\r\n    transform: translateX(-50%);\r\n  }\r\n\r\n  &.adou-popover-arrow-left {\r\n    border-width: 8px 0 8px 8px;\r\n    border-color: transparent transparent transparent #fff;\r\n    right: -8px;\r\n    top: 50%;\r\n    transform: translateY(-50%);\r\n  }\r\n\r\n  &.adou-popover-arrow-right {\r\n    border-width: 8px 8px 8px 0;\r\n    border-color: transparent #fff transparent transparent;\r\n    left: -8px;\r\n    top: 50%;\r\n    transform: translateY(-50%);\r\n  }\r\n}"],"sourceRoot":""}]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 
@@ -615,34 +619,65 @@ var update = injectStylesIntoStyleTag_default()(cjs_ruleSet_1_rules_1_use_2_src/
 
        /* harmony default export */ const src = (cjs_ruleSet_1_rules_1_use_2_src/* default */.A && cjs_ruleSet_1_rules_1_use_2_src/* default */.A.locals ? cjs_ruleSet_1_rules_1_use_2_src/* default */.A.locals : undefined);
 
+;// CONCATENATED MODULE: ./src/utils/useClickOutside.js
+
+const useClickOutside = function (refs, callback) {
+  let enabled = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : true;
+  let params = arguments.length > 3 ? arguments[3] : undefined;
+  (0,external_root_React_commonjs2_react_commonjs_react_amd_react_.useEffect)(() => {
+    const judge = event => {
+      return refs.some(ref => {
+        var _ref$current;
+        return (_ref$current = ref.current) === null || _ref$current === void 0 ? void 0 : _ref$current.contains(event.target);
+      });
+    };
+    const handleClickOutside = event => {
+      if (enabled && refs.length && !judge(event)) {
+        callback && callback();
+      }
+    };
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, [refs, callback, enabled]);
+};
+/* harmony default export */ const utils_useClickOutside = (useClickOutside);
 ;// CONCATENATED MODULE: ./src/index.tsx
 
  // 引入样式文件
 
-const Tooltip = _ref => {
+const Popover = /*#__PURE__*/(0,external_root_React_commonjs2_react_commonjs_react_amd_react_.forwardRef)((_ref, ref) => {
   let {
     show = true,
-    text,
+    content,
     position = "top",
     children,
     bgc,
     color,
     borderColor,
-    wrapperClassname
+    wrapperClassname,
+    onClose
   } = _ref;
   const [isShow, setIsShow] = (0,external_root_React_commonjs2_react_commonjs_react_amd_react_.useState)(false);
+
+  // 用来实现外部传来的show参与到控制是否展示的逻辑中来(偏业务逻辑了)
+  //  不能用 isShow是因为 isShow是异步的。。
+  const isShowRef = (0,external_root_React_commonjs2_react_commonjs_react_amd_react_.useRef)(show);
   const [isVisible, setIsVisible] = (0,external_root_React_commonjs2_react_commonjs_react_amd_react_.useState)(false); // 用来实现当鼠标进入提示区域可以让提示存在的效果
-  const tooltipRef = (0,external_root_React_commonjs2_react_commonjs_react_amd_react_.useRef)(null);
+  const popoverRef = (0,external_root_React_commonjs2_react_commonjs_react_amd_react_.useRef)(null);
   // ！！！用来记录鼠标是否进入提示区域
   //       当鼠标离开内容区域的时候，去判断是否进入了提示区域，如果进入，则不隐藏提示文字
-  const isEnterTooltipRef = (0,external_root_React_commonjs2_react_commonjs_react_amd_react_.useRef)(false);
+  const isEnterPopoverRef = (0,external_root_React_commonjs2_react_commonjs_react_amd_react_.useRef)(false);
   const enterTimeoutRef = (0,external_root_React_commonjs2_react_commonjs_react_amd_react_.useRef)(null);
-  const handleMouseEnter = () => {
+  const handleContentClick = () => {
+    if (isVisible) return; // 防止此时Popover已经展示，再点击关闭后会立马又展示
     // 进入的时候，如果存在定时器，也清除掉
     if (enterTimeoutRef.current) {
       clearTimeout(enterTimeoutRef.current);
     }
     enterTimeoutRef.current = setTimeout(() => {
+      if (!isShowRef.current) return; // 如果外边的不想展示，则在这里return，不继续执行展示逻辑
       setIsShow(true);
       setTimeout(() => {
         setIsVisible(true);
@@ -654,12 +689,12 @@ const Tooltip = _ref => {
       clearTimeout(enterTimeoutRef.current);
     }
     setTimeout(() => {
-      if (!isEnterTooltipRef.current) {
+      if (!isEnterPopoverRef.current) {
         setIsVisible(false);
       }
     }, 200);
     setTimeout(() => {
-      if (!isEnterTooltipRef.current) {
+      if (!isEnterPopoverRef.current) {
         setIsShow(false);
       }
     }, 300);
@@ -671,35 +706,49 @@ const Tooltip = _ref => {
   /**
    * 用来实现当鼠标进入提示区域可以让提示存在的效果
    */
-  const handleMouseEnterTooltip = () => {
-    isEnterTooltipRef.current = true;
+  const handleMouseEnterPopover = () => {
+    isEnterPopoverRef.current = true;
     // 如果当前是显示状态才能设置isVisible为true，不然鼠标移到提示区域也会展示
     setIsVisible(true);
     setTimeout(() => {
       setIsShow(true);
     }, 400);
   };
-  const handleMouseLeaveTooltip = () => {
-    isEnterTooltipRef.current = false;
+  const handleClosePopover = () => {
+    isEnterPopoverRef.current = false;
     setTimeout(() => {
       setIsVisible(false);
     }, 200);
     setTimeout(() => {
       setIsShow(false);
+      onClose && onClose();
     }, 300);
   };
+  utils_useClickOutside([popoverRef], handleClosePopover, isVisible && isShow && Boolean(popoverRef.current), {
+    isVisible,
+    isShow,
+    show,
+    ref: Boolean(popoverRef.current)
+  });
+  (0,external_root_React_commonjs2_react_commonjs_react_amd_react_.useImperativeHandle)(ref, () => ({
+    handleClose: handleClosePopover
+  }));
+  (0,external_root_React_commonjs2_react_commonjs_react_amd_react_.useEffect)(() => {
+    isShowRef.current = show;
+  }, [show]);
   return /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("div", {
-    className: "adou-tooltip-wrapper ".concat(wrapperClassname || "")
+    className: "adou-popover-wrapper ".concat(wrapperClassname || "")
   }, /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("div", {
     className: "content",
-    ref: tooltipRef,
-    onMouseEnter: handleMouseEnter,
-    onMouseLeave: handleMouseLeave
-  }, children), text && show && isShow && /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("div", {
+    onClick: handleContentClick
+    // onMouseLeave={handleMouseLeave}
+  }, children), content && isShow && /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("div", {
+    ref: popoverRef,
     onClick: handleClick,
-    onMouseEnter: handleMouseEnterTooltip,
-    onMouseLeave: handleMouseLeaveTooltip,
-    className: "adou-tooltip ".concat(isVisible ? "show-tool-tip" : "", " adou-tooltip-").concat(position),
+    onMouseEnter: handleMouseEnterPopover
+    // onMouseLeave={handleClosePopover}
+    ,
+    className: "adou-popover ".concat(isVisible ? "show-tool-tip" : "", " adou-popover-").concat(position),
     style: {
       backgroundColor: bgc,
       color: color
@@ -708,10 +757,10 @@ const Tooltip = _ref => {
     style: {
       borderColor: "transparent transparent ".concat(borderColor, " transparent")
     },
-    className: "adou-tooltip-arrow adou-tooltip-arrow-".concat(position)
-  }), text));
-};
-/* harmony default export */ const src_0 = (Tooltip);
+    className: "adou-popover-arrow adou-popover-arrow-".concat(position)
+  }), content));
+});
+/* harmony default export */ const src_0 = (Popover);
 })();
 
 /******/ 	return __webpack_exports__;
