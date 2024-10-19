@@ -2810,6 +2810,8 @@ var update = injectStylesIntoStyleTag_default()(cjs_ruleSet_1_rules_1_use_2_src/
 
 const Table = props => {
   const {
+    ref,
+    activeId,
     maxWidth,
     showIndex = true,
     single = true,
@@ -3159,6 +3161,12 @@ const Table = props => {
     };
     setTableData(updateCheckedState(tabelData));
   };
+  const handleClearChecked = () => {
+    setTableData(preData => preData.map(item => {
+      item.checked = false;
+      return item;
+    }));
+  };
   (0,external_root_React_commonjs2_react_commonjs_react_amd_react_.useEffect)(() => {
     const checkedAll = areAllChecked(data);
     setCheckedAll(checkedAll);
@@ -3171,6 +3179,19 @@ const Table = props => {
       setTableData(data);
     }
   }, [data]);
+  (0,external_root_React_commonjs2_react_commonjs_react_amd_react_.useEffect)(() => {
+    setTableData(preData => preData.map(item => {
+      if (item[id] === activeId) {
+        item.checked = true;
+      } else {
+        item.checked = false;
+      }
+      return item;
+    }));
+  }, [activeId]);
+  (0,external_root_React_commonjs2_react_commonjs_react_amd_react_.useImperativeHandle)(ref, () => ({
+    clearChecked: handleClearChecked
+  }));
   return /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement((external_root_React_commonjs2_react_commonjs_react_amd_react_default()).Fragment, null, /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("div", {
     style: {
       minHeight: minHeight,

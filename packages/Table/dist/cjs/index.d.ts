@@ -9,6 +9,8 @@ declare const _default: React.ComponentType<Omit<{
     eidtable?: boolean | undefined;
     textPosition?: "center" | "left" | "right" | "justify" | undefined;
     onEditOK?: ((data: any) => void) | undefined;
+    ref?: any;
+    activeId?: number | undefined;
     showIndex?: boolean | undefined;
     single?: boolean | undefined;
     id?: string | undefined;
@@ -35,5 +37,6 @@ declare const _default: React.ComponentType<Omit<{
     maxHeight?: string | undefined;
     minHeight?: string | undefined;
     onRowDoubleClick?: ((row: any) => void) | undefined;
+    onClearSelected?: (() => void) | undefined;
 }, keyof import("react-i18next").WithTranslation<N, undefined>> & import("react-i18next").WithTranslationProps>;
 export default _default;

@@ -1,12 +1,13 @@
 import classNames from "classnames";
-import React, { Fragment, useEffect, useState } from "react";
+import React, { Fragment, useEffect, useImperativeHandle, useState } from "react";
 import { withTranslation } from "react-i18next";
 import TableCell from "./TableCell";
 import "./index.scss";
 
 export { TableCell };
-
 interface TableProps {
+  ref?: any;
+  activeId?: number;
   maxWidth?: any;
   showIndex?: boolean;
   single?: boolean;
@@ -39,10 +40,13 @@ interface TableProps {
   minHeight?: string;
   onEditOK?: (data: any) => void;
   onRowDoubleClick?: (row: any) => void;
+  onClearSelected?: () => void;
 }
 
 const Table = (props: TableProps) => {
   const {
+    ref,
+    activeId,
     maxWidth,
     showIndex = true,
     single = true,
@@ -480,6 +484,15 @@ const Table = (props: TableProps) => {
     setTableData(updateCheckedState(tabelData) as any);
   };
 
+  const handleClearChecked = () => {
+    setTableData((preData: any) =>
+      preData.map((item: any) => {
+        item.checked = false;
+        return item;
+      })
+    );
+  };
+
   useEffect(() => {
     const checkedAll = areAllChecked(data);
     setCheckedAll(checkedAll);
@@ -494,6 +507,23 @@ const Table = (props: TableProps) => {
       setTableData(data);
     }
   }, [data]);
+
+  useEffect(() => {
+    setTableData((preData: any) =>
+      preData.map((item: any) => {
+        if (item[id] === activeId) {
+          item.checked = true;
+        } else {
+          item.checked = false;
+        }
+        return item;
+      })
+    );
+  }, [activeId]);
+
+  useImperativeHandle(ref, () => ({
+    clearChecked: handleClearChecked,
+  }));
 
   return (
     <>
