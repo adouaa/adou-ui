@@ -32,21 +32,19 @@ const Slider = ({ marks, range, sliderWidth, min = 0, max, step, value, showStop
     const isButton2MoveRef = useRef<boolean>(false); // 记录是否点击的是第二个按钮
 
     // 按钮点击后，按钮移动的逻辑
-    const btnMoveHandler = (moveEvent: MouseEvent, sliderRect: any, isButton2?: boolean) => {
+    const btnMoveHandler = (moveEvent: MouseEvent, sliderRect: any, isTwo?: boolean) => {
         const offsetX = moveEvent.clientX - sliderRect.left;
         if (step && !showInput) {
             calculateByStep(offsetX, sliderRect);
         } else {
             const newValue = Math.max(0, Math.min(offsetX / sliderRect.width, 1)) * 100 + '%';
-            isButton2 ? setSliderButton2Left(newValue) : setSliderButton1Left(newValue);
+            isTwo ? setSliderButton2Left(newValue) : setSliderButton1Left(newValue);
             if (!range) {
                 setSliderBarWidth(newValue);
                 setInputValue(Math.round(parseFloat(newValue) / eachPercentValue));
             }
         }
     };
-    // 通过计算求得当前点击的比值更靠近那个step
-    // eg：24 / 10 = 2余数4，然后通过四舍五入可得更靠近2，然后用 2 * eachStepPercent求得值
     const calculateByStep = (offsetX: number, sliderRect: any) => {
         const percent = (offsetX / sliderRect.width) * 100;
         const stepPercent = percent / parseFloat(step! + '%');
@@ -57,44 +55,36 @@ const Slider = ({ marks, range, sliderWidth, min = 0, max, step, value, showStop
         }
     };
     const handleRunwayClick = (e: any) => {
-        // 以一个作为主要研究对象，所以isButton2为false
-        // 因为之前的判断都是针对 sliderButton2，所以这边的变量是 isButton2
+        console.log('runway', sliderRunwayRef.current.getBoundingClientRect().width);
+
         e.preventDefault();
         const sliderRect = sliderRunwayRef.current.getBoundingClientRect();
         const offsetX = e.clientX - sliderRect.left;
-        const newValue = (offsetX / sliderRect.width) * 100 + '%';
+
         if (range) {
             const sliderRunwayRect = sliderRunwayRef.current.getBoundingClientRect();
             const clickedPercent = offsetX / sliderRunwayRect.width;
             // 判断点击的距离在 sliderRunWay 中距离当前点击点最近的那个位置
             // 相减求绝对值(记得 除以 100！！！)
-            if (Math.abs(clickedPercent - parseFloat(sliderButton1Left) / 100) > Math.abs(clickedPercent - parseFloat(sliderButton2Left) / 100)) {
-                isButton2MoveRef.current = true;
-                if (step && !showInput) {
-                    calculateByStep(offsetX, sliderRect);
-                } else {
-                    setSliderButton2Left(newValue);
-                }
+            if (Math.abs(clickedPercent - parseFloat(sliderButton1Left) / 100) < Math.abs(clickedPercent - parseFloat(sliderButton2Left) / 100)) {
+                console.log('左边更近: ');
             } else {
-                isButton2MoveRef.current = false;
-                if (step && !showInput) {
-                    calculateByStep(offsetX, sliderRect);
-                } else {
-                    setSliderButton1Left(newValue);
-                }
+                console.log('右边更近: ');
             }
+        }
+        if (step && !showInput) {
+            // 通过计算求得当前点击的比值更靠近那个step
+            // eg：24 / 10 = 2余数4，然后通过四舍五入可得更靠近2，然后用 2 * eachStepPercent求得值
+            calculateByStep(offsetX, sliderRect);
         } else {
-            if (step && !showInput) {
-                calculateByStep(offsetX, sliderRect);
-            } else {
-                isButton2MoveRef.current ? setSliderButton2Left(newValue) : setSliderButton1Left(newValue);
-                !range && setSliderBarWidth(newValue);
-                setInputValue(Math.round(parseFloat(newValue) / eachPercentValue));
-            }
+            const newValue = (offsetX / sliderRect.width) * 100 + '%';
+            isButton2MoveRef.current ? setSliderButton2Left(newValue) : setSliderButton1Left(newValue);
+            !range && setSliderBarWidth(newValue);
+            setInputValue(Math.round(parseFloat(newValue) / eachPercentValue));
         }
 
         const bindMouseDownHandler = (mouseEvent: MouseEvent) => {
-            btnMoveHandler(mouseEvent, sliderRect, isButton2MoveRef.current);
+            btnMoveHandler(mouseEvent, sliderRect, false);
         };
 
         const btnUpHandler = () => {
@@ -106,14 +96,14 @@ const Slider = ({ marks, range, sliderWidth, min = 0, max, step, value, showStop
         window.addEventListener('mouseup', btnUpHandler);
     };
 
-    const handleBtnMouseDown = (e: React.MouseEvent, isButton2?: boolean) => {
+    const handleBtnMouseDown = (e: React.MouseEvent, isTwo?: boolean) => {
         // 确保事件不冒泡。如果冒泡到 runway的mousedown事件，会导致 isTwo一个为true，一个为false(runway)
         e.stopPropagation();
-        isButton2MoveRef.current = isButton2!;
+        isButton2MoveRef.current = isTwo!;
         const sliderRect = sliderRunwayRef.current.getBoundingClientRect();
 
         const bindMouseDownHandler = (mouseEvent: MouseEvent) => {
-            btnMoveHandler(mouseEvent, sliderRect, isButton2);
+            btnMoveHandler(mouseEvent, sliderRect, isTwo);
         };
 
         const btnUpHandler = () => {
