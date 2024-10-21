@@ -1,5 +1,11 @@
 .adou-tooltip-wrapper {
   position: relative;
+  width: fit-content;
+
+  .content {
+    width: fit-content;
+
+  }
 }
 
 .adou-tooltip {
@@ -11,12 +17,17 @@
   font-size: 14px;
   white-space: nowrap;
   opacity: 0;
-  transition: opacity 0.2s ease-in-out;
+  transform: scale(0);
+  /* 初始状态为缩小 */
+  transition: opacity 0.2s ease-in-out, transform 0.2s ease-in-out;
+  /* 添加 transform 过渡效果 */
   // pointer-events: none;
   /* 防止鼠标事件穿透到 Tooltip 后面的元素 */
+  z-index: 10000;
 
   &.show-tool-tip {
     opacity: 1;
+    /* 显示时放大 */
     pointer-events: auto;
     /* 启用鼠标事件 */
   }
@@ -24,25 +35,49 @@
   &.adou-tooltip-top {
     bottom: 100%;
     left: 50%;
-    transform: translate(-50%, -10px);
+    transform: translate(-50%, -10px) scale(0);
+    /* 初始状态为缩小 */
+
+    &.show-tool-tip {
+      transform: translate(-50%, -10px) scale(1);
+      /* 显示时放大 */
+    }
   }
 
   &.adou-tooltip-bottom {
     top: 100%;
     left: 50%;
-    transform: translate(-50%, 10px);
+    transform: translate(-50%, 10px) scale(0);
+    /* 初始状态为缩小 */
+
+    &.show-tool-tip {
+      transform: translate(-50%, 10px) scale(1);
+      /* 显示时放大 */
+    }
   }
 
   &.adou-tooltip-left {
     right: 100%;
     top: 50%;
-    transform: translate(-10px, -50%);
+    transform: translate(-10px, -50%) scale(0);
+    /* 初始状态为缩小 */
+
+    &.show-tool-tip {
+      transform: translate(-10px, -50%) scale(1);
+      /* 显示时放大 */
+    }
   }
 
   &.adou-tooltip-right {
     left: 100%;
     top: 50%;
-    transform: translate(10px, -50%);
+    transform: translate(10px, -50%) scale(0);
+    /* 初始状态为缩小 */
+
+    &.show-tool-tip {
+      transform: translate(10px, -50%) scale(1);
+      /* 显示时放大 */
+    }
   }
 }
 

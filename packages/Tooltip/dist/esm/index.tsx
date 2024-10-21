@@ -2,6 +2,8 @@ import React, { useState, useRef, useEffect } from "react";
 import "./index.scss"; // 引入样式文件
 
 interface TooltipProps {
+  flex?: boolean;
+  mustShow?: boolean; // 用来支持Slider的鼠标不在RunWay上面的时候也会展示提示
   show?: boolean;
   text: string;
   position?: "top" | "bottom" | "left" | "right";
@@ -13,6 +15,8 @@ interface TooltipProps {
 }
 
 const Tooltip: React.FC<TooltipProps> = ({
+  flex,
+  mustShow,
   show = true,
   text,
   position = "top",
@@ -44,6 +48,7 @@ const Tooltip: React.FC<TooltipProps> = ({
   };
 
   const handleMouseLeave = () => {
+    if (mustShow) return;
     if (enterTimeoutRef.current) {
       clearTimeout(enterTimeoutRef.current);
     }
@@ -76,6 +81,7 @@ const Tooltip: React.FC<TooltipProps> = ({
   };
 
   const handleMouseLeaveTooltip = () => {
+    if (mustShow) return;
     isEnterTooltipRef.current = false;
     setTimeout(() => {
       setIsVisible(false);
@@ -85,8 +91,22 @@ const Tooltip: React.FC<TooltipProps> = ({
     }, 300);
   };
 
+  useEffect(() => {
+    if (mustShow) {
+      console.log("if: ", mustShow);
+      handleMouseEnter();
+    } else {
+      console.log("else: ", mustShow);
+
+      handleMouseLeave();
+    }
+  }, [mustShow]);
+
   return (
-    <div className={`adou-tooltip-wrapper ${wrapperClassname || ""}`}>
+    <div
+      className={`adou-tooltip-wrapper ${wrapperClassname || ""}`}
+      style={{ ...(flex ? { flex: 1 } : {}) }}
+    >
       <div
         className="content"
         ref={tooltipRef}

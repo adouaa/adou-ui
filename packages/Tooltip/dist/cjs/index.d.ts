@@ -1,6 +1,8 @@
 import React from "react";
 import "./index.scss";
 interface TooltipProps {
+    flex?: boolean;
+    mustShow?: boolean;
     show?: boolean;
     text: string;
     position?: "top" | "bottom" | "left" | "right";

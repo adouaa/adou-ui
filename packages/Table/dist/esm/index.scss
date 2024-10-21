@@ -3,6 +3,52 @@
     scrollbar-width: thin; // 设置滚动条宽度为 thin
     scrollbar-color: #ccc #f5f5f5; // 设置滚动条颜色
 
+    .header-content {
+
+        /* styles.css */
+        /* styles.scss */
+        .header-icon {
+            display: inline-flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            width: auto;
+            /* 宽度自适应 */
+
+            .icon {
+                width: 0;
+                /* 箭头的宽度 */
+                height: 0;
+                /* 箭头的高度 */
+                margin: 1.6px 0;
+                /* 调整上下间距 */
+                border-left: 6px solid transparent;
+                /* 箭头的左边 */
+                border-right: 6px solid transparent;
+                /* 箭头的右边 */
+                cursor: pointer;
+                transition: all 0.3s ease;
+                /* 添加过渡效果 */
+                border-radius: 3px;
+
+                &.sort-up {
+                    // border-bottom: 7px solid #000; /* 向上的箭头 */
+                }
+
+                &.sort-down {
+                    // border-top: 7px solid #000; /* 向下的箭头 */
+                }
+
+                &.sort-up:hover,
+                &.sort-down:hover {
+                    transform: scale(1.2);
+                }
+            }
+        }
+
+
+    }
+
     // Webkit 滚动条样式
     &::-webkit-scrollbar {
         width: 8px; // 设置垂直滚动条宽度
@@ -22,8 +68,11 @@
         background: #aaa; // 设置滚动条滑块悬停颜色
     }
 
+
+
     .collapse-table-td {
-        display: flex;
+        display: inline-block;
+        // display: flex;
         justify-content: center;
         align-items: center;
         // line-height: 0.8;

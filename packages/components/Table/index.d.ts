@@ -4,6 +4,7 @@ import "./index.scss";
 export { TableCell };
 declare const _default: React.ComponentType<Omit<{
     data: any;
+    collapse?: boolean | undefined;
     maxWidth?: any;
     children?: any;
     eidtable?: boolean | undefined;
@@ -16,10 +17,9 @@ declare const _default: React.ComponentType<Omit<{
     id?: string | undefined;
     trPointer?: boolean | undefined;
     collection?: boolean | undefined;
-    collapse?: boolean | undefined;
     expandAll?: boolean | undefined;
     size?: "lg" | "sm" | undefined;
-    headLabels?: any;
+    headers?: any;
     propsData?: any;
     tableHover?: boolean | undefined;
     tableStriped?: boolean | undefined;
