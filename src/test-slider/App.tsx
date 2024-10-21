@@ -6,12 +6,18 @@ const App = () => {
     const [singleValue, setSingleValue] = useState(50);
     const [rangeValues, setRangeValues] = useState([20, 80]);
 
+    const handleChange1 = (value: any, percent: any) => {
+        console.log('🚀 ~ handleChange ~ value:', value);
+        console.log('🚀 ~ handleChange ~ percent:', percent);
+    };
+
     return (
         <div className="p-3">
             <TagInput></TagInput>
             <h1>Custom Slider Component</h1>
             <h2>Single Value Slider</h2>
             <Slider
+                onChange={handleChange1}
                 sliderWidth={'800px'}
                 marks={[
                     { distance: '4%', label: '40°' },
@@ -29,9 +35,9 @@ const App = () => {
                 showInput
                 value={singleValue}
             />
-            <Slider sliderWidth={'800px'} max={100} showInput value={singleValue} />
+            <Slider onChange={handleChange1} sliderWidth={'800px'} max={80} showInput value={singleValue} />
             <h2>Range Slider</h2>
-            <Slider min={0} max={100} showStops={true} step={10} value={rangeValues} range />
+            <Slider onChange={handleChange1} min={0} max={100} showStops={true} step={10} value={rangeValues} range />
         </div>
     );
 };

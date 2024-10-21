@@ -1,0 +1,39 @@
+/* styles.scss */
+.sortable-icon {
+    display: inline-flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: auto;
+    /* 宽度自适应 */
+
+    .icon {
+        width: 0;
+        /* 箭头的宽度 */
+        height: 0;
+        /* 箭头的高度 */
+        margin: 1.6px 0;
+        /* 调整上下间距 */
+        border-left: 6px solid transparent;
+        /* 箭头的左边 */
+        border-right: 6px solid transparent;
+        /* 箭头的右边 */
+        cursor: pointer;
+        transition: all 0.3s ease;
+        /* 添加过渡效果 */
+        border-radius: 3px;
+
+        &.sort-up {
+            // border-bottom: 7px solid #000; /* 向上的箭头 */
+        }
+
+        &.sort-down {
+            // border-top: 7px solid #000; /* 向下的箭头 */
+        }
+
+        &.sort-up:hover,
+        &.sort-down:hover {
+            transform: scale(1.2);
+        }
+    }
+}

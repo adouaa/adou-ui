@@ -1,9 +1,8 @@
 import classNames from 'classnames';
-import React, { Fragment, ReactElement, useEffect, useImperativeHandle, useState } from 'react';
+import React, { Fragment, useEffect, useImperativeHandle, useState } from 'react';
 import { withTranslation } from 'react-i18next';
 import EditableTableCell from './adou-editableTableCell';
 import './index.scss';
-import Tooltip from 'components/adou-tooltip';
 
 export { EditableTableCell };
 interface TableProps {
@@ -132,7 +131,8 @@ const Table = (props: TableProps) => {
         }
     };
 
-    // 排序的逻辑--坑：一定要使用 [...preArr].sort，不能直接preArr.sort，这样会影响原来的数据，有Bug！！！
+    // 排序的逻辑
+    // 排序的逻辑
     const handleSortable = (prop: string, isDown?: boolean) => {
         setTableHeaders((preArr: any) =>
             preArr.map((item: any) => {
@@ -142,10 +142,9 @@ const Table = (props: TableProps) => {
                         item.isUp = false;
                         // 需要降序排序
                         if (item.isDown) {
-                            console.log('down: ');
                             setTableData((preArr: any) => [...preArr].sort((a: any, b: any) => (a[prop] < b[prop] ? 1 : -1)));
                         } else {
-                            setTableData(data);
+                            setTableData(originalTableData);
                         }
                     } else {
                         item.isUp = !item.isUp;
@@ -154,19 +153,13 @@ const Table = (props: TableProps) => {
                         if (item.isUp) {
                             setTableData((preArr: any) => [...preArr].sort((a: any, b: any) => (a[prop] > b[prop] ? 1 : -1)));
                         } else {
-                            setTableData(data);
+                            setTableData(originalTableData);
                         }
                     }
                 }
                 return item;
             })
         );
-
-        // setTableData((preArr: any) => preArr.sort((a: any, b: any) => (a[prop] > b[prop] ? 1 : -1)));
-        /* if (isDown) {
-        const findItem = tableHeaders.find((item: any) => item.prop === prop);
-
-        } */
     };
 
     // 渲染折叠的子组件
@@ -301,7 +294,6 @@ const Table = (props: TableProps) => {
                                         {React.Children.map(array, (child, colIndex) => {
                                             let prop = (child as React.ReactElement).props.prop;
                                             if (React.isValidElement(child)) {
-                                                const newChild = child as React.ReactElement;
                                                 const enhancedChild = React.cloneElement(child, {
                                                     onCollapseClick: handleCollapseClick,
                                                     isParent: !colIndex && collapse && data.children,
@@ -314,8 +306,7 @@ const Table = (props: TableProps) => {
                                                     canCollapse: data.children,
                                                     collapse: data.collapse,
                                                     textPosition,
-                                                    width: widthObject[newChild.props.prop],
-                                                    maxWidth: newChild.props.maxWidth,
+                                                    width: widthObject[(child as React.ReactElement).props.prop],
                                                 } as React.Attributes);
                                                 return (
                                                     <td
@@ -335,9 +326,9 @@ const Table = (props: TableProps) => {
                                                         key={colIndex}
                                                     >
                                                         {/* 整个子组件展示的位置 */}
-                                                        <div className="collapse-table-td">
+                                                        <div className="d-flex collapse-table-td">
                                                             {/* {!colIndex && collapse && data.children ? '>' : ''} */}
-                                                            {(child as ReactElement).props.tooltip ? <Tooltip text={data[prop]}>{enhancedChild}</Tooltip> : enhancedChild}
+                                                            {enhancedChild}
                                                         </div>
                                                     </td>
                                                 );
@@ -405,16 +396,7 @@ const Table = (props: TableProps) => {
                                                                 }}
                                                                 key={colIndex}
                                                             >
-                                                                <div className="collapse-table-td">
-                                                                    {/* {!colIndex && collapse && data.children ? '>' : ''} */}
-                                                                    {(child as ReactElement).props.tooltip ? (
-                                                                        <Tooltip position="right" text={childData[prop]}>
-                                                                            {enhancedChild}
-                                                                        </Tooltip>
-                                                                    ) : (
-                                                                        enhancedChild
-                                                                    )}
-                                                                </div>
+                                                                {enhancedChild}
                                                             </td>
                                                         );
                                                     }
@@ -612,4 +594,4 @@ const Table = (props: TableProps) => {
 
 Table.EditableTableCell = EditableTableCell;
 
-export default Table;
+export default withTranslation()(Table);

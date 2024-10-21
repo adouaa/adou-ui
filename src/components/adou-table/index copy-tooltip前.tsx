@@ -1,9 +1,8 @@
 import classNames from 'classnames';
-import React, { Fragment, ReactElement, useEffect, useImperativeHandle, useState } from 'react';
+import React, { Fragment, useEffect, useImperativeHandle, useState } from 'react';
 import { withTranslation } from 'react-i18next';
 import EditableTableCell from './adou-editableTableCell';
 import './index.scss';
-import Tooltip from 'components/adou-tooltip';
 
 export { EditableTableCell };
 interface TableProps {
@@ -143,7 +142,7 @@ const Table = (props: TableProps) => {
                         // 需要降序排序
                         if (item.isDown) {
                             console.log('down: ');
-                            setTableData((preArr: any) => [...preArr].sort((a: any, b: any) => (a[prop] < b[prop] ? 1 : -1)));
+                            setTableData((preArr: any) => preArr.sort((a: any, b: any) => (a[prop] < b[prop] ? 1 : -1)));
                         } else {
                             setTableData(data);
                         }
@@ -301,7 +300,6 @@ const Table = (props: TableProps) => {
                                         {React.Children.map(array, (child, colIndex) => {
                                             let prop = (child as React.ReactElement).props.prop;
                                             if (React.isValidElement(child)) {
-                                                const newChild = child as React.ReactElement;
                                                 const enhancedChild = React.cloneElement(child, {
                                                     onCollapseClick: handleCollapseClick,
                                                     isParent: !colIndex && collapse && data.children,
@@ -314,8 +312,7 @@ const Table = (props: TableProps) => {
                                                     canCollapse: data.children,
                                                     collapse: data.collapse,
                                                     textPosition,
-                                                    width: widthObject[newChild.props.prop],
-                                                    maxWidth: newChild.props.maxWidth,
+                                                    width: widthObject[(child as React.ReactElement).props.prop],
                                                 } as React.Attributes);
                                                 return (
                                                     <td
@@ -335,9 +332,9 @@ const Table = (props: TableProps) => {
                                                         key={colIndex}
                                                     >
                                                         {/* 整个子组件展示的位置 */}
-                                                        <div className="collapse-table-td">
+                                                        <div className="d-flex collapse-table-td">
                                                             {/* {!colIndex && collapse && data.children ? '>' : ''} */}
-                                                            {(child as ReactElement).props.tooltip ? <Tooltip text={data[prop]}>{enhancedChild}</Tooltip> : enhancedChild}
+                                                            {enhancedChild}
                                                         </div>
                                                     </td>
                                                 );
@@ -405,16 +402,7 @@ const Table = (props: TableProps) => {
                                                                 }}
                                                                 key={colIndex}
                                                             >
-                                                                <div className="collapse-table-td">
-                                                                    {/* {!colIndex && collapse && data.children ? '>' : ''} */}
-                                                                    {(child as ReactElement).props.tooltip ? (
-                                                                        <Tooltip position="right" text={childData[prop]}>
-                                                                            {enhancedChild}
-                                                                        </Tooltip>
-                                                                    ) : (
-                                                                        enhancedChild
-                                                                    )}
-                                                                </div>
+                                                                {enhancedChild}
                                                             </td>
                                                         );
                                                     }
@@ -612,4 +600,4 @@ const Table = (props: TableProps) => {
 
 Table.EditableTableCell = EditableTableCell;
 
-export default Table;
+export default withTranslation()(Table);
