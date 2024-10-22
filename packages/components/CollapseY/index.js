@@ -140,85 +140,30 @@ module.exports = function (item) {
 
 var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_1___default()((_node_modules_css_loader_dist_runtime_sourceMaps_js__WEBPACK_IMPORTED_MODULE_0___default()));
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, `@charset "UTF-8";
-.resizable-sidebar {
-  position: relative;
-  border-right: 2px solid #dee2e6;
-  transition: width 0.25s ease;
-  box-sizing: border-box;
+___CSS_LOADER_EXPORT___.push([module.id, `.collapseY-wrapper {
+  padding: 10px 0;
+  border-top: 1px solid #eee;
   border-bottom: 1px solid #eee;
-  /* 整体滚动条样式 */
-  /* 滚动条轨道 */
-  /* 滚动条滑块 */
-  /* 滚动条滑块在悬停时的样式 */
 }
-.resizable-sidebar .toggle-btn {
-  position: absolute;
-  background: skyblue;
-  backdrop-filter: saturate(180%) blur(10px);
-  -webkit-backdrop-filter: saturate(180%) blur(10px);
-  border-radius: 100%;
-  height: 30px;
-  width: 30px;
-  z-index: 1;
-  bottom: 1rem;
-  right: -15px;
-  top: 50%;
-  box-shadow: var(--app-shadow);
-  line-height: 30px;
-  text-align: center;
-  transition: 0.1s ease-in-out;
+.collapseY-wrapper .control {
   cursor: pointer;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 }
-.resizable-sidebar .content {
-  height: 100%;
+.collapseY-wrapper .control .control-right .control-arrow {
+  transition: all 0.5s ease;
 }
-.resizable-sidebar ::-webkit-scrollbar {
-  height: 3px;
-  width: 5px;
-  /* 设置滚动条的高度 */
+.collapseY-wrapper .control .control-right .control-arrow.active {
+  transform: rotate(90deg) scale(1.3) !important;
 }
-.resizable-sidebar ::-webkit-scrollbar-track {
-  background: #f1f1f1;
-  /* 滚动条轨道的背景 */
+.collapseY-wrapper .control .control-right .control-arrow.enter {
+  transform: scale(1.3);
 }
-.resizable-sidebar ::-webkit-scrollbar-thumb {
-  background: #888;
-  /* 滚动条滑块的颜色 */
-  border-radius: 8px;
-  /* 滚动条滑块的圆角 */
-}
-.resizable-sidebar ::-webkit-scrollbar-thumb:hover {
-  background: #555;
-  /* 滚动条滑块悬停时的颜色 */
-}
-
-.resizable-sidebar:hover {
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-  /* 在悬停时添加阴影 */
-}
-
-.draging {
-  border-right: 5px solid #007bff;
-}
-
-.resize-handle-bar {
-  position: absolute;
-  z-index: 0;
-  right: 0;
-  top: 0;
-  bottom: 0;
-  width: 5px;
-  cursor: ew-resize;
-  background-color: #dee2e6;
-  cursor: col-resize;
-  transition: opacity 0.3s ease;
-  /* 添加悬停动画效果 */
-}
-
-.resize-handle-bar:hover {
-  opacity: 1;
-}`, "",{"version":3,"sources":["webpack://./src/index.scss"],"names":[],"mappings":"AAAA,gBAAgB;AAAhB;EACE,kBAAA;EAEA,+BAAA;EACA,4BAAA;EACA,sBAAA;EACA,6BAAA;EA2BA,YAAA;EAOA,UAAA;EAMA,UAAA;EAQA,iBAAA;AA3CF;AAHE;EACE,kBAAA;EACA,mBAAA;EACA,0CAAA;EACA,kDAAA;EACA,mBAAA;EACA,YAAA;EACA,WAAA;EACA,UAAA;EACA,YAAA;EACA,YAAA;EACA,QAAA;EACA,6BAAA;EACA,iBAAA;EACA,kBAAA;EACA,4BAAA;EACA,eAAA;AAKJ;AAFE;EACE,YAAA;AAIJ;AAEE;EACE,WAAA;EACA,UAAA;EACA,aAAA;AAAJ;AAIE;EACE,mBAAA;EACA,aAAA;AAFJ;AAME;EACE,gBAAA;EACA,aAAA;EACA,kBAAA;EACA,aAAA;AAJJ;AAQE;EACE,gBAAA;EACA,gBAAA;AANJ;;AAUA;EACE,wCAAA;EACA,aAAA;AAPF;;AAUA;EACE,+BAAA;AAPF;;AAUA;EACE,kBAAA;EACA,UAAA;EACA,QAAA;EACA,MAAA;EACA,SAAA;EACA,UAAA;EACA,iBAAA;EACA,yBAAA;EACA,kBAAA;EACA,6BAAA;EACA,aAAA;AAPF;;AAUA;EACE,UAAA;AAPF","sourcesContent":[".resizable-sidebar {\r\n  position: relative;\r\n  // background-color: #f8f9fa;\r\n  border-right: 2px solid #dee2e6;\r\n  transition: width .25s ease;\r\n  box-sizing: border-box;\r\n  border-bottom: 1px solid #eee;\r\n\r\n  .toggle-btn {\r\n    position: absolute;\r\n    background: skyblue;\r\n    backdrop-filter: saturate(180%) blur(10px);\r\n    -webkit-backdrop-filter: saturate(180%) blur(10px);\r\n    border-radius: 100%;\r\n    height: 30px;\r\n    width: 30px;\r\n    z-index: 1;\r\n    bottom: 1rem;\r\n    right: -15px;\r\n    top: 50%;\r\n    box-shadow: var(--app-shadow);\r\n    line-height: 30px;\r\n    text-align: center;\r\n    transition: .1s ease-in-out;\r\n    cursor: pointer;\r\n  }\r\n\r\n  .content {\r\n    height: 100%;\r\n\r\n\r\n  }\r\n\r\n  /* 整体滚动条样式 */\r\n  ::-webkit-scrollbar {\r\n    height: 3px;\r\n    width: 5px;\r\n    /* 设置滚动条的高度 */\r\n  }\r\n\r\n  /* 滚动条轨道 */\r\n  ::-webkit-scrollbar-track {\r\n    background: #f1f1f1;\r\n    /* 滚动条轨道的背景 */\r\n  }\r\n\r\n  /* 滚动条滑块 */\r\n  ::-webkit-scrollbar-thumb {\r\n    background: #888;\r\n    /* 滚动条滑块的颜色 */\r\n    border-radius: 8px;\r\n    /* 滚动条滑块的圆角 */\r\n  }\r\n\r\n  /* 滚动条滑块在悬停时的样式 */\r\n  ::-webkit-scrollbar-thumb:hover {\r\n    background: #555;\r\n    /* 滚动条滑块悬停时的颜色 */\r\n  }\r\n}\r\n\r\n.resizable-sidebar:hover {\r\n  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);\r\n  /* 在悬停时添加阴影 */\r\n}\r\n\r\n.draging {\r\n  border-right: 5px solid #007bff;\r\n}\r\n\r\n.resize-handle-bar {\r\n  position: absolute;\r\n  z-index: 0;\r\n  right: 0;\r\n  top: 0;\r\n  bottom: 0;\r\n  width: 5px;\r\n  cursor: ew-resize;\r\n  background-color: #dee2e6;\r\n  cursor: col-resize;\r\n  transition: opacity 0.3s ease;\r\n  /* 添加悬停动画效果 */\r\n}\r\n\r\n.resize-handle-bar:hover {\r\n  opacity: 1;\r\n}"],"sourceRoot":""}]);
+.collapseY-wrapper .content {
+  overflow: hidden;
+  transition: all 0.5s ease;
+}`, "",{"version":3,"sources":["webpack://./src/index.scss"],"names":[],"mappings":"AAAA;EACI,eAAA;EACA,0BAAA;EACA,6BAAA;AACJ;AACI;EACI,eAAA;EACA,aAAA;EACA,8BAAA;EACA,mBAAA;AACR;AAGY;EACI,yBAAA;AADhB;AAGgB;EACI,8CAAA;AADpB;AAIgB;EACI,qBAAA;AAFpB;AAQI;EACI,gBAAA;EACA,yBAAA;AANR","sourcesContent":[".collapseY-wrapper {\r\n    padding: 10px 0;\r\n    border-top: 1px solid #eee;\r\n    border-bottom: 1px solid #eee;\r\n\r\n    .control {\r\n        cursor: pointer;\r\n        display: flex;\r\n        justify-content: space-between;\r\n        align-items: center;\r\n\r\n        .control-right {\r\n\r\n            .control-arrow {\r\n                transition: all 0.5s ease;\r\n\r\n                &.active {\r\n                    transform: rotate(90deg) scale(1.3) !important;\r\n                }\r\n\r\n                &.enter {\r\n                    transform: scale(1.3);\r\n                }\r\n            }\r\n        }\r\n    }\r\n\r\n    .content {\r\n        overflow: hidden;\r\n        transition: all 0.5s ease;\r\n    }\r\n}"],"sourceRoot":""}]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 
@@ -619,132 +564,82 @@ var update = injectStylesIntoStyleTag_default()(cjs_ruleSet_1_rules_1_use_2_src/
 
 ;// CONCATENATED MODULE: ./src/index.tsx
 
- // 自定义样式
 
-const ResizableSidebar = _ref => {
+
+const CollapseY = _ref => {
   let {
-    contentOverflow = true,
-    contentFlex = true,
-    initialWidth = 0,
-    initialHeight = "500px",
-    minDragWidth = 0,
-    minWidth = 0,
-    maxWidth = "300px",
-    children
+    wrapperClassName,
+    controlRightIcon,
+    controlClassName,
+    showBorder = true,
+    single,
+    hover,
+    controlContent,
+    children,
+    onClick,
+    showContent = false
   } = _ref;
-  const sidebarRef = (0,external_root_React_commonjs2_react_commonjs_react_amd_react_.useRef)(null);
-  const [isResizing, setIsResizing] = (0,external_root_React_commonjs2_react_commonjs_react_amd_react_.useState)(false);
-  const [currentSidebarWidth, setCurrentSidebarWidth] = (0,external_root_React_commonjs2_react_commonjs_react_amd_react_.useState)("0"); // 最新宽度
-  const [initialSideBarWidth, setInitialSideBarWidth] = (0,external_root_React_commonjs2_react_commonjs_react_amd_react_.useState)(0); // 记录初始宽度
-  const [initialSiderBarHeight, setInitialSiderBarHeight] = (0,external_root_React_commonjs2_react_commonjs_react_amd_react_.useState)(initialHeight);
-  const [isDragging, setIsDragging] = (0,external_root_React_commonjs2_react_commonjs_react_amd_react_.useState)(false);
-  const resizeableContainerRef = (0,external_root_React_commonjs2_react_commonjs_react_amd_react_.useRef)();
-  const siderBarRef = (0,external_root_React_commonjs2_react_commonjs_react_amd_react_.useRef)();
-  (0,external_root_React_commonjs2_react_commonjs_react_amd_react_.useEffect)(() => {
-    const handleMouseMove = event => {
-      if (!isResizing) return;
-      setCurrentSidebarWidth(event.clientX - sidebarRef.current.getBoundingClientRect().left);
-    };
-    const handleMouseUp = () => {
-      setIsResizing(false);
-    };
-    window.addEventListener("mousemove", handleMouseMove);
-    window.addEventListener("mouseup", handleMouseUp);
-    return () => {
-      window.removeEventListener("mousemove", handleMouseMove);
-      window.removeEventListener("mouseup", handleMouseUp);
-    };
-  }, [isResizing]);
-  const startResizing = () => {
-    setIsResizing(true);
-  };
-  const toggleSidebar = () => {
-    console.log("currentSidebarWidth: ", currentSidebarWidth > minWidth ? 0 : parseFloat(maxWidth));
-    setCurrentSidebarWidth(parseFloat(currentSidebarWidth) > minWidth ? 0 : maxWidth); // 假设展开宽度为300
-  };
-  const handleMouseDown = e => {
-    setIsDragging(true);
-  };
-  const handleDragStart = () => {
-    // [_initialSideBarWidth, setInitialSideBarWidth]好像目前没用。。
-    const _initialSideBarWidth = resizeableContainerRef.current.offsetWidth;
-    setInitialSideBarWidth(_initialSideBarWidth);
-  };
-  const handleDrag = e => {
-    e.preventDefault();
-    const rect = resizeableContainerRef.current.getBoundingClientRect();
-    const calcWidth = e.clientX - rect.left; // 计算当前鼠标的位置和元素距离浏览器左边位置的差来做新宽度
-    if (calcWidth > parseFloat(maxWidth)) {
-      setCurrentSidebarWidth(maxWidth);
-    } else {
-      setCurrentSidebarWidth(calcWidth + "px");
+  const [isOpen, setIsOpen] = (0,external_root_React_commonjs2_react_commonjs_react_amd_react_.useState)(showContent);
+  const [isEnter, setIsEnter] = (0,external_root_React_commonjs2_react_commonjs_react_amd_react_.useState)(false);
+  const contentRef = (0,external_root_React_commonjs2_react_commonjs_react_amd_react_.useRef)(null);
+  const handleShow = () => {
+    setIsOpen(pre => !pre);
+    if (onClick) {
+      onClick(); // 调用传递的 onClick 函数
     }
   };
-  const handleDragEnd = e => {
-    const rect = resizeableContainerRef.current.getBoundingClientRect();
-    const calcWidth = e.clientX - rect.left; // 计算当前鼠标的位置和元素距离浏览器左边位置的差来做新宽度
-    e.preventDefault();
-    if (calcWidth > parseFloat(maxWidth)) {
-      setCurrentSidebarWidth(maxWidth);
-    } else {
-      setCurrentSidebarWidth(calcWidth + "px");
+  const handleMouseEnter = () => {
+    if (hover) {
+      handleShow();
     }
-    setIsDragging(false);
+    setIsEnter(true);
   };
-  const getContentWidth = () => {
-    const content = resizeableContainerRef.current.querySelector(".content");
-    return content.offsetWidth;
+  const handleMouseLeave = () => {
+    setIsEnter(false);
+  };
+  const calculateContentMaxHeight = () => {
+    if (contentRef.current) {
+      const contentHeight = contentRef.current.scrollHeight;
+      contentRef.current.style.maxHeight = isOpen ? "".concat(contentHeight, "px") : "0";
+    }
   };
   (0,external_root_React_commonjs2_react_commonjs_react_amd_react_.useEffect)(() => {
-    // 延迟执行，因为父元素的内容可能是异步去获取的
-    setTimeout(() => {
-      var _resizeableContainerR;
-      setInitialSiderBarHeight((_resizeableContainerR = resizeableContainerRef.current) === null || _resizeableContainerR === void 0 || (_resizeableContainerR = _resizeableContainerR.parentElement) === null || _resizeableContainerR === void 0 ? void 0 : _resizeableContainerR.offsetHeight);
-    }, 1200);
-  }, [resizeableContainerRef.current]);
-
-  // 为第一次出现添加动画效果
+    if (single) {
+      setIsOpen(showContent);
+    }
+  }, [showContent]);
   (0,external_root_React_commonjs2_react_commonjs_react_amd_react_.useEffect)(() => {
-    setTimeout(() => {
-      setCurrentSidebarWidth(initialWidth ? parseFloat(initialWidth) > parseFloat(maxWidth) ? maxWidth : initialWidth : 0);
-    }, 100);
-  }, []);
-  return /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement((external_root_React_commonjs2_react_commonjs_react_amd_react_default()).Fragment, null, /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("div", {
-    ref: resizeableContainerRef,
-    className: "pb-1 resizable-sidebar pe-1 ".concat(isDragging ? "draging" : ""),
+    calculateContentMaxHeight();
+  }, [isOpen]);
+  return /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("div", {
+    className: "collapseY-wrapper ".concat(wrapperClassName),
     style: {
-      width: "".concat(currentSidebarWidth),
-      height: initialHeight || initialSiderBarHeight + "px" || 0,
-      paddingLeft: "5px"
-      // overflow: currentSidebarWidth === maxWidth ? "auto" : "hidden",
+      ...(!showBorder ? {
+        border: "none"
+      } : {})
     }
   }, /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("div", {
-    className: "content",
-    style: {
-      display: contentFlex ? "flex" : "",
-      overflow: contentOverflow ? "auto" : ""
-    }
-  }, children), /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("div", {
-    ref: siderBarRef,
-    draggable: true,
-    style: {
-      opacity: 0,
-      right: isDragging ? "-5px" : "-2px"
-    },
-    className: "resize-handle-bar",
-    onMouseUp: handleDragEnd,
-    onMouseDown: handleMouseDown,
-    onDrag: handleDrag,
-    onDragEnd: handleDragEnd,
-    onDragStart: handleDragStart
-  }), initialHeight > 0 || initialSiderBarHeight > 0 ? /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("div", {
-    className: "toggle-btn",
-    onClick: toggleSidebar
+    className: "control ".concat(controlClassName || ""),
+    onClick: handleShow,
+    onMouseEnter: handleMouseEnter,
+    onMouseLeave: handleMouseLeave
+  }, /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("div", {
+    className: "control-left"
+  }, controlContent), /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("div", {
+    className: "control-right"
   }, /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("i", {
-    className: "fa-solid text-white ".concat(currentSidebarWidth <= minWidth ? "fa-angles-right" : "fa-angles-left")
-  })) : ""));
+    className: "control-arrow ".concat(controlRightIcon || "fa-solid fa-angle-right", " ").concat(isOpen ? "active" : "", " ").concat(isEnter ? "enter" : "")
+  }))), /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("div", {
+    style: {
+      maxHeight: "0",
+      overflow: "hidden",
+      transition: "max-height 0.3s ease-in-out"
+    },
+    className: "content",
+    ref: contentRef
+  }, children));
 };
-/* harmony default export */ const src_0 = (ResizableSidebar);
+/* harmony default export */ const src_0 = (CollapseY);
 })();
 
 /******/ 	return __webpack_exports__;

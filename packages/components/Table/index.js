@@ -1105,12 +1105,12 @@ module.exports = {
 
         var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_1___default()(_node_modules_css_loader_dist_runtime_sourceMaps_js__WEBPACK_IMPORTED_MODULE_0___default());
         // Module
-        ___CSS_LOADER_EXPORT___.push([module.id, "@charset \"UTF-8\";\n.adou-tooltip-wrapper {\n  position: relative;\n}\n\n.adou-tooltip {\n  position: absolute;\n  background-color: #333;\n  color: #fff;\n  padding: 5px 10px;\n  border-radius: 4px;\n  font-size: 14px;\n  white-space: nowrap;\n  opacity: 0;\n  transition: opacity 0.2s ease-in-out;\n  /* \u9632\u6B62\u9F20\u6807\u4E8B\u4EF6\u7A7F\u900F\u5230 Tooltip \u540E\u9762\u7684\u5143\u7D20 */\n}\n.adou-tooltip.show-tool-tip {\n  opacity: 1;\n  pointer-events: auto;\n  /* \u542F\u7528\u9F20\u6807\u4E8B\u4EF6 */\n}\n.adou-tooltip.adou-tooltip-top {\n  bottom: 100%;\n  left: 50%;\n  transform: translate(-50%, -10px);\n}\n.adou-tooltip.adou-tooltip-bottom {\n  top: 100%;\n  left: 50%;\n  transform: translate(-50%, 10px);\n}\n.adou-tooltip.adou-tooltip-left {\n  right: 100%;\n  top: 50%;\n  transform: translate(-10px, -50%);\n}\n.adou-tooltip.adou-tooltip-right {\n  left: 100%;\n  top: 50%;\n  transform: translate(10px, -50%);\n}\n\n.adou-tooltip-arrow {\n  position: absolute;\n  width: 0;\n  height: 0;\n  border-style: solid;\n}\n.adou-tooltip-arrow.adou-tooltip-arrow-top {\n  border-width: 5px 5px 0 5px;\n  border-color: #333 transparent transparent transparent;\n  bottom: -5px;\n  left: 50%;\n  transform: translateX(-50%);\n}\n.adou-tooltip-arrow.adou-tooltip-arrow-bottom {\n  border-width: 0 5px 5px 5px;\n  border-color: transparent transparent #333 transparent;\n  top: -5px;\n  left: 50%;\n  transform: translateX(-50%);\n}\n.adou-tooltip-arrow.adou-tooltip-arrow-left {\n  border-width: 5px 0 5px 5px;\n  border-color: transparent transparent transparent #333;\n  right: -5px;\n  top: 50%;\n  transform: translateY(-50%);\n}\n.adou-tooltip-arrow.adou-tooltip-arrow-right {\n  border-width: 5px 5px 5px 0;\n  border-color: transparent #333 transparent transparent;\n  left: -5px;\n  top: 50%;\n  transform: translateY(-50%);\n}", "", {
+        ___CSS_LOADER_EXPORT___.push([module.id, "@charset \"UTF-8\";\n.adou-tooltip-wrapper {\n  position: relative;\n  width: fit-content;\n}\n.adou-tooltip-wrapper .content {\n  width: fit-content;\n}\n\n.adou-tooltip {\n  position: absolute;\n  background-color: #333;\n  color: #fff;\n  padding: 5px 10px;\n  border-radius: 4px;\n  font-size: 14px;\n  white-space: nowrap;\n  opacity: 0;\n  transform: scale(0);\n  /* \u521D\u59CB\u72B6\u6001\u4E3A\u7F29\u5C0F */\n  transition: opacity 0.2s ease-in-out, transform 0.2s ease-in-out;\n  /* \u6DFB\u52A0 transform \u8FC7\u6E21\u6548\u679C */\n  /* \u9632\u6B62\u9F20\u6807\u4E8B\u4EF6\u7A7F\u900F\u5230 Tooltip \u540E\u9762\u7684\u5143\u7D20 */\n  z-index: 10000;\n}\n.adou-tooltip.show-tool-tip {\n  opacity: 1;\n  /* \u663E\u793A\u65F6\u653E\u5927 */\n  pointer-events: auto;\n  /* \u542F\u7528\u9F20\u6807\u4E8B\u4EF6 */\n}\n.adou-tooltip.adou-tooltip-top {\n  bottom: 100%;\n  left: 50%;\n  transform: translate(-50%, -10px) scale(0);\n  /* \u521D\u59CB\u72B6\u6001\u4E3A\u7F29\u5C0F */\n}\n.adou-tooltip.adou-tooltip-top.show-tool-tip {\n  transform: translate(-50%, -10px) scale(1);\n  /* \u663E\u793A\u65F6\u653E\u5927 */\n}\n.adou-tooltip.adou-tooltip-bottom {\n  top: 100%;\n  left: 50%;\n  transform: translate(-50%, 10px) scale(0);\n  /* \u521D\u59CB\u72B6\u6001\u4E3A\u7F29\u5C0F */\n}\n.adou-tooltip.adou-tooltip-bottom.show-tool-tip {\n  transform: translate(-50%, 10px) scale(1);\n  /* \u663E\u793A\u65F6\u653E\u5927 */\n}\n.adou-tooltip.adou-tooltip-left {\n  right: 100%;\n  top: 50%;\n  transform: translate(-10px, -50%) scale(0);\n  /* \u521D\u59CB\u72B6\u6001\u4E3A\u7F29\u5C0F */\n}\n.adou-tooltip.adou-tooltip-left.show-tool-tip {\n  transform: translate(-10px, -50%) scale(1);\n  /* \u663E\u793A\u65F6\u653E\u5927 */\n}\n.adou-tooltip.adou-tooltip-right {\n  left: 100%;\n  top: 50%;\n  transform: translate(10px, -50%) scale(0);\n  /* \u521D\u59CB\u72B6\u6001\u4E3A\u7F29\u5C0F */\n}\n.adou-tooltip.adou-tooltip-right.show-tool-tip {\n  transform: translate(10px, -50%) scale(1);\n  /* \u663E\u793A\u65F6\u653E\u5927 */\n}\n\n.adou-tooltip-arrow {\n  position: absolute;\n  width: 0;\n  height: 0;\n  border-style: solid;\n}\n.adou-tooltip-arrow.adou-tooltip-arrow-top {\n  border-width: 5px 5px 0 5px;\n  border-color: #333 transparent transparent transparent;\n  bottom: -5px;\n  left: 50%;\n  transform: translateX(-50%);\n}\n.adou-tooltip-arrow.adou-tooltip-arrow-bottom {\n  border-width: 0 5px 5px 5px;\n  border-color: transparent transparent #333 transparent;\n  top: -5px;\n  left: 50%;\n  transform: translateX(-50%);\n}\n.adou-tooltip-arrow.adou-tooltip-arrow-left {\n  border-width: 5px 0 5px 5px;\n  border-color: transparent transparent transparent #333;\n  right: -5px;\n  top: 50%;\n  transform: translateY(-50%);\n}\n.adou-tooltip-arrow.adou-tooltip-arrow-right {\n  border-width: 5px 5px 5px 0;\n  border-color: transparent #333 transparent transparent;\n  left: -5px;\n  top: 50%;\n  transform: translateY(-50%);\n}", "", {
           "version": 3,
           "sources": ["webpack://./src/index.scss"],
           "names": [],
-          "mappings": "AAAA,gBAAgB;AAAhB;EACE,kBAAA;AAEF;;AACA;EACE,kBAAA;EACA,sBAAA;EACA,WAAA;EACA,iBAAA;EACA,kBAAA;EACA,eAAA;EACA,mBAAA;EACA,UAAA;EACA,oCAAA;EAEA,4BAAA;AACF;AACE;EACE,UAAA;EACA,oBAAA;EACA,WAAA;AACJ;AAEE;EACE,YAAA;EACA,SAAA;EACA,iCAAA;AAAJ;AAGE;EACE,SAAA;EACA,SAAA;EACA,gCAAA;AADJ;AAIE;EACE,WAAA;EACA,QAAA;EACA,iCAAA;AAFJ;AAKE;EACE,UAAA;EACA,QAAA;EACA,gCAAA;AAHJ;;AAOA;EACE,kBAAA;EACA,QAAA;EACA,SAAA;EACA,mBAAA;AAJF;AAME;EACE,2BAAA;EACA,sDAAA;EACA,YAAA;EACA,SAAA;EACA,2BAAA;AAJJ;AAOE;EACE,2BAAA;EACA,sDAAA;EACA,SAAA;EACA,SAAA;EACA,2BAAA;AALJ;AAQE;EACE,2BAAA;EACA,sDAAA;EACA,WAAA;EACA,QAAA;EACA,2BAAA;AANJ;AASE;EACE,2BAAA;EACA,sDAAA;EACA,UAAA;EACA,QAAA;EACA,2BAAA;AAPJ",
-          "sourcesContent": [".adou-tooltip-wrapper {\r\n  position: relative;\r\n}\r\n\r\n.adou-tooltip {\r\n  position: absolute;\r\n  background-color: #333;\r\n  color: #fff;\r\n  padding: 5px 10px;\r\n  border-radius: 4px;\r\n  font-size: 14px;\r\n  white-space: nowrap;\r\n  opacity: 0;\r\n  transition: opacity 0.2s ease-in-out;\r\n  // pointer-events: none;\r\n  /* 防止鼠标事件穿透到 Tooltip 后面的元素 */\r\n\r\n  &.show-tool-tip {\r\n    opacity: 1;\r\n    pointer-events: auto;\r\n    /* 启用鼠标事件 */\r\n  }\r\n\r\n  &.adou-tooltip-top {\r\n    bottom: 100%;\r\n    left: 50%;\r\n    transform: translate(-50%, -10px);\r\n  }\r\n\r\n  &.adou-tooltip-bottom {\r\n    top: 100%;\r\n    left: 50%;\r\n    transform: translate(-50%, 10px);\r\n  }\r\n\r\n  &.adou-tooltip-left {\r\n    right: 100%;\r\n    top: 50%;\r\n    transform: translate(-10px, -50%);\r\n  }\r\n\r\n  &.adou-tooltip-right {\r\n    left: 100%;\r\n    top: 50%;\r\n    transform: translate(10px, -50%);\r\n  }\r\n}\r\n\r\n.adou-tooltip-arrow {\r\n  position: absolute;\r\n  width: 0;\r\n  height: 0;\r\n  border-style: solid;\r\n\r\n  &.adou-tooltip-arrow-top {\r\n    border-width: 5px 5px 0 5px;\r\n    border-color: #333 transparent transparent transparent;\r\n    bottom: -5px;\r\n    left: 50%;\r\n    transform: translateX(-50%);\r\n  }\r\n\r\n  &.adou-tooltip-arrow-bottom {\r\n    border-width: 0 5px 5px 5px;\r\n    border-color: transparent transparent #333 transparent;\r\n    top: -5px;\r\n    left: 50%;\r\n    transform: translateX(-50%);\r\n  }\r\n\r\n  &.adou-tooltip-arrow-left {\r\n    border-width: 5px 0 5px 5px;\r\n    border-color: transparent transparent transparent #333;\r\n    right: -5px;\r\n    top: 50%;\r\n    transform: translateY(-50%);\r\n  }\r\n\r\n  &.adou-tooltip-arrow-right {\r\n    border-width: 5px 5px 5px 0;\r\n    border-color: transparent #333 transparent transparent;\r\n    left: -5px;\r\n    top: 50%;\r\n    transform: translateY(-50%);\r\n  }\r\n}"],
+          "mappings": "AAAA,gBAAgB;AAAhB;EACE,kBAAA;EACA,kBAAA;AAEF;AAAE;EACE,kBAAA;AAEJ;;AAGA;EACE,kBAAA;EACA,sBAAA;EACA,WAAA;EACA,iBAAA;EACA,kBAAA;EACA,eAAA;EACA,mBAAA;EACA,UAAA;EACA,mBAAA;EACA,YAAA;EACA,gEAAA;EACA,sBAAA;EAEA,4BAAA;EACA,cAAA;AADF;AAGE;EACE,UAAA;EACA,UAAA;EACA,oBAAA;EACA,WAAA;AADJ;AAIE;EACE,YAAA;EACA,SAAA;EACA,0CAAA;EACA,YAAA;AAFJ;AAII;EACE,0CAAA;EACA,UAAA;AAFN;AAME;EACE,SAAA;EACA,SAAA;EACA,yCAAA;EACA,YAAA;AAJJ;AAMI;EACE,yCAAA;EACA,UAAA;AAJN;AAQE;EACE,WAAA;EACA,QAAA;EACA,0CAAA;EACA,YAAA;AANJ;AAQI;EACE,0CAAA;EACA,UAAA;AANN;AAUE;EACE,UAAA;EACA,QAAA;EACA,yCAAA;EACA,YAAA;AARJ;AAUI;EACE,yCAAA;EACA,UAAA;AARN;;AAaA;EACE,kBAAA;EACA,QAAA;EACA,SAAA;EACA,mBAAA;AAVF;AAYE;EACE,2BAAA;EACA,sDAAA;EACA,YAAA;EACA,SAAA;EACA,2BAAA;AAVJ;AAaE;EACE,2BAAA;EACA,sDAAA;EACA,SAAA;EACA,SAAA;EACA,2BAAA;AAXJ;AAcE;EACE,2BAAA;EACA,sDAAA;EACA,WAAA;EACA,QAAA;EACA,2BAAA;AAZJ;AAeE;EACE,2BAAA;EACA,sDAAA;EACA,UAAA;EACA,QAAA;EACA,2BAAA;AAbJ",
+          "sourcesContent": [".adou-tooltip-wrapper {\r\n  position: relative;\r\n  width: fit-content;\r\n\r\n  .content {\r\n    width: fit-content;\r\n\r\n  }\r\n}\r\n\r\n.adou-tooltip {\r\n  position: absolute;\r\n  background-color: #333;\r\n  color: #fff;\r\n  padding: 5px 10px;\r\n  border-radius: 4px;\r\n  font-size: 14px;\r\n  white-space: nowrap;\r\n  opacity: 0;\r\n  transform: scale(0);\r\n  /* 初始状态为缩小 */\r\n  transition: opacity 0.2s ease-in-out, transform 0.2s ease-in-out;\r\n  /* 添加 transform 过渡效果 */\r\n  // pointer-events: none;\r\n  /* 防止鼠标事件穿透到 Tooltip 后面的元素 */\r\n  z-index: 10000;\r\n\r\n  &.show-tool-tip {\r\n    opacity: 1;\r\n    /* 显示时放大 */\r\n    pointer-events: auto;\r\n    /* 启用鼠标事件 */\r\n  }\r\n\r\n  &.adou-tooltip-top {\r\n    bottom: 100%;\r\n    left: 50%;\r\n    transform: translate(-50%, -10px) scale(0);\r\n    /* 初始状态为缩小 */\r\n\r\n    &.show-tool-tip {\r\n      transform: translate(-50%, -10px) scale(1);\r\n      /* 显示时放大 */\r\n    }\r\n  }\r\n\r\n  &.adou-tooltip-bottom {\r\n    top: 100%;\r\n    left: 50%;\r\n    transform: translate(-50%, 10px) scale(0);\r\n    /* 初始状态为缩小 */\r\n\r\n    &.show-tool-tip {\r\n      transform: translate(-50%, 10px) scale(1);\r\n      /* 显示时放大 */\r\n    }\r\n  }\r\n\r\n  &.adou-tooltip-left {\r\n    right: 100%;\r\n    top: 50%;\r\n    transform: translate(-10px, -50%) scale(0);\r\n    /* 初始状态为缩小 */\r\n\r\n    &.show-tool-tip {\r\n      transform: translate(-10px, -50%) scale(1);\r\n      /* 显示时放大 */\r\n    }\r\n  }\r\n\r\n  &.adou-tooltip-right {\r\n    left: 100%;\r\n    top: 50%;\r\n    transform: translate(10px, -50%) scale(0);\r\n    /* 初始状态为缩小 */\r\n\r\n    &.show-tool-tip {\r\n      transform: translate(10px, -50%) scale(1);\r\n      /* 显示时放大 */\r\n    }\r\n  }\r\n}\r\n\r\n.adou-tooltip-arrow {\r\n  position: absolute;\r\n  width: 0;\r\n  height: 0;\r\n  border-style: solid;\r\n\r\n  &.adou-tooltip-arrow-top {\r\n    border-width: 5px 5px 0 5px;\r\n    border-color: #333 transparent transparent transparent;\r\n    bottom: -5px;\r\n    left: 50%;\r\n    transform: translateX(-50%);\r\n  }\r\n\r\n  &.adou-tooltip-arrow-bottom {\r\n    border-width: 0 5px 5px 5px;\r\n    border-color: transparent transparent #333 transparent;\r\n    top: -5px;\r\n    left: 50%;\r\n    transform: translateX(-50%);\r\n  }\r\n\r\n  &.adou-tooltip-arrow-left {\r\n    border-width: 5px 0 5px 5px;\r\n    border-color: transparent transparent transparent #333;\r\n    right: -5px;\r\n    top: 50%;\r\n    transform: translateY(-50%);\r\n  }\r\n\r\n  &.adou-tooltip-arrow-right {\r\n    border-width: 5px 5px 5px 0;\r\n    border-color: transparent #333 transparent transparent;\r\n    left: -5px;\r\n    top: 50%;\r\n    transform: translateY(-50%);\r\n  }\r\n}"],
           "sourceRoot": ""
         }]);
         // Exports
@@ -1253,10 +1253,10 @@ module.exports = {
 
         /***/
       }),
-      /***/855: ( /***/(module, __unused_webpack_exports, __nested_webpack_require_15266__) => {
+      /***/855: ( /***/(module, __unused_webpack_exports, __nested_webpack_require_17408__) => {
         /* istanbul ignore next  */
         function setAttributesWithoutAttributes(styleElement) {
-          var nonce =  true ? __nested_webpack_require_15266__.nc : 0;
+          var nonce =  true ? __nested_webpack_require_17408__.nc : 0;
           if (nonce) {
             styleElement.setAttribute("nonce", nonce);
           }
@@ -1359,7 +1359,7 @@ module.exports = {
     /******/
     /******/ // The require function
     /******/
-    function __nested_webpack_require_18561__(moduleId) {
+    function __nested_webpack_require_20703__(moduleId) {
       /******/ // Check if module is in cache
       /******/var cachedModule = __webpack_module_cache__[moduleId];
       /******/
@@ -1378,7 +1378,7 @@ module.exports = {
       /******/
       /******/ // Execute the module function
       /******/
-      __webpack_modules__[moduleId](module, module.exports, __nested_webpack_require_18561__);
+      __webpack_modules__[moduleId](module, module.exports, __nested_webpack_require_20703__);
       /******/
       /******/ // Return the exports of the module
       /******/
@@ -1391,10 +1391,10 @@ module.exports = {
     /******/
     (() => {
       /******/ // getDefaultExport function for compatibility with non-harmony modules
-      /******/__nested_webpack_require_18561__.n = module => {
+      /******/__nested_webpack_require_20703__.n = module => {
         /******/var getter = module && module.__esModule ? /******/() => module['default'] : /******/() => module;
         /******/
-        __nested_webpack_require_18561__.d(getter, {
+        __nested_webpack_require_20703__.d(getter, {
           a: getter
         });
         /******/
@@ -1408,9 +1408,9 @@ module.exports = {
     /******/
     (() => {
       /******/ // define getter functions for harmony exports
-      /******/__nested_webpack_require_18561__.d = (exports, definition) => {
+      /******/__nested_webpack_require_20703__.d = (exports, definition) => {
         /******/for (var key in definition) {
-          /******/if (__nested_webpack_require_18561__.o(definition, key) && !__nested_webpack_require_18561__.o(exports, key)) {
+          /******/if (__nested_webpack_require_20703__.o(definition, key) && !__nested_webpack_require_20703__.o(exports, key)) {
             /******/Object.defineProperty(exports, key, {
               enumerable: true,
               get: definition[key]
@@ -1427,7 +1427,7 @@ module.exports = {
     /******/ /* webpack/runtime/hasOwnProperty shorthand */
     /******/
     (() => {
-      /******/__nested_webpack_require_18561__.o = (obj, prop) => Object.prototype.hasOwnProperty.call(obj, prop);
+      /******/__nested_webpack_require_20703__.o = (obj, prop) => Object.prototype.hasOwnProperty.call(obj, prop);
       /******/
     })();
     /******/
@@ -1435,7 +1435,7 @@ module.exports = {
     /******/
     (() => {
       /******/ // define __esModule on exports
-      /******/__nested_webpack_require_18561__.r = exports => {
+      /******/__nested_webpack_require_20703__.r = exports => {
         /******/if (typeof Symbol !== 'undefined' && Symbol.toStringTag) {
           /******/Object.defineProperty(exports, Symbol.toStringTag, {
             value: 'Module'
@@ -1454,7 +1454,7 @@ module.exports = {
     /******/ /* webpack/runtime/nonce */
     /******/
     (() => {
-      /******/__nested_webpack_require_18561__.nc = undefined;
+      /******/__nested_webpack_require_20703__.nc = undefined;
       /******/
     })();
     /******/
@@ -1463,36 +1463,36 @@ module.exports = {
     // This entry need to be wrapped in an IIFE because it need to be isolated against other modules in the chunk.
     (() => {
       // ESM COMPAT FLAG
-      __nested_webpack_require_18561__.r(__nested_webpack_exports__);
+      __nested_webpack_require_20703__.r(__nested_webpack_exports__);
 
       // EXPORTS
-      __nested_webpack_require_18561__.d(__nested_webpack_exports__, {
+      __nested_webpack_require_20703__.d(__nested_webpack_exports__, {
         "default": () => ( /* binding */src_0)
       });
 
       // EXTERNAL MODULE: external {"root":"React","commonjs2":"react","commonjs":"react","amd":"react"}
-      var external_root_React_commonjs2_react_commonjs_react_amd_react_ = __nested_webpack_require_18561__(442);
-      var external_root_React_commonjs2_react_commonjs_react_amd_react_default = /*#__PURE__*/__nested_webpack_require_18561__.n(external_root_React_commonjs2_react_commonjs_react_amd_react_);
+      var external_root_React_commonjs2_react_commonjs_react_amd_react_ = __nested_webpack_require_20703__(442);
+      var external_root_React_commonjs2_react_commonjs_react_amd_react_default = /*#__PURE__*/__nested_webpack_require_20703__.n(external_root_React_commonjs2_react_commonjs_react_amd_react_);
       // EXTERNAL MODULE: ../../node_modules/style-loader/dist/runtime/injectStylesIntoStyleTag.js
-      var injectStylesIntoStyleTag = __nested_webpack_require_18561__(591);
-      var injectStylesIntoStyleTag_default = /*#__PURE__*/__nested_webpack_require_18561__.n(injectStylesIntoStyleTag);
+      var injectStylesIntoStyleTag = __nested_webpack_require_20703__(591);
+      var injectStylesIntoStyleTag_default = /*#__PURE__*/__nested_webpack_require_20703__.n(injectStylesIntoStyleTag);
       // EXTERNAL MODULE: ../../node_modules/style-loader/dist/runtime/styleDomAPI.js
-      var styleDomAPI = __nested_webpack_require_18561__(740);
-      var styleDomAPI_default = /*#__PURE__*/__nested_webpack_require_18561__.n(styleDomAPI);
+      var styleDomAPI = __nested_webpack_require_20703__(740);
+      var styleDomAPI_default = /*#__PURE__*/__nested_webpack_require_20703__.n(styleDomAPI);
       // EXTERNAL MODULE: ../../node_modules/style-loader/dist/runtime/insertBySelector.js
-      var insertBySelector = __nested_webpack_require_18561__(128);
-      var insertBySelector_default = /*#__PURE__*/__nested_webpack_require_18561__.n(insertBySelector);
+      var insertBySelector = __nested_webpack_require_20703__(128);
+      var insertBySelector_default = /*#__PURE__*/__nested_webpack_require_20703__.n(insertBySelector);
       // EXTERNAL MODULE: ../../node_modules/style-loader/dist/runtime/setAttributesWithoutAttributes.js
-      var setAttributesWithoutAttributes = __nested_webpack_require_18561__(855);
-      var setAttributesWithoutAttributes_default = /*#__PURE__*/__nested_webpack_require_18561__.n(setAttributesWithoutAttributes);
+      var setAttributesWithoutAttributes = __nested_webpack_require_20703__(855);
+      var setAttributesWithoutAttributes_default = /*#__PURE__*/__nested_webpack_require_20703__.n(setAttributesWithoutAttributes);
       // EXTERNAL MODULE: ../../node_modules/style-loader/dist/runtime/insertStyleElement.js
-      var insertStyleElement = __nested_webpack_require_18561__(51);
-      var insertStyleElement_default = /*#__PURE__*/__nested_webpack_require_18561__.n(insertStyleElement);
+      var insertStyleElement = __nested_webpack_require_20703__(51);
+      var insertStyleElement_default = /*#__PURE__*/__nested_webpack_require_20703__.n(insertStyleElement);
       // EXTERNAL MODULE: ../../node_modules/style-loader/dist/runtime/styleTagTransform.js
-      var styleTagTransform = __nested_webpack_require_18561__(656);
-      var styleTagTransform_default = /*#__PURE__*/__nested_webpack_require_18561__.n(styleTagTransform);
+      var styleTagTransform = __nested_webpack_require_20703__(656);
+      var styleTagTransform_default = /*#__PURE__*/__nested_webpack_require_20703__.n(styleTagTransform);
       // EXTERNAL MODULE: ../../node_modules/css-loader/dist/cjs.js??ruleSet[1].rules[1].use[1]!../../node_modules/sass-loader/dist/cjs.js??ruleSet[1].rules[1].use[2]!./src/index.scss
-      var cjs_ruleSet_1_rules_1_use_2_src = __nested_webpack_require_18561__(483);
+      var cjs_ruleSet_1_rules_1_use_2_src = __nested_webpack_require_20703__(483);
       ; // CONCATENATED MODULE: ./src/index.scss
 
       var options = {};
@@ -1511,6 +1511,8 @@ module.exports = {
 
       const Tooltip = _ref => {
         let {
+          flex,
+          mustShow,
           show = true,
           text,
           position = "top",
@@ -1540,6 +1542,7 @@ module.exports = {
           }, 200); // 延迟100毫秒
         };
         const handleMouseLeave = () => {
+          if (mustShow) return;
           if (enterTimeoutRef.current) {
             clearTimeout(enterTimeoutRef.current);
           }
@@ -1570,6 +1573,7 @@ module.exports = {
           }, 400);
         };
         const handleMouseLeaveTooltip = () => {
+          if (mustShow) return;
           isEnterTooltipRef.current = false;
           setTimeout(() => {
             setIsVisible(false);
@@ -1578,8 +1582,22 @@ module.exports = {
             setIsShow(false);
           }, 300);
         };
+        (0, external_root_React_commonjs2_react_commonjs_react_amd_react_.useEffect)(() => {
+          if (mustShow) {
+            console.log("if: ", mustShow);
+            handleMouseEnter();
+          } else {
+            console.log("else: ", mustShow);
+            handleMouseLeave();
+          }
+        }, [mustShow]);
         return /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("div", {
-          className: "adou-tooltip-wrapper ".concat(wrapperClassname || "")
+          className: "adou-tooltip-wrapper ".concat(wrapperClassname || ""),
+          style: {
+            ...(flex ? {
+              flex: 1
+            } : {})
+          }
         }, /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("div", {
           className: "content",
           ref: tooltipRef,
@@ -3497,18 +3515,18 @@ var Tooltip_default = /*#__PURE__*/__webpack_require__.n(Tooltip);
 
 const Table = props => {
   const {
-    ref,
+    tableRef,
     activeId,
     maxWidth,
     showIndex = true,
     single = true,
-    id = 'id',
+    id = "id",
     trPointer = true,
     textPosition,
     collection,
     collapse,
     expandAll = true,
-    size = 'lg',
+    size = "lg",
     data,
     headers,
     propsData,
@@ -3516,25 +3534,25 @@ const Table = props => {
     tableStriped = true,
     tableBorderd = false,
     tableBorderless = false,
-    headColor = 'null',
+    headColor = "null",
     captionContent,
-    captionPosition = 'top',
-    tableResponsive = 'xxl',
+    captionPosition = "top",
+    tableResponsive = "xxl",
     eidtable = false,
     headSticky = true,
-    headTextColor = 'white',
-    headBGC = '#2782d7',
+    headTextColor = "white",
+    headBGC = "#2782d7",
     divider,
-    maxHeight = '500px',
-    minHeight = '300px',
+    maxHeight = "500px",
+    minHeight = "300px",
     onRowDoubleClick
   } = props;
   const cls = classnames_default()({
     table: true,
-    'table-striped': tableStriped,
+    "table-striped": tableStriped,
     // "table-hover": tableHover, 加上这句话就没有动画效果了
-    'table-bordered': tableBorderd,
-    'table-borderless': tableBorderless,
+    "table-bordered": tableBorderd,
+    "table-borderless": tableBorderless,
     ["table-".concat(size)]: true,
     ["table-".concat(headColor)]: true
   });
@@ -3555,12 +3573,12 @@ const Table = props => {
   };
   const generateHeaderStyle = position => {
     switch (position) {
-      case 'left':
-        return 'flex-start';
-      case 'right':
-        return 'flex-end';
+      case "left":
+        return "flex-start";
+      case "right":
+        return "flex-end";
       default:
-        return 'center';
+        return "center";
     }
   };
   const judgeSortIconBGC = (prop, isDown) => {
@@ -3568,11 +3586,11 @@ const Table = props => {
     if (!findItem) return;
     if (isDown) {
       if (findItem.isDown) {
-        return '7px solid red';
+        return "7px solid red";
       }
     } else {
       if (findItem.isUp) {
-        return '7px solid red';
+        return "7px solid red";
       }
     }
   };
@@ -3586,7 +3604,7 @@ const Table = props => {
           item.isUp = false;
           // 需要降序排序
           if (item.isDown) {
-            console.log('down: ');
+            console.log("down: ");
             setTableData(preArr => [...preArr].sort((a, b) => a[prop] < b[prop] ? 1 : -1));
           } else {
             setTableData(data);
@@ -3607,8 +3625,8 @@ const Table = props => {
 
     // setTableData((preArr: any) => preArr.sort((a: any, b: any) => (a[prop] > b[prop] ? 1 : -1)));
     /* if (isDown) {
-    const findItem = tableHeaders.find((item: any) => item.prop === prop);
-     } */
+      const findItem = tableHeaders.find((item: any) => item.prop === prop);
+       } */
   };
 
   // 渲染折叠的子组件
@@ -3626,8 +3644,8 @@ const Table = props => {
     array.forEach(item => {
       if (item !== null && item !== void 0 && item.props) {
         widthObject[item.props.prop] = item.props.width;
-        textPositionObject[item.props.prop] = item.props.textPosition || 'center';
-        verticalAlignObject[item.props.prop] = item.props.verticalAlign || 'middle';
+        textPositionObject[item.props.prop] = item.props.textPosition || "center";
+        verticalAlignObject[item.props.prop] = item.props.verticalAlign || "middle";
       }
     });
     if (Object.values(widthObject).every(item => !item)) {
@@ -3635,7 +3653,7 @@ const Table = props => {
     } else {}
     return /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement((external_root_React_commonjs2_react_commonjs_react_amd_react_default()).Fragment, null, /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("thead", {
       style: {
-        position: headSticky ? 'sticky' : 'unset',
+        position: headSticky ? "sticky" : "unset",
         top: 0,
         backgroundColor: "".concat(headBGC),
         zIndex: 999
@@ -3644,32 +3662,32 @@ const Table = props => {
     }, /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("tr", null, collection && /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement((external_root_React_commonjs2_react_commonjs_react_amd_react_default()).Fragment, null, /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("th", {
       scope: "col",
       style: {
-        width: '50px'
+        width: "50px"
       }
     }, !single && /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("input", {
       checked: checkedAll,
       onChange: handleCheckedAllChange,
-      type: single ? 'radio' : 'checkbox'
+      type: single ? "radio" : "checkbox"
     }))), showIndex && /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement((external_root_React_commonjs2_react_commonjs_react_amd_react_default()).Fragment, null, /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("th", {
       scope: "col",
       style: {
-        minWidth: '50px'
+        minWidth: "50px"
       }
     })), array && array.map((child, rowIndex) => {
       if (child !== null && child !== void 0 && child.props) {
         return /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("th", {
           style: {
-            whiteSpace: 'nowrap',
+            whiteSpace: "nowrap",
             width: widthObject[child.props.prop]
           },
-          className: "".concat('text-' + textPositionObject[child.props.prop]),
+          className: "".concat("text-" + textPositionObject[child.props.prop]),
           scope: "col",
           key: child.props.label
         }, /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("div", {
           className: "header-content",
           style: {
-            display: 'flex',
-            alignItems: 'center',
+            display: "flex",
+            alignItems: "center",
             justifyContent: generateHeaderStyle(textPositionObject[child.props.prop])
           }
         }, /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("span", {
@@ -3678,20 +3696,20 @@ const Table = props => {
           className: "header-icon"
         }, /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("i", {
           style: {
-            borderBottom: judgeSortIconBGC(child.props.prop) || '7px solid #000'
+            borderBottom: judgeSortIconBGC(child.props.prop) || "7px solid #000"
           },
           onClick: () => handleSortable(child.props.prop),
           className: "icon sort-up"
         }), /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("i", {
           style: {
-            borderTop: judgeSortIconBGC(child.props.prop, true) || '7px solid #000'
+            borderTop: judgeSortIconBGC(child.props.prop, true) || "7px solid #000"
           },
           onClick: () => handleSortable(child.props.prop, true),
           className: "icon sort-down"
         }))));
       }
     }))), /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("tbody", {
-      className: "".concat(divider ? 'table-group-divider' : '')
+      className: "".concat(divider ? "table-group-divider" : "")
     }, tableData.length > 0 && tableData.map((data, rowIndex) => {
       return /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement(external_root_React_commonjs2_react_commonjs_react_amd_react_.Fragment, {
         key: data[id]
@@ -3700,11 +3718,11 @@ const Table = props => {
         // onDoubleClick={() => handleRowDoubleClick(data)}
         ,
         key: rowIndex,
-        className: "tr-content ".concat(data.checked ? 'tr-checked' : ''),
+        className: "tr-content ".concat(data.checked ? "tr-checked" : ""),
         style: {
           ...(trPointer ? {
-            cursor: 'pointer'
-          } : '')
+            cursor: "pointer"
+          } : "")
         }
       }, collection &&
       /*#__PURE__*/
@@ -3712,14 +3730,14 @@ const Table = props => {
       external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("td", {
         scope: "row",
         style: {
-          width: '50px'
+          width: "50px"
         }
       }, /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("input", {
         name: data[id],
         id: data[id],
         checked: data.checked,
         onChange: e => handleCheckboxChange(e, data),
-        type: single ? 'radio' : 'checkbox'
+        type: single ? "radio" : "checkbox"
       })), showIndex &&
       /*#__PURE__*/
       // 索引框
@@ -3727,9 +3745,9 @@ const Table = props => {
         className: "text-center",
         scope: "col",
         style: {
-          alignContent: 'center',
-          padding: '0px',
-          width: '50px'
+          alignContent: "center",
+          padding: "0px",
+          width: "50px"
           /* ...(data.children ? { backgroundColor: '#fff', boxShadow: 'none' } : {}), */
         }
       }, rowIndex + 1), external_root_React_commonjs2_react_commonjs_react_amd_react_default().Children.map(array, (child, colIndex) => {
@@ -3752,17 +3770,17 @@ const Table = props => {
             maxWidth: newChild.props.maxWidth
           });
           return /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("td", {
-            className: "".concat(!colIndex && collapse && data.children ? 'text-left' : "text-".concat(textPositionObject[prop]), " "),
+            className: "".concat(!colIndex && collapse && data.children ? "text-left" : "text-".concat(textPositionObject[prop]), " "),
             style: {
               verticalAlign: verticalAlignObject[prop],
               width: widthObject[child.props.prop],
               maxWidth: maxWidth || child.props.maxWidth,
-              overflowWrap: 'break-word',
-              wordWrap: 'break-word',
-              wordBreak: 'break-word',
+              overflowWrap: "break-word",
+              wordWrap: "break-word",
+              wordBreak: "break-word",
               // 如果要默认展示一行，并且x轴太长可以滚动的话，则设置为nowrap
               // 注意：此时，外部设置的 width就没作用了，表格会自己根据内容来设置宽度
-              whiteSpace: 'nowrap'
+              whiteSpace: "nowrap"
               /*  [`${!colIndex && data.children ? 'paddingLeft' : ''}`]: '35px', */
             },
             key: colIndex
@@ -3776,25 +3794,25 @@ const Table = props => {
         className: "collapse-table-tr animate__animated animate__fadeIn",
         key: childData[id]
         /* style={{
-            ...(data.collapse ? { display: '' } : { display: 'none' }),
-        }} */
+                                  ...(data.collapse ? { display: '' } : { display: 'none' }),
+                              }} */
       }, collection && /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("td", {
         scope: "row",
         style: {
-          width: '50px'
+          width: "50px"
         }
       }, /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("input", {
         name: childData[id],
         id: childData[id],
         checked: childData.checked,
         onChange: e => handleCheckboxChange(e, childData),
-        type: single ? 'radio' : 'checkbox'
+        type: single ? "radio" : "checkbox"
       })), showIndex && /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("th", {
         className: "text-center",
         style: {
-          width: '50px',
-          padding: '0px',
-          alignContent: 'center'
+          width: "50px",
+          padding: "0px",
+          alignContent: "center"
         }
       }, "".concat(rowIndex + 1, ".").concat(index + 1)), external_root_React_commonjs2_react_commonjs_react_amd_react_default().Children.map(array, (child, colIndex) => {
         let prop = child.props.prop;
@@ -3809,14 +3827,14 @@ const Table = props => {
             textPosition
           });
           return /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("td", {
-            className: "".concat(colIndex === 0 ? 'text-left' : 'text-center'),
+            className: "".concat(colIndex === 0 ? "text-left" : "text-center"),
             style: {
               verticalAlign: verticalAlignObject[prop],
               width: widthObject[child.props.prop],
-              overflowWrap: 'break-word',
-              wordWrap: 'break-word',
-              wordBreak: 'break-word',
-              ["".concat(!colIndex ? 'paddingLeft' : '')]: '40px'
+              overflowWrap: "break-word",
+              wordWrap: "break-word",
+              wordBreak: "break-word",
+              ["".concat(!colIndex ? "paddingLeft" : "")]: "40px"
             },
             key: colIndex
           }, /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("div", {
@@ -3840,7 +3858,7 @@ const Table = props => {
     const totalLabelLength = newHeaderLabels.reduce((acc, curr) => acc + curr.label.length, 0);
     newHeaderLabels.forEach(item => {
       var _item$label;
-      labelLengthObj[item.prop] = Number((((_item$label = item.label) === null || _item$label === void 0 ? void 0 : _item$label.length) / totalLabelLength).toFixed(2)) * 100 + '%';
+      labelLengthObj[item.prop] = Number((((_item$label = item.label) === null || _item$label === void 0 ? void 0 : _item$label.length) / totalLabelLength).toFixed(2)) * 100 + "%";
     });
     return labelLengthObj;
   };
@@ -3944,7 +3962,7 @@ const Table = props => {
     }));
   };
   (0,external_root_React_commonjs2_react_commonjs_react_amd_react_.useEffect)(() => {
-    console.log('data: ', data);
+    console.log("data: ", data);
     const checkedAll = areAllChecked(data);
     setCheckedAll(checkedAll);
     if (collapse) {
@@ -3977,16 +3995,16 @@ const Table = props => {
       
   }, [tableHeaders]); */
 
-  (0,external_root_React_commonjs2_react_commonjs_react_amd_react_.useImperativeHandle)(ref, () => ({
+  (0,external_root_React_commonjs2_react_commonjs_react_amd_react_.useImperativeHandle)(tableRef, () => ({
     clearChecked: handleClearChecked
   }));
   return /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement((external_root_React_commonjs2_react_commonjs_react_amd_react_default()).Fragment, null, /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("div", {
     style: {
       minHeight: minHeight,
       maxHeight: maxHeight,
-      overflow: 'auto'
+      overflow: "auto"
     },
-    className: "table-wrapper ".concat("table-responsive".concat('-' + tableResponsive))
+    className: "table-wrapper ".concat("table-responsive".concat("-" + tableResponsive))
   }, /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("table", {
     className: cls
   }, renderCollapseChildren())), JSON.stringify(data));
