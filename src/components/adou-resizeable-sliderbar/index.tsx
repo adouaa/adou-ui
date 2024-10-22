@@ -2,8 +2,9 @@ import React, { useRef, useState, useEffect } from 'react';
 import './index.scss'; // 自定义样式
 
 interface ResizableSidebarProps {
+    contentOverflow?: boolean;
     contentFlex?: boolean;
-    initialWidth?: number;
+    initialWidth?: any;
     initialHeight?: any;
     minDragWidth?: number;
     minWidth?: number;
@@ -11,10 +12,19 @@ interface ResizableSidebarProps {
     children?: any;
 }
 
-const ResizableSidebar = ({ contentFlex = true, initialWidth = 0, initialHeight = 0, minDragWidth = 0, minWidth = 0, maxWidth = '500px', children }: ResizableSidebarProps) => {
+const ResizableSidebar = ({
+    contentOverflow = true,
+    contentFlex = true,
+    initialWidth = 0,
+    initialHeight = '500px',
+    minDragWidth = 0,
+    minWidth = 0,
+    maxWidth = '300px',
+    children,
+}: ResizableSidebarProps) => {
     const sidebarRef = useRef<any>(null);
     const [isResizing, setIsResizing] = useState(false);
-    const [currentSidebarWidth, setCurrentSidebarWidth] = useState(initialWidth ? maxWidth : initialWidth); // 最新宽度
+    const [currentSidebarWidth, setCurrentSidebarWidth] = useState<any>('0'); // 最新宽度
     const [initialSideBarWidth, setInitialSideBarWidth] = useState<number>(0); // 记录初始宽度
     const [initialSiderBarHeight, setInitialSiderBarHeight] = useState<any>(initialHeight);
     const [isDragging, setIsDragging] = useState<boolean>(false);
@@ -96,11 +106,18 @@ const ResizableSidebar = ({ contentFlex = true, initialWidth = 0, initialHeight 
         }, 1200);
     }, [resizeableContainerRef.current]);
 
+    // 为第一次出现添加动画效果
+    useEffect(() => {
+        setTimeout(() => {
+            setCurrentSidebarWidth(initialWidth ? (parseFloat(initialWidth!) > parseFloat(maxWidth) ? maxWidth : initialWidth) : 0);
+        }, 100);
+    }, []);
+
     return (
         <>
             <div
                 ref={resizeableContainerRef}
-                className={`resizable-sidebar pe-1 ${isDragging ? 'draging' : ''}`}
+                className={`pb-1 resizable-sidebar pe-1 ${isDragging ? 'draging' : ''}`}
                 style={{
                     width: `${currentSidebarWidth}`,
                     height: initialHeight || initialSiderBarHeight + 'px' || 0,
@@ -108,7 +125,13 @@ const ResizableSidebar = ({ contentFlex = true, initialWidth = 0, initialHeight 
                     // overflow: currentSidebarWidth === maxWidth ? "auto" : "hidden",
                 }}
             >
-                <div className="content" style={{ display: contentFlex ? 'flex' : '' }}>
+                <div
+                    className="content"
+                    style={{
+                        display: contentFlex ? 'flex' : '',
+                        overflow: contentOverflow ? 'auto' : '',
+                    }}
+                >
                     {children}
                 </div>
                 {/* 滚动条 */}
