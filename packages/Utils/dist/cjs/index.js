@@ -83,11 +83,22 @@ __webpack_require__.r(__webpack_exports__);
 
 // EXPORTS
 __webpack_require__.d(__webpack_exports__, {
+  convertArrayKeysToCamelCase: () => (/* reexport */ libs_convertArrayKeysToCamelCase),
+  convertArrayKeysToSnakeCase: () => (/* reexport */ libs_convertArrayKeysToSnakeCase),
   convertToTag: () => (/* reexport */ libs_convertToTag),
   getAbsolutePosition: () => (/* reexport */ libs_getAbsolutePositionOfStage),
+  isEmptyO: () => (/* reexport */ libs_isEmptyO),
+  timeFormatter: () => (/* reexport */ time_formatter_namespaceObject),
   useClickOutside: () => (/* reexport */ hooks_useClickOutside),
   useDrag: () => (/* reexport */ hooks_useDrag),
   useNavigateTo: () => (/* reexport */ hooks_useNavigateTo)
+});
+
+// NAMESPACE OBJECT: ./src/libs/time-formatter.js
+var time_formatter_namespaceObject = {};
+__webpack_require__.r(time_formatter_namespaceObject);
+__webpack_require__.d(time_formatter_namespaceObject, {
+  "default": () => (time_formatter)
 });
 
 ;// CONCATENATED MODULE: ./src/libs/getAbsolutePositionOfStage.js
@@ -129,6 +140,72 @@ const convertToTag = str => {
   return tags;
 };
 /* harmony default export */ const libs_convertToTag = (convertToTag);
+;// CONCATENATED MODULE: ./src/libs/time-formatter.js
+function formatDateTime(dateString, format) {
+  const date = new Date(dateString);
+  switch (format) {
+    case "MM-DD HH:mm":
+      const month = String(date.getMonth() + 1).padStart(2, "0");
+      const day = String(date.getDate()).padStart(2, "0");
+      const hours = String(date.getHours()).padStart(2, "0");
+      const minutes = String(date.getMinutes()).padStart(2, "0");
+      return "".concat(month, "-").concat(day, " ").concat(hours, ":").concat(minutes);
+    case "YYYY-MM-DD HH:mm:ss":
+      const year = date.getFullYear();
+      const month2 = String(date.getMonth() + 1).padStart(2, "0");
+      const day2 = String(date.getDate()).padStart(2, "0");
+      const hours2 = String(date.getHours()).padStart(2, "0");
+      const minutes2 = String(date.getMinutes()).padStart(2, "0");
+      const seconds2 = String(date.getSeconds()).padStart(2, "0");
+      return "".concat(year, "-").concat(month2, "-").concat(day2, " ").concat(hours2, ":").concat(minutes2, ":").concat(seconds2);
+    case "YYYY-MM-DD":
+      const year2 = date.getFullYear();
+      const month3 = String(date.getMonth() + 1).padStart(2, "0");
+      const day3 = String(date.getDate()).padStart(2, "0");
+      return "".concat(year2, "-").concat(month3, "-").concat(day3);
+    case "HH:mm:ss":
+      const hours3 = String(date.getHours()).padStart(2, "0");
+      const minutes3 = String(date.getMinutes()).padStart(2, "0");
+      const seconds3 = String(date.getSeconds()).padStart(2, "0");
+      return "".concat(hours3, ":").concat(minutes3, ":").concat(seconds3);
+    default:
+      break;
+  }
+}
+/* harmony default export */ const time_formatter = (formatDateTime);
+;// CONCATENATED MODULE: ./src/libs/isEmptyO.js
+function isEmptyO(obj) {
+  return Object.keys(obj !== null && obj !== void 0 ? obj : {}).length === 0;
+}
+/* harmony default export */ const libs_isEmptyO = (isEmptyO);
+;// CONCATENATED MODULE: ./src/libs/convertArrayKeysToCamelCase.js
+function snakeToCamel(name) {
+  return name.replace(/_([a-z])/g, (match, letter) => letter.toUpperCase());
+}
+function convertKeysToCamelCase(obj) {
+  return Object.fromEntries(Object.entries(obj).map(_ref => {
+    let [key, value] = _ref;
+    return [snakeToCamel(key), value || ""];
+  }));
+}
+function convertArrayKeysToCamelCase(arr) {
+  return arr.map(item => convertKeysToCamelCase(item));
+}
+/* harmony default export */ const libs_convertArrayKeysToCamelCase = (convertArrayKeysToCamelCase);
+;// CONCATENATED MODULE: ./src/libs/convertArrayKeysToSnakeCase.js
+function camelToSnake(name) {
+  return name.replace(/([a-z])([A-Z])/g, "$1_$2").toLowerCase();
+}
+function convertKeysToSnakeCase(obj) {
+  return Object.fromEntries(Object.entries(obj).map(_ref => {
+    let [key, value] = _ref;
+    return [camelToSnake(key), value];
+  }));
+}
+function convertArrayKeysToSnakeCase(arr) {
+  return arr.map(item => convertKeysToSnakeCase(item));
+}
+/* harmony default export */ const libs_convertArrayKeysToSnakeCase = (convertArrayKeysToSnakeCase);
 ;// CONCATENATED MODULE: ../../node_modules/@remix-run/router/dist/router.js
 /**
  * @remix-run/router v1.5.0
@@ -5200,6 +5277,10 @@ const useDrag = function (elementRef) {
 };
 /* harmony default export */ const hooks_useDrag = (useDrag);
 ;// CONCATENATED MODULE: ./src/index.tsx
+
+
+
+
 
 
 

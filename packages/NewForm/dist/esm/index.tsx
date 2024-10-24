@@ -6,6 +6,7 @@ import {
   useState,
 } from "react";
 import React from "react";
+
 interface FormProps {
   onSubmit?: () => void;
   oneLine?: boolean;
@@ -187,7 +188,7 @@ const Form = forwardRef(
           // child.type 子元素自身（FormItem），检查其静态属性 displayName 是否满足条件
           const enhancedChildren = React.cloneElement(child, {
             key: child.props.name,
-            ref: childRef,
+            ...(child.ref ? { ref: child.ref } : { ref: childRef }),
             labelWidth: maxLengthLabelWidth + "px",
             commonSuffixIcon,
             isFormItem: !oneLine,
@@ -208,7 +209,9 @@ const Form = forwardRef(
           // 将子组件的 ref 存储到 childRefs 中
           // 如果子组件内部没有用 useImperativeHandle来暴露东西的话，chidRef.current就是null
           if (child.props.name) {
-            childRefs.current[child.props.name] = childRef;
+            childRefs.current[child.props.name] = child.ref
+              ? child.ref
+              : childRef;
           }
         }
       });
@@ -247,4 +250,5 @@ const Form = forwardRef(
     );
   }
 );
+
 export default Form;

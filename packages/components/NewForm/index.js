@@ -250,7 +250,11 @@ const Form = /*#__PURE__*/(0,react__WEBPACK_IMPORTED_MODULE_0__.forwardRef)((_re
         // child.type 子元素自身（FormItem），检查其静态属性 displayName 是否满足条件
         const enhancedChildren = /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().cloneElement(child, {
           key: child.props.name,
-          ref: childRef,
+          ...(child.ref ? {
+            ref: child.ref
+          } : {
+            ref: childRef
+          }),
           labelWidth: maxLengthLabelWidth + "px",
           commonSuffixIcon,
           isFormItem: !oneLine,
@@ -280,7 +284,7 @@ const Form = /*#__PURE__*/(0,react__WEBPACK_IMPORTED_MODULE_0__.forwardRef)((_re
         // 将子组件的 ref 存储到 childRefs 中
         // 如果子组件内部没有用 useImperativeHandle来暴露东西的话，chidRef.current就是null
         if (child.props.name) {
-          childRefs.current[child.props.name] = childRef;
+          childRefs.current[child.props.name] = child.ref ? child.ref : childRef;
         }
       }
     });

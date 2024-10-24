@@ -6,6 +6,9 @@ import Button from "adou-ui/Button";
 import "./index.scss";
 
 interface DialogProps {
+  showConfirm?: boolean;
+  showCancel?: boolean;
+  showClose?: boolean;
   canConfirm?: boolean;
   clickOutside?: boolean;
   confirmText?: string;
@@ -24,6 +27,9 @@ interface DialogProps {
   onConfirm?: () => void;
 }
 const Dialog: React.FC<DialogProps> = ({
+  showConfirm = true,
+  showCancel = true,
+  showClose = true,
   canConfirm = true,
   clickOutside = true,
   confirmText = "确定",
@@ -113,29 +119,38 @@ const Dialog: React.FC<DialogProps> = ({
             >
               <div className="dialog-header p-2" onMouseDown={handleMouseDown}>
                 <span className="fs-5">{title}</span>
-                <button className="dialog-close hover-scale" onClick={onClose}>
-                  &times;
-                </button>
+                {showClose && (
+                  <button
+                    className="dialog-close hover-scale"
+                    onClick={onClose}
+                  >
+                    &times;
+                  </button>
+                )}
               </div>
               <div className="dialog-content" style={{ maxHeight }}>
                 {children}
               </div>
               <div className="dialog-footer d-flex justify-content-end p-3">
-                <Button
-                  className={`me-2 btn-${cancelBtnClass}`}
-                  size="md"
-                  onClickOK={onCancel ?? onClose}
-                >
-                  {cancelText}
-                </Button>
-                <Button
-                  disabled={!canConfirm}
-                  className={`btn-${confirmBtnClass}`}
-                  size="md"
-                  onClickOK={onConfirm}
-                >
-                  {confirmText}
-                </Button>
+                {showCancel && (
+                  <Button
+                    className={`me-2 btn-${cancelBtnClass}`}
+                    size="md"
+                    onClickOK={onCancel ?? onClose}
+                  >
+                    {cancelText}
+                  </Button>
+                )}
+                {showConfirm && (
+                  <Button
+                    disabled={!canConfirm}
+                    className={`btn-${confirmBtnClass}`}
+                    size="md"
+                    onClickOK={onConfirm}
+                  >
+                    {confirmText}
+                  </Button>
+                )}
               </div>
             </div>
           </div>,

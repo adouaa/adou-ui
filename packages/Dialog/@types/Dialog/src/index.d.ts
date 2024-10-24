@@ -1,6 +1,9 @@
 import React from "react";
 import "./index.scss";
 interface DialogProps {
+    showConfirm?: boolean;
+    showCancel?: boolean;
+    showClose?: boolean;
     canConfirm?: boolean;
     clickOutside?: boolean;
     confirmText?: string;

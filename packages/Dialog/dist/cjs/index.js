@@ -1497,6 +1497,9 @@ var update = injectStylesIntoStyleTag_default()(cjs_ruleSet_1_rules_1_use_2_src/
 
 const Dialog = _ref => {
   let {
+    showConfirm = true,
+    showCancel = true,
+    showClose = true,
     canConfirm = true,
     clickOutside = true,
     confirmText = "确定",
@@ -1583,7 +1586,7 @@ const Dialog = _ref => {
     onMouseDown: handleMouseDown
   }, /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("span", {
     className: "fs-5"
-  }, title), /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("button", {
+  }, title), showClose && /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("button", {
     className: "dialog-close hover-scale",
     onClick: onClose
   }, "\xD7")), /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("div", {
@@ -1593,11 +1596,11 @@ const Dialog = _ref => {
     }
   }, children), /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("div", {
     className: "dialog-footer d-flex justify-content-end p-3"
-  }, /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement((Button_default()), {
+  }, showCancel && /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement((Button_default()), {
     className: "me-2 btn-".concat(cancelBtnClass),
     size: "md",
     onClickOK: onCancel !== null && onCancel !== void 0 ? onCancel : onClose
-  }, cancelText), /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement((Button_default()), {
+  }, cancelText), showConfirm && /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement((Button_default()), {
     disabled: !canConfirm,
     className: "btn-".concat(confirmBtnClass),
     size: "md",

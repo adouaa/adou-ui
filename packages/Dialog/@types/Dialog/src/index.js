@@ -32,7 +32,7 @@ const useDrag_1 = __importDefault(require("../../Utils/src/hooks/useDrag"));
 const useClickOutside_1 = __importDefault(require("../../Utils/src/hooks/useClickOutside"));
 const Button_1 = __importDefault(require("adou-ui/Button"));
 require("./index.scss");
-const Dialog = ({ canConfirm = true, clickOutside = true, confirmText = "确定", cancelText = "取消", confirmBtnClass = "primary", cancelBtnClass = "secondary", show: isOpen = false, title = "提示", children = null, type = "", maxHeight = "500px", width = "600px", maxWidth, onCancel, onClose = () => { }, onConfirm = () => { }, }) => {
+const Dialog = ({ showConfirm = true, showCancel = true, showClose = true, canConfirm = true, clickOutside = true, confirmText = "确定", cancelText = "取消", confirmBtnClass = "primary", cancelBtnClass = "secondary", show: isOpen = false, title = "提示", children = null, type = "", maxHeight = "500px", width = "600px", maxWidth, onCancel, onClose = () => { }, onConfirm = () => { }, }) => {
     const dialogRef = (0, react_1.useRef)(null);
     const [show, setShow] = (0, react_1.useState)(false);
     const [isAnimating, setIsAnimating] = (0, react_1.useState)(false);
@@ -89,11 +89,11 @@ const Dialog = ({ canConfirm = true, clickOutside = true, confirmText = "确定"
                 } },
                 react_1.default.createElement("div", { className: "dialog-header p-2", onMouseDown: handleMouseDown },
                     react_1.default.createElement("span", { className: "fs-5" }, title),
-                    react_1.default.createElement("button", { className: "dialog-close hover-scale", onClick: onClose }, "\u00D7")),
+                    showClose && (react_1.default.createElement("button", { className: "dialog-close hover-scale", onClick: onClose }, "\u00D7"))),
                 react_1.default.createElement("div", { className: "dialog-content", style: { maxHeight } }, children),
                 react_1.default.createElement("div", { className: "dialog-footer d-flex justify-content-end p-3" },
-                    react_1.default.createElement(Button_1.default, { className: `me-2 btn-${cancelBtnClass}`, size: "md", onClickOK: onCancel ?? onClose }, cancelText),
-                    react_1.default.createElement(Button_1.default, { disabled: !canConfirm, className: `btn-${confirmBtnClass}`, size: "md", onClickOK: onConfirm }, confirmText)))), document.body)));
+                    showCancel && (react_1.default.createElement(Button_1.default, { className: `me-2 btn-${cancelBtnClass}`, size: "md", onClickOK: onCancel ?? onClose }, cancelText)),
+                    showConfirm && (react_1.default.createElement(Button_1.default, { disabled: !canConfirm, className: `btn-${confirmBtnClass}`, size: "md", onClickOK: onConfirm }, confirmText))))), document.body)));
 };
 exports.default = Dialog;
 //# sourceMappingURL=index.js.map
