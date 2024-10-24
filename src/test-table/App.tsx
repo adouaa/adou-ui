@@ -5,6 +5,8 @@ import AdouTable, { EditableTableCell } from 'components/adou-table';
 import Tooltip from 'components/adou-tooltip';
 import Sortable from 'components/adou-sortable';
 import Dialog from 'test-dialog';
+import Select from 'components/adou-new-form/adou-select';
+import Form from 'components/adou-new-form';
 
 interface AppProps {}
 
@@ -85,9 +87,14 @@ const App = ({}: AppProps) => {
 
     const handleClose = () => {};
 
+    const testRef = useRef<any>(null);
+    const handleTest = () => {
+        console.log('testRef.current: ', testRef.current);
+    };
+
     return (
         <div className="expandAll={false} app-wrapper">
-            <AdouTable tableBorderd expandAll={false} textPosition="center" collapse headers={headerLabels} data={data}>
+            {/*  <AdouTable tableBorderd expandAll={false} textPosition="center" collapse headers={headerLabels} data={data}>
                 {headerLabels.map((label) => (
                     <EditableTableCell tooltip={label.tooltip} maxWidth={label.maxWidth} sortable={label.sortable} key={label.prop} prop={label.prop} label={label.label} />
                 ))}
@@ -110,7 +117,12 @@ const App = ({}: AppProps) => {
                 }
             >
                 测试
-            </Dialog>
+            </Dialog> */}
+            <Form data={{}}>
+                <Select ref={testRef} options={[]} name="test"></Select>
+                <Select options={[]}></Select>
+            </Form>
+            <button onClick={handleTest}>测试</button>
         </div>
     );
 };

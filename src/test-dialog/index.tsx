@@ -6,6 +6,9 @@ import Button from 'components/adou-button';
 import './index.scss';
 
 interface DialogProps {
+    showConfirm?: boolean;
+    showCancel?: boolean;
+    showClose?: boolean;
     canConfirm?: boolean;
     clickOutside?: boolean;
     confirmText?: string;
@@ -22,16 +25,18 @@ interface DialogProps {
     onCancel?: () => void;
     onClose?: () => void;
     onConfirm?: () => void;
-    setShow?: any;
 }
 const Dialog: React.FC<DialogProps> = ({
+    showConfirm = true,
+    showCancel = true,
+    showClose = true,
     canConfirm = true,
     clickOutside = true,
     confirmText = '确定',
     cancelText = '取消',
     confirmBtnClass = 'primary',
     cancelBtnClass = 'secondary',
-    show: isOpen = false, // 外部传进来的跟 show有关的变量都替换成 isOpen
+    show: isOpen = false,
     title = '提示',
     children = null,
     type = '',
@@ -41,7 +46,6 @@ const Dialog: React.FC<DialogProps> = ({
     onCancel,
     onClose = () => {},
     onConfirm = () => {},
-    setShow: setIsOpen, // 外部传进来的跟 show有关的变量都替换成 isOpen
 }) => {
     const dialogRef = useRef<any>(null);
     const [show, setShow] = useState(false);
@@ -55,14 +59,6 @@ const Dialog: React.FC<DialogProps> = ({
         if (event.key === 'Enter') {
             onConfirm && onConfirm();
         }
-    };
-
-    const handleConfirm = () => {
-        onConfirm && onConfirm();
-    };
-
-    const handleClose = () => {
-        setIsOpen && setIsOpen(false);
     };
 
     useEffect(() => {
@@ -99,7 +95,7 @@ const Dialog: React.FC<DialogProps> = ({
         }
     }, [isOpen, type]);
 
-    useClickOutside(dialogRef, clickOutside && handleClose);
+    useClickOutside(dialogRef, clickOutside && onClose);
 
     return (
         <>
@@ -121,20 +117,26 @@ const Dialog: React.FC<DialogProps> = ({
                         >
                             <div className="dialog-header p-2" onMouseDown={handleMouseDown}>
                                 <span className="fs-5">{title}</span>
-                                <button className="dialog-close hover-scale" onClick={handleClose}>
-                                    &times;
-                                </button>
+                                {showClose && (
+                                    <button className="dialog-close hover-scale" onClick={onClose}>
+                                        &times;
+                                    </button>
+                                )}
                             </div>
                             <div className="dialog-content" style={{ maxHeight }}>
                                 {children}
                             </div>
                             <div className="dialog-footer d-flex justify-content-end p-3">
-                                <Button className={`me-2 btn-${cancelBtnClass}`} size="md" onClickOK={onCancel ?? handleClose}>
-                                    {cancelText}
-                                </Button>
-                                <Button disabled={!canConfirm} className={`btn-${confirmBtnClass}`} size="md" onClickOK={handleConfirm}>
-                                    {confirmText}
-                                </Button>
+                                {showCancel && (
+                                    <Button className={`me-2 btn-${cancelBtnClass}`} size="md" onClickOK={onCancel ?? onClose}>
+                                        {cancelText}
+                                    </Button>
+                                )}
+                                {showConfirm && (
+                                    <Button disabled={!canConfirm} className={`btn-${confirmBtnClass}`} size="md" onClickOK={onConfirm}>
+                                        {confirmText}
+                                    </Button>
+                                )}
                             </div>
                         </div>
                     </div>,
