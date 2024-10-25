@@ -265,11 +265,22 @@ module.exports = {
 
       // EXPORTS
       __nested_webpack_require_918__.d(__nested_webpack_exports__, {
+        convertArrayKeysToCamelCase: () => ( /* reexport */libs_convertArrayKeysToCamelCase),
+        convertArrayKeysToSnakeCase: () => ( /* reexport */libs_convertArrayKeysToSnakeCase),
         convertToTag: () => ( /* reexport */libs_convertToTag),
         getAbsolutePosition: () => ( /* reexport */libs_getAbsolutePositionOfStage),
+        isEmptyO: () => ( /* reexport */libs_isEmptyO),
+        timeFormatter: () => ( /* reexport */time_formatter_namespaceObject),
         useClickOutside: () => ( /* reexport */hooks_useClickOutside),
         useDrag: () => ( /* reexport */hooks_useDrag),
         useNavigateTo: () => ( /* reexport */hooks_useNavigateTo)
+      });
+
+      // NAMESPACE OBJECT: ./src/libs/time-formatter.js
+      var time_formatter_namespaceObject = {};
+      __nested_webpack_require_918__.r(time_formatter_namespaceObject);
+      __nested_webpack_require_918__.d(time_formatter_namespaceObject, {
+        "default": () => time_formatter
       });
       ; // CONCATENATED MODULE: ./src/libs/getAbsolutePositionOfStage.js
       function getAbsolutePositionOfStage(domElement) {
@@ -312,6 +323,76 @@ module.exports = {
       };
       /* harmony default export */
       const libs_convertToTag = convertToTag;
+      ; // CONCATENATED MODULE: ./src/libs/time-formatter.js
+      function formatDateTime(dateString, format) {
+        const date = new Date(dateString);
+        switch (format) {
+          case "MM-DD HH:mm":
+            const month = String(date.getMonth() + 1).padStart(2, "0");
+            const day = String(date.getDate()).padStart(2, "0");
+            const hours = String(date.getHours()).padStart(2, "0");
+            const minutes = String(date.getMinutes()).padStart(2, "0");
+            return "".concat(month, "-").concat(day, " ").concat(hours, ":").concat(minutes);
+          case "YYYY-MM-DD HH:mm:ss":
+            const year = date.getFullYear();
+            const month2 = String(date.getMonth() + 1).padStart(2, "0");
+            const day2 = String(date.getDate()).padStart(2, "0");
+            const hours2 = String(date.getHours()).padStart(2, "0");
+            const minutes2 = String(date.getMinutes()).padStart(2, "0");
+            const seconds2 = String(date.getSeconds()).padStart(2, "0");
+            return "".concat(year, "-").concat(month2, "-").concat(day2, " ").concat(hours2, ":").concat(minutes2, ":").concat(seconds2);
+          case "YYYY-MM-DD":
+            const year2 = date.getFullYear();
+            const month3 = String(date.getMonth() + 1).padStart(2, "0");
+            const day3 = String(date.getDate()).padStart(2, "0");
+            return "".concat(year2, "-").concat(month3, "-").concat(day3);
+          case "HH:mm:ss":
+            const hours3 = String(date.getHours()).padStart(2, "0");
+            const minutes3 = String(date.getMinutes()).padStart(2, "0");
+            const seconds3 = String(date.getSeconds()).padStart(2, "0");
+            return "".concat(hours3, ":").concat(minutes3, ":").concat(seconds3);
+          default:
+            break;
+        }
+      }
+      /* harmony default export */
+      const time_formatter = formatDateTime;
+      ; // CONCATENATED MODULE: ./src/libs/isEmptyO.js
+      function isEmptyO(obj) {
+        return Object.keys(obj !== null && obj !== void 0 ? obj : {}).length === 0;
+      }
+      /* harmony default export */
+      const libs_isEmptyO = isEmptyO;
+      ; // CONCATENATED MODULE: ./src/libs/convertArrayKeysToCamelCase.js
+      function snakeToCamel(name) {
+        return name.replace(/_([a-z])/g, (match, letter) => letter.toUpperCase());
+      }
+      function convertKeysToCamelCase(obj) {
+        return Object.fromEntries(Object.entries(obj).map(_ref => {
+          let [key, value] = _ref;
+          return [snakeToCamel(key), value || ""];
+        }));
+      }
+      function convertArrayKeysToCamelCase(arr) {
+        return arr.map(item => convertKeysToCamelCase(item));
+      }
+      /* harmony default export */
+      const libs_convertArrayKeysToCamelCase = convertArrayKeysToCamelCase;
+      ; // CONCATENATED MODULE: ./src/libs/convertArrayKeysToSnakeCase.js
+      function camelToSnake(name) {
+        return name.replace(/([a-z])([A-Z])/g, "$1_$2").toLowerCase();
+      }
+      function convertKeysToSnakeCase(obj) {
+        return Object.fromEntries(Object.entries(obj).map(_ref => {
+          let [key, value] = _ref;
+          return [camelToSnake(key), value];
+        }));
+      }
+      function convertArrayKeysToSnakeCase(arr) {
+        return arr.map(item => convertKeysToSnakeCase(item));
+      }
+      /* harmony default export */
+      const libs_convertArrayKeysToSnakeCase = convertArrayKeysToSnakeCase;
       ; // CONCATENATED MODULE: ../../node_modules/@remix-run/router/dist/router.js
       /**
        * @remix-run/router v1.5.0
@@ -5445,8 +5526,11 @@ ___CSS_LOADER_EXPORT___.push([module.id, `@charset "UTF-8";
   right: 14px;
   transition: transform 0.2s;
 }
-.select-wrapper .icon:hover {
-  transform: scale(1.4);
+.select-wrapper .icon.rotate-down:hover {
+  transform: scale(1.3) rotate(0deg);
+}
+.select-wrapper .icon.rotate-up:hover {
+  transform: scale(1.3) rotate(90deg);
 }
 .select-wrapper .content-box .label-box {
   font-size: 14px;
@@ -5476,19 +5560,9 @@ ___CSS_LOADER_EXPORT___.push([module.id, `@charset "UTF-8";
   align-items: start;
 }
 
-.rotate-up {
-  transform: rotate(90deg);
-  /* 旋转-180度，向上箭头样式 */
-}
-
-.rotate-down {
-  transform: rotate(0deg);
-  /* 不旋转，向下箭头样式 */
-}
-
 /* 定义滚动条样式 */
 ::-webkit-scrollbar {
-  width: 8px;
+  width: 6px;
   /* 滚动条宽度 */
 }
 
@@ -5509,6 +5583,16 @@ ___CSS_LOADER_EXPORT___.push([module.id, `@charset "UTF-8";
   background: #555;
 }
 
+.rotate-up {
+  transform: rotate(90deg);
+  /* 旋转-180度，向上箭头样式 */
+}
+
+.rotate-down {
+  transform: rotate(0deg);
+  /* 不旋转，向下箭头样式 */
+}
+
 .custom-select-content {
   min-width: 200px;
   text-align-last: left;
@@ -5520,7 +5604,6 @@ ___CSS_LOADER_EXPORT___.push([module.id, `@charset "UTF-8";
   border-radius: 4px;
   box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
   transition: opacity 0.3s ease, visibility 0.3s ease, transform 0.3s ease;
-  opacity: 0;
   visibility: hidden;
   transform: scaleY(0);
   transform-origin: top;
@@ -5544,7 +5627,6 @@ ___CSS_LOADER_EXPORT___.push([module.id, `@charset "UTF-8";
 .custom-select-content .select-option-active {
   font-weight: bold;
 }
-
 .custom-select-content-open {
   opacity: 1;
   visibility: visible;
@@ -5564,7 +5646,7 @@ ___CSS_LOADER_EXPORT___.push([module.id, `@charset "UTF-8";
   height: 100px;
   font-style: italic;
   color: #a4a3a3;
-}`, "",{"version":3,"sources":["webpack://./src/index.scss"],"names":[],"mappings":"AAAA,gBAAgB;AAAhB;EAKI,kBAAA;AAFJ;AAFI;EACI,aAAA;AAIR;AACI;;EAEI,cAAA;EACA,cAAA;EACA,gBAAA;EACA,mBAAA;EACA,uBAAA;AACR;AAEI;EACI,WAAA;AAAR;AAGI;EACI,YAAA;EACA,kBAAA;EACA,eAAA;AADR;AAGQ;EACI,+BAAA;EACA,WAAA;AADZ;AAMI;EACI,UAAA;EACA,mBAAA;EACA,oBAAA;AAJR;AAOI;EACI,kBAAA;EACA,SAAA;EACA,WAAA;EACA,0BAAA;AALR;AAOQ;EACI,qBAAA;AALZ;AAUQ;EACI,eAAA;EACA,eAAA;EACA,2BAAA;EACA,eAAA;AARZ;AAWQ;EACI,yBAAA;EACA,aAAA;EACA,4BAAA;EACA,aAAA;AATZ;AAYQ;EACI,aAAA;EACA,mBAAA;EACA,uBAAA;AAVZ;AAcI;EACI,aAAA;AAZR;AAeI;EACI,aAAA;AAbR;AAeQ;EACI,aAAA;EACA,kBAAA;AAbZ;;AAkBA;EACI,wBAAA;EACA,mBAAA;AAfJ;;AAkBA;EACI,uBAAA;EACA,eAAA;AAfJ;;AAkBA,YAAA;AACA;EACI,UAAA;EACA,UAAA;AAfJ;;AAkBA;EACI,mBAAA;EACA,WAAA;AAfJ;;AAkBA;EACI,gBAAA;EACA,YAAA;EACA,kBAAA;EACA,YAAA;AAfJ;;AAkBA,YAAA;AACA;EACI,gBAAA;AAfJ;;AAkBA;EACI,gBAAA;EACA,qBAAA;EACA,sBAAA;EACA,gBAAA;EACA,WAAA;EACA,kBAAA;EACA,iBAAA;EACA,kBAAA;EACA,4CAAA;EACA,wEAAA;EACA,UAAA;EACA,kBAAA;EACA,oBAAA;EACA,qBAAA;EAEA,gBAAA;AAhBJ;AAiBI;EACI,iBAAA;AAfR;AAiBQ;EACI,yBAAA;EACA,eAAA;AAfZ;AAkBQ;EACI,WAAA;EACA,yBAAA;AAhBZ;AAmBQ;EACI,yBAAA;EACA,cAAA;AAjBZ;AAqBI;EACI,iBAAA;AAnBR;;AAuBA;EACI,UAAA;EACA,mBAAA;EACA,oBAAA;EACA,gBAAA;EACA,WAAA;AApBJ;;AAuBA;EACI,YAAA;EACA,YAAA;EAEA,cAAA;AArBJ;;AAwBA;EACI,eAAA;EACA,aAAA;EACA,kBAAA;EACA,cAAA;AArBJ","sourcesContent":[".select-wrapper {\r\n    select option:first-child {\r\n        display: none;\r\n    }\r\n\r\n    position: relative;\r\n\r\n    .select-placeholder,\r\n    .select-value {\r\n        display: block;\r\n        color: #7d7d7d;\r\n        overflow: hidden;\r\n        white-space: nowrap;\r\n        text-overflow: ellipsis;\r\n    }\r\n\r\n    .select-value {\r\n        color: #000;\r\n    }\r\n\r\n    .custom-select {\r\n        height: 38px;\r\n        position: relative;\r\n        cursor: pointer;\r\n\r\n        i {\r\n            transition: transform 0.3s ease;\r\n            /* 添加过渡效果 */\r\n        }\r\n    }\r\n\r\n\r\n    .open {\r\n        opacity: 1;\r\n        visibility: visible;\r\n        transform: scaleY(1);\r\n    }\r\n\r\n    .icon {\r\n        position: absolute;\r\n        top: 10px;\r\n        right: 14px;\r\n        transition: transform 0.2s;\r\n\r\n        &:hover {\r\n            transform: scale(1.4);\r\n        }\r\n    }\r\n\r\n    .content-box {\r\n        .label-box {\r\n            font-size: 14px;\r\n            min-width: 50px;\r\n            max-width: 200px !important;\r\n            flex-wrap: wrap;\r\n        }\r\n\r\n        .suffix-content-btn-wrapper .btn {\r\n            border-top-left-radius: 0;\r\n            /* 去掉左上角的圆角 */\r\n            border-bottom-left-radius: 0;\r\n            /* 去掉左下角的圆角 */\r\n        }\r\n\r\n        .suffix-content-text-wrapper {\r\n            display: flex;\r\n            align-items: center;\r\n            justify-content: center;\r\n        }\r\n    }\r\n\r\n    .label-in-center {\r\n        display: flex;\r\n    }\r\n\r\n    .label-in-left-top {\r\n        display: flex;\r\n\r\n        .label-box {\r\n            display: flex;\r\n            align-items: start;\r\n        }\r\n    }\r\n}\r\n\r\n.rotate-up {\r\n    transform: rotate(90deg);\r\n    /* 旋转-180度，向上箭头样式 */\r\n}\r\n\r\n.rotate-down {\r\n    transform: rotate(0deg);\r\n    /* 不旋转，向下箭头样式 */\r\n}\r\n\r\n/* 定义滚动条样式 */\r\n::-webkit-scrollbar {\r\n    width: 8px;\r\n    /* 滚动条宽度 */\r\n}\r\n\r\n::-webkit-scrollbar-track {\r\n    background: #f1f1f1;\r\n    /* 滚动条背景色 */\r\n}\r\n\r\n::-webkit-scrollbar-thumb {\r\n    background: #888;\r\n    /* 滚动条滑块颜色 */\r\n    border-radius: 2px;\r\n    /* 滚动条滑块圆角 */\r\n}\r\n\r\n/* 悬停时滑块样式 */\r\n::-webkit-scrollbar-thumb:hover {\r\n    background: #555;\r\n}\r\n\r\n.custom-select-content {\r\n    min-width: 200px;\r\n    text-align-last: left;\r\n    background-color: #fff;\r\n    overflow: hidden;\r\n    /* 隐藏溢出内容 */\r\n    position: absolute;\r\n    z-index: 66666666;\r\n    border-radius: 4px;\r\n    box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;\r\n    transition: opacity 0.3s ease, visibility 0.3s ease, transform 0.3s ease;\r\n    opacity: 0;\r\n    visibility: hidden;\r\n    transform: scaleY(0);\r\n    transform-origin: top;\r\n\r\n    /* 添加高度变化的过渡效果 */\r\n    .select-option {\r\n        padding: 5px 10px;\r\n\r\n        &:hover {\r\n            background-color: #f6f6f6;\r\n            cursor: pointer;\r\n        }\r\n\r\n        &:active {\r\n            color: #fff;\r\n            background-color: #2783d8;\r\n        }\r\n\r\n        &.focused {\r\n            background-color: #e0e0e0;\r\n            /* 高亮当前聚焦的选项 */\r\n        }\r\n    }\r\n\r\n    .select-option-active {\r\n        font-weight: bold;\r\n    }\r\n}\r\n\r\n.custom-select-content-open {\r\n    opacity: 1;\r\n    visibility: visible;\r\n    transform: scaleY(1);\r\n    overflow-y: auto;\r\n    /* 允许垂直滚动 */\r\n}\r\n\r\n.none-option {\r\n    width: 200px;\r\n    height: 50px;\r\n\r\n    color: #a4a3a3;\r\n}\r\n\r\n.none-match {\r\n    padding: 10px 0;\r\n    height: 100px;\r\n    font-style: italic;\r\n    color: #a4a3a3;\r\n}"],"sourceRoot":""}]);
+}`, "",{"version":3,"sources":["webpack://./src/index.scss"],"names":[],"mappings":"AAAA,gBAAgB;AAAhB;EAKI,kBAAA;AAFJ;AAFI;EACI,aAAA;AAIR;AACI;;EAEI,cAAA;EACA,cAAA;EACA,gBAAA;EACA,mBAAA;EACA,uBAAA;AACR;AAEI;EACI,WAAA;AAAR;AAGI;EACI,YAAA;EACA,kBAAA;EACA,eAAA;AADR;AAGQ;EACI,+BAAA;EACA,WAAA;AADZ;AAMI;EACI,UAAA;EACA,mBAAA;EACA,oBAAA;AAJR;AAOI;EACI,kBAAA;EACA,SAAA;EACA,WAAA;EACA,0BAAA;AALR;AAOQ;EACI,kCAAA;AALZ;AAQQ;EACI,mCAAA;AANZ;AAWQ;EACI,eAAA;EACA,eAAA;EACA,2BAAA;EACA,eAAA;AATZ;AAYQ;EACI,yBAAA;EACA,aAAA;EACA,4BAAA;EACA,aAAA;AAVZ;AAaQ;EACI,aAAA;EACA,mBAAA;EACA,uBAAA;AAXZ;AAeI;EACI,aAAA;AAbR;AAgBI;EACI,aAAA;AAdR;AAgBQ;EACI,aAAA;EACA,kBAAA;AAdZ;;AAqBA,YAAA;AACA;EACI,UAAA;EACA,UAAA;AAlBJ;;AAqBA;EACI,mBAAA;EACA,WAAA;AAlBJ;;AAqBA;EACI,gBAAA;EACA,YAAA;EACA,kBAAA;EACA,YAAA;AAlBJ;;AAqBA,YAAA;AACA;EACI,gBAAA;AAlBJ;;AAqBA;EACI,wBAAA;EACA,mBAAA;AAlBJ;;AAqBA;EACI,uBAAA;EACA,eAAA;AAlBJ;;AAuBA;EACI,gBAAA;EACA,qBAAA;EACA,sBAAA;EACA,gBAAA;EACA,WAAA;EACA,kBAAA;EACA,iBAAA;EACA,kBAAA;EACA,4CAAA;EACA,wEAAA;EACA,kBAAA;EACA,oBAAA;EACA,qBAAA;EAEA,gBAAA;AArBJ;AAsBI;EACI,iBAAA;AApBR;AAsBQ;EACI,yBAAA;EACA,eAAA;AApBZ;AAuBQ;EACI,WAAA;EACA,yBAAA;AArBZ;AAwBQ;EACI,yBAAA;EACA,cAAA;AAtBZ;AA0BI;EACI,iBAAA;AAxBR;AA6BI;EACI,UAAA;EACA,mBAAA;EACA,oBAAA;EACA,gBAAA;EACA,WAAA;AA3BR;;AAiCA;EACI,YAAA;EACA,YAAA;EAEA,cAAA;AA/BJ;;AAkCA;EACI,eAAA;EACA,aAAA;EACA,kBAAA;EACA,cAAA;AA/BJ","sourcesContent":[".select-wrapper {\r\n    select option:first-child {\r\n        display: none;\r\n    }\r\n\r\n    position: relative;\r\n\r\n    .select-placeholder,\r\n    .select-value {\r\n        display: block;\r\n        color: #7d7d7d;\r\n        overflow: hidden;\r\n        white-space: nowrap;\r\n        text-overflow: ellipsis;\r\n    }\r\n\r\n    .select-value {\r\n        color: #000;\r\n    }\r\n\r\n    .custom-select {\r\n        height: 38px;\r\n        position: relative;\r\n        cursor: pointer;\r\n\r\n        i {\r\n            transition: transform 0.3s ease;\r\n            /* 添加过渡效果 */\r\n        }\r\n    }\r\n\r\n\r\n    .open {\r\n        opacity: 1;\r\n        visibility: visible;\r\n        transform: scaleY(1);\r\n    }\r\n\r\n    .icon {\r\n        position: absolute;\r\n        top: 10px;\r\n        right: 14px;\r\n        transition: transform 0.2s;\r\n\r\n        &.rotate-down:hover {\r\n            transform: scale(1.3) rotate(0deg);\r\n        }\r\n\r\n        &.rotate-up:hover {\r\n            transform: scale(1.3) rotate(90deg);\r\n        }\r\n    }\r\n\r\n    .content-box {\r\n        .label-box {\r\n            font-size: 14px;\r\n            min-width: 50px;\r\n            max-width: 200px !important;\r\n            flex-wrap: wrap;\r\n        }\r\n\r\n        .suffix-content-btn-wrapper .btn {\r\n            border-top-left-radius: 0;\r\n            /* 去掉左上角的圆角 */\r\n            border-bottom-left-radius: 0;\r\n            /* 去掉左下角的圆角 */\r\n        }\r\n\r\n        .suffix-content-text-wrapper {\r\n            display: flex;\r\n            align-items: center;\r\n            justify-content: center;\r\n        }\r\n    }\r\n\r\n    .label-in-center {\r\n        display: flex;\r\n    }\r\n\r\n    .label-in-left-top {\r\n        display: flex;\r\n\r\n        .label-box {\r\n            display: flex;\r\n            align-items: start;\r\n        }\r\n    }\r\n\r\n\r\n}\r\n\r\n/* 定义滚动条样式 */\r\n::-webkit-scrollbar {\r\n    width: 6px;\r\n    /* 滚动条宽度 */\r\n}\r\n\r\n::-webkit-scrollbar-track {\r\n    background: #f1f1f1;\r\n    /* 滚动条背景色 */\r\n}\r\n\r\n::-webkit-scrollbar-thumb {\r\n    background: #888;\r\n    /* 滚动条滑块颜色 */\r\n    border-radius: 2px;\r\n    /* 滚动条滑块圆角 */\r\n}\r\n\r\n/* 悬停时滑块样式 */\r\n::-webkit-scrollbar-thumb:hover {\r\n    background: #555;\r\n}\r\n\r\n.rotate-up {\r\n    transform: rotate(90deg);\r\n    /* 旋转-180度，向上箭头样式 */\r\n}\r\n\r\n.rotate-down {\r\n    transform: rotate(0deg);\r\n    /* 不旋转，向下箭头样式 */\r\n}\r\n\r\n\r\n\r\n.custom-select-content {\r\n    min-width: 200px;\r\n    text-align-last: left;\r\n    background-color: #fff;\r\n    overflow: hidden;\r\n    /* 隐藏溢出内容 */\r\n    position: absolute;\r\n    z-index: 66666666;\r\n    border-radius: 4px;\r\n    box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;\r\n    transition: opacity 0.3s ease, visibility 0.3s ease, transform 0.3s ease;\r\n    visibility: hidden;\r\n    transform: scaleY(0);\r\n    transform-origin: top;\r\n\r\n    /* 添加高度变化的过渡效果 */\r\n    .select-option {\r\n        padding: 5px 10px;\r\n\r\n        &:hover {\r\n            background-color: #f6f6f6;\r\n            cursor: pointer;\r\n        }\r\n\r\n        &:active {\r\n            color: #fff;\r\n            background-color: #2783d8;\r\n        }\r\n\r\n        &.focused {\r\n            background-color: #e0e0e0;\r\n            /* 高亮当前聚焦的选项 */\r\n        }\r\n    }\r\n\r\n    .select-option-active {\r\n        font-weight: bold;\r\n    }\r\n\r\n    &-close {}\r\n\r\n    &-open {\r\n        opacity: 1;\r\n        visibility: visible;\r\n        transform: scaleY(1);\r\n        overflow-y: auto;\r\n        /* 允许垂直滚动 */\r\n    }\r\n}\r\n\r\n\r\n\r\n.none-option {\r\n    width: 200px;\r\n    height: 50px;\r\n\r\n    color: #a4a3a3;\r\n}\r\n\r\n.none-match {\r\n    padding: 10px 0;\r\n    height: 100px;\r\n    font-style: italic;\r\n    color: #a4a3a3;\r\n}"],"sourceRoot":""}]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 
@@ -7195,7 +7277,7 @@ const Select = /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_a
       font: "#fff",
       bgc: "#2783d8"
     },
-    returnType,
+    returnType = "obj",
     showDefaultValue = false,
     labelKey = "label",
     valueKey = "value",
@@ -7227,6 +7309,7 @@ const Select = /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_a
     onFormDataChange
   } = props;
   const [isShow, setIsShow] = (0,external_root_React_commonjs2_react_commonjs_react_amd_react_.useState)(false);
+  const [closing, setClosing] = (0,external_root_React_commonjs2_react_commonjs_react_amd_react_.useState)(false);
 
   // const { isShow, selectWrapperRef, handleClose } = useClickOutside();
 
@@ -7241,8 +7324,17 @@ const Select = /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_a
   const contentRef = (0,external_root_React_commonjs2_react_commonjs_react_amd_react_.useRef)();
   const [customSelectContentPosition, setCustomSelectContentPosition] = (0,external_root_React_commonjs2_react_commonjs_react_amd_react_.useState)({});
   const handleClose = () => {
+    console.log("isShow: ", isShow);
     if (isShow) validate(); // 打开后的关闭再去校验有没有值
-    setIsShow(prev => !prev);
+    if (isShow) {
+      setClosing(prev => true);
+      setTimeout(() => {
+        setClosing(prev => false);
+        setIsShow(prev => !prev);
+      }, 100);
+    } else {
+      setIsShow(prev => !prev);
+    }
   };
   const handleDivClick = e => {
     const position = (0,Utils.getAbsolutePosition)(customSelectRef.current, 0, 0);
@@ -7315,8 +7407,8 @@ const Select = /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_a
   const getValue = () => {
     // 不能加这个逻辑，这样会导致手动选择另外的选项，返回的还是 defaultValue
     /* if (showDefaultValue) {
-        return defaultValue;
-      } */
+          return defaultValue;
+        } */
 
     if (value !== null && value !== void 0 && value[valueKey] || (value === null || value === void 0 ? void 0 : value[valueKey]) === 0 || (value === null || value === void 0 ? void 0 : value[valueKey]) === false) {
       // 感觉可有可无
@@ -7460,8 +7552,10 @@ const Select = /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_a
   }, value[labelKey]) : /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("span", {
     className: "select-placeholder"
   }, placeholder), /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("i", {
-    onClick: e => handleClose(),
-    className: "icon fa-solid fa-caret-right rotate-up ".concat(isShow ? "rotate-up" : "rotate-down")
+    style: {
+      color: labelColor
+    },
+    className: "icon fa-solid fa-caret-right ".concat(isShow ? "rotate-up" : "rotate-down")
   })), commonSuffixIcon && /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("i", {
     onClick: handleClickCommonSuffixIcon,
     className: "".concat(commonSuffixIcon, " common-suffix-icon ms-2")
@@ -7474,10 +7568,14 @@ const Select = /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_a
       left: customSelectContentPosition.x + "px",
       ...(isShow ? {
         maxHeight: calcMaxHeight > parseInt(maxHeight) ? maxHeight : calcMaxHeight + "px"
+      } : {}),
+      ...(closing ? {
+        opacity: 0,
+        transform: "scaleY(0)"
       } : {})
     },
     ref: contentRef,
-    className: "custom-select-content ".concat(isShow ? "custom-select-content-open" : "")
+    className: "custom-select-content ".concat(isShow ? "custom-select-content-open" : "", " ").concat(closing ? "custom-select-content-closing" : "")
   }, isShow && /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("div", {
     className: "option-box"
   }, newOptions.length > 0 ? newOptions.map((item, index) => /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("div", {

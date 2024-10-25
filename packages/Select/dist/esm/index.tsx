@@ -49,7 +49,7 @@ export interface SelectProps {
 const Select = React.forwardRef((props: SelectProps, ref) => {
   const {
     activeColor = { font: "#fff", bgc: "#2783d8" },
-    returnType,
+    returnType = "obj",
     showDefaultValue = false,
     labelKey = "label",
     valueKey = "value",
@@ -82,6 +82,7 @@ const Select = React.forwardRef((props: SelectProps, ref) => {
   } = props;
 
   const [isShow, setIsShow] = useState<boolean>(false);
+  const [closing, setClosing] = useState<boolean>(false);
 
   // const { isShow, selectWrapperRef, handleClose } = useClickOutside();
 
@@ -98,8 +99,17 @@ const Select = React.forwardRef((props: SelectProps, ref) => {
     useState<any>({});
 
   const handleClose = () => {
+    console.log("isShow: ", isShow);
     if (isShow) validate(); // 打开后的关闭再去校验有没有值
-    setIsShow((prev: boolean) => !prev);
+    if (isShow) {
+      setClosing((prev: boolean) => true);
+      setTimeout(() => {
+        setClosing((prev: boolean) => false);
+        setIsShow((prev: boolean) => !prev);
+      }, 100);
+    } else {
+      setIsShow((prev: boolean) => !prev);
+    }
   };
 
   const handleDivClick = (e: any) => {
@@ -180,8 +190,8 @@ const Select = React.forwardRef((props: SelectProps, ref) => {
   const getValue = () => {
     // 不能加这个逻辑，这样会导致手动选择另外的选项，返回的还是 defaultValue
     /* if (showDefaultValue) {
-        return defaultValue;
-      } */
+          return defaultValue;
+        } */
 
     if (
       value?.[valueKey] ||
@@ -363,8 +373,8 @@ const Select = React.forwardRef((props: SelectProps, ref) => {
             )}
             {
               <i
-                onClick={(e: any) => handleClose()}
-                className={`icon fa-solid fa-caret-right rotate-up ${
+                style={{ color: labelColor }}
+                className={`icon fa-solid fa-caret-right ${
                   isShow ? "rotate-up" : "rotate-down"
                 }`}
               ></i>
@@ -405,11 +415,12 @@ const Select = React.forwardRef((props: SelectProps, ref) => {
                           : calcMaxHeight + "px",
                     }
                   : {}),
+                ...(closing ? { opacity: 0, transform: "scaleY(0)" } : {}),
               }}
               ref={contentRef}
               className={`custom-select-content ${
                 isShow ? "custom-select-content-open" : ""
-              }`}
+              } ${closing ? "custom-select-content-closing" : ""}`}
             >
               {isShow && (
                 <div className={`option-box`}>

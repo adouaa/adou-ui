@@ -42,8 +42,12 @@
         right: 14px;
         transition: transform 0.2s;
 
-        &:hover {
-            transform: scale(1.4);
+        &.rotate-down:hover {
+            transform: scale(1.3) rotate(0deg);
+        }
+
+        &.rotate-up:hover {
+            transform: scale(1.3) rotate(90deg);
         }
     }
 
@@ -81,21 +85,13 @@
             align-items: start;
         }
     }
-}
 
-.rotate-up {
-    transform: rotate(90deg);
-    /* 旋转-180度，向上箭头样式 */
-}
 
-.rotate-down {
-    transform: rotate(0deg);
-    /* 不旋转，向下箭头样式 */
 }
 
 /* 定义滚动条样式 */
 ::-webkit-scrollbar {
-    width: 8px;
+    width: 6px;
     /* 滚动条宽度 */
 }
 
@@ -116,6 +112,18 @@
     background: #555;
 }
 
+.rotate-up {
+    transform: rotate(90deg);
+    /* 旋转-180度，向上箭头样式 */
+}
+
+.rotate-down {
+    transform: rotate(0deg);
+    /* 不旋转，向下箭头样式 */
+}
+
+
+
 .custom-select-content {
     min-width: 200px;
     text-align-last: left;
@@ -127,7 +135,6 @@
     border-radius: 4px;
     box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
     transition: opacity 0.3s ease, visibility 0.3s ease, transform 0.3s ease;
-    opacity: 0;
     visibility: hidden;
     transform: scaleY(0);
     transform-origin: top;
@@ -155,15 +162,19 @@
     .select-option-active {
         font-weight: bold;
     }
+
+    &-close {}
+
+    &-open {
+        opacity: 1;
+        visibility: visible;
+        transform: scaleY(1);
+        overflow-y: auto;
+        /* 允许垂直滚动 */
+    }
 }
 
-.custom-select-content-open {
-    opacity: 1;
-    visibility: visible;
-    transform: scaleY(1);
-    overflow-y: auto;
-    /* 允许垂直滚动 */
-}
+
 
 .none-option {
     width: 200px;
