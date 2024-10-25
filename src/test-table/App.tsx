@@ -119,7 +119,17 @@ const App = ({}: AppProps) => {
                 测试
             </Dialog> */}
             <Form data={{}}>
-                <Select ref={testRef} options={[]} name="test"></Select>
+                <Select
+                    maxHeight="200px"
+                    ref={testRef}
+                    options={[
+                        { label: '小笼包', value: 'Xiǎolóngbāo' },
+                        { label: '北京炸酱面', value: 'Běijīng zhájiàng miàn' },
+                        { label: '杭州西湖醋鱼', value: 'Hángzhōu Xīhú cùyú' },
+                        { label: '广东早茶', value: 'Guǎngdōng zǎochá' },
+                    ]}
+                    name="test"
+                ></Select>
                 <Select options={[]}></Select>
             </Form>
             <button onClick={handleTest}>测试</button>
