@@ -4,7 +4,10 @@ import React from 'react';
 const App = () => {
     return (
         <div style={{ padding: '50px' }}>
-            <Tooltip bgc="red" color="black" text="这是一个提示信息这是一个提示信息这是一个提示信息这是一个提示信息" position="bottom" borderColor="green">
+            <Tooltip bgc="red" color="black" text="这是一个示信息" position="top-right" borderColor="green">
+                <button style={{ padding: '100px' }}>悬停我悬停我悬停我悬停我</button>
+            </Tooltip>
+            <Tooltip width={'80px'} bgc="red" color="black" text="这是一个提示信息这是一个提示信息这是一个提示信息这是一个提示信息" position="bottom-right" borderColor="green">
                 <button style={{ padding: '100px' }}>悬停我悬停我悬停我悬停我</button>
             </Tooltip>
 
@@ -16,8 +19,11 @@ const App = () => {
                 <a href="#">悬停我</a>
             </Tooltip>
 
-            <Tooltip text="这是一个提示信息" position="right">
-                <div>悬停我</div>
+            <Tooltip width={'36px'} wrap text="这是一个提示信息" position="left">
+                <a href="#">悬停我</a>
+            </Tooltip>
+            <Tooltip color="#fff" text="这是一个提示信息" position="right">
+                <div>悬停我111</div>
             </Tooltip>
         </div>
     );

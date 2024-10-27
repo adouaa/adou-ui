@@ -38,7 +38,7 @@ import ReactDOM from 'react-dom/client';
 
 // import App from './test-dialog/App.tsx';
 
-// import App from './test-tooltip/App.tsx';
+import App from './test-tooltip/App.tsx';
 
 // import App from './test-according/App.tsx';
 
@@ -58,7 +58,7 @@ import ReactDOM from 'react-dom/client';
 
 // import App from './test-slider/App.tsx';
 
-import App from './test-table/App.tsx';
+// import App from './test-table/App.tsx';
 
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './App.css';
