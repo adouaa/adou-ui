@@ -34,7 +34,7 @@ const App = () => {
                     <a className="nav-link disabled">Disabled</a>
                 </li>
             </ul>
-            <Tabs tabStyle="bootstrap" handleLabelClick={handleLabelClickFn} activeIndex={activeIndex}>
+            <Tabs tabStyle="bootstrap" onLabelClick={handleLabelClickFn} activeIndex={activeIndex}>
                 <TabItem label="标签1">
                     <Tab1></Tab1>
                 </TabItem>

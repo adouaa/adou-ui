@@ -97,7 +97,7 @@ const RetrievrSelect: React.FC<RetrieveSelectProps> = React.forwardRef(
     const [isInputFocusing, setIsInputFocusing] = useState<boolean>(false);
 
     const [isOpen, setIsOpen] = useState<boolean>(false);
-    const dropdownRef = useRef<any>(null);
+    const [closing, setClosing] = useState<boolean>(false);
 
     const retrieveInputRef = useRef<any>();
     const selectListRef = useRef<any>();
@@ -111,8 +111,19 @@ const RetrievrSelect: React.FC<RetrieveSelectProps> = React.forwardRef(
     };
 
     const handleClose = () => {
-      console.log("close: ");
-      setIsOpen(false);
+      if (readOnly) return;
+
+      if (isOpen) {
+        validate();
+        setClosing(true);
+        setTimeout(() => {
+          setClosing(false);
+          setIsOpen((prev: boolean) => !prev);
+        }, 100);
+      } else {
+        setIsOpen((prev: boolean) => !prev);
+      }
+
       setShowOptions(false);
       setIsInputFocusing(false);
       retrieveInputRef.current.value = "";
@@ -210,8 +221,10 @@ const RetrievrSelect: React.FC<RetrieveSelectProps> = React.forwardRef(
     // 输入框聚焦
     const handleInputFocus = () => {
       setIsInputFocusing(single);
-      retrieveInputRef.current.value = selectedOptions[0]?.[labelKey] || "";
-      retrieveInputRef.current.select();
+      if (single) {
+        retrieveInputRef.current.value = selectedOptions[0]?.[labelKey] || "";
+        retrieveInputRef.current.select();
+      }
     };
 
     const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -243,7 +256,6 @@ const RetrievrSelect: React.FC<RetrieveSelectProps> = React.forwardRef(
     const handleBlur = () => {};
 
     const handleWrapperClick = (e: any) => {
-      console.log("wrapper: ");
       if (readOnly) return;
       // retrieveInputRef.current && retrieveInputRef.current.focus();
       setIsHighlighted(true);
@@ -323,10 +335,9 @@ const RetrievrSelect: React.FC<RetrieveSelectProps> = React.forwardRef(
     });
 
     const handleFocus = (event: any) => {
-      console.log("focus: ");
       setIsHighlighted(true);
-      // 没值的时候打开
-      if (!readOnly && !isOpen && selectedOptions.length === 0) {
+      // 没值的时候打开， 去掉了&& selectedOptions.length === 0 这个判断
+      if (!readOnly && !isOpen) {
         toggleDropdown(); // 键盘tab过来的时候打开下拉框
         setTimeout(() => {
           setShowOptions(true);
@@ -350,7 +361,6 @@ const RetrievrSelect: React.FC<RetrieveSelectProps> = React.forwardRef(
         }
         return; // 让焦点移动到下一个表单元素
       } else if (event.key === "ArrowUp") {
-        console.log("FocusedIndex: ", focusedIndex);
         event.preventDefault();
         setFocusedIndex((prevIndex) =>
           prevIndex <= 0 ? optionList.length - 1 : prevIndex - 1
@@ -510,12 +520,27 @@ const RetrievrSelect: React.FC<RetrieveSelectProps> = React.forwardRef(
         >
           <span
             className={`label-box ${inputGroup ? "input-group-text" : ""}`}
-            style={{ color: labelColor, width: labelWidth }}
+            style={{
+              color: labelColor,
+              width: labelWidth,
+              alignItems: labelPosition === "left-top" ? "start" : "center",
+              ...(labelPosition !== "top" && { display: "flex" }),
+            }}
           >
             {label}
           </span>
           <div
-            style={{ display: "flex", flexWrap: single ? "nowrap" : "wrap" }}
+            style={{
+              display: "flex",
+              flexWrap: single ? "nowrap" : "wrap",
+              ...(suffixContentType === "button"
+                ? {
+                    borderTopRightRadius: 0,
+                    borderBottomRightRadius: 0,
+                    // borderRight: "none",
+                  }
+                : {}),
+            }}
             ref={retrieveSelectWrapperFormControlRef}
             tabIndex={0}
             onBlur={handleBlur}
@@ -593,7 +618,7 @@ const RetrievrSelect: React.FC<RetrieveSelectProps> = React.forwardRef(
             <div
               className={`${
                 suffixContentType === "button"
-                  ? "suffix-content-btn-wrapper"
+                  ? "suffix-content-btn-wrapper px-2"
                   : "ms-2"
               }`}
             >
@@ -613,6 +638,7 @@ const RetrievrSelect: React.FC<RetrieveSelectProps> = React.forwardRef(
                 "px",
               left: customSelectContentPosition.x + "px",
               maxHeight,
+              ...(closing ? { opacity: 0, transform: "scaleY(0)" } : {}),
             }}
             className={`retrieve-select-content ${
               showOptions ? "retrieve-select-content-open" : ""
@@ -664,6 +690,5 @@ const RetrievrSelect: React.FC<RetrieveSelectProps> = React.forwardRef(
     );
   }
 );
-
 
 export default RetrievrSelect;
