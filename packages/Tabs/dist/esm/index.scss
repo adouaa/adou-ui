@@ -1,10 +1,41 @@
+/* index.scss */
+@keyframes slideInFromLeft {
+    from {
+        transform: translateX(-100%);
+        opacity: 0;
+    }
+
+    to {
+        transform: translateX(0);
+        opacity: 1;
+    }
+}
+
+@keyframes slideOutToRight {
+    from {
+        transform: translateX(0);
+        opacity: 1;
+    }
+
+    to {
+        transform: translateX(100%);
+        opacity: 0;
+    }
+}
+
+.slide-enter {
+    animation: slideInFromLeft 0.5s forwards;
+}
+
+.slide-exit {
+    animation: slideOutToRight 0.5s forwards;
+}
+
 .tabs-box {
     .nav {
         .nav-link {
             color: #000;
         }
-
-        .nav-link.active {}
     }
 
     .tabs-header {
@@ -30,10 +61,8 @@
             border-bottom: 1px solid #409eff;
             color: #409eff;
             box-sizing: border-box;
-            background: linear-gradient(#dafbff, #fff),
+            background: linear-gradient(#dafbff, #fff);
         }
-
-
     }
 
     .header-wrapper {

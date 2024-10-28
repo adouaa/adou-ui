@@ -59,6 +59,24 @@
             flex-wrap: wrap;
         }
 
+        .suffix-content-btn {
+            border-top-right-radius: 0 !important;
+            /* 去掉右上角的圆角 */
+            border-bottom-right-radius: 0 !important;
+            border-right: none;
+            /* 去掉右下角的圆角 */
+        }
+
+        .suffix-content-btn-wrapper {
+            min-width: 37px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background-color: #eee;
+            border-top-right-radius: 6px;
+            border-bottom-right-radius: 6px;
+        }
+
         .suffix-content-btn-wrapper .btn {
             border-top-left-radius: 0;
             /* 去掉左上角的圆角 */

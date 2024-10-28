@@ -5,8 +5,11 @@
     "packages/*"
   ],
   "dependencies": {
+    "@emotion/react": "^11.13.3",
+    "@emotion/styled": "^11.13.0",
     "adou-form": "^0.0.0",
-    "adou-ui": "^0.0.77"
+    "adou-ui": "^0.0.77",
+    "styled-components": "^6.1.13"
   },
   "devDependencies": {
     "lerna": "^8.1.2"

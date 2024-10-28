@@ -5538,6 +5538,22 @@ ___CSS_LOADER_EXPORT___.push([module.id, `@charset "UTF-8";
   max-width: 200px !important;
   flex-wrap: wrap;
 }
+.select-wrapper .content-box .suffix-content-btn {
+  border-top-right-radius: 0 !important;
+  /* 去掉右上角的圆角 */
+  border-bottom-right-radius: 0 !important;
+  border-right: none;
+  /* 去掉右下角的圆角 */
+}
+.select-wrapper .content-box .suffix-content-btn-wrapper {
+  min-width: 37px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #eee;
+  border-top-right-radius: 6px;
+  border-bottom-right-radius: 6px;
+}
 .select-wrapper .content-box .suffix-content-btn-wrapper .btn {
   border-top-left-radius: 0;
   /* 去掉左上角的圆角 */
@@ -5646,7 +5662,7 @@ ___CSS_LOADER_EXPORT___.push([module.id, `@charset "UTF-8";
   height: 100px;
   font-style: italic;
   color: #a4a3a3;
-}`, "",{"version":3,"sources":["webpack://./src/index.scss"],"names":[],"mappings":"AAAA,gBAAgB;AAAhB;EAKI,kBAAA;AAFJ;AAFI;EACI,aAAA;AAIR;AACI;;EAEI,cAAA;EACA,cAAA;EACA,gBAAA;EACA,mBAAA;EACA,uBAAA;AACR;AAEI;EACI,WAAA;AAAR;AAGI;EACI,YAAA;EACA,kBAAA;EACA,eAAA;AADR;AAGQ;EACI,+BAAA;EACA,WAAA;AADZ;AAMI;EACI,UAAA;EACA,mBAAA;EACA,oBAAA;AAJR;AAOI;EACI,kBAAA;EACA,SAAA;EACA,WAAA;EACA,0BAAA;AALR;AAOQ;EACI,kCAAA;AALZ;AAQQ;EACI,mCAAA;AANZ;AAWQ;EACI,eAAA;EACA,eAAA;EACA,2BAAA;EACA,eAAA;AATZ;AAYQ;EACI,yBAAA;EACA,aAAA;EACA,4BAAA;EACA,aAAA;AAVZ;AAaQ;EACI,aAAA;EACA,mBAAA;EACA,uBAAA;AAXZ;AAeI;EACI,aAAA;AAbR;AAgBI;EACI,aAAA;AAdR;AAgBQ;EACI,aAAA;EACA,kBAAA;AAdZ;;AAqBA,YAAA;AACA;EACI,UAAA;EACA,UAAA;AAlBJ;;AAqBA;EACI,mBAAA;EACA,WAAA;AAlBJ;;AAqBA;EACI,gBAAA;EACA,YAAA;EACA,kBAAA;EACA,YAAA;AAlBJ;;AAqBA,YAAA;AACA;EACI,gBAAA;AAlBJ;;AAqBA;EACI,wBAAA;EACA,mBAAA;AAlBJ;;AAqBA;EACI,uBAAA;EACA,eAAA;AAlBJ;;AAuBA;EACI,gBAAA;EACA,qBAAA;EACA,sBAAA;EACA,gBAAA;EACA,WAAA;EACA,kBAAA;EACA,iBAAA;EACA,kBAAA;EACA,4CAAA;EACA,wEAAA;EACA,kBAAA;EACA,oBAAA;EACA,qBAAA;EAEA,gBAAA;AArBJ;AAsBI;EACI,iBAAA;AApBR;AAsBQ;EACI,yBAAA;EACA,eAAA;AApBZ;AAuBQ;EACI,WAAA;EACA,yBAAA;AArBZ;AAwBQ;EACI,yBAAA;EACA,cAAA;AAtBZ;AA0BI;EACI,iBAAA;AAxBR;AA6BI;EACI,UAAA;EACA,mBAAA;EACA,oBAAA;EACA,gBAAA;EACA,WAAA;AA3BR;;AAiCA;EACI,YAAA;EACA,YAAA;EAEA,cAAA;AA/BJ;;AAkCA;EACI,eAAA;EACA,aAAA;EACA,kBAAA;EACA,cAAA;AA/BJ","sourcesContent":[".select-wrapper {\r\n    select option:first-child {\r\n        display: none;\r\n    }\r\n\r\n    position: relative;\r\n\r\n    .select-placeholder,\r\n    .select-value {\r\n        display: block;\r\n        color: #7d7d7d;\r\n        overflow: hidden;\r\n        white-space: nowrap;\r\n        text-overflow: ellipsis;\r\n    }\r\n\r\n    .select-value {\r\n        color: #000;\r\n    }\r\n\r\n    .custom-select {\r\n        height: 38px;\r\n        position: relative;\r\n        cursor: pointer;\r\n\r\n        i {\r\n            transition: transform 0.3s ease;\r\n            /* 添加过渡效果 */\r\n        }\r\n    }\r\n\r\n\r\n    .open {\r\n        opacity: 1;\r\n        visibility: visible;\r\n        transform: scaleY(1);\r\n    }\r\n\r\n    .icon {\r\n        position: absolute;\r\n        top: 10px;\r\n        right: 14px;\r\n        transition: transform 0.2s;\r\n\r\n        &.rotate-down:hover {\r\n            transform: scale(1.3) rotate(0deg);\r\n        }\r\n\r\n        &.rotate-up:hover {\r\n            transform: scale(1.3) rotate(90deg);\r\n        }\r\n    }\r\n\r\n    .content-box {\r\n        .label-box {\r\n            font-size: 14px;\r\n            min-width: 50px;\r\n            max-width: 200px !important;\r\n            flex-wrap: wrap;\r\n        }\r\n\r\n        .suffix-content-btn-wrapper .btn {\r\n            border-top-left-radius: 0;\r\n            /* 去掉左上角的圆角 */\r\n            border-bottom-left-radius: 0;\r\n            /* 去掉左下角的圆角 */\r\n        }\r\n\r\n        .suffix-content-text-wrapper {\r\n            display: flex;\r\n            align-items: center;\r\n            justify-content: center;\r\n        }\r\n    }\r\n\r\n    .label-in-center {\r\n        display: flex;\r\n    }\r\n\r\n    .label-in-left-top {\r\n        display: flex;\r\n\r\n        .label-box {\r\n            display: flex;\r\n            align-items: start;\r\n        }\r\n    }\r\n\r\n\r\n}\r\n\r\n/* 定义滚动条样式 */\r\n::-webkit-scrollbar {\r\n    width: 6px;\r\n    /* 滚动条宽度 */\r\n}\r\n\r\n::-webkit-scrollbar-track {\r\n    background: #f1f1f1;\r\n    /* 滚动条背景色 */\r\n}\r\n\r\n::-webkit-scrollbar-thumb {\r\n    background: #888;\r\n    /* 滚动条滑块颜色 */\r\n    border-radius: 2px;\r\n    /* 滚动条滑块圆角 */\r\n}\r\n\r\n/* 悬停时滑块样式 */\r\n::-webkit-scrollbar-thumb:hover {\r\n    background: #555;\r\n}\r\n\r\n.rotate-up {\r\n    transform: rotate(90deg);\r\n    /* 旋转-180度，向上箭头样式 */\r\n}\r\n\r\n.rotate-down {\r\n    transform: rotate(0deg);\r\n    /* 不旋转，向下箭头样式 */\r\n}\r\n\r\n\r\n\r\n.custom-select-content {\r\n    min-width: 200px;\r\n    text-align-last: left;\r\n    background-color: #fff;\r\n    overflow: hidden;\r\n    /* 隐藏溢出内容 */\r\n    position: absolute;\r\n    z-index: 66666666;\r\n    border-radius: 4px;\r\n    box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;\r\n    transition: opacity 0.3s ease, visibility 0.3s ease, transform 0.3s ease;\r\n    visibility: hidden;\r\n    transform: scaleY(0);\r\n    transform-origin: top;\r\n\r\n    /* 添加高度变化的过渡效果 */\r\n    .select-option {\r\n        padding: 5px 10px;\r\n\r\n        &:hover {\r\n            background-color: #f6f6f6;\r\n            cursor: pointer;\r\n        }\r\n\r\n        &:active {\r\n            color: #fff;\r\n            background-color: #2783d8;\r\n        }\r\n\r\n        &.focused {\r\n            background-color: #e0e0e0;\r\n            /* 高亮当前聚焦的选项 */\r\n        }\r\n    }\r\n\r\n    .select-option-active {\r\n        font-weight: bold;\r\n    }\r\n\r\n    &-close {}\r\n\r\n    &-open {\r\n        opacity: 1;\r\n        visibility: visible;\r\n        transform: scaleY(1);\r\n        overflow-y: auto;\r\n        /* 允许垂直滚动 */\r\n    }\r\n}\r\n\r\n\r\n\r\n.none-option {\r\n    width: 200px;\r\n    height: 50px;\r\n\r\n    color: #a4a3a3;\r\n}\r\n\r\n.none-match {\r\n    padding: 10px 0;\r\n    height: 100px;\r\n    font-style: italic;\r\n    color: #a4a3a3;\r\n}"],"sourceRoot":""}]);
+}`, "",{"version":3,"sources":["webpack://./src/index.scss"],"names":[],"mappings":"AAAA,gBAAgB;AAAhB;EAKI,kBAAA;AAFJ;AAFI;EACI,aAAA;AAIR;AACI;;EAEI,cAAA;EACA,cAAA;EACA,gBAAA;EACA,mBAAA;EACA,uBAAA;AACR;AAEI;EACI,WAAA;AAAR;AAGI;EACI,YAAA;EACA,kBAAA;EACA,eAAA;AADR;AAGQ;EACI,+BAAA;EACA,WAAA;AADZ;AAMI;EACI,UAAA;EACA,mBAAA;EACA,oBAAA;AAJR;AAOI;EACI,kBAAA;EACA,SAAA;EACA,WAAA;EACA,0BAAA;AALR;AAOQ;EACI,kCAAA;AALZ;AAQQ;EACI,mCAAA;AANZ;AAWQ;EACI,eAAA;EACA,eAAA;EACA,2BAAA;EACA,eAAA;AATZ;AAYQ;EACI,qCAAA;EACA,aAAA;EACA,wCAAA;EACA,kBAAA;EACA,aAAA;AAVZ;AAaQ;EACI,eAAA;EACA,aAAA;EACA,mBAAA;EACA,uBAAA;EACA,sBAAA;EACA,4BAAA;EACA,+BAAA;AAXZ;AAcQ;EACI,yBAAA;EACA,aAAA;EACA,4BAAA;EACA,aAAA;AAZZ;AAeQ;EACI,aAAA;EACA,mBAAA;EACA,uBAAA;AAbZ;AAiBI;EACI,aAAA;AAfR;AAkBI;EACI,aAAA;AAhBR;AAkBQ;EACI,aAAA;EACA,kBAAA;AAhBZ;;AAuBA,YAAA;AACA;EACI,UAAA;EACA,UAAA;AApBJ;;AAuBA;EACI,mBAAA;EACA,WAAA;AApBJ;;AAuBA;EACI,gBAAA;EACA,YAAA;EACA,kBAAA;EACA,YAAA;AApBJ;;AAuBA,YAAA;AACA;EACI,gBAAA;AApBJ;;AAuBA;EACI,wBAAA;EACA,mBAAA;AApBJ;;AAuBA;EACI,uBAAA;EACA,eAAA;AApBJ;;AAyBA;EACI,gBAAA;EACA,qBAAA;EACA,sBAAA;EACA,gBAAA;EACA,WAAA;EACA,kBAAA;EACA,iBAAA;EACA,kBAAA;EACA,4CAAA;EACA,wEAAA;EACA,kBAAA;EACA,oBAAA;EACA,qBAAA;EAEA,gBAAA;AAvBJ;AAwBI;EACI,iBAAA;AAtBR;AAwBQ;EACI,yBAAA;EACA,eAAA;AAtBZ;AAyBQ;EACI,WAAA;EACA,yBAAA;AAvBZ;AA0BQ;EACI,yBAAA;EACA,cAAA;AAxBZ;AA4BI;EACI,iBAAA;AA1BR;AA+BI;EACI,UAAA;EACA,mBAAA;EACA,oBAAA;EACA,gBAAA;EACA,WAAA;AA7BR;;AAmCA;EACI,YAAA;EACA,YAAA;EAEA,cAAA;AAjCJ;;AAoCA;EACI,eAAA;EACA,aAAA;EACA,kBAAA;EACA,cAAA;AAjCJ","sourcesContent":[".select-wrapper {\r\n    select option:first-child {\r\n        display: none;\r\n    }\r\n\r\n    position: relative;\r\n\r\n    .select-placeholder,\r\n    .select-value {\r\n        display: block;\r\n        color: #7d7d7d;\r\n        overflow: hidden;\r\n        white-space: nowrap;\r\n        text-overflow: ellipsis;\r\n    }\r\n\r\n    .select-value {\r\n        color: #000;\r\n    }\r\n\r\n    .custom-select {\r\n        height: 38px;\r\n        position: relative;\r\n        cursor: pointer;\r\n\r\n        i {\r\n            transition: transform 0.3s ease;\r\n            /* 添加过渡效果 */\r\n        }\r\n    }\r\n\r\n\r\n    .open {\r\n        opacity: 1;\r\n        visibility: visible;\r\n        transform: scaleY(1);\r\n    }\r\n\r\n    .icon {\r\n        position: absolute;\r\n        top: 10px;\r\n        right: 14px;\r\n        transition: transform 0.2s;\r\n\r\n        &.rotate-down:hover {\r\n            transform: scale(1.3) rotate(0deg);\r\n        }\r\n\r\n        &.rotate-up:hover {\r\n            transform: scale(1.3) rotate(90deg);\r\n        }\r\n    }\r\n\r\n    .content-box {\r\n        .label-box {\r\n            font-size: 14px;\r\n            min-width: 50px;\r\n            max-width: 200px !important;\r\n            flex-wrap: wrap;\r\n        }\r\n\r\n        .suffix-content-btn {\r\n            border-top-right-radius: 0 !important;\r\n            /* 去掉右上角的圆角 */\r\n            border-bottom-right-radius: 0 !important;\r\n            border-right: none;\r\n            /* 去掉右下角的圆角 */\r\n        }\r\n\r\n        .suffix-content-btn-wrapper {\r\n            min-width: 37px;\r\n            display: flex;\r\n            align-items: center;\r\n            justify-content: center;\r\n            background-color: #eee;\r\n            border-top-right-radius: 6px;\r\n            border-bottom-right-radius: 6px;\r\n        }\r\n\r\n        .suffix-content-btn-wrapper .btn {\r\n            border-top-left-radius: 0;\r\n            /* 去掉左上角的圆角 */\r\n            border-bottom-left-radius: 0;\r\n            /* 去掉左下角的圆角 */\r\n        }\r\n\r\n        .suffix-content-text-wrapper {\r\n            display: flex;\r\n            align-items: center;\r\n            justify-content: center;\r\n        }\r\n    }\r\n\r\n    .label-in-center {\r\n        display: flex;\r\n    }\r\n\r\n    .label-in-left-top {\r\n        display: flex;\r\n\r\n        .label-box {\r\n            display: flex;\r\n            align-items: start;\r\n        }\r\n    }\r\n\r\n\r\n}\r\n\r\n/* 定义滚动条样式 */\r\n::-webkit-scrollbar {\r\n    width: 6px;\r\n    /* 滚动条宽度 */\r\n}\r\n\r\n::-webkit-scrollbar-track {\r\n    background: #f1f1f1;\r\n    /* 滚动条背景色 */\r\n}\r\n\r\n::-webkit-scrollbar-thumb {\r\n    background: #888;\r\n    /* 滚动条滑块颜色 */\r\n    border-radius: 2px;\r\n    /* 滚动条滑块圆角 */\r\n}\r\n\r\n/* 悬停时滑块样式 */\r\n::-webkit-scrollbar-thumb:hover {\r\n    background: #555;\r\n}\r\n\r\n.rotate-up {\r\n    transform: rotate(90deg);\r\n    /* 旋转-180度，向上箭头样式 */\r\n}\r\n\r\n.rotate-down {\r\n    transform: rotate(0deg);\r\n    /* 不旋转，向下箭头样式 */\r\n}\r\n\r\n\r\n\r\n.custom-select-content {\r\n    min-width: 200px;\r\n    text-align-last: left;\r\n    background-color: #fff;\r\n    overflow: hidden;\r\n    /* 隐藏溢出内容 */\r\n    position: absolute;\r\n    z-index: 66666666;\r\n    border-radius: 4px;\r\n    box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;\r\n    transition: opacity 0.3s ease, visibility 0.3s ease, transform 0.3s ease;\r\n    visibility: hidden;\r\n    transform: scaleY(0);\r\n    transform-origin: top;\r\n\r\n    /* 添加高度变化的过渡效果 */\r\n    .select-option {\r\n        padding: 5px 10px;\r\n\r\n        &:hover {\r\n            background-color: #f6f6f6;\r\n            cursor: pointer;\r\n        }\r\n\r\n        &:active {\r\n            color: #fff;\r\n            background-color: #2783d8;\r\n        }\r\n\r\n        &.focused {\r\n            background-color: #e0e0e0;\r\n            /* 高亮当前聚焦的选项 */\r\n        }\r\n    }\r\n\r\n    .select-option-active {\r\n        font-weight: bold;\r\n    }\r\n\r\n    &-close {}\r\n\r\n    &-open {\r\n        opacity: 1;\r\n        visibility: visible;\r\n        transform: scaleY(1);\r\n        overflow-y: auto;\r\n        /* 允许垂直滚动 */\r\n    }\r\n}\r\n\r\n\r\n\r\n.none-option {\r\n    width: 200px;\r\n    height: 50px;\r\n\r\n    color: #a4a3a3;\r\n}\r\n\r\n.none-match {\r\n    padding: 10px 0;\r\n    height: 100px;\r\n    font-style: italic;\r\n    color: #a4a3a3;\r\n}"],"sourceRoot":""}]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 
@@ -7273,6 +7289,7 @@ var Utils = __webpack_require__(36);
 
 const Select = /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().forwardRef((props, ref) => {
   const {
+    shouldFocus = false,
     activeColor = {
       font: "#fff",
       bgc: "#2783d8"
@@ -7324,12 +7341,12 @@ const Select = /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_a
   const contentRef = (0,external_root_React_commonjs2_react_commonjs_react_amd_react_.useRef)();
   const [customSelectContentPosition, setCustomSelectContentPosition] = (0,external_root_React_commonjs2_react_commonjs_react_amd_react_.useState)({});
   const handleClose = () => {
-    console.log("isShow: ", isShow);
-    if (isShow) validate(); // 打开后的关闭再去校验有没有值
+    if (readOnly) return;
     if (isShow) {
-      setClosing(prev => true);
+      validate(); // 打开后的关闭再去校验有没有值
+      setClosing(true);
       setTimeout(() => {
-        setClosing(prev => false);
+        setClosing(false);
         setIsShow(prev => !prev);
       }, 100);
     } else {
@@ -7337,6 +7354,7 @@ const Select = /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_a
     }
   };
   const handleDivClick = e => {
+    if (readOnly) return;
     const position = (0,Utils.getAbsolutePosition)(customSelectRef.current, 0, 0);
     setCustomSelectContentPosition(position);
     if (!isDropdownOpen) {
@@ -7474,6 +7492,7 @@ const Select = /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_a
 
   // 全部都 通过 focus来展开下拉列表项
   const handleFocus = event => {
+    if (!shouldFocus) return;
     const position = (0,Utils.getAbsolutePosition)(customSelectRef.current, 0, 0);
     setCustomSelectContentPosition(position);
     handleClose();
@@ -7485,7 +7504,7 @@ const Select = /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_a
       setFocusedIndex(-1); // 重置聚焦索引
     }
   }, [isShow]);
-  (0,Utils.useClickOutside)([selectWrapperRef, contentRef], handleClose, contentRef.current && isShow);
+  (0,Utils.useClickOutside)([customSelectRef, contentRef], handleClose, contentRef.current && isShow);
   return /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("div", {
     onFocus: handleFocus,
     onKeyDown: handleKeyDown,
@@ -7544,8 +7563,13 @@ const Select = /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_a
     className: "custom-select form-control",
     style: {
       textAlign: "left",
-      background: transparent ? "transparent" : "#fff",
-      flex: 1
+      background: transparent ? "transparent" : readOnly ? "#eee" : "#fff",
+      flex: 1,
+      ...(suffixContentType === "button" ? {
+        borderTopRightRadius: 0,
+        borderBottomRightRadius: 0
+        // borderRight: "none",
+      } : {})
     }
   }, value !== null && value !== void 0 && value[valueKey] || (value === null || value === void 0 ? void 0 : value[valueKey]) === 0 || (value === null || value === void 0 ? void 0 : value[valueKey]) === false ? /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("span", {
     className: "select-value"
@@ -7560,7 +7584,7 @@ const Select = /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_a
     onClick: handleClickCommonSuffixIcon,
     className: "".concat(commonSuffixIcon, " common-suffix-icon ms-2")
   }), suffixContent && /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("div", {
-    className: "".concat(suffixContentType === "button" ? "suffix-content-btn-wrapper ms-2" : "suffix-content-text-wrapper ms-2")
+    className: "".concat(suffixContentType === "button" ? "suffix-content-btn-wrapper px-2" : "suffix-content-text-wrapper ms-2")
   }, suffixContent), /*#__PURE__*/external_root_ReactDOM_commonjs2_react_dom_commonjs_react_dom_amd_react_dom_default().createPortal( /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("div", {
     style: {
       position: "absolute",

@@ -2,6 +2,7 @@ import React from "react";
 import { withTranslation } from "react-i18next";
 
 interface TabItemProps {
+  extraContent?: any;
   label?: string;
   url?: string;
   children?: any;
@@ -11,7 +12,15 @@ interface TabItemProps {
 }
 
 const TabItem = (props: TabItemProps) => {
-  const { label, url, children, active, contentPadding, clearOnChange } = props;
+  const {
+    extraContent,
+    label,
+    url,
+    children,
+    active,
+    contentPadding = "0px",
+    clearOnChange,
+  } = props;
   return (
     <>
       {/* clearOnChange为true，则进行组件的销毁和重建 */}

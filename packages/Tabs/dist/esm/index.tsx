@@ -1,6 +1,10 @@
 import React, { useEffect, useRef, useState } from "react";
 import { withTranslation } from "react-i18next";
 
+import TabItem from "./TabItem";
+
+export { TabItem };
+
 import "./index.scss";
 
 interface TabsProps {
@@ -8,13 +12,13 @@ interface TabsProps {
   showExtraContent?: boolean;
   commonExtraContent?: any;
   children?: any;
-  handleLabelClick?: any;
   activeIndex?: number;
   activeLabelColor?: string;
   tabStyle?: "common" | "bootstrap";
   contentPadding?: string;
   clearOnChange?: boolean;
-  lineaGradient?: string;
+  linearGradient?: string;
+  onLabelClick?: (index: number, tabItemInfo: any) => void;
 }
 
 const Tabs = (props: TabsProps) => {
@@ -22,27 +26,47 @@ const Tabs = (props: TabsProps) => {
     extraData,
     showExtraContent,
     commonExtraContent,
-    lineaGradient = "#dafbff, #fff",
+    linearGradient = "#dafbff, #fff",
     children,
-    handleLabelClick,
     activeIndex = 0,
     activeLabelColor = "#409eff",
-    tabStyle = "common",
+    tabStyle = "bootstrap",
     contentPadding,
     clearOnChange = true,
+    onLabelClick,
   } = props;
 
-  const [updateKey, setupdateKey] = useState<number>(0);
+  const [currentIndex, setCurrentIndex] = useState<number>(activeIndex);
+
+  // 加上动画需要的数据
+  const [isSliding, setIsSliding] = useState<boolean>(false);
+  const [nextIndex, setNextIndex] = useState<number | null>(null);
 
   const content = useRef<any>();
 
-  const handleLabelClickFn = (index: number, itemInfo: any) => {
-    handleLabelClick && handleLabelClick(index, itemInfo);
+  const handleLabelClickFn = (index: number, tabItemInfo: any) => {
+    if (index !== currentIndex) {
+      setNextIndex(index);
+      setIsSliding(true);
+    } else {
+      onLabelClick && onLabelClick(index, tabItemInfo);
+    }
   };
 
+  useEffect(() => {
+    if (isSliding) {
+      const timer = setTimeout(() => {
+        setCurrentIndex(nextIndex!);
+        setIsSliding(false);
+        onLabelClick && onLabelClick(nextIndex!, children[nextIndex!]);
+      }, 200); // 动画持续时间
+      return () => clearTimeout(timer);
+    }
+  }, [isSliding, nextIndex]);
+
   const renderHeader = () => {
-    const tabItems: any = [];
-    React.Children.map(children, (child: any) => {
+    const tabItems: any[] = [];
+    React.Children.map(children, (child) => {
       tabItems.push(child);
     });
     return (
@@ -51,19 +75,19 @@ const Tabs = (props: TabsProps) => {
           <div className="header-wrapper">
             <div className="tabs-header">
               {tabItems.map((child: any, index: number) => {
-                if (!child) return;
+                if (!child) return null;
 
                 return (
                   <div key={index}>
                     <div
                       className={`tabs-header-item-box ${
-                        index === 0 && "first"
+                        index === 0 ? "first" : ""
                       }`}
                     >
                       <div
                         onClick={() => handleLabelClickFn(index, child)}
-                        className={`tabs-header-item  ${
-                          activeIndex === index && "active"
+                        className={`tabs-header-item ${
+                          currentIndex === index ? "active" : ""
                         }`}
                       >
                         {child?.props?.label}
@@ -80,38 +104,34 @@ const Tabs = (props: TabsProps) => {
         ) : (
           <div className="header-wrapper">
             <ul className="nav nav-tabs mb-2">
-              {tabItems.map((child: any, index: number) => {
-                return (
-                  <li
-                    key={index}
-                    className="nav-item d-flex"
-                    onClick={() => handleLabelClickFn(index, child)}
+              {tabItems.map((child: any, index: number) => (
+                <li
+                  key={index}
+                  className="nav-item d-flex"
+                  onClick={() => handleLabelClickFn(index, child)}
+                >
+                  <a
+                    style={{
+                      marginLeft: index === 0 ? "10px" : "",
+                      color:
+                        index === currentIndex
+                          ? child.props.activeLabelColor || activeLabelColor
+                          : "",
+                      cursor: "pointer",
+                      ...(index === currentIndex
+                        ? { background: `linear-gradient(${linearGradient})` }
+                        : {}),
+                    }}
+                    className={`nav-link ${
+                      index === currentIndex ? "active" : ""
+                    }`}
+                    aria-current="page"
                   >
-                    <a
-                      style={{
-                        marginLeft: index === 0 ? "10px" : "",
-                        color:
-                          index === activeIndex
-                            ? child.props.activeLabelColor || activeLabelColor
-                            : "",
-                        cursor: "pointer",
-                        ...(index === activeIndex
-                          ? {
-                              background: `linear-gradient(${lineaGradient})`,
-                            }
-                          : {}),
-                      }}
-                      className={`${
-                        index === activeIndex ? "active" : ""
-                      } nav-link`}
-                      aria-current="page"
-                    >
-                      <i className={child.props.prefixIcon + " me-1"}></i>
-                      {child.props.label}
-                    </a>
-                  </li>
-                );
-              })}
+                    <i className={`${child.props.prefixIcon} me-1`}></i>
+                    {child.props.label}
+                  </a>
+                </li>
+              ))}
             </ul>
             {showExtraContent && (
               <div className="extra-content">{content.current}</div>
@@ -122,21 +142,15 @@ const Tabs = (props: TabsProps) => {
     );
   };
 
-  useEffect(() => {
-    // 因为extraContent是用ref保存的，
-    // 所以为了在切换回来的时候重新渲染extraContent的内容，需要强制修改state来重新渲染页面
-    setupdateKey(updateKey + 1);
-  }, [activeIndex]);
-
   const renderContent = () => {
-    const renderChildren: any = [];
+    const renderChildren: any[] = [];
     React.Children.map(children, (child: any, index) => {
       if (child) {
-        if (index === activeIndex) {
+        if (index === currentIndex) {
           content.current = child.props.extraContent;
         }
         const enhancedChildren = React.cloneElement(child, {
-          active: index === activeIndex,
+          active: index === currentIndex,
           key: index,
           contentPadding,
           clearOnChange,
@@ -148,14 +162,14 @@ const Tabs = (props: TabsProps) => {
   };
 
   return (
-    <>
-      <div className="tabs-box">
-        {/* 先渲染头部 */}
-        {renderHeader()}
-        {/* 再渲染内容 */}
+    <div className="tabs-box">
+      {renderHeader()}
+      <div
+        className={`tab-content ${isSliding ? "slide-exit" : "slide-enter"}`}
+      >
         {renderContent()}
       </div>
-    </>
+    </div>
   );
 };
 

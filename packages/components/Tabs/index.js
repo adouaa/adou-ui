@@ -169,7 +169,36 @@ module.exports = {
 
 var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_1___default()((_node_modules_css_loader_dist_runtime_sourceMaps_js__WEBPACK_IMPORTED_MODULE_0___default()));
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, `.tabs-box .nav .nav-link {
+___CSS_LOADER_EXPORT___.push([module.id, `/* index.scss */
+@keyframes slideInFromLeft {
+  from {
+    transform: translateX(-100%);
+    opacity: 0;
+  }
+  to {
+    transform: translateX(0);
+    opacity: 1;
+  }
+}
+@keyframes slideOutToRight {
+  from {
+    transform: translateX(0);
+    opacity: 1;
+  }
+  to {
+    transform: translateX(100%);
+    opacity: 0;
+  }
+}
+.slide-enter {
+  animation: slideInFromLeft 0.5s forwards;
+}
+
+.slide-exit {
+  animation: slideOutToRight 0.5s forwards;
+}
+
+.tabs-box .nav .nav-link {
   color: #000;
 }
 .tabs-box .tabs-header {
@@ -202,7 +231,7 @@ ___CSS_LOADER_EXPORT___.push([module.id, `.tabs-box .nav .nav-link {
   right: 0;
   top: 0;
   cursor: pointer;
-}`, "",{"version":3,"sources":["webpack://./src/index.scss"],"names":[],"mappings":"AAEQ;EACI,WAAA;AADZ;AAOI;EACI,aAAA;EACA,gCAAA;AALR;AAOQ;EACI,eAAA;AALZ;AAOY;EACI,eAAA;EACA,mBAAA;EACA,eAAA;EACA,eAAA;AALhB;AASQ;EACI,iBAAA;AAPZ;AAUQ;EACI,gCAAA;EACA,cAAA;EACA,sBAAA;EACA,0CAAA;AARZ;AAcI;EACI,kBAAA;AAZR;AAcQ;EACI,kBAAA;EACA,QAAA;EACA,MAAA;EACA,eAAA;AAZZ","sourcesContent":[".tabs-box {\n    .nav {\n        .nav-link {\n            color: #000;\n        }\n\n        .nav-link.active {}\n    }\n\n    .tabs-header {\n        display: flex;\n        border-bottom: 1px solid #dcdfe6;\n\n        .tabs-header-item-box {\n            padding: 0 15px;\n\n            .tabs-header-item {\n                padding: 10px 0;\n                margin-bottom: -1px;\n                font-size: 14px;\n                cursor: pointer;\n            }\n        }\n\n        .tabs-header-item-box.first {\n            padding-left: 0px;\n        }\n\n        .tabs-header-item.active {\n            border-bottom: 1px solid #409eff;\n            color: #409eff;\n            box-sizing: border-box;\n            background: linear-gradient(#dafbff, #fff),\n        }\n\n\n    }\n\n    .header-wrapper {\n        position: relative;\n\n        .extra-content {\n            position: absolute;\n            right: 0;\n            top: 0;\n            cursor: pointer;\n        }\n    }\n}"],"sourceRoot":""}]);
+}`, "",{"version":3,"sources":["webpack://./src/index.scss"],"names":[],"mappings":"AAAA,eAAA;AACA;EACI;IACI,4BAAA;IACA,UAAA;EACN;EAEE;IACI,wBAAA;IACA,UAAA;EAAN;AACF;AAGA;EACI;IACI,wBAAA;IACA,UAAA;EADN;EAIE;IACI,2BAAA;IACA,UAAA;EAFN;AACF;AAKA;EACI,wCAAA;AAHJ;;AAMA;EACI,wCAAA;AAHJ;;AAQQ;EACI,WAAA;AALZ;AASI;EACI,aAAA;EACA,gCAAA;AAPR;AASQ;EACI,eAAA;AAPZ;AASY;EACI,eAAA;EACA,mBAAA;EACA,eAAA;EACA,eAAA;AAPhB;AAWQ;EACI,iBAAA;AATZ;AAYQ;EACI,gCAAA;EACA,cAAA;EACA,sBAAA;EACA,0CAAA;AAVZ;AAcI;EACI,kBAAA;AAZR;AAcQ;EACI,kBAAA;EACA,QAAA;EACA,MAAA;EACA,eAAA;AAZZ","sourcesContent":["/* index.scss */\n@keyframes slideInFromLeft {\n    from {\n        transform: translateX(-100%);\n        opacity: 0;\n    }\n\n    to {\n        transform: translateX(0);\n        opacity: 1;\n    }\n}\n\n@keyframes slideOutToRight {\n    from {\n        transform: translateX(0);\n        opacity: 1;\n    }\n\n    to {\n        transform: translateX(100%);\n        opacity: 0;\n    }\n}\n\n.slide-enter {\n    animation: slideInFromLeft 0.5s forwards;\n}\n\n.slide-exit {\n    animation: slideOutToRight 0.5s forwards;\n}\n\n.tabs-box {\n    .nav {\n        .nav-link {\n            color: #000;\n        }\n    }\n\n    .tabs-header {\n        display: flex;\n        border-bottom: 1px solid #dcdfe6;\n\n        .tabs-header-item-box {\n            padding: 0 15px;\n\n            .tabs-header-item {\n                padding: 10px 0;\n                margin-bottom: -1px;\n                font-size: 14px;\n                cursor: pointer;\n            }\n        }\n\n        .tabs-header-item-box.first {\n            padding-left: 0px;\n        }\n\n        .tabs-header-item.active {\n            border-bottom: 1px solid #409eff;\n            color: #409eff;\n            box-sizing: border-box;\n            background: linear-gradient(#dafbff, #fff);\n        }\n    }\n\n    .header-wrapper {\n        position: relative;\n\n        .extra-content {\n            position: absolute;\n            right: 0;\n            top: 0;\n            cursor: pointer;\n        }\n    }\n}"],"sourceRoot":""}]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 
@@ -554,6 +583,7 @@ __webpack_require__.r(__webpack_exports__);
 
 // EXPORTS
 __webpack_require__.d(__webpack_exports__, {
+  TabItem: () => (/* reexport */ src_TabItem),
   "default": () => (/* binding */ src_0)
 });
 
@@ -1758,6 +1788,34 @@ var plural = function plural() {
 var selectOrdinal = function selectOrdinal() {
   return '';
 };
+;// CONCATENATED MODULE: ./src/TabItem/index.tsx
+
+
+const TabItem = props => {
+  const {
+    extraContent,
+    label,
+    url,
+    children,
+    active,
+    contentPadding = "0px",
+    clearOnChange
+  } = props;
+  return /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement((external_root_React_commonjs2_react_commonjs_react_amd_react_default()).Fragment, null, clearOnChange ? active && /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("div", {
+    style: {
+      padding: contentPadding || "0px 10px"
+    }
+  }, children) :
+  /*#__PURE__*/
+  // clearOnChange为true，不进行组件的销毁和重建，直接使用 d-none来进行切换
+  external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("div", {
+    className: "".concat(active ? "" : "d-none"),
+    style: {
+      padding: contentPadding || "0px 10px"
+    }
+  }, children));
+};
+/* harmony default export */ const src_TabItem = (withTranslation()(TabItem));
 // EXTERNAL MODULE: ../../node_modules/style-loader/dist/runtime/injectStylesIntoStyleTag.js
 var injectStylesIntoStyleTag = __webpack_require__(591);
 var injectStylesIntoStyleTag_default = /*#__PURE__*/__webpack_require__.n(injectStylesIntoStyleTag);
@@ -1811,25 +1869,46 @@ var update = injectStylesIntoStyleTag_default()(cjs_ruleSet_1_rules_1_use_2_src/
 
 
 
+
+
 const Tabs = props => {
   const {
     extraData,
     showExtraContent,
     commonExtraContent,
-    lineaGradient = "#dafbff, #fff",
+    linearGradient = "#dafbff, #fff",
     children,
-    handleLabelClick,
     activeIndex = 0,
     activeLabelColor = "#409eff",
-    tabStyle = "common",
+    tabStyle = "bootstrap",
     contentPadding,
-    clearOnChange = true
+    clearOnChange = true,
+    onLabelClick
   } = props;
-  const [updateKey, setupdateKey] = (0,external_root_React_commonjs2_react_commonjs_react_amd_react_.useState)(0);
+  const [currentIndex, setCurrentIndex] = (0,external_root_React_commonjs2_react_commonjs_react_amd_react_.useState)(activeIndex);
+
+  // 加上动画需要的数据
+  const [isSliding, setIsSliding] = (0,external_root_React_commonjs2_react_commonjs_react_amd_react_.useState)(false);
+  const [nextIndex, setNextIndex] = (0,external_root_React_commonjs2_react_commonjs_react_amd_react_.useState)(null);
   const content = (0,external_root_React_commonjs2_react_commonjs_react_amd_react_.useRef)();
-  const handleLabelClickFn = (index, itemInfo) => {
-    handleLabelClick && handleLabelClick(index, itemInfo);
+  const handleLabelClickFn = (index, tabItemInfo) => {
+    if (index !== currentIndex) {
+      setNextIndex(index);
+      setIsSliding(true);
+    } else {
+      onLabelClick && onLabelClick(index, tabItemInfo);
+    }
   };
+  (0,external_root_React_commonjs2_react_commonjs_react_amd_react_.useEffect)(() => {
+    if (isSliding) {
+      const timer = setTimeout(() => {
+        setCurrentIndex(nextIndex);
+        setIsSliding(false);
+        onLabelClick && onLabelClick(nextIndex, children[nextIndex]);
+      }, 200); // 动画持续时间
+      return () => clearTimeout(timer);
+    }
+  }, [isSliding, nextIndex]);
   const renderHeader = () => {
     const tabItems = [];
     external_root_React_commonjs2_react_commonjs_react_amd_react_default().Children.map(children, child => {
@@ -1841,14 +1920,14 @@ const Tabs = props => {
       className: "tabs-header"
     }, tabItems.map((child, index) => {
       var _child$props;
-      if (!child) return;
+      if (!child) return null;
       return /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("div", {
         key: index
       }, /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("div", {
-        className: "tabs-header-item-box ".concat(index === 0 && "first")
+        className: "tabs-header-item-box ".concat(index === 0 ? "first" : "")
       }, /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("div", {
         onClick: () => handleLabelClickFn(index, child),
-        className: "tabs-header-item  ".concat(activeIndex === index && "active")
+        className: "tabs-header-item ".concat(currentIndex === index ? "active" : "")
       }, child === null || child === void 0 || (_child$props = child.props) === null || _child$props === void 0 ? void 0 : _child$props.label)));
     })), showExtraContent && /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("div", {
       className: "extra-content"
@@ -1856,43 +1935,36 @@ const Tabs = props => {
       className: "header-wrapper"
     }, /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("ul", {
       className: "nav nav-tabs mb-2"
-    }, tabItems.map((child, index) => {
-      return /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("li", {
-        key: index,
-        className: "nav-item d-flex",
-        onClick: () => handleLabelClickFn(index, child)
-      }, /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("a", {
-        style: {
-          marginLeft: index === 0 ? "10px" : "",
-          color: index === activeIndex ? child.props.activeLabelColor || activeLabelColor : "",
-          cursor: "pointer",
-          ...(index === activeIndex ? {
-            background: "linear-gradient(".concat(lineaGradient, ")")
-          } : {})
-        },
-        className: "".concat(index === activeIndex ? "active" : "", " nav-link"),
-        "aria-current": "page"
-      }, /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("i", {
-        className: child.props.prefixIcon + " me-1"
-      }), child.props.label));
-    })), showExtraContent && /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("div", {
+    }, tabItems.map((child, index) => /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("li", {
+      key: index,
+      className: "nav-item d-flex",
+      onClick: () => handleLabelClickFn(index, child)
+    }, /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("a", {
+      style: {
+        marginLeft: index === 0 ? "10px" : "",
+        color: index === currentIndex ? child.props.activeLabelColor || activeLabelColor : "",
+        cursor: "pointer",
+        ...(index === currentIndex ? {
+          background: "linear-gradient(".concat(linearGradient, ")")
+        } : {})
+      },
+      className: "nav-link ".concat(index === currentIndex ? "active" : ""),
+      "aria-current": "page"
+    }, /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("i", {
+      className: "".concat(child.props.prefixIcon, " me-1")
+    }), child.props.label)))), showExtraContent && /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("div", {
       className: "extra-content"
     }, content.current)));
   };
-  (0,external_root_React_commonjs2_react_commonjs_react_amd_react_.useEffect)(() => {
-    // 因为extraContent是用ref保存的，
-    // 所以为了在切换回来的时候重新渲染extraContent的内容，需要强制修改state来重新渲染页面
-    setupdateKey(updateKey + 1);
-  }, [activeIndex]);
   const renderContent = () => {
     const renderChildren = [];
     external_root_React_commonjs2_react_commonjs_react_amd_react_default().Children.map(children, (child, index) => {
       if (child) {
-        if (index === activeIndex) {
+        if (index === currentIndex) {
           content.current = child.props.extraContent;
         }
         const enhancedChildren = /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().cloneElement(child, {
-          active: index === activeIndex,
+          active: index === currentIndex,
           key: index,
           contentPadding,
           clearOnChange
@@ -1902,9 +1974,11 @@ const Tabs = props => {
     });
     return renderChildren;
   };
-  return /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement((external_root_React_commonjs2_react_commonjs_react_amd_react_default()).Fragment, null, /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("div", {
+  return /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("div", {
     className: "tabs-box"
-  }, renderHeader(), renderContent()));
+  }, renderHeader(), /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("div", {
+    className: "tab-content ".concat(isSliding ? "slide-exit" : "slide-enter")
+  }, renderContent()));
 };
 /* harmony default export */ const src_0 = (withTranslation()(Tabs));
 })();

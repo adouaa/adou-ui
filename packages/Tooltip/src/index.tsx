@@ -1,12 +1,24 @@
 import React, { useState, useRef, useEffect } from "react";
 import "./index.scss"; // 引入样式文件
+import { TooltipWrapper } from "./style";
 
 interface TooltipProps {
+  wrap?: boolean;
+  width?: any;
+  offset?: number;
   flex?: boolean;
   mustShow?: boolean; // 用来支持Slider的鼠标不在RunWay上面的时候也会展示提示
   show?: boolean;
   text: string;
-  position?: "top" | "bottom" | "left" | "right";
+  position?:
+    | "top"
+    | "bottom"
+    | "left"
+    | "right"
+    | "top-left"
+    | "top-right"
+    | "bottom-left"
+    | "bottom-right";
   children: React.ReactNode;
   bgc?: string;
   color?: string;
@@ -15,15 +27,18 @@ interface TooltipProps {
 }
 
 const Tooltip: React.FC<TooltipProps> = ({
+  wrap = false,
+  width,
+  offset,
   flex,
   mustShow,
   show = true,
   text,
   position = "top",
   children,
-  bgc,
+  bgc = "#333",
   color,
-  borderColor,
+  borderColor = "#333",
   wrapperClassname,
 }) => {
   const [isShow, setIsShow] = useState<boolean>(false);
@@ -33,6 +48,7 @@ const Tooltip: React.FC<TooltipProps> = ({
   //       当鼠标离开内容区域的时候，去判断是否进入了提示区域，如果进入，则不隐藏提示文字
   const isEnterTooltipRef = useRef<boolean>(false);
   const enterTimeoutRef = useRef<NodeJS.Timeout | null>(null);
+  const [tooltipWidth, setTooltipWidth] = useState<number>(0);
 
   const handleMouseEnter = () => {
     // 进入的时候，如果存在定时器，也清除掉
@@ -102,39 +118,54 @@ const Tooltip: React.FC<TooltipProps> = ({
     }
   }, [mustShow]);
 
+  useEffect(() => {
+    if (tooltipRef.current) {
+      const tooltipElement = tooltipRef.current;
+      setTooltipWidth(tooltipElement.offsetWidth);
+    }
+  }, [isShow, isVisible]);
+
   return (
-    <div
-      className={`adou-tooltip-wrapper ${wrapperClassname || ""}`}
-      style={{ ...(flex ? { flex: 1 } : {}) }}
+    <TooltipWrapper
+      $borderColor={borderColor}
+      offset={offset}
+      $tooltipWidth={tooltipWidth}
     >
       <div
-        className="content"
-        ref={tooltipRef}
-        onMouseEnter={handleMouseEnter}
-        onMouseLeave={handleMouseLeave}
+        className={`adou-tooltip-wrapper ${wrapperClassname || ""}`}
+        style={{ ...(flex ? { flex: 1 } : {}) }}
       >
-        {children}
-      </div>
-      {text && show && isShow && (
         <div
-          onClick={handleClick}
-          onMouseEnter={handleMouseEnterTooltip}
-          onMouseLeave={handleMouseLeaveTooltip}
-          className={`adou-tooltip ${
-            isVisible ? "show-tool-tip" : ""
-          } adou-tooltip-${position}`}
-          style={{ backgroundColor: bgc, color: color }}
+          className="content"
+          onMouseEnter={handleMouseEnter}
+          onMouseLeave={handleMouseLeave}
         >
-          <div
-            style={{
-              borderColor: `transparent transparent ${borderColor} transparent`,
-            }}
-            className={`adou-tooltip-arrow adou-tooltip-arrow-${position}`}
-          ></div>
-          {text}
+          {children}
         </div>
-      )}
-    </div>
+        {text && show && isShow && (
+          <div
+            ref={tooltipRef}
+            onClick={handleClick}
+            onMouseEnter={handleMouseEnterTooltip}
+            onMouseLeave={handleMouseLeaveTooltip}
+            className={`adou-tooltip ${
+              isVisible ? "show-tool-tip" : ""
+            } adou-tooltip-${position}`}
+            style={{
+              backgroundColor: bgc,
+              color: color,
+              width,
+              whiteSpace: wrap || width ? "wrap" : "nowrap",
+            }}
+          >
+            <div
+              className={`adou-tooltip-arrow adou-tooltip-arrow-${position}`}
+            ></div>
+            {text}
+          </div>
+        )}
+      </div>
+    </TooltipWrapper>
   );
 };
 

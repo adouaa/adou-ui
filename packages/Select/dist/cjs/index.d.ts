@@ -1,6 +1,7 @@
 import React from "react";
 import "./index.scss";
 export interface SelectProps {
+    shouldFocus?: boolean;
     activeColor?: {
         font: string;
         bgc: string;
@@ -38,6 +39,7 @@ export interface SelectProps {
 }
 declare const _default: React.ComponentType<Omit<{
     ref?: React.LegacyRef<unknown> | undefined;
+    shouldFocus?: boolean | undefined;
     activeColor?: {
         font: string;
         bgc: string;

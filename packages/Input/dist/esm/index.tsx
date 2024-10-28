@@ -244,7 +244,7 @@ const Input: React.ForwardRefRenderFunction<InputRef, InputProps> = (
           <div
             className={`${
               suffixContentType === "button"
-                ? "suffix-content-btn-wrapper"
+                ? "suffix-content-btn-wrapper px-2"
                 : "suffix-content-text-wrapper ms-1"
             }`}
           >

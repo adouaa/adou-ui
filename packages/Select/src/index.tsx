@@ -13,6 +13,7 @@ import ReactDOM from "react-dom";
 import { getAbsolutePosition, useClickOutside } from "adou-ui/Utils/index";
 
 export interface SelectProps {
+  shouldFocus?: boolean;
   activeColor?: { font: string; bgc: string };
   returnType?: "str" | "obj";
   showEmpty?: boolean;
@@ -48,6 +49,7 @@ export interface SelectProps {
 
 const Select = React.forwardRef((props: SelectProps, ref) => {
   const {
+    shouldFocus = false,
     activeColor = { font: "#fff", bgc: "#2783d8" },
     returnType = "obj",
     showDefaultValue = false,
@@ -99,12 +101,12 @@ const Select = React.forwardRef((props: SelectProps, ref) => {
     useState<any>({});
 
   const handleClose = () => {
-    console.log("isShow: ", isShow);
-    if (isShow) validate(); // 打开后的关闭再去校验有没有值
+    if (readOnly) return;
     if (isShow) {
-      setClosing((prev: boolean) => true);
+      validate(); // 打开后的关闭再去校验有没有值
+      setClosing(true);
       setTimeout(() => {
-        setClosing((prev: boolean) => false);
+        setClosing(false);
         setIsShow((prev: boolean) => !prev);
       }, 100);
     } else {
@@ -113,6 +115,7 @@ const Select = React.forwardRef((props: SelectProps, ref) => {
   };
 
   const handleDivClick = (e: any) => {
+    if (readOnly) return;
     const position = getAbsolutePosition(customSelectRef.current, 0, 0);
     setCustomSelectContentPosition(position);
     if (!isDropdownOpen) {
@@ -274,6 +277,7 @@ const Select = React.forwardRef((props: SelectProps, ref) => {
 
   // 全部都 通过 focus来展开下拉列表项
   const handleFocus = (event: any) => {
+    if (!shouldFocus) return;
     const position = getAbsolutePosition(customSelectRef.current, 0, 0);
     setCustomSelectContentPosition(position);
     handleClose();
@@ -288,7 +292,7 @@ const Select = React.forwardRef((props: SelectProps, ref) => {
   }, [isShow]);
 
   useClickOutside(
-    [selectWrapperRef, contentRef],
+    [customSelectRef, contentRef],
     handleClose,
     contentRef.current && isShow
   );
@@ -360,8 +364,19 @@ const Select = React.forwardRef((props: SelectProps, ref) => {
             className="custom-select form-control"
             style={{
               textAlign: "left",
-              background: transparent ? "transparent" : "#fff",
+              background: transparent
+                ? "transparent"
+                : readOnly
+                ? "#eee"
+                : "#fff",
               flex: 1,
+              ...(suffixContentType === "button"
+                ? {
+                    borderTopRightRadius: 0,
+                    borderBottomRightRadius: 0,
+                    // borderRight: "none",
+                  }
+                : {}),
             }}
           >
             {value?.[valueKey] ||
@@ -390,7 +405,7 @@ const Select = React.forwardRef((props: SelectProps, ref) => {
             <div
               className={`${
                 suffixContentType === "button"
-                  ? "suffix-content-btn-wrapper ms-2"
+                  ? "suffix-content-btn-wrapper px-2"
                   : "suffix-content-text-wrapper ms-2"
               }`}
             >
