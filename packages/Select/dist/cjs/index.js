@@ -7389,7 +7389,7 @@ const Select = /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_a
       }
     } else {
       if (typeof defaultValue === "object") {
-        const selectOption = options.find(option => option[valueKey] === defaultValue[valueKey]);
+        const selectOption = options.find(option => (option === null || option === void 0 ? void 0 : option[valueKey]) === (defaultValue === null || defaultValue === void 0 ? void 0 : defaultValue[valueKey]));
         // 如果没有找到匹配项，则不设置选中项
         if (selectOption) {
           setValue(selectOption);

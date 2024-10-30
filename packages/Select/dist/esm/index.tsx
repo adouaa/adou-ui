@@ -150,7 +150,7 @@ const Select = React.forwardRef((props: SelectProps, ref) => {
     } else {
       if (typeof defaultValue === "object") {
         const selectOption = options.find(
-          (option) => option[valueKey] === defaultValue[valueKey]
+          (option) => option?.[valueKey] === defaultValue?.[valueKey]
         );
         // 如果没有找到匹配项，则不设置选中项
         if (selectOption) {

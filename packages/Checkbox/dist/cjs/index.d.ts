@@ -3,7 +3,7 @@ import "./index.scss";
 interface CheckboxProps {
     valueKey?: string;
     labelKey?: string;
-    returnType?: 'str' | 'obj';
+    returnType?: "str" | "obj";
     name?: string;
     isFormItem?: boolean;
     errMsg?: string;
@@ -12,7 +12,7 @@ interface CheckboxProps {
     readOnly?: boolean;
     inputGroup?: boolean;
     label?: string;
-    labelPosition?: 'left-top' | 'center' | 'top' | 'input-group';
+    labelPosition?: "left-top" | "center" | "top" | "input-group";
     labelColor?: string;
     required?: boolean;
     defaultValue?: string | string[] | {

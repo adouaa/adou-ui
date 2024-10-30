@@ -7,6 +7,7 @@ declare const _default: React.ComponentType<Omit<{
     clearOnChange?: boolean | undefined;
     children?: any;
     contentPadding?: string | undefined;
+    animationType?: "slide" | "fade" | undefined;
     extraData?: any;
     showExtraContent?: boolean | undefined;
     commonExtraContent?: any;
