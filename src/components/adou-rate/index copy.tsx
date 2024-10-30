@@ -1,9 +1,7 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import './index.scss';
-import { RateWrapper } from './style';
 
 interface RateProps {
-    activeBgc?: string;
     value?: number;
     max?: number;
     allowHalf?: boolean;
@@ -11,10 +9,9 @@ interface RateProps {
     onChange?: (value: number) => void;
     onHoverChange?: (value: number | null) => void;
 }
-const Rate = ({ activeBgc, value = 0, max = 5, allowHalf = false, allowClear = true, onChange, onHoverChange }: RateProps) => {
+const Rate = ({ value = 0, max = 5, allowHalf = false, allowClear = true, onChange, onHoverChange }: RateProps) => {
     const [stars, setStars] = useState<any[]>([]);
     const [hoverValue, setHoverValue] = useState(null);
-    const [hoverIndex, setHoverIndex] = useState<number>(-1);
     const [clickedValue, setClickedValue] = useState(value);
 
     const handleClick = (index: number, isHalf: boolean) => {
@@ -33,41 +30,23 @@ const Rate = ({ activeBgc, value = 0, max = 5, allowHalf = false, allowClear = t
         if (hoverValue !== index + (isHalf ? 0.5 : 1)) {
             setHoverValue(index + (isHalf ? 0.5 : 1));
             onHoverChange && onHoverChange(index + (isHalf ? 0.5 : 1));
-            setHoverIndex(index);
         }
+        
     };
 
     const handleMouseLeave = () => {
         setHoverValue(null);
         onHoverChange && onHoverChange(null);
-        setHoverIndex(-1);
     };
 
-    const renderStars = (index: number) => {
+    const renderStars = () => {
         const stars: any = [];
         for (let i = 0; i < max; i++) {
             const isFull = i + 1 <= (hoverValue || clickedValue);
             const isHalf = allowHalf && i + 0.5 < (hoverValue || clickedValue) && i + 1 > (hoverValue || clickedValue);
-            let isEnter = false;
-            if (i === index) {
-                isEnter = true;
-            } else {
-                isEnter = false;
-            }
-            stars.push({ isFull, isHalf, isEnter });
-        }
-        setStars(stars);
-    };
-
-    useEffect(() => {
-        renderStars(hoverIndex);
-    }, [hoverValue, clickedValue, hoverIndex]);
-
-    return (
-        <RateWrapper $activeBgc={activeBgc} className="rate">
-            {stars.map((item: any, index: number) => (
-                <div key={index} className="star-box" onClick={() => handleClick(index, false)} onMouseEnter={() => handleMouseEnter(index, false)} onMouseLeave={handleMouseLeave}>
-                    <span className={`rate-star ${item.isEnter ? 'enter' : ''} ${item.isFull ? 'full' : ''} ${item.isHalf ? 'half' : ''}`}>
+            stars.push(
+                <div key={i} className="star-box" onClick={() => handleClick(i, false)} onMouseEnter={() => handleMouseEnter(i, false)} onMouseLeave={handleMouseLeave}>
+                    <span className={`rate-star ${isFull ? 'full' : ''} ${isHalf ? 'half' : ''}`}>
                         {/*  {allowHalf && (
                         <span
                             className="rate-half"
@@ -83,9 +62,12 @@ const Rate = ({ activeBgc, value = 0, max = 5, allowHalf = false, allowClear = t
                     )} */}
                     </span>
                 </div>
-            ))}
-        </RateWrapper>
-    );
+            );
+        }
+        return stars;
+    };
+
+    return <div className="rate">{renderStars()}</div>;
 };
 
 export default Rate;

@@ -12,7 +12,7 @@ const App = () => {
     return (
         <div>
             <h1>Rating Component</h1>
-            <Rate value={rateValue} onChange={handleRateChange} allowHalf={true} max={5} />
+            <Rate activeBgc="green" value={rateValue} onChange={handleRateChange} allowHalf={true} max={5} />
         </div>
     );
 };

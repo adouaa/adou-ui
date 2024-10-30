@@ -8,6 +8,7 @@ export { TabItem };
 import './index.scss';
 
 interface TabsProps {
+    animationType?: 'slide' | 'fade';
     extraData?: any;
     showExtraContent?: boolean;
     commonExtraContent?: any;
@@ -23,6 +24,7 @@ interface TabsProps {
 
 const Tabs = (props: TabsProps) => {
     const {
+        animationType = 'slide',
         extraData,
         showExtraContent,
         commonExtraContent,
@@ -140,7 +142,9 @@ const Tabs = (props: TabsProps) => {
     return (
         <div className="tabs-box">
             {renderHeader()}
-            <div className={`tab-content ${isSliding ? 'slide-exit' : 'slide-enter'}`}>{renderContent()}</div>
+            <div className={`tab-content ${isSliding ? (animationType === 'slide' ? 'slide-exit' : 'fade-exit') : animationType === 'slide' ? 'slide-enter' : 'fade-enter'}`}>
+                {renderContent()}
+            </div>
         </div>
     );
 };

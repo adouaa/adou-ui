@@ -142,7 +142,7 @@ const Select = React.forwardRef((props: SelectProps, ref) => {
             }
         } else {
             if (typeof defaultValue === 'object') {
-                const selectOption = options.find((option) => option[valueKey] === defaultValue[valueKey]);
+                const selectOption = options.find((option) => option?.[valueKey] === defaultValue?.[valueKey]);
                 // 如果没有找到匹配项，则不设置选中项
                 if (selectOption) {
                     setValue(selectOption);
@@ -182,8 +182,8 @@ const Select = React.forwardRef((props: SelectProps, ref) => {
     const getValue = () => {
         // 不能加这个逻辑，这样会导致手动选择另外的选项，返回的还是 defaultValue
         /* if (showDefaultValue) {
-          return defaultValue;
-        } */
+            return defaultValue;
+          } */
 
         if (value?.[valueKey] || value?.[valueKey] === 0 || value?.[valueKey] === false) {
             // 感觉可有可无
