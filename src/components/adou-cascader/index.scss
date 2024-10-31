@@ -2,7 +2,27 @@
 
     .label-box {
         font-size: 14px;
-        min-width: 50px
+        min-width: 50px;
+
+        .label-in-center {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .label-in-top {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .label-in-left-top {
+            display: flex;
+
+            .label-box {
+                display: flex;
+                align-items: start;
+            }
+        }
     }
 
     .content {
@@ -87,25 +107,7 @@
     }
 }
 
-.label-in-center {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-}
 
-.label-in-top {
-    display: flex;
-    flex-direction: column;
-}
-
-.label-in-left-top {
-    display: flex;
-
-    .label-box {
-        display: flex;
-        align-items: start;
-    }
-}
 
 
 .cascader-option-box {

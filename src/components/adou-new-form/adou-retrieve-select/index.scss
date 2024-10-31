@@ -1,4 +1,12 @@
 .retrieve-select-wrapper {
+
+    .content-box {
+        .retrieve-select-form-content {
+            flex: 1;
+            display: flex;
+        }
+    }
+
     .select-list-box {
         position: relative;
         flex: 1;

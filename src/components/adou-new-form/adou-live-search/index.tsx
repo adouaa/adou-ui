@@ -60,7 +60,7 @@ const LiveSearch: React.FC<LiveSearchProps> = React.forwardRef((props: LiveSearc
         valueKey = 'value',
         inline,
         suffixContent,
-        suffixContentType,
+        suffixContentType = 'button',
         contentWidth,
         attribute = 'value',
         required,
@@ -274,7 +274,7 @@ const LiveSearch: React.FC<LiveSearchProps> = React.forwardRef((props: LiveSearc
 
     const retrieveSelectClasses = classNames({
         'mb-3': !error && isFormItem,
-        'retrieve-select-wrapper': true,
+        'live-search-select-wrapper': true,
         [externalClassName as string]: externalClassName,
     });
 
@@ -369,34 +369,46 @@ const LiveSearch: React.FC<LiveSearchProps> = React.forwardRef((props: LiveSearc
                 <span className={`label-box ${inputGroup ? 'input-group-text' : ''}`} style={{ color: labelColor, width: labelWidth }}>
                     {label}
                 </span>
-                <div
-                    style={{ display: 'flex', flexWrap: 'wrap' }}
-                    ref={retrieveSelectWrapperFormControlRef}
-                    tabIndex={0}
-                    onBlur={handleBlur}
-                    onClick={handleWrapperClick}
-                    className={`select-list-box form-control ${isHighlighted ? 'focus' : ''}`}
-                >
-                    <div className="input-control">
-                        <input
-                            value={inputValue}
-                            ref={retrieveInputRef}
-                            placeholder={placeholder}
-                            onChange={(e) => handleInputChange(e)}
-                            onClick={handleInputClick}
-                            readOnly={readOnly}
-                            type="text"
-                            className={`retrieve-input ${type === 'number' ? 'text-end' : ''}`}
-                            aria-label="Username"
-                            aria-describedby="basic-addon1"
-                        />
+                <div className="live-search-form-content">
+                    <div
+                        style={{
+                            display: 'flex',
+                            flexWrap: 'wrap',
+                            ...(suffixContentType === 'button'
+                                ? {
+                                      borderTopRightRadius: 0,
+                                      borderBottomRightRadius: 0,
+                                      // borderRight: "none",
+                                  }
+                                : {}),
+                        }}
+                        ref={retrieveSelectWrapperFormControlRef}
+                        tabIndex={0}
+                        onBlur={handleBlur}
+                        onClick={handleWrapperClick}
+                        className={`select-list-box form-control ${isHighlighted ? 'focus' : ''}`}
+                    >
+                        <div className="input-control">
+                            <input
+                                value={inputValue}
+                                ref={retrieveInputRef}
+                                placeholder={placeholder}
+                                onChange={(e) => handleInputChange(e)}
+                                onClick={handleInputClick}
+                                readOnly={readOnly}
+                                type="text"
+                                className={`live-search-input ${type === 'number' ? 'text-end' : ''}`}
+                                aria-label="Username"
+                                aria-describedby="basic-addon1"
+                            />
+                        </div>
+                        <div className="icon-box">
+                            <i className="icon small text-secondary fa-solid fa-magnifying-glass"></i>
+                        </div>
                     </div>
-                    <div className="icon-box">
-                        <i className="icon small text-secondary fa-solid fa-magnifying-glass"></i>
-                    </div>
+                    {suffixContent && <div className={`${suffixContentType === 'button' ? 'suffix-content-btn-wrapper' : 'ms-1'}`}>{suffixContent}</div>}
                 </div>
                 {commonSuffixIcon && <i onClick={handleClickCommonSuffixIcon} className={`${commonSuffixIcon} common-suffix-icon ms-2`}></i>}
-                {suffixContent && <div className={`${suffixContentType === 'button' ? 'suffix-content-btn-wrapper' : 'ms-1'}`}>{suffixContent}</div>}
             </div>
             {ReactDOM.createPortal(
                 <div
@@ -408,7 +420,7 @@ const LiveSearch: React.FC<LiveSearchProps> = React.forwardRef((props: LiveSearc
                         left: customSelectContentPosition.x + 'px',
                         maxHeight,
                     }}
-                    className={`retrieve-select-content ${showOptions ? 'retrieve-select-content-open' : ''}`}
+                    className={`live-search-select-content ${showOptions ? 'live-search-select-content-open' : ''}`}
                 >
                     {!readOnly &&
                         isOpen &&
@@ -422,8 +434,8 @@ const LiveSearch: React.FC<LiveSearchProps> = React.forwardRef((props: LiveSearc
                                             backgroundColor: option.selected ? activeColor.bgc : '',
                                         }}
                                         onClick={() => handleSelect(option)}
-                                        className={`retrieve-select-option ${option.selected && 'retrieve-select-option-active'} ${
-                                            focusedIndex === index && 'retrieve-select-option-focused'
+                                        className={`live-search-select-option ${option.selected && 'live-search-select-option-active'} ${
+                                            focusedIndex === index && 'live-search-select-option-focused'
                                         }`}
                                     >
                                         {option[labelKey]}

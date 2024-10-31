@@ -178,34 +178,35 @@ const Input: React.ForwardRefRenderFunction<InputRef, InputProps> = (
                         {label}
                     </span>
                 )}
-                <input
-                    ref={inputRef}
-                    required={required}
-                    style={{
-                        borderRadius: '6px',
-                        borderTopLeftRadius: prefixContent ? 0 : '6px',
-                        borderBottomLeftRadius: prefixContent ? 0 : '6px',
-                        background: transparent ? 'transparent' : '#fff',
-                        flex: 1,
-                    }}
-                    step={1}
-                    name={name}
-                    value={value}
-                    readOnly={readOnly}
-                    placeholder={placeholder}
-                    onChange={handleChange}
-                    onBlur={(e) => handleBlur(e)}
-                    onFocus={(e) => handleFocus(e)}
-                    onClick={(e) => handleClick(e)}
-                    type={type}
-                    className={`form-control input ${suffixContent && suffixContentType === 'button' ? 'suffix-content-btn' : ''}`}
-                    aria-label="Username"
-                    aria-describedby="basic-addon1"
-                />
-                {suffixContent && (
-                    <div className={`${suffixContentType === 'button' ? 'suffix-content-btn-wrapper px-2' : 'suffix-content-text-wrapper ms-1'}`}>{suffixContent}</div>
-                )}
-
+                <div className="input-form-content">
+                    <input
+                        ref={inputRef}
+                        required={required}
+                        style={{
+                            borderRadius: '6px',
+                            borderTopLeftRadius: prefixContent ? 0 : '6px',
+                            borderBottomLeftRadius: prefixContent ? 0 : '6px',
+                            background: transparent ? 'transparent' : '#fff',
+                            flex: 1,
+                        }}
+                        step={1}
+                        name={name}
+                        value={value}
+                        readOnly={readOnly}
+                        placeholder={placeholder}
+                        onChange={handleChange}
+                        onBlur={(e) => handleBlur(e)}
+                        onFocus={(e) => handleFocus(e)}
+                        onClick={(e) => handleClick(e)}
+                        type={type}
+                        className={`form-control input ${suffixContent && suffixContentType === 'button' ? 'suffix-content-btn' : ''}`}
+                        aria-label="Username"
+                        aria-describedby="basic-addon1"
+                    />
+                    {suffixContent && (
+                        <div className={`${suffixContentType === 'button' ? 'suffix-content-btn-wrapper px-2' : 'suffix-content-text-wrapper ms-1'}`}>{suffixContent}</div>
+                    )}
+                </div>
                 {commonSuffixIcon && <i onClick={handleClickCommonSuffixIcon} className={`${commonSuffixIcon} common-suffix-icon ms-2`}></i>}
                 {children && (
                     <div onClick={handleIconClick} className="suffix-icon" style={{ right: commonSuffixIcon && '32px' }}>

@@ -107,7 +107,7 @@ const App = () => {
             <Button type="warning" onClickOK={handleTest}>
                 测试
             </Button>
-            <AdouNewForm ref={adouNewFormRef}>
+            <AdouNewForm data={{}} ref={adouNewFormRef}>
                 <AdouInput
                     ref={testRef}
                     commonSuffixIcon="fa-solid fa-circle-xmark text-danger"

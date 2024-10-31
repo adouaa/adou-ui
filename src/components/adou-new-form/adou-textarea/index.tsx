@@ -4,6 +4,8 @@ import './index.scss';
 import classNames from 'classnames';
 
 interface TextAreaProps {
+    suffixContentType?: string;
+    suffixContent?: any;
     name?: string;
     inline?: boolean;
     isFormItem?: boolean;
@@ -28,6 +30,8 @@ interface TextAreaProps {
 
 const TextArea: React.FC<TextAreaProps> = React.forwardRef((props: TextAreaProps, ref) => {
     const {
+        suffixContentType = 'button',
+        suffixContent,
         errMsg,
         inline,
         isFormItem,
@@ -110,22 +114,33 @@ const TextArea: React.FC<TextAreaProps> = React.forwardRef((props: TextAreaProps
                         {label}
                     </span>
                 )}
-                <textarea
-                    style={{
-                        width,
-                        ...(inline && !width ? { flex: 1, marginRight: '15px' } : {}),
-                    }}
-                    readOnly={readOnly}
-                    required={required}
-                    name={name}
-                    value={value}
-                    disabled={disabled}
-                    onBlur={(e) => handleBlur(e)}
-                    onChange={(e) => handleChange(e)}
-                    placeholder={placeholder}
-                    className="form-control"
-                    aria-label="With textarea"
-                ></textarea>
+                <div className="textarea-form-content">
+                    <textarea
+                        style={{
+                            width,
+                            ...(inline && !width ? { flex: 1, marginRight: '15px' } : {}),
+                            ...(suffixContentType === 'button'
+                                ? {
+                                      borderTopRightRadius: 0,
+                                      borderBottomRightRadius: 0,
+                                      // borderRight: "none",
+                                  }
+                                : {}),
+                        }}
+                        readOnly={readOnly}
+                        required={required}
+                        name={name}
+                        value={value}
+                        disabled={disabled}
+                        onBlur={(e) => handleBlur(e)}
+                        onChange={(e) => handleChange(e)}
+                        placeholder={placeholder}
+                        className="form-control"
+                        aria-label="With textarea"
+                    ></textarea>
+                    {suffixContent && <div className={`${suffixContentType === 'button' ? 'suffix-content-btn-wrapper px-2' : 'ms-2'}`}>{suffixContent}</div>}
+                </div>
+
                 {commonSuffixIcon && <i onClick={handleClickCommonSuffixIcon} className={`${commonSuffixIcon} common-suffix-icon ms-2`}></i>}
             </div>
             {error && required && (

@@ -1,8 +1,11 @@
-import classNames from "classnames";
-import React, { useEffect, useImperativeHandle, useState } from "react";
-import "./index.scss";
+import classNames from 'classnames';
+import React, { useEffect, useImperativeHandle, useState } from 'react';
+import './index.scss';
 
 interface RadioProps {
+    suffixContentType?: string;
+    suffixContent?: any;
+    isFormItem?: boolean;
     name?: string;
     errMsg?: string;
     labelWidth?: any;
@@ -12,7 +15,7 @@ interface RadioProps {
     checked?: boolean;
     label?: string;
     inputGroup?: boolean;
-    labelPosition?: "left-top" | "center" | "top" | "input-group";
+    labelPosition?: 'left-top' | 'center' | 'top' | 'input-group';
     labelColor?: string;
     required?: boolean;
     id?: string;
@@ -24,49 +27,74 @@ interface RadioProps {
 }
 
 const Radio: React.ForwardRefRenderFunction<any, RadioProps> = (props, ref) => {
-    const { required, errMsg, labelWidth, commonSuffixIcon, readOnly, inputGroup = false, labelPosition = "center", labelColor, label, name, externalClassName, inline = true, options, defaultValue, onChangeOK } = props;
+    const {
+        suffixContentType = 'button',
+        suffixContent,
+        isFormItem,
+        required,
+        errMsg,
+        labelWidth,
+        commonSuffixIcon,
+        readOnly,
+        inputGroup = false,
+        labelPosition = 'center',
+        labelColor,
+        label,
+        name,
+        externalClassName,
+        inline = true,
+        options,
+        defaultValue,
+        onChangeOK,
+    } = props;
 
     const [optionsList, setOptionsList] = useState(options || []);
 
     useEffect(() => {
         if (options) {
             // Initialize optionsList with checked property
-            setOptionsList(options.map(option => ({
-                ...option,
-                checked: defaultValue && option.value === defaultValue
-            })));
+            setOptionsList(
+                options.map((option) => ({
+                    ...option,
+                    checked: defaultValue && option.value === defaultValue,
+                }))
+            );
         }
     }, [defaultValue, options]);
 
     const cls = classNames({
-        "form-check-input": true,
-        [externalClassName as string]: externalClassName
+        'form-check-input': true,
+        [externalClassName as string]: externalClassName,
     });
 
     const handleChange = (item: any) => {
-        setOptionsList(prevOptions => prevOptions.map(option => ({
-            ...option,
-            checked: option.value === item.value
-        })));
+        setOptionsList((prevOptions) =>
+            prevOptions.map((option) => ({
+                ...option,
+                checked: option.value === item.value,
+            }))
+        );
         onChangeOK && onChangeOK(item);
         setError(false);
     };
 
     const getValue = () => {
-        return optionsList.filter((option: any) => option.checked)?.[0]?.value || "";
+        return optionsList.filter((option: any) => option.checked)?.[0]?.value || '';
     };
 
     // 清除内容方法
     const clear = () => {
-        setOptionsList(prevOptions => prevOptions.map(option => ({
-            ...option,
-            checked: false
-        })));
+        setOptionsList((prevOptions) =>
+            prevOptions.map((option) => ({
+                ...option,
+                checked: false,
+            }))
+        );
     };
     const handleClickCommonSuffixIcon = () => {
         clear();
         setError(true);
-    }
+    };
     const [error, setError] = useState<boolean>(false);
     const validate = () => {
         // Example validation logic, replace with your actual validation needs
@@ -82,21 +110,26 @@ const Radio: React.ForwardRefRenderFunction<any, RadioProps> = (props, ref) => {
     useImperativeHandle(ref, () => ({
         getValue,
         validate,
-        clear
+        clear,
     }));
 
     const radioClasses = classNames({
-        "radio-warpper": true,
+        'radio-warpper': true,
         [externalClassName as string]: externalClassName,
+        'mb-3': !error && isFormItem,
     });
 
     return (
         <div className={radioClasses}>
-            <div className={`content-box ${inputGroup ? "inputGroup" : `label-in-${labelPosition}`}`}>
-                {label && <span style={{color: labelColor, width: labelWidth}} className={`${inputGroup ? "input-group-text" : ""} label-box`}>{label}</span>}
-                <div className="option-box" style={{ display: inline ? "flex" : "", marginTop: "6px" }}>
-                    {optionsList?.map(item => (
-                        <div key={item.value} className="form-check" style={{ marginRight: "20px" }}>
+            <div className={`content-box ${inputGroup ? 'inputGroup' : `label-in-${labelPosition}`}`}>
+                {label && (
+                    <span style={{ color: labelColor, width: labelWidth }} className={`${inputGroup ? 'input-group-text' : ''} label-box`}>
+                        {label}
+                    </span>
+                )}
+                <div className="radio-form-content option-box" style={{ display: inline ? 'flex' : '', marginTop: '6px' }}>
+                    {optionsList?.map((item: any, index: number) => (
+                        <div key={item.value} className={`form-check ${index !== optionsList.length - 1 ? 'me-2' : ''}`}>
                             <input
                                 disabled={item.disabled}
                                 className={cls}
@@ -109,14 +142,20 @@ const Radio: React.ForwardRefRenderFunction<any, RadioProps> = (props, ref) => {
                                 readOnly={readOnly}
                             />
                             <label className="form-check-label" htmlFor={item.id}>
-                                {item.label || "Default Radio"}
+                                {item.label || 'Default Radio'}
                             </label>
                         </div>
                     ))}
+                    {suffixContent && <div className={`${suffixContentType === 'button' ? 'suffix-content-btn-wrapper px-2' : 'ms-2'}`}>{suffixContent}</div>}
                 </div>
                 {commonSuffixIcon && <i onClick={handleClickCommonSuffixIcon} className={`${commonSuffixIcon} common-suffix-icon ms-2`}></i>}
             </div>
-            {error && required && <div className="animate__animated animate__fadeIn" style={{color: "red", paddingLeft: parseInt(labelWidth) > 120 ? "120px" : labelWidth}}>{`${errMsg || `${name}不能为空`}`}</div>}
+            {error && required && (
+                <div
+                    className="animate__animated animate__fadeIn"
+                    style={{ color: 'red', paddingLeft: parseInt(labelWidth) > 120 ? '120px' : labelWidth }}
+                >{`${errMsg || `${name}不能为空`}`}</div>
+            )}
         </div>
     );
 };

@@ -4,6 +4,8 @@ import './index.scss';
 import { withTranslation } from 'react-i18next';
 
 interface TagInputProps {
+    suffixContentType?: string;
+    suffixContent?: any;
     name?: string;
     isFormItem?: boolean;
     required?: boolean;
@@ -23,6 +25,8 @@ interface TagInputProps {
 const TagInput = React.forwardRef(
     (
         {
+            suffixContentType = 'button',
+            suffixContent,
             required,
             isFormItem,
             errMsg,
@@ -141,36 +145,52 @@ const TagInput = React.forwardRef(
                     <span className={`label-box ${inputGroup ? 'input-group-text' : ''}`} style={{ color: labelColor, width: labelWidth }}>
                         {label}
                     </span>
-                    <div style={{ display: 'flex' }} onClick={handleClickFormControl} className={`form-control ${isHighlighted ? 'focus' : ''}`}>
-                        <ul className="tag-input-list">
-                            {Array.isArray(inputList) &&
-                                inputList.map((item: any) => {
-                                    return (
-                                        <li className="list-item" key={item}>
-                                            {item}
-                                            <span onClick={() => handleDeleteItem(item)} className="item-icon">
-                                                x
-                                            </span>
-                                        </li>
-                                    );
-                                })}
-                        </ul>
-                        <div className="tag-input-control">
-                            <input
-                                readOnly={readOnly}
-                                ref={inputRef}
-                                name={name}
-                                value={inputValue}
-                                autoComplete="off"
-                                onFocus={handleFocus}
-                                onBlur={handleBlur}
-                                onChange={(e) => handleInputChange(e)}
-                                onKeyDown={handleKeyDown}
-                                placeholder="空格或回车分割"
-                                type="text"
-                                className="input"
-                            ></input>
+                    <div className="tag-input-form-content">
+                        <div
+                            style={{
+                                display: 'flex',
+                                ...(suffixContentType === 'button'
+                                    ? {
+                                          borderTopRightRadius: 0,
+                                          borderBottomRightRadius: 0,
+                                          // borderRight: "none",
+                                      }
+                                    : {}),
+                            }}
+                            onClick={handleClickFormControl}
+                            className={`form-control ${isHighlighted ? 'focus' : ''}`}
+                        >
+                            <ul className="tag-input-list">
+                                {Array.isArray(inputList) &&
+                                    inputList.map((item: any) => {
+                                        return (
+                                            <li className="list-item" key={item}>
+                                                {item}
+                                                <span onClick={() => handleDeleteItem(item)} className="item-icon">
+                                                    x
+                                                </span>
+                                            </li>
+                                        );
+                                    })}
+                            </ul>
+                            <div className="tag-input-control">
+                                <input
+                                    readOnly={readOnly}
+                                    ref={inputRef}
+                                    name={name}
+                                    value={inputValue}
+                                    autoComplete="off"
+                                    onFocus={handleFocus}
+                                    onBlur={handleBlur}
+                                    onChange={(e) => handleInputChange(e)}
+                                    onKeyDown={handleKeyDown}
+                                    placeholder="空格或回车分割"
+                                    type="text"
+                                    className="input"
+                                ></input>
+                            </div>
                         </div>
+                        {suffixContent && <div className={`${suffixContentType === 'button' ? 'suffix-content-btn-wrapper px-2' : 'ms-2'}`}>{suffixContent}</div>}
                     </div>
                     {commonSuffixIcon && <i onClick={handleClickCommonSuffixIcon} className={`${commonSuffixIcon} common-suffix-icon ms-2`}></i>}
                 </div>

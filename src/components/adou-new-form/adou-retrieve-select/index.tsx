@@ -60,7 +60,7 @@ const RetrievrSelect: React.FC<RetrieveSelectProps> = React.forwardRef((props: R
         valueKey = 'value',
         inline,
         suffixContent,
-        suffixContentType,
+        suffixContentType = 'button',
         contentWidth,
         required,
         errMsg,
@@ -251,16 +251,16 @@ const RetrievrSelect: React.FC<RetrieveSelectProps> = React.forwardRef((props: R
         }
         // 为了适配通过tab键来定位聚焦，把这些点击的逻辑去掉
         /* if (!isOpen) {
-        toggleDropdown();
-
-        // e.stopPropagation(); 这里不能加，否则会导致Select展开的时候点击RetrieveSelect无法关闭Select的选项
-        setTimeout(() => {
-          setShowOptions(true);
-        }, 10);
-      } else {
-        setShowOptions(false);
-        toggleDropdown();
-      } */
+          toggleDropdown();
+  
+          // e.stopPropagation(); 这里不能加，否则会导致Select展开的时候点击RetrieveSelect无法关闭Select的选项
+          setTimeout(() => {
+            setShowOptions(true);
+          }, 10);
+        } else {
+          setShowOptions(false);
+          toggleDropdown();
+        } */
     };
 
     const getValue = () => {
@@ -472,8 +472,8 @@ const RetrievrSelect: React.FC<RetrieveSelectProps> = React.forwardRef((props: R
         setTempOptions(options);
         // 不应该有这个逻辑
         /* if (!isOpen) {
-        toggleDropdown();
-      } */
+          toggleDropdown();
+        } */
     }, [options]);
 
     return (
@@ -498,72 +498,74 @@ const RetrievrSelect: React.FC<RetrieveSelectProps> = React.forwardRef((props: R
                 >
                     {label}
                 </span>
-                <div
-                    style={{
-                        display: 'flex',
-                        flexWrap: single ? 'nowrap' : 'wrap',
-                        ...(suffixContentType === 'button'
-                            ? {
-                                  borderTopRightRadius: 0,
-                                  borderBottomRightRadius: 0,
-                                  // borderRight: "none",
-                              }
-                            : {}),
-                    }}
-                    ref={retrieveSelectWrapperFormControlRef}
-                    tabIndex={0}
-                    onBlur={handleBlur}
-                    onClick={handleWrapperClick}
-                    className={`select-list-box form-control ${isHighlighted ? 'focus' : ''}`}
-                >
-                    <select style={{ display: 'none' }} name={name}>
-                        {showSelected &&
-                            showSelectedList &&
-                            selectedOptions?.map((option, index) => {
-                                return <option key={index} value={option[valueKey]}></option>;
-                            })}{' '}
-                    </select>
+                <div className="retrieve-select-form-content">
+                    <div
+                        style={{
+                            display: 'flex',
+                            flexWrap: single ? 'nowrap' : 'wrap',
+                            ...(suffixContentType === 'button'
+                                ? {
+                                      borderTopRightRadius: 0,
+                                      borderBottomRightRadius: 0,
+                                      // borderRight: "none",
+                                  }
+                                : {}),
+                        }}
+                        ref={retrieveSelectWrapperFormControlRef}
+                        tabIndex={0}
+                        onBlur={handleBlur}
+                        onClick={handleWrapperClick}
+                        className={`select-list-box form-control ${isHighlighted ? 'focus' : ''}`}
+                    >
+                        <select style={{ display: 'none' }} name={name}>
+                            {showSelected &&
+                                showSelectedList &&
+                                selectedOptions?.map((option, index) => {
+                                    return <option key={index} value={option[valueKey]}></option>;
+                                })}{' '}
+                        </select>
 
-                    <div ref={selectListRef} className="select-list">
-                        {!isInputFocusing &&
-                            showSelected &&
-                            showSelectedList &&
-                            selectedOptions?.map((option, index) => {
-                                return (
-                                    <div
-                                        style={{
-                                            ...(single ? { maxWidth: maxSelectedListWidth } : {}),
-                                        }}
-                                        className={`${single ? 'selected-option-single ellipsis-1' : 'selected-option'}`}
-                                        key={option[valueKey]}
-                                    >
-                                        {option[labelKey]}
-                                        {!single && <i onClick={() => handleDeleteItem(option)} className="option-icon fa-regular fa-circle-xmark"></i>}
-                                    </div>
-                                );
-                            })}
+                        <div ref={selectListRef} className="select-list">
+                            {!isInputFocusing &&
+                                showSelected &&
+                                showSelectedList &&
+                                selectedOptions?.map((option, index) => {
+                                    return (
+                                        <div
+                                            style={{
+                                                ...(single ? { maxWidth: maxSelectedListWidth } : {}),
+                                            }}
+                                            className={`${single ? 'selected-option-single ellipsis-1' : 'selected-option'}`}
+                                            key={option[valueKey]}
+                                        >
+                                            {option[labelKey]}
+                                            {!single && <i onClick={() => handleDeleteItem(option)} className="option-icon fa-regular fa-circle-xmark"></i>}
+                                        </div>
+                                    );
+                                })}
+                        </div>
+                        <div className="input-control">
+                            <input
+                                onKeyDown={handleInputKeyDown}
+                                ref={retrieveInputRef}
+                                placeholder={isInputFocusing ? placeholder : ''}
+                                onFocus={handleInputFocus}
+                                onChange={(e) => handleInputChange(e)}
+                                onClick={handleInputClick}
+                                readOnly={readOnly}
+                                type="text"
+                                className="retrieve-input"
+                                aria-label="Username"
+                                aria-describedby="basic-addon1"
+                            />
+                        </div>
+                        <div className="icon-box">
+                            <i className={`icon text-secondary fa-solid fa-angle-right ${isOpen ? 'rotate-up' : 'rotate-down'}`}></i>
+                        </div>
                     </div>
-                    <div className="input-control">
-                        <input
-                            onKeyDown={handleInputKeyDown}
-                            ref={retrieveInputRef}
-                            placeholder={isInputFocusing ? placeholder : ''}
-                            onFocus={handleInputFocus}
-                            onChange={(e) => handleInputChange(e)}
-                            onClick={handleInputClick}
-                            readOnly={readOnly}
-                            type="text"
-                            className="retrieve-input"
-                            aria-label="Username"
-                            aria-describedby="basic-addon1"
-                        />
-                    </div>
-                    <div className="icon-box">
-                        <i className={`icon text-secondary fa-solid fa-angle-right ${isOpen ? 'rotate-up' : 'rotate-down'}`}></i>
-                    </div>
+                    {suffixContent && <div className={`${suffixContentType === 'button' ? 'suffix-content-btn-wrapper px-2' : 'ms-2'}`}>{suffixContent}</div>}
                 </div>
                 {commonSuffixIcon && <i onClick={handleClickCommonSuffixIcon} className={`${commonSuffixIcon} common-suffix-icon ms-2`}></i>}
-                {suffixContent && <div className={`${suffixContentType === 'button' ? 'suffix-content-btn-wrapper px-2' : 'ms-2'}`}>{suffixContent}</div>}
             </div>
             {ReactDOM.createPortal(
                 <div

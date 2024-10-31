@@ -512,7 +512,7 @@ const EventCalendar = ({ date, wrapperHeight, contentHeight, data = [], modalCon
             <AdouModal show={modalShow} onCancel={handleCloseModal} onClose={handleCloseModal} onConfirm={handleCofirmModal}>
                 {
                     <>
-                        <AdouNewForm ref={formRef}>{modalContent || <AdouInput label="事件" name="event"></AdouInput>}</AdouNewForm>
+                        <AdouNewForm data={{}} ref={formRef}>{modalContent || <AdouInput label="事件" name="event"></AdouInput>}</AdouNewForm>
                     </>
                 }
             </AdouModal>

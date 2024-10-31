@@ -123,7 +123,7 @@ const Tooltip: React.FC<TooltipProps> = ({
                 <div className="content" onMouseEnter={handleMouseEnter} onMouseLeave={handleMouseLeave}>
                     {children}
                 </div>
-                {text && show && isShow && (
+                {text?.trim?.()?.length > 0 && show && isShow && (
                     <div
                         ref={tooltipRef}
                         onClick={handleClick}
