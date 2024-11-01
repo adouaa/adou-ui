@@ -1,14 +1,8 @@
 import React, { useState, useRef, useEffect } from 'react';
-import ReactDOM from 'react-dom';
 import './index.scss'; // 引入样式文件
 import { TooltipWrapper } from './style';
-import getAbsolutePosition from 'utils/getAbsolutePosition';
 
 interface TooltipProps {
-    left?: any;
-    right?: any;
-    top?: any;
-    bottom?: any;
     wrap?: boolean;
     width?: any;
     offset?: number;
@@ -25,10 +19,6 @@ interface TooltipProps {
 }
 
 const Tooltip: React.FC<TooltipProps> = ({
-    left,
-    right,
-    top,
-    bottom,
     wrap = false,
     width,
     offset,
@@ -51,9 +41,6 @@ const Tooltip: React.FC<TooltipProps> = ({
     const isEnterTooltipRef = useRef<boolean>(false);
     const enterTimeoutRef = useRef<NodeJS.Timeout | null>(null);
     const [tooltipWidth, setTooltipWidth] = useState<number>(0);
-
-    const contentRef = useRef<any>(null);
-    const [tooltipContentPosition, settooltipContentPosition] = useState<any>({});
 
     const handleMouseEnter = () => {
         // 进入的时候，如果存在定时器，也清除掉
@@ -112,60 +99,6 @@ const Tooltip: React.FC<TooltipProps> = ({
         }, 300);
     };
 
-    // 注意：定位完 tooltipContentPosition 和 contentRef 之后，内容是向两边撑开的
-    // 所以需要计算一下 tooltipRef 的位置(- 是left，+ 是 right)
-    const calcTooltipContentTopAndLeft = () => {
-        const top = tooltipContentPosition.y - tooltipRef.current?.clientHeight! / 2 - 15 + 'px';
-        if (position === 'top') {
-            return {
-                top,
-                left: tooltipContentPosition.x + contentRef.current?.clientWidth / 2 + 'px',
-            };
-        } else if (position === 'top-right') {
-            console.log('tooltipContentPosition.x +: ', tooltipContentPosition.x + contentRef.current?.clientWidth / 2);
-            return {
-                top,
-                left: tooltipContentPosition.x + contentRef.current?.clientWidth / 2 + tooltipRef.current?.clientWidth! / 2 + 'px',
-            };
-        } else if (position === 'top-left') {
-            console.log('tooltipContentPosition: ', tooltipContentPosition);
-            return {
-                top,
-                left: tooltipContentPosition.x + contentRef.current?.clientWidth / 2 - tooltipRef.current?.clientWidth! / 2 + 'px',
-            };
-        } else if (position.includes('bottom')) {
-            return {
-                top: tooltipContentPosition.y + contentRef.current?.clientHeight! + 15 + 'px',
-                left: tooltipContentPosition.x + tooltipRef.current?.clientWidth! / 2 + contentRef.current?.clientWidth / 2 + 'px',
-            };
-        }
-    };
-
-    const calcTooltipArrowTopAndLeft = () => {
-        const bottom = '-5px';
-        const horizontal = tooltipWidth * (offset || 0.2);
-        console.log('🚀 ~ calcTooltipArrowTopAndLeft ~ horizontal:', horizontal);
-        const minHorizontal = contentRef.current?.clientWidth! / 4;
-        console.log('🚀 ~ calcTooltipArrowTopAndLeft ~ minHorizontal:', minHorizontal);
-        const finalHorizontal = horizontal > minHorizontal ? minHorizontal : horizontal + 'px';
-        if (position === 'top') {
-            return {
-                bottom,
-                left: '50%',
-            };
-        } else if (position === 'top-left') {
-            return {
-                bottom,
-                right: right || finalHorizontal,
-            };
-        } else if (position === 'top-right') {
-            return {
-                bottom,
-                left: left || finalHorizontal,
-            };
-        }
-    };
-
     useEffect(() => {
         if (mustShow) {
             console.log('if: ', mustShow);
@@ -182,42 +115,29 @@ const Tooltip: React.FC<TooltipProps> = ({
             const tooltipElement = tooltipRef.current;
             setTooltipWidth(tooltipElement.offsetWidth);
         }
-        if (isShow) {
-            const position = getAbsolutePosition(contentRef.current, 0, 0);
-            settooltipContentPosition(position);
-        }
     }, [isShow, isVisible]);
 
     return (
-        <div className={`adou-tooltip-wrapper ${wrapperClassname || ''}`} style={{ ...(flex ? { flex: 1 } : {}) }}>
-            <div ref={contentRef} className="content" onMouseEnter={handleMouseEnter} onMouseLeave={handleMouseLeave}>
-                {children}
-            </div>
-            {text?.trim?.()?.length > 0 &&
-                show &&
-                isShow &&
-                ReactDOM.createPortal(
+        <TooltipWrapper $borderColor={borderColor} offset={offset} $tooltipWidth={tooltipWidth}>
+            <div className={`adou-tooltip-wrapper ${wrapperClassname || ''}`} style={{ ...(flex ? { flex: 1 } : {}) }}>
+                <div className="content" onMouseEnter={handleMouseEnter} onMouseLeave={handleMouseLeave}>
+                    {children}
+                </div>
+                {text?.trim?.()?.length > 0 && show && isShow && (
                     <div
                         ref={tooltipRef}
                         onClick={handleClick}
                         onMouseEnter={handleMouseEnterTooltip}
                         onMouseLeave={handleMouseLeaveTooltip}
                         className={`adou-tooltip ${isVisible ? 'show-tool-tip' : ''} adou-tooltip-${position}`}
-                        style={{
-                            backgroundColor: bgc,
-                            color: color,
-                            width,
-                            whiteSpace: wrap || width ? 'wrap' : 'nowrap',
-                            position: 'absolute',
-                            ...calcTooltipContentTopAndLeft(),
-                        }}
+                        style={{ backgroundColor: bgc, color: color, width, whiteSpace: wrap || width ? 'wrap' : 'nowrap' }}
                     >
-                        <div style={{ ...calcTooltipArrowTopAndLeft() }} className={`adou-tooltip-arrow adou-tooltip-arrow-${position}`}></div>
+                        <div className={`adou-tooltip-arrow adou-tooltip-arrow-${position}`}></div>
                         {text}
-                    </div>,
-                    document.body
+                    </div>
                 )}
-        </div>
+            </div>
+        </TooltipWrapper>
     );
 };
 
