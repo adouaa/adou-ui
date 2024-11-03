@@ -145,8 +145,40 @@ ___CSS_LOADER_EXPORT___.push([module.id, `@charset "UTF-8";
   height: 100%;
   margin-top: 10px;
 }
-.tag-input-wrapper .form-control {
+.tag-input-wrapper .tag-input-form-content {
+  display: flex;
+  flex: 1;
+}
+.tag-input-wrapper .tag-input-form-content .form-control {
   cursor: text;
+  flex: 1;
+}
+.tag-input-wrapper .tag-input-form-content .suffix-content-btn {
+  border-top-right-radius: 0 !important;
+  /* 去掉右上角的圆角 */
+  border-bottom-right-radius: 0 !important;
+  border-right: none;
+  /* 去掉右下角的圆角 */
+}
+.tag-input-wrapper .tag-input-form-content .suffix-content-btn-wrapper {
+  min-width: 37px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #eee;
+  border-top-right-radius: 6px;
+  border-bottom-right-radius: 6px;
+}
+.tag-input-wrapper .tag-input-form-content .suffix-content-btn-wrapper .btn {
+  border-top-left-radius: 0;
+  /* 去掉左上角的圆角 */
+  border-bottom-left-radius: 0;
+  /* 去掉左下角的圆角 */
+}
+.tag-input-wrapper .tag-input-form-content .suffix-content-text-wrapper {
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 .tag-input-wrapper .inputGroup {
   display: flex;
@@ -208,7 +240,7 @@ ___CSS_LOADER_EXPORT___.push([module.id, `@charset "UTF-8";
   /* 设置输入框获得焦点时的边框颜色 */
   box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.313);
   /* 设置输入框获得焦点时的阴影效果 */
-}`, "",{"version":3,"sources":["webpack://./src/index.scss"],"names":[],"mappings":"AAAA,gBAAgB;AAAhB;EACI,YAAA;EACA,gBAAA;AAEJ;AAAI;EACI,YAAA;AAER;AACI;EACI,aAAA;EACA,mBAAA;AACR;AAGI;EACI,eAAA;EACA,eAAA;EACA,2BAAA;EACA,eAAA;AADR;AAKI;EACI,aAAA;EACA,mBAAA;AAHR;AAMI;EACI,aAAA;AAJR;AAMQ;EACI,aAAA;EACA,kBAAA;AAJZ;AAUQ;EACI,UAAA;EACA,gBAAA;EACA,aAAA;EACA,eAAA;AARZ;AAUY;EACI,cAAA;EACA,qBAAA;EACA,eAAA;EACA,0BAAA;EACA,mBAAA;EACA,yBAAA;EACA,kBAAA;EACA,iBAAA;EACA,kBAAA;AARhB;AAUgB;EACI,cAAA;EACA,kBAAA;EACA,WAAA;EACA,WAAA;EACA,eAAA;AARpB;AAcI;EACI,OAAA;AAZR;AAcQ;EACI,WAAA;EACA,aAAA;EACA,YAAA;EACA,cAAA;AAZZ;;AAiBA;EACI,qBAAA;EACA,oBAAA;EACA,iDAAA;EACA,oBAAA;AAdJ","sourcesContent":[".tag-input-wrapper {\r\n    height: 100%;\r\n    margin-top: 10px;\r\n\r\n    .form-control {\r\n        cursor: text;\r\n    }\r\n\r\n    .inputGroup {\r\n        display: flex;\r\n        align-items: center;\r\n    }\r\n\r\n\r\n    .label-box {\r\n        font-size: 14px;\r\n        min-width: 50px;\r\n        max-width: 120px !important;\r\n        flex-wrap: wrap;\r\n    }\r\n\r\n\r\n    .label-in-center {\r\n        display: flex;\r\n        align-items: center;\r\n    }\r\n\r\n    .label-in-left-top {\r\n        display: flex;\r\n\r\n        .label-box {\r\n            display: flex;\r\n            align-items: start;\r\n        }\r\n    }\r\n\r\n    .content-box {\r\n\r\n        .tag-input-list {\r\n            padding: 0;\r\n            margin-bottom: 0;\r\n            display: flex;\r\n            flex-wrap: wrap; // 不写这个太窄的话会挤在一起\r\n\r\n            .list-item {\r\n                color: #7e8085;\r\n                list-style-type: none;\r\n                font-size: 14px;\r\n                padding: 3px 22px 3px 12px;\r\n                border-radius: 13px;\r\n                background-color: #f4f4f5;\r\n                position: relative;\r\n                margin-right: 6px;\r\n                margin-bottom: 6px;\r\n\r\n                .item-icon {\r\n                    color: #999ba1;\r\n                    position: absolute;\r\n                    right: 10px;\r\n                    bottom: 4px;\r\n                    cursor: pointer;\r\n                }\r\n            }\r\n        }\r\n    }\r\n\r\n    .tag-input-control {\r\n        flex: 1;\r\n\r\n        .input {\r\n            width: 100%;\r\n            outline: none;\r\n            border: none;\r\n            color: #adb5bd;\r\n        }\r\n    }\r\n}\r\n\r\n.focus {\r\n    border-color: #80bdff;\r\n    /* 设置输入框获得焦点时的边框颜色 */\r\n    box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.313);\r\n    /* 设置输入框获得焦点时的阴影效果 */\r\n}"],"sourceRoot":""}]);
+}`, "",{"version":3,"sources":["webpack://./src/index.scss"],"names":[],"mappings":"AAAA,gBAAgB;AAAhB;EACI,YAAA;EACA,gBAAA;AAEJ;AAAI;EACI,aAAA;EACA,OAAA;AAER;AAAQ;EACI,YAAA;EACA,OAAA;AAEZ;AACQ;EACI,qCAAA;EACA,aAAA;EACA,wCAAA;EACA,kBAAA;EACA,aAAA;AACZ;AAGQ;EACI,eAAA;EACA,aAAA;EACA,mBAAA;EACA,uBAAA;EACA,sBAAA;EACA,4BAAA;EACA,+BAAA;AADZ;AAIQ;EACI,yBAAA;EACA,aAAA;EACA,4BAAA;EACA,aAAA;AAFZ;AAKQ;EACI,aAAA;EACA,mBAAA;EACA,uBAAA;AAHZ;AAWI;EACI,aAAA;EACA,mBAAA;AATR;AAaI;EACI,eAAA;EACA,eAAA;EACA,2BAAA;EACA,eAAA;AAXR;AAeI;EACI,aAAA;EACA,mBAAA;AAbR;AAgBI;EACI,aAAA;AAdR;AAgBQ;EACI,aAAA;EACA,kBAAA;AAdZ;AAoBQ;EACI,UAAA;EACA,gBAAA;EACA,aAAA;EACA,eAAA;AAlBZ;AAoBY;EACI,cAAA;EACA,qBAAA;EACA,eAAA;EACA,0BAAA;EACA,mBAAA;EACA,yBAAA;EACA,kBAAA;EACA,iBAAA;EACA,kBAAA;AAlBhB;AAoBgB;EACI,cAAA;EACA,kBAAA;EACA,WAAA;EACA,WAAA;EACA,eAAA;AAlBpB;AAwBI;EACI,OAAA;AAtBR;AAwBQ;EACI,WAAA;EACA,aAAA;EACA,YAAA;EACA,cAAA;AAtBZ;;AA2BA;EACI,qBAAA;EACA,oBAAA;EACA,iDAAA;EACA,oBAAA;AAxBJ","sourcesContent":[".tag-input-wrapper {\r\n    height: 100%;\r\n    margin-top: 10px;\r\n\r\n    .tag-input-form-content {\r\n        display: flex;\r\n        flex: 1;\r\n\r\n        .form-control {\r\n            cursor: text;\r\n            flex: 1;\r\n        }\r\n\r\n        .suffix-content-btn {\r\n            border-top-right-radius: 0 !important;\r\n            /* 去掉右上角的圆角 */\r\n            border-bottom-right-radius: 0 !important;\r\n            border-right: none;\r\n            /* 去掉右下角的圆角 */\r\n        }\r\n\r\n\r\n        .suffix-content-btn-wrapper {\r\n            min-width: 37px;\r\n            display: flex;\r\n            align-items: center;\r\n            justify-content: center;\r\n            background-color: #eee;\r\n            border-top-right-radius: 6px;\r\n            border-bottom-right-radius: 6px;\r\n        }\r\n\r\n        .suffix-content-btn-wrapper .btn {\r\n            border-top-left-radius: 0;\r\n            /* 去掉左上角的圆角 */\r\n            border-bottom-left-radius: 0;\r\n            /* 去掉左下角的圆角 */\r\n        }\r\n\r\n        .suffix-content-text-wrapper {\r\n            display: flex;\r\n            align-items: center;\r\n            justify-content: center;\r\n        }\r\n    }\r\n\r\n\r\n\r\n\r\n\r\n    .inputGroup {\r\n        display: flex;\r\n        align-items: center;\r\n    }\r\n\r\n\r\n    .label-box {\r\n        font-size: 14px;\r\n        min-width: 50px;\r\n        max-width: 120px !important;\r\n        flex-wrap: wrap;\r\n    }\r\n\r\n\r\n    .label-in-center {\r\n        display: flex;\r\n        align-items: center;\r\n    }\r\n\r\n    .label-in-left-top {\r\n        display: flex;\r\n\r\n        .label-box {\r\n            display: flex;\r\n            align-items: start;\r\n        }\r\n    }\r\n\r\n    .content-box {\r\n\r\n        .tag-input-list {\r\n            padding: 0;\r\n            margin-bottom: 0;\r\n            display: flex;\r\n            flex-wrap: wrap; // 不写这个太窄的话会挤在一起\r\n\r\n            .list-item {\r\n                color: #7e8085;\r\n                list-style-type: none;\r\n                font-size: 14px;\r\n                padding: 3px 22px 3px 12px;\r\n                border-radius: 13px;\r\n                background-color: #f4f4f5;\r\n                position: relative;\r\n                margin-right: 6px;\r\n                margin-bottom: 6px;\r\n\r\n                .item-icon {\r\n                    color: #999ba1;\r\n                    position: absolute;\r\n                    right: 10px;\r\n                    bottom: 4px;\r\n                    cursor: pointer;\r\n                }\r\n            }\r\n        }\r\n    }\r\n\r\n    .tag-input-control {\r\n        flex: 1;\r\n\r\n        .input {\r\n            width: 100%;\r\n            outline: none;\r\n            border: none;\r\n            color: #adb5bd;\r\n        }\r\n    }\r\n}\r\n\r\n.focus {\r\n    border-color: #80bdff;\r\n    /* 设置输入框获得焦点时的边框颜色 */\r\n    box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.313);\r\n    /* 设置输入框获得焦点时的阴影效果 */\r\n}"],"sourceRoot":""}]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 
@@ -612,6 +644,8 @@ var update = injectStylesIntoStyleTag_default()(cjs_ruleSet_1_rules_1_use_2_src/
 
 const TagInput = /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().forwardRef((_ref, ref) => {
   let {
+    suffixContentType = "button",
+    suffixContent,
     required,
     isFormItem,
     errMsg,
@@ -724,8 +758,15 @@ const TagInput = /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react
       width: labelWidth
     }
   }, label), /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("div", {
+    className: "tag-input-form-content"
+  }, /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("div", {
     style: {
-      display: "flex"
+      display: "flex",
+      ...(suffixContentType === "button" ? {
+        borderTopRightRadius: 0,
+        borderBottomRightRadius: 0
+        // borderRight: "none",
+      } : {})
     },
     onClick: handleClickFormControl,
     className: "form-control ".concat(isHighlighted ? "focus" : "")
@@ -754,7 +795,9 @@ const TagInput = /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react
     placeholder: "\u7A7A\u683C\u6216\u56DE\u8F66\u5206\u5272",
     type: "text",
     className: "input"
-  }))), commonSuffixIcon && /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("i", {
+  }))), suffixContent && /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("div", {
+    className: "".concat(suffixContentType === "button" ? "suffix-content-btn-wrapper px-2" : "ms-2")
+  }, suffixContent)), commonSuffixIcon && /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("i", {
     onClick: handleClickCommonSuffixIcon,
     className: "".concat(commonSuffixIcon, " common-suffix-icon ms-2")
   })), error && required && /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("div", {

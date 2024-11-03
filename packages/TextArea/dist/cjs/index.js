@@ -142,7 +142,8 @@ module.exports = function (item) {
 
 var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_1___default()((_node_modules_css_loader_dist_runtime_sourceMaps_js__WEBPACK_IMPORTED_MODULE_0___default()));
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, `.textarea-warpper .label-in-center {
+___CSS_LOADER_EXPORT___.push([module.id, `@charset "UTF-8";
+.textarea-warpper .label-in-center {
   display: flex;
   align-items: center;
 }
@@ -159,9 +160,40 @@ ___CSS_LOADER_EXPORT___.push([module.id, `.textarea-warpper .label-in-center {
   max-width: 120px !important;
   flex-wrap: wrap;
 }
-.textarea-warpper .form-control {
+.textarea-warpper .textarea-form-content {
+  display: flex;
   flex: 1;
-}`, "",{"version":3,"sources":["webpack://./src/index.scss"],"names":[],"mappings":"AAEI;EACI,aAAA;EACA,mBAAA;AADR;AAII;EACI,aAAA;AAFR;AAIQ;EACI,aAAA;EACA,kBAAA;AAFZ;AAMI;EACI,eAAA;EACA,eAAA;EACA,2BAAA;EACA,eAAA;AAJR;AAOI;EACI,OAAA;AALR","sourcesContent":[".textarea-warpper {\r\n\r\n    .label-in-center {\r\n        display: flex;\r\n        align-items: center;\r\n    }\r\n\r\n    .label-in-left-top {\r\n        display: flex;\r\n\r\n        .label-box {\r\n            display: flex;\r\n            align-items: start;\r\n        }\r\n    }\r\n\r\n    .label-box {\r\n        font-size: 14px;\r\n        min-width: 50px;\r\n        max-width: 120px !important;\r\n        flex-wrap: wrap;\r\n    }\r\n\r\n    .form-control {\r\n        flex: 1;\r\n    }\r\n}"],"sourceRoot":""}]);
+}
+.textarea-warpper .textarea-form-content .form-control {
+  flex: 1;
+}
+.textarea-warpper .textarea-form-content .suffix-content-btn {
+  border-top-right-radius: 0 !important;
+  /* 去掉右上角的圆角 */
+  border-bottom-right-radius: 0 !important;
+  border-right: none;
+  /* 去掉右下角的圆角 */
+}
+.textarea-warpper .textarea-form-content .suffix-content-btn-wrapper {
+  min-width: 37px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #eee;
+  border-top-right-radius: 6px;
+  border-bottom-right-radius: 6px;
+}
+.textarea-warpper .textarea-form-content .suffix-content-btn-wrapper .btn {
+  border-top-left-radius: 0;
+  /* 去掉左上角的圆角 */
+  border-bottom-left-radius: 0;
+  /* 去掉左下角的圆角 */
+}
+.textarea-warpper .textarea-form-content .suffix-content-text-wrapper {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}`, "",{"version":3,"sources":["webpack://./src/index.scss"],"names":[],"mappings":"AAAA,gBAAgB;AAEZ;EACI,aAAA;EACA,mBAAA;AAAR;AAGI;EACI,aAAA;AADR;AAGQ;EACI,aAAA;EACA,kBAAA;AADZ;AAKI;EACI,eAAA;EACA,eAAA;EACA,2BAAA;EACA,eAAA;AAHR;AAMI;EACI,aAAA;EACA,OAAA;AAJR;AAMQ;EACI,OAAA;AAJZ;AAOQ;EACI,qCAAA;EACA,aAAA;EACA,wCAAA;EACA,kBAAA;EACA,aAAA;AALZ;AASQ;EACI,eAAA;EACA,aAAA;EACA,mBAAA;EACA,uBAAA;EACA,sBAAA;EACA,4BAAA;EACA,+BAAA;AAPZ;AAUQ;EACI,yBAAA;EACA,aAAA;EACA,4BAAA;EACA,aAAA;AARZ;AAWQ;EACI,aAAA;EACA,mBAAA;EACA,uBAAA;AATZ","sourcesContent":[".textarea-warpper {\r\n\r\n    .label-in-center {\r\n        display: flex;\r\n        align-items: center;\r\n    }\r\n\r\n    .label-in-left-top {\r\n        display: flex;\r\n\r\n        .label-box {\r\n            display: flex;\r\n            align-items: start;\r\n        }\r\n    }\r\n\r\n    .label-box {\r\n        font-size: 14px;\r\n        min-width: 50px;\r\n        max-width: 120px !important;\r\n        flex-wrap: wrap;\r\n    }\r\n\r\n    .textarea-form-content {\r\n        display: flex;\r\n        flex: 1;\r\n\r\n        .form-control {\r\n            flex: 1;\r\n        }\r\n\r\n        .suffix-content-btn {\r\n            border-top-right-radius: 0 !important;\r\n            /* 去掉右上角的圆角 */\r\n            border-bottom-right-radius: 0 !important;\r\n            border-right: none;\r\n            /* 去掉右下角的圆角 */\r\n        }\r\n\r\n\r\n        .suffix-content-btn-wrapper {\r\n            min-width: 37px;\r\n            display: flex;\r\n            align-items: center;\r\n            justify-content: center;\r\n            background-color: #eee;\r\n            border-top-right-radius: 6px;\r\n            border-bottom-right-radius: 6px;\r\n        }\r\n\r\n        .suffix-content-btn-wrapper .btn {\r\n            border-top-left-radius: 0;\r\n            /* 去掉左上角的圆角 */\r\n            border-bottom-left-radius: 0;\r\n            /* 去掉左下角的圆角 */\r\n        }\r\n\r\n        .suffix-content-text-wrapper {\r\n            display: flex;\r\n            align-items: center;\r\n            justify-content: center;\r\n        }\r\n    }\r\n\r\n\r\n}"],"sourceRoot":""}]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 
@@ -644,8 +676,10 @@ var classnames_default = /*#__PURE__*/__webpack_require__.n(classnames);
 
 
 
-const TextArea = /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().forwardRef((props, ref) => {
+const Textarea = /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().forwardRef((props, ref) => {
   const {
+    suffixContentType = "button",
+    suffixContent,
     errMsg,
     inline,
     isFormItem,
@@ -715,9 +749,6 @@ const TextArea = /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react
     } else {
       setValue("");
     }
-    if (defaultValue) {
-      setError(false);
-    }
   }, [defaultValue]);
   return /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("div", {
     className: "".concat(textareaClasses, " ").concat(!error && isFormItem && "mb-3"),
@@ -732,12 +763,19 @@ const TextArea = /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react
       width: labelWidth
     },
     className: "".concat(inputGroup ? "input-group-text" : "", " label-box")
-  }, label), /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("textarea", {
+  }, label), /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("div", {
+    className: "textarea-form-content"
+  }, /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("textarea", {
     style: {
       width,
       ...(inline && !width ? {
         flex: 1,
         marginRight: "15px"
+      } : {}),
+      ...(suffixContentType === "button" ? {
+        borderTopRightRadius: 0,
+        borderBottomRightRadius: 0
+        // borderRight: "none",
       } : {})
     },
     readOnly: readOnly,
@@ -750,7 +788,9 @@ const TextArea = /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react
     placeholder: placeholder,
     className: "form-control",
     "aria-label": "With textarea"
-  }), commonSuffixIcon && /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("i", {
+  }), suffixContent && /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("div", {
+    className: "".concat(suffixContentType === "button" ? "suffix-content-btn-wrapper px-2" : "ms-2")
+  }, suffixContent)), commonSuffixIcon && /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("i", {
     onClick: handleClickCommonSuffixIcon,
     className: "".concat(commonSuffixIcon, " common-suffix-icon ms-2")
   })), error && required && /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("div", {
@@ -761,7 +801,7 @@ const TextArea = /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react
     }
   }, "".concat(errMsg || "".concat(label || name, "\u4E0D\u80FD\u4E3A\u7A7A"))));
 });
-/* harmony default export */ const src_0 = (TextArea);
+/* harmony default export */ const src_0 = (Textarea);
 })();
 
 /******/ 	return __webpack_exports__;

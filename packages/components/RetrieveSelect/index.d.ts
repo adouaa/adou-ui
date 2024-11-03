@@ -7,7 +7,7 @@ export interface SelectProps {
         font: string;
         bgc: string;
     };
-    returnType?: "str" | "obj";
+    returnType?: 'str' | 'obj';
     showDefaultValue?: boolean;
     labelKey?: string;
     valueKey?: string;
@@ -24,13 +24,13 @@ export interface SelectProps {
     commonSuffixIcon?: string;
     width?: any;
     label?: string;
-    labelPosition?: "left-top" | "center" | "top";
+    labelPosition?: 'left-top' | 'center' | 'top';
     inputGroup?: boolean;
     labelColor?: string;
     defaultValue?: any;
     options: any[];
     placeholder?: string;
-    size?: "sm" | "lg";
+    size?: 'sm' | 'lg';
     externalClassName?: string;
     readOnly?: any;
     showSelected?: boolean;

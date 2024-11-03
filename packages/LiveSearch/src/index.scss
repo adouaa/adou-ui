@@ -1,4 +1,42 @@
-.retrieve-select-wrapper {
+.live-search-select-wrapper {
+    .content-box {
+        .live-search-form-content {
+            display: flex;
+
+            .suffix-content-btn {
+                border-top-right-radius: 0 !important;
+                /* 去掉右上角的圆角 */
+                border-bottom-right-radius: 0 !important;
+                border-right: none;
+                /* 去掉右下角的圆角 */
+            }
+
+
+            .suffix-content-btn-wrapper {
+                min-width: 37px;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                background-color: #eee;
+                border-top-right-radius: 6px;
+                border-bottom-right-radius: 6px;
+            }
+
+            .suffix-content-btn-wrapper .btn {
+                border-top-left-radius: 0;
+                /* 去掉左上角的圆角 */
+                border-bottom-left-radius: 0;
+                /* 去掉左下角的圆角 */
+            }
+
+            .suffix-content-text-wrapper {
+                display: flex;
+                align-items: center;
+                justify-content: center;
+            }
+        }
+    }
+
     .select-list-box {
         position: relative;
         flex: 1;
@@ -29,7 +67,7 @@
     }
 }
 
-.retrieve-select-content-open {
+.live-search-select-content-open {
     opacity: 1 !important;
     visibility: visible !important;
     transform: scaleY(1) !important;
@@ -39,18 +77,18 @@
     overflow-y: auto;
 }
 
-.retrieve-select-option-active {
+.live-search-select-option-active {
     font-weight: bold;
     background-color: #2783d8;
     display: flex;
     justify-content: space-between;
 }
 
-.retrieve-select-option-wrapper {
+.live-search-select-option-wrapper {
     padding: 14px;
 }
 
-.retrieve-select-option-active::after {
+.live-search-select-option-active::after {
     content: "✔";
 }
 
@@ -86,7 +124,7 @@
     flex: 1;
 }
 
-.retrieve-input {
+.live-search-input {
     // min-width: 120px;
     width: 100%;
     outline: none;
@@ -102,7 +140,7 @@
     min-width: 0;
 }
 
-.retrieve-select-content {
+.live-search-select-content {
     min-width: 200px;
     background-color: #fff;
     position: absolute;
@@ -117,7 +155,7 @@
     transform: scaleY(0);
     transform-origin: top;
 
-    .retrieve-select-option {
+    .live-search-select-option {
         padding: 5px 10px;
         // margin-bottom: 2px;
 
@@ -150,7 +188,7 @@
     color: #a4a3a3;
 }
 
-.retrieve-select-option-focused {
+.live-search-select-option-focused {
     background-color: #e0e0e0 !important;
     /* 高亮当前聚焦的选项 */
 }

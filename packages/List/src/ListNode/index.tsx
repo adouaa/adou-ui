@@ -1,7 +1,9 @@
 import React, { useEffect, useState } from "react";
 import "./index.scss";
+import { ListNodeWrapper } from "./style";
 
 interface ListNodeProps {
+  activeFontColor?: string;
   bgc?: string;
   children?: any;
   activeBgc?: any;
@@ -26,6 +28,7 @@ interface ListNodeProps {
 }
 
 const ListNode = ({
+  activeFontColor = "#fff",
   activeBgc = "#2783d8",
   bgc = "transparent",
   addIconClass,
@@ -35,7 +38,7 @@ const ListNode = ({
   showTag = true,
   children,
   wrap = true,
-  node,
+  node: data,
   isTree,
   showOptIcons = true,
   showAddIcon = true,
@@ -48,6 +51,7 @@ const ListNode = ({
 }: ListNodeProps) => {
   const [isExpanded, setIsExpanded] = useState(false);
   const [isShowIcons, setIsShowIcons] = useState(false);
+  const [node, setNode] = useState<any>(data);
 
   // 计算children的maxWidth
   const [childrenMaxHeight, setChildrenMaxHeight] = useState<any>(0);
@@ -195,115 +199,160 @@ const ListNode = ({
     });
   };
 
+  // 鼠标进入折叠icon
+  const handleMouseEnterExpandIcon = () => {
+    setNode((preData: any) => ({
+      ...preData,
+      isEnter: true,
+    }));
+  };
+
+  // 鼠标离开折叠icon
+  const handleMouseLeaveExpandIcon = () => {
+    setNode((preData: any) => ({
+      ...preData,
+      isEnter: false,
+    }));
+  };
+
+  useEffect(() => {
+    setNode(data);
+  }, [data]);
+
   return (
     // style={{whiteSpace: `${wrap ? "wrap" : "nowrap"}`}}
     // 整个树
-    <div className="list-node-wrapper">
-      {/* 每个树节点 */}
-      <div className="node-item">
-        {/* handleItemClick: 整个树节点的点击事件 */}
-        <div
-          style={{
-            backgroundColor: node.bgc,
-            ...(Number(activeId) === Number(node.id)
-              ? { backgroundColor: activeBgc }
-              : ""),
-          }}
-          className={`left-content ${
-            Number(activeId) === Number(node.id) && "active"
-          }`}
-          onClick={() => handleItemClick(node)}
-          onMouseEnter={() => setIsShowIcons(true)}
-          onMouseLeave={() => setIsShowIcons(false)}
-        >
-          {/* 最左边的tag */}
-          <div className={`prefix-tag`}>
-            <i
-              className={`${prefixTag} ${
-                activeId === node.id ? "text-white" : ""
-              }`}
-            ></i>
-          </div>
-          {/* 展示标志 */}
-          {showTag && renderTag()}
-          {/* 有子节点的话，展示折叠按钮 */}
-          {isTree && node.children && node.children.length > 0 && (
-            <i
-              style={{ fontSize: "16px" }}
-              onClick={(e) => handleFolderIconClick(node, e)}
-              className={`icon fa fa-caret-${isExpanded ? "down" : "right"}`}
-            ></i>
-          )}
-          {/* 节点名字 */}
-          <span
-            style={{ whiteSpace: `${wrap ? "normal" : "nowrap"}` }}
-            onClick={(e) => handleNodeNameClick(node, e)}
-            className={`item-name ${
-              node.children && node.children.length > 0
-                ? "has-children"
-                : "no-children"
+    <ListNodeWrapper
+      $activeFontColor={activeFontColor}
+      $activeBgc={activeBgc}
+      className="list-node-wrapper"
+    >
+      <div className="list-node-wrapper">
+        {/* 每个树节点 */}
+        <div className="node-item-list">
+          {/* handleItemClick: 整个树节点的点击事件 */}
+          <div
+            style={{
+              backgroundColor: node.bgc,
+              ...(Number(activeId) === Number(node.id)
+                ? { backgroundColor: activeBgc }
+                : ""),
+              paddingLeft: node.level * 20 + "px", // 让树节点的层级有缩进，并且是充满一整行的样式
+            }}
+            className={`left-content ${!node.level && "ps-2"} ${
+              String(activeId) === String(node.id) ? "active" : ""
             }`}
+            onClick={() => handleItemClick(node)}
+            onMouseEnter={() => setIsShowIcons(true)}
+            onMouseLeave={() => setIsShowIcons(false)}
           >
-            {node.name}
-          </span>
-          <div
-            className="right-content"
-            style={{ display: showOptIcons && isShowIcons ? "block" : "none" }}
-          >
-            <i
-              style={{ display: showAddIcon ? "inline-block" : "none" }}
-              className={`icon fa ${addIconClass || "fa-plus text-success"}`}
-              onClick={(e) => handleOptIconClick(e, "add", node)}
-            ></i>
-            <i
-              style={{ display: showEditIcon ? "inline-block" : "none" }}
-              className={`icon fa ${editIconClass || "fa-pencil text-warning"}`}
-              onClick={(e) => handleOptIconClick(e, "edit", node)}
-            ></i>
-            <i
-              className={`icon fa ${deleteIconClass || "fa-trash text-danger"}`}
-              onClick={(e) => handleOptIconClick(e, "delete", node)}
-            ></i>
+            {/* 有子节点的话，展示折叠按钮 */}
+            {isTree && node.children && node.children.length > 0 && (
+              <i
+                onMouseEnter={handleMouseEnterExpandIcon}
+                onMouseLeave={handleMouseLeaveExpandIcon}
+                style={{
+                  fontSize: "16px",
+                  width: "10px",
+                  ...(node.isEnter
+                    ? { transform: "scale(1.4)", color: "#334155" }
+                    : ""),
+                }}
+                onClick={(e) => handleFolderIconClick(node, e)}
+                className={`icon fa fa-caret-${isExpanded ? "down" : "right"}`}
+              ></i>
+            )}
+            {/* 最左边的tag */}
+            {prefixTag && (
+              <div className={`prefix-tag ms-2`}>
+                <i
+                  className={`${prefixTag} ${
+                    activeId === node.id ? "text-white" : ""
+                  }`}
+                ></i>
+              </div>
+            )}
+
+            {/* 展示标志 */}
+            {showTag && renderTag()}
+
+            {/* 节点名字 */}
+            <span
+              style={{ whiteSpace: `${wrap ? "normal" : "nowrap"}` }}
+              onClick={(e) => handleNodeNameClick(node, e)}
+              className={`ms-2 item-name ${
+                node.children && node.children.length > 0
+                  ? "has-children"
+                  : "no-children"
+              }`}
+            >
+              {node.name}
+            </span>
+            <div
+              className="right-content"
+              style={{
+                display: showOptIcons && isShowIcons ? "block" : "none",
+              }}
+            >
+              <i
+                style={{ display: showAddIcon ? "inline-block" : "none" }}
+                className={`icon fa ${addIconClass || "fa-plus text-success"}`}
+                onClick={(e) => handleOptIconClick(e, "add", node)}
+              ></i>
+              <i
+                style={{ display: showEditIcon ? "inline-block" : "none" }}
+                className={`icon fa ${
+                  editIconClass || "fa-pencil text-warning"
+                }`}
+                onClick={(e) => handleOptIconClick(e, "edit", node)}
+              ></i>
+              <i
+                className={`icon fa ${
+                  deleteIconClass || "fa-trash text-danger"
+                }`}
+                onClick={(e) => handleOptIconClick(e, "delete", node)}
+              ></i>
+            </div>
           </div>
+          {node.children && node.children.length > 0 && (
+            <div
+              className={`children ${isExpanded ? "expanded" : "not-expand"}`}
+              style={{ maxHeight: childrenMaxHeight }}
+            >
+              {node.children.map((child: any) => (
+                // 这里别忘记也要像List父组件一样把 回调传递给 ListNode子组件，因为是递归，所以要这么做，
+                // 具体传递的回调的函数需要的参数有哪些，就得参考父组件原来是怎么写的，也可以直接不写好像。。。
+                // 或许只是为了写个占位，代表需要触发父组件的这个回调函数？
+                // 如果是传递的属性的话，是需要写的,像父组件那样子写，用的参数是父组件传递过来的，类似父组件那样再写一遍
+
+                <ListNode
+                  addIconClass={addIconClass}
+                  editIconClass={editIconClass}
+                  deleteIconClass={deleteIconClass}
+                  prefixTag={prefixTag}
+                  showTag={showTag}
+                  children={children}
+                  showAddIcon={showAddIcon}
+                  showEditIcon={showEditIcon}
+                  showOptIcons={showOptIcons}
+                  activeId={activeId}
+                  onOptIconClick={(type, child) =>
+                    handleChildrenOptIconClick(type, child)
+                  }
+                  onIconClick={handleChildrenIconClick}
+                  onItemClick={handleItemClick}
+                  key={child.id}
+                  node={child}
+                  isTree={isTree}
+                  onToggle={onToggle}
+                />
+              ))}
+            </div>
+          )}
         </div>
-        {node.children && node.children.length > 0 && (
-          <div
-            className={`children ${isExpanded ? "expanded" : "not-expand"}`}
-            style={{ maxHeight: childrenMaxHeight }}
-          >
-            {node.children.map((child: any) => (
-              // 这里别忘记也要像List父组件一样把 回调传递给 ListNode子组件，因为是递归，所以要这么做，
-              // 具体传递的回调的函数需要的参数有哪些，就得参考父组件原来是怎么写的，也可以直接不写好像。。。
-              // 或许只是为了写个占位，代表需要触发父组件的这个回调函数？
-              // 如果是传递的属性的话，是需要写的,像父组件那样子写，用的参数是父组件传递过来的，类似父组件那样再写一遍
-              <ListNode
-                addIconClass={addIconClass}
-                editIconClass={editIconClass}
-                deleteIconClass={deleteIconClass}
-                prefixTag={prefixTag}
-                showTag={showTag}
-                children={children}
-                showAddIcon={showAddIcon}
-                showEditIcon={showEditIcon}
-                showOptIcons={showOptIcons}
-                activeId={activeId}
-                onOptIconClick={(type, child) =>
-                  handleChildrenOptIconClick(type, child)
-                }
-                onIconClick={handleChildrenIconClick}
-                onItemClick={handleItemClick}
-                key={child.id}
-                node={child}
-                isTree={isTree}
-                onToggle={onToggle}
-              />
-            ))}
-          </div>
-        )}
       </div>
-    </div>
+    </ListNodeWrapper>
   );
 };
-
 
 export default ListNode;

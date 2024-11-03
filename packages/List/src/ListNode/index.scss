@@ -2,7 +2,7 @@
     color: #606266;
     font-size: 14px;
 
-    .node-item {
+    .node-item-list {
         .left-content {
             // 使用 display 会出现 hover背景色和 active高亮色宽度比较短，但是没事。。
             display: flex;
@@ -74,7 +74,7 @@
     }
 
     .children {
-        padding-left: 10px;
+        // padding-left: 10px;
         max-height: 0;
         /* 初始状态下高度为0 */
         overflow-y: hidden;

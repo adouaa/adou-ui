@@ -153,7 +153,12 @@ ___CSS_LOADER_EXPORT___.push([module.id, `.checkbox-wrapper .inputGroup {
   flex-wrap: wrap;
 }
 .checkbox-wrapper .option-box {
+  width: 100%;
   flex: 1;
+}
+.checkbox-wrapper .checkbox-form-content {
+  display: flex;
+  align-items: center;
 }
 .checkbox-wrapper .label-in-center {
   display: flex;
@@ -164,7 +169,14 @@ ___CSS_LOADER_EXPORT___.push([module.id, `.checkbox-wrapper .inputGroup {
 .checkbox-wrapper .label-in-left-top .label-box {
   display: flex;
   align-items: start;
-}`, "",{"version":3,"sources":["webpack://./src/index.scss"],"names":[],"mappings":"AACI;EACI,aAAA;EACA,mBAAA;AAAR;AAGI;EACI,eAAA;EACA,eAAA;EACA,2BAAA;EACA,eAAA;AADR;AAII;EACI,OAAA;AAFR;AAKI;EACI,aAAA;AAHR;AAMI;EACI,aAAA;AAJR;AAMQ;EACI,aAAA;EACA,kBAAA;AAJZ","sourcesContent":[".checkbox-wrapper {\r\n    .inputGroup {\r\n        display: flex;\r\n        align-items: center;\r\n    }\r\n\r\n    .label-box {\r\n        font-size: 14px;\r\n        min-width: 50px;\r\n        max-width: 120px !important;\r\n        flex-wrap: wrap;\r\n    }\r\n\r\n    .option-box {\r\n        flex: 1;\r\n    }\r\n\r\n    .label-in-center {\r\n        display: flex;\r\n    }\r\n\r\n    .label-in-left-top {\r\n        display: flex;\r\n\r\n        .label-box {\r\n            display: flex;\r\n            align-items: start;\r\n\r\n        }\r\n    }\r\n}"],"sourceRoot":""}]);
+}
+.checkbox-wrapper .label-in-top {
+  display: flex;
+  flex-direction: column;
+}
+.checkbox-wrapper .label-in-top .label-box {
+  text-align-last: left;
+}`, "",{"version":3,"sources":["webpack://./src/index.scss"],"names":[],"mappings":"AAGI;EACI,aAAA;EACA,mBAAA;AAFR;AAKI;EACI,eAAA;EACA,eAAA;EACA,2BAAA;EACA,eAAA;AAHR;AAMI;EACI,WAAA;EACA,OAAA;AAJR;AAOI;EACI,aAAA;EACA,mBAAA;AALR;AAQI;EACI,aAAA;AANR;AASI;EACI,aAAA;AAPR;AASQ;EACI,aAAA;EACA,kBAAA;AAPZ;AAYI;EACI,aAAA;EACA,sBAAA;AAVR;AAYQ;EACI,qBAAA;AAVZ","sourcesContent":[".checkbox-wrapper {\r\n    .content-box {}\r\n\r\n    .inputGroup {\r\n        display: flex;\r\n        align-items: center;\r\n    }\r\n\r\n    .label-box {\r\n        font-size: 14px;\r\n        min-width: 50px;\r\n        max-width: 120px !important;\r\n        flex-wrap: wrap;\r\n    }\r\n\r\n    .option-box {\r\n        width: 100%;\r\n        flex: 1;\r\n    }\r\n\r\n    .checkbox-form-content {\r\n        display: flex;\r\n        align-items: center;\r\n    }\r\n\r\n    .label-in-center {\r\n        display: flex;\r\n    }\r\n\r\n    .label-in-left-top {\r\n        display: flex;\r\n\r\n        .label-box {\r\n            display: flex;\r\n            align-items: start;\r\n\r\n        }\r\n    }\r\n\r\n    .label-in-top {\r\n        display: flex;\r\n        flex-direction: column;\r\n\r\n        .label-box {\r\n            text-align-last: left;\r\n        }\r\n    }\r\n}"],"sourceRoot":""}]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 
@@ -648,9 +660,8 @@ var update = injectStylesIntoStyleTag_default()(cjs_ruleSet_1_rules_1_use_2_src/
 
 const Checkbox = (_ref, ref) => {
   let {
-    valueKey = "value",
-    labelKey = "label",
-    returnType,
+    suffixContentType = "button",
+    suffixContent,
     name,
     isFormItem,
     errMsg,
@@ -678,9 +689,9 @@ const Checkbox = (_ref, ref) => {
     } else if (Array.isArray(defaultValue)) {
       if (Array.isArray(defaultValue) && typeof defaultValue[0] !== "string") {
         return defaultValue.some(item => item.value === value);
+      } else {
+        return defaultValue.includes(value);
       }
-    } else {
-      return (defaultValue === null || defaultValue === void 0 ? void 0 : defaultValue[valueKey]) === value || (defaultValue === null || defaultValue === void 0 ? void 0 : defaultValue[labelKey]) === value;
     }
     return false;
   };
@@ -702,9 +713,9 @@ const Checkbox = (_ref, ref) => {
       return option;
     });
     setOptionsList(updatedOptions);
-    const data = updatedOptions.filter(opt => opt.checked);
-    onChange && onChange(data);
-    onFormDataChange && onFormDataChange(name, data);
+    const checkedList = updatedOptions.filter(opt => opt.checked);
+    onChange && onChange(checkedList);
+    onFormDataChange && onFormDataChange(name, checkedList);
     if (updatedOptions.some(option => option.checked)) {
       setError(false);
     } else {
@@ -719,6 +730,7 @@ const Checkbox = (_ref, ref) => {
   };
   const [error, setError] = (0,external_root_React_commonjs2_react_commonjs_react_amd_react_.useState)(false);
   const validate = () => {
+    console.log("13: ", 13);
     if (!required) return true;
     if (optionsList.some(item => item.checked)) {
       setError(false);
@@ -749,8 +761,6 @@ const Checkbox = (_ref, ref) => {
     [externalClassName]: externalClassName
   });
   (0,external_root_React_commonjs2_react_commonjs_react_amd_react_.useEffect)(() => {
-    console.log("defaultValue: ", defaultValue);
-    console.log("options: ", options);
     // Update optionsList when defaultValue changes
     const updatedOptions = options.map(option => ({
       ...option,
@@ -758,6 +768,7 @@ const Checkbox = (_ref, ref) => {
     }));
     setOptionsList(updatedOptions);
   }, [defaultValue, options]);
+  (0,external_root_React_commonjs2_react_commonjs_react_amd_react_.useEffect)(() => {}, [defaultValue]);
   return /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("div", {
     className: checkboxClasses
   }, /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("div", {
@@ -769,16 +780,15 @@ const Checkbox = (_ref, ref) => {
     },
     className: "".concat(inputGroup ? "input-group-text" : "", " label-box")
   }, label), /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("div", {
-    className: "option-box",
+    className: "checkbox-form-content option-box",
     style: {
       display: inline ? "flex" : ""
     }
-  }, optionsList.map(item => /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("div", {
+  }, optionsList.map((item, index) => /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("div", {
     key: item.value,
-    className: "form-check",
+    className: "form-check ".concat(index !== optionsList.length - 1 ? "me-2" : ""),
     style: {
       textAlign: "left",
-      marginRight: "20px",
       marginBottom: 0
     }
   }, /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("input", {
@@ -797,7 +807,9 @@ const Checkbox = (_ref, ref) => {
   }), /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("label", {
     className: "form-check-label",
     htmlFor: item.value
-  }, item[labelKey] || "Default Checkbox")))), commonSuffixIcon && /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("i", {
+  }, item.label || "Default Checkbox"))), suffixContent && /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("div", {
+    className: "".concat(suffixContentType === "button" ? "suffix-content-btn-wrapper px-2" : "ms-2")
+  }, suffixContent)), commonSuffixIcon && /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("i", {
     onClick: handleClickCommonSuffixIcon,
     className: "".concat(commonSuffixIcon, " common-suffix-icon ms-2")
   })), error && required && /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("div", {

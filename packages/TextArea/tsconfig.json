@@ -22,7 +22,7 @@
     "incremental": true,
     "noFallthroughCasesInSwitch": true,
     "noImplicitAny": false,
-    "baseUrl": "./src",
+    "baseUrl": "src",
     "jsx": "react",
     "noEmit": false,
     "declaration": true,

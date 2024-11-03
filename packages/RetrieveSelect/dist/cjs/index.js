@@ -5462,6 +5462,10 @@ module.exports = function (item) {
 var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_1___default()((_node_modules_css_loader_dist_runtime_sourceMaps_js__WEBPACK_IMPORTED_MODULE_0___default()));
 // Module
 ___CSS_LOADER_EXPORT___.push([module.id, `@charset "UTF-8";
+.retrieve-select-wrapper .content-box .retrieve-select-form-content {
+  flex: 1;
+  display: flex;
+}
 .retrieve-select-wrapper .select-list-box {
   position: relative;
   flex: 1;
@@ -5615,7 +5619,7 @@ ___CSS_LOADER_EXPORT___.push([module.id, `@charset "UTF-8";
 .retrieve-select-option-focused {
   background-color: #e0e0e0;
   /* 高亮当前聚焦的选项 */
-}`, "",{"version":3,"sources":["webpack://./src/index.scss"],"names":[],"mappings":"AAAA,gBAAgB;AACZ;EACI,kBAAA;EACA,OAAA;EACA,gBAAA;EACA,uBAAA;EACA,eAAA;AACR;AAEI;EACI,eAAA;EACA,eAAA;EAEA,eAAA;AADR;AAII;EACI,aAAA;AAFR;AAKI;EACI,aAAA;AAHR;AAKQ;EACI,aAAA;EACA,kBAAA;AAHZ;AAQQ;EACI,0BAAA;AANZ;AAUI;EACI,eAAA;EACA,aAAA;EACA,mBAAA;EACA,uBAAA;EACA,sBAAA;EACA,4BAAA;EACA,+BAAA;AARR;;AAYA;EACI,qBAAA;EACA,8BAAA;EACA,+BAAA;AATJ;;AAYA;EACI,gBAAA;AATJ;;AAYA;EACI,iBAAA;EACA,yBAAA;EACA,aAAA;EACA,8BAAA;AATJ;;AAYA;EACI,aAAA;AATJ;;AAYA;EACI,YAAA;AATJ;;AAYA;EACI,aAAA;EACA,eAAA;AATJ;;AAYA;EACI,cAAA;EACA,eAAA;EACA,0BAAA;EACA,mBAAA;EACA,yBAAA;EACA,kBAAA;EACA,iBAAA;AATJ;;AAYA;EACI,kBAAA;EACA,UAAA;EACA,SAAA;EACA,eAAA;EACA,yBAAA;EACA,WAAA;AATJ;AAWI;EACI,cAAA;EACA,qBAAA;AATR;;AAaA;EACI,OAAA;AAVJ;;AAaA;EAEI,WAAA;EACA,aAAA;EACA,YAAA;AAXJ;;AAcA;EACI,aAAA;EACA,uBAAA;AAXJ;;AAcA;EACI,YAAA;AAXJ;;AAcA;EACI,gBAAA;EACA,sBAAA;EACA,kBAAA;EACA,cAAA;EACA,kBAAA;EACA,4CAAA;EACA,qBAAA;EACA,cAAA;EACA,wEAAA;EACA,UAAA;EACA,kBAAA;EACA,oBAAA;EACA,qBAAA;AAXJ;AAaI;EACI,iBAAA;AAXR;AAcQ;EACI,yBAAA;EACA,eAAA;AAZZ;AAeQ;EACI,WAAA;AAbZ;;AAmBA;EACI,YAAA;EACA,YAAA;EACA,eAAA;EACA,aAAA;EACA,uBAAA;EACA,mBAAA;EACA,cAAA;AAhBJ;;AAmBA;EACI,eAAA;EACA,aAAA;EACA,kBAAA;EACA,cAAA;AAhBJ;;AAmBA;EACI,yBAAA;EACA,cAAA;AAhBJ","sourcesContent":[".retrieve-select-wrapper {\r\n    .select-list-box {\r\n        position: relative;\r\n        flex: 1;\r\n        min-height: 38px;\r\n        cursor: text !important;\r\n        flex-wrap: wrap;\r\n    }\r\n\r\n    .label-box {\r\n        font-size: 14px;\r\n        min-width: 50px;\r\n        // max-width: 120px !important;\r\n        flex-wrap: wrap;\r\n    }\r\n\r\n    .label-in-center {\r\n        display: flex;\r\n    }\r\n\r\n    .label-in-left-top {\r\n        display: flex;\r\n\r\n        .label-box {\r\n            display: flex;\r\n            align-items: start;\r\n        }\r\n    }\r\n\r\n    .icon-box {\r\n        .icon {\r\n            transition: transform 0.2s;\r\n        }\r\n    }\r\n\r\n    .suffix-content-btn-wrapper {\r\n        min-width: 37px;\r\n        display: flex;\r\n        align-items: center;\r\n        justify-content: center;\r\n        background-color: #eee;\r\n        border-top-right-radius: 6px;\r\n        border-bottom-right-radius: 6px;\r\n    }\r\n}\r\n\r\n.retrieve-select-content-open {\r\n    opacity: 1 !important;\r\n    visibility: visible !important;\r\n    transform: scaleY(1) !important;\r\n}\r\n\r\n.option-wrapper {\r\n    overflow-y: auto;\r\n}\r\n\r\n.retrieve-select-option-active {\r\n    font-weight: bold;\r\n    background-color: #2783d8;\r\n    display: flex;\r\n    justify-content: space-between;\r\n}\r\n\r\n.retrieve-select-option-wrapper {\r\n    padding: 14px;\r\n}\r\n\r\n.retrieve-select-option-active::after {\r\n    content: \"✔\";\r\n}\r\n\r\n.select-list {\r\n    display: flex;\r\n    flex-wrap: wrap;\r\n}\r\n\r\n.selected-option {\r\n    color: #212529;\r\n    font-size: 14px;\r\n    padding: 3px 22px 3px 12px;\r\n    border-radius: 13px;\r\n    background-color: #f4f4f5;\r\n    position: relative;\r\n    margin-right: 6px;\r\n}\r\n\r\n.option-icon {\r\n    position: absolute;\r\n    right: 6px;\r\n    top: -2px;\r\n    cursor: pointer;\r\n    transition: all 0.3s ease;\r\n    color: #000;\r\n\r\n    &:hover {\r\n        color: #dc3545;\r\n        transform: scale(1.2);\r\n    }\r\n}\r\n\r\n.input-control {\r\n    flex: 1;\r\n}\r\n\r\n.retrieve-input {\r\n    // min-width: 120px;\r\n    width: 100%;\r\n    outline: none;\r\n    border: none;\r\n}\r\n\r\n.none-wrapper {\r\n    display: flex;\r\n    justify-content: center;\r\n}\r\n\r\n.multiple-input {\r\n    min-width: 0;\r\n}\r\n\r\n.retrieve-select-content {\r\n    min-width: 200px;\r\n    background-color: #fff;\r\n    position: absolute;\r\n    z-index: 10000;\r\n    border-radius: 4px;\r\n    box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;\r\n    text-align-last: left;\r\n    overflow: auto;\r\n    transition: opacity 0.3s ease, visibility 0.3s ease, transform 0.3s ease;\r\n    opacity: 0;\r\n    visibility: hidden;\r\n    transform: scaleY(0);\r\n    transform-origin: top;\r\n\r\n    .retrieve-select-option {\r\n        padding: 5px 10px;\r\n        // margin-bottom: 2px;\r\n\r\n        &:hover {\r\n            background-color: #f0f0f0;\r\n            cursor: pointer;\r\n        }\r\n\r\n        &:active {\r\n            color: #fff;\r\n            // background-color: #2783d8 !important;\r\n        }\r\n    }\r\n}\r\n\r\n.none-option {\r\n    width: 200px;\r\n    height: 50px;\r\n    padding: 10px 0;\r\n    display: flex;\r\n    justify-content: center;\r\n    align-items: center;\r\n    color: #a4a3a3;\r\n}\r\n\r\n.none-match {\r\n    padding: 10px 0;\r\n    height: 100px;\r\n    font-style: italic;\r\n    color: #a4a3a3;\r\n}\r\n\r\n.retrieve-select-option-focused {\r\n    background-color: #e0e0e0;\r\n    /* 高亮当前聚焦的选项 */\r\n}"],"sourceRoot":""}]);
+}`, "",{"version":3,"sources":["webpack://./src/index.scss"],"names":[],"mappings":"AAAA,gBAAgB;AAGR;EACI,OAAA;EACA,aAAA;AADZ;AAKI;EACI,kBAAA;EACA,OAAA;EACA,gBAAA;EACA,uBAAA;EACA,eAAA;AAHR;AAMI;EACI,eAAA;EACA,eAAA;EAEA,eAAA;AALR;AAQI;EACI,aAAA;AANR;AASI;EACI,aAAA;AAPR;AASQ;EACI,aAAA;EACA,kBAAA;AAPZ;AAYQ;EACI,0BAAA;AAVZ;AAcI;EACI,eAAA;EACA,aAAA;EACA,mBAAA;EACA,uBAAA;EACA,sBAAA;EACA,4BAAA;EACA,+BAAA;AAZR;;AAgBA;EACI,qBAAA;EACA,8BAAA;EACA,+BAAA;AAbJ;;AAgBA;EACI,gBAAA;AAbJ;;AAgBA;EACI,iBAAA;EACA,yBAAA;EACA,aAAA;EACA,8BAAA;AAbJ;;AAgBA;EACI,aAAA;AAbJ;;AAgBA;EACI,YAAA;AAbJ;;AAgBA;EACI,aAAA;EACA,eAAA;AAbJ;;AAgBA;EACI,cAAA;EACA,eAAA;EACA,0BAAA;EACA,mBAAA;EACA,yBAAA;EACA,kBAAA;EACA,iBAAA;AAbJ;;AAgBA;EACI,kBAAA;EACA,UAAA;EACA,SAAA;EACA,eAAA;EACA,yBAAA;EACA,WAAA;AAbJ;AAeI;EACI,cAAA;EACA,qBAAA;AAbR;;AAiBA;EACI,OAAA;AAdJ;;AAiBA;EAEI,WAAA;EACA,aAAA;EACA,YAAA;AAfJ;;AAkBA;EACI,aAAA;EACA,uBAAA;AAfJ;;AAkBA;EACI,YAAA;AAfJ;;AAkBA;EACI,gBAAA;EACA,sBAAA;EACA,kBAAA;EACA,cAAA;EACA,kBAAA;EACA,4CAAA;EACA,qBAAA;EACA,cAAA;EACA,wEAAA;EACA,UAAA;EACA,kBAAA;EACA,oBAAA;EACA,qBAAA;AAfJ;AAiBI;EACI,iBAAA;AAfR;AAkBQ;EACI,yBAAA;EACA,eAAA;AAhBZ;AAmBQ;EACI,WAAA;AAjBZ;;AAuBA;EACI,YAAA;EACA,YAAA;EACA,eAAA;EACA,aAAA;EACA,uBAAA;EACA,mBAAA;EACA,cAAA;AApBJ;;AAuBA;EACI,eAAA;EACA,aAAA;EACA,kBAAA;EACA,cAAA;AApBJ;;AAuBA;EACI,yBAAA;EACA,cAAA;AApBJ","sourcesContent":[".retrieve-select-wrapper {\r\n\r\n    .content-box {\r\n        .retrieve-select-form-content {\r\n            flex: 1;\r\n            display: flex;\r\n        }\r\n    }\r\n\r\n    .select-list-box {\r\n        position: relative;\r\n        flex: 1;\r\n        min-height: 38px;\r\n        cursor: text !important;\r\n        flex-wrap: wrap;\r\n    }\r\n\r\n    .label-box {\r\n        font-size: 14px;\r\n        min-width: 50px;\r\n        // max-width: 120px !important;\r\n        flex-wrap: wrap;\r\n    }\r\n\r\n    .label-in-center {\r\n        display: flex;\r\n    }\r\n\r\n    .label-in-left-top {\r\n        display: flex;\r\n\r\n        .label-box {\r\n            display: flex;\r\n            align-items: start;\r\n        }\r\n    }\r\n\r\n    .icon-box {\r\n        .icon {\r\n            transition: transform 0.2s;\r\n        }\r\n    }\r\n\r\n    .suffix-content-btn-wrapper {\r\n        min-width: 37px;\r\n        display: flex;\r\n        align-items: center;\r\n        justify-content: center;\r\n        background-color: #eee;\r\n        border-top-right-radius: 6px;\r\n        border-bottom-right-radius: 6px;\r\n    }\r\n}\r\n\r\n.retrieve-select-content-open {\r\n    opacity: 1 !important;\r\n    visibility: visible !important;\r\n    transform: scaleY(1) !important;\r\n}\r\n\r\n.option-wrapper {\r\n    overflow-y: auto;\r\n}\r\n\r\n.retrieve-select-option-active {\r\n    font-weight: bold;\r\n    background-color: #2783d8;\r\n    display: flex;\r\n    justify-content: space-between;\r\n}\r\n\r\n.retrieve-select-option-wrapper {\r\n    padding: 14px;\r\n}\r\n\r\n.retrieve-select-option-active::after {\r\n    content: \"✔\";\r\n}\r\n\r\n.select-list {\r\n    display: flex;\r\n    flex-wrap: wrap;\r\n}\r\n\r\n.selected-option {\r\n    color: #212529;\r\n    font-size: 14px;\r\n    padding: 3px 22px 3px 12px;\r\n    border-radius: 13px;\r\n    background-color: #f4f4f5;\r\n    position: relative;\r\n    margin-right: 6px;\r\n}\r\n\r\n.option-icon {\r\n    position: absolute;\r\n    right: 6px;\r\n    top: -2px;\r\n    cursor: pointer;\r\n    transition: all 0.3s ease;\r\n    color: #000;\r\n\r\n    &:hover {\r\n        color: #dc3545;\r\n        transform: scale(1.2);\r\n    }\r\n}\r\n\r\n.input-control {\r\n    flex: 1;\r\n}\r\n\r\n.retrieve-input {\r\n    // min-width: 120px;\r\n    width: 100%;\r\n    outline: none;\r\n    border: none;\r\n}\r\n\r\n.none-wrapper {\r\n    display: flex;\r\n    justify-content: center;\r\n}\r\n\r\n.multiple-input {\r\n    min-width: 0;\r\n}\r\n\r\n.retrieve-select-content {\r\n    min-width: 200px;\r\n    background-color: #fff;\r\n    position: absolute;\r\n    z-index: 10000;\r\n    border-radius: 4px;\r\n    box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;\r\n    text-align-last: left;\r\n    overflow: auto;\r\n    transition: opacity 0.3s ease, visibility 0.3s ease, transform 0.3s ease;\r\n    opacity: 0;\r\n    visibility: hidden;\r\n    transform: scaleY(0);\r\n    transform-origin: top;\r\n\r\n    .retrieve-select-option {\r\n        padding: 5px 10px;\r\n        // margin-bottom: 2px;\r\n\r\n        &:hover {\r\n            background-color: #f0f0f0;\r\n            cursor: pointer;\r\n        }\r\n\r\n        &:active {\r\n            color: #fff;\r\n            // background-color: #2783d8 !important;\r\n        }\r\n    }\r\n}\r\n\r\n.none-option {\r\n    width: 200px;\r\n    height: 50px;\r\n    padding: 10px 0;\r\n    display: flex;\r\n    justify-content: center;\r\n    align-items: center;\r\n    color: #a4a3a3;\r\n}\r\n\r\n.none-match {\r\n    padding: 10px 0;\r\n    height: 100px;\r\n    font-style: italic;\r\n    color: #a4a3a3;\r\n}\r\n\r\n.retrieve-select-option-focused {\r\n    background-color: #e0e0e0;\r\n    /* 高亮当前聚焦的选项 */\r\n}"],"sourceRoot":""}]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 
@@ -6140,20 +6144,20 @@ const useClickOutside = function (refs, callback) {
 const RetrievrSelect = /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().forwardRef((props, ref) => {
   const {
     maxSelectedListWidth,
-    maxHeight = "300px",
+    maxHeight = '300px',
     activeColor = {
-      font: "#fff",
-      bgc: "#2783d8"
+      font: '#fff',
+      bgc: '#2783d8'
     },
     returnType,
     showDefaultValue = true,
-    placeholder = "请输入",
+    placeholder = '请输入',
     isFormItem = true,
-    labelKey = "label",
-    valueKey = "value",
+    labelKey = 'label',
+    valueKey = 'value',
     inline,
     suffixContent,
-    suffixContentType,
+    suffixContentType = 'button',
     contentWidth,
     required,
     errMsg,
@@ -6162,7 +6166,7 @@ const RetrievrSelect = /*#__PURE__*/external_root_React_commonjs2_react_commonjs
     width,
     label,
     labelColor,
-    labelPosition = "center",
+    labelPosition = 'center',
     inputGroup = false,
     single = true,
     name,
@@ -6177,7 +6181,7 @@ const RetrievrSelect = /*#__PURE__*/external_root_React_commonjs2_react_commonjs
     onDelete,
     onFormDataChange
   } = props;
-  const searchValueRef = (0,external_root_React_commonjs2_react_commonjs_react_amd_react_.useRef)(defaultValue || "");
+  const searchValueRef = (0,external_root_React_commonjs2_react_commonjs_react_amd_react_.useRef)(defaultValue || '');
   const [tempOptions, setTempOptions] = (0,external_root_React_commonjs2_react_commonjs_react_amd_react_.useState)(options || []);
   const [showOptions, setShowOptions] = (0,external_root_React_commonjs2_react_commonjs_react_amd_react_.useState)(false);
   const [optionList, setOptionList] = (0,external_root_React_commonjs2_react_commonjs_react_amd_react_.useState)(options);
@@ -6210,14 +6214,14 @@ const RetrievrSelect = /*#__PURE__*/external_root_React_commonjs2_react_commonjs
     }
     setShowOptions(false);
     setIsInputFocusing(false);
-    retrieveInputRef.current.value = "";
+    retrieveInputRef.current.value = '';
     validate(); // 不能在 div onBlur的时候调用这个函数
     setFocusedIndex(-1);
   };
   utils_useClickOutside([retrieveSelectWrapperFormControlRef, contentRef], handleClose, isOpen && contentRef.current);
   const handleSelect = option => {
     if (!option) return;
-    retrieveInputRef.current.value = "";
+    retrieveInputRef.current.value = '';
     const currentSelectList = optionList.filter(item => item[valueKey] != option[valueKey]).filter(i => i.selected);
     if (option.selected) {
       option.selected = false;
@@ -6261,7 +6265,7 @@ const RetrievrSelect = /*#__PURE__*/external_root_React_commonjs2_react_commonjs
       const data = hasSelected ? [] : [option];
       setSelectedOptions(data);
       onRetrieveSelectChange && onRetrieveSelectChange(hasSelected ? {} : option);
-      if (returnType === "obj" || showDefaultValue) {
+      if (returnType === 'obj' || showDefaultValue) {
         onFormDataChange && onFormDataChange(name, data[0]);
       } else {
         var _data$;
@@ -6289,7 +6293,7 @@ const RetrievrSelect = /*#__PURE__*/external_root_React_commonjs2_react_commonjs
     setIsInputFocusing(single);
     if (single) {
       var _selectedOptions$;
-      retrieveInputRef.current.value = ((_selectedOptions$ = selectedOptions[0]) === null || _selectedOptions$ === void 0 ? void 0 : _selectedOptions$[labelKey]) || "";
+      retrieveInputRef.current.value = ((_selectedOptions$ = selectedOptions[0]) === null || _selectedOptions$ === void 0 ? void 0 : _selectedOptions$[labelKey]) || '';
       retrieveInputRef.current.select();
     }
   };
@@ -6377,8 +6381,8 @@ const RetrievrSelect = /*#__PURE__*/external_root_React_commonjs2_react_commonjs
     setOptionList(arr);
   };
   const retrieveSelectClasses = classnames_default()({
-    "mb-3": !error && isFormItem,
-    "retrieve-select-wrapper": true,
+    'mb-3': !error && isFormItem,
+    'retrieve-select-wrapper': true,
     [externalClassName]: externalClassName
   });
   const handleFocus = event => {
@@ -6398,28 +6402,28 @@ const RetrievrSelect = /*#__PURE__*/external_root_React_commonjs2_react_commonjs
 
   // 全部都 通过 KeyDown来关闭下拉列表项
   const handleKeyDown = event => {
-    if (event.key === "Tab") {
+    if (event.key === 'Tab') {
       // 当下拉项展开的时候进入这个回调，来关闭下拉项
       if (isOpen) {
         toggleDropdown();
       }
       return; // 让焦点移动到下一个表单元素
-    } else if (event.key === "ArrowUp") {
+    } else if (event.key === 'ArrowUp') {
       event.preventDefault();
       setFocusedIndex(prevIndex => prevIndex <= 0 ? optionList.length - 1 : prevIndex - 1);
-    } else if (event.key === "ArrowDown") {
+    } else if (event.key === 'ArrowDown') {
       event.preventDefault();
       setFocusedIndex(prevIndex => prevIndex >= optionList.length - 1 ? 0 : prevIndex + 1);
-    } else if (event.key === "Enter") {
+    } else if (event.key === 'Enter') {
       event.preventDefault();
       handleSelect(optionList === null || optionList === void 0 ? void 0 : optionList[focusedIndex]);
-    } else if (event.key === "Escape") {
+    } else if (event.key === 'Escape') {
       setShowOptions(false);
     }
   };
   const handleInputKeyDown = event => {
-    if (event.key === "Tab") {
-      retrieveInputRef.current.value = ""; // tab走的时候要清空输入框
+    if (event.key === 'Tab') {
+      retrieveInputRef.current.value = ''; // tab走的时候要清空输入框
       setIsInputFocusing(false); // 记住tab走的时候要吧 isInputFocusing 设置为false
     }
   };
@@ -6429,7 +6433,7 @@ const RetrievrSelect = /*#__PURE__*/external_root_React_commonjs2_react_commonjs
       if (defaultValue) {
         if (showDefaultValue) {
           // 如果 defaultValue 是对象，并且 valueKey属性有值，则根据 valueKey 找到对应的 option
-          if (defaultValue && typeof defaultValue === "object" && defaultValue[valueKey] !== undefined && defaultValue[valueKey] !== null && defaultValue[valueKey] !== 0) {
+          if (defaultValue && typeof defaultValue === 'object' && defaultValue[valueKey] !== undefined && defaultValue[valueKey] !== null && defaultValue[valueKey] !== 0) {
             setSelectedOptions([defaultValue]);
             setShowSelectedList(true);
             setOptionList(preArr => {
@@ -6449,7 +6453,7 @@ const RetrievrSelect = /*#__PURE__*/external_root_React_commonjs2_react_commonjs
             });
           }
         } else {
-          if (typeof defaultValue === "object" && defaultValue[valueKey]) {
+          if (typeof defaultValue === 'object' && defaultValue[valueKey]) {
             tempOptions.some(option => {
               option[valueKey] === defaultValue[valueKey] && arr.push(option);
               return false;
@@ -6536,26 +6540,28 @@ const RetrievrSelect = /*#__PURE__*/external_root_React_commonjs2_react_commonjs
       width,
       ...(inline && !width ? {
         flex: 1,
-        marginRight: "15px"
+        marginRight: '15px'
       } : {})
     }
   }, /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("div", {
-    className: "content-box ".concat(inputGroup ? "inputGroup" : "label-in-".concat(labelPosition))
+    className: "content-box ".concat(inputGroup ? 'inputGroup' : "label-in-".concat(labelPosition))
   }, /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("span", {
-    className: "label-box ".concat(inputGroup ? "input-group-text" : ""),
+    className: "label-box ".concat(inputGroup ? 'input-group-text' : ''),
     style: {
       color: labelColor,
       width: labelWidth,
-      alignItems: labelPosition === "left-top" ? "start" : "center",
-      ...(labelPosition !== "top" && {
-        display: "flex"
+      alignItems: labelPosition === 'left-top' ? 'start' : 'center',
+      ...(labelPosition !== 'top' && {
+        display: 'flex'
       })
     }
   }, label), /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("div", {
+    className: "retrieve-select-form-content"
+  }, /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("div", {
     style: {
-      display: "flex",
-      flexWrap: single ? "nowrap" : "wrap",
-      ...(suffixContentType === "button" ? {
+      display: 'flex',
+      flexWrap: single ? 'nowrap' : 'wrap',
+      ...(suffixContentType === 'button' ? {
         borderTopRightRadius: 0,
         borderBottomRightRadius: 0
         // borderRight: "none",
@@ -6565,10 +6571,10 @@ const RetrievrSelect = /*#__PURE__*/external_root_React_commonjs2_react_commonjs
     tabIndex: 0,
     onBlur: handleBlur,
     onClick: handleWrapperClick,
-    className: "select-list-box form-control ".concat(isHighlighted ? "focus" : "")
+    className: "select-list-box form-control ".concat(isHighlighted ? 'focus' : '')
   }, /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("select", {
     style: {
-      display: "none"
+      display: 'none'
     },
     name: name
   }, showSelected && showSelectedList && (selectedOptions === null || selectedOptions === void 0 ? void 0 : selectedOptions.map((option, index) => {
@@ -6576,7 +6582,7 @@ const RetrievrSelect = /*#__PURE__*/external_root_React_commonjs2_react_commonjs
       key: index,
       value: option[valueKey]
     });
-  })), " "), /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("div", {
+  })), ' '), /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("div", {
     ref: selectListRef,
     className: "select-list"
   }, !isInputFocusing && showSelected && showSelectedList && (selectedOptions === null || selectedOptions === void 0 ? void 0 : selectedOptions.map((option, index) => {
@@ -6586,7 +6592,7 @@ const RetrievrSelect = /*#__PURE__*/external_root_React_commonjs2_react_commonjs
           maxWidth: maxSelectedListWidth
         } : {})
       },
-      className: "".concat(single ? "selected-option-single ellipsis-1" : "selected-option"),
+      className: "".concat(single ? 'selected-option-single ellipsis-1' : 'selected-option'),
       key: option[valueKey]
     }, option[labelKey], !single && /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("i", {
       onClick: () => handleDeleteItem(option),
@@ -6597,7 +6603,7 @@ const RetrievrSelect = /*#__PURE__*/external_root_React_commonjs2_react_commonjs
   }, /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("input", {
     onKeyDown: handleInputKeyDown,
     ref: retrieveInputRef,
-    placeholder: isInputFocusing ? placeholder : "",
+    placeholder: isInputFocusing ? placeholder : '',
     onFocus: handleInputFocus,
     onChange: e => handleInputChange(e),
     onClick: handleInputClick,
@@ -6609,44 +6615,44 @@ const RetrievrSelect = /*#__PURE__*/external_root_React_commonjs2_react_commonjs
   })), /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("div", {
     className: "icon-box"
   }, /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("i", {
-    className: "icon text-secondary fa-solid fa-angle-right ".concat(isOpen ? "rotate-up" : "rotate-down")
-  }))), commonSuffixIcon && /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("i", {
+    className: "icon text-secondary fa-solid fa-angle-right ".concat(isOpen ? 'rotate-up' : 'rotate-down')
+  }))), suffixContent && /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("div", {
+    className: "".concat(suffixContentType === 'button' ? 'suffix-content-btn-wrapper px-2' : 'ms-2')
+  }, suffixContent)), commonSuffixIcon && /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("i", {
     onClick: handleClickCommonSuffixIcon,
     className: "".concat(commonSuffixIcon, " common-suffix-icon ms-2")
-  }), suffixContent && /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("div", {
-    className: "".concat(suffixContentType === "button" ? "suffix-content-btn-wrapper px-2" : "ms-2")
-  }, suffixContent)), /*#__PURE__*/external_root_ReactDOM_commonjs2_react_dom_commonjs_react_dom_amd_react_dom_default().createPortal( /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("div", {
+  })), /*#__PURE__*/external_root_ReactDOM_commonjs2_react_dom_commonjs_react_dom_amd_react_dom_default().createPortal( /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("div", {
     ref: contentRef,
     style: {
       width: contentWidth,
-      position: "absolute",
-      top: customSelectContentPosition.y + customSelectContentPosition.height + "px",
-      left: customSelectContentPosition.x + "px",
+      position: 'absolute',
+      top: customSelectContentPosition.y + customSelectContentPosition.height + 'px',
+      left: customSelectContentPosition.x + 'px',
       maxHeight,
       ...(closing ? {
         opacity: 0,
-        transform: "scaleY(0)"
+        transform: 'scaleY(0)'
       } : {})
     },
-    className: "retrieve-select-content ".concat(showOptions ? "retrieve-select-content-open" : "")
+    className: "retrieve-select-content ".concat(showOptions ? 'retrieve-select-content-open' : '')
   }, !readOnly && isOpen && ((optionList === null || optionList === void 0 ? void 0 : optionList.length) > 0 ? optionList === null || optionList === void 0 ? void 0 : optionList.map((option, index) => {
     return /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("div", {
       key: index,
       style: {
-        color: option.selected ? activeColor.font : "#000",
-        backgroundColor: option.selected ? activeColor.bgc : ""
+        color: option.selected ? activeColor.font : '#000',
+        backgroundColor: option.selected ? activeColor.bgc : ''
       },
       onClick: () => handleSelect(option),
-      className: "retrieve-select-option ".concat(option.selected && "retrieve-select-option-active", " ").concat(focusedIndex === index && "retrieve-select-option-focused")
+      className: "retrieve-select-option ".concat(option.selected && 'retrieve-select-option-active', " ").concat(focusedIndex === index && 'retrieve-select-option-focused')
     }, option[labelKey]);
   }) : /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("div", {
     className: "none-match ps-2 font-italic"
   }, "No content"))), document.body), error && required && /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("div", {
     className: "animate__animated animate__fadeIn mb-1",
     style: {
-      color: "#DC3545",
-      fontSize: "14px",
-      paddingLeft: parseInt(labelWidth) > 120 ? "120px" : parseFloat(labelWidth) + 20 + "px"
+      color: '#DC3545',
+      fontSize: '14px',
+      paddingLeft: parseInt(labelWidth) > 120 ? '120px' : parseFloat(labelWidth) + 20 + 'px'
     }
   }, "".concat(errMsg || "".concat(label, "\u4E0D\u80FD\u4E3A\u7A7A"))));
 });

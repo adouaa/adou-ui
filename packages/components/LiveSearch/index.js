@@ -238,11 +238,22 @@ module.exports = function (item) {
 
       // EXPORTS
       __nested_webpack_require_918__.d(__nested_webpack_exports__, {
+        convertArrayKeysToCamelCase: () => ( /* reexport */libs_convertArrayKeysToCamelCase),
+        convertArrayKeysToSnakeCase: () => ( /* reexport */libs_convertArrayKeysToSnakeCase),
         convertToTag: () => ( /* reexport */libs_convertToTag),
         getAbsolutePosition: () => ( /* reexport */libs_getAbsolutePositionOfStage),
+        isEmptyO: () => ( /* reexport */libs_isEmptyO),
+        timeFormatter: () => ( /* reexport */time_formatter_namespaceObject),
         useClickOutside: () => ( /* reexport */hooks_useClickOutside),
         useDrag: () => ( /* reexport */hooks_useDrag),
         useNavigateTo: () => ( /* reexport */hooks_useNavigateTo)
+      });
+
+      // NAMESPACE OBJECT: ./src/libs/time-formatter.js
+      var time_formatter_namespaceObject = {};
+      __nested_webpack_require_918__.r(time_formatter_namespaceObject);
+      __nested_webpack_require_918__.d(time_formatter_namespaceObject, {
+        "default": () => time_formatter
       });
       ; // CONCATENATED MODULE: ./src/libs/getAbsolutePositionOfStage.js
       function getAbsolutePositionOfStage(domElement) {
@@ -285,6 +296,76 @@ module.exports = function (item) {
       };
       /* harmony default export */
       const libs_convertToTag = convertToTag;
+      ; // CONCATENATED MODULE: ./src/libs/time-formatter.js
+      function formatDateTime(dateString, format) {
+        const date = new Date(dateString);
+        switch (format) {
+          case "MM-DD HH:mm":
+            const month = String(date.getMonth() + 1).padStart(2, "0");
+            const day = String(date.getDate()).padStart(2, "0");
+            const hours = String(date.getHours()).padStart(2, "0");
+            const minutes = String(date.getMinutes()).padStart(2, "0");
+            return "".concat(month, "-").concat(day, " ").concat(hours, ":").concat(minutes);
+          case "YYYY-MM-DD HH:mm:ss":
+            const year = date.getFullYear();
+            const month2 = String(date.getMonth() + 1).padStart(2, "0");
+            const day2 = String(date.getDate()).padStart(2, "0");
+            const hours2 = String(date.getHours()).padStart(2, "0");
+            const minutes2 = String(date.getMinutes()).padStart(2, "0");
+            const seconds2 = String(date.getSeconds()).padStart(2, "0");
+            return "".concat(year, "-").concat(month2, "-").concat(day2, " ").concat(hours2, ":").concat(minutes2, ":").concat(seconds2);
+          case "YYYY-MM-DD":
+            const year2 = date.getFullYear();
+            const month3 = String(date.getMonth() + 1).padStart(2, "0");
+            const day3 = String(date.getDate()).padStart(2, "0");
+            return "".concat(year2, "-").concat(month3, "-").concat(day3);
+          case "HH:mm:ss":
+            const hours3 = String(date.getHours()).padStart(2, "0");
+            const minutes3 = String(date.getMinutes()).padStart(2, "0");
+            const seconds3 = String(date.getSeconds()).padStart(2, "0");
+            return "".concat(hours3, ":").concat(minutes3, ":").concat(seconds3);
+          default:
+            break;
+        }
+      }
+      /* harmony default export */
+      const time_formatter = formatDateTime;
+      ; // CONCATENATED MODULE: ./src/libs/isEmptyO.js
+      function isEmptyO(obj) {
+        return Object.keys(obj !== null && obj !== void 0 ? obj : {}).length === 0;
+      }
+      /* harmony default export */
+      const libs_isEmptyO = isEmptyO;
+      ; // CONCATENATED MODULE: ./src/libs/convertArrayKeysToCamelCase.js
+      function snakeToCamel(name) {
+        return name.replace(/_([a-z])/g, (match, letter) => letter.toUpperCase());
+      }
+      function convertKeysToCamelCase(obj) {
+        return Object.fromEntries(Object.entries(obj).map(_ref => {
+          let [key, value] = _ref;
+          return [snakeToCamel(key), value || ""];
+        }));
+      }
+      function convertArrayKeysToCamelCase(arr) {
+        return arr.map(item => convertKeysToCamelCase(item));
+      }
+      /* harmony default export */
+      const libs_convertArrayKeysToCamelCase = convertArrayKeysToCamelCase;
+      ; // CONCATENATED MODULE: ./src/libs/convertArrayKeysToSnakeCase.js
+      function camelToSnake(name) {
+        return name.replace(/([a-z])([A-Z])/g, "$1_$2").toLowerCase();
+      }
+      function convertKeysToSnakeCase(obj) {
+        return Object.fromEntries(Object.entries(obj).map(_ref => {
+          let [key, value] = _ref;
+          return [camelToSnake(key), value];
+        }));
+      }
+      function convertArrayKeysToSnakeCase(arr) {
+        return arr.map(item => convertKeysToSnakeCase(item));
+      }
+      /* harmony default export */
+      const libs_convertArrayKeysToSnakeCase = convertArrayKeysToSnakeCase;
       ; // CONCATENATED MODULE: ../../node_modules/@remix-run/router/dist/router.js
       /**
        * @remix-run/router v1.5.0
@@ -5381,31 +5462,61 @@ module.exports = function (item) {
 var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_1___default()((_node_modules_css_loader_dist_runtime_sourceMaps_js__WEBPACK_IMPORTED_MODULE_0___default()));
 // Module
 ___CSS_LOADER_EXPORT___.push([module.id, `@charset "UTF-8";
-.retrieve-select-wrapper .select-list-box {
+.live-search-select-wrapper .content-box .live-search-form-content {
+  display: flex;
+}
+.live-search-select-wrapper .content-box .live-search-form-content .suffix-content-btn {
+  border-top-right-radius: 0 !important;
+  /* 去掉右上角的圆角 */
+  border-bottom-right-radius: 0 !important;
+  border-right: none;
+  /* 去掉右下角的圆角 */
+}
+.live-search-select-wrapper .content-box .live-search-form-content .suffix-content-btn-wrapper {
+  min-width: 37px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #eee;
+  border-top-right-radius: 6px;
+  border-bottom-right-radius: 6px;
+}
+.live-search-select-wrapper .content-box .live-search-form-content .suffix-content-btn-wrapper .btn {
+  border-top-left-radius: 0;
+  /* 去掉左上角的圆角 */
+  border-bottom-left-radius: 0;
+  /* 去掉左下角的圆角 */
+}
+.live-search-select-wrapper .content-box .live-search-form-content .suffix-content-text-wrapper {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.live-search-select-wrapper .select-list-box {
   position: relative;
   flex: 1;
   min-height: 38px;
   cursor: text !important;
   flex-wrap: wrap;
 }
-.retrieve-select-wrapper .label-box {
+.live-search-select-wrapper .label-box {
   font-size: 14px;
   min-width: 50px;
   flex-wrap: wrap;
 }
-.retrieve-select-wrapper .label-in-center {
+.live-search-select-wrapper .label-in-center {
   display: flex;
   align-items: center;
 }
-.retrieve-select-wrapper .label-in-left-top {
+.live-search-select-wrapper .label-in-left-top {
   display: flex;
 }
-.retrieve-select-wrapper .label-in-left-top .label-box {
+.live-search-select-wrapper .label-in-left-top .label-box {
   display: flex;
   align-items: start;
 }
 
-.retrieve-select-content-open {
+.live-search-select-content-open {
   opacity: 1 !important;
   visibility: visible !important;
   transform: scaleY(1) !important;
@@ -5415,18 +5526,18 @@ ___CSS_LOADER_EXPORT___.push([module.id, `@charset "UTF-8";
   overflow-y: auto;
 }
 
-.retrieve-select-option-active {
+.live-search-select-option-active {
   font-weight: bold;
   background-color: #2783d8;
   display: flex;
   justify-content: space-between;
 }
 
-.retrieve-select-option-wrapper {
+.live-search-select-option-wrapper {
   padding: 14px;
 }
 
-.retrieve-select-option-active::after {
+.live-search-select-option-active::after {
   content: "✔";
 }
 
@@ -5461,7 +5572,7 @@ ___CSS_LOADER_EXPORT___.push([module.id, `@charset "UTF-8";
   flex: 1;
 }
 
-.retrieve-input {
+.live-search-input {
   width: 100%;
   outline: none;
   border: none;
@@ -5476,7 +5587,7 @@ ___CSS_LOADER_EXPORT___.push([module.id, `@charset "UTF-8";
   min-width: 0;
 }
 
-.retrieve-select-content {
+.live-search-select-content {
   min-width: 200px;
   background-color: #fff;
   position: absolute;
@@ -5491,14 +5602,14 @@ ___CSS_LOADER_EXPORT___.push([module.id, `@charset "UTF-8";
   transform: scaleY(0);
   transform-origin: top;
 }
-.retrieve-select-content .retrieve-select-option {
+.live-search-select-content .live-search-select-option {
   padding: 5px 10px;
 }
-.retrieve-select-content .retrieve-select-option:hover {
+.live-search-select-content .live-search-select-option:hover {
   background-color: #f0f0f0;
   cursor: pointer;
 }
-.retrieve-select-content .retrieve-select-option:active {
+.live-search-select-content .live-search-select-option:active {
   color: #fff;
 }
 
@@ -5519,10 +5630,10 @@ ___CSS_LOADER_EXPORT___.push([module.id, `@charset "UTF-8";
   color: #a4a3a3;
 }
 
-.retrieve-select-option-focused {
+.live-search-select-option-focused {
   background-color: #e0e0e0 !important;
   /* 高亮当前聚焦的选项 */
-}`, "",{"version":3,"sources":["webpack://./src/index.scss"],"names":[],"mappings":"AAAA,gBAAgB;AACZ;EACI,kBAAA;EACA,OAAA;EACA,gBAAA;EACA,uBAAA;EACA,eAAA;AACR;AAEI;EACI,eAAA;EACA,eAAA;EAEA,eAAA;AADR;AAII;EACI,aAAA;EACA,mBAAA;AAFR;AAKI;EACI,aAAA;AAHR;AAKQ;EACI,aAAA;EACA,kBAAA;AAHZ;;AAQA;EACI,qBAAA;EACA,8BAAA;EACA,+BAAA;AALJ;;AAQA;EACI,gBAAA;AALJ;;AAQA;EACI,iBAAA;EACA,yBAAA;EACA,aAAA;EACA,8BAAA;AALJ;;AAQA;EACI,aAAA;AALJ;;AAQA;EACI,YAAA;AALJ;;AAQA;EACI,aAAA;EACA,eAAA;AALJ;;AAQA;EACI,cAAA;EACA,eAAA;EACA,0BAAA;EACA,mBAAA;EACA,yBAAA;EACA,kBAAA;EACA,iBAAA;AALJ;;AAQA;EACI,kBAAA;EACA,UAAA;EACA,SAAA;EACA,eAAA;EACA,yBAAA;AALJ;AAOI;EACI,cAAA;EACA,qBAAA;AALR;;AASA;EACI,OAAA;AANJ;;AASA;EAEI,WAAA;EACA,aAAA;EACA,YAAA;AAPJ;;AAUA;EACI,aAAA;EACA,uBAAA;AAPJ;;AAUA;EACI,YAAA;AAPJ;;AAUA;EACI,gBAAA;EACA,sBAAA;EACA,kBAAA;EACA,cAAA;EACA,kBAAA;EACA,4CAAA;EACA,qBAAA;EACA,cAAA;EACA,wEAAA;EACA,UAAA;EACA,kBAAA;EACA,oBAAA;EACA,qBAAA;AAPJ;AASI;EACI,iBAAA;AAPR;AAUQ;EACI,yBAAA;EACA,eAAA;AARZ;AAWQ;EACI,WAAA;AATZ;;AAeA;EACI,YAAA;EACA,YAAA;EACA,eAAA;EACA,aAAA;EACA,uBAAA;EACA,mBAAA;EACA,cAAA;AAZJ;;AAeA;EACI,eAAA;EACA,aAAA;EACA,kBAAA;EACA,cAAA;AAZJ;;AAeA;EACI,oCAAA;EACA,cAAA;AAZJ","sourcesContent":[".retrieve-select-wrapper {\r\n    .select-list-box {\r\n        position: relative;\r\n        flex: 1;\r\n        min-height: 38px;\r\n        cursor: text !important;\r\n        flex-wrap: wrap;\r\n    }\r\n\r\n    .label-box {\r\n        font-size: 14px;\r\n        min-width: 50px;\r\n        // max-width: 120px !important;\r\n        flex-wrap: wrap;\r\n    }\r\n\r\n    .label-in-center {\r\n        display: flex;\r\n        align-items: center;\r\n    }\r\n\r\n    .label-in-left-top {\r\n        display: flex;\r\n\r\n        .label-box {\r\n            display: flex;\r\n            align-items: start;\r\n        }\r\n    }\r\n}\r\n\r\n.retrieve-select-content-open {\r\n    opacity: 1 !important;\r\n    visibility: visible !important;\r\n    transform: scaleY(1) !important;\r\n}\r\n\r\n.option-wrapper {\r\n    overflow-y: auto;\r\n}\r\n\r\n.retrieve-select-option-active {\r\n    font-weight: bold;\r\n    background-color: #2783d8;\r\n    display: flex;\r\n    justify-content: space-between;\r\n}\r\n\r\n.retrieve-select-option-wrapper {\r\n    padding: 14px;\r\n}\r\n\r\n.retrieve-select-option-active::after {\r\n    content: \"✔\";\r\n}\r\n\r\n.select-list {\r\n    display: flex;\r\n    flex-wrap: wrap;\r\n}\r\n\r\n.selected-option {\r\n    color: #7e8085;\r\n    font-size: 14px;\r\n    padding: 3px 22px 3px 12px;\r\n    border-radius: 13px;\r\n    background-color: #f4f4f5;\r\n    position: relative;\r\n    margin-right: 6px;\r\n}\r\n\r\n.option-icon {\r\n    position: absolute;\r\n    right: 6px;\r\n    top: -2px;\r\n    cursor: pointer;\r\n    transition: all 0.3s ease;\r\n\r\n    &:hover {\r\n        color: #dc3545;\r\n        transform: scale(1.2);\r\n    }\r\n}\r\n\r\n.input-control {\r\n    flex: 1;\r\n}\r\n\r\n.retrieve-input {\r\n    // min-width: 120px;\r\n    width: 100%;\r\n    outline: none;\r\n    border: none;\r\n}\r\n\r\n.none-wrapper {\r\n    display: flex;\r\n    justify-content: center;\r\n}\r\n\r\n.multiple-input {\r\n    min-width: 0;\r\n}\r\n\r\n.retrieve-select-content {\r\n    min-width: 200px;\r\n    background-color: #fff;\r\n    position: absolute;\r\n    z-index: 10000;\r\n    border-radius: 4px;\r\n    box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;\r\n    text-align-last: left;\r\n    overflow: auto;\r\n    transition: opacity 0.3s ease, visibility 0.3s ease, transform 0.3s ease;\r\n    opacity: 0;\r\n    visibility: hidden;\r\n    transform: scaleY(0);\r\n    transform-origin: top;\r\n\r\n    .retrieve-select-option {\r\n        padding: 5px 10px;\r\n        // margin-bottom: 2px;\r\n\r\n        &:hover {\r\n            background-color: #f0f0f0;\r\n            cursor: pointer;\r\n        }\r\n\r\n        &:active {\r\n            color: #fff;\r\n            // background-color: #2783d8 !important;\r\n        }\r\n    }\r\n}\r\n\r\n.none-option {\r\n    width: 200px;\r\n    height: 50px;\r\n    padding: 10px 0;\r\n    display: flex;\r\n    justify-content: center;\r\n    align-items: center;\r\n    color: #a4a3a3;\r\n}\r\n\r\n.none-match {\r\n    padding: 10px 0;\r\n    height: 100px;\r\n    font-style: italic;\r\n    color: #a4a3a3;\r\n}\r\n\r\n.retrieve-select-option-focused {\r\n    background-color: #e0e0e0 !important;\r\n    /* 高亮当前聚焦的选项 */\r\n}"],"sourceRoot":""}]);
+}`, "",{"version":3,"sources":["webpack://./src/index.scss"],"names":[],"mappings":"AAAA,gBAAgB;AAER;EACI,aAAA;AAAZ;AAEY;EACI,qCAAA;EACA,aAAA;EACA,wCAAA;EACA,kBAAA;EACA,aAAA;AAAhB;AAIY;EACI,eAAA;EACA,aAAA;EACA,mBAAA;EACA,uBAAA;EACA,sBAAA;EACA,4BAAA;EACA,+BAAA;AAFhB;AAKY;EACI,yBAAA;EACA,aAAA;EACA,4BAAA;EACA,aAAA;AAHhB;AAMY;EACI,aAAA;EACA,mBAAA;EACA,uBAAA;AAJhB;AASI;EACI,kBAAA;EACA,OAAA;EACA,gBAAA;EACA,uBAAA;EACA,eAAA;AAPR;AAUI;EACI,eAAA;EACA,eAAA;EAEA,eAAA;AATR;AAYI;EACI,aAAA;EACA,mBAAA;AAVR;AAaI;EACI,aAAA;AAXR;AAaQ;EACI,aAAA;EACA,kBAAA;AAXZ;;AAgBA;EACI,qBAAA;EACA,8BAAA;EACA,+BAAA;AAbJ;;AAgBA;EACI,gBAAA;AAbJ;;AAgBA;EACI,iBAAA;EACA,yBAAA;EACA,aAAA;EACA,8BAAA;AAbJ;;AAgBA;EACI,aAAA;AAbJ;;AAgBA;EACI,YAAA;AAbJ;;AAgBA;EACI,aAAA;EACA,eAAA;AAbJ;;AAgBA;EACI,cAAA;EACA,eAAA;EACA,0BAAA;EACA,mBAAA;EACA,yBAAA;EACA,kBAAA;EACA,iBAAA;AAbJ;;AAgBA;EACI,kBAAA;EACA,UAAA;EACA,SAAA;EACA,eAAA;EACA,yBAAA;AAbJ;AAeI;EACI,cAAA;EACA,qBAAA;AAbR;;AAiBA;EACI,OAAA;AAdJ;;AAiBA;EAEI,WAAA;EACA,aAAA;EACA,YAAA;AAfJ;;AAkBA;EACI,aAAA;EACA,uBAAA;AAfJ;;AAkBA;EACI,YAAA;AAfJ;;AAkBA;EACI,gBAAA;EACA,sBAAA;EACA,kBAAA;EACA,cAAA;EACA,kBAAA;EACA,4CAAA;EACA,qBAAA;EACA,cAAA;EACA,wEAAA;EACA,UAAA;EACA,kBAAA;EACA,oBAAA;EACA,qBAAA;AAfJ;AAiBI;EACI,iBAAA;AAfR;AAkBQ;EACI,yBAAA;EACA,eAAA;AAhBZ;AAmBQ;EACI,WAAA;AAjBZ;;AAuBA;EACI,YAAA;EACA,YAAA;EACA,eAAA;EACA,aAAA;EACA,uBAAA;EACA,mBAAA;EACA,cAAA;AApBJ;;AAuBA;EACI,eAAA;EACA,aAAA;EACA,kBAAA;EACA,cAAA;AApBJ;;AAuBA;EACI,oCAAA;EACA,cAAA;AApBJ","sourcesContent":[".live-search-select-wrapper {\r\n    .content-box {\r\n        .live-search-form-content {\r\n            display: flex;\r\n\r\n            .suffix-content-btn {\r\n                border-top-right-radius: 0 !important;\r\n                /* 去掉右上角的圆角 */\r\n                border-bottom-right-radius: 0 !important;\r\n                border-right: none;\r\n                /* 去掉右下角的圆角 */\r\n            }\r\n\r\n\r\n            .suffix-content-btn-wrapper {\r\n                min-width: 37px;\r\n                display: flex;\r\n                align-items: center;\r\n                justify-content: center;\r\n                background-color: #eee;\r\n                border-top-right-radius: 6px;\r\n                border-bottom-right-radius: 6px;\r\n            }\r\n\r\n            .suffix-content-btn-wrapper .btn {\r\n                border-top-left-radius: 0;\r\n                /* 去掉左上角的圆角 */\r\n                border-bottom-left-radius: 0;\r\n                /* 去掉左下角的圆角 */\r\n            }\r\n\r\n            .suffix-content-text-wrapper {\r\n                display: flex;\r\n                align-items: center;\r\n                justify-content: center;\r\n            }\r\n        }\r\n    }\r\n\r\n    .select-list-box {\r\n        position: relative;\r\n        flex: 1;\r\n        min-height: 38px;\r\n        cursor: text !important;\r\n        flex-wrap: wrap;\r\n    }\r\n\r\n    .label-box {\r\n        font-size: 14px;\r\n        min-width: 50px;\r\n        // max-width: 120px !important;\r\n        flex-wrap: wrap;\r\n    }\r\n\r\n    .label-in-center {\r\n        display: flex;\r\n        align-items: center;\r\n    }\r\n\r\n    .label-in-left-top {\r\n        display: flex;\r\n\r\n        .label-box {\r\n            display: flex;\r\n            align-items: start;\r\n        }\r\n    }\r\n}\r\n\r\n.live-search-select-content-open {\r\n    opacity: 1 !important;\r\n    visibility: visible !important;\r\n    transform: scaleY(1) !important;\r\n}\r\n\r\n.option-wrapper {\r\n    overflow-y: auto;\r\n}\r\n\r\n.live-search-select-option-active {\r\n    font-weight: bold;\r\n    background-color: #2783d8;\r\n    display: flex;\r\n    justify-content: space-between;\r\n}\r\n\r\n.live-search-select-option-wrapper {\r\n    padding: 14px;\r\n}\r\n\r\n.live-search-select-option-active::after {\r\n    content: \"✔\";\r\n}\r\n\r\n.select-list {\r\n    display: flex;\r\n    flex-wrap: wrap;\r\n}\r\n\r\n.selected-option {\r\n    color: #7e8085;\r\n    font-size: 14px;\r\n    padding: 3px 22px 3px 12px;\r\n    border-radius: 13px;\r\n    background-color: #f4f4f5;\r\n    position: relative;\r\n    margin-right: 6px;\r\n}\r\n\r\n.option-icon {\r\n    position: absolute;\r\n    right: 6px;\r\n    top: -2px;\r\n    cursor: pointer;\r\n    transition: all 0.3s ease;\r\n\r\n    &:hover {\r\n        color: #dc3545;\r\n        transform: scale(1.2);\r\n    }\r\n}\r\n\r\n.input-control {\r\n    flex: 1;\r\n}\r\n\r\n.live-search-input {\r\n    // min-width: 120px;\r\n    width: 100%;\r\n    outline: none;\r\n    border: none;\r\n}\r\n\r\n.none-wrapper {\r\n    display: flex;\r\n    justify-content: center;\r\n}\r\n\r\n.multiple-input {\r\n    min-width: 0;\r\n}\r\n\r\n.live-search-select-content {\r\n    min-width: 200px;\r\n    background-color: #fff;\r\n    position: absolute;\r\n    z-index: 10000;\r\n    border-radius: 4px;\r\n    box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;\r\n    text-align-last: left;\r\n    overflow: auto;\r\n    transition: opacity 0.3s ease, visibility 0.3s ease, transform 0.3s ease;\r\n    opacity: 0;\r\n    visibility: hidden;\r\n    transform: scaleY(0);\r\n    transform-origin: top;\r\n\r\n    .live-search-select-option {\r\n        padding: 5px 10px;\r\n        // margin-bottom: 2px;\r\n\r\n        &:hover {\r\n            background-color: #f0f0f0;\r\n            cursor: pointer;\r\n        }\r\n\r\n        &:active {\r\n            color: #fff;\r\n            // background-color: #2783d8 !important;\r\n        }\r\n    }\r\n}\r\n\r\n.none-option {\r\n    width: 200px;\r\n    height: 50px;\r\n    padding: 10px 0;\r\n    display: flex;\r\n    justify-content: center;\r\n    align-items: center;\r\n    color: #a4a3a3;\r\n}\r\n\r\n.none-match {\r\n    padding: 10px 0;\r\n    height: 100px;\r\n    font-style: italic;\r\n    color: #a4a3a3;\r\n}\r\n\r\n.live-search-select-option-focused {\r\n    background-color: #e0e0e0 !important;\r\n    /* 高亮当前聚焦的选项 */\r\n}"],"sourceRoot":""}]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 
@@ -6037,7 +6148,7 @@ const LiveSearch = /*#__PURE__*/external_root_React_commonjs2_react_commonjs_rea
     valueKey = "value",
     inline,
     suffixContent,
-    suffixContentType,
+    suffixContentType = "button",
     contentWidth,
     attribute = "value",
     required,
@@ -6235,7 +6346,7 @@ const LiveSearch = /*#__PURE__*/external_root_React_commonjs2_react_commonjs_rea
   };
   const retrieveSelectClasses = classnames_default()({
     "mb-3": !error && isFormItem,
-    "retrieve-select-wrapper": true,
+    "live-search-select-wrapper": true,
     [externalClassName]: externalClassName
   });
   const handleFocus = event => {
@@ -6331,9 +6442,16 @@ const LiveSearch = /*#__PURE__*/external_root_React_commonjs2_react_commonjs_rea
       width: labelWidth
     }
   }, label), /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("div", {
+    className: "live-search-form-content"
+  }, /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("div", {
     style: {
       display: "flex",
-      flexWrap: "wrap"
+      flexWrap: "wrap",
+      ...(suffixContentType === "button" ? {
+        borderTopRightRadius: 0,
+        borderBottomRightRadius: 0
+        // borderRight: "none",
+      } : {})
     },
     ref: retrieveSelectWrapperFormControlRef,
     tabIndex: 0,
@@ -6350,19 +6468,19 @@ const LiveSearch = /*#__PURE__*/external_root_React_commonjs2_react_commonjs_rea
     onClick: handleInputClick,
     readOnly: readOnly,
     type: "text",
-    className: "retrieve-input ".concat(type === "number" ? "text-end" : ""),
+    className: "live-search-input ".concat(type === "number" ? "text-end" : ""),
     "aria-label": "Username",
     "aria-describedby": "basic-addon1"
   })), /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("div", {
     className: "icon-box"
   }, /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("i", {
     className: "icon small text-secondary fa-solid fa-magnifying-glass"
-  }))), commonSuffixIcon && /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("i", {
+  }))), suffixContent && /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("div", {
+    className: "".concat(suffixContentType === "button" ? "suffix-content-btn-wrapper" : "ms-1")
+  }, suffixContent)), commonSuffixIcon && /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("i", {
     onClick: handleClickCommonSuffixIcon,
     className: "".concat(commonSuffixIcon, " common-suffix-icon ms-2")
-  }), suffixContent && /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("div", {
-    className: "".concat(suffixContentType === "button" ? "suffix-content-btn-wrapper" : "ms-1")
-  }, suffixContent)), /*#__PURE__*/external_root_ReactDOM_commonjs2_react_dom_commonjs_react_dom_amd_react_dom_default().createPortal( /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("div", {
+  })), /*#__PURE__*/external_root_ReactDOM_commonjs2_react_dom_commonjs_react_dom_amd_react_dom_default().createPortal( /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("div", {
     ref: contentRef,
     style: {
       width: contentWidth,
@@ -6371,7 +6489,7 @@ const LiveSearch = /*#__PURE__*/external_root_React_commonjs2_react_commonjs_rea
       left: customSelectContentPosition.x + "px",
       maxHeight
     },
-    className: "retrieve-select-content ".concat(showOptions ? "retrieve-select-content-open" : "")
+    className: "live-search-select-content ".concat(showOptions ? "live-search-select-content-open" : "")
   }, !readOnly && isOpen && ((optionList === null || optionList === void 0 ? void 0 : optionList.length) > 0 ? optionList === null || optionList === void 0 ? void 0 : optionList.map((option, index) => {
     return /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("div", {
       key: index,
@@ -6380,7 +6498,7 @@ const LiveSearch = /*#__PURE__*/external_root_React_commonjs2_react_commonjs_rea
         backgroundColor: option.selected ? activeColor.bgc : ""
       },
       onClick: () => handleSelect(option),
-      className: "retrieve-select-option ".concat(option.selected && "retrieve-select-option-active", " ").concat(focusedIndex === index && "retrieve-select-option-focused")
+      className: "live-search-select-option ".concat(option.selected && "live-search-select-option-active", " ").concat(focusedIndex === index && "live-search-select-option-focused")
     }, option[labelKey]);
   }) : /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("div", {
     className: "none-match ps-2 font-italic"

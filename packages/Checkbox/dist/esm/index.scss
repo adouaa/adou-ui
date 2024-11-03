@@ -1,4 +1,6 @@
 .checkbox-wrapper {
+    .content-box {}
+
     .inputGroup {
         display: flex;
         align-items: center;
@@ -12,7 +14,13 @@
     }
 
     .option-box {
+        width: 100%;
         flex: 1;
+    }
+
+    .checkbox-form-content {
+        display: flex;
+        align-items: center;
     }
 
     .label-in-center {
@@ -26,6 +34,15 @@
             display: flex;
             align-items: start;
 
+        }
+    }
+
+    .label-in-top {
+        display: flex;
+        flex-direction: column;
+
+        .label-box {
+            text-align-last: left;
         }
     }
 }

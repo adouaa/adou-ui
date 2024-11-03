@@ -1,13 +1,10 @@
 import React from "react";
 import "./index.scss";
 interface RadioProps {
-    valueKey?: string;
-    labelKey?: string;
-    returnType?: 'str' | 'obj';
+    suffixContentType?: string;
+    suffixContent?: any;
+    isFormItem?: boolean;
     name?: string;
-    key?: string;
-    width?: any;
-    isFormItem?: string;
     errMsg?: string;
     labelWidth?: any;
     commonSuffixIcon?: string;
@@ -16,7 +13,7 @@ interface RadioProps {
     checked?: boolean;
     label?: string;
     inputGroup?: boolean;
-    labelPosition?: 'left-top' | 'center' | 'top' | 'input-group';
+    labelPosition?: "left-top" | "center" | "top" | "input-group";
     labelColor?: string;
     required?: boolean;
     id?: string;
@@ -25,7 +22,6 @@ interface RadioProps {
     options?: any[];
     inline?: boolean;
     onChangeOK?: (item: any) => void;
-    onFormDataChange?: (key: string, value: any) => void;
 }
 declare const _default: React.ForwardRefExoticComponent<RadioProps & React.RefAttributes<any>>;
 export default _default;

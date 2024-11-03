@@ -1,6 +1,8 @@
 import React from "react";
 import "./index.scss";
-interface TextAreaProps {
+interface TextareaProps {
+    suffixContentType?: string;
+    suffixContent?: any;
     name?: string;
     inline?: boolean;
     isFormItem?: boolean;
@@ -22,5 +24,5 @@ interface TextAreaProps {
     onChangeOK?: (value: any, ...args: any) => void;
     onFormDataChange?: (key: string, value: any) => void;
 }
-declare const TextArea: React.FC<TextAreaProps>;
-export default TextArea;
+declare const Textarea: React.FC<TextareaProps>;
+export default Textarea;

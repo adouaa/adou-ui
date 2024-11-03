@@ -57,7 +57,7 @@ const Select = React.forwardRef((props: SelectProps, ref) => {
     valueKey = "value",
     suffixContent,
     showLabel = true,
-    suffixContentType,
+    suffixContentType = "button",
     inline,
     commonSuffixIcon,
     isFormItem,
@@ -358,59 +358,61 @@ const Select = React.forwardRef((props: SelectProps, ref) => {
               {label}
             </span>
           )}
-          <div
-            ref={customSelectRef}
-            onClick={(e: any) => handleDivClick(e)}
-            className="custom-select form-control"
-            style={{
-              textAlign: "left",
-              background: transparent
-                ? "transparent"
-                : readOnly
-                ? "#eee"
-                : "#fff",
-              flex: 1,
-              ...(suffixContentType === "button"
-                ? {
-                    borderTopRightRadius: 0,
-                    borderBottomRightRadius: 0,
-                    // borderRight: "none",
-                  }
-                : {}),
-            }}
-          >
-            {value?.[valueKey] ||
-            value?.[valueKey] === 0 ||
-            value?.[valueKey] === false ? (
-              <span className="select-value">{value[labelKey]}</span>
-            ) : (
-              <span className="select-placeholder">{placeholder}</span>
-            )}
-            {
-              <i
-                style={{ color: labelColor }}
-                className={`icon fa-solid fa-caret-right ${
-                  isShow ? "rotate-up" : "rotate-down"
+          <div className="select-form-content">
+            <div
+              ref={customSelectRef}
+              onClick={(e: any) => handleDivClick(e)}
+              className="custom-select form-control"
+              style={{
+                textAlign: "left",
+                background: transparent
+                  ? "transparent"
+                  : readOnly
+                  ? "#eee"
+                  : "#fff",
+                flex: 1,
+                ...(suffixContentType === "button"
+                  ? {
+                      borderTopRightRadius: 0,
+                      borderBottomRightRadius: 0,
+                      // borderRight: "none",
+                    }
+                  : {}),
+              }}
+            >
+              {value?.[valueKey] ||
+              value?.[valueKey] === 0 ||
+              value?.[valueKey] === false ? (
+                <span className="select-value">{value[labelKey]}</span>
+              ) : (
+                <span className="select-placeholder">{placeholder}</span>
+              )}
+              {
+                <i
+                  style={{ color: labelColor }}
+                  className={`icon fa-solid fa-caret-right ${
+                    isShow ? "rotate-up" : "rotate-down"
+                  }`}
+                ></i>
+              }
+            </div>
+            {suffixContent && (
+              <div
+                className={`${
+                  suffixContentType === "button"
+                    ? "suffix-content-btn-wrapper px-2"
+                    : "suffix-content-text-wrapper ms-2"
                 }`}
-              ></i>
-            }
+              >
+                {suffixContent}
+              </div>
+            )}
           </div>
           {commonSuffixIcon && (
             <i
               onClick={handleClickCommonSuffixIcon}
               className={`${commonSuffixIcon} common-suffix-icon ms-2`}
             ></i>
-          )}
-          {suffixContent && (
-            <div
-              className={`${
-                suffixContentType === "button"
-                  ? "suffix-content-btn-wrapper px-2"
-                  : "suffix-content-text-wrapper ms-2"
-              }`}
-            >
-              {suffixContent}
-            </div>
           )}
 
           {ReactDOM.createPortal(
@@ -489,5 +491,4 @@ const Select = React.forwardRef((props: SelectProps, ref) => {
     </div>
   );
 });
-
 export default withTranslation()(Select);

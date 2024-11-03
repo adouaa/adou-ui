@@ -9,9 +9,8 @@ import React, {
 import "./index.scss";
 
 interface CheckboxProps {
-  valueKey?: string;
-  labelKey?: string;
-  returnType?: "str" | "obj";
+  suffixContentType?: string;
+  suffixContent?: any;
   name?: string;
   isFormItem?: boolean;
   errMsg?: string;
@@ -34,9 +33,8 @@ interface CheckboxProps {
 
 const Checkbox: ForwardRefRenderFunction<any, CheckboxProps> = (
   {
-    valueKey = "value",
-    labelKey = "label",
-    returnType,
+    suffixContentType = "button",
+    suffixContent,
     name,
     isFormItem,
     errMsg,
@@ -69,11 +67,9 @@ const Checkbox: ForwardRefRenderFunction<any, CheckboxProps> = (
     } else if (Array.isArray(defaultValue)) {
       if (Array.isArray(defaultValue) && typeof defaultValue[0] !== "string") {
         return defaultValue!.some((item) => item.value === value);
+      } else {
+        return defaultValue.includes(value as any);
       }
-    } else {
-      return (
-        defaultValue?.[valueKey] === value || defaultValue?.[labelKey] === value
-      );
     }
     return false;
   };
@@ -97,11 +93,10 @@ const Checkbox: ForwardRefRenderFunction<any, CheckboxProps> = (
       }
       return option;
     });
-
     setOptionsList(updatedOptions);
-    const data = updatedOptions.filter((opt) => opt.checked);
-    onChange && onChange(data);
-    onFormDataChange && onFormDataChange(name!, data);
+    const checkedList = updatedOptions.filter((opt) => opt.checked);
+    onChange && onChange(checkedList);
+    onFormDataChange && onFormDataChange(name!, checkedList);
     if (updatedOptions.some((option: any) => option.checked)) {
       setError(false);
     } else {
@@ -118,6 +113,7 @@ const Checkbox: ForwardRefRenderFunction<any, CheckboxProps> = (
 
   const [error, setError] = useState<boolean>(false);
   const validate = () => {
+    console.log("13: ", 13);
     if (!required) return true;
     if (optionsList.some((item: any) => item.checked)) {
       setError(false);
@@ -152,8 +148,6 @@ const Checkbox: ForwardRefRenderFunction<any, CheckboxProps> = (
   });
 
   useEffect(() => {
-    console.log("defaultValue: ", defaultValue);
-    console.log("options: ", options);
     // Update optionsList when defaultValue changes
     const updatedOptions = options.map((option) => ({
       ...option,
@@ -161,6 +155,8 @@ const Checkbox: ForwardRefRenderFunction<any, CheckboxProps> = (
     }));
     setOptionsList(updatedOptions);
   }, [defaultValue, options]);
+
+  useEffect(() => {}, [defaultValue]);
 
   return (
     <div className={checkboxClasses}>
@@ -177,14 +173,18 @@ const Checkbox: ForwardRefRenderFunction<any, CheckboxProps> = (
             {label}
           </span>
         )}
-        <div className="option-box" style={{ display: inline ? "flex" : "" }}>
-          {optionsList.map((item: any) => (
+        <div
+          className="checkbox-form-content option-box"
+          style={{ display: inline ? "flex" : "" }}
+        >
+          {optionsList.map((item: any, index: number) => (
             <div
               key={item.value}
-              className="form-check"
+              className={`form-check ${
+                index !== optionsList.length - 1 ? "me-2" : ""
+              }`}
               style={{
                 textAlign: "left",
-                marginRight: "20px",
                 marginBottom: 0,
               }}
             >
@@ -202,10 +202,21 @@ const Checkbox: ForwardRefRenderFunction<any, CheckboxProps> = (
                 readOnly={readOnly}
               />
               <label className="form-check-label" htmlFor={item.value}>
-                {item[labelKey] || "Default Checkbox"}
+                {item.label || "Default Checkbox"}
               </label>
             </div>
           ))}
+          {suffixContent && (
+            <div
+              className={`${
+                suffixContentType === "button"
+                  ? "suffix-content-btn-wrapper px-2"
+                  : "ms-2"
+              }`}
+            >
+              {suffixContent}
+            </div>
+          )}
         </div>
         {commonSuffixIcon && (
           <i
@@ -227,4 +238,5 @@ const Checkbox: ForwardRefRenderFunction<any, CheckboxProps> = (
     </div>
   );
 };
+
 export default forwardRef(Checkbox);

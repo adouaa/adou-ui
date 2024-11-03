@@ -3,7 +3,9 @@ import React from "react";
 import "./index.scss";
 import classNames from "classnames";
 
-interface TextAreaProps {
+interface TextareaProps {
+  suffixContentType?: string;
+  suffixContent?: any;
   name?: string;
   inline?: boolean;
   isFormItem?: boolean;
@@ -26,9 +28,11 @@ interface TextAreaProps {
   onFormDataChange?: (key: string, value: any) => void;
 }
 
-const TextArea: React.FC<TextAreaProps> = React.forwardRef(
-  (props: TextAreaProps, ref) => {
+const Textarea: React.FC<TextareaProps> = React.forwardRef(
+  (props: TextareaProps, ref) => {
     const {
+      suffixContentType = "button",
+      suffixContent,
       errMsg,
       inline,
       isFormItem,
@@ -104,10 +108,6 @@ const TextArea: React.FC<TextAreaProps> = React.forwardRef(
       } else {
         setValue("");
       }
-
-      if (defaultValue) {
-        setError(false);
-      }
     }, [defaultValue]);
 
     return (
@@ -128,22 +128,43 @@ const TextArea: React.FC<TextAreaProps> = React.forwardRef(
               {label}
             </span>
           )}
-          <textarea
-            style={{
-              width,
-              ...(inline && !width ? { flex: 1, marginRight: "15px" } : {}),
-            }}
-            readOnly={readOnly}
-            required={required}
-            name={name}
-            value={value}
-            disabled={disabled}
-            onBlur={(e) => handleBlur(e)}
-            onChange={(e) => handleChange(e)}
-            placeholder={placeholder}
-            className="form-control"
-            aria-label="With textarea"
-          ></textarea>
+          <div className="textarea-form-content">
+            <textarea
+              style={{
+                width,
+                ...(inline && !width ? { flex: 1, marginRight: "15px" } : {}),
+                ...(suffixContentType === "button"
+                  ? {
+                      borderTopRightRadius: 0,
+                      borderBottomRightRadius: 0,
+                      // borderRight: "none",
+                    }
+                  : {}),
+              }}
+              readOnly={readOnly}
+              required={required}
+              name={name}
+              value={value}
+              disabled={disabled}
+              onBlur={(e) => handleBlur(e)}
+              onChange={(e) => handleChange(e)}
+              placeholder={placeholder}
+              className="form-control"
+              aria-label="With textarea"
+            ></textarea>
+            {suffixContent && (
+              <div
+                className={`${
+                  suffixContentType === "button"
+                    ? "suffix-content-btn-wrapper px-2"
+                    : "ms-2"
+                }`}
+              >
+                {suffixContent}
+              </div>
+            )}
+          </div>
+
           {commonSuffixIcon && (
             <i
               onClick={handleClickCommonSuffixIcon}
@@ -167,4 +188,4 @@ const TextArea: React.FC<TextAreaProps> = React.forwardRef(
     );
   }
 );
-export default TextArea;
+export default Textarea;

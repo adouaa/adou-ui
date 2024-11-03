@@ -48,6 +48,10 @@
   max-width: 200px !important;
   flex-wrap: wrap;
 }
+.select-wrapper .content-box .select-form-content {
+  flex: 1;
+  display: flex;
+}
 .select-wrapper .content-box .suffix-content-btn {
   border-top-right-radius: 0 !important;
   /* 去掉右上角的圆角 */
