@@ -184,7 +184,7 @@ const Form = forwardRef(
                         ...(required ? { required: true } : {}), // 动态添加 required 属性
                         labelColor,
                         onFormDataChange: handleChangeData,
-                        defaultValue: data[child.props.name],
+                        defaultValue: data?.[child.props.name],
 
                         // 注意：一个组件只能有一个 ref，要么外面提供ref手动处理，要么在 Form组件下统一提供ref
                         // 可以自定义要不要在Form下给表单组件提供 ref

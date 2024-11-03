@@ -1,7 +1,6 @@
 import React, { useState, useRef, useEffect } from 'react';
 import ReactDOM from 'react-dom';
 import './index.scss'; // 引入样式文件
-import { TooltipWrapper } from './style';
 import getAbsolutePosition from 'utils/getAbsolutePosition';
 
 interface TooltipProps {
@@ -11,16 +10,16 @@ interface TooltipProps {
     bottom?: any;
     wrap?: boolean;
     width?: any;
-    offset?: number;
+    arrowOffsetPercent?: number;
     flex?: boolean;
     mustShow?: boolean; // 用来支持Slider的鼠标不在RunWay上面的时候也会展示提示
     show?: boolean;
     text: string;
-    position?: 'top' | 'bottom' | 'left' | 'right' | 'top-left' | 'top-right' | 'bottom-left' | 'bottom-right';
+    position?: 'top' | 'bottom' | 'left' | 'right' | 'top-left' | 'top-right' | 'bottom-left' | 'bottom-right' | 'left-top' | 'left-bottom' | 'right-bottom' | 'right-top';
     children: React.ReactNode;
-    bgc?: string;
-    color?: string;
-    borderColor?: string;
+    tooltipBgc?: string;
+    tooltipFontColor?: string;
+    arrowBorderColor?: string;
     wrapperClassname?: string;
 }
 
@@ -31,16 +30,16 @@ const Tooltip: React.FC<TooltipProps> = ({
     bottom,
     wrap = false,
     width,
-    offset,
+    arrowOffsetPercent,
     flex,
     mustShow,
     show = true,
     text,
     position = 'top',
     children,
-    bgc = '#333',
-    color,
-    borderColor = '#333',
+    tooltipBgc = '#333',
+    tooltipFontColor,
+    arrowBorderColor = '#333',
     wrapperClassname,
 }) => {
     const [isShow, setIsShow] = useState<boolean>(false);
@@ -51,6 +50,7 @@ const Tooltip: React.FC<TooltipProps> = ({
     const isEnterTooltipRef = useRef<boolean>(false);
     const enterTimeoutRef = useRef<NodeJS.Timeout | null>(null);
     const [tooltipWidth, setTooltipWidth] = useState<number>(0);
+    const [tooltipHeight, setTooltipHeight] = useState<number>(0);
 
     const contentRef = useRef<any>(null);
     const [tooltipContentPosition, settooltipContentPosition] = useState<any>({});
@@ -115,53 +115,152 @@ const Tooltip: React.FC<TooltipProps> = ({
     // 注意：定位完 tooltipContentPosition 和 contentRef 之后，内容是向两边撑开的
     // 所以需要计算一下 tooltipRef 的位置(- 是left，+ 是 right)
     const calcTooltipContentTopAndLeft = () => {
-        const top = tooltipContentPosition.y - tooltipRef.current?.clientHeight! / 2 - 15 + 'px';
+        const verticalTop = tooltipContentPosition.y - tooltipRef.current?.clientHeight! - 8 + 'px';
+        const verticalBottom = tooltipContentPosition.y + contentRef.current?.clientHeight! + 5 + 'px';
+        const horizontalLeft = tooltipContentPosition.x - tooltipRef.current?.clientWidth! + 'px';
+        const horizontalTop = tooltipContentPosition.y + contentRef.current?.clientHeight! / 2 - tooltipRef.current?.clientHeight! / 2 + 'px';
+        const content = tooltipContentPosition.x + contentRef.current?.clientWidth / 2 + 'px';
         if (position === 'top') {
             return {
-                top,
-                left: tooltipContentPosition.x + contentRef.current?.clientWidth / 2 + 'px',
+                top: verticalTop,
+                left: content,
             };
         } else if (position === 'top-right') {
-            console.log('tooltipContentPosition.x +: ', tooltipContentPosition.x + contentRef.current?.clientWidth / 2);
             return {
-                top,
+                top: verticalTop,
                 left: tooltipContentPosition.x + contentRef.current?.clientWidth / 2 + tooltipRef.current?.clientWidth! / 2 + 'px',
             };
         } else if (position === 'top-left') {
-            console.log('tooltipContentPosition: ', tooltipContentPosition);
             return {
-                top,
+                top: verticalTop,
                 left: tooltipContentPosition.x + contentRef.current?.clientWidth / 2 - tooltipRef.current?.clientWidth! / 2 + 'px',
             };
-        } else if (position.includes('bottom')) {
+        } else if (position === 'bottom') {
             return {
-                top: tooltipContentPosition.y + contentRef.current?.clientHeight! + 15 + 'px',
+                top: verticalBottom,
+                left: content,
+            };
+        } else if (position === 'bottom-right') {
+            return {
+                top: verticalBottom,
                 left: tooltipContentPosition.x + tooltipRef.current?.clientWidth! / 2 + contentRef.current?.clientWidth / 2 + 'px',
+            };
+        } else if (position === 'bottom-left') {
+            return {
+                top: verticalBottom,
+                left: tooltipContentPosition.x + contentRef.current?.clientWidth / 2 - tooltipRef.current?.clientWidth! / 2 + 'px',
+            };
+        } else if (position === 'left') {
+            return {
+                top: tooltipContentPosition.y + contentRef.current?.clientHeight! / 2 + 'px',
+                left: horizontalLeft,
+            };
+        } else if (position === 'left-top') {
+            return {
+                top: horizontalTop,
+                left: horizontalLeft,
+            };
+        } else if (position === 'left-bottom') {
+            return {
+                top: tooltipContentPosition.y + contentRef.current?.clientHeight! / 2 + tooltipRef.current?.clientHeight! / 2 + 'px',
+                left: horizontalLeft,
+            };
+        } else if (position === 'right') {
+            return {
+                top: tooltipContentPosition.y + contentRef.current?.clientHeight! / 2 + 'px',
+                left: tooltipContentPosition.x + contentRef.current?.clientWidth! + 'px',
+            };
+        } else if (position === 'right-top') {
+            return {
+                top: horizontalTop,
+                left: tooltipContentPosition.x + contentRef.current?.clientWidth! + 'px',
+            };
+        } else if (position === 'right-bottom') {
+            return {
+                top: tooltipContentPosition.y + contentRef.current?.clientHeight! / 2 + tooltipRef.current?.clientHeight! / 2 + 'px',
+                left: tooltipContentPosition.x + contentRef.current?.clientWidth! + 'px',
             };
         }
     };
 
     const calcTooltipArrowTopAndLeft = () => {
-        const bottom = '-5px';
-        const horizontal = tooltipWidth * (offset || 0.2);
-        console.log('🚀 ~ calcTooltipArrowTopAndLeft ~ horizontal:', horizontal);
+        // top 和 bottom 的属性
+        const commonArrowOfsset = '-8px';
+
+        const horizontal = tooltipWidth * (arrowOffsetPercent || 0.2);
         const minHorizontal = contentRef.current?.clientWidth! / 4;
-        console.log('🚀 ~ calcTooltipArrowTopAndLeft ~ minHorizontal:', minHorizontal);
         const finalHorizontal = horizontal > minHorizontal ? minHorizontal : horizontal + 'px';
+
+        // left 和 right 的属性
+        const vertival = tooltipHeight * (arrowOffsetPercent || 0.2);
+        const minVertival = contentRef.current?.clientHeight! / 4;
+        const finalVertival = vertival > minVertival ? minVertival : vertival + 'px';
+
         if (position === 'top') {
             return {
-                bottom,
+                bottom: commonArrowOfsset,
                 left: '50%',
+                borderColor: `${arrowBorderColor} transparent transparent transparent`,
             };
         } else if (position === 'top-left') {
             return {
-                bottom,
+                bottom: commonArrowOfsset,
                 right: right || finalHorizontal,
+                borderColor: `${arrowBorderColor} transparent transparent transparent`,
             };
         } else if (position === 'top-right') {
             return {
-                bottom,
+                bottom: commonArrowOfsset,
                 left: left || finalHorizontal,
+                borderColor: `${arrowBorderColor} transparent transparent transparent`,
+            };
+        } else if (position === 'bottom') {
+            return {
+                top: commonArrowOfsset,
+                left: '50%',
+                borderColor: `transparent transparent ${arrowBorderColor} transparent`,
+            };
+        } else if (position === 'bottom-right') {
+            return {
+                top: commonArrowOfsset,
+                left: left || finalHorizontal,
+                borderColor: `transparent transparent ${arrowBorderColor} transparent`,
+            };
+        } else if (position === 'bottom-left') {
+            return {
+                top: commonArrowOfsset,
+                right: right || finalHorizontal,
+                borderColor: `transparent transparent ${arrowBorderColor} transparent`,
+            };
+        } else if (position === 'left-top') {
+            return {
+                bottom: bottom || finalVertival,
+                right: commonArrowOfsset,
+                borderColor: `transparent transparent transparent ${arrowBorderColor}`,
+            };
+        } else if (position === 'left-bottom') {
+            return {
+                top: top || finalVertival,
+                right: '-9px',
+                borderColor: `transparent transparent transparent ${arrowBorderColor}`,
+            };
+        } else if (position === 'right') {
+            return {
+                top: '50%',
+                left: commonArrowOfsset,
+                borderColor: `transparent ${arrowBorderColor} transparent transparent`,
+            };
+        } else if (position === 'right-top') {
+            return {
+                bottom: bottom || finalVertival,
+                left: commonArrowOfsset,
+                borderColor: `transparent ${arrowBorderColor} transparent transparent`,
+            };
+        } else if (position === 'right-bottom') {
+            return {
+                top: top || finalVertival,
+                left: commonArrowOfsset,
+                borderColor: `transparent ${arrowBorderColor} transparent transparent`,
             };
         }
     };
@@ -181,6 +280,7 @@ const Tooltip: React.FC<TooltipProps> = ({
         if (tooltipRef.current) {
             const tooltipElement = tooltipRef.current;
             setTooltipWidth(tooltipElement.offsetWidth);
+            setTooltipHeight(tooltipElement.offsetHeight);
         }
         if (isShow) {
             const position = getAbsolutePosition(contentRef.current, 0, 0);
@@ -193,6 +293,9 @@ const Tooltip: React.FC<TooltipProps> = ({
             <div ref={contentRef} className="content" onMouseEnter={handleMouseEnter} onMouseLeave={handleMouseLeave}>
                 {children}
             </div>
+            {/* text?.trim?.()?.length > 0 &&
+                show &&
+                isShow && */}
             {text?.trim?.()?.length > 0 &&
                 show &&
                 isShow &&
@@ -204,8 +307,8 @@ const Tooltip: React.FC<TooltipProps> = ({
                         onMouseLeave={handleMouseLeaveTooltip}
                         className={`adou-tooltip ${isVisible ? 'show-tool-tip' : ''} adou-tooltip-${position}`}
                         style={{
-                            backgroundColor: bgc,
-                            color: color,
+                            backgroundColor: tooltipBgc,
+                            color: tooltipFontColor,
                             width,
                             whiteSpace: wrap || width ? 'wrap' : 'nowrap',
                             position: 'absolute',

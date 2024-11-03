@@ -38,7 +38,7 @@ const ListNode = ({
     showTag = true,
     children,
     wrap = true,
-    node: data,
+    node,
     isTree,
     showOptIcons = true,
     showAddIcon = true,
@@ -51,7 +51,6 @@ const ListNode = ({
 }: ListNodeProps) => {
     const [isExpanded, setIsExpanded] = useState(false);
     const [isShowIcons, setIsShowIcons] = useState(false);
-    const [node, setNode] = useState<any>(data);
 
     // 计算children的maxWidth
     const [childrenMaxHeight, setChildrenMaxHeight] = useState<any>(0);
@@ -191,26 +190,6 @@ const ListNode = ({
         });
     };
 
-    // 鼠标进入折叠icon
-    const handleMouseEnterExpandIcon = () => {
-        setNode((preData: any) => ({
-            ...preData,
-            isEnter: true,
-        }));
-    };
-
-    // 鼠标离开折叠icon
-    const handleMouseLeaveExpandIcon = () => {
-        setNode((preData: any) => ({
-            ...preData,
-            isEnter: false,
-        }));
-    };
-
-    useEffect(() => {
-        setNode(data);
-    }, [data]);
-
     return (
         // style={{whiteSpace: `${wrap ? "wrap" : "nowrap"}`}}
         // 整个树
@@ -223,38 +202,31 @@ const ListNode = ({
                         style={{
                             backgroundColor: node.bgc,
                             ...(Number(activeId) === Number(node.id) ? { backgroundColor: activeBgc } : ''),
-                            paddingLeft: node.level * 20 + 'px', // 让树节点的层级有缩进，并且是充满一整行的样式
                         }}
-                        className={`left-content ${!node.level && 'ps-2'} ${String(activeId) === String(node.id) ? 'active' : ''}`}
+                        className={`left-content ${String(activeId) === String(node.id) ? 'active' : ''}`}
                         onClick={() => handleItemClick(node)}
                         onMouseEnter={() => setIsShowIcons(true)}
                         onMouseLeave={() => setIsShowIcons(false)}
                     >
+                        {/* 最左边的tag */}
+                        <div className={`prefix-tag`}>
+                            <i className={`${prefixTag} ${activeId === node.id ? 'text-white' : ''}`}></i>
+                        </div>
+                        {/* 展示标志 */}
+                        {showTag && renderTag()}
                         {/* 有子节点的话，展示折叠按钮 */}
                         {isTree && node.children && node.children.length > 0 && (
                             <i
-                                onMouseEnter={handleMouseEnterExpandIcon}
-                                onMouseLeave={handleMouseLeaveExpandIcon}
-                                style={{ fontSize: '16px', width: '10px', ...(node.isEnter ? { transform: 'scale(1.4)', color: '#334155' } : '') }}
+                                style={{ fontSize: '16px', width: '10px' }}
                                 onClick={(e) => handleFolderIconClick(node, e)}
-                                className={`icon fa fa-caret-${isExpanded ? 'down' : 'right'}`}
+                                className={`icon mx-1 fa fa-caret-${isExpanded ? 'down' : 'right'}`}
                             ></i>
                         )}
-                        {/* 最左边的tag */}
-                        {prefixTag && (
-                            <div className={`prefix-tag ms-2`}>
-                                <i className={`${prefixTag} ${activeId === node.id ? 'text-white' : ''}`}></i>
-                            </div>
-                        )}
-
-                        {/* 展示标志 */}
-                        {showTag && renderTag()}
-
                         {/* 节点名字 */}
                         <span
                             style={{ whiteSpace: `${wrap ? 'normal' : 'nowrap'}` }}
                             onClick={(e) => handleNodeNameClick(node, e)}
-                            className={`ms-2 item-name ${node.children && node.children.length > 0 ? 'has-children' : 'no-children'}`}
+                            className={`item-name ${node.children && node.children.length > 0 ? 'has-children' : 'no-children'}`}
                         >
                             {node.name}
                         </span>

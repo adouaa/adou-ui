@@ -20,8 +20,8 @@ const App = () => {
 
     return (
         <div>
-            {/*  <h1>Rating Component</h1>
-            <Rate activeBgc="green" value={rateValue} onChange={handleRateChange} allowHalf={true} max={5} /> */}
+            <h1>Rating Component</h1>
+            <Rate activeBgc="green" value={3.5} onChange={handleRateChange} allowHalf={true} max={5} />
             <Form labelPosition="top" data={{}}>
                 <AdouInput labelPosition="left-top" label="测试" name="event" suffixContent={<i className="fa fa-solid fa-trash text-danger"></i>}></AdouInput>
                 <AdouCheckbox

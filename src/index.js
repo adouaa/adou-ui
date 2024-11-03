@@ -38,7 +38,7 @@ import ReactDOM from 'react-dom/client';
 
 // import App from './test-dialog/App.tsx';
 
-import App from './test-tooltip/App.tsx';
+// import App from './test-tooltip/App.tsx';
 
 // import App from './test-according/App.tsx';
 
@@ -60,9 +60,12 @@ import App from './test-tooltip/App.tsx';
 
 // import App from './test-table/App.tsx';
 
-// import App from './test-rate/App.tsx';
+import App from './test-rate/App.tsx';
+
+// import App from './test-list/App.tsx';
 
 import 'bootstrap/dist/css/bootstrap.min.css';
+
 import './App.css';
 import './index.scss';
 // 把 App根组件渲染到 id为 root的 dom节点上
