@@ -11,10 +11,10 @@ interface TooltipProps {
     wrap?: boolean;
     width?: any;
     arrowOffsetPercent?: number;
-    flex?: boolean;
+    wrapperFlex?: boolean;
     mustShow?: boolean; // 用来支持Slider的鼠标不在RunWay上面的时候也会展示提示
     show?: boolean;
-    text: string;
+    text: any;
     position?: 'top' | 'bottom' | 'left' | 'right' | 'top-left' | 'top-right' | 'bottom-left' | 'bottom-right' | 'left-top' | 'left-bottom' | 'right-bottom' | 'right-top';
     children: React.ReactNode;
     tooltipBgc?: string;
@@ -31,7 +31,7 @@ const Tooltip: React.FC<TooltipProps> = ({
     wrap = false,
     width,
     arrowOffsetPercent,
-    flex,
+    wrapperFlex,
     mustShow,
     show = true,
     text,
@@ -200,78 +200,75 @@ const Tooltip: React.FC<TooltipProps> = ({
             return {
                 bottom: commonArrowOfsset,
                 left: '50%',
-                borderColor: `${arrowBorderColor} transparent transparent transparent`,
+                'border-color': `${arrowBorderColor} transparent transparent transparent`,
             };
         } else if (position === 'top-left') {
             return {
                 bottom: commonArrowOfsset,
                 right: right || finalHorizontal,
-                borderColor: `${arrowBorderColor} transparent transparent transparent`,
+                'border-color': `${arrowBorderColor} transparent transparent transparent`,
             };
         } else if (position === 'top-right') {
             return {
                 bottom: commonArrowOfsset,
                 left: left || finalHorizontal,
-                borderColor: `${arrowBorderColor} transparent transparent transparent`,
+                'border-color': `${arrowBorderColor} transparent transparent transparent`,
             };
         } else if (position === 'bottom') {
             return {
                 top: commonArrowOfsset,
                 left: '50%',
-                borderColor: `transparent transparent ${arrowBorderColor} transparent`,
+                'border-color': `transparent transparent ${arrowBorderColor} transparent`,
             };
         } else if (position === 'bottom-right') {
             return {
                 top: commonArrowOfsset,
                 left: left || finalHorizontal,
-                borderColor: `transparent transparent ${arrowBorderColor} transparent`,
+                'border-color': `transparent transparent ${arrowBorderColor} transparent`,
             };
         } else if (position === 'bottom-left') {
             return {
                 top: commonArrowOfsset,
                 right: right || finalHorizontal,
-                borderColor: `transparent transparent ${arrowBorderColor} transparent`,
+                'border-color': `transparent transparent ${arrowBorderColor} transparent`,
             };
         } else if (position === 'left-top') {
             return {
                 bottom: bottom || finalVertival,
                 right: commonArrowOfsset,
-                borderColor: `transparent transparent transparent ${arrowBorderColor}`,
+                'border-color': `transparent transparent transparent ${arrowBorderColor}`,
             };
         } else if (position === 'left-bottom') {
             return {
                 top: top || finalVertival,
                 right: '-9px',
-                borderColor: `transparent transparent transparent ${arrowBorderColor}`,
+                'border-color': `transparent transparent transparent ${arrowBorderColor}`,
             };
         } else if (position === 'right') {
             return {
                 top: '50%',
                 left: commonArrowOfsset,
-                borderColor: `transparent ${arrowBorderColor} transparent transparent`,
+                'border-color': `transparent ${arrowBorderColor} transparent transparent`,
             };
         } else if (position === 'right-top') {
             return {
                 bottom: bottom || finalVertival,
                 left: commonArrowOfsset,
-                borderColor: `transparent ${arrowBorderColor} transparent transparent`,
+                'border-color': `transparent ${arrowBorderColor} transparent transparent`,
             };
         } else if (position === 'right-bottom') {
             return {
                 top: top || finalVertival,
                 left: commonArrowOfsset,
-                borderColor: `transparent ${arrowBorderColor} transparent transparent`,
+                'border-color': `transparent ${arrowBorderColor} transparent transparent`,
             };
         }
     };
 
     useEffect(() => {
         if (mustShow) {
-            console.log('if: ', mustShow);
             handleMouseEnter();
         } else {
-            console.log('else: ', mustShow);
-
             handleMouseLeave();
         }
     }, [mustShow]);
@@ -289,14 +286,14 @@ const Tooltip: React.FC<TooltipProps> = ({
     }, [isShow, isVisible]);
 
     return (
-        <div className={`adou-tooltip-wrapper ${wrapperClassname || ''}`} style={{ ...(flex ? { flex: 1 } : {}) }}>
-            <div ref={contentRef} className="content" onMouseEnter={handleMouseEnter} onMouseLeave={handleMouseLeave}>
+        <div className={`adou-tooltip-wrapper ${wrapperClassname || ''}`} style={{ ...(wrapperFlex ? { flex: 1, display: 'flex' } : {}) }}>
+            <div ref={contentRef} className="content" onMouseEnter={handleMouseEnter} onMouseLeave={handleMouseLeave} style={{ ...(wrapperFlex ? { flex: 1 } : {}) }}>
                 {children}
             </div>
             {/* text?.trim?.()?.length > 0 &&
                 show &&
                 isShow && */}
-            {text?.trim?.()?.length > 0 &&
+            {(typeof text === 'string' ? text?.trim?.()?.length > 0 : text) &&
                 show &&
                 isShow &&
                 ReactDOM.createPortal(
@@ -310,7 +307,7 @@ const Tooltip: React.FC<TooltipProps> = ({
                             backgroundColor: tooltipBgc,
                             color: tooltipFontColor,
                             width,
-                            whiteSpace: wrap || width ? 'wrap' : 'nowrap',
+                            whiteSpace: wrap || width ? 'normal' : 'nowrap',
                             position: 'absolute',
                             ...calcTooltipContentTopAndLeft(),
                         }}
@@ -323,5 +320,4 @@ const Tooltip: React.FC<TooltipProps> = ({
         </div>
     );
 };
-
 export default Tooltip;

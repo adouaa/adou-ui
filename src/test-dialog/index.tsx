@@ -115,7 +115,7 @@ const Dialog: React.FC<DialogProps> = ({
                                 maxWidth,
                             }}
                         >
-                            <div className="dialog-header p-2" onMouseDown={handleMouseDown}>
+                            <div className="dialog-header p-2 ps-3" onMouseDown={handleMouseDown}>
                                 <span className="fs-5">{title}</span>
                                 {showClose && (
                                     <button className="dialog-close hover-scale" onClick={onClose}>
