@@ -8,10 +8,10 @@ interface TooltipProps {
     wrap?: boolean;
     width?: any;
     arrowOffsetPercent?: number;
-    flex?: boolean;
+    wrapperFlex?: boolean;
     mustShow?: boolean;
     show?: boolean;
-    text: string;
+    text: any;
     position?: "top" | "bottom" | "left" | "right" | "top-left" | "top-right" | "bottom-left" | "bottom-right" | "left-top" | "left-bottom" | "right-bottom" | "right-top";
     children: React.ReactNode;
     tooltipBgc?: string;

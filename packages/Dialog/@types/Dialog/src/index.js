@@ -87,7 +87,7 @@ const Dialog = ({ showConfirm = true, showCancel = true, showClose = true, canCo
                     width,
                     maxWidth,
                 } },
-                react_1.default.createElement("div", { className: "dialog-header p-2", onMouseDown: handleMouseDown },
+                react_1.default.createElement("div", { className: "dialog-header p-2 ps-3", onMouseDown: handleMouseDown },
                     react_1.default.createElement("span", { className: "fs-5" }, title),
                     showClose && (react_1.default.createElement("button", { className: "dialog-close hover-scale", onClick: onClose }, "\u00D7"))),
                 react_1.default.createElement("div", { className: "dialog-content", style: { maxHeight } }, children),

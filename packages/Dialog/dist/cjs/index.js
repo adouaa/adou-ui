@@ -1580,7 +1580,7 @@ const Dialog = _ref => {
       maxWidth
     }
   }, /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("div", {
-    className: "dialog-header p-2",
+    className: "dialog-header p-2 ps-3",
     onMouseDown: handleMouseDown
   }, /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("span", {
     className: "fs-5"

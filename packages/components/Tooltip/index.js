@@ -751,7 +751,7 @@ const Tooltip = _ref => {
     wrap = false,
     width,
     arrowOffsetPercent,
-    flex,
+    wrapperFlex,
     mustShow,
     show = true,
     text,
@@ -923,76 +923,74 @@ const Tooltip = _ref => {
       return {
         bottom: commonArrowOfsset,
         left: "50%",
-        borderColor: "".concat(arrowBorderColor, " transparent transparent transparent")
+        "border-color": "".concat(arrowBorderColor, " transparent transparent transparent")
       };
     } else if (position === "top-left") {
       return {
         bottom: commonArrowOfsset,
         right: right || finalHorizontal,
-        borderColor: "".concat(arrowBorderColor, " transparent transparent transparent")
+        "border-color": "".concat(arrowBorderColor, " transparent transparent transparent")
       };
     } else if (position === "top-right") {
       return {
         bottom: commonArrowOfsset,
         left: left || finalHorizontal,
-        borderColor: "".concat(arrowBorderColor, " transparent transparent transparent")
+        "border-color": "".concat(arrowBorderColor, " transparent transparent transparent")
       };
     } else if (position === "bottom") {
       return {
         top: commonArrowOfsset,
         left: "50%",
-        borderColor: "transparent transparent ".concat(arrowBorderColor, " transparent")
+        "border-color": "transparent transparent ".concat(arrowBorderColor, " transparent")
       };
     } else if (position === "bottom-right") {
       return {
         top: commonArrowOfsset,
         left: left || finalHorizontal,
-        borderColor: "transparent transparent ".concat(arrowBorderColor, " transparent")
+        "border-color": "transparent transparent ".concat(arrowBorderColor, " transparent")
       };
     } else if (position === "bottom-left") {
       return {
         top: commonArrowOfsset,
         right: right || finalHorizontal,
-        borderColor: "transparent transparent ".concat(arrowBorderColor, " transparent")
+        "border-color": "transparent transparent ".concat(arrowBorderColor, " transparent")
       };
     } else if (position === "left-top") {
       return {
         bottom: bottom || finalVertival,
         right: commonArrowOfsset,
-        borderColor: "transparent transparent transparent ".concat(arrowBorderColor)
+        "border-color": "transparent transparent transparent ".concat(arrowBorderColor)
       };
     } else if (position === "left-bottom") {
       return {
         top: top || finalVertival,
         right: "-9px",
-        borderColor: "transparent transparent transparent ".concat(arrowBorderColor)
+        "border-color": "transparent transparent transparent ".concat(arrowBorderColor)
       };
     } else if (position === "right") {
       return {
         top: "50%",
         left: commonArrowOfsset,
-        borderColor: "transparent ".concat(arrowBorderColor, " transparent transparent")
+        "border-color": "transparent ".concat(arrowBorderColor, " transparent transparent")
       };
     } else if (position === "right-top") {
       return {
         bottom: bottom || finalVertival,
         left: commonArrowOfsset,
-        borderColor: "transparent ".concat(arrowBorderColor, " transparent transparent")
+        "border-color": "transparent ".concat(arrowBorderColor, " transparent transparent")
       };
     } else if (position === "right-bottom") {
       return {
         top: top || finalVertival,
         left: commonArrowOfsset,
-        borderColor: "transparent ".concat(arrowBorderColor, " transparent transparent")
+        "border-color": "transparent ".concat(arrowBorderColor, " transparent transparent")
       };
     }
   };
   (0,external_root_React_commonjs2_react_commonjs_react_amd_react_.useEffect)(() => {
     if (mustShow) {
-      console.log("if: ", mustShow);
       handleMouseEnter();
     } else {
-      console.log("else: ", mustShow);
       handleMouseLeave();
     }
   }, [mustShow]);
@@ -1010,16 +1008,22 @@ const Tooltip = _ref => {
   return /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("div", {
     className: "adou-tooltip-wrapper ".concat(wrapperClassname || ""),
     style: {
-      ...(flex ? {
-        flex: 1
+      ...(wrapperFlex ? {
+        flex: 1,
+        display: "flex"
       } : {})
     }
   }, /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("div", {
     ref: contentRef,
     className: "content",
     onMouseEnter: handleMouseEnter,
-    onMouseLeave: handleMouseLeave
-  }, children), (text === null || text === void 0 || (_text$trim = text.trim) === null || _text$trim === void 0 || (_text$trim = _text$trim.call(text)) === null || _text$trim === void 0 ? void 0 : _text$trim.length) > 0 && show && isShow && /*#__PURE__*/external_root_ReactDOM_commonjs2_react_dom_commonjs_react_dom_amd_react_dom_default().createPortal( /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("div", {
+    onMouseLeave: handleMouseLeave,
+    style: {
+      ...(wrapperFlex ? {
+        flex: 1
+      } : {})
+    }
+  }, children), (typeof text === "string" ? (text === null || text === void 0 || (_text$trim = text.trim) === null || _text$trim === void 0 || (_text$trim = _text$trim.call(text)) === null || _text$trim === void 0 ? void 0 : _text$trim.length) > 0 : text) && show && isShow && /*#__PURE__*/external_root_ReactDOM_commonjs2_react_dom_commonjs_react_dom_amd_react_dom_default().createPortal( /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("div", {
     ref: tooltipRef,
     onClick: handleClick,
     onMouseEnter: handleMouseEnterTooltip,
@@ -1029,7 +1033,7 @@ const Tooltip = _ref => {
       backgroundColor: tooltipBgc,
       color: tooltipFontColor,
       width,
-      whiteSpace: wrap || width ? "wrap" : "nowrap",
+      whiteSpace: wrap || width ? "normal" : "nowrap",
       position: "absolute",
       ...calcTooltipContentTopAndLeft()
     }
