@@ -11,8 +11,6 @@ export type NodeType = {
 };
 
 interface ListProps {
-    maxLevel?: number;
-    lazy?: boolean;
     overflowY?: boolean;
     data?: any[];
     activeBgc?: any;
@@ -33,16 +31,13 @@ interface ListProps {
     prefixTag?: string;
     onToggle?: (node: any) => void;
     onItemClick?: (node: any) => void;
-    onToggleIconClick?: (node: any) => void;
+    onIconClick?: (node: any) => void;
     onOptIconClick?: (type: string, node: any) => void;
-    onLoadNode?: (node: any, treeData: any) => void;
 }
 
 const List = forwardRef(
     (
         {
-            maxLevel,
-            lazy,
             overflowY = true,
             activeBgc,
             deleteIconClass,
@@ -54,7 +49,7 @@ const List = forwardRef(
             children,
             wrap = true,
             data,
-            isTree = false,
+            isTree = true,
             showOptIcons = true,
             showAddIcon = true,
             showEditIcon = true,
@@ -63,22 +58,20 @@ const List = forwardRef(
             maxHeight = '100%',
             onToggle,
             onItemClick,
-            onToggleIconClick,
+            onIconClick,
             onOptIconClick,
-            onLoadNode,
         }: ListProps,
         ref
     ) => {
         const [_activeId, set_ActiveId] = useState(activeId);
-        const [treeData, settreeData] = useState<any[]>([]);
 
         const handleItemClick = (node: any) => {
             set_ActiveId(node.id);
             onItemClick && onItemClick(node);
         };
 
-        const handleToggleIconClick = (node: any) => {
-            onToggleIconClick && onToggleIconClick(node);
+        const handleIconClick = (node: any) => {
+            onIconClick && onIconClick(node);
         };
 
         const handleOptIconClick = (type: string, node: any) => {
@@ -115,83 +108,24 @@ const List = forwardRef(
             }, 0);
         };
 
-        const convertListToTree = (list: any[], pid: any) => {
-            let level = 0;
-            // 递归辅助函数，用于处理每个节点及其子节点
-            const buildTree = (items: any[], parentId: any, currentLevel: any) => {
-                const children: any = [];
-                items.forEach((item: any) => {
-                    if (item.pid === parentId) {
-                        item.level = currentLevel;
-                        children.push(item);
-                        // 递归调用自身处理子节点，层级加1
-                        item.children = buildTree(list, item.id, currentLevel + 1);
-                    }
-                });
-                return children;
-            };
-
-            const data: any[] = buildTree(list, pid, level);
-
-            return data;
-        };
-
-        function flattenDataWithoutNesting(data: any[]) {
-            let flattened: any = [];
-
-            function flattenRecursive(node: any, parentId: any) {
-                const { id, name, isExpanded } = node;
-
-                flattened.push({
-                    ...node,
-                    id,
-                    name,
-                    isExpanded,
-                    pid: parentId,
-                });
-
-                if (node.children && node.children.length > 0) {
-                    node.children.forEach((child: any) => {
-                        flattenRecursive(child, id);
-                    });
-                }
-            }
-
-            data.forEach((rootNode: any) => {
-                flattenRecursive(rootNode, null);
-            });
-
-            return flattened;
-        }
-
-        const handleLoadNode = async (node: any) => {
-            if (onLoadNode) {
-                const res = await onLoadNode(node, treeData);
-                return res;
-            }
-        };
-
         useImperativeHandle(ref, () => ({
             scrollToEnd,
             scrollToTop,
-            flattenDataWithoutNesting,
-            convertListToTree,
         }));
 
         useEffect(() => {
             set_ActiveId(activeId);
         }, [activeId]);
 
-        useEffect(() => {
-            settreeData(convertListToTree(flattenDataWithoutNesting(data!), data?.[0]?.pid || null));
-        }, [data]);
-
-        useEffect(() => {
-            // console.log("treeData: ", treeData);
-        }, [treeData]);
-
         return (
             <div className="list-wrapper" style={{ flex: 1, height: '100%' }}>
+                {showSearch && (
+                    <div className="showSearch mb-2">
+                        <Input onIconClick={handleInputIconClick} onChange={(value: string) => handleInputChange(value)}>
+                            <i className="fa-solid fa-magnifying-glass"></i>
+                        </Input>
+                    </div>
+                )}
                 <div
                     ref={listRef}
                     className="list-content"
@@ -201,12 +135,9 @@ const List = forwardRef(
                         overflow: overflowY ? 'auto' : '',
                     }}
                 >
-                    {treeData &&
-                        treeData.map((item: any) => (
+                    {data &&
+                        data.map((item: any) => (
                             <ListNode
-                                maxLevel={maxLevel}
-                                onLoadNode={handleLoadNode}
-                                lazy={lazy}
                                 activeBgc={activeBgc}
                                 addIconClass={addIconClass}
                                 deleteIconClass={deleteIconClass}
@@ -218,8 +149,8 @@ const List = forwardRef(
                                 showAddIcon={showAddIcon}
                                 activeId={_activeId}
                                 showOptIcons={showOptIcons}
-                                onOptIconClick={(type: any, node: any) => handleOptIconClick(type, node)}
-                                onToggleIconClick={handleToggleIconClick}
+                                onOptIconClick={(type, node) => handleOptIconClick(type, node)}
+                                onIconClick={handleIconClick}
                                 onItemClick={handleItemClick}
                                 key={item.id}
                                 node={item}

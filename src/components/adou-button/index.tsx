@@ -2,23 +2,23 @@ import React, { ReactNode } from 'react';
 import classNames from 'classnames';
 import './index.scss';
 
-type color = 'primary' | 'secondary' | 'danger' | 'success' | 'warning' | 'info' | 'light' | 'dark';
+type ThemeType = 'primary' | 'secondary' | 'danger' | 'success' | 'warning' | 'info' | 'light' | 'dark';
 
 interface buttonProps {
-    type?: color;
+    type?: ThemeType;
     size?: 'sm' | 'md' | 'lg';
     children?: ReactNode;
-    className?: string;
+    externalClassName?: string;
     round?: boolean;
-    textColor?: color;
-    outlineColor?: color;
+    textColor?: ThemeType;
+    outlineColor?: ThemeType;
     disabled?: boolean;
     label?: string;
     prefixIcon?: string;
     suffixIcon?: string;
     loading?: boolean;
     spinerType?: 'border' | 'grow';
-    spinerColor?: color;
+    spinerColor?: ThemeType;
     fontSize?: string;
     onClickOK?: () => void;
 }
@@ -30,11 +30,10 @@ const Button: React.FC<buttonProps> = (props: buttonProps) => {
         loading,
         suffixIcon,
         prefixIcon,
-        label,
         children,
         type,
         size,
-        className,
+        externalClassName,
         round,
         textColor,
         disabled,
@@ -49,11 +48,11 @@ const Button: React.FC<buttonProps> = (props: buttonProps) => {
         btn: true,
         [`btn-${type}`]: type, // 是 true就会加上这个类名
         [`btn-${size}`]: size,
-        [`rounded`]: round,
+        [`rounded-pill`]: round,
         [`text-${textColor}`]: textColor,
         [`btn-outline-${outlineColor}`]: outlineColor,
         disabled,
-        [className as string]: className,
+        [externalClassName as string]: externalClassName,
     });
 
     const renderPrefixIcon = () => {
@@ -97,6 +96,7 @@ const Button: React.FC<buttonProps> = (props: buttonProps) => {
         React.Children.map(children, (child: any) => {
             if (child.props?.className?.includes('loader')) {
                 hasLoader = true;
+                console.log('有: ');
             }
         });
         if (hasLoader) {
@@ -118,7 +118,7 @@ const Button: React.FC<buttonProps> = (props: buttonProps) => {
         <span className="button-wrapper">
             <button style={{ cursor: 'pointer', height: '100%' }} onClick={handleOnClick} className={cls} disabled={loading}>
                 {loading ? (
-                    <div className="d-flex align-items-center">
+                    <div className="loading-btn">
                         {renderLoadingIcon()}
                         {renderLabel()}
                     </div>

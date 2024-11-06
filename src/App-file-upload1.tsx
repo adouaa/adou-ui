@@ -13,7 +13,7 @@ const App = (props: AppProps) => {
         <FileUpload></FileUpload>
 
 
-        <Form commonSuffixContent={<Button size='sm' outlineColor='danger' className='ms-2' suffixIcon='fa-solid fa-trash'></Button>}>
+        <Form commonSuffixContent={<Button size='sm' outlineColor='danger' externalClassName='ms-2' suffixIcon='fa-solid fa-trash'></Button>}>
             <FormItem name="cs" label="测试">
                 <FormItem.Input></FormItem.Input>
             </FormItem>

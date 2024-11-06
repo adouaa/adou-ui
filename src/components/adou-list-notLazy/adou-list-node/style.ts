@@ -77,7 +77,7 @@ export const ListNodeWrapper = styled.div<ListNodeWrapperProps>`
             }
 
             .no-children {
-                /* padding-left: 10px; */
+                padding-left: 10px;
             }
         }
 

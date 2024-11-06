@@ -23,7 +23,6 @@ const Card = ({
 }: CardProps) => {
   const [isEnter, setIsEnter] = useState<boolean>(false);
   const handleMouseEnter = () => {
-    console.log("6: ", 6);
     if (hoverUp) {
       setIsEnter(true);
     }

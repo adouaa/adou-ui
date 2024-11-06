@@ -128,12 +128,12 @@ const Dialog: React.FC<DialogProps> = ({
                             </div>
                             <div className="dialog-footer d-flex justify-content-end p-3">
                                 {showCancel && (
-                                    <Button className={`me-2 btn-${cancelBtnClass}`} size="md" onClickOK={onCancel ?? onClose}>
+                                    <Button externalClassName={`me-2 btn-${cancelBtnClass}`} size="md" onClickOK={onCancel ?? onClose}>
                                         {cancelText}
                                     </Button>
                                 )}
                                 {showConfirm && (
-                                    <Button disabled={!canConfirm} className={`btn-${confirmBtnClass}`} size="md" onClickOK={onConfirm}>
+                                    <Button disabled={!canConfirm} externalClassName={`btn-${confirmBtnClass}`} size="md" onClickOK={onConfirm}>
                                         {confirmText}
                                     </Button>
                                 )}

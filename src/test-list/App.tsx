@@ -64,46 +64,6 @@ const testData = [
         id: '2',
         name: '根节点2',
         isExpanded: false,
-        children: [
-            {
-                id: '2-1',
-                name: '子节点2-1',
-                isExpanded: false,
-                children: [
-                    {
-                        id: '2-1-1',
-                        name: '孙节点2-1-1',
-                        isExpanded: false,
-                        children: [],
-                    },
-                    {
-                        id: '2-1-2',
-                        name: '孙节点2-1-2',
-                        isExpanded: false,
-                        children: [],
-                    },
-                ],
-            },
-            {
-                id: '2-2',
-                name: '子节点2-2',
-                isExpanded: false,
-                children: [
-                    {
-                        id: '2-2-1',
-                        name: '孙节点2-2-1',
-                        isExpanded: false,
-                        children: [],
-                    },
-                    {
-                        id: '2-2-2',
-                        name: '孙节点2-2-2',
-                        isExpanded: false,
-                        children: [],
-                    },
-                ],
-            },
-        ],
     },
 ];
 
@@ -203,7 +163,7 @@ const App = () => {
                 showEditIcon={true}
                 onToggle={(node) => console.log('节点展开/折叠:', node)}
                 onItemClick={(node) => handleItemClick(node)}
-                onIconClick={(node) => console.log('图标点击:', node)}
+                onToggleIconClick={(node) => console.log('图标点击:', node)}
                 onOptIconClick={(type, node) => console.log(`操作图标点击: 类型:${type}, 节点:${node}`)}
             />
             <h1>4测试</h1>
