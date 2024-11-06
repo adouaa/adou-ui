@@ -6,6 +6,8 @@ export type NodeType = {
     children: NodeType[];
 };
 interface ListProps {
+    maxLevel?: number;
+    lazy?: boolean;
     overflowY?: boolean;
     data?: any[];
     activeBgc?: any;
@@ -26,8 +28,9 @@ interface ListProps {
     prefixTag?: string;
     onToggle?: (node: any) => void;
     onItemClick?: (node: any) => void;
-    onIconClick?: (node: any) => void;
+    onToggleIconClick?: (node: any) => void;
     onOptIconClick?: (type: string, node: any) => void;
+    onLoadNode?: (node: any, treeData: any) => void;
 }
 declare const List: React.ForwardRefExoticComponent<ListProps & React.RefAttributes<unknown>>;
 export default List;

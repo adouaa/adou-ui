@@ -167,823 +167,6 @@ module.exports = function shallowEqual(objA, objB, compare, compareContext) {
 
 /***/ }),
 
-/***/ 281:
-/***/ (function(module, __unused_webpack_exports, __webpack_require__) {
-
-(function webpackUniversalModuleDefinition(root, factory) {
-  if (true) module.exports = factory(__webpack_require__(442));else {}
-})(this, __WEBPACK_EXTERNAL_MODULE__442__ => {
-  return /******/(() => {
-    // webpackBootstrap
-    /******/
-    var __webpack_modules__ = {
-      /***/191: ( /***/module => {
-        "use strict";
-
-        /*
-          MIT License http://www.opensource.org/licenses/mit-license.php
-          Author Tobias Koppers @sokra
-        */
-        module.exports = function (cssWithMappingToString) {
-          var list = [];
-
-          // return the list of modules as css string
-          list.toString = function toString() {
-            return this.map(function (item) {
-              var content = "";
-              var needLayer = typeof item[5] !== "undefined";
-              if (item[4]) {
-                content += "@supports (".concat(item[4], ") {");
-              }
-              if (item[2]) {
-                content += "@media ".concat(item[2], " {");
-              }
-              if (needLayer) {
-                content += "@layer".concat(item[5].length > 0 ? " ".concat(item[5]) : "", " {");
-              }
-              content += cssWithMappingToString(item);
-              if (needLayer) {
-                content += "}";
-              }
-              if (item[2]) {
-                content += "}";
-              }
-              if (item[4]) {
-                content += "}";
-              }
-              return content;
-            }).join("");
-          };
-
-          // import a list of modules into the list
-          list.i = function i(modules, media, dedupe, supports, layer) {
-            if (typeof modules === "string") {
-              modules = [[null, modules, undefined]];
-            }
-            var alreadyImportedModules = {};
-            if (dedupe) {
-              for (var k = 0; k < this.length; k++) {
-                var id = this[k][0];
-                if (id != null) {
-                  alreadyImportedModules[id] = true;
-                }
-              }
-            }
-            for (var _k = 0; _k < modules.length; _k++) {
-              var item = [].concat(modules[_k]);
-              if (dedupe && alreadyImportedModules[item[0]]) {
-                continue;
-              }
-              if (typeof layer !== "undefined") {
-                if (typeof item[5] === "undefined") {
-                  item[5] = layer;
-                } else {
-                  item[1] = "@layer".concat(item[5].length > 0 ? " ".concat(item[5]) : "", " {").concat(item[1], "}");
-                  item[5] = layer;
-                }
-              }
-              if (media) {
-                if (!item[2]) {
-                  item[2] = media;
-                } else {
-                  item[1] = "@media ".concat(item[2], " {").concat(item[1], "}");
-                  item[2] = media;
-                }
-              }
-              if (supports) {
-                if (!item[4]) {
-                  item[4] = "".concat(supports);
-                } else {
-                  item[1] = "@supports (".concat(item[4], ") {").concat(item[1], "}");
-                  item[4] = supports;
-                }
-              }
-              list.push(item);
-            }
-          };
-          return list;
-        };
-
-        /***/
-      }),
-      /***/73: ( /***/module => {
-        "use strict";
-
-        module.exports = function (item) {
-          var content = item[1];
-          var cssMapping = item[3];
-          if (!cssMapping) {
-            return content;
-          }
-          if (typeof btoa === "function") {
-            var base64 = btoa(unescape(encodeURIComponent(JSON.stringify(cssMapping))));
-            var data = "sourceMappingURL=data:application/json;charset=utf-8;base64,".concat(base64);
-            var sourceMapping = "/*# ".concat(data, " */");
-            return [content].concat([sourceMapping]).join("\n");
-          }
-          return [content].join("\n");
-        };
-
-        /***/
-      }),
-      /***/483: ( /***/(module, __nested_webpack_exports__, __nested_webpack_require_4272__) => {
-        "use strict";
-
-        /* harmony export */
-        __nested_webpack_require_4272__.d(__nested_webpack_exports__, {
-          /* harmony export */A: () => __WEBPACK_DEFAULT_EXPORT__
-          /* harmony export */
-        });
-        /* harmony import */
-        var _node_modules_css_loader_dist_runtime_sourceMaps_js__WEBPACK_IMPORTED_MODULE_0__ = __nested_webpack_require_4272__(73);
-        /* harmony import */
-        var _node_modules_css_loader_dist_runtime_sourceMaps_js__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__nested_webpack_require_4272__.n(_node_modules_css_loader_dist_runtime_sourceMaps_js__WEBPACK_IMPORTED_MODULE_0__);
-        /* harmony import */
-        var _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_1__ = __nested_webpack_require_4272__(191);
-        /* harmony import */
-        var _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__nested_webpack_require_4272__.n(_node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_1__);
-        // Imports
-
-        var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_1___default()(_node_modules_css_loader_dist_runtime_sourceMaps_js__WEBPACK_IMPORTED_MODULE_0___default());
-        // Module
-        ___CSS_LOADER_EXPORT___.push([module.id, "@charset \"UTF-8\";\n.suffix-icon {\n  /* margin-left: -40px !important;\n  margin-top: 6px;\n  z-index: 9; */\n  position: absolute;\n  right: 12px;\n  top: 30px;\n  /* \u5782\u76F4\u5C45\u4E2D */\n  cursor: pointer;\n  /* \u9F20\u6807\u60AC\u505C\u65F6\u663E\u793A\u6307\u9488\u6837\u5F0F */\n  transition: transform 0.3s;\n  /* \u6DFB\u52A0\u8FC7\u6E21\u6548\u679C */\n  color: #c6c6cd;\n}\n.suffix-icon:hover {\n  transform: scale(1.3);\n  /* \u6C34\u5E73\u548C\u5782\u76F4\u65B9\u5411\u90FD\u653E\u59271.5\u500D */\n  color: #51515b;\n}\n\n.common-suffix-icon {\n  display: flex;\n  align-items: center;\n  cursor: pointer;\n}\n\n.common-suffix-icon {\n  display: flex;\n  align-items: center;\n  cursor: pointer;\n}\n\n.label-box {\n  font-size: 14px;\n  min-width: 50px;\n  text-align: right;\n  justify-content: flex-end;\n  padding-right: 10px;\n  flex-wrap: wrap;\n}\n\n.icon-input {\n  position: relative;\n  /* \u8BA9\u4F2A\u5143\u7D20\u76F8\u5BF9\u4E8E\u8F93\u5165\u6846\u5B9A\u4F4D */\n}\n\n.input-wrapper input::placeholder {\n  color: #999;\n}\n.input-wrapper .content-box {\n  flex: 1;\n  align-items: stretch;\n}\n.input-wrapper .content-box .suffix-content-btn {\n  border-top-right-radius: 0 !important;\n  /* \u53BB\u6389\u53F3\u4E0A\u89D2\u7684\u5706\u89D2 */\n  border-bottom-right-radius: 0 !important;\n  border-right: none;\n  /* \u53BB\u6389\u53F3\u4E0B\u89D2\u7684\u5706\u89D2 */\n}\n.input-wrapper .content-box .suffix-content-btn-wrapper {\n  min-width: 37px;\n  display: flex;\n  align-items: center;\n  justify-content: center;\n  background-color: #eee;\n  border-top-right-radius: 6px;\n  border-bottom-right-radius: 6px;\n}\n.input-wrapper .content-box .suffix-content-btn-wrapper .btn {\n  border-top-left-radius: 0;\n  /* \u53BB\u6389\u5DE6\u4E0A\u89D2\u7684\u5706\u89D2 */\n  border-bottom-left-radius: 0;\n  /* \u53BB\u6389\u5DE6\u4E0B\u89D2\u7684\u5706\u89D2 */\n}\n.input-wrapper .content-box .suffix-content-text-wrapper {\n  display: flex;\n  align-items: center;\n  justify-content: center;\n}\n\n.label-in-center {\n  display: flex;\n}\n.label-in-center .suffix-icon {\n  top: 7px;\n}\n\n.label-in-left-top {\n  display: flex;\n}\n.label-in-left-top .label-box {\n  display: flex;\n  align-items: start;\n}\n.label-in-left-top .suffix-icon {\n  top: 7px;\n}\n\n.input-group .suffix-icon {\n  top: 7px !important;\n}\n\n.input-group-text {\n  cursor: pointer;\n}", "", {
-          "version": 3,
-          "sources": ["webpack://./src/index.scss"],
-          "names": [],
-          "mappings": "AAAA,gBAAgB;AAAhB;EACI;;eAAA;EAGA,kBAAA;EACA,WAAA;EACA,SAAA;EACA,SAAA;EACA,eAAA;EACA,gBAAA;EACA,0BAAA;EACA,WAAA;EACA,cAAA;AAEJ;AAAI;EACI,qBAAA;EACA,mBAAA;EACA,cAAA;AAER;;AAEA;EACI,aAAA;EACA,mBAAA;EACA,eAAA;AACJ;;AAEA;EACI,aAAA;EACA,mBAAA;EACA,eAAA;AACJ;;AAEA;EACI,eAAA;EACA,eAAA;EACA,iBAAA;EACA,yBAAA;EACA,mBAAA;EACA,eAAA;AACJ;;AAEA;EACI,kBAAA;EACA,iBAAA;AACJ;;AAII;EACI,WAAA;AADR;AAII;EACI,OAAA;EACA,oBAAA;AAFR;AAMQ;EACI,qCAAA;EACA,aAAA;EACA,wCAAA;EACA,kBAAA;EACA,aAAA;AAJZ;AAOQ;EACI,eAAA;EACA,aAAA;EACA,mBAAA;EACA,uBAAA;EACA,sBAAA;EACA,4BAAA;EACA,+BAAA;AALZ;AAQQ;EACI,yBAAA;EACA,aAAA;EACA,4BAAA;EACA,aAAA;AANZ;AASQ;EACI,aAAA;EACA,mBAAA;EACA,uBAAA;AAPZ;;AAcA;EACI,aAAA;AAXJ;AAaI;EACI,QAAA;AAXR;;AAeA;EACI,aAAA;AAZJ;AAcI;EACI,aAAA;EACA,kBAAA;AAZR;AAeI;EACI,QAAA;AAbR;;AAkBI;EACI,mBAAA;AAfR;;AAmBA;EACI,eAAA;AAhBJ",
-          "sourcesContent": [".suffix-icon {\r\n    /* margin-left: -40px !important;\r\n    margin-top: 6px;\r\n    z-index: 9; */\r\n    position: absolute;\r\n    right: 12px;\r\n    top: 30px;\r\n    /* 垂直居中 */\r\n    cursor: pointer;\r\n    /* 鼠标悬停时显示指针样式 */\r\n    transition: transform 0.3s;\r\n    /* 添加过渡效果 */\r\n    color: #c6c6cd;\r\n\r\n    &:hover {\r\n        transform: scale(1.3);\r\n        /* 水平和垂直方向都放大1.5倍 */\r\n        color: #51515b;\r\n    }\r\n}\r\n\r\n.common-suffix-icon {\r\n    display: flex;\r\n    align-items: center;\r\n    cursor: pointer;\r\n}\r\n\r\n.common-suffix-icon {\r\n    display: flex;\r\n    align-items: center;\r\n    cursor: pointer;\r\n}\r\n\r\n.label-box {\r\n    font-size: 14px;\r\n    min-width: 50px;\r\n    text-align: right;\r\n    justify-content: flex-end;\r\n    padding-right: 10px;\r\n    flex-wrap: wrap;\r\n}\r\n\r\n.icon-input {\r\n    position: relative;\r\n    /* 让伪元素相对于输入框定位 */\r\n\r\n}\r\n\r\n.input-wrapper {\r\n    input::placeholder {\r\n        color: #999; // 你可以根据需要修改颜色\r\n    }\r\n\r\n    .content-box {\r\n        flex: 1;\r\n        align-items: stretch;\r\n\r\n        .label-box {}\r\n\r\n        .suffix-content-btn {\r\n            border-top-right-radius: 0 !important;\r\n            /* 去掉右上角的圆角 */\r\n            border-bottom-right-radius: 0 !important;\r\n            border-right: none;\r\n            /* 去掉右下角的圆角 */\r\n        }\r\n\r\n        .suffix-content-btn-wrapper {\r\n            min-width: 37px;\r\n            display: flex;\r\n            align-items: center;\r\n            justify-content: center;\r\n            background-color: #eee;\r\n            border-top-right-radius: 6px;\r\n            border-bottom-right-radius: 6px;\r\n        }\r\n\r\n        .suffix-content-btn-wrapper .btn {\r\n            border-top-left-radius: 0;\r\n            /* 去掉左上角的圆角 */\r\n            border-bottom-left-radius: 0;\r\n            /* 去掉左下角的圆角 */\r\n        }\r\n\r\n        .suffix-content-text-wrapper {\r\n            display: flex;\r\n            align-items: center;\r\n            justify-content: center;\r\n        }\r\n\r\n    }\r\n\r\n}\r\n\r\n.label-in-center {\r\n    display: flex;\r\n\r\n    .suffix-icon {\r\n        top: 7px;\r\n    }\r\n}\r\n\r\n.label-in-left-top {\r\n    display: flex;\r\n\r\n    .label-box {\r\n        display: flex;\r\n        align-items: start;\r\n    }\r\n\r\n    .suffix-icon {\r\n        top: 7px;\r\n    }\r\n}\r\n\r\n.input-group {\r\n    .suffix-icon {\r\n        top: 7px !important;\r\n    }\r\n}\r\n\r\n.input-group-text {\r\n    cursor: pointer;\r\n}\r\n\r\n.lable-in-control {}"],
-          "sourceRoot": ""
-        }]);
-        // Exports
-        /* harmony default export */
-        const __WEBPACK_DEFAULT_EXPORT__ = ___CSS_LOADER_EXPORT___;
-
-        /***/
-      }),
-      /***/591: ( /***/module => {
-        "use strict";
-
-        var stylesInDOM = [];
-        function getIndexByIdentifier(identifier) {
-          var result = -1;
-          for (var i = 0; i < stylesInDOM.length; i++) {
-            if (stylesInDOM[i].identifier === identifier) {
-              result = i;
-              break;
-            }
-          }
-          return result;
-        }
-        function modulesToDom(list, options) {
-          var idCountMap = {};
-          var identifiers = [];
-          for (var i = 0; i < list.length; i++) {
-            var item = list[i];
-            var id = options.base ? item[0] + options.base : item[0];
-            var count = idCountMap[id] || 0;
-            var identifier = "".concat(id, " ").concat(count);
-            idCountMap[id] = count + 1;
-            var indexByIdentifier = getIndexByIdentifier(identifier);
-            var obj = {
-              css: item[1],
-              media: item[2],
-              sourceMap: item[3],
-              supports: item[4],
-              layer: item[5]
-            };
-            if (indexByIdentifier !== -1) {
-              stylesInDOM[indexByIdentifier].references++;
-              stylesInDOM[indexByIdentifier].updater(obj);
-            } else {
-              var updater = addElementStyle(obj, options);
-              options.byIndex = i;
-              stylesInDOM.splice(i, 0, {
-                identifier: identifier,
-                updater: updater,
-                references: 1
-              });
-            }
-            identifiers.push(identifier);
-          }
-          return identifiers;
-        }
-        function addElementStyle(obj, options) {
-          var api = options.domAPI(options);
-          api.update(obj);
-          var updater = function updater(newObj) {
-            if (newObj) {
-              if (newObj.css === obj.css && newObj.media === obj.media && newObj.sourceMap === obj.sourceMap && newObj.supports === obj.supports && newObj.layer === obj.layer) {
-                return;
-              }
-              api.update(obj = newObj);
-            } else {
-              api.remove();
-            }
-          };
-          return updater;
-        }
-        module.exports = function (list, options) {
-          options = options || {};
-          list = list || [];
-          var lastIdentifiers = modulesToDom(list, options);
-          return function update(newList) {
-            newList = newList || [];
-            for (var i = 0; i < lastIdentifiers.length; i++) {
-              var identifier = lastIdentifiers[i];
-              var index = getIndexByIdentifier(identifier);
-              stylesInDOM[index].references--;
-            }
-            var newLastIdentifiers = modulesToDom(newList, options);
-            for (var _i = 0; _i < lastIdentifiers.length; _i++) {
-              var _identifier = lastIdentifiers[_i];
-              var _index = getIndexByIdentifier(_identifier);
-              if (stylesInDOM[_index].references === 0) {
-                stylesInDOM[_index].updater();
-                stylesInDOM.splice(_index, 1);
-              }
-            }
-            lastIdentifiers = newLastIdentifiers;
-          };
-        };
-
-        /***/
-      }),
-      /***/128: ( /***/module => {
-        "use strict";
-
-        var memo = {};
-
-        /* istanbul ignore next  */
-        function getTarget(target) {
-          if (typeof memo[target] === "undefined") {
-            var styleTarget = document.querySelector(target);
-
-            // Special case to return head of iframe instead of iframe itself
-            if (window.HTMLIFrameElement && styleTarget instanceof window.HTMLIFrameElement) {
-              try {
-                // This will throw an exception if access to iframe is blocked
-                // due to cross-origin restrictions
-                styleTarget = styleTarget.contentDocument.head;
-              } catch (e) {
-                // istanbul ignore next
-                styleTarget = null;
-              }
-            }
-            memo[target] = styleTarget;
-          }
-          return memo[target];
-        }
-
-        /* istanbul ignore next  */
-        function insertBySelector(insert, style) {
-          var target = getTarget(insert);
-          if (!target) {
-            throw new Error("Couldn't find a style target. This probably means that the value for the 'insert' parameter is invalid.");
-          }
-          target.appendChild(style);
-        }
-        module.exports = insertBySelector;
-
-        /***/
-      }),
-      /***/51: ( /***/module => {
-        "use strict";
-
-        /* istanbul ignore next  */
-        function insertStyleElement(options) {
-          var element = document.createElement("style");
-          options.setAttributes(element, options.attributes);
-          options.insert(element, options.options);
-          return element;
-        }
-        module.exports = insertStyleElement;
-
-        /***/
-      }),
-      /***/855: ( /***/(module, __unused_webpack_exports, __nested_webpack_require_16749__) => {
-        "use strict";
-
-        /* istanbul ignore next  */
-        function setAttributesWithoutAttributes(styleElement) {
-          var nonce =  true ? __nested_webpack_require_16749__.nc : 0;
-          if (nonce) {
-            styleElement.setAttribute("nonce", nonce);
-          }
-        }
-        module.exports = setAttributesWithoutAttributes;
-
-        /***/
-      }),
-      /***/740: ( /***/module => {
-        "use strict";
-
-        /* istanbul ignore next  */
-        function apply(styleElement, options, obj) {
-          var css = "";
-          if (obj.supports) {
-            css += "@supports (".concat(obj.supports, ") {");
-          }
-          if (obj.media) {
-            css += "@media ".concat(obj.media, " {");
-          }
-          var needLayer = typeof obj.layer !== "undefined";
-          if (needLayer) {
-            css += "@layer".concat(obj.layer.length > 0 ? " ".concat(obj.layer) : "", " {");
-          }
-          css += obj.css;
-          if (needLayer) {
-            css += "}";
-          }
-          if (obj.media) {
-            css += "}";
-          }
-          if (obj.supports) {
-            css += "}";
-          }
-          var sourceMap = obj.sourceMap;
-          if (sourceMap && typeof btoa !== "undefined") {
-            css += "\n/*# sourceMappingURL=data:application/json;base64,".concat(btoa(unescape(encodeURIComponent(JSON.stringify(sourceMap)))), " */");
-          }
-
-          // For old IE
-          /* istanbul ignore if  */
-          options.styleTagTransform(css, styleElement, options.options);
-        }
-        function removeStyleElement(styleElement) {
-          // istanbul ignore if
-          if (styleElement.parentNode === null) {
-            return false;
-          }
-          styleElement.parentNode.removeChild(styleElement);
-        }
-
-        /* istanbul ignore next  */
-        function domAPI(options) {
-          if (typeof document === "undefined") {
-            return {
-              update: function update() {},
-              remove: function remove() {}
-            };
-          }
-          var styleElement = options.insertStyleElement(options);
-          return {
-            update: function update(obj) {
-              apply(styleElement, options, obj);
-            },
-            remove: function remove() {
-              removeStyleElement(styleElement);
-            }
-          };
-        }
-        module.exports = domAPI;
-
-        /***/
-      }),
-      /***/656: ( /***/module => {
-        "use strict";
-
-        /* istanbul ignore next  */
-        function styleTagTransform(css, styleElement) {
-          if (styleElement.styleSheet) {
-            styleElement.styleSheet.cssText = css;
-          } else {
-            while (styleElement.firstChild) {
-              styleElement.removeChild(styleElement.firstChild);
-            }
-            styleElement.appendChild(document.createTextNode(css));
-          }
-        }
-        module.exports = styleTagTransform;
-
-        /***/
-      }),
-      /***/442: ( /***/module => {
-        "use strict";
-
-        module.exports = __WEBPACK_EXTERNAL_MODULE__442__;
-
-        /***/
-      }),
-      /***/650: ( /***/(module, exports) => {
-        var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__; /*!
-                                                                         Copyright (c) 2018 Jed Watson.
-                                                                         Licensed under the MIT License (MIT), see
-                                                                         http://jedwatson.github.io/classnames
-                                                                         */
-        /* global define */
-
-        (function () {
-          'use strict';
-
-          var hasOwn = {}.hasOwnProperty;
-          function classNames() {
-            var classes = '';
-            for (var i = 0; i < arguments.length; i++) {
-              var arg = arguments[i];
-              if (arg) {
-                classes = appendClass(classes, parseValue(arg));
-              }
-            }
-            return classes;
-          }
-          function parseValue(arg) {
-            if (typeof arg === 'string' || typeof arg === 'number') {
-              return arg;
-            }
-            if (typeof arg !== 'object') {
-              return '';
-            }
-            if (Array.isArray(arg)) {
-              return classNames.apply(null, arg);
-            }
-            if (arg.toString !== Object.prototype.toString && !arg.toString.toString().includes('[native code]')) {
-              return arg.toString();
-            }
-            var classes = '';
-            for (var key in arg) {
-              if (hasOwn.call(arg, key) && arg[key]) {
-                classes = appendClass(classes, key);
-              }
-            }
-            return classes;
-          }
-          function appendClass(value, newClass) {
-            if (!newClass) {
-              return value;
-            }
-            if (value) {
-              return value + ' ' + newClass;
-            }
-            return value + newClass;
-          }
-          if ( true && module.exports) {
-            classNames.default = classNames;
-            module.exports = classNames;
-          } else if (true) {
-            // register as 'classnames', consistent with npm package name
-            !(__WEBPACK_AMD_DEFINE_ARRAY__ = [], __WEBPACK_AMD_DEFINE_RESULT__ = function () {
-              return classNames;
-            }.apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__), __WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
-          } else {}
-        })();
-
-        /***/
-      })
-
-      /******/
-    };
-    /************************************************************************/
-    /******/ // The module cache
-    /******/
-    var __webpack_module_cache__ = {};
-    /******/
-    /******/ // The require function
-    /******/
-    function __nested_webpack_require_22672__(moduleId) {
-      /******/ // Check if module is in cache
-      /******/var cachedModule = __webpack_module_cache__[moduleId];
-      /******/
-      if (cachedModule !== undefined) {
-        /******/return cachedModule.exports;
-        /******/
-      }
-      /******/ // Create a new module (and put it into the cache)
-      /******/
-      var module = __webpack_module_cache__[moduleId] = {
-        /******/id: moduleId,
-        /******/ // no module.loaded needed
-        /******/exports: {}
-        /******/
-      };
-      /******/
-      /******/ // Execute the module function
-      /******/
-      __webpack_modules__[moduleId](module, module.exports, __nested_webpack_require_22672__);
-      /******/
-      /******/ // Return the exports of the module
-      /******/
-      return module.exports;
-      /******/
-    }
-    /******/
-    /************************************************************************/
-    /******/ /* webpack/runtime/compat get default export */
-    /******/
-    (() => {
-      /******/ // getDefaultExport function for compatibility with non-harmony modules
-      /******/__nested_webpack_require_22672__.n = module => {
-        /******/var getter = module && module.__esModule ? /******/() => module['default'] : /******/() => module;
-        /******/
-        __nested_webpack_require_22672__.d(getter, {
-          a: getter
-        });
-        /******/
-        return getter;
-        /******/
-      };
-      /******/
-    })();
-    /******/
-    /******/ /* webpack/runtime/define property getters */
-    /******/
-    (() => {
-      /******/ // define getter functions for harmony exports
-      /******/__nested_webpack_require_22672__.d = (exports, definition) => {
-        /******/for (var key in definition) {
-          /******/if (__nested_webpack_require_22672__.o(definition, key) && !__nested_webpack_require_22672__.o(exports, key)) {
-            /******/Object.defineProperty(exports, key, {
-              enumerable: true,
-              get: definition[key]
-            });
-            /******/
-          }
-          /******/
-        }
-        /******/
-      };
-      /******/
-    })();
-    /******/
-    /******/ /* webpack/runtime/hasOwnProperty shorthand */
-    /******/
-    (() => {
-      /******/__nested_webpack_require_22672__.o = (obj, prop) => Object.prototype.hasOwnProperty.call(obj, prop);
-      /******/
-    })();
-    /******/
-    /******/ /* webpack/runtime/make namespace object */
-    /******/
-    (() => {
-      /******/ // define __esModule on exports
-      /******/__nested_webpack_require_22672__.r = exports => {
-        /******/if (typeof Symbol !== 'undefined' && Symbol.toStringTag) {
-          /******/Object.defineProperty(exports, Symbol.toStringTag, {
-            value: 'Module'
-          });
-          /******/
-        }
-        /******/
-        Object.defineProperty(exports, '__esModule', {
-          value: true
-        });
-        /******/
-      };
-      /******/
-    })();
-    /******/
-    /******/ /* webpack/runtime/nonce */
-    /******/
-    (() => {
-      /******/__nested_webpack_require_22672__.nc = undefined;
-      /******/
-    })();
-    /******/
-    /************************************************************************/
-    var __nested_webpack_exports__ = {};
-    // This entry need to be wrapped in an IIFE because it need to be in strict mode.
-    (() => {
-      "use strict";
-
-      // ESM COMPAT FLAG
-      __nested_webpack_require_22672__.r(__nested_webpack_exports__);
-
-      // EXPORTS
-      __nested_webpack_require_22672__.d(__nested_webpack_exports__, {
-        "default": () => ( /* binding */src_0)
-      });
-
-      // EXTERNAL MODULE: external {"root":"React","commonjs2":"react","commonjs":"react","amd":"react"}
-      var external_root_React_commonjs2_react_commonjs_react_amd_react_ = __nested_webpack_require_22672__(442);
-      var external_root_React_commonjs2_react_commonjs_react_amd_react_default = /*#__PURE__*/__nested_webpack_require_22672__.n(external_root_React_commonjs2_react_commonjs_react_amd_react_);
-      // EXTERNAL MODULE: ../../../node_modules/classnames/index.js
-      var classnames = __nested_webpack_require_22672__(650);
-      var classnames_default = /*#__PURE__*/__nested_webpack_require_22672__.n(classnames);
-      // EXTERNAL MODULE: ../../node_modules/style-loader/dist/runtime/injectStylesIntoStyleTag.js
-      var injectStylesIntoStyleTag = __nested_webpack_require_22672__(591);
-      var injectStylesIntoStyleTag_default = /*#__PURE__*/__nested_webpack_require_22672__.n(injectStylesIntoStyleTag);
-      // EXTERNAL MODULE: ../../node_modules/style-loader/dist/runtime/styleDomAPI.js
-      var styleDomAPI = __nested_webpack_require_22672__(740);
-      var styleDomAPI_default = /*#__PURE__*/__nested_webpack_require_22672__.n(styleDomAPI);
-      // EXTERNAL MODULE: ../../node_modules/style-loader/dist/runtime/insertBySelector.js
-      var insertBySelector = __nested_webpack_require_22672__(128);
-      var insertBySelector_default = /*#__PURE__*/__nested_webpack_require_22672__.n(insertBySelector);
-      // EXTERNAL MODULE: ../../node_modules/style-loader/dist/runtime/setAttributesWithoutAttributes.js
-      var setAttributesWithoutAttributes = __nested_webpack_require_22672__(855);
-      var setAttributesWithoutAttributes_default = /*#__PURE__*/__nested_webpack_require_22672__.n(setAttributesWithoutAttributes);
-      // EXTERNAL MODULE: ../../node_modules/style-loader/dist/runtime/insertStyleElement.js
-      var insertStyleElement = __nested_webpack_require_22672__(51);
-      var insertStyleElement_default = /*#__PURE__*/__nested_webpack_require_22672__.n(insertStyleElement);
-      // EXTERNAL MODULE: ../../node_modules/style-loader/dist/runtime/styleTagTransform.js
-      var styleTagTransform = __nested_webpack_require_22672__(656);
-      var styleTagTransform_default = /*#__PURE__*/__nested_webpack_require_22672__.n(styleTagTransform);
-      // EXTERNAL MODULE: ../../node_modules/css-loader/dist/cjs.js??ruleSet[1].rules[1].use[1]!../../node_modules/sass-loader/dist/cjs.js??ruleSet[1].rules[1].use[2]!./src/index.scss
-      var cjs_ruleSet_1_rules_1_use_2_src = __nested_webpack_require_22672__(483);
-      ; // CONCATENATED MODULE: ./src/index.scss
-
-      var options = {};
-      options.styleTagTransform = styleTagTransform_default();
-      options.setAttributes = setAttributesWithoutAttributes_default();
-      options.insert = insertBySelector_default().bind(null, "head");
-      options.domAPI = styleDomAPI_default();
-      options.insertStyleElement = insertStyleElement_default();
-      var update = injectStylesIntoStyleTag_default()(cjs_ruleSet_1_rules_1_use_2_src /* default */.A, options);
-
-      /* harmony default export */
-      const src = cjs_ruleSet_1_rules_1_use_2_src /* default */.A && cjs_ruleSet_1_rules_1_use_2_src /* default */.A.locals ? cjs_ruleSet_1_rules_1_use_2_src /* default */.A.locals : undefined;
-      ; // CONCATENATED MODULE: ./src/index.tsx
-
-      const Input = (_ref, ref) => {
-        let {
-          name,
-          inline,
-          isFormItem,
-          errMsg,
-          labelWidth,
-          commonSuffixIcon,
-          inputGroup = false,
-          width,
-          label,
-          labelPosition = "center",
-          labelColor,
-          required = false,
-          type = "text",
-          defaultValue,
-          size,
-          externalClassName,
-          prefixContent,
-          suffixContent,
-          suffixContentType = "button",
-          placeholder,
-          style,
-          readOnly,
-          transparent,
-          children,
-          onClick,
-          onFocus,
-          onBlur,
-          onChange,
-          onIconClick,
-          onFormDataChange
-        } = _ref;
-        const inputRef = (0, external_root_React_commonjs2_react_commonjs_react_amd_react_.useRef)(null);
-        const [value, setValue] = (0, external_root_React_commonjs2_react_commonjs_react_amd_react_.useState)(defaultValue !== null && defaultValue !== void 0 ? defaultValue : "");
-        const cls = classnames_default()({
-          ["input-group-".concat(size)]: size,
-          [externalClassName]: externalClassName
-        });
-        const handleClick = function (e) {
-          for (var _len = arguments.length, args = new Array(_len > 1 ? _len - 1 : 0), _key = 1; _key < _len; _key++) {
-            args[_key - 1] = arguments[_key];
-          }
-          onClick && onClick(e, ...args);
-        };
-        const handleFocus = function (e) {
-          for (var _len2 = arguments.length, args = new Array(_len2 > 1 ? _len2 - 1 : 0), _key2 = 1; _key2 < _len2; _key2++) {
-            args[_key2 - 1] = arguments[_key2];
-          }
-          onFocus && onFocus(e, ...args);
-        };
-        const handleBlur = function (e) {
-          for (var _len3 = arguments.length, args = new Array(_len3 > 1 ? _len3 - 1 : 0), _key3 = 1; _key3 < _len3; _key3++) {
-            args[_key3 - 1] = arguments[_key3];
-          }
-          onBlur && onBlur(e, ...args);
-          validate();
-        };
-        const handleChange = function (e) {
-          const value = e.target.value;
-          setValue(value);
-          for (var _len4 = arguments.length, args = new Array(_len4 > 1 ? _len4 - 1 : 0), _key4 = 1; _key4 < _len4; _key4++) {
-            args[_key4 - 1] = arguments[_key4];
-          }
-          onChange && onChange(value, ...args);
-          onFormDataChange && onFormDataChange(name, value);
-        };
-        const handleIconClick = () => {
-          onIconClick && onIconClick(value);
-        };
-        const [error, setError] = (0, external_root_React_commonjs2_react_commonjs_react_amd_react_.useState)(false);
-        const validate = () => {
-          if (!required) return true;
-          // Example validation logic, replace with your actual validation needs
-          if (value) {
-            setError(false);
-            return true;
-          } else {
-            setError(true);
-            return false;
-          }
-        };
-        const clear = () => {
-          setValue("");
-        };
-        const handleClickCommonSuffixIcon = () => {
-          clear();
-          if (required) setError(true);
-        };
-
-        // Expose validate method via ref
-        (0, external_root_React_commonjs2_react_commonjs_react_amd_react_.useImperativeHandle)(ref, () => ({
-          validate,
-          clear
-        }));
-        (0, external_root_React_commonjs2_react_commonjs_react_amd_react_.useEffect)(() => {
-          if (defaultValue || defaultValue === 0) {
-            setValue(defaultValue);
-          } else {
-            setValue("");
-          }
-          if (defaultValue) {
-            setError(false);
-          }
-        }, [defaultValue]);
-
-        /**
-         * 获取组件的高度赋值给label
-         */
-        const wrapeerRef = (0, external_root_React_commonjs2_react_commonjs_react_amd_react_.useRef)();
-        (0, external_root_React_commonjs2_react_commonjs_react_amd_react_.useEffect)(() => {}, []);
-        return /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("div", {
-          className: "".concat(cls, " input-wrapper ").concat(inputGroup ? "" : "lable-in-control", " ").concat(!error && isFormItem && "mb-3"),
-          style: {
-            width,
-            ...(inline && !width ? {
-              flex: 1,
-              marginRight: "15px"
-            } : {})
-          }
-        }, /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("div", {
-          ref: wrapeerRef,
-          className: "content-box icon-input ".concat(inputGroup ? "input-group" : "", " label-in-").concat(labelPosition)
-        }, prefixContent && /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("span", {
-          className: "input-group-text",
-          id: "basic-addon1"
-        }, prefixContent), label && /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("span", {
-          className: "label-box",
-          style: {
-            color: labelColor,
-            width: labelWidth,
-            alignItems: labelPosition === "left-top" ? "start" : "center",
-            ...(labelPosition !== "top" && {
-              display: "flex"
-            })
-          }
-        }, label), /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("input", {
-          ref: inputRef,
-          required: required,
-          style: {
-            borderRadius: "6px",
-            borderTopLeftRadius: prefixContent ? 0 : "6px",
-            borderBottomLeftRadius: prefixContent ? 0 : "6px",
-            background: transparent ? "transparent" : "#fff",
-            flex: 1
-          },
-          step: 1,
-          name: name,
-          value: value,
-          readOnly: readOnly,
-          placeholder: placeholder,
-          onChange: handleChange,
-          onBlur: e => handleBlur(e),
-          onFocus: e => handleFocus(e),
-          onClick: e => handleClick(e),
-          type: type,
-          className: "form-control input ".concat(suffixContent && suffixContentType === "button" ? "suffix-content-btn" : ""),
-          "aria-label": "Username",
-          "aria-describedby": "basic-addon1"
-        }), suffixContent && /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("div", {
-          className: "".concat(suffixContentType === "button" ? "suffix-content-btn-wrapper px-2" : "suffix-content-text-wrapper ms-1")
-        }, suffixContent), commonSuffixIcon && /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("i", {
-          onClick: handleClickCommonSuffixIcon,
-          className: "".concat(commonSuffixIcon, " common-suffix-icon ms-2")
-        }), children && /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("div", {
-          onClick: handleIconClick,
-          className: "suffix-icon",
-          style: {
-            right: commonSuffixIcon && "32px"
-          }
-        }, children)), error && required && /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("div", {
-          className: "animate__animated animate__fadeIn mb-1",
-          style: {
-            color: "#DC3545",
-            fontSize: "14px",
-            paddingLeft: parseInt(labelWidth) > 120 ? "120px" : parseFloat(labelWidth) + 20 + "px"
-          }
-        }, "".concat(errMsg || "".concat(label, "\u4E0D\u80FD\u4E3A\u7A7A"))));
-      };
-      Input.displayName = "Input";
-      /* harmony default export */
-      const src_0 = /*#__PURE__*/(0, external_root_React_commonjs2_react_commonjs_react_amd_react_.forwardRef)(Input);
-    })();
-
-    /******/
-    return __nested_webpack_exports__;
-    /******/
-  })();
-});
-
-/***/ }),
-
 /***/ 562:
 /***/ ((module, __webpack_exports__, __webpack_require__) => {
 
@@ -1053,9 +236,6 @@ ___CSS_LOADER_EXPORT___.push([module.id, `@charset "UTF-8";
 .list-node-wrapper .node-item-list .left-content .right-content i {
   margin: 0 4px;
 }
-.list-node-wrapper .node-item-list .no-children {
-  padding-left: 8px;
-}
 .list-node-wrapper .children {
   max-height: 0;
   /* 初始状态下高度为0 */
@@ -1071,27 +251,7 @@ ___CSS_LOADER_EXPORT___.push([module.id, `@charset "UTF-8";
   /* 添加过渡效果 */
   max-height: 1000px;
   /* 展开时高度自动适应内容 */
-}
-
-/* 修改滚动条的样式 */
-::-webkit-scrollbar {
-  width: 8px;
-  /* 设置滚动条宽度 */
-}
-
-/* 修改滚动条轨道的样式 */
-/* 修改滚动条滑块的样式 */
-::-webkit-scrollbar-thumb {
-  background: #888;
-  /* 设置滚动条滑块颜色 */
-  border-radius: 6px;
-}
-
-/* 鼠标悬停在滚动条上时的样式 */
-::-webkit-scrollbar-thumb:hover {
-  background: #555;
-  /* 设置滚动条滑块在鼠标悬停时的颜色 */
-}`, "",{"version":3,"sources":["webpack://./src/ListNode/index.scss"],"names":[],"mappings":"AAAA,gBAAgB;AAAhB;EACI,cAAA;EACA,eAAA;AAEJ;AACQ;EAEI,aAAA;EACA,mBAAA;EACA,oEAAA;EACA,0BAAA;EAEA,kBAAA;EACA,iBAAA;EACA,gBAAA;EACA,eAAA;AADZ;AAGY;EACI,yBAAA;AADhB;AAIY;EACI,WAAA;EACA,yBAAA;AAFhB;AAKY;EACI,eAAA;EACA,gBAAA;EACA,kBAAA;EACA,yBAAA;EACA,cAAA;EACA,mBAAA;AAHhB;AAMY;EACI,eAAA;EACA,gBAAA;EACA,kBAAA;EACA,yBAAA;EACA,cAAA;EACA,mBAAA;AAJhB;AAUY;EACI,qBAAA;AARhB;AAWY;EACI,YAAA;EACA,kBAAA;EACA,kBAAA;EAEA,WAAA;EACA,cAAA;EACA,sBAAA;EACA,YAAA;AAVhB;AAagB;EACI,aAAA;AAXpB;AAkBQ;EACI,iBAAA;AAhBZ;AAoBI;EAEI,aAAA;EACA,cAAA;EACA,kBAAA;EAEA,WAAA;AApBR;AAqBQ;EACI,iCAAA;AAnBZ;AAsBQ;EACI,gBAAA;EACA,gCAAA;EACA,WAAA;EACA,kBAAA;EACA,gBAAA;AApBZ;;AAyBA,aAAA;AACA;EACI,UAAA;EACA,YAAA;AAtBJ;;AAyBA,eAAA;AAKA,eAAA;AACA;EACI,gBAAA;EACA,cAAA;EACA,kBAAA;AA1BJ;;AA6BA,kBAAA;AACA;EACI,gBAAA;EACA,qBAAA;AA1BJ","sourcesContent":[".list-node-wrapper {\r\n    color: #606266;\r\n    font-size: 14px;\r\n\r\n    .node-item-list {\r\n        .left-content {\r\n            // 使用 display 会出现 hover背景色和 active高亮色宽度比较短，但是没事。。\r\n            display: flex;\r\n            align-items: center;\r\n            /* display: inline-block; // 这个加上就会把这个盒子的宽度变成跟内容的宽度一样，而不会是根据父容器的宽度 */\r\n            padding: 3px 20px 3px 14px;\r\n            // white-space: wrap;\r\n            position: relative;\r\n            /* 添加相对定位--好像没用 */\r\n            min-width: 120px;\r\n            cursor: pointer;\r\n\r\n            &:hover {\r\n                background-color: #f6f6f6;\r\n            }\r\n\r\n            &.active {\r\n                color: #fff;\r\n                background-color: #2783d8;\r\n            }\r\n\r\n            .tag1 {\r\n                font-size: 12px;\r\n                padding: 2px 6px;\r\n                border-radius: 6px;\r\n                background-color: #f0f9eb;\r\n                color: #6dc442;\r\n                white-space: nowrap;\r\n            }\r\n\r\n            .tag2 {\r\n                font-size: 12px;\r\n                padding: 2px 6px;\r\n                border-radius: 6px;\r\n                background-color: #fef0f0;\r\n                color: #f67878;\r\n                white-space: nowrap;\r\n\r\n            }\r\n\r\n\r\n\r\n            .item-name {\r\n                word-break: break-all; // 树节点 的名字太长让它换行\r\n            }\r\n\r\n            .right-content {\r\n                padding: 1px;\r\n                position: absolute;\r\n                border-radius: 4px;\r\n                // top: 2px;\r\n                right: 10px;\r\n                color: #606266;\r\n                background-color: #fff;\r\n                z-index: 999;\r\n\r\n\r\n                i {\r\n                    margin: 0 4px;\r\n                }\r\n            }\r\n        }\r\n\r\n        .has-children {}\r\n\r\n        .no-children {\r\n            padding-left: 8px;\r\n        }\r\n    }\r\n\r\n    .children {\r\n        // padding-left: 10px;\r\n        max-height: 0;\r\n        /* 初始状态下高度为0 */\r\n        overflow-y: hidden;\r\n\r\n        /* 隐藏溢出内容 */\r\n        &.not-expand {\r\n            transition: max-height .25s ease; //这个加上过度效果会出现点击的节点的内部闪现x轴滚动条\r\n        }\r\n\r\n        &.expanded {\r\n            overflow-y: clip; // 这句话加上就不会出现很多歌滚动条。。。\r\n            transition: max-height .3s ease;\r\n            /* 添加过渡效果 */\r\n            max-height: 1000px;\r\n            /* 展开时高度自动适应内容 */\r\n        }\r\n    }\r\n}\r\n\r\n/* 修改滚动条的样式 */\r\n::-webkit-scrollbar {\r\n    width: 8px;\r\n    /* 设置滚动条宽度 */\r\n}\r\n\r\n/* 修改滚动条轨道的样式 */\r\n::-webkit-scrollbar-track {\r\n    // background: #f1f1f1; /* 设置滚动条轨道背景色 */\r\n}\r\n\r\n/* 修改滚动条滑块的样式 */\r\n::-webkit-scrollbar-thumb {\r\n    background: #888;\r\n    /* 设置滚动条滑块颜色 */\r\n    border-radius: 6px;\r\n}\r\n\r\n/* 鼠标悬停在滚动条上时的样式 */\r\n::-webkit-scrollbar-thumb:hover {\r\n    background: #555;\r\n    /* 设置滚动条滑块在鼠标悬停时的颜色 */\r\n}"],"sourceRoot":""}]);
+}`, "",{"version":3,"sources":["webpack://./src/ListNode/index.scss"],"names":[],"mappings":"AAAA,gBAAgB;AAAhB;EACI,cAAA;EACA,eAAA;AAEJ;AACQ;EAEI,aAAA;EACA,mBAAA;EACA,oEAAA;EACA,0BAAA;EAEA,kBAAA;EACA,iBAAA;EACA,gBAAA;EACA,eAAA;AADZ;AAGY;EACI,yBAAA;AADhB;AAIY;EACI,WAAA;EACA,yBAAA;AAFhB;AAKY;EACI,eAAA;EACA,gBAAA;EACA,kBAAA;EACA,yBAAA;EACA,cAAA;EACA,mBAAA;AAHhB;AAMY;EACI,eAAA;EACA,gBAAA;EACA,kBAAA;EACA,yBAAA;EACA,cAAA;EACA,mBAAA;AAJhB;AAUY;EACI,qBAAA;AARhB;AAWY;EACI,YAAA;EACA,kBAAA;EACA,kBAAA;EAEA,WAAA;EACA,cAAA;EACA,sBAAA;EACA,YAAA;AAVhB;AAagB;EACI,aAAA;AAXpB;AAuBI;EAEI,aAAA;EACA,cAAA;EACA,kBAAA;EAEA,WAAA;AAvBR;AAwBQ;EACI,iCAAA;AAtBZ;AAyBQ;EACI,gBAAA;EACA,gCAAA;EACA,WAAA;EACA,kBAAA;EACA,gBAAA;AAvBZ","sourcesContent":[".list-node-wrapper {\r\n    color: #606266;\r\n    font-size: 14px;\r\n\r\n    .node-item-list {\r\n        .left-content {\r\n            // 使用 display 会出现 hover背景色和 active高亮色宽度比较短，但是没事。。\r\n            display: flex;\r\n            align-items: center;\r\n            /* display: inline-block; // 这个加上就会把这个盒子的宽度变成跟内容的宽度一样，而不会是根据父容器的宽度 */\r\n            padding: 3px 20px 3px 14px;\r\n            // white-space: wrap;\r\n            position: relative;\r\n            /* 添加相对定位--好像没用 */\r\n            min-width: 120px;\r\n            cursor: pointer;\r\n\r\n            &:hover {\r\n                background-color: #f6f6f6;\r\n            }\r\n\r\n            &.active {\r\n                color: #fff;\r\n                background-color: #2783d8;\r\n            }\r\n\r\n            .tag1 {\r\n                font-size: 12px;\r\n                padding: 2px 6px;\r\n                border-radius: 6px;\r\n                background-color: #f0f9eb;\r\n                color: #6dc442;\r\n                white-space: nowrap;\r\n            }\r\n\r\n            .tag2 {\r\n                font-size: 12px;\r\n                padding: 2px 6px;\r\n                border-radius: 6px;\r\n                background-color: #fef0f0;\r\n                color: #f67878;\r\n                white-space: nowrap;\r\n\r\n            }\r\n\r\n\r\n\r\n            .item-name {\r\n                word-break: break-all; // 树节点 的名字太长让它换行\r\n            }\r\n\r\n            .right-content {\r\n                padding: 1px;\r\n                position: absolute;\r\n                border-radius: 4px;\r\n                // top: 2px;\r\n                right: 10px;\r\n                color: #606266;\r\n                background-color: #fff;\r\n                z-index: 999;\r\n\r\n\r\n                i {\r\n                    margin: 0 4px;\r\n                }\r\n            }\r\n        }\r\n\r\n        .has-children {}\r\n\r\n        .no-children {\r\n            // padding-left: 10px;\r\n        }\r\n    }\r\n\r\n    .children {\r\n        // padding-left: 10px;\r\n        max-height: 0;\r\n        /* 初始状态下高度为0 */\r\n        overflow-y: hidden;\r\n\r\n        /* 隐藏溢出内容 */\r\n        &.not-expand {\r\n            transition: max-height .25s ease; //这个加上过度效果会出现点击的节点的内部闪现x轴滚动条\r\n        }\r\n\r\n        &.expanded {\r\n            overflow-y: clip; // 这句话加上就不会出现很多歌滚动条。。。\r\n            transition: max-height .3s ease;\r\n            /* 添加过渡效果 */\r\n            max-height: 1000px;\r\n            /* 展开时高度自动适应内容 */\r\n        }\r\n    }\r\n}"],"sourceRoot":""}]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 
@@ -1381,7 +541,7 @@ module.exports = __WEBPACK_EXTERNAL_MODULE__442__;
 /******/ 		};
 /******/ 	
 /******/ 		// Execute the module function
-/******/ 		__webpack_modules__[moduleId].call(module.exports, module, module.exports, __webpack_require__);
+/******/ 		__webpack_modules__[moduleId](module, module.exports, __webpack_require__);
 /******/ 	
 /******/ 		// Return the exports of the module
 /******/ 		return module.exports;
@@ -3695,13 +2855,16 @@ var St = "__sc-".concat(f, "__");
 var _templateObject;
 function _taggedTemplateLiteral(strings, raw) { if (!raw) { raw = strings.slice(0); } return Object.freeze(Object.defineProperties(strings, { raw: { value: Object.freeze(raw) } })); }
 
-const ListNodeWrapper = dt.div(_templateObject || (_templateObject = _taggedTemplateLiteral(["\n    .list-node-wrapper {\n        color: #606266;\n        font-size: 14px;\n\n        .node-item-list {\n            .left-content {\n                // \u4F7F\u7528 display \u4F1A\u51FA\u73B0 hover\u80CC\u666F\u8272\u548C active\u9AD8\u4EAE\u8272\u5BBD\u5EA6\u6BD4\u8F83\u77ED\uFF0C\u4F46\u662F\u6CA1\u4E8B\u3002\u3002\n                display: flex;\n                align-items: center;\n                /* display: inline-block; // \u8FD9\u4E2A\u52A0\u4E0A\u5C31\u4F1A\u628A\u8FD9\u4E2A\u76D2\u5B50\u7684\u5BBD\u5EA6\u53D8\u6210\u8DDF\u5185\u5BB9\u7684\u5BBD\u5EA6\u4E00\u6837\uFF0C\u800C\u4E0D\u4F1A\u662F\u6839\u636E\u7236\u5BB9\u5668\u7684\u5BBD\u5EA6 */\n                padding: 3px 20px 3px 14px;\n                // white-space: wrap;\n                position: relative;\n                /* \u6DFB\u52A0\u76F8\u5BF9\u5B9A\u4F4D--\u597D\u50CF\u6CA1\u7528 */\n                min-width: 120px;\n                cursor: pointer;\n\n                &:hover {\n                    background-color: #f6f6f6;\n                }\n\n                &.active {\n                    color: ", ";\n                    background-color: ", ";\n                }\n\n                .tag1 {\n                    font-size: 12px;\n                    padding: 2px 6px;\n                    border-radius: 6px;\n                    background-color: #f0f9eb;\n                    color: #6dc442;\n                    white-space: nowrap;\n                }\n\n                .tag2 {\n                    font-size: 12px;\n                    padding: 2px 6px;\n                    border-radius: 6px;\n                    background-color: #fef0f0;\n                    color: #f67878;\n                    white-space: nowrap;\n                }\n\n                .item-name {\n                    word-break: break-all; // \u6811\u8282\u70B9 \u7684\u540D\u5B57\u592A\u957F\u8BA9\u5B83\u6362\u884C\n                }\n\n                .right-content {\n                    padding: 1px;\n                    position: absolute;\n                    border-radius: 4px;\n                    // top: 2px;\n                    right: 10px;\n                    color: #606266;\n                    background-color: #fff;\n                    z-index: 999;\n\n                    i {\n                        margin: 0 4px;\n                    }\n                }\n                .icon {\n                    transition: all 0.3s ease;\n                }\n            }\n\n            .has-children {\n            }\n\n            .no-children {\n                padding-left: 8px;\n            }\n        }\n\n        .children {\n            /* padding-left: 10px; */\n            max-height: 0;\n            /* \u521D\u59CB\u72B6\u6001\u4E0B\u9AD8\u5EA6\u4E3A0 */\n            overflow-y: hidden;\n\n            /* \u9690\u85CF\u6EA2\u51FA\u5185\u5BB9 */\n            &.not-expand {\n                transition: max-height 0.25s ease; //\u8FD9\u4E2A\u52A0\u4E0A\u8FC7\u5EA6\u6548\u679C\u4F1A\u51FA\u73B0\u70B9\u51FB\u7684\u8282\u70B9\u7684\u5185\u90E8\u95EA\u73B0x\u8F74\u6EDA\u52A8\u6761\n            }\n\n            &.expanded {\n                overflow-y: clip; // \u8FD9\u53E5\u8BDD\u52A0\u4E0A\u5C31\u4E0D\u4F1A\u51FA\u73B0\u5F88\u591A\u6B4C\u6EDA\u52A8\u6761\u3002\u3002\u3002\n                transition: max-height 0.3s ease;\n                /* \u6DFB\u52A0\u8FC7\u6E21\u6548\u679C */\n                max-height: 1000px;\n                /* \u5C55\u5F00\u65F6\u9AD8\u5EA6\u81EA\u52A8\u9002\u5E94\u5185\u5BB9 */\n            }\n        }\n    }\n"])), props => props.$activeFontColor, props => props.$activeBgc);
+const ListNodeWrapper = dt.div(_templateObject || (_templateObject = _taggedTemplateLiteral(["\n  .list-node-wrapper {\n    color: #606266;\n    font-size: 14px;\n\n    .node-item-list {\n      .left-content {\n        // \u4F7F\u7528 display \u4F1A\u51FA\u73B0 hover\u80CC\u666F\u8272\u548C active\u9AD8\u4EAE\u8272\u5BBD\u5EA6\u6BD4\u8F83\u77ED\uFF0C\u4F46\u662F\u6CA1\u4E8B\u3002\u3002\n        display: flex;\n        align-items: center;\n        /* display: inline-block; // \u8FD9\u4E2A\u52A0\u4E0A\u5C31\u4F1A\u628A\u8FD9\u4E2A\u76D2\u5B50\u7684\u5BBD\u5EA6\u53D8\u6210\u8DDF\u5185\u5BB9\u7684\u5BBD\u5EA6\u4E00\u6837\uFF0C\u800C\u4E0D\u4F1A\u662F\u6839\u636E\u7236\u5BB9\u5668\u7684\u5BBD\u5EA6 */\n        padding: 3px 20px 3px 14px;\n        // white-space: wrap;\n        position: relative;\n        /* \u6DFB\u52A0\u76F8\u5BF9\u5B9A\u4F4D--\u597D\u50CF\u6CA1\u7528 */\n        min-width: 120px;\n        cursor: pointer;\n\n        &:hover {\n          background-color: #f6f6f6;\n        }\n\n        &.active {\n          color: ", ";\n          background-color: ", ";\n        }\n\n        .tag1 {\n          font-size: 12px;\n          padding: 2px 6px;\n          border-radius: 6px;\n          background-color: #f0f9eb;\n          color: #6dc442;\n          white-space: nowrap;\n        }\n\n        .tag2 {\n          font-size: 12px;\n          padding: 2px 6px;\n          border-radius: 6px;\n          background-color: #fef0f0;\n          color: #f67878;\n          white-space: nowrap;\n        }\n\n        .item-name {\n          word-break: break-all; // \u6811\u8282\u70B9 \u7684\u540D\u5B57\u592A\u957F\u8BA9\u5B83\u6362\u884C\n        }\n\n        .right-content {\n          padding: 1px;\n          position: absolute;\n          border-radius: 4px;\n          // top: 2px;\n          right: 10px;\n          color: #606266;\n          background-color: #fff;\n          z-index: 999;\n\n          i {\n            margin: 0 4px;\n          }\n        }\n        .icon {\n          transition: all 0.3s ease;\n        }\n      }\n\n      .has-children {\n      }\n\n      .no-children {\n        /* padding-left: 10px; */\n      }\n    }\n\n    .children {\n      /* padding-left: 10px; */\n      max-height: 0;\n      /* \u521D\u59CB\u72B6\u6001\u4E0B\u9AD8\u5EA6\u4E3A0 */\n      overflow-y: hidden;\n\n      /* \u9690\u85CF\u6EA2\u51FA\u5185\u5BB9 */\n      &.not-expand {\n        transition: max-height 0.25s ease; //\u8FD9\u4E2A\u52A0\u4E0A\u8FC7\u5EA6\u6548\u679C\u4F1A\u51FA\u73B0\u70B9\u51FB\u7684\u8282\u70B9\u7684\u5185\u90E8\u95EA\u73B0x\u8F74\u6EDA\u52A8\u6761\n      }\n\n      &.expanded {\n        overflow-y: clip; // \u8FD9\u53E5\u8BDD\u52A0\u4E0A\u5C31\u4E0D\u4F1A\u51FA\u73B0\u5F88\u591A\u6B4C\u6EDA\u52A8\u6761\u3002\u3002\u3002\n        transition: max-height 0.3s ease;\n        /* \u6DFB\u52A0\u8FC7\u6E21\u6548\u679C */\n        max-height: 1000px;\n        /* \u5C55\u5F00\u65F6\u9AD8\u5EA6\u81EA\u52A8\u9002\u5E94\u5185\u5BB9 */\n      }\n    }\n  }\n"])), props => props.$activeFontColor, props => props.$activeBgc);
 ;// CONCATENATED MODULE: ./src/ListNode/index.tsx
 
 
 
 const ListNode_ListNode = _ref => {
   let {
+    maxLevel,
+    onLoadNode,
+    lazy = false,
     activeFontColor = "#fff",
     activeBgc = "#2783d8",
     bgc = "transparent",
@@ -3719,7 +2882,7 @@ const ListNode_ListNode = _ref => {
     showEditIcon = true,
     activeId,
     onToggle,
-    onIconClick,
+    onToggleIconClick,
     onItemClick,
     onOptIconClick
   } = _ref;
@@ -3729,16 +2892,20 @@ const ListNode_ListNode = _ref => {
 
   // 计算children的maxWidth
   const [childrenMaxHeight, setChildrenMaxHeight] = (0,external_root_React_commonjs2_react_commonjs_react_amd_react_.useState)(0);
+  const toggledNodeItemRef = (0,external_root_React_commonjs2_react_commonjs_react_amd_react_.useRef)(null);
+  const [nodeInstances, setNodeInstances] = (0,external_root_React_commonjs2_react_commonjs_react_amd_react_.useState)({});
   const handleToggle = () => {
     setIsExpanded(prev => !prev);
     onToggle && onToggle(node);
+    /* setTimeout(() => {
+      onToggleIconClick && onToggleIconClick(node);
+    }); */
   };
   const handleItemClick = node => {
     onItemClick && onItemClick(node);
   };
   const setMaxHeights = function (element, expandedParents) {
     let closed = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : false;
-    console.log(isExpanded);
     let currentMaxHeight;
 
     // scrollHeight 可以用来确定元素内容的总高度，包括隐藏的溢出内容。
@@ -3780,23 +2947,18 @@ const ListNode_ListNode = _ref => {
     }
     setMaxHeights(element, expandedParents);
   }
-  const handleFolderIconClick = (node, e) => {
-    var _target$parentNode;
-    // 公共操作
-    e.stopPropagation();
-    handleToggle();
-    onIconClick && onIconClick(node);
-    const target = e.target;
-    const nodeItem = (_target$parentNode = target.parentNode) === null || _target$parentNode === void 0 ? void 0 : _target$parentNode.parentNode;
-    if (!isExpanded) {
-      // 如果是展开，这个操作也是不能少的--具体原因未知。。。
-      setChildrenMaxHeight(nodeItem.scrollHeight);
-    } else {
-      // 如果是折叠，直接maxHeight设置为0即可。虽热子节点的maxHeight不会为，但是父节点的maxHeight为0，就隐藏子节点了
-      setChildrenMaxHeight(0);
+
+  /* const updateNodeLoadInfo = (node: any) => {
+    if (!node.hasLoaded) {
+      setNode({ ...node, loading: true });
     }
-    // 一开始还没点击展开的时候，都是 not-expanded
-    const notExpandedChildren = nodeItem.querySelector(".children.not-expand");
+  }; */
+
+  const generateCalcDom = selector => {
+    var _toggledNodeItemRef$c;
+    console.log("generateCalcDom: ");
+    const notExpandedChildren = (_toggledNodeItemRef$c = toggledNodeItemRef.current) === null || _toggledNodeItemRef$c === void 0 ? void 0 : _toggledNodeItemRef$c.querySelector(".children.".concat(selector || "not-expand"));
+    // console.log("notExpandedChildren: ", notExpandedChildren);
     // childrenList: 类名为 children下的所有div节点
     const childrenList = notExpandedChildren === null || notExpandedChildren === void 0 ? void 0 : notExpandedChildren.querySelectorAll(".list-node-wrapper");
     if (childrenList) {
@@ -3812,7 +2974,6 @@ const ListNode_ListNode = _ref => {
           const parent = child.parentNode;
           // 通过判断list-node-wrapper的父节点是否是 expanded，来决定要不要存入数组
           if (parent.classList.contains("expanded")) {
-            console.log("child = ", child);
             expandedChildrenList.push(child);
           }
         });
@@ -3831,11 +2992,75 @@ const ListNode_ListNode = _ref => {
       }, 0);
     }
   };
+  const handleLoadNode = async clickNode => {
+    // 先基于点击的clickNode创建一个新的节点对象副本，用于后续更新操作
+    let updatedNode = {
+      ...clickNode
+    };
+
+    // 设置加载状态为true，表示正在加载子节点数据
+    updatedNode.loading = true;
+    setNode(updatedNode); // 先更新数据是为了展示 loading效果
+
+    // 调用父组件传递的onLoadNode函数来获取子节点数据
+
+    // 使用更新后的节点对象来更新组件的node状态
+    const parentLoadNodeRes = await onLoadNode(clickNode);
+
+    // 如果获取到了子节点数据，更新节点的相关属性
+    if (parentLoadNodeRes) {
+      updatedNode.children = parentLoadNodeRes.map(item => ({
+        ...item,
+        level: clickNode.level + 1,
+        isExpanded: false
+      }));
+
+      // 设置加载状态为false，表示子节点数据加载完成
+      updatedNode.loading = false;
+
+      // 设置hasLoaded为true，表示已经成功加载过数据
+      updatedNode.hasLoaded = true;
+    }
+    // 不知道为什么这里不能加定时器，会出问题。。。并且在父组件的 onLoadNode回调里面也不能使用定时器，不会等定时器结束再执行这里，也不会拿到定时器返回的数据【可能可以使用 Promise来？？】
+    setNode(updatedNode);
+  };
+  const handleToggleIconClick = async (node, e) => {
+    var _target$parentNode;
+    e.stopPropagation();
+    // 如果是懒加载，并且还没加载过 子节点 的数据，则 加载子节点数据
+    if (isTree && lazy && !node.hasLoaded) {
+      await handleLoadNode(node);
+    }
+    // 公共操作
+    e.stopPropagation();
+    handleToggle();
+    const target = e.target;
+    // 因为点击的是 折叠icon，所以要去 父元素 (left-content) 的 父元素(node-item-list)
+    const nodeItem = (_target$parentNode = target.parentNode) === null || _target$parentNode === void 0 ? void 0 : _target$parentNode.parentNode;
+    toggledNodeItemRef.current = nodeItem;
+    // console.log("nodeItem: ", nodeItem);
+    /* if (lazy) {
+      updateNodeLoadInfo(node);
+    } */
+
+    // 1. 如果未展开，设置高度为 nodeItem 的 scrollHeight，这样子节点才能显示出来。
+    if (!isExpanded) {
+      // 如果是展开，这个操作也是不能少的--具体原因未知。。。
+      setChildrenMaxHeight(nodeItem.scrollHeight);
+    } else {
+      // 如果是折叠，直接maxHeight设置为0即可。虽热子节点的maxHeight不会为，但是父节点的maxHeight为0，就隐藏子节点了
+      setChildrenMaxHeight(0);
+    }
+    generateCalcDom();
+
+    // 一开始还没点击展开的时候，都是 not-expanded
+    // （如果数据是 异步 请求回来的话，可能会出问题：数据还没回来，但是 js已经取完 dom了，导致高度计算失败）
+  };
   const handleNodeNameClick = (node, e) => {
     // onItemClick && onItemClick(node); // 注释掉，防止出现调用两次 onItemClick
   };
   const handleChildrenIconClick = node => {
-    onIconClick && onIconClick(node);
+    onToggleIconClick && onToggleIconClick(node);
   };
   const handleOptIconClick = (e, type, node) => {
     e.stopPropagation(); // 阻止事件冒泡
@@ -3870,8 +3095,18 @@ const ListNode_ListNode = _ref => {
     }));
   };
   (0,external_root_React_commonjs2_react_commonjs_react_amd_react_.useEffect)(() => {
-    setNode(data);
+    // TODO：数据变化的时候 loading设置为false，第一次点击之后将 hasLoaded 设置为 true
+    /* if (isTree && lazy && !node.hasLoaded && node.loading) {
+      setNode({ ...data, loading: false, hasLoaded: true });
+    } else {
+      setNode(data);
+    } */
   }, [data]);
+  (0,external_root_React_commonjs2_react_commonjs_react_amd_react_.useEffect)(() => {
+    if (!node.loading && node.hasLoaded) {
+      generateCalcDom("expanded");
+    }
+  }, [node.loading, node.hasLoaded]);
   return (
     /*#__PURE__*/
     // style={{whiteSpace: `${wrap ? "wrap" : "nowrap"}`}}
@@ -3890,13 +3125,13 @@ const ListNode_ListNode = _ref => {
         ...(Number(activeId) === Number(node.id) ? {
           backgroundColor: activeBgc
         } : ""),
-        paddingLeft: node.level * 20 + "px" // 让树节点的层级有缩进，并且是充满一整行的样式
+        paddingLeft: node.level * 26 + "px" // 让树节点的层级有缩进，并且是充满一整行的样式
       },
       className: "left-content ".concat(!node.level && "ps-2", " ").concat(String(activeId) === String(node.id) ? "active" : ""),
       onClick: () => handleItemClick(node),
       onMouseEnter: () => setIsShowIcons(true),
       onMouseLeave: () => setIsShowIcons(false)
-    }, isTree && node.children && node.children.length > 0 && /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("i", {
+    }, isTree && (!node.hasLoaded || node.children && node.children.length > 0) && node.level !== maxLevel - 1 && /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("i", {
       onMouseEnter: handleMouseEnterExpandIcon,
       onMouseLeave: handleMouseLeaveExpandIcon,
       style: {
@@ -3907,9 +3142,18 @@ const ListNode_ListNode = _ref => {
           color: "#334155"
         } : "")
       },
-      onClick: e => handleFolderIconClick(node, e),
+      onClick: e => handleToggleIconClick(node, e),
       className: "icon fa fa-caret-".concat(isExpanded ? "down" : "right")
-    }), prefixTag && /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("div", {
+    }), node.loading && /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("div", {
+      style: {
+        width: "18px",
+        height: "18px"
+      },
+      className: "spinner-border mx-1 ms-2",
+      role: "status"
+    }, /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("span", {
+      className: "visually-hidden "
+    }, "Loading...")), prefixTag && /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("div", {
       className: "prefix-tag ms-2"
     }, /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("i", {
       className: "".concat(prefixTag, " ").concat(activeId === node.id ? "text-white" : "")
@@ -3950,7 +3194,11 @@ const ListNode_ListNode = _ref => {
     // 具体传递的回调的函数需要的参数有哪些，就得参考父组件原来是怎么写的，也可以直接不写好像。。。
     // 或许只是为了写个占位，代表需要触发父组件的这个回调函数？
     // 如果是传递的属性的话，是需要写的,像父组件那样子写，用的参数是父组件传递过来的，类似父组件那样再写一遍
+    // 注意！！！如果传递的是回调的话，直接将 父组件List 传递给 子组件ListNode 的回调再次传递给子组件ListNode(children) 的props，这样子组件ListNode(children) 才能正确调用这个回调，包括调用回调时候数据是否正确、函数是否正确【eg：onLoadNode={onLoadNode}】
     external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement(ListNode_ListNode, {
+      maxLevel: maxLevel,
+      onLoadNode: onLoadNode,
+      lazy: lazy,
       addIconClass: addIconClass,
       editIconClass: editIconClass,
       deleteIconClass: deleteIconClass,
@@ -3962,7 +3210,7 @@ const ListNode_ListNode = _ref => {
       showOptIcons: showOptIcons,
       activeId: activeId,
       onOptIconClick: (type, child) => handleChildrenOptIconClick(type, child),
-      onIconClick: handleChildrenIconClick,
+      onToggleIconClick: handleChildrenIconClick,
       onItemClick: handleItemClick,
       key: child.id,
       node: child,
@@ -3972,16 +3220,14 @@ const ListNode_ListNode = _ref => {
   );
 };
 /* harmony default export */ const src_ListNode_0 = (ListNode_ListNode);
-// EXTERNAL MODULE: ../components/Input/index.js
-var Input = __webpack_require__(281);
-var Input_default = /*#__PURE__*/__webpack_require__.n(Input);
 ;// CONCATENATED MODULE: ./src/index.tsx
 // List组件
 
 
-
 const List = /*#__PURE__*/(0,external_root_React_commonjs2_react_commonjs_react_amd_react_.forwardRef)((_ref, ref) => {
   let {
+    maxLevel,
+    lazy,
     overflowY = true,
     activeBgc,
     deleteIconClass,
@@ -3993,25 +3239,27 @@ const List = /*#__PURE__*/(0,external_root_React_commonjs2_react_commonjs_react_
     children,
     wrap = true,
     data,
-    isTree = true,
+    isTree = false,
     showOptIcons = true,
     showAddIcon = true,
     showEditIcon = true,
     activeId,
     maxWidth = 300,
-    maxHeight = '100%',
+    maxHeight = "100%",
     onToggle,
     onItemClick,
-    onIconClick,
-    onOptIconClick
+    onToggleIconClick,
+    onOptIconClick,
+    onLoadNode
   } = _ref;
   const [_activeId, set_ActiveId] = (0,external_root_React_commonjs2_react_commonjs_react_amd_react_.useState)(activeId);
+  const [treeData, settreeData] = (0,external_root_React_commonjs2_react_commonjs_react_amd_react_.useState)([]);
   const handleItemClick = node => {
     set_ActiveId(node.id);
     onItemClick && onItemClick(node);
   };
-  const handleIconClick = node => {
-    onIconClick && onIconClick(node);
+  const handleToggleIconClick = node => {
+    onToggleIconClick && onToggleIconClick(node);
   };
   const handleOptIconClick = (type, node) => {
     onOptIconClick && onOptIconClick(type, node);
@@ -4028,7 +3276,7 @@ const List = /*#__PURE__*/(0,external_root_React_commonjs2_react_commonjs_react_
       if (listRef.current) {
         listRef.current.scrollTo({
           top: listRef.current.scrollHeight,
-          behavior: 'smooth'
+          behavior: "smooth"
         });
       }
     }, 0);
@@ -4038,40 +3286,95 @@ const List = /*#__PURE__*/(0,external_root_React_commonjs2_react_commonjs_react_
       if (listRef.current) {
         listRef.current.scrollTo({
           top: 0,
-          behavior: 'smooth'
+          behavior: "smooth"
         });
       }
     }, 0);
   };
+  const convertListToTree = (list, pid) => {
+    let level = 0;
+    // 递归辅助函数，用于处理每个节点及其子节点
+    const buildTree = (items, parentId, currentLevel) => {
+      const children = [];
+      items.forEach(item => {
+        if (item.pid === parentId) {
+          item.level = currentLevel;
+          children.push(item);
+          // 递归调用自身处理子节点，层级加1
+          item.children = buildTree(list, item.id, currentLevel + 1);
+        }
+      });
+      return children;
+    };
+    const data = buildTree(list, pid, level);
+    return data;
+  };
+  function flattenDataWithoutNesting(data) {
+    let flattened = [];
+    function flattenRecursive(node, parentId) {
+      const {
+        id,
+        name,
+        isExpanded
+      } = node;
+      flattened.push({
+        ...node,
+        id,
+        name,
+        isExpanded,
+        pid: parentId
+      });
+      if (node.children && node.children.length > 0) {
+        node.children.forEach(child => {
+          flattenRecursive(child, id);
+        });
+      }
+    }
+    data.forEach(rootNode => {
+      flattenRecursive(rootNode, null);
+    });
+    return flattened;
+  }
+  const handleLoadNode = async node => {
+    if (onLoadNode) {
+      const res = await onLoadNode(node, treeData);
+      return res;
+    }
+  };
   (0,external_root_React_commonjs2_react_commonjs_react_amd_react_.useImperativeHandle)(ref, () => ({
     scrollToEnd,
-    scrollToTop
+    scrollToTop,
+    flattenDataWithoutNesting,
+    convertListToTree
   }));
   (0,external_root_React_commonjs2_react_commonjs_react_amd_react_.useEffect)(() => {
     set_ActiveId(activeId);
   }, [activeId]);
+  (0,external_root_React_commonjs2_react_commonjs_react_amd_react_.useEffect)(() => {
+    var _data$;
+    settreeData(convertListToTree(flattenDataWithoutNesting(data), (data === null || data === void 0 || (_data$ = data[0]) === null || _data$ === void 0 ? void 0 : _data$.pid) || null));
+  }, [data]);
+  (0,external_root_React_commonjs2_react_commonjs_react_amd_react_.useEffect)(() => {
+    // console.log("treeData: ", treeData);
+  }, [treeData]);
   return /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("div", {
     className: "list-wrapper",
     style: {
       flex: 1,
-      height: '100%'
+      height: "100%"
     }
-  }, showSearch && /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("div", {
-    className: "showSearch mb-2"
-  }, /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement((Input_default()), {
-    onIconClick: handleInputIconClick,
-    onChange: value => handleInputChange(value)
-  }, /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("i", {
-    className: "fa-solid fa-magnifying-glass"
-  }))), /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("div", {
+  }, /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("div", {
     ref: listRef,
     className: "list-content",
     style: {
       maxWidth: maxWidth,
       maxHeight: maxHeight,
-      overflow: overflowY ? 'auto' : ''
+      overflow: overflowY ? "auto" : ""
     }
-  }, data && data.map(item => /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement(src_ListNode_0, {
+  }, treeData && treeData.map(item => /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement(src_ListNode_0, {
+    maxLevel: maxLevel,
+    onLoadNode: handleLoadNode,
+    lazy: lazy,
     activeBgc: activeBgc,
     addIconClass: addIconClass,
     deleteIconClass: deleteIconClass,
@@ -4084,7 +3387,7 @@ const List = /*#__PURE__*/(0,external_root_React_commonjs2_react_commonjs_react_
     activeId: _activeId,
     showOptIcons: showOptIcons,
     onOptIconClick: (type, node) => handleOptIconClick(type, node),
-    onIconClick: handleIconClick,
+    onToggleIconClick: handleToggleIconClick,
     onItemClick: handleItemClick,
     key: item.id,
     node: item,

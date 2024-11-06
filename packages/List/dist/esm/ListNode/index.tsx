@@ -1,8 +1,11 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import "./index.scss";
 import { ListNodeWrapper } from "./style";
 
 interface ListNodeProps {
+  maxLevel?: number;
+  onLoadNode?: any;
+  lazy?: boolean;
   activeFontColor?: string;
   bgc?: string;
   children?: any;
@@ -23,11 +26,14 @@ interface ListNodeProps {
   prefixTag?: string;
   onToggle?: (node: any) => void;
   onItemClick?: (node: any) => void;
-  onIconClick?: (node: any) => void;
+  onToggleIconClick?: (node: any) => void;
   onOptIconClick?: (type: string, node: any) => void;
 }
 
 const ListNode = ({
+  maxLevel,
+  onLoadNode,
+  lazy = false,
   activeFontColor = "#fff",
   activeBgc = "#2783d8",
   bgc = "transparent",
@@ -45,7 +51,7 @@ const ListNode = ({
   showEditIcon = true,
   activeId,
   onToggle,
-  onIconClick,
+  onToggleIconClick,
   onItemClick,
   onOptIconClick,
 }: ListNodeProps) => {
@@ -55,10 +61,16 @@ const ListNode = ({
 
   // 计算children的maxWidth
   const [childrenMaxHeight, setChildrenMaxHeight] = useState<any>(0);
+  const toggledNodeItemRef = useRef<any>(null);
+
+  const [nodeInstances, setNodeInstances] = useState({});
 
   const handleToggle = () => {
     setIsExpanded((prev) => !prev);
     onToggle && onToggle(node);
+    /* setTimeout(() => {
+      onToggleIconClick && onToggleIconClick(node);
+    }); */
   };
 
   const handleItemClick = (node: any) => {
@@ -70,7 +82,6 @@ const ListNode = ({
     expandedParents: any[],
     closed: boolean = false
   ) => {
-    console.log(isExpanded);
     let currentMaxHeight: any;
 
     // scrollHeight 可以用来确定元素内容的总高度，包括隐藏的溢出内容。
@@ -118,23 +129,18 @@ const ListNode = ({
     setMaxHeights(element, expandedParents);
   }
 
-  const handleFolderIconClick = (node: any, e?: any) => {
-    // 公共操作
-    e.stopPropagation();
-    handleToggle();
-    onIconClick && onIconClick(node);
-    const target = e.target;
-    const nodeItem = target.parentNode?.parentNode;
-
-    if (!isExpanded) {
-      // 如果是展开，这个操作也是不能少的--具体原因未知。。。
-      setChildrenMaxHeight(nodeItem.scrollHeight);
-    } else {
-      // 如果是折叠，直接maxHeight设置为0即可。虽热子节点的maxHeight不会为，但是父节点的maxHeight为0，就隐藏子节点了
-      setChildrenMaxHeight(0);
+  /* const updateNodeLoadInfo = (node: any) => {
+    if (!node.hasLoaded) {
+      setNode({ ...node, loading: true });
     }
-    // 一开始还没点击展开的时候，都是 not-expanded
-    const notExpandedChildren = nodeItem.querySelector(".children.not-expand");
+  }; */
+
+  const generateCalcDom = (selector?: string) => {
+    console.log("generateCalcDom: ");
+    const notExpandedChildren = toggledNodeItemRef.current?.querySelector(
+      `.children.${selector || "not-expand"}`
+    );
+    // console.log("notExpandedChildren: ", notExpandedChildren);
     // childrenList: 类名为 children下的所有div节点
     const childrenList =
       notExpandedChildren?.querySelectorAll(".list-node-wrapper");
@@ -151,8 +157,6 @@ const ListNode = ({
           const parent = child.parentNode;
           // 通过判断list-node-wrapper的父节点是否是 expanded，来决定要不要存入数组
           if (parent.classList.contains("expanded")) {
-            console.log("child = ", child);
-
             expandedChildrenList.push(child);
           }
         });
@@ -171,13 +175,75 @@ const ListNode = ({
       }, 0);
     }
   };
+  const handleLoadNode = async (clickNode: any) => {
+    // 先基于点击的clickNode创建一个新的节点对象副本，用于后续更新操作
+    let updatedNode = { ...clickNode };
+
+    // 设置加载状态为true，表示正在加载子节点数据
+    updatedNode.loading = true;
+    setNode(updatedNode); // 先更新数据是为了展示 loading效果
+
+    // 调用父组件传递的onLoadNode函数来获取子节点数据
+
+    // 使用更新后的节点对象来更新组件的node状态
+    const parentLoadNodeRes = await onLoadNode(clickNode);
+
+    // 如果获取到了子节点数据，更新节点的相关属性
+    if (parentLoadNodeRes) {
+      updatedNode.children = parentLoadNodeRes.map((item: any) => ({
+        ...item,
+        level: clickNode.level + 1,
+        isExpanded: false,
+      }));
+
+      // 设置加载状态为false，表示子节点数据加载完成
+      updatedNode.loading = false;
+
+      // 设置hasLoaded为true，表示已经成功加载过数据
+      updatedNode.hasLoaded = true;
+    }
+    // 不知道为什么这里不能加定时器，会出问题。。。并且在父组件的 onLoadNode回调里面也不能使用定时器，不会等定时器结束再执行这里，也不会拿到定时器返回的数据【可能可以使用 Promise来？？】
+    setNode(updatedNode);
+  };
+
+  const handleToggleIconClick = async (node: any, e?: any) => {
+    e.stopPropagation();
+    // 如果是懒加载，并且还没加载过 子节点 的数据，则 加载子节点数据
+    if (isTree && lazy && !node.hasLoaded) {
+      await handleLoadNode(node);
+    }
+    // 公共操作
+    e.stopPropagation();
+    handleToggle();
+    const target = e.target;
+    // 因为点击的是 折叠icon，所以要去 父元素 (left-content) 的 父元素(node-item-list)
+    const nodeItem = target.parentNode?.parentNode;
+    toggledNodeItemRef.current = nodeItem;
+    // console.log("nodeItem: ", nodeItem);
+    /* if (lazy) {
+      updateNodeLoadInfo(node);
+    } */
+
+    // 1. 如果未展开，设置高度为 nodeItem 的 scrollHeight，这样子节点才能显示出来。
+    if (!isExpanded) {
+      // 如果是展开，这个操作也是不能少的--具体原因未知。。。
+      setChildrenMaxHeight(nodeItem.scrollHeight);
+    } else {
+      // 如果是折叠，直接maxHeight设置为0即可。虽热子节点的maxHeight不会为，但是父节点的maxHeight为0，就隐藏子节点了
+      setChildrenMaxHeight(0);
+    }
+    generateCalcDom();
+
+    // 一开始还没点击展开的时候，都是 not-expanded
+    // （如果数据是 异步 请求回来的话，可能会出问题：数据还没回来，但是 js已经取完 dom了，导致高度计算失败）
+  };
 
   const handleNodeNameClick = (node: any, e: any) => {
     // onItemClick && onItemClick(node); // 注释掉，防止出现调用两次 onItemClick
   };
 
   const handleChildrenIconClick = (node: any) => {
-    onIconClick && onIconClick(node);
+    onToggleIconClick && onToggleIconClick(node);
   };
 
   const handleOptIconClick = (e: any, type: string, node: any) => {
@@ -216,8 +282,19 @@ const ListNode = ({
   };
 
   useEffect(() => {
-    setNode(data);
+    // TODO：数据变化的时候 loading设置为false，第一次点击之后将 hasLoaded 设置为 true
+    /* if (isTree && lazy && !node.hasLoaded && node.loading) {
+      setNode({ ...data, loading: false, hasLoaded: true });
+    } else {
+      setNode(data);
+    } */
   }, [data]);
+
+  useEffect(() => {
+    if (!node.loading && node.hasLoaded) {
+      generateCalcDom("expanded");
+    }
+  }, [node.loading, node.hasLoaded]);
 
   return (
     // style={{whiteSpace: `${wrap ? "wrap" : "nowrap"}`}}
@@ -237,7 +314,7 @@ const ListNode = ({
               ...(Number(activeId) === Number(node.id)
                 ? { backgroundColor: activeBgc }
                 : ""),
-              paddingLeft: node.level * 20 + "px", // 让树节点的层级有缩进，并且是充满一整行的样式
+              paddingLeft: node.level * 26 + "px", // 让树节点的层级有缩进，并且是充满一整行的样式
             }}
             className={`left-content ${!node.level && "ps-2"} ${
               String(activeId) === String(node.id) ? "active" : ""
@@ -246,21 +323,36 @@ const ListNode = ({
             onMouseEnter={() => setIsShowIcons(true)}
             onMouseLeave={() => setIsShowIcons(false)}
           >
+            {/* <span className="none d-none">{String(node.loading)}</span> */}
             {/* 有子节点的话，展示折叠按钮 */}
-            {isTree && node.children && node.children.length > 0 && (
-              <i
-                onMouseEnter={handleMouseEnterExpandIcon}
-                onMouseLeave={handleMouseLeaveExpandIcon}
-                style={{
-                  fontSize: "16px",
-                  width: "10px",
-                  ...(node.isEnter
-                    ? { transform: "scale(1.4)", color: "#334155" }
-                    : ""),
-                }}
-                onClick={(e) => handleFolderIconClick(node, e)}
-                className={`icon fa fa-caret-${isExpanded ? "down" : "right"}`}
-              ></i>
+            {isTree &&
+              (!node.hasLoaded ||
+                (node.children && node.children.length > 0)) &&
+              node.level !== maxLevel! - 1 && (
+                <i
+                  onMouseEnter={handleMouseEnterExpandIcon}
+                  onMouseLeave={handleMouseLeaveExpandIcon}
+                  style={{
+                    fontSize: "16px",
+                    width: "10px",
+                    ...(node.isEnter
+                      ? { transform: "scale(1.4)", color: "#334155" }
+                      : ""),
+                  }}
+                  onClick={(e) => handleToggleIconClick(node, e)}
+                  className={`icon fa fa-caret-${
+                    isExpanded ? "down" : "right"
+                  }`}
+                ></i>
+              )}
+            {node.loading && (
+              <div
+                style={{ width: "18px", height: "18px" }}
+                className="spinner-border mx-1 ms-2"
+                role="status"
+              >
+                <span className="visually-hidden ">Loading...</span>
+              </div>
             )}
             {/* 最左边的tag */}
             {prefixTag && (
@@ -272,10 +364,8 @@ const ListNode = ({
                 ></i>
               </div>
             )}
-
             {/* 展示标志 */}
             {showTag && renderTag()}
-
             {/* 节点名字 */}
             <span
               style={{ whiteSpace: `${wrap ? "normal" : "nowrap"}` }}
@@ -325,7 +415,12 @@ const ListNode = ({
                 // 或许只是为了写个占位，代表需要触发父组件的这个回调函数？
                 // 如果是传递的属性的话，是需要写的,像父组件那样子写，用的参数是父组件传递过来的，类似父组件那样再写一遍
 
+                // 注意！！！如果传递的是回调的话，直接将 父组件List 传递给 子组件ListNode 的回调再次传递给子组件ListNode(children) 的props，这样子组件ListNode(children) 才能正确调用这个回调，包括调用回调时候数据是否正确、函数是否正确【eg：onLoadNode={onLoadNode}】
+
                 <ListNode
+                  maxLevel={maxLevel}
+                  onLoadNode={onLoadNode}
+                  lazy={lazy}
                   addIconClass={addIconClass}
                   editIconClass={editIconClass}
                   deleteIconClass={deleteIconClass}
@@ -339,7 +434,7 @@ const ListNode = ({
                   onOptIconClick={(type, child) =>
                     handleChildrenOptIconClick(type, child)
                   }
-                  onIconClick={handleChildrenIconClick}
+                  onToggleIconClick={handleChildrenIconClick}
                   onItemClick={handleItemClick}
                   key={child.id}
                   node={child}

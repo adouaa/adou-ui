@@ -85,7 +85,9 @@ __webpack_require__.r(__webpack_exports__);
 __webpack_require__.d(__webpack_exports__, {
   convertArrayKeysToCamelCase: () => (/* reexport */ libs_convertArrayKeysToCamelCase),
   convertArrayKeysToSnakeCase: () => (/* reexport */ libs_convertArrayKeysToSnakeCase),
+  convertListToTree: () => (/* reexport */ libs_convertListToTree),
   convertToTag: () => (/* reexport */ libs_convertToTag),
+  flattenDataWithoutNesting: () => (/* reexport */ libs_flattenDataWithoutNesting),
   getAbsolutePosition: () => (/* reexport */ libs_getAbsolutePositionOfStage),
   isEmptyO: () => (/* reexport */ libs_isEmptyO),
   timeFormatter: () => (/* reexport */ time_formatter_namespaceObject),
@@ -105,7 +107,6 @@ __webpack_require__.d(time_formatter_namespaceObject, {
 function getAbsolutePositionOfStage(domElement) {
   let left = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 0;
   let top = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : 0;
-  console.log(domElement);
   if (!parseInt(left)) {
     left = 0;
   } else {
@@ -206,6 +207,54 @@ function convertArrayKeysToSnakeCase(arr) {
   return arr.map(item => convertKeysToSnakeCase(item));
 }
 /* harmony default export */ const libs_convertArrayKeysToSnakeCase = (convertArrayKeysToSnakeCase);
+;// CONCATENATED MODULE: ./src/libs/convertListToTree.ts
+const convertListToTree = (list, pid) => {
+  let level = 0;
+  // 递归辅助函数，用于处理每个节点及其子节点
+  const buildTree = (items, parentId, currentLevel) => {
+    const children = [];
+    items.forEach(item => {
+      if (item.pid === parentId) {
+        item.level = currentLevel;
+        children.push(item);
+        // 递归调用自身处理子节点，层级加1
+        item.children = buildTree(list, item.id, currentLevel + 1);
+      }
+    });
+    return children;
+  };
+  const data = buildTree(list, pid, level);
+  return data;
+};
+/* harmony default export */ const libs_convertListToTree = (convertListToTree);
+;// CONCATENATED MODULE: ./src/libs/flattenDataWithoutNesting.ts
+function flattenDataWithoutNesting(data) {
+  let flattened = [];
+  function flattenRecursive(node, parentId) {
+    const {
+      id,
+      name,
+      isExpanded
+    } = node;
+    flattened.push({
+      ...node,
+      id,
+      name,
+      isExpanded,
+      pid: parentId
+    });
+    if (node.children && node.children.length > 0) {
+      node.children.forEach(child => {
+        flattenRecursive(child, id);
+      });
+    }
+  }
+  data.forEach(rootNode => {
+    flattenRecursive(rootNode, null);
+  });
+  return flattened;
+}
+/* harmony default export */ const libs_flattenDataWithoutNesting = (flattenDataWithoutNesting);
 ;// CONCATENATED MODULE: ../../node_modules/@remix-run/router/dist/router.js
 /**
  * @remix-run/router v1.5.0
@@ -5277,6 +5326,8 @@ const useDrag = function (elementRef) {
 };
 /* harmony default export */ const hooks_useDrag = (useDrag);
 ;// CONCATENATED MODULE: ./src/index.tsx
+
+
 
 
 

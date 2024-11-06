@@ -14,7 +14,7 @@ import Tooltip from "adou-ui/Tooltip";
 export { TableCell };
 interface TableProps {
   tableRef?: any;
-  activeId?: number;
+  activeId?: number | string;
   maxWidth?: any;
   showIndex?: boolean;
   single?: boolean;
@@ -95,9 +95,7 @@ const Table = (props: TableProps) => {
     [`table-${headColor}`]: true,
   });
 
-  const [tableData, setTableData] = useState<any[]>([]);
-  const [originalTableData, setOriginalTableData] = useState<any[]>([]);
-  const [tableHeaders, setTableHeaders] = useState<any[]>([]);
+  const [tabelData, setTableData] = useState([]);
 
   // 折叠的逻辑
   const handleCollapseClick = (row: any, rowIndex: number) => {
@@ -109,78 +107,6 @@ const Table = (props: TableProps) => {
         return item;
       });
     });
-  };
-
-  const generateHeaderStyle = (position: string) => {
-    switch (position) {
-      case "left":
-        return "flex-start";
-
-      case "right":
-        return "flex-end";
-
-      default:
-        return "center";
-    }
-  };
-
-  const judgeSortIconBGC = (prop: string, isDown?: boolean) => {
-    const findItem = tableHeaders.find((item: any) => item.prop === prop);
-    if (!findItem) return;
-    if (isDown) {
-      if (findItem.isDown) {
-        return "7px solid red";
-      }
-    } else {
-      if (findItem.isUp) {
-        return "7px solid red";
-      }
-    }
-  };
-
-  // 排序的逻辑--坑：一定要使用 [...preArr].sort，不能直接preArr.sort，这样会影响原来的数据，有Bug！！！
-  const handleSortable = (prop: string, isDown?: boolean) => {
-    setTableHeaders((preArr: any) =>
-      preArr.map((item: any) => {
-        if (prop === item.prop) {
-          if (isDown) {
-            item.isDown = !item.isDown;
-            item.isUp = false;
-            // 需要降序排序
-            if (item.isDown) {
-              console.log("down: ");
-              setTableData((preArr: any) =>
-                [...preArr].sort((a: any, b: any) =>
-                  a[prop] < b[prop] ? 1 : -1
-                )
-              );
-            } else {
-              setTableData(data);
-            }
-          } else {
-            item.isUp = !item.isUp;
-            item.isDown = false;
-            // 需要升序排序
-            if (item.isUp) {
-              setTableData((preArr: any) =>
-                [...preArr].sort((a: any, b: any) =>
-                  a[prop] > b[prop] ? 1 : -1
-                )
-              );
-            } else {
-              setTableData(data);
-            }
-          }
-        }
-        return item;
-      })
-    );
-
-    // setTableData((preArr: any) => preArr.sort((a: any, b: any) => (a[prop] > b[prop] ? 1 : -1)));
-    /* if (isDown) {
-      const findItem = tableHeaders.find((item: any) => item.prop === prop);
-
-      } */
   };
 
   // 渲染折叠的子组件
@@ -258,44 +184,7 @@ const Table = (props: TableProps) => {
                       scope="col"
                       key={child.props.label}
                     >
-                      <div
-                        className="header-content"
-                        style={{
-                          display: "flex",
-                          alignItems: "center",
-                          justifyContent: generateHeaderStyle(
-                            textPositionObject[child.props.prop]
-                          ),
-                        }}
-                      >
-                        <span className="header-text me-2">
-                          {child.props.label}
-                        </span>
-                        {child.props.sortable && (
-                          <span className="header-icon">
-                            <i
-                              style={{
-                                borderBottom:
-                                  judgeSortIconBGC(child.props.prop) ||
-                                  "7px solid #000",
-                              }}
-                              onClick={() => handleSortable(child.props.prop)}
-                              className="icon sort-up"
-                            ></i>
-                            <i
-                              style={{
-                                borderTop:
-                                  judgeSortIconBGC(child.props.prop, true) ||
-                                  "7px solid #000",
-                              }}
-                              onClick={() =>
-                                handleSortable(child.props.prop, true)
-                              }
-                              className="icon sort-down"
-                            ></i>
-                          </span>
-                        )}
-                      </div>
+                      {child.props.label}
                     </th>
                   );
                 }
@@ -303,12 +192,12 @@ const Table = (props: TableProps) => {
           </tr>
         </thead>
         <tbody className={`${divider ? "table-group-divider" : ""}`}>
-          {tableData.length > 0 &&
-            tableData.map((data: any, rowIndex: number) => {
+          {tabelData.length > 0 &&
+            tabelData.map((data: any, rowIndex: number) => {
               return (
                 <Fragment key={data[id]}>
                   <tr
-                    onClick={() => handleRowClick(data, rowIndex)}
+                    onClick={() => handleRowClick(data)}
                     // onDoubleClick={() => handleRowDoubleClick(data)}
                     key={rowIndex}
                     className={`tr-content ${data.checked ? "tr-checked" : ""}`}
@@ -335,7 +224,9 @@ const Table = (props: TableProps) => {
                           alignContent: "center",
                           padding: "0px",
                           width: "50px",
-                          /* ...(data.children ? { backgroundColor: '#fff', boxShadow: 'none' } : {}), */
+                          ...(data.children
+                            ? { backgroundColor: "#fff", boxShadow: "none" }
+                            : {}),
                         }}
                       >
                         {rowIndex + 1}
@@ -344,10 +235,8 @@ const Table = (props: TableProps) => {
                     {React.Children.map(array, (child, colIndex) => {
                       let prop = (child as React.ReactElement).props.prop;
                       if (React.isValidElement(child)) {
-                        const newChild = child as React.ReactElement;
                         const enhancedChild = React.cloneElement(child, {
                           onCollapseClick: handleCollapseClick,
-                          isParent: !colIndex && collapse && data.children,
                           value: data[`${prop}`],
                           rowData: data,
                           eidtable,
@@ -355,18 +244,16 @@ const Table = (props: TableProps) => {
                           rowIndex: rowIndex,
                           colIndex: colIndex,
                           canCollapse: data.children,
-                          collapse: data.collapse,
+                          collapse: collapse,
                           textPosition,
-                          width: widthObject[newChild.props.prop],
-                          maxWidth: newChild.props.maxWidth,
+                          width:
+                            widthObject[
+                              (child as React.ReactElement).props.prop
+                            ],
                         } as React.Attributes);
                         return (
                           <td
-                            className={`${
-                              !colIndex && collapse && data.children
-                                ? "text-left"
-                                : `text-${textPositionObject[prop]}`
-                            } `}
+                            className={`${"text-" + textPositionObject[prop]} `}
                             style={{
                               verticalAlign: verticalAlignObject[prop],
                               width:
@@ -382,20 +269,15 @@ const Table = (props: TableProps) => {
                               // 如果要默认展示一行，并且x轴太长可以滚动的话，则设置为nowrap
                               // 注意：此时，外部设置的 width就没作用了，表格会自己根据内容来设置宽度
                               whiteSpace: "nowrap",
-                              /*  [`${!colIndex && data.children ? 'paddingLeft' : ''}`]: '35px', */
+                              [`${
+                                !colIndex && data.children ? "paddingLeft" : ""
+                              }`]: "35px",
                             }}
                             key={colIndex}
                           >
-                            {/* 整个子组件展示的位置 */}
-                            <div className="collapse-table-td">
-                              {/* {!colIndex && collapse && data.children ? '>' : ''} */}
-                              {(child as ReactElement).props.tooltip ? (
-                                <Tooltip text={data[prop]}>
-                                  {enhancedChild}
-                                </Tooltip>
-                              ) : (
-                                enhancedChild
-                              )}
+                            <div className="d-flex collapse-table-td">
+                              {!colIndex && collapse && data.children ? "" : ""}
+                              {enhancedChild}
                             </div>
                           </td>
                         );
@@ -407,11 +289,11 @@ const Table = (props: TableProps) => {
                     data.children &&
                     data.children.map((childData: any, index: number) => (
                       <tr
-                        className="collapse-table-tr animate__animated animate__fadeIn"
+                        className="collapse-table-tr"
                         key={childData[id]}
-                        /* style={{
-                                                  ...(data.collapse ? { display: '' } : { display: 'none' }),
-                                              }} */
+                        style={{
+                          [`${!data.collapse ? "display" : ""}`]: "none",
+                        }}
                       >
                         {/* 复选框框 */}
                         {collection && (
@@ -455,7 +337,7 @@ const Table = (props: TableProps) => {
                             return (
                               <td
                                 className={`${
-                                  colIndex === 0 ? "text-left" : "text-center"
+                                  "text-" + textPositionObject[prop]
                                 }`}
                                 style={{
                                   verticalAlign: verticalAlignObject[prop],
@@ -466,23 +348,11 @@ const Table = (props: TableProps) => {
                                   overflowWrap: "break-word",
                                   wordWrap: "break-word",
                                   wordBreak: "break-word",
-                                  [`${!colIndex ? "paddingLeft" : ""}`]: "40px",
+                                  [`${!colIndex ? "paddingLeft" : ""}`]: "60px",
                                 }}
                                 key={colIndex}
                               >
-                                <div className="collapse-table-td">
-                                  {/* {!colIndex && collapse && data.children ? '>' : ''} */}
-                                  {(child as ReactElement).props.tooltip ? (
-                                    <Tooltip
-                                      position="right"
-                                      text={childData[prop]}
-                                    >
-                                      {enhancedChild}
-                                    </Tooltip>
-                                  ) : (
-                                    enhancedChild
-                                  )}
-                                </div>
+                                {enhancedChild}
                               </td>
                             );
                           }
@@ -552,8 +422,7 @@ const Table = (props: TableProps) => {
    *
    * 单击tr
    */
-  const handleRowClick = (row: any, rowIndex?: number) => {
-    handleCollapseClick(row, rowIndex!);
+  const handleRowClick = (row: any) => {
     const finalChecked: boolean = !row.checked;
     setTableData((preArr: any) => {
       return preArr.map((item: any) => {
@@ -577,12 +446,13 @@ const Table = (props: TableProps) => {
     setTableData((preArr: any) => {
       return preArr.map((item: any) => {
         if (item[id] === row[id]) {
+          console.log("jinlaile: ");
           item.checked = checked;
         }
         return item;
       });
     });
-    setCheckedAll(areAllChecked(tableData));
+    setCheckedAll(areAllChecked(tabelData));
   };
 
   function areAllChecked(data: any[]): any {
@@ -618,7 +488,7 @@ const Table = (props: TableProps) => {
       });
     };
 
-    setTableData(updateCheckedState(tableData) as any);
+    setTableData(updateCheckedState(tabelData) as any);
   };
 
   const handleClearChecked = () => {
@@ -631,19 +501,17 @@ const Table = (props: TableProps) => {
   };
 
   useEffect(() => {
-    console.log("data: ", data);
     const checkedAll = areAllChecked(data);
     setCheckedAll(checkedAll);
     if (collapse) {
-      const tempData = data.map((item: any) => {
-        item.collapse = expandAll;
-        return item;
-      });
-      setTableData(tempData);
-      setOriginalTableData(tempData);
+      setTableData(
+        data.map((item: any) => {
+          item.collapse = expandAll;
+          return item;
+        })
+      );
     } else {
       setTableData(data);
-      setOriginalTableData(data);
     }
   }, [data]);
 
@@ -658,15 +526,7 @@ const Table = (props: TableProps) => {
         return item;
       })
     );
-  }, [activeId]);
-
-  useEffect(() => {
-    setTableHeaders(headers);
-  }, [headers]);
-
-  /*     useEffect(() => {
-      
-  }, [tableHeaders]); */
+  }, [activeId, data]);
 
   useImperativeHandle(tableRef, () => ({
     clearChecked: handleClearChecked,
@@ -682,7 +542,6 @@ const Table = (props: TableProps) => {
       >
         <table className={cls}>{renderCollapseChildren()}</table>
       </div>
-      {JSON.stringify(data)}
     </>
   );
 };

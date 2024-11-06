@@ -11,7 +11,7 @@ declare const _default: React.ComponentType<Omit<{
     textPosition?: "center" | "left" | "right" | "justify" | undefined;
     onEditOK?: ((data: any) => void) | undefined;
     tableRef?: any;
-    activeId?: number | undefined;
+    activeId?: string | number | undefined;
     showIndex?: boolean | undefined;
     single?: boolean | undefined;
     id?: string | undefined;

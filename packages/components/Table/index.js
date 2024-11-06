@@ -292,12 +292,12 @@ module.exports = {
 
         var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_1___default()(_node_modules_css_loader_dist_runtime_sourceMaps_js__WEBPACK_IMPORTED_MODULE_0___default());
         // Module
-        ___CSS_LOADER_EXPORT___.push([module.id, "@charset \"UTF-8\";\n.suffix-icon {\n  /* margin-left: -40px !important;\n  margin-top: 6px;\n  z-index: 9; */\n  position: absolute;\n  right: 12px;\n  top: 30px;\n  /* \u5782\u76F4\u5C45\u4E2D */\n  cursor: pointer;\n  /* \u9F20\u6807\u60AC\u505C\u65F6\u663E\u793A\u6307\u9488\u6837\u5F0F */\n  transition: transform 0.3s;\n  /* \u6DFB\u52A0\u8FC7\u6E21\u6548\u679C */\n  color: #c6c6cd;\n}\n.suffix-icon:hover {\n  transform: scale(1.3);\n  /* \u6C34\u5E73\u548C\u5782\u76F4\u65B9\u5411\u90FD\u653E\u59271.5\u500D */\n  color: #51515b;\n}\n\n.common-suffix-icon {\n  display: flex;\n  align-items: center;\n  cursor: pointer;\n}\n\n.common-suffix-icon {\n  display: flex;\n  align-items: center;\n  cursor: pointer;\n}\n\n.label-box {\n  font-size: 14px;\n  min-width: 50px;\n  text-align: right;\n  justify-content: flex-end;\n  padding-right: 10px;\n  flex-wrap: wrap;\n}\n\n.icon-input {\n  position: relative;\n  /* \u8BA9\u4F2A\u5143\u7D20\u76F8\u5BF9\u4E8E\u8F93\u5165\u6846\u5B9A\u4F4D */\n}\n\n.input-wrapper .content-box {\n  flex: 1;\n  align-items: stretch;\n}\n.input-wrapper .content-box .suffix-content-btn {\n  border-top-right-radius: 0 !important;\n  /* \u53BB\u6389\u53F3\u4E0A\u89D2\u7684\u5706\u89D2 */\n  border-bottom-right-radius: 0 !important;\n  border-right: none;\n  /* \u53BB\u6389\u53F3\u4E0B\u89D2\u7684\u5706\u89D2 */\n}\n.input-wrapper .content-box .suffix-content-btn-wrapper .btn {\n  border-top-left-radius: 0;\n  /* \u53BB\u6389\u5DE6\u4E0A\u89D2\u7684\u5706\u89D2 */\n  border-bottom-left-radius: 0;\n  /* \u53BB\u6389\u5DE6\u4E0B\u89D2\u7684\u5706\u89D2 */\n}\n.input-wrapper .content-box .suffix-content-text-wrapper {\n  display: flex;\n  align-items: center;\n  justify-content: center;\n}\n\n.label-in-center {\n  display: flex;\n}\n.label-in-center .suffix-icon {\n  top: 7px;\n}\n\n.label-in-left-top {\n  display: flex;\n}\n.label-in-left-top .label-box {\n  display: flex;\n  align-items: start;\n}\n.label-in-left-top .suffix-icon {\n  top: 7px;\n}\n\n.input-group .suffix-icon {\n  top: 7px !important;\n}\n\n.input-group-text {\n  cursor: pointer;\n}", "", {
+        ___CSS_LOADER_EXPORT___.push([module.id, "@charset \"UTF-8\";\n.suffix-icon {\n  /* margin-left: -40px !important;\n  margin-top: 6px;\n  z-index: 9; */\n  position: absolute;\n  right: 12px;\n  top: 30px;\n  /* \u5782\u76F4\u5C45\u4E2D */\n  cursor: pointer;\n  /* \u9F20\u6807\u60AC\u505C\u65F6\u663E\u793A\u6307\u9488\u6837\u5F0F */\n  transition: transform 0.3s;\n  /* \u6DFB\u52A0\u8FC7\u6E21\u6548\u679C */\n  color: #c6c6cd;\n}\n.suffix-icon:hover {\n  transform: scale(1.3);\n  /* \u6C34\u5E73\u548C\u5782\u76F4\u65B9\u5411\u90FD\u653E\u59271.5\u500D */\n  color: #51515b;\n}\n\n.common-suffix-icon {\n  display: flex;\n  align-items: center;\n  cursor: pointer;\n}\n\n.common-suffix-icon {\n  display: flex;\n  align-items: center;\n  cursor: pointer;\n}\n\n.label-box {\n  font-size: 14px;\n  min-width: 50px;\n  text-align: right;\n  justify-content: flex-end;\n  padding-right: 10px;\n  flex-wrap: wrap;\n}\n\n.icon-input {\n  position: relative;\n  /* \u8BA9\u4F2A\u5143\u7D20\u76F8\u5BF9\u4E8E\u8F93\u5165\u6846\u5B9A\u4F4D */\n}\n\n.input-wrapper input::placeholder {\n  color: #999;\n}\n.input-wrapper .content-box {\n  flex: 1;\n  align-items: stretch;\n}\n.input-wrapper .content-box .input-form-content {\n  flex: 1;\n  display: flex;\n}\n.input-wrapper .content-box .suffix-content-btn {\n  border-top-right-radius: 0 !important;\n  /* \u53BB\u6389\u53F3\u4E0A\u89D2\u7684\u5706\u89D2 */\n  border-bottom-right-radius: 0 !important;\n  border-right: none;\n  /* \u53BB\u6389\u53F3\u4E0B\u89D2\u7684\u5706\u89D2 */\n}\n.input-wrapper .content-box .suffix-content-btn-wrapper {\n  min-width: 37px;\n  display: flex;\n  align-items: center;\n  justify-content: center;\n  background-color: #eee;\n  border-top-right-radius: 6px;\n  border-bottom-right-radius: 6px;\n}\n.input-wrapper .content-box .suffix-content-btn-wrapper .btn {\n  border-top-left-radius: 0;\n  /* \u53BB\u6389\u5DE6\u4E0A\u89D2\u7684\u5706\u89D2 */\n  border-bottom-left-radius: 0;\n  /* \u53BB\u6389\u5DE6\u4E0B\u89D2\u7684\u5706\u89D2 */\n}\n.input-wrapper .content-box .suffix-content-text-wrapper {\n  display: flex;\n  align-items: center;\n  justify-content: center;\n}\n\n.label-in-center {\n  display: flex;\n}\n.label-in-center .suffix-icon {\n  top: 7px;\n}\n\n.label-in-left-top {\n  display: flex;\n}\n.label-in-left-top .label-box {\n  display: flex;\n  align-items: start;\n}\n.label-in-left-top .suffix-icon {\n  top: 7px;\n}\n\n.input-group .suffix-icon {\n  top: 7px !important;\n}\n\n.input-group-text {\n  cursor: pointer;\n}", "", {
           "version": 3,
           "sources": ["webpack://./src/index.scss"],
           "names": [],
-          "mappings": "AAAA,gBAAgB;AAAhB;EACI;;eAAA;EAGA,kBAAA;EACA,WAAA;EACA,SAAA;EACA,SAAA;EACA,eAAA;EACA,gBAAA;EACA,0BAAA;EACA,WAAA;EACA,cAAA;AAEJ;AAAI;EACI,qBAAA;EACA,mBAAA;EACA,cAAA;AAER;;AAEA;EACI,aAAA;EACA,mBAAA;EACA,eAAA;AACJ;;AAEA;EACI,aAAA;EACA,mBAAA;EACA,eAAA;AACJ;;AAEA;EACI,eAAA;EACA,eAAA;EACA,iBAAA;EACA,yBAAA;EACA,mBAAA;EACA,eAAA;AACJ;;AAEA;EACI,kBAAA;EACA,iBAAA;AACJ;;AAII;EACI,OAAA;EACA,oBAAA;AADR;AAKQ;EACI,qCAAA;EACA,aAAA;EACA,wCAAA;EACA,kBAAA;EACA,aAAA;AAHZ;AAMQ;EACI,yBAAA;EACA,aAAA;EACA,4BAAA;EACA,aAAA;AAJZ;AAOQ;EACI,aAAA;EACA,mBAAA;EACA,uBAAA;AALZ;;AAYA;EACI,aAAA;AATJ;AAWI;EACI,QAAA;AATR;;AAaA;EACI,aAAA;AAVJ;AAYI;EACI,aAAA;EACA,kBAAA;AAVR;AAaI;EACI,QAAA;AAXR;;AAgBI;EACI,mBAAA;AAbR;;AAiBA;EACI,eAAA;AAdJ",
-          "sourcesContent": [".suffix-icon {\r\n    /* margin-left: -40px !important;\r\n    margin-top: 6px;\r\n    z-index: 9; */\r\n    position: absolute;\r\n    right: 12px;\r\n    top: 30px;\r\n    /* 垂直居中 */\r\n    cursor: pointer;\r\n    /* 鼠标悬停时显示指针样式 */\r\n    transition: transform 0.3s;\r\n    /* 添加过渡效果 */\r\n    color: #c6c6cd;\r\n\r\n    &:hover {\r\n        transform: scale(1.3);\r\n        /* 水平和垂直方向都放大1.5倍 */\r\n        color: #51515b;\r\n    }\r\n}\r\n\r\n.common-suffix-icon {\r\n    display: flex;\r\n    align-items: center;\r\n    cursor: pointer;\r\n}\r\n\r\n.common-suffix-icon {\r\n    display: flex;\r\n    align-items: center;\r\n    cursor: pointer;\r\n}\r\n\r\n.label-box {\r\n    font-size: 14px;\r\n    min-width: 50px;\r\n    text-align: right;\r\n    justify-content: flex-end;\r\n    padding-right: 10px;\r\n    flex-wrap: wrap;\r\n}\r\n\r\n.icon-input {\r\n    position: relative;\r\n    /* 让伪元素相对于输入框定位 */\r\n\r\n}\r\n\r\n.input-wrapper {\r\n    .content-box {\r\n        flex: 1;\r\n        align-items: stretch;\r\n\r\n        .label-box {}\r\n\r\n        .suffix-content-btn {\r\n            border-top-right-radius: 0 !important;\r\n            /* 去掉右上角的圆角 */\r\n            border-bottom-right-radius: 0 !important;\r\n            border-right: none;\r\n            /* 去掉右下角的圆角 */\r\n        }\r\n\r\n        .suffix-content-btn-wrapper .btn {\r\n            border-top-left-radius: 0;\r\n            /* 去掉左上角的圆角 */\r\n            border-bottom-left-radius: 0;\r\n            /* 去掉左下角的圆角 */\r\n        }\r\n\r\n        .suffix-content-text-wrapper {\r\n            display: flex;\r\n            align-items: center;\r\n            justify-content: center;\r\n        }\r\n\r\n    }\r\n\r\n}\r\n\r\n.label-in-center {\r\n    display: flex;\r\n\r\n    .suffix-icon {\r\n        top: 7px;\r\n    }\r\n}\r\n\r\n.label-in-left-top {\r\n    display: flex;\r\n\r\n    .label-box {\r\n        display: flex;\r\n        align-items: start;\r\n    }\r\n\r\n    .suffix-icon {\r\n        top: 7px;\r\n    }\r\n}\r\n\r\n.input-group {\r\n    .suffix-icon {\r\n        top: 7px !important;\r\n    }\r\n}\r\n\r\n.input-group-text {\r\n    cursor: pointer;\r\n}\r\n\r\n.lable-in-control {}"],
+          "mappings": "AAAA,gBAAgB;AAAhB;EACI;;eAAA;EAGA,kBAAA;EACA,WAAA;EACA,SAAA;EACA,SAAA;EACA,eAAA;EACA,gBAAA;EACA,0BAAA;EACA,WAAA;EACA,cAAA;AAEJ;AAAI;EACI,qBAAA;EACA,mBAAA;EACA,cAAA;AAER;;AAEA;EACI,aAAA;EACA,mBAAA;EACA,eAAA;AACJ;;AAEA;EACI,aAAA;EACA,mBAAA;EACA,eAAA;AACJ;;AAEA;EACI,eAAA;EACA,eAAA;EACA,iBAAA;EACA,yBAAA;EACA,mBAAA;EACA,eAAA;AACJ;;AAEA;EACI,kBAAA;EACA,iBAAA;AACJ;;AAII;EACI,WAAA;AADR;AAII;EACI,OAAA;EACA,oBAAA;AAFR;AAMQ;EACI,OAAA;EACA,aAAA;AAJZ;AAOQ;EACI,qCAAA;EACA,aAAA;EACA,wCAAA;EACA,kBAAA;EACA,aAAA;AALZ;AAQQ;EACI,eAAA;EACA,aAAA;EACA,mBAAA;EACA,uBAAA;EACA,sBAAA;EACA,4BAAA;EACA,+BAAA;AANZ;AASQ;EACI,yBAAA;EACA,aAAA;EACA,4BAAA;EACA,aAAA;AAPZ;AAUQ;EACI,aAAA;EACA,mBAAA;EACA,uBAAA;AARZ;;AAeA;EACI,aAAA;AAZJ;AAcI;EACI,QAAA;AAZR;;AAgBA;EACI,aAAA;AAbJ;AAeI;EACI,aAAA;EACA,kBAAA;AAbR;AAgBI;EACI,QAAA;AAdR;;AAqBI;EACI,mBAAA;AAlBR;;AAsBA;EACI,eAAA;AAnBJ",
+          "sourcesContent": [".suffix-icon {\r\n    /* margin-left: -40px !important;\r\n    margin-top: 6px;\r\n    z-index: 9; */\r\n    position: absolute;\r\n    right: 12px;\r\n    top: 30px;\r\n    /* 垂直居中 */\r\n    cursor: pointer;\r\n    /* 鼠标悬停时显示指针样式 */\r\n    transition: transform 0.3s;\r\n    /* 添加过渡效果 */\r\n    color: #c6c6cd;\r\n\r\n    &:hover {\r\n        transform: scale(1.3);\r\n        /* 水平和垂直方向都放大1.5倍 */\r\n        color: #51515b;\r\n    }\r\n}\r\n\r\n.common-suffix-icon {\r\n    display: flex;\r\n    align-items: center;\r\n    cursor: pointer;\r\n}\r\n\r\n.common-suffix-icon {\r\n    display: flex;\r\n    align-items: center;\r\n    cursor: pointer;\r\n}\r\n\r\n.label-box {\r\n    font-size: 14px;\r\n    min-width: 50px;\r\n    text-align: right;\r\n    justify-content: flex-end;\r\n    padding-right: 10px;\r\n    flex-wrap: wrap;\r\n}\r\n\r\n.icon-input {\r\n    position: relative;\r\n    /* 让伪元素相对于输入框定位 */\r\n\r\n}\r\n\r\n.input-wrapper {\r\n    input::placeholder {\r\n        color: #999; // 你可以根据需要修改颜色\r\n    }\r\n\r\n    .content-box {\r\n        flex: 1;\r\n        align-items: stretch;\r\n\r\n        .label-box {}\r\n\r\n        .input-form-content {\r\n            flex: 1;\r\n            display: flex;\r\n        }\r\n\r\n        .suffix-content-btn {\r\n            border-top-right-radius: 0 !important;\r\n            /* 去掉右上角的圆角 */\r\n            border-bottom-right-radius: 0 !important;\r\n            border-right: none;\r\n            /* 去掉右下角的圆角 */\r\n        }\r\n\r\n        .suffix-content-btn-wrapper {\r\n            min-width: 37px;\r\n            display: flex;\r\n            align-items: center;\r\n            justify-content: center;\r\n            background-color: #eee;\r\n            border-top-right-radius: 6px;\r\n            border-bottom-right-radius: 6px;\r\n        }\r\n\r\n        .suffix-content-btn-wrapper .btn {\r\n            border-top-left-radius: 0;\r\n            /* 去掉左上角的圆角 */\r\n            border-bottom-left-radius: 0;\r\n            /* 去掉左下角的圆角 */\r\n        }\r\n\r\n        .suffix-content-text-wrapper {\r\n            display: flex;\r\n            align-items: center;\r\n            justify-content: center;\r\n        }\r\n\r\n    }\r\n\r\n}\r\n\r\n.label-in-center {\r\n    display: flex;\r\n\r\n    .suffix-icon {\r\n        top: 7px;\r\n    }\r\n}\r\n\r\n.label-in-left-top {\r\n    display: flex;\r\n\r\n    .label-box {\r\n        display: flex;\r\n        align-items: start;\r\n    }\r\n\r\n    .suffix-icon {\r\n        top: 7px;\r\n    }\r\n}\r\n\r\n\r\n\r\n.input-group {\r\n    .suffix-icon {\r\n        top: 7px !important;\r\n    }\r\n}\r\n\r\n.input-group-text {\r\n    cursor: pointer;\r\n}\r\n\r\n.lable-in-control {}"],
           "sourceRoot": ""
         }]);
         // Exports
@@ -446,12 +446,12 @@ module.exports = {
 
         /***/
       }),
-      /***/855: ( /***/(module, __unused_webpack_exports, __nested_webpack_require_15931__) => {
+      /***/855: ( /***/(module, __unused_webpack_exports, __nested_webpack_require_16978__) => {
         "use strict";
 
         /* istanbul ignore next  */
         function setAttributesWithoutAttributes(styleElement) {
-          var nonce =  true ? __nested_webpack_require_15931__.nc : 0;
+          var nonce =  true ? __nested_webpack_require_16978__.nc : 0;
           if (nonce) {
             styleElement.setAttribute("nonce", nonce);
           }
@@ -625,7 +625,7 @@ module.exports = {
     /******/
     /******/ // The require function
     /******/
-    function __nested_webpack_require_21854__(moduleId) {
+    function __nested_webpack_require_22901__(moduleId) {
       /******/ // Check if module is in cache
       /******/var cachedModule = __webpack_module_cache__[moduleId];
       /******/
@@ -644,7 +644,7 @@ module.exports = {
       /******/
       /******/ // Execute the module function
       /******/
-      __webpack_modules__[moduleId](module, module.exports, __nested_webpack_require_21854__);
+      __webpack_modules__[moduleId](module, module.exports, __nested_webpack_require_22901__);
       /******/
       /******/ // Return the exports of the module
       /******/
@@ -657,10 +657,10 @@ module.exports = {
     /******/
     (() => {
       /******/ // getDefaultExport function for compatibility with non-harmony modules
-      /******/__nested_webpack_require_21854__.n = module => {
+      /******/__nested_webpack_require_22901__.n = module => {
         /******/var getter = module && module.__esModule ? /******/() => module['default'] : /******/() => module;
         /******/
-        __nested_webpack_require_21854__.d(getter, {
+        __nested_webpack_require_22901__.d(getter, {
           a: getter
         });
         /******/
@@ -674,9 +674,9 @@ module.exports = {
     /******/
     (() => {
       /******/ // define getter functions for harmony exports
-      /******/__nested_webpack_require_21854__.d = (exports, definition) => {
+      /******/__nested_webpack_require_22901__.d = (exports, definition) => {
         /******/for (var key in definition) {
-          /******/if (__nested_webpack_require_21854__.o(definition, key) && !__nested_webpack_require_21854__.o(exports, key)) {
+          /******/if (__nested_webpack_require_22901__.o(definition, key) && !__nested_webpack_require_22901__.o(exports, key)) {
             /******/Object.defineProperty(exports, key, {
               enumerable: true,
               get: definition[key]
@@ -693,7 +693,7 @@ module.exports = {
     /******/ /* webpack/runtime/hasOwnProperty shorthand */
     /******/
     (() => {
-      /******/__nested_webpack_require_21854__.o = (obj, prop) => Object.prototype.hasOwnProperty.call(obj, prop);
+      /******/__nested_webpack_require_22901__.o = (obj, prop) => Object.prototype.hasOwnProperty.call(obj, prop);
       /******/
     })();
     /******/
@@ -701,7 +701,7 @@ module.exports = {
     /******/
     (() => {
       /******/ // define __esModule on exports
-      /******/__nested_webpack_require_21854__.r = exports => {
+      /******/__nested_webpack_require_22901__.r = exports => {
         /******/if (typeof Symbol !== 'undefined' && Symbol.toStringTag) {
           /******/Object.defineProperty(exports, Symbol.toStringTag, {
             value: 'Module'
@@ -720,7 +720,7 @@ module.exports = {
     /******/ /* webpack/runtime/nonce */
     /******/
     (() => {
-      /******/__nested_webpack_require_21854__.nc = undefined;
+      /******/__nested_webpack_require_22901__.nc = undefined;
       /******/
     })();
     /******/
@@ -731,39 +731,39 @@ module.exports = {
       "use strict";
 
       // ESM COMPAT FLAG
-      __nested_webpack_require_21854__.r(__nested_webpack_exports__);
+      __nested_webpack_require_22901__.r(__nested_webpack_exports__);
 
       // EXPORTS
-      __nested_webpack_require_21854__.d(__nested_webpack_exports__, {
+      __nested_webpack_require_22901__.d(__nested_webpack_exports__, {
         "default": () => ( /* binding */src_0)
       });
 
       // EXTERNAL MODULE: external {"root":"React","commonjs2":"react","commonjs":"react","amd":"react"}
-      var external_root_React_commonjs2_react_commonjs_react_amd_react_ = __nested_webpack_require_21854__(442);
-      var external_root_React_commonjs2_react_commonjs_react_amd_react_default = /*#__PURE__*/__nested_webpack_require_21854__.n(external_root_React_commonjs2_react_commonjs_react_amd_react_);
+      var external_root_React_commonjs2_react_commonjs_react_amd_react_ = __nested_webpack_require_22901__(442);
+      var external_root_React_commonjs2_react_commonjs_react_amd_react_default = /*#__PURE__*/__nested_webpack_require_22901__.n(external_root_React_commonjs2_react_commonjs_react_amd_react_);
       // EXTERNAL MODULE: ../../../node_modules/classnames/index.js
-      var classnames = __nested_webpack_require_21854__(650);
-      var classnames_default = /*#__PURE__*/__nested_webpack_require_21854__.n(classnames);
+      var classnames = __nested_webpack_require_22901__(650);
+      var classnames_default = /*#__PURE__*/__nested_webpack_require_22901__.n(classnames);
       // EXTERNAL MODULE: ../../node_modules/style-loader/dist/runtime/injectStylesIntoStyleTag.js
-      var injectStylesIntoStyleTag = __nested_webpack_require_21854__(591);
-      var injectStylesIntoStyleTag_default = /*#__PURE__*/__nested_webpack_require_21854__.n(injectStylesIntoStyleTag);
+      var injectStylesIntoStyleTag = __nested_webpack_require_22901__(591);
+      var injectStylesIntoStyleTag_default = /*#__PURE__*/__nested_webpack_require_22901__.n(injectStylesIntoStyleTag);
       // EXTERNAL MODULE: ../../node_modules/style-loader/dist/runtime/styleDomAPI.js
-      var styleDomAPI = __nested_webpack_require_21854__(740);
-      var styleDomAPI_default = /*#__PURE__*/__nested_webpack_require_21854__.n(styleDomAPI);
+      var styleDomAPI = __nested_webpack_require_22901__(740);
+      var styleDomAPI_default = /*#__PURE__*/__nested_webpack_require_22901__.n(styleDomAPI);
       // EXTERNAL MODULE: ../../node_modules/style-loader/dist/runtime/insertBySelector.js
-      var insertBySelector = __nested_webpack_require_21854__(128);
-      var insertBySelector_default = /*#__PURE__*/__nested_webpack_require_21854__.n(insertBySelector);
+      var insertBySelector = __nested_webpack_require_22901__(128);
+      var insertBySelector_default = /*#__PURE__*/__nested_webpack_require_22901__.n(insertBySelector);
       // EXTERNAL MODULE: ../../node_modules/style-loader/dist/runtime/setAttributesWithoutAttributes.js
-      var setAttributesWithoutAttributes = __nested_webpack_require_21854__(855);
-      var setAttributesWithoutAttributes_default = /*#__PURE__*/__nested_webpack_require_21854__.n(setAttributesWithoutAttributes);
+      var setAttributesWithoutAttributes = __nested_webpack_require_22901__(855);
+      var setAttributesWithoutAttributes_default = /*#__PURE__*/__nested_webpack_require_22901__.n(setAttributesWithoutAttributes);
       // EXTERNAL MODULE: ../../node_modules/style-loader/dist/runtime/insertStyleElement.js
-      var insertStyleElement = __nested_webpack_require_21854__(51);
-      var insertStyleElement_default = /*#__PURE__*/__nested_webpack_require_21854__.n(insertStyleElement);
+      var insertStyleElement = __nested_webpack_require_22901__(51);
+      var insertStyleElement_default = /*#__PURE__*/__nested_webpack_require_22901__.n(insertStyleElement);
       // EXTERNAL MODULE: ../../node_modules/style-loader/dist/runtime/styleTagTransform.js
-      var styleTagTransform = __nested_webpack_require_21854__(656);
-      var styleTagTransform_default = /*#__PURE__*/__nested_webpack_require_21854__.n(styleTagTransform);
+      var styleTagTransform = __nested_webpack_require_22901__(656);
+      var styleTagTransform_default = /*#__PURE__*/__nested_webpack_require_22901__.n(styleTagTransform);
       // EXTERNAL MODULE: ../../node_modules/css-loader/dist/cjs.js??ruleSet[1].rules[1].use[1]!../../node_modules/sass-loader/dist/cjs.js??ruleSet[1].rules[1].use[2]!./src/index.scss
-      var cjs_ruleSet_1_rules_1_use_2_src = __nested_webpack_require_21854__(483);
+      var cjs_ruleSet_1_rules_1_use_2_src = __nested_webpack_require_22901__(483);
       ; // CONCATENATED MODULE: ./src/index.scss
 
       var options = {};
@@ -914,7 +914,9 @@ module.exports = {
               display: "flex"
             })
           }
-        }, label), /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("input", {
+        }, label), /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("div", {
+          className: "input-form-content"
+        }, /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("input", {
           ref: inputRef,
           required: required,
           style: {
@@ -938,8 +940,8 @@ module.exports = {
           "aria-label": "Username",
           "aria-describedby": "basic-addon1"
         }), suffixContent && /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("div", {
-          className: "".concat(suffixContentType === "button" ? "suffix-content-btn-wrapper" : "suffix-content-text-wrapper ms-1")
-        }, suffixContent), commonSuffixIcon && /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("i", {
+          className: "".concat(suffixContentType === "button" ? "suffix-content-btn-wrapper px-2" : "suffix-content-text-wrapper ms-1")
+        }, suffixContent)), commonSuffixIcon && /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("i", {
           onClick: handleClickCommonSuffixIcon,
           className: "".concat(commonSuffixIcon, " common-suffix-icon ms-2")
         }), children && /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("div", {
@@ -960,667 +962,6 @@ module.exports = {
       Input.displayName = "Input";
       /* harmony default export */
       const src_0 = /*#__PURE__*/(0, external_root_React_commonjs2_react_commonjs_react_amd_react_.forwardRef)(Input);
-    })();
-
-    /******/
-    return __nested_webpack_exports__;
-    /******/
-  })();
-});
-
-/***/ }),
-
-/***/ 214:
-/***/ (function(module, __unused_webpack_exports, __webpack_require__) {
-
-(function webpackUniversalModuleDefinition(root, factory) {
-  if (true) module.exports = factory(__webpack_require__(442));else {}
-})(this, __WEBPACK_EXTERNAL_MODULE__442__ => {
-  return /******/(() => {
-    // webpackBootstrap
-    /******/
-    "use strict";
-
-    /******/
-    var __webpack_modules__ = {
-      /***/191: ( /***/module => {
-        /*
-          MIT License http://www.opensource.org/licenses/mit-license.php
-          Author Tobias Koppers @sokra
-        */
-        module.exports = function (cssWithMappingToString) {
-          var list = [];
-
-          // return the list of modules as css string
-          list.toString = function toString() {
-            return this.map(function (item) {
-              var content = "";
-              var needLayer = typeof item[5] !== "undefined";
-              if (item[4]) {
-                content += "@supports (".concat(item[4], ") {");
-              }
-              if (item[2]) {
-                content += "@media ".concat(item[2], " {");
-              }
-              if (needLayer) {
-                content += "@layer".concat(item[5].length > 0 ? " ".concat(item[5]) : "", " {");
-              }
-              content += cssWithMappingToString(item);
-              if (needLayer) {
-                content += "}";
-              }
-              if (item[2]) {
-                content += "}";
-              }
-              if (item[4]) {
-                content += "}";
-              }
-              return content;
-            }).join("");
-          };
-
-          // import a list of modules into the list
-          list.i = function i(modules, media, dedupe, supports, layer) {
-            if (typeof modules === "string") {
-              modules = [[null, modules, undefined]];
-            }
-            var alreadyImportedModules = {};
-            if (dedupe) {
-              for (var k = 0; k < this.length; k++) {
-                var id = this[k][0];
-                if (id != null) {
-                  alreadyImportedModules[id] = true;
-                }
-              }
-            }
-            for (var _k = 0; _k < modules.length; _k++) {
-              var item = [].concat(modules[_k]);
-              if (dedupe && alreadyImportedModules[item[0]]) {
-                continue;
-              }
-              if (typeof layer !== "undefined") {
-                if (typeof item[5] === "undefined") {
-                  item[5] = layer;
-                } else {
-                  item[1] = "@layer".concat(item[5].length > 0 ? " ".concat(item[5]) : "", " {").concat(item[1], "}");
-                  item[5] = layer;
-                }
-              }
-              if (media) {
-                if (!item[2]) {
-                  item[2] = media;
-                } else {
-                  item[1] = "@media ".concat(item[2], " {").concat(item[1], "}");
-                  item[2] = media;
-                }
-              }
-              if (supports) {
-                if (!item[4]) {
-                  item[4] = "".concat(supports);
-                } else {
-                  item[1] = "@supports (".concat(item[4], ") {").concat(item[1], "}");
-                  item[4] = supports;
-                }
-              }
-              list.push(item);
-            }
-          };
-          return list;
-        };
-
-        /***/
-      }),
-      /***/73: ( /***/module => {
-        module.exports = function (item) {
-          var content = item[1];
-          var cssMapping = item[3];
-          if (!cssMapping) {
-            return content;
-          }
-          if (typeof btoa === "function") {
-            var base64 = btoa(unescape(encodeURIComponent(JSON.stringify(cssMapping))));
-            var data = "sourceMappingURL=data:application/json;charset=utf-8;base64,".concat(base64);
-            var sourceMapping = "/*# ".concat(data, " */");
-            return [content].concat([sourceMapping]).join("\n");
-          }
-          return [content].join("\n");
-        };
-
-        /***/
-      }),
-      /***/483: ( /***/(module, __nested_webpack_exports__, __nested_webpack_require_4258__) => {
-        /* harmony export */__nested_webpack_require_4258__.d(__nested_webpack_exports__, {
-          /* harmony export */A: () => __WEBPACK_DEFAULT_EXPORT__
-          /* harmony export */
-        });
-        /* harmony import */
-        var _node_modules_css_loader_dist_runtime_sourceMaps_js__WEBPACK_IMPORTED_MODULE_0__ = __nested_webpack_require_4258__(73);
-        /* harmony import */
-        var _node_modules_css_loader_dist_runtime_sourceMaps_js__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__nested_webpack_require_4258__.n(_node_modules_css_loader_dist_runtime_sourceMaps_js__WEBPACK_IMPORTED_MODULE_0__);
-        /* harmony import */
-        var _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_1__ = __nested_webpack_require_4258__(191);
-        /* harmony import */
-        var _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__nested_webpack_require_4258__.n(_node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_1__);
-        // Imports
-
-        var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_1___default()(_node_modules_css_loader_dist_runtime_sourceMaps_js__WEBPACK_IMPORTED_MODULE_0___default());
-        // Module
-        ___CSS_LOADER_EXPORT___.push([module.id, "@charset \"UTF-8\";\n.adou-tooltip-wrapper {\n  position: relative;\n  width: fit-content;\n}\n.adou-tooltip-wrapper .content {\n  width: fit-content;\n}\n\n.adou-tooltip {\n  position: absolute;\n  background-color: #333;\n  color: #fff;\n  padding: 5px 10px;\n  border-radius: 4px;\n  font-size: 14px;\n  white-space: nowrap;\n  opacity: 0;\n  transform: scale(0);\n  /* \u521D\u59CB\u72B6\u6001\u4E3A\u7F29\u5C0F */\n  transition: opacity 0.2s ease-in-out, transform 0.2s ease-in-out;\n  /* \u6DFB\u52A0 transform \u8FC7\u6E21\u6548\u679C */\n  /* \u9632\u6B62\u9F20\u6807\u4E8B\u4EF6\u7A7F\u900F\u5230 Tooltip \u540E\u9762\u7684\u5143\u7D20 */\n  z-index: 10000;\n}\n.adou-tooltip.show-tool-tip {\n  opacity: 1;\n  /* \u663E\u793A\u65F6\u653E\u5927 */\n  pointer-events: auto;\n  /* \u542F\u7528\u9F20\u6807\u4E8B\u4EF6 */\n}\n.adou-tooltip.adou-tooltip-top {\n  bottom: 100%;\n  left: 50%;\n  transform: translate(-50%, -10px) scale(0);\n  /* \u521D\u59CB\u72B6\u6001\u4E3A\u7F29\u5C0F */\n}\n.adou-tooltip.adou-tooltip-top.show-tool-tip {\n  transform: translate(-50%, -10px) scale(1);\n  /* \u663E\u793A\u65F6\u653E\u5927 */\n}\n.adou-tooltip.adou-tooltip-bottom {\n  top: 100%;\n  left: 50%;\n  transform: translate(-50%, 10px) scale(0);\n  /* \u521D\u59CB\u72B6\u6001\u4E3A\u7F29\u5C0F */\n}\n.adou-tooltip.adou-tooltip-bottom.show-tool-tip {\n  transform: translate(-50%, 10px) scale(1);\n  /* \u663E\u793A\u65F6\u653E\u5927 */\n}\n.adou-tooltip.adou-tooltip-left {\n  right: 100%;\n  top: 50%;\n  transform: translate(-10px, -50%) scale(0);\n  /* \u521D\u59CB\u72B6\u6001\u4E3A\u7F29\u5C0F */\n}\n.adou-tooltip.adou-tooltip-left.show-tool-tip {\n  transform: translate(-10px, -50%) scale(1);\n  /* \u663E\u793A\u65F6\u653E\u5927 */\n}\n.adou-tooltip.adou-tooltip-right {\n  left: 100%;\n  top: 50%;\n  transform: translate(10px, -50%) scale(0);\n  /* \u521D\u59CB\u72B6\u6001\u4E3A\u7F29\u5C0F */\n}\n.adou-tooltip.adou-tooltip-right.show-tool-tip {\n  transform: translate(10px, -50%) scale(1);\n  /* \u663E\u793A\u65F6\u653E\u5927 */\n}\n\n.adou-tooltip-arrow {\n  position: absolute;\n  width: 0;\n  height: 0;\n  border-style: solid;\n}\n.adou-tooltip-arrow.adou-tooltip-arrow-top {\n  border-width: 5px 5px 0 5px;\n  border-color: #333 transparent transparent transparent;\n  bottom: -5px;\n  left: 50%;\n  transform: translateX(-50%);\n}\n.adou-tooltip-arrow.adou-tooltip-arrow-bottom {\n  border-width: 0 5px 5px 5px;\n  border-color: transparent transparent #333 transparent;\n  top: -5px;\n  left: 50%;\n  transform: translateX(-50%);\n}\n.adou-tooltip-arrow.adou-tooltip-arrow-left {\n  border-width: 5px 0 5px 5px;\n  border-color: transparent transparent transparent #333;\n  right: -5px;\n  top: 50%;\n  transform: translateY(-50%);\n}\n.adou-tooltip-arrow.adou-tooltip-arrow-right {\n  border-width: 5px 5px 5px 0;\n  border-color: transparent #333 transparent transparent;\n  left: -5px;\n  top: 50%;\n  transform: translateY(-50%);\n}", "", {
-          "version": 3,
-          "sources": ["webpack://./src/index.scss"],
-          "names": [],
-          "mappings": "AAAA,gBAAgB;AAAhB;EACE,kBAAA;EACA,kBAAA;AAEF;AAAE;EACE,kBAAA;AAEJ;;AAGA;EACE,kBAAA;EACA,sBAAA;EACA,WAAA;EACA,iBAAA;EACA,kBAAA;EACA,eAAA;EACA,mBAAA;EACA,UAAA;EACA,mBAAA;EACA,YAAA;EACA,gEAAA;EACA,sBAAA;EAEA,4BAAA;EACA,cAAA;AADF;AAGE;EACE,UAAA;EACA,UAAA;EACA,oBAAA;EACA,WAAA;AADJ;AAIE;EACE,YAAA;EACA,SAAA;EACA,0CAAA;EACA,YAAA;AAFJ;AAII;EACE,0CAAA;EACA,UAAA;AAFN;AAME;EACE,SAAA;EACA,SAAA;EACA,yCAAA;EACA,YAAA;AAJJ;AAMI;EACE,yCAAA;EACA,UAAA;AAJN;AAQE;EACE,WAAA;EACA,QAAA;EACA,0CAAA;EACA,YAAA;AANJ;AAQI;EACE,0CAAA;EACA,UAAA;AANN;AAUE;EACE,UAAA;EACA,QAAA;EACA,yCAAA;EACA,YAAA;AARJ;AAUI;EACE,yCAAA;EACA,UAAA;AARN;;AAaA;EACE,kBAAA;EACA,QAAA;EACA,SAAA;EACA,mBAAA;AAVF;AAYE;EACE,2BAAA;EACA,sDAAA;EACA,YAAA;EACA,SAAA;EACA,2BAAA;AAVJ;AAaE;EACE,2BAAA;EACA,sDAAA;EACA,SAAA;EACA,SAAA;EACA,2BAAA;AAXJ;AAcE;EACE,2BAAA;EACA,sDAAA;EACA,WAAA;EACA,QAAA;EACA,2BAAA;AAZJ;AAeE;EACE,2BAAA;EACA,sDAAA;EACA,UAAA;EACA,QAAA;EACA,2BAAA;AAbJ",
-          "sourcesContent": [".adou-tooltip-wrapper {\r\n  position: relative;\r\n  width: fit-content;\r\n\r\n  .content {\r\n    width: fit-content;\r\n\r\n  }\r\n}\r\n\r\n.adou-tooltip {\r\n  position: absolute;\r\n  background-color: #333;\r\n  color: #fff;\r\n  padding: 5px 10px;\r\n  border-radius: 4px;\r\n  font-size: 14px;\r\n  white-space: nowrap;\r\n  opacity: 0;\r\n  transform: scale(0);\r\n  /* 初始状态为缩小 */\r\n  transition: opacity 0.2s ease-in-out, transform 0.2s ease-in-out;\r\n  /* 添加 transform 过渡效果 */\r\n  // pointer-events: none;\r\n  /* 防止鼠标事件穿透到 Tooltip 后面的元素 */\r\n  z-index: 10000;\r\n\r\n  &.show-tool-tip {\r\n    opacity: 1;\r\n    /* 显示时放大 */\r\n    pointer-events: auto;\r\n    /* 启用鼠标事件 */\r\n  }\r\n\r\n  &.adou-tooltip-top {\r\n    bottom: 100%;\r\n    left: 50%;\r\n    transform: translate(-50%, -10px) scale(0);\r\n    /* 初始状态为缩小 */\r\n\r\n    &.show-tool-tip {\r\n      transform: translate(-50%, -10px) scale(1);\r\n      /* 显示时放大 */\r\n    }\r\n  }\r\n\r\n  &.adou-tooltip-bottom {\r\n    top: 100%;\r\n    left: 50%;\r\n    transform: translate(-50%, 10px) scale(0);\r\n    /* 初始状态为缩小 */\r\n\r\n    &.show-tool-tip {\r\n      transform: translate(-50%, 10px) scale(1);\r\n      /* 显示时放大 */\r\n    }\r\n  }\r\n\r\n  &.adou-tooltip-left {\r\n    right: 100%;\r\n    top: 50%;\r\n    transform: translate(-10px, -50%) scale(0);\r\n    /* 初始状态为缩小 */\r\n\r\n    &.show-tool-tip {\r\n      transform: translate(-10px, -50%) scale(1);\r\n      /* 显示时放大 */\r\n    }\r\n  }\r\n\r\n  &.adou-tooltip-right {\r\n    left: 100%;\r\n    top: 50%;\r\n    transform: translate(10px, -50%) scale(0);\r\n    /* 初始状态为缩小 */\r\n\r\n    &.show-tool-tip {\r\n      transform: translate(10px, -50%) scale(1);\r\n      /* 显示时放大 */\r\n    }\r\n  }\r\n}\r\n\r\n.adou-tooltip-arrow {\r\n  position: absolute;\r\n  width: 0;\r\n  height: 0;\r\n  border-style: solid;\r\n\r\n  &.adou-tooltip-arrow-top {\r\n    border-width: 5px 5px 0 5px;\r\n    border-color: #333 transparent transparent transparent;\r\n    bottom: -5px;\r\n    left: 50%;\r\n    transform: translateX(-50%);\r\n  }\r\n\r\n  &.adou-tooltip-arrow-bottom {\r\n    border-width: 0 5px 5px 5px;\r\n    border-color: transparent transparent #333 transparent;\r\n    top: -5px;\r\n    left: 50%;\r\n    transform: translateX(-50%);\r\n  }\r\n\r\n  &.adou-tooltip-arrow-left {\r\n    border-width: 5px 0 5px 5px;\r\n    border-color: transparent transparent transparent #333;\r\n    right: -5px;\r\n    top: 50%;\r\n    transform: translateY(-50%);\r\n  }\r\n\r\n  &.adou-tooltip-arrow-right {\r\n    border-width: 5px 5px 5px 0;\r\n    border-color: transparent #333 transparent transparent;\r\n    left: -5px;\r\n    top: 50%;\r\n    transform: translateY(-50%);\r\n  }\r\n}"],
-          "sourceRoot": ""
-        }]);
-        // Exports
-        /* harmony default export */
-        const __WEBPACK_DEFAULT_EXPORT__ = ___CSS_LOADER_EXPORT___;
-
-        /***/
-      }),
-      /***/591: ( /***/module => {
-        var stylesInDOM = [];
-        function getIndexByIdentifier(identifier) {
-          var result = -1;
-          for (var i = 0; i < stylesInDOM.length; i++) {
-            if (stylesInDOM[i].identifier === identifier) {
-              result = i;
-              break;
-            }
-          }
-          return result;
-        }
-        function modulesToDom(list, options) {
-          var idCountMap = {};
-          var identifiers = [];
-          for (var i = 0; i < list.length; i++) {
-            var item = list[i];
-            var id = options.base ? item[0] + options.base : item[0];
-            var count = idCountMap[id] || 0;
-            var identifier = "".concat(id, " ").concat(count);
-            idCountMap[id] = count + 1;
-            var indexByIdentifier = getIndexByIdentifier(identifier);
-            var obj = {
-              css: item[1],
-              media: item[2],
-              sourceMap: item[3],
-              supports: item[4],
-              layer: item[5]
-            };
-            if (indexByIdentifier !== -1) {
-              stylesInDOM[indexByIdentifier].references++;
-              stylesInDOM[indexByIdentifier].updater(obj);
-            } else {
-              var updater = addElementStyle(obj, options);
-              options.byIndex = i;
-              stylesInDOM.splice(i, 0, {
-                identifier: identifier,
-                updater: updater,
-                references: 1
-              });
-            }
-            identifiers.push(identifier);
-          }
-          return identifiers;
-        }
-        function addElementStyle(obj, options) {
-          var api = options.domAPI(options);
-          api.update(obj);
-          var updater = function updater(newObj) {
-            if (newObj) {
-              if (newObj.css === obj.css && newObj.media === obj.media && newObj.sourceMap === obj.sourceMap && newObj.supports === obj.supports && newObj.layer === obj.layer) {
-                return;
-              }
-              api.update(obj = newObj);
-            } else {
-              api.remove();
-            }
-          };
-          return updater;
-        }
-        module.exports = function (list, options) {
-          options = options || {};
-          list = list || [];
-          var lastIdentifiers = modulesToDom(list, options);
-          return function update(newList) {
-            newList = newList || [];
-            for (var i = 0; i < lastIdentifiers.length; i++) {
-              var identifier = lastIdentifiers[i];
-              var index = getIndexByIdentifier(identifier);
-              stylesInDOM[index].references--;
-            }
-            var newLastIdentifiers = modulesToDom(newList, options);
-            for (var _i = 0; _i < lastIdentifiers.length; _i++) {
-              var _identifier = lastIdentifiers[_i];
-              var _index = getIndexByIdentifier(_identifier);
-              if (stylesInDOM[_index].references === 0) {
-                stylesInDOM[_index].updater();
-                stylesInDOM.splice(_index, 1);
-              }
-            }
-            lastIdentifiers = newLastIdentifiers;
-          };
-        };
-
-        /***/
-      }),
-      /***/128: ( /***/module => {
-        var memo = {};
-
-        /* istanbul ignore next  */
-        function getTarget(target) {
-          if (typeof memo[target] === "undefined") {
-            var styleTarget = document.querySelector(target);
-
-            // Special case to return head of iframe instead of iframe itself
-            if (window.HTMLIFrameElement && styleTarget instanceof window.HTMLIFrameElement) {
-              try {
-                // This will throw an exception if access to iframe is blocked
-                // due to cross-origin restrictions
-                styleTarget = styleTarget.contentDocument.head;
-              } catch (e) {
-                // istanbul ignore next
-                styleTarget = null;
-              }
-            }
-            memo[target] = styleTarget;
-          }
-          return memo[target];
-        }
-
-        /* istanbul ignore next  */
-        function insertBySelector(insert, style) {
-          var target = getTarget(insert);
-          if (!target) {
-            throw new Error("Couldn't find a style target. This probably means that the value for the 'insert' parameter is invalid.");
-          }
-          target.appendChild(style);
-        }
-        module.exports = insertBySelector;
-
-        /***/
-      }),
-      /***/51: ( /***/module => {
-        /* istanbul ignore next  */
-        function insertStyleElement(options) {
-          var element = document.createElement("style");
-          options.setAttributes(element, options.attributes);
-          options.insert(element, options.options);
-          return element;
-        }
-        module.exports = insertStyleElement;
-
-        /***/
-      }),
-      /***/855: ( /***/(module, __unused_webpack_exports, __nested_webpack_require_17408__) => {
-        /* istanbul ignore next  */
-        function setAttributesWithoutAttributes(styleElement) {
-          var nonce =  true ? __nested_webpack_require_17408__.nc : 0;
-          if (nonce) {
-            styleElement.setAttribute("nonce", nonce);
-          }
-        }
-        module.exports = setAttributesWithoutAttributes;
-
-        /***/
-      }),
-      /***/740: ( /***/module => {
-        /* istanbul ignore next  */
-        function apply(styleElement, options, obj) {
-          var css = "";
-          if (obj.supports) {
-            css += "@supports (".concat(obj.supports, ") {");
-          }
-          if (obj.media) {
-            css += "@media ".concat(obj.media, " {");
-          }
-          var needLayer = typeof obj.layer !== "undefined";
-          if (needLayer) {
-            css += "@layer".concat(obj.layer.length > 0 ? " ".concat(obj.layer) : "", " {");
-          }
-          css += obj.css;
-          if (needLayer) {
-            css += "}";
-          }
-          if (obj.media) {
-            css += "}";
-          }
-          if (obj.supports) {
-            css += "}";
-          }
-          var sourceMap = obj.sourceMap;
-          if (sourceMap && typeof btoa !== "undefined") {
-            css += "\n/*# sourceMappingURL=data:application/json;base64,".concat(btoa(unescape(encodeURIComponent(JSON.stringify(sourceMap)))), " */");
-          }
-
-          // For old IE
-          /* istanbul ignore if  */
-          options.styleTagTransform(css, styleElement, options.options);
-        }
-        function removeStyleElement(styleElement) {
-          // istanbul ignore if
-          if (styleElement.parentNode === null) {
-            return false;
-          }
-          styleElement.parentNode.removeChild(styleElement);
-        }
-
-        /* istanbul ignore next  */
-        function domAPI(options) {
-          if (typeof document === "undefined") {
-            return {
-              update: function update() {},
-              remove: function remove() {}
-            };
-          }
-          var styleElement = options.insertStyleElement(options);
-          return {
-            update: function update(obj) {
-              apply(styleElement, options, obj);
-            },
-            remove: function remove() {
-              removeStyleElement(styleElement);
-            }
-          };
-        }
-        module.exports = domAPI;
-
-        /***/
-      }),
-      /***/656: ( /***/module => {
-        /* istanbul ignore next  */
-        function styleTagTransform(css, styleElement) {
-          if (styleElement.styleSheet) {
-            styleElement.styleSheet.cssText = css;
-          } else {
-            while (styleElement.firstChild) {
-              styleElement.removeChild(styleElement.firstChild);
-            }
-            styleElement.appendChild(document.createTextNode(css));
-          }
-        }
-        module.exports = styleTagTransform;
-
-        /***/
-      }),
-      /***/442: ( /***/module => {
-        module.exports = __WEBPACK_EXTERNAL_MODULE__442__;
-
-        /***/
-      })
-
-      /******/
-    };
-    /************************************************************************/
-    /******/ // The module cache
-    /******/
-    var __webpack_module_cache__ = {};
-    /******/
-    /******/ // The require function
-    /******/
-    function __nested_webpack_require_20703__(moduleId) {
-      /******/ // Check if module is in cache
-      /******/var cachedModule = __webpack_module_cache__[moduleId];
-      /******/
-      if (cachedModule !== undefined) {
-        /******/return cachedModule.exports;
-        /******/
-      }
-      /******/ // Create a new module (and put it into the cache)
-      /******/
-      var module = __webpack_module_cache__[moduleId] = {
-        /******/id: moduleId,
-        /******/ // no module.loaded needed
-        /******/exports: {}
-        /******/
-      };
-      /******/
-      /******/ // Execute the module function
-      /******/
-      __webpack_modules__[moduleId](module, module.exports, __nested_webpack_require_20703__);
-      /******/
-      /******/ // Return the exports of the module
-      /******/
-      return module.exports;
-      /******/
-    }
-    /******/
-    /************************************************************************/
-    /******/ /* webpack/runtime/compat get default export */
-    /******/
-    (() => {
-      /******/ // getDefaultExport function for compatibility with non-harmony modules
-      /******/__nested_webpack_require_20703__.n = module => {
-        /******/var getter = module && module.__esModule ? /******/() => module['default'] : /******/() => module;
-        /******/
-        __nested_webpack_require_20703__.d(getter, {
-          a: getter
-        });
-        /******/
-        return getter;
-        /******/
-      };
-      /******/
-    })();
-    /******/
-    /******/ /* webpack/runtime/define property getters */
-    /******/
-    (() => {
-      /******/ // define getter functions for harmony exports
-      /******/__nested_webpack_require_20703__.d = (exports, definition) => {
-        /******/for (var key in definition) {
-          /******/if (__nested_webpack_require_20703__.o(definition, key) && !__nested_webpack_require_20703__.o(exports, key)) {
-            /******/Object.defineProperty(exports, key, {
-              enumerable: true,
-              get: definition[key]
-            });
-            /******/
-          }
-          /******/
-        }
-        /******/
-      };
-      /******/
-    })();
-    /******/
-    /******/ /* webpack/runtime/hasOwnProperty shorthand */
-    /******/
-    (() => {
-      /******/__nested_webpack_require_20703__.o = (obj, prop) => Object.prototype.hasOwnProperty.call(obj, prop);
-      /******/
-    })();
-    /******/
-    /******/ /* webpack/runtime/make namespace object */
-    /******/
-    (() => {
-      /******/ // define __esModule on exports
-      /******/__nested_webpack_require_20703__.r = exports => {
-        /******/if (typeof Symbol !== 'undefined' && Symbol.toStringTag) {
-          /******/Object.defineProperty(exports, Symbol.toStringTag, {
-            value: 'Module'
-          });
-          /******/
-        }
-        /******/
-        Object.defineProperty(exports, '__esModule', {
-          value: true
-        });
-        /******/
-      };
-      /******/
-    })();
-    /******/
-    /******/ /* webpack/runtime/nonce */
-    /******/
-    (() => {
-      /******/__nested_webpack_require_20703__.nc = undefined;
-      /******/
-    })();
-    /******/
-    /************************************************************************/
-    var __nested_webpack_exports__ = {};
-    // This entry need to be wrapped in an IIFE because it need to be isolated against other modules in the chunk.
-    (() => {
-      // ESM COMPAT FLAG
-      __nested_webpack_require_20703__.r(__nested_webpack_exports__);
-
-      // EXPORTS
-      __nested_webpack_require_20703__.d(__nested_webpack_exports__, {
-        "default": () => ( /* binding */src_0)
-      });
-
-      // EXTERNAL MODULE: external {"root":"React","commonjs2":"react","commonjs":"react","amd":"react"}
-      var external_root_React_commonjs2_react_commonjs_react_amd_react_ = __nested_webpack_require_20703__(442);
-      var external_root_React_commonjs2_react_commonjs_react_amd_react_default = /*#__PURE__*/__nested_webpack_require_20703__.n(external_root_React_commonjs2_react_commonjs_react_amd_react_);
-      // EXTERNAL MODULE: ../../node_modules/style-loader/dist/runtime/injectStylesIntoStyleTag.js
-      var injectStylesIntoStyleTag = __nested_webpack_require_20703__(591);
-      var injectStylesIntoStyleTag_default = /*#__PURE__*/__nested_webpack_require_20703__.n(injectStylesIntoStyleTag);
-      // EXTERNAL MODULE: ../../node_modules/style-loader/dist/runtime/styleDomAPI.js
-      var styleDomAPI = __nested_webpack_require_20703__(740);
-      var styleDomAPI_default = /*#__PURE__*/__nested_webpack_require_20703__.n(styleDomAPI);
-      // EXTERNAL MODULE: ../../node_modules/style-loader/dist/runtime/insertBySelector.js
-      var insertBySelector = __nested_webpack_require_20703__(128);
-      var insertBySelector_default = /*#__PURE__*/__nested_webpack_require_20703__.n(insertBySelector);
-      // EXTERNAL MODULE: ../../node_modules/style-loader/dist/runtime/setAttributesWithoutAttributes.js
-      var setAttributesWithoutAttributes = __nested_webpack_require_20703__(855);
-      var setAttributesWithoutAttributes_default = /*#__PURE__*/__nested_webpack_require_20703__.n(setAttributesWithoutAttributes);
-      // EXTERNAL MODULE: ../../node_modules/style-loader/dist/runtime/insertStyleElement.js
-      var insertStyleElement = __nested_webpack_require_20703__(51);
-      var insertStyleElement_default = /*#__PURE__*/__nested_webpack_require_20703__.n(insertStyleElement);
-      // EXTERNAL MODULE: ../../node_modules/style-loader/dist/runtime/styleTagTransform.js
-      var styleTagTransform = __nested_webpack_require_20703__(656);
-      var styleTagTransform_default = /*#__PURE__*/__nested_webpack_require_20703__.n(styleTagTransform);
-      // EXTERNAL MODULE: ../../node_modules/css-loader/dist/cjs.js??ruleSet[1].rules[1].use[1]!../../node_modules/sass-loader/dist/cjs.js??ruleSet[1].rules[1].use[2]!./src/index.scss
-      var cjs_ruleSet_1_rules_1_use_2_src = __nested_webpack_require_20703__(483);
-      ; // CONCATENATED MODULE: ./src/index.scss
-
-      var options = {};
-      options.styleTagTransform = styleTagTransform_default();
-      options.setAttributes = setAttributesWithoutAttributes_default();
-      options.insert = insertBySelector_default().bind(null, "head");
-      options.domAPI = styleDomAPI_default();
-      options.insertStyleElement = insertStyleElement_default();
-      var update = injectStylesIntoStyleTag_default()(cjs_ruleSet_1_rules_1_use_2_src /* default */.A, options);
-
-      /* harmony default export */
-      const src = cjs_ruleSet_1_rules_1_use_2_src /* default */.A && cjs_ruleSet_1_rules_1_use_2_src /* default */.A.locals ? cjs_ruleSet_1_rules_1_use_2_src /* default */.A.locals : undefined;
-      ; // CONCATENATED MODULE: ./src/index.tsx
-
-      // 引入样式文件
-
-      const Tooltip = _ref => {
-        let {
-          flex,
-          mustShow,
-          show = true,
-          text,
-          position = "top",
-          children,
-          bgc,
-          color,
-          borderColor,
-          wrapperClassname
-        } = _ref;
-        const [isShow, setIsShow] = (0, external_root_React_commonjs2_react_commonjs_react_amd_react_.useState)(false);
-        const [isVisible, setIsVisible] = (0, external_root_React_commonjs2_react_commonjs_react_amd_react_.useState)(false); // 用来实现当鼠标进入提示区域可以让提示存在的效果
-        const tooltipRef = (0, external_root_React_commonjs2_react_commonjs_react_amd_react_.useRef)(null);
-        // ！！！用来记录鼠标是否进入提示区域
-        //       当鼠标离开内容区域的时候，去判断是否进入了提示区域，如果进入，则不隐藏提示文字
-        const isEnterTooltipRef = (0, external_root_React_commonjs2_react_commonjs_react_amd_react_.useRef)(false);
-        const enterTimeoutRef = (0, external_root_React_commonjs2_react_commonjs_react_amd_react_.useRef)(null);
-        const handleMouseEnter = () => {
-          // 进入的时候，如果存在定时器，也清除掉
-          if (enterTimeoutRef.current) {
-            clearTimeout(enterTimeoutRef.current);
-          }
-          enterTimeoutRef.current = setTimeout(() => {
-            setIsShow(true);
-            setTimeout(() => {
-              setIsVisible(true);
-            }, 50);
-          }, 200); // 延迟100毫秒
-        };
-        const handleMouseLeave = () => {
-          if (mustShow) return;
-          if (enterTimeoutRef.current) {
-            clearTimeout(enterTimeoutRef.current);
-          }
-          setTimeout(() => {
-            if (!isEnterTooltipRef.current) {
-              setIsVisible(false);
-            }
-          }, 200);
-          setTimeout(() => {
-            if (!isEnterTooltipRef.current) {
-              setIsShow(false);
-            }
-          }, 300);
-        };
-        const handleClick = e => {
-          e.stopPropagation(); // 阻止事件的冒泡
-        };
-
-        /**
-         * 用来实现当鼠标进入提示区域可以让提示存在的效果
-         */
-        const handleMouseEnterTooltip = () => {
-          isEnterTooltipRef.current = true;
-          // 如果当前是显示状态才能设置isVisible为true，不然鼠标移到提示区域也会展示
-          setIsVisible(true);
-          setTimeout(() => {
-            setIsShow(true);
-          }, 400);
-        };
-        const handleMouseLeaveTooltip = () => {
-          if (mustShow) return;
-          isEnterTooltipRef.current = false;
-          setTimeout(() => {
-            setIsVisible(false);
-          }, 200);
-          setTimeout(() => {
-            setIsShow(false);
-          }, 300);
-        };
-        (0, external_root_React_commonjs2_react_commonjs_react_amd_react_.useEffect)(() => {
-          if (mustShow) {
-            console.log("if: ", mustShow);
-            handleMouseEnter();
-          } else {
-            console.log("else: ", mustShow);
-            handleMouseLeave();
-          }
-        }, [mustShow]);
-        return /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("div", {
-          className: "adou-tooltip-wrapper ".concat(wrapperClassname || ""),
-          style: {
-            ...(flex ? {
-              flex: 1
-            } : {})
-          }
-        }, /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("div", {
-          className: "content",
-          ref: tooltipRef,
-          onMouseEnter: handleMouseEnter,
-          onMouseLeave: handleMouseLeave
-        }, children), text && show && isShow && /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("div", {
-          onClick: handleClick,
-          onMouseEnter: handleMouseEnterTooltip,
-          onMouseLeave: handleMouseLeaveTooltip,
-          className: "adou-tooltip ".concat(isVisible ? "show-tool-tip" : "", " adou-tooltip-").concat(position),
-          style: {
-            backgroundColor: bgc,
-            color: color
-          }
-        }, /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("div", {
-          style: {
-            borderColor: "transparent transparent ".concat(borderColor, " transparent")
-          },
-          className: "adou-tooltip-arrow adou-tooltip-arrow-".concat(position)
-        }), text));
-      };
-      /* harmony default export */
-      const src_0 = Tooltip;
     })();
 
     /******/
@@ -3502,11 +2843,7 @@ var update = injectStylesIntoStyleTag_default()(cjs_ruleSet_1_rules_1_use_2_src/
 
        /* harmony default export */ const src = (cjs_ruleSet_1_rules_1_use_2_src/* default */.A && cjs_ruleSet_1_rules_1_use_2_src/* default */.A.locals ? cjs_ruleSet_1_rules_1_use_2_src/* default */.A.locals : undefined);
 
-// EXTERNAL MODULE: ../components/Tooltip/index.js
-var Tooltip = __webpack_require__(214);
-var Tooltip_default = /*#__PURE__*/__webpack_require__.n(Tooltip);
 ;// CONCATENATED MODULE: ./src/index.tsx
-
 
 
 
@@ -3556,9 +2893,7 @@ const Table = props => {
     ["table-".concat(size)]: true,
     ["table-".concat(headColor)]: true
   });
-  const [tableData, setTableData] = (0,external_root_React_commonjs2_react_commonjs_react_amd_react_.useState)([]);
-  const [originalTableData, setOriginalTableData] = (0,external_root_React_commonjs2_react_commonjs_react_amd_react_.useState)([]);
-  const [tableHeaders, setTableHeaders] = (0,external_root_React_commonjs2_react_commonjs_react_amd_react_.useState)([]);
+  const [tabelData, setTableData] = (0,external_root_React_commonjs2_react_commonjs_react_amd_react_.useState)([]);
 
   // 折叠的逻辑
   const handleCollapseClick = (row, rowIndex) => {
@@ -3570,63 +2905,6 @@ const Table = props => {
         return item;
       });
     });
-  };
-  const generateHeaderStyle = position => {
-    switch (position) {
-      case "left":
-        return "flex-start";
-      case "right":
-        return "flex-end";
-      default:
-        return "center";
-    }
-  };
-  const judgeSortIconBGC = (prop, isDown) => {
-    const findItem = tableHeaders.find(item => item.prop === prop);
-    if (!findItem) return;
-    if (isDown) {
-      if (findItem.isDown) {
-        return "7px solid red";
-      }
-    } else {
-      if (findItem.isUp) {
-        return "7px solid red";
-      }
-    }
-  };
-
-  // 排序的逻辑--坑：一定要使用 [...preArr].sort，不能直接preArr.sort，这样会影响原来的数据，有Bug！！！
-  const handleSortable = (prop, isDown) => {
-    setTableHeaders(preArr => preArr.map(item => {
-      if (prop === item.prop) {
-        if (isDown) {
-          item.isDown = !item.isDown;
-          item.isUp = false;
-          // 需要降序排序
-          if (item.isDown) {
-            console.log("down: ");
-            setTableData(preArr => [...preArr].sort((a, b) => a[prop] < b[prop] ? 1 : -1));
-          } else {
-            setTableData(data);
-          }
-        } else {
-          item.isUp = !item.isUp;
-          item.isDown = false;
-          // 需要升序排序
-          if (item.isUp) {
-            setTableData(preArr => [...preArr].sort((a, b) => a[prop] > b[prop] ? 1 : -1));
-          } else {
-            setTableData(data);
-          }
-        }
-      }
-      return item;
-    }));
-
-    // setTableData((preArr: any) => preArr.sort((a: any, b: any) => (a[prop] > b[prop] ? 1 : -1)));
-    /* if (isDown) {
-      const findItem = tableHeaders.find((item: any) => item.prop === prop);
-       } */
   };
 
   // 渲染折叠的子组件
@@ -3683,38 +2961,15 @@ const Table = props => {
           className: "".concat("text-" + textPositionObject[child.props.prop]),
           scope: "col",
           key: child.props.label
-        }, /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("div", {
-          className: "header-content",
-          style: {
-            display: "flex",
-            alignItems: "center",
-            justifyContent: generateHeaderStyle(textPositionObject[child.props.prop])
-          }
-        }, /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("span", {
-          className: "header-text me-2"
-        }, child.props.label), child.props.sortable && /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("span", {
-          className: "header-icon"
-        }, /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("i", {
-          style: {
-            borderBottom: judgeSortIconBGC(child.props.prop) || "7px solid #000"
-          },
-          onClick: () => handleSortable(child.props.prop),
-          className: "icon sort-up"
-        }), /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("i", {
-          style: {
-            borderTop: judgeSortIconBGC(child.props.prop, true) || "7px solid #000"
-          },
-          onClick: () => handleSortable(child.props.prop, true),
-          className: "icon sort-down"
-        }))));
+        }, child.props.label);
       }
     }))), /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("tbody", {
       className: "".concat(divider ? "table-group-divider" : "")
-    }, tableData.length > 0 && tableData.map((data, rowIndex) => {
+    }, tabelData.length > 0 && tabelData.map((data, rowIndex) => {
       return /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement(external_root_React_commonjs2_react_commonjs_react_amd_react_.Fragment, {
         key: data[id]
       }, /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("tr", {
-        onClick: () => handleRowClick(data, rowIndex)
+        onClick: () => handleRowClick(data)
         // onDoubleClick={() => handleRowDoubleClick(data)}
         ,
         key: rowIndex,
@@ -3747,16 +3002,17 @@ const Table = props => {
         style: {
           alignContent: "center",
           padding: "0px",
-          width: "50px"
-          /* ...(data.children ? { backgroundColor: '#fff', boxShadow: 'none' } : {}), */
+          width: "50px",
+          ...(data.children ? {
+            backgroundColor: "#fff",
+            boxShadow: "none"
+          } : {})
         }
       }, rowIndex + 1), external_root_React_commonjs2_react_commonjs_react_amd_react_default().Children.map(array, (child, colIndex) => {
         let prop = child.props.prop;
         if ( /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().isValidElement(child)) {
-          const newChild = child;
           const enhancedChild = /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().cloneElement(child, {
             onCollapseClick: handleCollapseClick,
-            isParent: !colIndex && collapse && data.children,
             value: data["".concat(prop)],
             rowData: data,
             eidtable,
@@ -3764,13 +3020,12 @@ const Table = props => {
             rowIndex: rowIndex,
             colIndex: colIndex,
             canCollapse: data.children,
-            collapse: data.collapse,
+            collapse: collapse,
             textPosition,
-            width: widthObject[newChild.props.prop],
-            maxWidth: newChild.props.maxWidth
+            width: widthObject[child.props.prop]
           });
           return /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("td", {
-            className: "".concat(!colIndex && collapse && data.children ? "text-left" : "text-".concat(textPositionObject[prop]), " "),
+            className: "".concat("text-" + textPositionObject[prop], " "),
             style: {
               verticalAlign: verticalAlignObject[prop],
               width: widthObject[child.props.prop],
@@ -3780,22 +3035,20 @@ const Table = props => {
               wordBreak: "break-word",
               // 如果要默认展示一行，并且x轴太长可以滚动的话，则设置为nowrap
               // 注意：此时，外部设置的 width就没作用了，表格会自己根据内容来设置宽度
-              whiteSpace: "nowrap"
-              /*  [`${!colIndex && data.children ? 'paddingLeft' : ''}`]: '35px', */
+              whiteSpace: "nowrap",
+              ["".concat(!colIndex && data.children ? "paddingLeft" : "")]: "35px"
             },
             key: colIndex
           }, /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("div", {
-            className: "collapse-table-td"
-          }, child.props.tooltip ? /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement((Tooltip_default()), {
-            text: data[prop]
-          }, enhancedChild) : enhancedChild));
+            className: "d-flex collapse-table-td"
+          }, !colIndex && collapse && data.children ? "" : "", enhancedChild));
         }
       })), data.collapse && data.children && data.children.map((childData, index) => /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("tr", {
-        className: "collapse-table-tr animate__animated animate__fadeIn",
-        key: childData[id]
-        /* style={{
-                                  ...(data.collapse ? { display: '' } : { display: 'none' }),
-                              }} */
+        className: "collapse-table-tr",
+        key: childData[id],
+        style: {
+          ["".concat(!data.collapse ? "display" : "")]: "none"
+        }
       }, collection && /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("td", {
         scope: "row",
         style: {
@@ -3827,22 +3080,17 @@ const Table = props => {
             textPosition
           });
           return /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("td", {
-            className: "".concat(colIndex === 0 ? "text-left" : "text-center"),
+            className: "".concat("text-" + textPositionObject[prop]),
             style: {
               verticalAlign: verticalAlignObject[prop],
               width: widthObject[child.props.prop],
               overflowWrap: "break-word",
               wordWrap: "break-word",
               wordBreak: "break-word",
-              ["".concat(!colIndex ? "paddingLeft" : "")]: "40px"
+              ["".concat(!colIndex ? "paddingLeft" : "")]: "60px"
             },
             key: colIndex
-          }, /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("div", {
-            className: "collapse-table-td"
-          }, child.props.tooltip ? /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement((Tooltip_default()), {
-            position: "right",
-            text: childData[prop]
-          }, enhancedChild) : enhancedChild));
+          }, enhancedChild);
         }
       }))));
     })));
@@ -3895,8 +3143,7 @@ const Table = props => {
    *
    * 单击tr
    */
-  const handleRowClick = (row, rowIndex) => {
-    handleCollapseClick(row, rowIndex);
+  const handleRowClick = row => {
     const finalChecked = !row.checked;
     setTableData(preArr => {
       return preArr.map(item => {
@@ -3918,12 +3165,13 @@ const Table = props => {
     setTableData(preArr => {
       return preArr.map(item => {
         if (item[id] === row[id]) {
+          console.log("jinlaile: ");
           item.checked = checked;
         }
         return item;
       });
     });
-    setCheckedAll(areAllChecked(tableData));
+    setCheckedAll(areAllChecked(tabelData));
   };
   function areAllChecked(data) {
     // 遍历数组中的每个对象
@@ -3953,7 +3201,7 @@ const Table = props => {
         return item;
       });
     };
-    setTableData(updateCheckedState(tableData));
+    setTableData(updateCheckedState(tabelData));
   };
   const handleClearChecked = () => {
     setTableData(preData => preData.map(item => {
@@ -3962,19 +3210,15 @@ const Table = props => {
     }));
   };
   (0,external_root_React_commonjs2_react_commonjs_react_amd_react_.useEffect)(() => {
-    console.log("data: ", data);
     const checkedAll = areAllChecked(data);
     setCheckedAll(checkedAll);
     if (collapse) {
-      const tempData = data.map(item => {
+      setTableData(data.map(item => {
         item.collapse = expandAll;
         return item;
-      });
-      setTableData(tempData);
-      setOriginalTableData(tempData);
+      }));
     } else {
       setTableData(data);
-      setOriginalTableData(data);
     }
   }, [data]);
   (0,external_root_React_commonjs2_react_commonjs_react_amd_react_.useEffect)(() => {
@@ -3986,15 +3230,7 @@ const Table = props => {
       }
       return item;
     }));
-  }, [activeId]);
-  (0,external_root_React_commonjs2_react_commonjs_react_amd_react_.useEffect)(() => {
-    setTableHeaders(headers);
-  }, [headers]);
-
-  /*     useEffect(() => {
-      
-  }, [tableHeaders]); */
-
+  }, [activeId, data]);
   (0,external_root_React_commonjs2_react_commonjs_react_amd_react_.useImperativeHandle)(tableRef, () => ({
     clearChecked: handleClearChecked
   }));
@@ -4007,7 +3243,7 @@ const Table = props => {
     className: "table-wrapper ".concat("table-responsive".concat("-" + tableResponsive))
   }, /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("table", {
     className: cls
-  }, renderCollapseChildren())), JSON.stringify(data));
+  }, renderCollapseChildren())));
 };
 Table.TableCell = src_TableCell;
 /* harmony default export */ const src_0 = (withTranslation()(Table));
