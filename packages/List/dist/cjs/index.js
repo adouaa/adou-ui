@@ -3353,6 +3353,10 @@ const List = /*#__PURE__*/(0,external_root_React_commonjs2_react_commonjs_react_
   (0,external_root_React_commonjs2_react_commonjs_react_amd_react_.useEffect)(() => {
     var _data$;
     settreeData(convertListToTree(flattenDataWithoutNesting(data), (data === null || data === void 0 || (_data$ = data[0]) === null || _data$ === void 0 ? void 0 : _data$.pid) || null));
+    // data 变化的时候，也要将 选中的id 置为 -1，防止遗留上一次 选中的id
+    if (!activeId) {
+      set_ActiveId(-1);
+    }
   }, [data]);
   (0,external_root_React_commonjs2_react_commonjs_react_amd_react_.useEffect)(() => {
     // console.log("treeData: ", treeData);

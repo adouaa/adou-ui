@@ -347,7 +347,7 @@ const Tooltip: React.FC<TooltipProps> = ({
     >
       <div
         ref={contentRef}
-        className="content"
+        className="adou-tooltip-content"
         onMouseEnter={handleMouseEnter}
         onMouseLeave={handleMouseLeave}
         style={{ ...(wrapperFlex ? { flex: 1 } : {}) }}

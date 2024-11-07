@@ -736,6 +736,7 @@ var update = injectStylesIntoStyleTag_default()(cjs_ruleSet_1_rules_1_use_2_src/
 
 const Input = (_ref, ref) => {
   let {
+    textEnd,
     name,
     inline,
     isFormItem,
@@ -799,7 +800,7 @@ const Input = (_ref, ref) => {
       args[_key4 - 1] = arguments[_key4];
     }
     onChange && onChange(value, ...args);
-    onFormDataChange && onFormDataChange(name, value);
+    onFormDataChange && onFormDataChange(name, type === "number" ? Number(value) : value);
   };
   const handleIconClick = () => {
     onIconClick && onIconClick(value);
@@ -858,8 +859,7 @@ const Input = (_ref, ref) => {
     ref: wrapeerRef,
     className: "content-box icon-input ".concat(inputGroup ? "input-group" : "", " label-in-").concat(labelPosition)
   }, prefixContent && /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("span", {
-    className: "input-group-text",
-    id: "basic-addon1"
+    className: "input-group-text"
   }, prefixContent), label && /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("span", {
     className: "label-box",
     style: {
@@ -870,9 +870,7 @@ const Input = (_ref, ref) => {
         display: "flex"
       })
     }
-  }, label), /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("div", {
-    className: "input-form-content"
-  }, /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("input", {
+  }, label), /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("input", {
     ref: inputRef,
     required: required,
     style: {
@@ -892,12 +890,10 @@ const Input = (_ref, ref) => {
     onFocus: e => handleFocus(e),
     onClick: e => handleClick(e),
     type: type,
-    className: "form-control input ".concat(suffixContent && suffixContentType === "button" ? "suffix-content-btn" : ""),
-    "aria-label": "Username",
-    "aria-describedby": "basic-addon1"
+    className: "form-control input pe-0 ".concat(textEnd ? "text-end" : "", " ").concat(suffixContent && suffixContentType === "button" ? "suffix-content-btn" : "")
   }), suffixContent && /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("div", {
-    className: "".concat(suffixContentType === "button" ? "suffix-content-btn-wrapper px-2" : "suffix-content-text-wrapper ms-1")
-  }, suffixContent)), commonSuffixIcon && /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("i", {
+    className: "".concat(suffixContentType === "button" ? "suffix-content-btn-wrapper" : "suffix-content-text-wrapper ms-1")
+  }, suffixContent), commonSuffixIcon && /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("i", {
     onClick: handleClickCommonSuffixIcon,
     className: "".concat(commonSuffixIcon, " common-suffix-icon ms-2")
   }), children && /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("div", {

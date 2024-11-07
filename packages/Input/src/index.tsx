@@ -9,6 +9,7 @@ import classNames from "classnames";
 import "./index.scss";
 
 export interface InputProps {
+  textEnd?: boolean;
   name?: string;
   inline?: boolean;
   isFormItem?: boolean;
@@ -56,6 +57,7 @@ export interface InputRef {
 
 const Input: React.ForwardRefRenderFunction<InputRef, InputProps> = (
   {
+    textEnd,
     name,
     inline,
     isFormItem,
@@ -126,7 +128,8 @@ const Input: React.ForwardRefRenderFunction<InputRef, InputProps> = (
     const value = e.target.value;
     setValue(value);
     onChange && onChange(value, ...args);
-    onFormDataChange && onFormDataChange(name!, value);
+    onFormDataChange &&
+      onFormDataChange(name!, type === "number" ? Number(value) : value);
   };
 
   const handleIconClick = () => {
@@ -166,7 +169,6 @@ const Input: React.ForwardRefRenderFunction<InputRef, InputProps> = (
     } else {
       setValue("");
     }
-
     if (defaultValue) {
       setError(false);
     }
@@ -195,9 +197,7 @@ const Input: React.ForwardRefRenderFunction<InputRef, InputProps> = (
         } label-in-${labelPosition}`}
       >
         {prefixContent && (
-          <span className="input-group-text" id="basic-addon1">
-            {prefixContent}
-          </span>
+          <span className="input-group-text">{prefixContent}</span>
         )}
         {label && (
           <span
@@ -212,47 +212,44 @@ const Input: React.ForwardRefRenderFunction<InputRef, InputProps> = (
             {label}
           </span>
         )}
-        <div className="input-form-content">
-          <input
-            ref={inputRef}
-            required={required}
-            style={{
-              borderRadius: "6px",
-              borderTopLeftRadius: prefixContent ? 0 : "6px",
-              borderBottomLeftRadius: prefixContent ? 0 : "6px",
-              background: transparent ? "transparent" : "#fff",
-              flex: 1,
-            }}
-            step={1}
-            name={name}
-            value={value}
-            readOnly={readOnly}
-            placeholder={placeholder}
-            onChange={handleChange}
-            onBlur={(e) => handleBlur(e)}
-            onFocus={(e) => handleFocus(e)}
-            onClick={(e) => handleClick(e)}
-            type={type}
-            className={`form-control input ${
-              suffixContent && suffixContentType === "button"
-                ? "suffix-content-btn"
-                : ""
+        <input
+          ref={inputRef}
+          required={required}
+          style={{
+            borderRadius: "6px",
+            borderTopLeftRadius: prefixContent ? 0 : "6px",
+            borderBottomLeftRadius: prefixContent ? 0 : "6px",
+            background: transparent ? "transparent" : "#fff",
+            flex: 1,
+          }}
+          step={1}
+          name={name}
+          value={value}
+          readOnly={readOnly}
+          placeholder={placeholder}
+          onChange={handleChange}
+          onBlur={(e) => handleBlur(e)}
+          onFocus={(e) => handleFocus(e)}
+          onClick={(e) => handleClick(e)}
+          type={type}
+          className={`form-control input pe-0 ${textEnd ? "text-end" : ""} ${
+            suffixContent && suffixContentType === "button"
+              ? "suffix-content-btn"
+              : ""
+          }`}
+        />
+        {suffixContent && (
+          <div
+            className={`${
+              suffixContentType === "button"
+                ? "suffix-content-btn-wrapper"
+                : "suffix-content-text-wrapper ms-1"
             }`}
-            aria-label="Username"
-            aria-describedby="basic-addon1"
-          />
-          {suffixContent && (
-            <div
-              className={`${
-                suffixContentType === "button"
-                  ? "suffix-content-btn-wrapper px-2"
-                  : "suffix-content-text-wrapper ms-1"
-              }`}
-            >
-              {suffixContent}
-            </div>
-          )}
-        </div>
+          >
+            {suffixContent}
+          </div>
+        )}
+
         {commonSuffixIcon && (
           <i
             onClick={handleClickCommonSuffixIcon}
@@ -280,7 +277,9 @@ const Input: React.ForwardRefRenderFunction<InputRef, InputProps> = (
                 ? "120px"
                 : parseFloat(labelWidth) + 20 + "px",
           }}
-        >{`${errMsg || `${label}不能为空`}`}</div>
+        >
+          {`${errMsg || `${label}不能为空`}`}
+        </div>
       )}
     </div>
   );

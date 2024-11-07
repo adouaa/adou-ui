@@ -267,7 +267,9 @@ module.exports = {
       __nested_webpack_require_918__.d(__nested_webpack_exports__, {
         convertArrayKeysToCamelCase: () => ( /* reexport */libs_convertArrayKeysToCamelCase),
         convertArrayKeysToSnakeCase: () => ( /* reexport */libs_convertArrayKeysToSnakeCase),
+        convertListToTree: () => ( /* reexport */libs_convertListToTree),
         convertToTag: () => ( /* reexport */libs_convertToTag),
+        flattenDataWithoutNesting: () => ( /* reexport */libs_flattenDataWithoutNesting),
         getAbsolutePosition: () => ( /* reexport */libs_getAbsolutePositionOfStage),
         isEmptyO: () => ( /* reexport */libs_isEmptyO),
         timeFormatter: () => ( /* reexport */time_formatter_namespaceObject),
@@ -286,7 +288,6 @@ module.exports = {
       function getAbsolutePositionOfStage(domElement) {
         let left = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 0;
         let top = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : 0;
-        console.log(domElement);
         if (!parseInt(left)) {
           left = 0;
         } else {
@@ -393,6 +394,56 @@ module.exports = {
       }
       /* harmony default export */
       const libs_convertArrayKeysToSnakeCase = convertArrayKeysToSnakeCase;
+      ; // CONCATENATED MODULE: ./src/libs/convertListToTree.ts
+      const convertListToTree = (list, pid) => {
+        let level = 0;
+        // 递归辅助函数，用于处理每个节点及其子节点
+        const buildTree = (items, parentId, currentLevel) => {
+          const children = [];
+          items.forEach(item => {
+            if (item.pid === parentId) {
+              item.level = currentLevel;
+              children.push(item);
+              // 递归调用自身处理子节点，层级加1
+              item.children = buildTree(list, item.id, currentLevel + 1);
+            }
+          });
+          return children;
+        };
+        const data = buildTree(list, pid, level);
+        return data;
+      };
+      /* harmony default export */
+      const libs_convertListToTree = convertListToTree;
+      ; // CONCATENATED MODULE: ./src/libs/flattenDataWithoutNesting.ts
+      function flattenDataWithoutNesting(data) {
+        let flattened = [];
+        function flattenRecursive(node, parentId) {
+          const {
+            id,
+            name,
+            isExpanded
+          } = node;
+          flattened.push({
+            ...node,
+            id,
+            name,
+            isExpanded,
+            pid: parentId
+          });
+          if (node.children && node.children.length > 0) {
+            node.children.forEach(child => {
+              flattenRecursive(child, id);
+            });
+          }
+        }
+        data.forEach(rootNode => {
+          flattenRecursive(rootNode, null);
+        });
+        return flattened;
+      }
+      /* harmony default export */
+      const libs_flattenDataWithoutNesting = flattenDataWithoutNesting;
       ; // CONCATENATED MODULE: ../../node_modules/@remix-run/router/dist/router.js
       /**
        * @remix-run/router v1.5.0
@@ -7293,6 +7344,8 @@ var Utils = __webpack_require__(36);
 
 const Select = /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().forwardRef((props, ref) => {
   const {
+    minWidth,
+    noWrap = true,
     shouldFocus = false,
     activeColor = {
       font: "#fff",
@@ -7304,7 +7357,7 @@ const Select = /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_a
     valueKey = "value",
     suffixContent,
     showLabel = true,
-    suffixContentType = "button",
+    suffixContentType,
     inline,
     commonSuffixIcon,
     isFormItem,
@@ -7394,6 +7447,8 @@ const Select = /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_a
     } else {
       if (typeof defaultValue === "object") {
         const selectOption = options.find(option => (option === null || option === void 0 ? void 0 : option[valueKey]) === (defaultValue === null || defaultValue === void 0 ? void 0 : defaultValue[valueKey]));
+        console.log("defaultValue: ", defaultValue);
+        console.log("selectOption: ", selectOption);
         // 如果没有找到匹配项，则不设置选中项
         if (selectOption) {
           setValue(selectOption);
@@ -7559,6 +7614,12 @@ const Select = /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_a
       alignItems: labelPosition === "left-top" ? "start" : "center",
       ...(labelPosition !== "top" && {
         display: "flex"
+      }),
+      ...(noWrap && {
+        whiteSpace: "nowrap"
+      }),
+      ...(minWidth && {
+        minWidth
       })
     }
   }, label), /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("div", {

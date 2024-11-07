@@ -13,6 +13,8 @@ import ReactDOM from "react-dom";
 import { getAbsolutePosition, useClickOutside } from "adou-ui/Utils/index";
 
 export interface SelectProps {
+  minWidth?: any;
+  noWrap?: boolean;
   shouldFocus?: boolean;
   activeColor?: { font: string; bgc: string };
   returnType?: "str" | "obj";
@@ -49,6 +51,8 @@ export interface SelectProps {
 
 const Select = React.forwardRef((props: SelectProps, ref) => {
   const {
+    minWidth,
+    noWrap = true,
     shouldFocus = false,
     activeColor = { font: "#fff", bgc: "#2783d8" },
     returnType = "obj",
@@ -57,7 +61,7 @@ const Select = React.forwardRef((props: SelectProps, ref) => {
     valueKey = "value",
     suffixContent,
     showLabel = true,
-    suffixContentType = "button",
+    suffixContentType,
     inline,
     commonSuffixIcon,
     isFormItem,
@@ -152,6 +156,8 @@ const Select = React.forwardRef((props: SelectProps, ref) => {
         const selectOption = options.find(
           (option) => option?.[valueKey] === defaultValue?.[valueKey]
         );
+        console.log("defaultValue: ", defaultValue);
+        console.log("selectOption: ", selectOption);
         // 如果没有找到匹配项，则不设置选中项
         if (selectOption) {
           setValue(selectOption);
@@ -353,6 +359,8 @@ const Select = React.forwardRef((props: SelectProps, ref) => {
                 flexWrap: "nowrap",
                 alignItems: labelPosition === "left-top" ? "start" : "center",
                 ...(labelPosition !== "top" && { display: "flex" }),
+                ...(noWrap && { whiteSpace: "nowrap" }),
+                ...(minWidth && { minWidth }),
               }}
             >
               {label}

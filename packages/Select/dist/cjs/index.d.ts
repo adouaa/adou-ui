@@ -1,6 +1,8 @@
 import React from "react";
 import "./index.scss";
 export interface SelectProps {
+    minWidth?: any;
+    noWrap?: boolean;
     shouldFocus?: boolean;
     activeColor?: {
         font: string;
@@ -39,6 +41,8 @@ export interface SelectProps {
 }
 declare const _default: React.ComponentType<Omit<{
     ref?: React.LegacyRef<unknown> | undefined;
+    minWidth?: any;
+    noWrap?: boolean | undefined;
     shouldFocus?: boolean | undefined;
     activeColor?: {
         font: string;

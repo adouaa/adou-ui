@@ -1,6 +1,7 @@
 import React from "react";
 import "./index.scss";
 export interface InputProps {
+    textEnd?: boolean;
     name?: string;
     inline?: boolean;
     isFormItem?: boolean;

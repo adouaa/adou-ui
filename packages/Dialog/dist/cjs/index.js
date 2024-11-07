@@ -1499,7 +1499,7 @@ const Dialog = _ref => {
     showCancel = true,
     showClose = true,
     canConfirm = true,
-    clickOutside = true,
+    clickOutside = false,
     confirmText = "确定",
     cancelText = "取消",
     confirmBtnClass = "primary",
