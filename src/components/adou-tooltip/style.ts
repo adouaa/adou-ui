@@ -11,7 +11,7 @@ export const TooltipWrapper = styled.div<TooltipWrapperProps>`
         position: relative;
         width: fit-content;
 
-        .content {
+        .tooltip-content {
             width: fit-content;
         }
     }

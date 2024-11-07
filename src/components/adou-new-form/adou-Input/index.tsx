@@ -3,6 +3,7 @@ import classNames from 'classnames';
 import './index.scss';
 
 export interface InputProps {
+    textEnd?: boolean;
     name?: string;
     inline?: boolean;
     isFormItem?: boolean;
@@ -41,6 +42,7 @@ export interface InputRef {
 
 const Input: React.ForwardRefRenderFunction<InputRef, InputProps> = (
     {
+        textEnd,
         name,
         inline,
         isFormItem,
@@ -99,7 +101,7 @@ const Input: React.ForwardRefRenderFunction<InputRef, InputProps> = (
         const value = e.target.value;
         setValue(value);
         onChange && onChange(value, ...args);
-        onFormDataChange && onFormDataChange(name!, value);
+        onFormDataChange && onFormDataChange(name!, type === 'number' ? Number(value) : value);
     };
 
     const handleIconClick = () => {
@@ -139,7 +141,6 @@ const Input: React.ForwardRefRenderFunction<InputRef, InputProps> = (
         } else {
             setValue('');
         }
-
         if (defaultValue) {
             setError(false);
         }
@@ -160,11 +161,7 @@ const Input: React.ForwardRefRenderFunction<InputRef, InputProps> = (
             }}
         >
             <div ref={wrapeerRef} className={`content-box icon-input ${inputGroup ? 'input-group' : ''} label-in-${labelPosition}`}>
-                {prefixContent && (
-                    <span className="input-group-text" id="basic-addon1">
-                        {prefixContent}
-                    </span>
-                )}
+                {prefixContent && <span className="input-group-text">{prefixContent}</span>}
                 {label && (
                     <span
                         className="label-box"
@@ -178,35 +175,30 @@ const Input: React.ForwardRefRenderFunction<InputRef, InputProps> = (
                         {label}
                     </span>
                 )}
-                <div className="input-form-content">
-                    <input
-                        ref={inputRef}
-                        required={required}
-                        style={{
-                            borderRadius: '6px',
-                            borderTopLeftRadius: prefixContent ? 0 : '6px',
-                            borderBottomLeftRadius: prefixContent ? 0 : '6px',
-                            background: transparent ? 'transparent' : '#fff',
-                            flex: 1,
-                        }}
-                        step={1}
-                        name={name}
-                        value={value}
-                        readOnly={readOnly}
-                        placeholder={placeholder}
-                        onChange={handleChange}
-                        onBlur={(e) => handleBlur(e)}
-                        onFocus={(e) => handleFocus(e)}
-                        onClick={(e) => handleClick(e)}
-                        type={type}
-                        className={`form-control input ${suffixContent && suffixContentType === 'button' ? 'suffix-content-btn' : ''}`}
-                        aria-label="Username"
-                        aria-describedby="basic-addon1"
-                    />
-                    {suffixContent && (
-                        <div className={`${suffixContentType === 'button' ? 'suffix-content-btn-wrapper px-2' : 'suffix-content-text-wrapper ms-1'}`}>{suffixContent}</div>
-                    )}
-                </div>
+                <input
+                    ref={inputRef}
+                    required={required}
+                    style={{
+                        borderRadius: '6px',
+                        borderTopLeftRadius: prefixContent ? 0 : '6px',
+                        borderBottomLeftRadius: prefixContent ? 0 : '6px',
+                        background: transparent ? 'transparent' : '#fff',
+                        flex: 1,
+                    }}
+                    step={1}
+                    name={name}
+                    value={value}
+                    readOnly={readOnly}
+                    placeholder={placeholder}
+                    onChange={handleChange}
+                    onBlur={(e) => handleBlur(e)}
+                    onFocus={(e) => handleFocus(e)}
+                    onClick={(e) => handleClick(e)}
+                    type={type}
+                    className={`form-control input pe-0 ${textEnd ? 'text-end' : ''} ${suffixContent && suffixContentType === 'button' ? 'suffix-content-btn' : ''}`}
+                />
+                {suffixContent && <div className={`${suffixContentType === 'button' ? 'suffix-content-btn-wrapper' : 'suffix-content-text-wrapper ms-1'}`}>{suffixContent}</div>}
+
                 {commonSuffixIcon && <i onClick={handleClickCommonSuffixIcon} className={`${commonSuffixIcon} common-suffix-icon ms-2`}></i>}
                 {children && (
                     <div onClick={handleIconClick} className="suffix-icon" style={{ right: commonSuffixIcon && '32px' }}>
@@ -222,7 +214,9 @@ const Input: React.ForwardRefRenderFunction<InputRef, InputProps> = (
                         fontSize: '14px',
                         paddingLeft: parseInt(labelWidth) > 120 ? '120px' : parseFloat(labelWidth) + 20 + 'px',
                     }}
-                >{`${errMsg || `${label}不能为空`}`}</div>
+                >
+                    {`${errMsg || `${label}不能为空`}`}
+                </div>
             )}
         </div>
     );

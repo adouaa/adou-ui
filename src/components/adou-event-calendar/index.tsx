@@ -1,11 +1,12 @@
 import React, { useEffect, useRef, useState } from 'react';
 import './index.scss'; // 引入样式
-import AdouSelect from '../adou-select';
+import AdouSelect from '../adou-new-form/adou-select';
 import AdouModal from 'components/adou-modal';
 import AdouNewForm from 'components/adou-new-form';
 import AdouInput from 'components/adou-Input';
 
 interface EventCalendarProps {
+    cellHeight?: any;
     date?: Date;
     data?: any[];
     wrapperHeight?: any;
@@ -14,12 +15,20 @@ interface EventCalendarProps {
     renderEvent?: any;
 }
 
-const EventCalendar = ({ date, wrapperHeight, contentHeight, data = [], modalContent, renderEvent }: EventCalendarProps) => {
+// 属性为 数组 的话默认值不能为 [] ，否则会导致 useEffect 循环执行，会导致出现问题
+const EventCalendar = ({ cellHeight, date, wrapperHeight = '500px', contentHeight = '500px', data, modalContent, renderEvent }: EventCalendarProps) => {
     /**
      * 点击某天高亮的逻辑
      */
     const [activeId, setActiveId] = useState<string>();
+
+    // 单击某天，让当前时间变为点击的天数，并且当前天数数字高亮
     const handleTdClick = (dayInfo: any) => {
+        console.log('🚀 ~ handleTdClick ~ currentDate.getFullYear():', currentDate.getFullYear());
+        console.log('🚀 ~ handleTdClick ~ currentDate.getMonth():', currentDate.getMonth());
+        console.log('🚀 ~ handleTdClick ~ dayInfo.day:', dayInfo.day);
+        console.log('🚀 ~ handleTdClick ~ dayInfo.id:', dayInfo.id);
+
         setCurrentDate(new Date(currentDate.getFullYear(), currentDate.getMonth(), dayInfo.day));
         setActiveId(dayInfo.id);
     };
@@ -123,7 +132,7 @@ const EventCalendar = ({ date, wrapperHeight, contentHeight, data = [], modalCon
 
         const data_ = Array.from({ length: currentMonthFirstDay ? currentMonthFirstDay - 1 : 6 }, (_, i) => {
             const findId = `${currentYear}-${currentMonth - 1}-${prevMonthDays - i}`;
-            const event = data.find((item: any) => item.id === findId);
+            const event = data?.find((item: any) => item.id === findId);
 
             return { id: `${currentYear}-${currentMonth - 1}-${prevMonthDays - i}`, event: event?.event, day: prevMonthDays - i, isCurrentMonth: false };
         }).reverse();
@@ -135,13 +144,15 @@ const EventCalendar = ({ date, wrapperHeight, contentHeight, data = [], modalCon
     const getCurrentMonthDays = () => {
         if (!currentMonthLastDate || !currentMonthLastDate.getDate) return [];
         const length = currentMonthLastDate.getDate();
+
         const data_ = Array.from({ length }, (_, i) => {
-            const findId = `${currentYear}-${currentMonth}-${i + 1}`;
-            const event = data.find((item: any) => item.id === findId);
+            const index = (i + 1).toString().length === 1 ? '0' + (i + 1) : i + 1;
+            const findId = `${currentYear}-${currentMonth}-${index}`;
+            const event = data?.find((item: any) => item.id === findId);
 
             return {
-                id: `${currentYear}-${currentMonth}-${i + 1}`,
-                day: i + 1,
+                id: `${currentYear}-${currentMonth}-${index}`,
+                day: index,
                 event: event?.event,
                 isCurrentMonth: true,
             };
@@ -154,11 +165,10 @@ const EventCalendar = ({ date, wrapperHeight, contentHeight, data = [], modalCon
         if (!currentMonthLastDay) return [];
 
         const data_ = Array.from({ length: 7 - currentMonthLastDay }, (_, i) => {
-            const findId = `${currentYear}-${currentMonth + 1}-${i + 1}`;
-            const event = data.find((item: any) => item.id === findId);
-            console.log(findId);
-            console.log(data);
-            return { id: `${currentYear}-${currentMonth + 1}-${i + 1}`, day: i + 1, event: event?.event, isCurrentMonth: false };
+            const index = (i + 1).toString().length === 1 ? '0' + (i + 1) : i + 1;
+            const findId = `${currentYear}-${currentMonth + 1}-${index}`;
+            const event = data?.find((item: any) => item.id === findId);
+            return { id: `${currentYear}-${currentMonth + 1}-${index}`, day: index, event: event?.event, isCurrentMonth: false };
         });
         setShouldShowNextMonthDays(data_);
     };
@@ -357,7 +367,9 @@ const EventCalendar = ({ date, wrapperHeight, contentHeight, data = [], modalCon
                     : !contentHeight
                       ? calendarContainerHeight - calendarHeaderHeight
                       : contentHeight;
-            setCalendarTableMaxHeight(height > 207 ? height : 207);
+            console.log('🚀 ~ handleCalendarTableMaxHeight ~ height:', height);
+
+            setCalendarTableMaxHeight(height);
         }
     };
 
@@ -406,10 +418,11 @@ const EventCalendar = ({ date, wrapperHeight, contentHeight, data = [], modalCon
     useEffect(() => {}, [finalShowData]);
 
     useEffect(() => {
+        console.log('55: ', 55);
         if (date) {
             setCurrentDate(date!);
         }
-        if (data.length) {
+        if (data?.length) {
             setAllDays(data);
             if (date) {
                 setCurrentDate(date!);
@@ -452,6 +465,8 @@ const EventCalendar = ({ date, wrapperHeight, contentHeight, data = [], modalCon
                     <div className="left">
                         <div className="month-select">
                             <AdouSelect
+                                isFormItem={false}
+                                showLabel={false}
                                 // rounded
                                 placeholder="January"
                                 defaultValue={currentDate.getMonth()}
@@ -463,7 +478,7 @@ const EventCalendar = ({ date, wrapperHeight, contentHeight, data = [], modalCon
                             ></AdouSelect>
                         </div>
                         <div className="year-select ms-2 me-2">
-                            <AdouSelect defaultValue={currentDate.getFullYear()} onChange={handleCurrentYearChange} width={'80px'} options={years}></AdouSelect>
+                            <AdouSelect showLabel={false} defaultValue={currentDate.getFullYear()} onChange={handleCurrentYearChange} width={'80px'} options={years}></AdouSelect>
                         </div>
                     </div>
                     <div className="right">
@@ -473,7 +488,7 @@ const EventCalendar = ({ date, wrapperHeight, contentHeight, data = [], modalCon
                     </div>
                 </div>
             </div>
-            <div className="calendar-content mt-2" style={{ height: calendarTableMaxHeight }}>
+            <div className="calendar-content mt-2" style={{ maxHeight: calendarTableMaxHeight }}>
                 <table className="calendar-table" style={{ height: '100%' }}>
                     <thead style={{ position: 'sticky', top: 0, zIndex: 1 }}>
                         <tr>
@@ -488,7 +503,7 @@ const EventCalendar = ({ date, wrapperHeight, contentHeight, data = [], modalCon
                             <tr key={weekIndex}>
                                 {week.map((dayInfo: any, dayIndex: number) => (
                                     <td onDoubleClick={() => handleTdDoubleClick(dayInfo)} onClick={() => handleTdClick(dayInfo)} key={dayInfo.id} className={`calendar-cell`}>
-                                        <div className={`calendar-cell-content-box`}>
+                                        <div className={`calendar-cell-content-box`} style={{ height: cellHeight }}>
                                             <span className={`calendar-cell-content-day ${!dayInfo.isCurrentMonth ? 'gray' : ''}  ${activeId === dayInfo.id ? 'active' : ''}`}>
                                                 {dayInfo.day}
                                             </span>
@@ -507,12 +522,13 @@ const EventCalendar = ({ date, wrapperHeight, contentHeight, data = [], modalCon
             <div onClick={() => getPreviousMonthDate(currentDate, 1)} className="month-btn next-month-btn">
                 <i className="fa-solid fa-angle-right "></i>
             </div>
-
             {/* 事件弹窗 */}
             <AdouModal show={modalShow} onCancel={handleCloseModal} onClose={handleCloseModal} onConfirm={handleCofirmModal}>
                 {
                     <>
-                        <AdouNewForm data={{}} ref={formRef}>{modalContent || <AdouInput label="事件" name="event"></AdouInput>}</AdouNewForm>
+                        <AdouNewForm data={{}} ref={formRef}>
+                            {modalContent || <AdouInput label="事件" name="event"></AdouInput>}
+                        </AdouNewForm>
                     </>
                 }
             </AdouModal>

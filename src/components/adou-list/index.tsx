@@ -184,6 +184,10 @@ const List = forwardRef(
 
         useEffect(() => {
             settreeData(convertListToTree(flattenDataWithoutNesting(data!), data?.[0]?.pid || null));
+            // data 变化的时候，也要将 选中的id 置为 -1，防止遗留上一次 选中的id
+            if (!activeId) {
+                set_ActiveId(-1);
+            }
         }, [data]);
 
         useEffect(() => {

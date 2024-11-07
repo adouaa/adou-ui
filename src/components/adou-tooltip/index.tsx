@@ -287,7 +287,7 @@ const Tooltip: React.FC<TooltipProps> = ({
 
     return (
         <div className={`adou-tooltip-wrapper ${wrapperClassname || ''}`} style={{ ...(wrapperFlex ? { flex: 1, display: 'flex' } : {}) }}>
-            <div ref={contentRef} className="content" onMouseEnter={handleMouseEnter} onMouseLeave={handleMouseLeave} style={{ ...(wrapperFlex ? { flex: 1 } : {}) }}>
+            <div ref={contentRef} className="adou-tooltip-content" onMouseEnter={handleMouseEnter} onMouseLeave={handleMouseLeave} style={{ ...(wrapperFlex ? { flex: 1 } : {}) }}>
                 {children}
             </div>
             {/* text?.trim?.()?.length > 0 &&
