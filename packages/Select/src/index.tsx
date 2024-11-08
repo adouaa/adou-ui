@@ -13,6 +13,7 @@ import ReactDOM from "react-dom";
 import { getAbsolutePosition, useClickOutside } from "adou-ui/Utils/index";
 
 export interface SelectProps {
+  selectContentExternalCls?: string;
   minWidth?: any;
   noWrap?: boolean;
   shouldFocus?: boolean;
@@ -51,6 +52,7 @@ export interface SelectProps {
 
 const Select = React.forwardRef((props: SelectProps, ref) => {
   const {
+    selectContentExternalCls,
     minWidth,
     noWrap = true,
     shouldFocus = false,
@@ -130,16 +132,15 @@ const Select = React.forwardRef((props: SelectProps, ref) => {
 
   const handleSelect = (item: any) => {
     setValue(item);
-    onChange && onChange(item);
+    const returnValue =
+      returnType === "obj" || showDefaultValue ? item : item[valueKey];
+    onChange && onChange(returnValue);
     setError(false);
     handleClose();
     setIsDropdownOpen(false);
     // 新增onFormDataChange来修改外部传入的数据
-    if (returnType === "obj" || showDefaultValue) {
-      onFormDataChange && onFormDataChange(name!, item);
-    } else {
-      onFormDataChange && onFormDataChange(name!, item[valueKey]);
-    }
+    onFormDataChange && onFormDataChange(name!, returnValue);
+
     setError(false);
   };
 
@@ -350,7 +351,7 @@ const Select = React.forwardRef((props: SelectProps, ref) => {
           onBlur={validate}
           className={`content-box label-in-${labelPosition}`}
         >
-          {showLabel && (
+          {showLabel && label && (
             <span
               className="label-box"
               style={{
@@ -370,7 +371,7 @@ const Select = React.forwardRef((props: SelectProps, ref) => {
             <div
               ref={customSelectRef}
               onClick={(e: any) => handleDivClick(e)}
-              className="custom-select form-control"
+              className={`select-content form-control ${selectContentExternalCls}`}
               style={{
                 textAlign: "left",
                 background: transparent
@@ -443,9 +444,9 @@ const Select = React.forwardRef((props: SelectProps, ref) => {
                 ...(closing ? { opacity: 0, transform: "scaleY(0)" } : {}),
               }}
               ref={contentRef}
-              className={`custom-select-content ${
-                isShow ? "custom-select-content-open" : ""
-              } ${closing ? "custom-select-content-closing" : ""}`}
+              className={`select-option-content ${
+                isShow ? "select-option-content-open" : ""
+              } ${closing ? "select-option-content-closing" : ""}`}
             >
               {isShow && (
                 <div className={`option-box`}>
@@ -455,16 +456,16 @@ const Select = React.forwardRef((props: SelectProps, ref) => {
                         onClick={() => handleSelect(item)}
                         style={{
                           color:
-                            value[valueKey] === item[valueKey]
+                            value?.[valueKey] === item[valueKey]
                               ? activeColor.font
                               : "#000",
                           backgroundColor:
-                            value[valueKey] === item[valueKey]
+                            value?.[valueKey] === item[valueKey]
                               ? activeColor.bgc
                               : "",
                         }}
                         className={`select-option ${
-                          value[valueKey] === item[valueKey]
+                          value?.[valueKey] === item[valueKey]
                             ? "select-option-active"
                             : ""
                         } ${focusedIndex === index ? "focused" : ""}`}
@@ -499,4 +500,5 @@ const Select = React.forwardRef((props: SelectProps, ref) => {
     </div>
   );
 });
+
 export default withTranslation()(Select);

@@ -1,6 +1,7 @@
 import React from "react";
 import "./index.scss";
 export interface SelectProps {
+    selectContentExternalCls?: string;
     minWidth?: any;
     noWrap?: boolean;
     shouldFocus?: boolean;
@@ -41,6 +42,7 @@ export interface SelectProps {
 }
 declare const _default: React.ComponentType<Omit<{
     ref?: React.LegacyRef<unknown> | undefined;
+    selectContentExternalCls?: string | undefined;
     minWidth?: any;
     noWrap?: boolean | undefined;
     shouldFocus?: boolean | undefined;

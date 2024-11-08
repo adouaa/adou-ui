@@ -188,7 +188,43 @@ ___CSS_LOADER_EXPORT___.push([module.id, `@charset "UTF-8";
   color: #606266;
   font-size: 14px;
 }
-.list-node-wrapper .node-item-list .left-content {
+.list-node-wrapper .node-item-list {
+  position: relative;
+  /*  &::after {
+      content: '';
+      position: absolute;
+      top: -13px;
+      left: -6px;
+      bottom: 12px;
+      // border-inline-end: 1px solid #d9d9d9;
+      width: 18px;
+      border-left: 1px solid #d9d9d9;
+      z-index: -1;
+  } */
+}
+.list-node-wrapper .node-item-list .list-node-wrapper {
+  /* &::after {
+      content: '';
+      position: absolute;
+      top: -13px;
+      left: -6px;
+      bottom: 12px;
+      // border-inline-end: 1px solid #d9d9d9;
+      width: 18px;
+      border-left: 1px solid #d9d9d9;
+      z-index: -1;
+  } */
+}
+.list-node-wrapper .node-item-list .node-item-content {
+  /* &::after {
+      content: '';
+      position: absolute;
+      top: -13px;
+      left: 0px;
+      bottom: 12px;
+      border-left: 1px solid #d9d9d9;
+      border-bottom: 1px solid #d9d9d9;
+  } */
   display: flex;
   align-items: center;
   /* display: inline-block; // 这个加上就会把这个盒子的宽度变成跟内容的宽度一样，而不会是根据父容器的宽度 */
@@ -197,15 +233,23 @@ ___CSS_LOADER_EXPORT___.push([module.id, `@charset "UTF-8";
   /* 添加相对定位--好像没用 */
   min-width: 120px;
   cursor: pointer;
+  /*  &.active {
+      color: #fff;
+      background-color: #2783d8;
+  } */
 }
-.list-node-wrapper .node-item-list .left-content:hover {
-  background-color: #f6f6f6;
+.list-node-wrapper .node-item-list .node-item-content.show-line:after {
+  content: "";
+  position: absolute;
+  top: -1000px;
+  left: -8px;
+  bottom: 12px;
+  width: 0.875rem;
+  border-bottom: 1px solid #d9d9d9;
+  border-left: 1px solid #d9d9d9;
+  z-index: 0;
 }
-.list-node-wrapper .node-item-list .left-content.active {
-  color: #fff;
-  background-color: #2783d8;
-}
-.list-node-wrapper .node-item-list .left-content .tag1 {
+.list-node-wrapper .node-item-list .node-item-content .tag1 {
   font-size: 12px;
   padding: 2px 6px;
   border-radius: 6px;
@@ -213,7 +257,7 @@ ___CSS_LOADER_EXPORT___.push([module.id, `@charset "UTF-8";
   color: #6dc442;
   white-space: nowrap;
 }
-.list-node-wrapper .node-item-list .left-content .tag2 {
+.list-node-wrapper .node-item-list .node-item-content .tag2 {
   font-size: 12px;
   padding: 2px 6px;
   border-radius: 6px;
@@ -221,10 +265,7 @@ ___CSS_LOADER_EXPORT___.push([module.id, `@charset "UTF-8";
   color: #f67878;
   white-space: nowrap;
 }
-.list-node-wrapper .node-item-list .left-content .item-name {
-  word-break: break-all;
-}
-.list-node-wrapper .node-item-list .left-content .right-content {
+.list-node-wrapper .node-item-list .node-item-content .right-content {
   padding: 1px;
   position: absolute;
   border-radius: 4px;
@@ -233,25 +274,36 @@ ___CSS_LOADER_EXPORT___.push([module.id, `@charset "UTF-8";
   background-color: #fff;
   z-index: 999;
 }
-.list-node-wrapper .node-item-list .left-content .right-content i {
+.list-node-wrapper .node-item-list .node-item-content .right-content i {
   margin: 0 4px;
+}
+.list-node-wrapper .node-item-list .node-item-content .toggle-icon.has-children-toggle-icon.not-root-toggle-icon {
+  position: relative;
+  /* &::after {
+      content: '';
+      position: absolute;
+      top: 18px;
+      left: 5px;
+      height: 10px;
+      width: 10px;
+      border: solid #d9d9d9;
+      border-width: 1px 0 0 0;
+  } */
 }
 .list-node-wrapper .children {
   max-height: 0;
   /* 初始状态下高度为0 */
-  overflow-y: hidden;
   /* 隐藏溢出内容 */
 }
 .list-node-wrapper .children.not-expand {
   transition: max-height 0.25s ease;
 }
 .list-node-wrapper .children.expanded {
-  overflow-y: clip;
   transition: max-height 0.3s ease;
   /* 添加过渡效果 */
   max-height: 1000px;
   /* 展开时高度自动适应内容 */
-}`, "",{"version":3,"sources":["webpack://./src/ListNode/index.scss"],"names":[],"mappings":"AAAA,gBAAgB;AAAhB;EACI,cAAA;EACA,eAAA;AAEJ;AACQ;EAEI,aAAA;EACA,mBAAA;EACA,oEAAA;EACA,0BAAA;EAEA,kBAAA;EACA,iBAAA;EACA,gBAAA;EACA,eAAA;AADZ;AAGY;EACI,yBAAA;AADhB;AAIY;EACI,WAAA;EACA,yBAAA;AAFhB;AAKY;EACI,eAAA;EACA,gBAAA;EACA,kBAAA;EACA,yBAAA;EACA,cAAA;EACA,mBAAA;AAHhB;AAMY;EACI,eAAA;EACA,gBAAA;EACA,kBAAA;EACA,yBAAA;EACA,cAAA;EACA,mBAAA;AAJhB;AAUY;EACI,qBAAA;AARhB;AAWY;EACI,YAAA;EACA,kBAAA;EACA,kBAAA;EAEA,WAAA;EACA,cAAA;EACA,sBAAA;EACA,YAAA;AAVhB;AAagB;EACI,aAAA;AAXpB;AAuBI;EAEI,aAAA;EACA,cAAA;EACA,kBAAA;EAEA,WAAA;AAvBR;AAwBQ;EACI,iCAAA;AAtBZ;AAyBQ;EACI,gBAAA;EACA,gCAAA;EACA,WAAA;EACA,kBAAA;EACA,gBAAA;AAvBZ","sourcesContent":[".list-node-wrapper {\r\n    color: #606266;\r\n    font-size: 14px;\r\n\r\n    .node-item-list {\r\n        .left-content {\r\n            // 使用 display 会出现 hover背景色和 active高亮色宽度比较短，但是没事。。\r\n            display: flex;\r\n            align-items: center;\r\n            /* display: inline-block; // 这个加上就会把这个盒子的宽度变成跟内容的宽度一样，而不会是根据父容器的宽度 */\r\n            padding: 3px 20px 3px 14px;\r\n            // white-space: wrap;\r\n            position: relative;\r\n            /* 添加相对定位--好像没用 */\r\n            min-width: 120px;\r\n            cursor: pointer;\r\n\r\n            &:hover {\r\n                background-color: #f6f6f6;\r\n            }\r\n\r\n            &.active {\r\n                color: #fff;\r\n                background-color: #2783d8;\r\n            }\r\n\r\n            .tag1 {\r\n                font-size: 12px;\r\n                padding: 2px 6px;\r\n                border-radius: 6px;\r\n                background-color: #f0f9eb;\r\n                color: #6dc442;\r\n                white-space: nowrap;\r\n            }\r\n\r\n            .tag2 {\r\n                font-size: 12px;\r\n                padding: 2px 6px;\r\n                border-radius: 6px;\r\n                background-color: #fef0f0;\r\n                color: #f67878;\r\n                white-space: nowrap;\r\n\r\n            }\r\n\r\n\r\n\r\n            .item-name {\r\n                word-break: break-all; // 树节点 的名字太长让它换行\r\n            }\r\n\r\n            .right-content {\r\n                padding: 1px;\r\n                position: absolute;\r\n                border-radius: 4px;\r\n                // top: 2px;\r\n                right: 10px;\r\n                color: #606266;\r\n                background-color: #fff;\r\n                z-index: 999;\r\n\r\n\r\n                i {\r\n                    margin: 0 4px;\r\n                }\r\n            }\r\n        }\r\n\r\n        .has-children {}\r\n\r\n        .no-children {\r\n            // padding-left: 10px;\r\n        }\r\n    }\r\n\r\n    .children {\r\n        // padding-left: 10px;\r\n        max-height: 0;\r\n        /* 初始状态下高度为0 */\r\n        overflow-y: hidden;\r\n\r\n        /* 隐藏溢出内容 */\r\n        &.not-expand {\r\n            transition: max-height .25s ease; //这个加上过度效果会出现点击的节点的内部闪现x轴滚动条\r\n        }\r\n\r\n        &.expanded {\r\n            overflow-y: clip; // 这句话加上就不会出现很多歌滚动条。。。\r\n            transition: max-height .3s ease;\r\n            /* 添加过渡效果 */\r\n            max-height: 1000px;\r\n            /* 展开时高度自动适应内容 */\r\n        }\r\n    }\r\n}"],"sourceRoot":""}]);
+}`, "",{"version":3,"sources":["webpack://./src/ListNode/index.scss"],"names":[],"mappings":"AAAA,gBAAgB;AAAhB;EACI,cAAA;EACA,eAAA;AAEJ;AAAI;EACI,kBAAA;EAEA;;;;;;;;;;KAAA;AAWR;AACQ;EACI;;;;;;;;;;KAAA;AAWZ;AAEQ;EAcI;;;;;;;;KAAA;EAWA,aAAA;EACA,mBAAA;EACA,oEAAA;EACA,0BAAA;EAEA,kBAAA;EACA,iBAAA;EACA,gBAAA;EACA,eAAA;EAMA;;;KAAA;AAlBZ;AApBY;EACI,WAAA;EACA,kBAAA;EACA,YAAA;EACA,UAAA;EACA,YAAA;EAEA,eAAA;EACA,gCAAA;EACA,8BAAA;EACA,UAAA;AAqBhB;AAYY;EACI,eAAA;EACA,gBAAA;EACA,kBAAA;EACA,yBAAA;EACA,cAAA;EACA,mBAAA;AAVhB;AAaY;EACI,eAAA;EACA,gBAAA;EACA,kBAAA;EACA,yBAAA;EACA,cAAA;EACA,mBAAA;AAXhB;AAeY;EACI,YAAA;EACA,kBAAA;EACA,kBAAA;EAEA,WAAA;EACA,cAAA;EACA,sBAAA;EACA,YAAA;AAdhB;AAiBgB;EACI,aAAA;AAfpB;AAmBY;EACI,kBAAA;EAEA;;;;;;;;;KAAA;AAThB;AAiCI;EACI,aAAA;EACA,cAAA;EAGA,WAAA;AAjCR;AAkCQ;EACI,iCAAA;AAhCZ;AAmCQ;EAEI,gCAAA;EACA,WAAA;EACA,kBAAA;EACA,gBAAA;AAlCZ","sourcesContent":[".list-node-wrapper {\r\n    color: #606266;\r\n    font-size: 14px;\r\n\r\n    .node-item-list {\r\n        position: relative;\r\n\r\n        /*  &::after {\r\n            content: '';\r\n            position: absolute;\r\n            top: -13px;\r\n            left: -6px;\r\n            bottom: 12px;\r\n            // border-inline-end: 1px solid #d9d9d9;\r\n            width: 18px;\r\n            border-left: 1px solid #d9d9d9;\r\n            z-index: -1;\r\n        } */\r\n\r\n        .list-node-wrapper {\r\n            /* &::after {\r\n                content: '';\r\n                position: absolute;\r\n                top: -13px;\r\n                left: -6px;\r\n                bottom: 12px;\r\n                // border-inline-end: 1px solid #d9d9d9;\r\n                width: 18px;\r\n                border-left: 1px solid #d9d9d9;\r\n                z-index: -1;\r\n            } */\r\n        }\r\n\r\n        .node-item-content {\r\n            &.show-line:after {\r\n                content: '';\r\n                position: absolute;\r\n                top: -1000px;\r\n                left: -8px;\r\n                bottom: 12px;\r\n                // border-inline-end: 1px solid #d9d9d9;\r\n                width: 0.875rem;\r\n                border-bottom: 1px solid #d9d9d9;\r\n                border-left: 1px solid #d9d9d9;\r\n                z-index: 0;\r\n            }\r\n\r\n            /* &::after {\r\n                content: '';\r\n                position: absolute;\r\n                top: -13px;\r\n                left: 0px;\r\n                bottom: 12px;\r\n                border-left: 1px solid #d9d9d9;\r\n                border-bottom: 1px solid #d9d9d9;\r\n            } */\r\n\r\n            // 使用 display 会出现 hover背景色和 active高亮色宽度比较短，但是没事。。\r\n            display: flex;\r\n            align-items: center;\r\n            /* display: inline-block; // 这个加上就会把这个盒子的宽度变成跟内容的宽度一样，而不会是根据父容器的宽度 */\r\n            padding: 3px 20px 3px 14px;\r\n            // white-space: wrap;\r\n            position: relative;\r\n            /* 添加相对定位--好像没用 */\r\n            min-width: 120px;\r\n            cursor: pointer;\r\n\r\n            // &:hover {\r\n            //     background-color: #f6f6f6;\r\n            // }\r\n\r\n            /*  &.active {\r\n                color: #fff;\r\n                background-color: #2783d8;\r\n            } */\r\n\r\n            .tag1 {\r\n                font-size: 12px;\r\n                padding: 2px 6px;\r\n                border-radius: 6px;\r\n                background-color: #f0f9eb;\r\n                color: #6dc442;\r\n                white-space: nowrap;\r\n            }\r\n\r\n            .tag2 {\r\n                font-size: 12px;\r\n                padding: 2px 6px;\r\n                border-radius: 6px;\r\n                background-color: #fef0f0;\r\n                color: #f67878;\r\n                white-space: nowrap;\r\n\r\n            }\r\n\r\n            .right-content {\r\n                padding: 1px;\r\n                position: absolute;\r\n                border-radius: 4px;\r\n                // top: 2px;\r\n                right: 10px;\r\n                color: #606266;\r\n                background-color: #fff;\r\n                z-index: 999;\r\n\r\n\r\n                i {\r\n                    margin: 0 4px;\r\n                }\r\n            }\r\n\r\n            .toggle-icon.has-children-toggle-icon.not-root-toggle-icon {\r\n                position: relative;\r\n\r\n                /* &::after {\r\n                    content: '';\r\n                    position: absolute;\r\n                    top: 18px;\r\n                    left: 5px;\r\n                    height: 10px;\r\n                    width: 10px;\r\n                    border: solid #d9d9d9;\r\n                    border-width: 1px 0 0 0;\r\n                } */\r\n\r\n\r\n            }\r\n\r\n\r\n        }\r\n\r\n        .has-children {}\r\n\r\n        .no-children {\r\n            // padding-left: 10px;\r\n        }\r\n    }\r\n\r\n    .children {\r\n        max-height: 0;\r\n        /* 初始状态下高度为0 */\r\n        // overflow-y: hidden;\r\n\r\n        /* 隐藏溢出内容 */\r\n        &.not-expand {\r\n            transition: max-height .25s ease; //这个加上过度效果会出现点击的节点的内部闪现x轴滚动条\r\n        }\r\n\r\n        &.expanded {\r\n            // overflow-y: clip; // 这句话加上就不会出现很多歌滚动条。。。\r\n            transition: max-height .3s ease;\r\n            /* 添加过渡效果 */\r\n            max-height: 1000px;\r\n            /* 展开时高度自动适应内容 */\r\n        }\r\n    }\r\n}"],"sourceRoot":""}]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 
@@ -2855,13 +2907,14 @@ var St = "__sc-".concat(f, "__");
 var _templateObject;
 function _taggedTemplateLiteral(strings, raw) { if (!raw) { raw = strings.slice(0); } return Object.freeze(Object.defineProperties(strings, { raw: { value: Object.freeze(raw) } })); }
 
-const ListNodeWrapper = dt.div(_templateObject || (_templateObject = _taggedTemplateLiteral(["\n  .list-node-wrapper {\n    color: #606266;\n    font-size: 14px;\n\n    .node-item-list {\n      .left-content {\n        // \u4F7F\u7528 display \u4F1A\u51FA\u73B0 hover\u80CC\u666F\u8272\u548C active\u9AD8\u4EAE\u8272\u5BBD\u5EA6\u6BD4\u8F83\u77ED\uFF0C\u4F46\u662F\u6CA1\u4E8B\u3002\u3002\n        display: flex;\n        align-items: center;\n        /* display: inline-block; // \u8FD9\u4E2A\u52A0\u4E0A\u5C31\u4F1A\u628A\u8FD9\u4E2A\u76D2\u5B50\u7684\u5BBD\u5EA6\u53D8\u6210\u8DDF\u5185\u5BB9\u7684\u5BBD\u5EA6\u4E00\u6837\uFF0C\u800C\u4E0D\u4F1A\u662F\u6839\u636E\u7236\u5BB9\u5668\u7684\u5BBD\u5EA6 */\n        padding: 3px 20px 3px 14px;\n        // white-space: wrap;\n        position: relative;\n        /* \u6DFB\u52A0\u76F8\u5BF9\u5B9A\u4F4D--\u597D\u50CF\u6CA1\u7528 */\n        min-width: 120px;\n        cursor: pointer;\n\n        &:hover {\n          background-color: #f6f6f6;\n        }\n\n        &.active {\n          color: ", ";\n          background-color: ", ";\n        }\n\n        .tag1 {\n          font-size: 12px;\n          padding: 2px 6px;\n          border-radius: 6px;\n          background-color: #f0f9eb;\n          color: #6dc442;\n          white-space: nowrap;\n        }\n\n        .tag2 {\n          font-size: 12px;\n          padding: 2px 6px;\n          border-radius: 6px;\n          background-color: #fef0f0;\n          color: #f67878;\n          white-space: nowrap;\n        }\n\n        .item-name {\n          word-break: break-all; // \u6811\u8282\u70B9 \u7684\u540D\u5B57\u592A\u957F\u8BA9\u5B83\u6362\u884C\n        }\n\n        .right-content {\n          padding: 1px;\n          position: absolute;\n          border-radius: 4px;\n          // top: 2px;\n          right: 10px;\n          color: #606266;\n          background-color: #fff;\n          z-index: 999;\n\n          i {\n            margin: 0 4px;\n          }\n        }\n        .icon {\n          transition: all 0.3s ease;\n        }\n      }\n\n      .has-children {\n      }\n\n      .no-children {\n        /* padding-left: 10px; */\n      }\n    }\n\n    .children {\n      /* padding-left: 10px; */\n      max-height: 0;\n      /* \u521D\u59CB\u72B6\u6001\u4E0B\u9AD8\u5EA6\u4E3A0 */\n      overflow-y: hidden;\n\n      /* \u9690\u85CF\u6EA2\u51FA\u5185\u5BB9 */\n      &.not-expand {\n        transition: max-height 0.25s ease; //\u8FD9\u4E2A\u52A0\u4E0A\u8FC7\u5EA6\u6548\u679C\u4F1A\u51FA\u73B0\u70B9\u51FB\u7684\u8282\u70B9\u7684\u5185\u90E8\u95EA\u73B0x\u8F74\u6EDA\u52A8\u6761\n      }\n\n      &.expanded {\n        overflow-y: clip; // \u8FD9\u53E5\u8BDD\u52A0\u4E0A\u5C31\u4E0D\u4F1A\u51FA\u73B0\u5F88\u591A\u6B4C\u6EDA\u52A8\u6761\u3002\u3002\u3002\n        transition: max-height 0.3s ease;\n        /* \u6DFB\u52A0\u8FC7\u6E21\u6548\u679C */\n        max-height: 1000px;\n        /* \u5C55\u5F00\u65F6\u9AD8\u5EA6\u81EA\u52A8\u9002\u5E94\u5185\u5BB9 */\n      }\n    }\n  }\n"])), props => props.$activeFontColor, props => props.$activeBgc);
+const ListNodeWrapper = dt.div(_templateObject || (_templateObject = _taggedTemplateLiteral(["\n  .list-node-wrapper {\n    color: #606266;\n    font-size: 14px;\n\n    .node-item-list {\n      .node-item-content {\n        // \u4F7F\u7528 display \u4F1A\u51FA\u73B0 hover\u80CC\u666F\u8272\u548C active\u9AD8\u4EAE\u8272\u5BBD\u5EA6\u6BD4\u8F83\u77ED\uFF0C\u4F46\u662F\u6CA1\u4E8B\u3002\u3002\n        display: flex;\n        align-items: center;\n        /* display: inline-block; // \u8FD9\u4E2A\u52A0\u4E0A\u5C31\u4F1A\u628A\u8FD9\u4E2A\u76D2\u5B50\u7684\u5BBD\u5EA6\u53D8\u6210\u8DDF\u5185\u5BB9\u7684\u5BBD\u5EA6\u4E00\u6837\uFF0C\u800C\u4E0D\u4F1A\u662F\u6839\u636E\u7236\u5BB9\u5668\u7684\u5BBD\u5EA6 */\n        padding: 3px 0px 3px 14px;\n        // white-space: wrap;\n        position: relative;\n        /* \u6DFB\u52A0\u76F8\u5BF9\u5B9A\u4F4D--\u597D\u50CF\u6CA1\u7528 */\n        min-width: 120px;\n        cursor: pointer;\n\n        /*  &:hover {\n          background-color: #f6f6f6;\n        } */\n\n        .tag1 {\n          font-size: 12px;\n          padding: 2px 6px;\n          border-radius: 6px;\n          background-color: #f0f9eb;\n          color: #6dc442;\n          white-space: nowrap;\n        }\n\n        .tag2 {\n          font-size: 12px;\n          padding: 2px 6px;\n          border-radius: 6px;\n          background-color: #fef0f0;\n          color: #f67878;\n          white-space: nowrap;\n        }\n\n        .item-name {\n          flex: 1;\n          padding: 2px 8px;\n          border-radius: 6px;\n          word-break: break-all; // \u6811\u8282\u70B9 \u7684\u540D\u5B57\u592A\u957F\u8BA9\u5B83\u6362\u884C\n          &:hover {\n            background-color: #cce1fc;\n          }\n          &.active {\n            color: ", ";\n            background-color: ", " !important;\n          }\n        }\n\n        .right-content {\n          padding: 1px;\n          position: absolute;\n          border-radius: 4px;\n          // top: 2px;\n          right: 10px;\n          color: #606266;\n          background-color: #fff;\n          z-index: 999;\n\n          i {\n            margin: 0 4px;\n          }\n        }\n        .toggle-icon {\n          transition: all 0.3s ease;\n        }\n      }\n\n      .has-children {\n      }\n\n      .no-children {\n        /* padding-left: 10px; */\n      }\n    }\n\n    .children {\n      /* padding-left: 10px; */\n      max-height: 0;\n      /* \u521D\u59CB\u72B6\u6001\u4E0B\u9AD8\u5EA6\u4E3A0 */\n      overflow-y: hidden;\n\n      /* \u9690\u85CF\u6EA2\u51FA\u5185\u5BB9 */\n      &.not-expand {\n        transition: max-height 0.25s ease; //\u8FD9\u4E2A\u52A0\u4E0A\u8FC7\u5EA6\u6548\u679C\u4F1A\u51FA\u73B0\u70B9\u51FB\u7684\u8282\u70B9\u7684\u5185\u90E8\u95EA\u73B0x\u8F74\u6EDA\u52A8\u6761\n      }\n\n      &.expanded {\n        overflow-y: clip; // \u8FD9\u53E5\u8BDD\u52A0\u4E0A\u5C31\u4E0D\u4F1A\u51FA\u73B0\u5F88\u591A\u6B4C\u6EDA\u52A8\u6761\u3002\u3002\u3002\n        transition: max-height 0.3s ease;\n        /* \u6DFB\u52A0\u8FC7\u6E21\u6548\u679C */\n        max-height: 1000px;\n        /* \u5C55\u5F00\u65F6\u9AD8\u5EA6\u81EA\u52A8\u9002\u5E94\u5185\u5BB9 */\n      }\n    }\n  }\n"])), props => props.$activeFontColor, props => props.$activeBgc);
 ;// CONCATENATED MODULE: ./src/ListNode/index.tsx
 
 
 
 const ListNode_ListNode = _ref => {
   let {
+    showLine,
     maxLevel,
     onLoadNode,
     lazy = false,
@@ -3122,12 +3175,11 @@ const ListNode_ListNode = _ref => {
     }, /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("div", {
       style: {
         backgroundColor: node.bgc,
-        ...(Number(activeId) === Number(node.id) ? {
-          backgroundColor: activeBgc
-        } : ""),
-        paddingLeft: node.level * 26 + "px" // 让树节点的层级有缩进，并且是充满一整行的样式
+        ...(!showLine && {
+          paddingLeft: node.level * 26 + "px"
+        }) // 让树节点的层级有缩进，并且是充满一整行的样式
       },
-      className: "left-content ".concat(!node.level && "ps-2", " ").concat(String(activeId) === String(node.id) ? "active" : ""),
+      className: "node-item-content pe-1 ".concat(!node.level ? "ps-2" : "", " ").concat(showLine ? "show-line" : ""),
       onClick: () => handleItemClick(node),
       onMouseEnter: () => setIsShowIcons(true),
       onMouseLeave: () => setIsShowIcons(false)
@@ -3143,7 +3195,7 @@ const ListNode_ListNode = _ref => {
         } : "")
       },
       onClick: e => handleToggleIconClick(node, e),
-      className: "icon fa fa-caret-".concat(isExpanded ? "down" : "right")
+      className: "toggle-icon fa fa-caret-".concat(isExpanded ? "down" : "right")
     }), node.loading && /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("div", {
       style: {
         width: "18px",
@@ -3159,10 +3211,13 @@ const ListNode_ListNode = _ref => {
       className: "".concat(prefixTag, " ").concat(activeId === node.id ? "text-white" : "")
     })), showTag && renderTag(), /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("span", {
       style: {
-        whiteSpace: "".concat(wrap ? "normal" : "nowrap")
+        whiteSpace: "".concat(wrap ? "normal" : "nowrap"),
+        ...(Number(activeId) === Number(node.id) ? {
+          backgroundColor: activeBgc
+        } : "")
       },
       onClick: e => handleNodeNameClick(node, e),
-      className: "ms-2 item-name ".concat(node.children && node.children.length > 0 ? "has-children" : "no-children")
+      className: "ms-1 py-1 item-name ".concat(node.children && node.children.length > 0 ? "has-children" : "no-children", " ").concat(String(activeId) === String(node.id) ? "active" : "")
     }, node.name), /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("div", {
       className: "right-content",
       style: {
@@ -3186,7 +3241,8 @@ const ListNode_ListNode = _ref => {
     }))), node.children && node.children.length > 0 && /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("div", {
       className: "children ".concat(isExpanded ? "expanded" : "not-expand"),
       style: {
-        maxHeight: childrenMaxHeight
+        maxHeight: childrenMaxHeight,
+        paddingLeft: showLine ? "35px" : 0
       }
     }, node.children.map(child =>
     /*#__PURE__*/
@@ -3196,6 +3252,7 @@ const ListNode_ListNode = _ref => {
     // 如果是传递的属性的话，是需要写的,像父组件那样子写，用的参数是父组件传递过来的，类似父组件那样再写一遍
     // 注意！！！如果传递的是回调的话，直接将 父组件List 传递给 子组件ListNode 的回调再次传递给子组件ListNode(children) 的props，这样子组件ListNode(children) 才能正确调用这个回调，包括调用回调时候数据是否正确、函数是否正确【eg：onLoadNode={onLoadNode}】
     external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement(ListNode_ListNode, {
+      showLine: showLine,
       maxLevel: maxLevel,
       onLoadNode: onLoadNode,
       lazy: lazy,
@@ -3226,6 +3283,7 @@ const ListNode_ListNode = _ref => {
 
 const List = /*#__PURE__*/(0,external_root_React_commonjs2_react_commonjs_react_amd_react_.forwardRef)((_ref, ref) => {
   let {
+    showLine,
     maxLevel,
     lazy,
     overflowY = true,
@@ -3362,20 +3420,21 @@ const List = /*#__PURE__*/(0,external_root_React_commonjs2_react_commonjs_react_
     // console.log("treeData: ", treeData);
   }, [treeData]);
   return /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("div", {
-    className: "list-wrapper",
+    className: "list-wrapper ".concat(showLine ? "ps-2" : ""),
     style: {
       flex: 1,
-      height: "100%"
+      height: "100%",
+      overflow: "auto"
     }
   }, /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("div", {
     ref: listRef,
     className: "list-content",
     style: {
       maxWidth: maxWidth,
-      maxHeight: maxHeight,
-      overflow: overflowY ? "auto" : ""
+      maxHeight: maxHeight
     }
   }, treeData && treeData.map(item => /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement(src_ListNode_0, {
+    showLine: showLine,
     maxLevel: maxLevel,
     onLoadNode: handleLoadNode,
     lazy: lazy,

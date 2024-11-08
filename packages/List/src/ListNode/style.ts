@@ -11,26 +11,21 @@ export const ListNodeWrapper = styled.div<ListNodeWrapperProps>`
     font-size: 14px;
 
     .node-item-list {
-      .left-content {
+      .node-item-content {
         // 使用 display 会出现 hover背景色和 active高亮色宽度比较短，但是没事。。
         display: flex;
         align-items: center;
         /* display: inline-block; // 这个加上就会把这个盒子的宽度变成跟内容的宽度一样，而不会是根据父容器的宽度 */
-        padding: 3px 20px 3px 14px;
+        padding: 3px 0px 3px 14px;
         // white-space: wrap;
         position: relative;
         /* 添加相对定位--好像没用 */
         min-width: 120px;
         cursor: pointer;
 
-        &:hover {
+        /*  &:hover {
           background-color: #f6f6f6;
-        }
-
-        &.active {
-          color: ${(props) => props.$activeFontColor};
-          background-color: ${(props) => props.$activeBgc};
-        }
+        } */
 
         .tag1 {
           font-size: 12px;
@@ -51,7 +46,17 @@ export const ListNodeWrapper = styled.div<ListNodeWrapperProps>`
         }
 
         .item-name {
+          flex: 1;
+          padding: 2px 8px;
+          border-radius: 6px;
           word-break: break-all; // 树节点 的名字太长让它换行
+          &:hover {
+            background-color: #cce1fc;
+          }
+          &.active {
+            color: ${(props) => props.$activeFontColor};
+            background-color: ${(props) => props.$activeBgc} !important;
+          }
         }
 
         .right-content {
@@ -68,7 +73,7 @@ export const ListNodeWrapper = styled.div<ListNodeWrapperProps>`
             margin: 0 4px;
           }
         }
-        .icon {
+        .toggle-icon {
           transition: all 0.3s ease;
         }
       }

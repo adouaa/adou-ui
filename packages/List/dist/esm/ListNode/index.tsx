@@ -3,6 +3,7 @@ import "./index.scss";
 import { ListNodeWrapper } from "./style";
 
 interface ListNodeProps {
+  showLine?: boolean;
   maxLevel?: number;
   onLoadNode?: any;
   lazy?: boolean;
@@ -31,6 +32,7 @@ interface ListNodeProps {
 }
 
 const ListNode = ({
+  showLine,
   maxLevel,
   onLoadNode,
   lazy = false,
@@ -311,13 +313,11 @@ const ListNode = ({
           <div
             style={{
               backgroundColor: node.bgc,
-              ...(Number(activeId) === Number(node.id)
-                ? { backgroundColor: activeBgc }
-                : ""),
-              paddingLeft: node.level * 26 + "px", // 让树节点的层级有缩进，并且是充满一整行的样式
+
+              ...(!showLine && { paddingLeft: node.level * 26 + "px" }), // 让树节点的层级有缩进，并且是充满一整行的样式
             }}
-            className={`left-content ${!node.level && "ps-2"} ${
-              String(activeId) === String(node.id) ? "active" : ""
+            className={`node-item-content pe-1 ${!node.level ? "ps-2" : ""} ${
+              showLine ? "show-line" : ""
             }`}
             onClick={() => handleItemClick(node)}
             onMouseEnter={() => setIsShowIcons(true)}
@@ -340,7 +340,7 @@ const ListNode = ({
                       : ""),
                   }}
                   onClick={(e) => handleToggleIconClick(node, e)}
-                  className={`icon fa fa-caret-${
+                  className={`toggle-icon fa fa-caret-${
                     isExpanded ? "down" : "right"
                   }`}
                 ></i>
@@ -368,13 +368,18 @@ const ListNode = ({
             {showTag && renderTag()}
             {/* 节点名字 */}
             <span
-              style={{ whiteSpace: `${wrap ? "normal" : "nowrap"}` }}
+              style={{
+                whiteSpace: `${wrap ? "normal" : "nowrap"}`,
+                ...(Number(activeId) === Number(node.id)
+                  ? { backgroundColor: activeBgc }
+                  : ""),
+              }}
               onClick={(e) => handleNodeNameClick(node, e)}
-              className={`ms-2 item-name ${
+              className={`ms-1 py-1 item-name ${
                 node.children && node.children.length > 0
                   ? "has-children"
                   : "no-children"
-              }`}
+              } ${String(activeId) === String(node.id) ? "active" : ""}`}
             >
               {node.name}
             </span>
@@ -407,7 +412,10 @@ const ListNode = ({
           {node.children && node.children.length > 0 && (
             <div
               className={`children ${isExpanded ? "expanded" : "not-expand"}`}
-              style={{ maxHeight: childrenMaxHeight }}
+              style={{
+                maxHeight: childrenMaxHeight,
+                paddingLeft: showLine ? "35px" : 0,
+              }}
             >
               {node.children.map((child: any) => (
                 // 这里别忘记也要像List父组件一样把 回调传递给 ListNode子组件，因为是递归，所以要这么做，
@@ -418,6 +426,7 @@ const ListNode = ({
                 // 注意！！！如果传递的是回调的话，直接将 父组件List 传递给 子组件ListNode 的回调再次传递给子组件ListNode(children) 的props，这样子组件ListNode(children) 才能正确调用这个回调，包括调用回调时候数据是否正确、函数是否正确【eg：onLoadNode={onLoadNode}】
 
                 <ListNode
+                  showLine={showLine}
                   maxLevel={maxLevel}
                   onLoadNode={onLoadNode}
                   lazy={lazy}
@@ -449,5 +458,4 @@ const ListNode = ({
     </ListNodeWrapper>
   );
 };
-
 export default ListNode;

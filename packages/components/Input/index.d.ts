@@ -1,6 +1,8 @@
 import React from "react";
 import "./index.scss";
 export interface InputProps {
+    suffixContentExternalClassName?: string;
+    inputExternalClassName?: string;
     textEnd?: boolean;
     name?: string;
     inline?: boolean;

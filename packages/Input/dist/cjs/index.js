@@ -736,6 +736,8 @@ var update = injectStylesIntoStyleTag_default()(cjs_ruleSet_1_rules_1_use_2_src/
 
 const Input = (_ref, ref) => {
   let {
+    suffixContentExternalClassName,
+    inputExternalClassName,
     textEnd,
     name,
     inline,
@@ -795,12 +797,13 @@ const Input = (_ref, ref) => {
   };
   const handleChange = function (e) {
     const value = e.target.value;
+    const returnValue = type === "number" ? Number(value) : value;
     setValue(value);
     for (var _len4 = arguments.length, args = new Array(_len4 > 1 ? _len4 - 1 : 0), _key4 = 1; _key4 < _len4; _key4++) {
       args[_key4 - 1] = arguments[_key4];
     }
-    onChange && onChange(value, ...args);
-    onFormDataChange && onFormDataChange(name, type === "number" ? Number(value) : value);
+    onChange && onChange(returnValue, ...args);
+    onFormDataChange && onFormDataChange(name, returnValue);
   };
   const handleIconClick = () => {
     onIconClick && onIconClick(value);
@@ -890,9 +893,9 @@ const Input = (_ref, ref) => {
     onFocus: e => handleFocus(e),
     onClick: e => handleClick(e),
     type: type,
-    className: "form-control input pe-0 ".concat(textEnd ? "text-end" : "", " ").concat(suffixContent && suffixContentType === "button" ? "suffix-content-btn" : "")
+    className: "form-control input pe-0 ".concat(textEnd || type === "number" ? "text-end" : "", " ").concat(suffixContent && suffixContentType === "button" ? "suffix-content-btn" : "", " ").concat(inputExternalClassName || "")
   }), suffixContent && /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("div", {
-    className: "".concat(suffixContentType === "button" ? "suffix-content-btn-wrapper" : "suffix-content-text-wrapper ms-1")
+    className: "".concat(suffixContentType === "button" ? "suffix-content-btn-wrapper" : "suffix-content-text-wrapper ms-1", " ").concat(suffixContentExternalClassName || "")
   }, suffixContent), commonSuffixIcon && /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("i", {
     onClick: handleClickCommonSuffixIcon,
     className: "".concat(commonSuffixIcon, " common-suffix-icon ms-2")

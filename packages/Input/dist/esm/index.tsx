@@ -9,6 +9,8 @@ import classNames from "classnames";
 import "./index.scss";
 
 export interface InputProps {
+  suffixContentExternalClassName?: string;
+  inputExternalClassName?: string;
   textEnd?: boolean;
   name?: string;
   inline?: boolean;
@@ -57,6 +59,8 @@ export interface InputRef {
 
 const Input: React.ForwardRefRenderFunction<InputRef, InputProps> = (
   {
+    suffixContentExternalClassName,
+    inputExternalClassName,
     textEnd,
     name,
     inline,
@@ -126,10 +130,10 @@ const Input: React.ForwardRefRenderFunction<InputRef, InputProps> = (
     ...args: any
   ) => {
     const value = e.target.value;
+    const returnValue = type === "number" ? Number(value) : value;
     setValue(value);
-    onChange && onChange(value, ...args);
-    onFormDataChange &&
-      onFormDataChange(name!, type === "number" ? Number(value) : value);
+    onChange && onChange(returnValue, ...args);
+    onFormDataChange && onFormDataChange(name!, returnValue);
   };
 
   const handleIconClick = () => {
@@ -232,11 +236,13 @@ const Input: React.ForwardRefRenderFunction<InputRef, InputProps> = (
           onFocus={(e) => handleFocus(e)}
           onClick={(e) => handleClick(e)}
           type={type}
-          className={`form-control input pe-0 ${textEnd ? "text-end" : ""} ${
+          className={`form-control input pe-0 ${
+            textEnd || type === "number" ? "text-end" : ""
+          } ${
             suffixContent && suffixContentType === "button"
               ? "suffix-content-btn"
               : ""
-          }`}
+          } ${inputExternalClassName || ""}`}
         />
         {suffixContent && (
           <div
@@ -244,7 +250,7 @@ const Input: React.ForwardRefRenderFunction<InputRef, InputProps> = (
               suffixContentType === "button"
                 ? "suffix-content-btn-wrapper"
                 : "suffix-content-text-wrapper ms-1"
-            }`}
+            } ${suffixContentExternalClassName || ""}`}
           >
             {suffixContent}
           </div>

@@ -6,6 +6,7 @@ export type NodeType = {
     children: NodeType[];
 };
 interface ListProps {
+    showLine?: boolean;
     maxLevel?: number;
     lazy?: boolean;
     overflowY?: boolean;
