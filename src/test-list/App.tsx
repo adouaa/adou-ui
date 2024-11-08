@@ -23,20 +23,14 @@ const testData = [
                                 isExpanded: false,
                                 children: [],
                             },
-                            {
-                                id: '1-1-1-2',
-                                name: '曾孙节点1-1-1-2',
-                                isExpanded: false,
-                                children: [],
-                            },
                         ],
                     },
-                    {
+                    /*  {
                         id: '1-1-2',
                         name: '孙节点1-1-2',
                         isExpanded: false,
                         children: [],
-                    },
+                    }, */
                 ],
             },
             {
@@ -59,6 +53,12 @@ const testData = [
                 ],
             },
         ],
+    },
+    {
+        id: '1-1-1-2',
+        name: '曾孙节点1-1-1-2',
+        isExpanded: false,
+        children: [],
     },
     {
         id: '2',
@@ -150,7 +150,7 @@ const App = () => {
     // setMyData([]);
 
     return (
-        <>
+        <div className="p-5">
             <List
                 activeId={activeId}
                 data={myData}
@@ -167,7 +167,7 @@ const App = () => {
                 onOptIconClick={(type, node) => console.log(`操作图标点击: 类型:${type}, 节点:${node}`)}
             />
             <h1>4测试</h1>
-        </>
+        </div>
     );
 };
 

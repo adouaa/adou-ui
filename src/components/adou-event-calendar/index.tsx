@@ -24,11 +24,6 @@ const EventCalendar = ({ cellHeight, date, wrapperHeight = '500px', contentHeigh
 
     // 单击某天，让当前时间变为点击的天数，并且当前天数数字高亮
     const handleTdClick = (dayInfo: any) => {
-        console.log('🚀 ~ handleTdClick ~ currentDate.getFullYear():', currentDate.getFullYear());
-        console.log('🚀 ~ handleTdClick ~ currentDate.getMonth():', currentDate.getMonth());
-        console.log('🚀 ~ handleTdClick ~ dayInfo.day:', dayInfo.day);
-        console.log('🚀 ~ handleTdClick ~ dayInfo.id:', dayInfo.id);
-
         setCurrentDate(new Date(currentDate.getFullYear(), currentDate.getMonth(), dayInfo.day));
         setActiveId(dayInfo.id);
     };
@@ -40,8 +35,6 @@ const EventCalendar = ({ cellHeight, date, wrapperHeight = '500px', contentHeigh
     const [modalShow, setModalShow] = useState<boolean>(false);
     const formRef = useRef<any>();
     const handleTdDoubleClick = (dayInfo: any) => {
-        // console.log(dayInfo);
-
         setDayInfo(dayInfo);
 
         setModalShow(true);
@@ -146,13 +139,14 @@ const EventCalendar = ({ cellHeight, date, wrapperHeight = '500px', contentHeigh
         const length = currentMonthLastDate.getDate();
 
         const data_ = Array.from({ length }, (_, i) => {
-            const index = (i + 1).toString().length === 1 ? '0' + (i + 1) : i + 1;
+            // 日期都用 字符串来展示，day也是
+            const index = (i + 1).toString().length === 1 ? '0' + (i + 1) : String(i + 1);
             const findId = `${currentYear}-${currentMonth}-${index}`;
             const event = data?.find((item: any) => item.id === findId);
 
             return {
                 id: `${currentYear}-${currentMonth}-${index}`,
-                day: index,
+                day: index, // 日期都用 字符串来展示，day也是
                 event: event?.event,
                 isCurrentMonth: true,
             };
@@ -367,7 +361,6 @@ const EventCalendar = ({ cellHeight, date, wrapperHeight = '500px', contentHeigh
                     : !contentHeight
                       ? calendarContainerHeight - calendarHeaderHeight
                       : contentHeight;
-            console.log('🚀 ~ handleCalendarTableMaxHeight ~ height:', height);
 
             setCalendarTableMaxHeight(height);
         }
@@ -396,7 +389,7 @@ const EventCalendar = ({ cellHeight, date, wrapperHeight = '500px', contentHeigh
         getShouldShowNextMonthDays();
         getCurrentMonthDays();
         generateYears();
-        setActiveId(`${currentYear}-${currentMonth}-${currentDate.getDate()}`);
+        setActiveId(`${currentYear}-${currentMonth}-${currentDate.getDate().toString().length === 1 ? '0' + currentDate.getDate() : currentDate.getDate()}`);
     }, [currentMonth, currentYear, currentMonthFirstDay, currentMonthLastDay, currentMonthLastDate, prevMonthDays]);
 
     useEffect(() => {
@@ -418,7 +411,6 @@ const EventCalendar = ({ cellHeight, date, wrapperHeight = '500px', contentHeigh
     useEffect(() => {}, [finalShowData]);
 
     useEffect(() => {
-        console.log('55: ', 55);
         if (date) {
             setCurrentDate(date!);
         }
@@ -504,7 +496,7 @@ const EventCalendar = ({ cellHeight, date, wrapperHeight = '500px', contentHeigh
                                 {week.map((dayInfo: any, dayIndex: number) => (
                                     <td onDoubleClick={() => handleTdDoubleClick(dayInfo)} onClick={() => handleTdClick(dayInfo)} key={dayInfo.id} className={`calendar-cell`}>
                                         <div className={`calendar-cell-content-box`} style={{ height: cellHeight }}>
-                                            <span className={`calendar-cell-content-day ${!dayInfo.isCurrentMonth ? 'gray' : ''}  ${activeId === dayInfo.id ? 'active' : ''}`}>
+                                            <span className={`calendar-cell-content-day ${!dayInfo.isCurrentMonth ? 'gray' : ''}  ${activeId == dayInfo.id ? 'active' : ''}`}>
                                                 {dayInfo.day}
                                             </span>
                                             <div className="calendar-cell-content-event">{renderEvent ? renderEvent(dayInfo) : dayInfo.event}</div>

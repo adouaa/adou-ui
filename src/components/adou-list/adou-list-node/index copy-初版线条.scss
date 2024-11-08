@@ -31,18 +31,18 @@
             } */
         }
 
-        .node-item-content {
-            &.show-line:after {
+        .left-content {
+            &::after {
                 content: '';
                 position: absolute;
                 top: -1000px;
-                left: -8px;
+                left: -6px;
                 bottom: 12px;
                 // border-inline-end: 1px solid #d9d9d9;
-                width: 0.875rem;
+                width: 18px;
                 border-bottom: 1px solid #d9d9d9;
                 border-left: 1px solid #d9d9d9;
-                z-index: 0;
+                z-index: -1;
             }
 
             /* &::after {
@@ -66,14 +66,14 @@
             min-width: 120px;
             cursor: pointer;
 
-            // &:hover {
-            //     background-color: #f6f6f6;
-            // }
+            &:hover {
+                background-color: #f6f6f6;
+            }
 
-            /*  &.active {
+            &.active {
                 color: #fff;
                 background-color: #2783d8;
-            } */
+            }
 
             .tag1 {
                 font-size: 12px;
@@ -94,6 +94,14 @@
 
             }
 
+
+
+            .item-name {
+                word-break: break-all; // 树节点 的名字太长让它换行
+
+
+            }
+
             .right-content {
                 padding: 1px;
                 position: absolute;
@@ -111,6 +119,7 @@
             }
 
             .toggle-icon.has-children-toggle-icon.not-root-toggle-icon {
+                color: red !important;
                 position: relative;
 
                 /* &::after {
@@ -138,6 +147,7 @@
     }
 
     .children {
+        padding-left: 35px;
         max-height: 0;
         /* 初始状态下高度为0 */
         // overflow-y: hidden;

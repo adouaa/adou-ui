@@ -11,6 +11,7 @@ export type NodeType = {
 };
 
 interface ListProps {
+    showLine?: boolean;
     maxLevel?: number;
     lazy?: boolean;
     overflowY?: boolean;
@@ -41,6 +42,7 @@ interface ListProps {
 const List = forwardRef(
     (
         {
+            showLine,
             maxLevel,
             lazy,
             overflowY = true,
@@ -195,19 +197,19 @@ const List = forwardRef(
         }, [treeData]);
 
         return (
-            <div className="list-wrapper" style={{ flex: 1, height: '100%' }}>
+            <div className={`list-wrapper ${showLine ? `ps-2` : ''}`} style={{ flex: 1, height: '100%', overflow: 'auto' }}>
                 <div
                     ref={listRef}
                     className="list-content"
                     style={{
                         maxWidth: maxWidth,
                         maxHeight: maxHeight,
-                        overflow: overflowY ? 'auto' : '',
                     }}
                 >
                     {treeData &&
                         treeData.map((item: any) => (
                             <ListNode
+                                showLine={showLine}
                                 maxLevel={maxLevel}
                                 onLoadNode={handleLoadNode}
                                 lazy={lazy}
