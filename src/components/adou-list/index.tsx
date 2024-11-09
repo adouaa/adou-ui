@@ -1,7 +1,6 @@
 // List组件
 import React, { forwardRef, useEffect, useImperativeHandle, useRef, useState } from 'react';
 import ListNode from './adou-list-node';
-import Input from '../adou-new-form/adou-Input';
 
 export type NodeType = {
     id: string;
@@ -11,6 +10,7 @@ export type NodeType = {
 };
 
 interface ListProps {
+    defaltExpandNodes?: any[]
     showLine?: boolean;
     maxLevel?: number;
     lazy?: boolean;
@@ -42,6 +42,7 @@ interface ListProps {
 const List = forwardRef(
     (
         {
+            defaltExpandNodes,
             showLine,
             maxLevel,
             lazy,
@@ -117,6 +118,42 @@ const List = forwardRef(
             }, 0);
         };
 
+        function markLastChildrenAndFirstItem(items) {
+            let lastItemIndex = -1;
+
+            items.forEach((item, index) => {
+                if (item.children && item.children.length > 0) {
+                    // 递归处理子节点
+                    item.children = markLastChildrenAndFirstItem(item.children);
+
+                    // 获取子节点中的最后一项并设置isLast为true
+                    const lastChild = item.children[item.children.length - 1];
+                    if (lastChild) {
+                        lastChild.isEachLast = true;
+                    }
+                }
+
+                // 判断当前项是否为这一层级的最后一项
+                if (index === items.length - 1) {
+                    item.isEachLast = true;
+                    lastItemIndex = index;
+                } else {
+                    item.isEachLast = false;
+                }
+
+                // 判断是否为数组的第一条数据，若是则添加first属性并设置为true
+                if (index === 0) {
+                }
+            });
+
+            // 如果这一层级没有子节点且之前有过节点（通过lastItemIndex判断），则将最后一个节点的isLast设为true
+            if (items.length === 0 && lastItemIndex >= 0) {
+                items[lastItemIndex].isEachLast = true;
+            }
+
+            return items;
+        }
+
         const convertListToTree = (list: any[], pid: any) => {
             let level = 0;
             // 递归辅助函数，用于处理每个节点及其子节点
@@ -140,7 +177,6 @@ const List = forwardRef(
 
         function flattenDataWithoutNesting(data: any[]) {
             let flattened: any = [];
-
             function flattenRecursive(node: any, parentId: any) {
                 const { id, name, isExpanded } = node;
 
@@ -163,7 +199,15 @@ const List = forwardRef(
                 flattenRecursive(rootNode, null);
             });
 
-            return flattened;
+            return flattened.map((item: any, index: 0) => {
+                if (index === 0) {
+                    return {
+                        ...item,
+                        isFirst: true,
+                    };
+                }
+                return item;
+            });
         }
 
         const handleLoadNode = async (node: any) => {
@@ -185,7 +229,7 @@ const List = forwardRef(
         }, [activeId]);
 
         useEffect(() => {
-            settreeData(convertListToTree(flattenDataWithoutNesting(data!), data?.[0]?.pid || null));
+            settreeData(markLastChildrenAndFirstItem(convertListToTree(flattenDataWithoutNesting(data!), data?.[0]?.pid || null)));
             // data 变化的时候，也要将 选中的id 置为 -1，防止遗留上一次 选中的id
             if (!activeId) {
                 set_ActiveId(-1);
@@ -193,7 +237,7 @@ const List = forwardRef(
         }, [data]);
 
         useEffect(() => {
-            // console.log("treeData: ", treeData);
+            console.log('treeData: ', treeData);
         }, [treeData]);
 
         return (
@@ -209,6 +253,7 @@ const List = forwardRef(
                     {treeData &&
                         treeData.map((item: any) => (
                             <ListNode
+                            defaltExpandNodes={defaltExpandNodes}
                                 showLine={showLine}
                                 maxLevel={maxLevel}
                                 onLoadNode={handleLoadNode}

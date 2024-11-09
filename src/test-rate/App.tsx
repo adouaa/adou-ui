@@ -37,7 +37,7 @@ const App = () => {
                 <LiveSearch label="搜索框" name="search" options={[]} suffixContent={<i className="fa fa-solid fa-trash"></i>}></LiveSearch>
                 <AdouRadio suffixContent={<i className="fa fa-solid fa-trash"></i>} options={[{ label: '测试', value: 'test' }]} label="单选" name="radio"></AdouRadio>
                 <RetrievrSelect single={false} returnType="obj" options={[]} label="下拉框" name="select" suffixContent={<i className="fa fa-solid fa-trash"></i>}></RetrievrSelect>
-                <Select options={[]} label="下拉框2" name="select2" suffixContent={<i className="fa fa-solid fa-trash"></i>}></Select>
+                <Select suffixContentType="button" options={[]} label="下拉框2" name="select2" suffixContent={<i className="fa fa-solid fa-trash"></i>}></Select>
                 <TagInput name="aa" label="标签" suffixContent={<i className="fa fa-solid fa-trash"></i>}></TagInput>
                 <TextArea label="富文本" name="text" suffixContent={<i className="fa fa-solid fa-trash"></i>}></TextArea>
             </Form>

@@ -3,6 +3,9 @@ import React, { useEffect, useState, forwardRef, ForwardRefRenderFunction, useIm
 import './index.scss';
 
 interface CheckboxProps {
+    valueKey?: string;
+    labelKey?: string;
+    returnType?: 'str' | 'obj';
     suffixContentType?: string;
     suffixContent?: any;
     name?: string;
@@ -27,6 +30,9 @@ interface CheckboxProps {
 
 const Checkbox: ForwardRefRenderFunction<any, CheckboxProps> = (
     {
+        valueKey = 'value',
+        labelKey = 'label',
+        returnType,
         suffixContentType = 'button',
         suffixContent,
         name,
@@ -56,11 +62,13 @@ const Checkbox: ForwardRefRenderFunction<any, CheckboxProps> = (
         if (typeof defaultValue === 'string') {
             return value === defaultValue;
         } else if (Array.isArray(defaultValue)) {
-            if (Array.isArray(defaultValue) && typeof defaultValue[0] !== 'string') {
+            if (typeof defaultValue[0] !== 'string') {
                 return defaultValue!.some((item) => item.value === value);
             } else {
-                return defaultValue.includes(value as any);
+                return defaultValue!.some((item) => item === value);
             }
+        } else {
+            return defaultValue?.[valueKey] === value || defaultValue?.[labelKey] === value;
         }
         return false;
     };
@@ -84,10 +92,19 @@ const Checkbox: ForwardRefRenderFunction<any, CheckboxProps> = (
             }
             return option;
         });
+
         setOptionsList(updatedOptions);
-        const checkedList = updatedOptions.filter((opt) => opt.checked);
-        onChange && onChange(checkedList);
-        onFormDataChange && onFormDataChange(name!, checkedList);
+        const data = updatedOptions.filter((opt) => opt.checked);
+        onChange && onChange(data);
+        if (returnType === 'obj') {
+            onFormDataChange && onFormDataChange(name!, data);
+        } else {
+            onFormDataChange &&
+                onFormDataChange(
+                    name!,
+                    data.map((item: any) => item[valueKey || labelKey])
+                );
+        }
         if (updatedOptions.some((option: any) => option.checked)) {
             setError(false);
         } else {
@@ -104,7 +121,6 @@ const Checkbox: ForwardRefRenderFunction<any, CheckboxProps> = (
 
     const [error, setError] = useState<boolean>(false);
     const validate = () => {
-        console.log('13: ', 13);
         if (!required) return true;
         if (optionsList.some((item: any) => item.checked)) {
             setError(false);
@@ -139,6 +155,7 @@ const Checkbox: ForwardRefRenderFunction<any, CheckboxProps> = (
     });
 
     useEffect(() => {
+        console.log('defaultValue: ', defaultValue);
         // Update optionsList when defaultValue changes
         const updatedOptions = options.map((option) => ({
             ...option,
@@ -146,8 +163,6 @@ const Checkbox: ForwardRefRenderFunction<any, CheckboxProps> = (
         }));
         setOptionsList(updatedOptions);
     }, [defaultValue, options]);
-
-    useEffect(() => {}, [defaultValue]);
 
     return (
         <div className={checkboxClasses}>

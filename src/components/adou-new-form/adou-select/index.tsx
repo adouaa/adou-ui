@@ -57,7 +57,7 @@ const Select = React.forwardRef((props: SelectProps, ref) => {
         valueKey = 'value',
         suffixContent,
         showLabel = true,
-        suffixContentType,
+        suffixContentType = 'button',
         inline,
         commonSuffixIcon,
         isFormItem,

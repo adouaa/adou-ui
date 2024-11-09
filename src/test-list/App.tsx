@@ -23,6 +23,18 @@ const testData = [
                                 isExpanded: false,
                                 children: [],
                             },
+                            {
+                                id: '11-11-1-1',
+                                name: '曾孙节点11-11-1-1',
+                                isExpanded: false,
+                                children: [],
+                            },
+                            {
+                                id: '121-121-1-1',
+                                name: '曾孙节点121-1-1-1',
+                                isExpanded: false,
+                                children: [],
+                            },
                         ],
                     },
                     /*  {
@@ -55,15 +67,81 @@ const testData = [
         ],
     },
     {
-        id: '1-1-1-2',
-        name: '曾孙节点1-1-1-2',
+        id: '3-1-1-2',
+        name: '曾孙节点3-1-1-2',
         isExpanded: false,
-        children: [],
+        children: [
+            {
+                id: '13-1-1-2',
+                name: '曾孙节点13-1-1-2',
+                isExpanded: false,
+                children: [
+                    {
+                        id: '113-1-1-2',
+                        name: '曾孙节点113-1-1-2',
+                        isExpanded: false,
+                        children: [
+                            {
+                                id: '1113-1-1-2',
+                                name: '曾孙节点1113-1-1-2',
+                                isExpanded: false,
+                            },
+                        ],
+                    },
+                    {
+                        id: '213-1-1-2',
+                        name: '曾孙节点213-1-1-2',
+                        isExpanded: false,
+                    },
+                ],
+            },
+        ],
     },
     {
         id: '2',
         name: '根节点2',
         isExpanded: false,
+        children: [
+            {
+                id: '2-1-1-2',
+                name: '曾孙节点2-1-1-2',
+                isExpanded: false,
+                children: [
+                    {
+                        id: '2-2-1-2',
+                        name: '曾孙节点2-2-1-2',
+                        isExpanded: false,
+                        children: [
+                            {
+                                id: '2-3-1-2',
+                                name: '曾孙节点2-3-1-2',
+                                isExpanded: false,
+                                children: [],
+                            },
+                        ],
+                    },
+                ],
+            },
+            {
+                id: '12-2-1-2',
+                name: '曾孙节点2-2-1-2',
+                isExpanded: false,
+                children: [
+                    {
+                        id: '2-3-1-5',
+                        name: '曾孙节点2-3-1-5',
+                        isExpanded: false,
+                        children: [],
+                    },
+                ],
+            },
+            /*  {
+                id: '1-1-2',
+                name: '孙节点1-1-2',
+                isExpanded: false,
+                children: [],
+            }, */
+        ],
     },
 ];
 
@@ -90,7 +168,6 @@ const App = () => {
             const children: any = [];
             items.forEach((item: any) => {
                 if (item.pid === parentId) {
-                    console.log('相同: ');
                     item.level = currentLevel;
                     children.push(item);
                     // 递归调用自身处理子节点，层级加1
@@ -107,7 +184,6 @@ const App = () => {
 
     const handleItemClick = (node: any) => {
         console.log('node: ', node);
-        setActiveId(node.id);
     };
     function flattenDataWithoutNesting(data) {
         let flattened: any = [];
@@ -138,20 +214,18 @@ const App = () => {
 
     useEffect(() => {
         const flattenedData = flattenDataWithoutNesting(testData);
-        console.log('🚀 ~ App ~ flattenedData:', flattenedData);
-        console.log('convertListToTree(flattenedData, 0): ', convertListToTree(flattenedData, null));
         const arr = convertListToTree(flattenedData, null);
         setMyData(arr);
     }, []);
 
-    useEffect(() => {
-        console.log('myData: ', myData);
-    }, [myData]);
+    useEffect(() => {}, [myData]);
     // setMyData([]);
 
     return (
         <div className="p-5">
             <List
+                defaltExpandNodes={['1', '1-1', '1-1-1', '3-1-1-2', 54149648565]}
+                showLine
                 activeId={activeId}
                 data={myData}
                 deleteIconClass="fa fa-trash"

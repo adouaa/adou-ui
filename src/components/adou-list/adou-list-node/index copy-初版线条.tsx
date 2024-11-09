@@ -3,6 +3,7 @@ import './index.scss';
 import { ListNodeWrapper } from './style';
 
 interface ListNodeProps {
+    showLine?: boolean;
     maxLevel?: number;
     onLoadNode?: any;
     lazy?: boolean;
@@ -31,6 +32,7 @@ interface ListNodeProps {
 }
 
 const ListNode = ({
+    showLine,
     maxLevel,
     onLoadNode,
     lazy = false,
@@ -69,11 +71,11 @@ const ListNode = ({
         setIsExpanded((prev) => !prev);
         onToggle && onToggle(node);
         /* setTimeout(() => {
-        onToggleIconClick && onToggleIconClick(node);
-      }); */
+      onToggleIconClick && onToggleIconClick(node);
+    }); */
     };
 
-    const handleItemClick = (node: any) => {
+    const handleNodeNameClick = (e: any, node: any) => {
         onItemClick && onItemClick(node);
     };
 
@@ -123,13 +125,12 @@ const ListNode = ({
     }
 
     /* const updateNodeLoadInfo = (node: any) => {
-      if (!node.hasLoaded) {
-        setNode({ ...node, loading: true });
-      }
-    }; */
+    if (!node.hasLoaded) {
+      setNode({ ...node, loading: true });
+    }
+  }; */
 
     const generateCalcDom = (selector?: string) => {
-        console.log('generateCalcDom: ');
         const notExpandedChildren = toggledNodeItemRef.current?.querySelector(`.children.${selector || 'not-expand'}`);
         // console.log("notExpandedChildren: ", notExpandedChildren);
         // childrenList: 类名为 children下的所有div节点
@@ -211,8 +212,8 @@ const ListNode = ({
         toggledNodeItemRef.current = nodeItem;
         // console.log("nodeItem: ", nodeItem);
         /* if (lazy) {
-        updateNodeLoadInfo(node);
-      } */
+      updateNodeLoadInfo(node);
+    } */
 
         // 1. 如果未展开，设置高度为 nodeItem 的 scrollHeight，这样子节点才能显示出来。
         if (!isExpanded) {
@@ -226,10 +227,6 @@ const ListNode = ({
 
         // 一开始还没点击展开的时候，都是 not-expanded
         // （如果数据是 异步 请求回来的话，可能会出问题：数据还没回来，但是 js已经取完 dom了，导致高度计算失败）
-    };
-
-    const handleNodeNameClick = (node: any, e: any) => {
-        // onItemClick && onItemClick(node); // 注释掉，防止出现调用两次 onItemClick
     };
 
     const handleChildrenIconClick = (node: any) => {
@@ -274,10 +271,10 @@ const ListNode = ({
     useEffect(() => {
         // TODO：数据变化的时候 loading设置为false，第一次点击之后将 hasLoaded 设置为 true
         /* if (isTree && lazy && !node.hasLoaded && node.loading) {
-        setNode({ ...data, loading: false, hasLoaded: true });
-      } else {
-        setNode(data);
-      } */
+      setNode({ ...data, loading: false, hasLoaded: true });
+    } else {
+      setNode(data);
+    } */
     }, [data]);
 
     useEffect(() => {
@@ -292,18 +289,15 @@ const ListNode = ({
         <ListNodeWrapper $activeFontColor={activeFontColor} $activeBgc={activeBgc} className="list-node-wrapper">
             <div className="list-node-wrapper">
                 {/* 每个树节点 */}
-                <div className={`node-item-list ${node.level !== 0 ? 'not-root-toggle-icon' : ''}`}>
-                    {/* handleItemClick: 整个树节点的点击事件 */}
+                <div className="node-item-list">
+                    {/* handleNodeNameClick: 整个树节点的点击事件 */}
                     <div
                         style={{
                             backgroundColor: node.bgc,
-                            ...(Number(activeId) === Number(node.id) ? { backgroundColor: activeBgc } : ''),
-                            // paddingLeft: node.level * 26 + 'px', // 让树节点的层级有缩进，并且是充满一整行的样式
+
+                            ...(!showLine && { paddingLeft: node.level * 26 + 'px' }), // 让树节点的层级有缩进，并且是充满一整行的样式
                         }}
-                        className={`left-content ${!node.level && 'ps-2'} ${String(activeId) === String(node.id) ? 'active' : ''}`}
-                        onClick={() => handleItemClick(node)}
-                        onMouseEnter={() => setIsShowIcons(true)}
-                        onMouseLeave={() => setIsShowIcons(false)}
+                        className={`node-item-content pe-1 ${!node.level ? 'ps-2' : ''} ${showLine ? 'show-line' : ''}`}
                     >
                         {/* <span className="none d-none">{String(node.loading)}</span> */}
                         {/* 有子节点的话，展示折叠按钮 */}
@@ -314,10 +308,10 @@ const ListNode = ({
                                 style={{
                                     fontSize: '16px',
                                     width: '10px',
-                                    ...(node.isEnter ? { color: '#334155' } : ''),
+                                    ...(node.isEnter ? { transform: 'scale(1.4)', color: '#334155' } : ''),
                                 }}
                                 onClick={(e) => handleToggleIconClick(node, e)}
-                                className={`toggle-icon fa fa-caret-${isExpanded ? 'down' : 'right'} ${node.children?.length ? 'has-children-toggle-icon' : ''} ${node.level !== 0 ? 'not-root-toggle-icon' : ''}`}
+                                className={`toggle-icon fa fa-caret-${isExpanded ? 'down' : 'right'}`}
                             ></i>
                         )}
                         {node.loading && (
@@ -335,9 +329,16 @@ const ListNode = ({
                         {showTag && renderTag()}
                         {/* 节点名字 */}
                         <span
-                            style={{ whiteSpace: `${wrap ? 'normal' : 'nowrap'}` }}
-                            onClick={(e) => handleNodeNameClick(node, e)}
-                            className={`ms-2 item-name ${node.children && node.children.length > 0 ? 'has-children' : 'no-children'}`}
+                            style={{
+                                whiteSpace: `${wrap ? 'normal' : 'nowrap'}`,
+                                ...(Number(activeId) === Number(node.id) ? { backgroundColor: activeBgc } : ''),
+                            }}
+                            onClick={(e) => handleNodeNameClick(e, node)}
+                            onMouseEnter={() => setIsShowIcons(true)}
+                            onMouseLeave={() => setIsShowIcons(false)}
+                            className={`ms-1 py-1 item-name ${
+                                node.children && node.children.length > 0 ? 'has-children' : 'no-children'
+                            } ${String(activeId) === String(node.id) ? 'active' : ''}`}
                         >
                             {node.name}
                         </span>
@@ -361,7 +362,13 @@ const ListNode = ({
                         </div>
                     </div>
                     {node.children && node.children.length > 0 && (
-                        <div className={`children ${isExpanded ? 'expanded' : 'not-expand'}`} style={{ maxHeight: childrenMaxHeight }}>
+                        <div
+                            className={`children ${isExpanded ? 'expanded' : 'not-expand'}`}
+                            style={{
+                                maxHeight: childrenMaxHeight,
+                                paddingLeft: showLine ? '35px' : 0,
+                            }}
+                        >
                             {node.children.map((child: any) => (
                                 // 这里别忘记也要像List父组件一样把 回调传递给 ListNode子组件，因为是递归，所以要这么做，
                                 // 具体传递的回调的函数需要的参数有哪些，就得参考父组件原来是怎么写的，也可以直接不写好像。。。
@@ -371,6 +378,7 @@ const ListNode = ({
                                 // 注意！！！如果传递的是回调的话，直接将 父组件List 传递给 子组件ListNode 的回调再次传递给子组件ListNode(children) 的props，这样子组件ListNode(children) 才能正确调用这个回调，包括调用回调时候数据是否正确、函数是否正确【eg：onLoadNode={onLoadNode}】
 
                                 <ListNode
+                                    showLine={showLine}
                                     maxLevel={maxLevel}
                                     onLoadNode={onLoadNode}
                                     lazy={lazy}
@@ -386,7 +394,7 @@ const ListNode = ({
                                     activeId={activeId}
                                     onOptIconClick={(type, child) => handleChildrenOptIconClick(type, child)}
                                     onToggleIconClick={handleChildrenIconClick}
-                                    onItemClick={handleItemClick}
+                                    onItemClick={onItemClick}
                                     key={child.id}
                                     node={child}
                                     isTree={isTree}
