@@ -7,6 +7,7 @@ import ReactDOM from 'react-dom';
 import useClickOutside from 'hooks/useClickOutside';
 
 export interface SelectProps {
+    suffixContentExternalCls?: string;
     selectContentExternalCls?: string;
     minWidth?: any;
     noWrap?: boolean;
@@ -46,6 +47,7 @@ export interface SelectProps {
 
 const Select = React.forwardRef((props: SelectProps, ref) => {
     const {
+        suffixContentExternalCls,
         selectContentExternalCls,
         minWidth,
         noWrap = true,
@@ -57,7 +59,7 @@ const Select = React.forwardRef((props: SelectProps, ref) => {
         valueKey = 'value',
         suffixContent,
         showLabel = true,
-        suffixContentType = 'button',
+        suffixContentType,
         inline,
         commonSuffixIcon,
         isFormItem,
@@ -74,7 +76,6 @@ const Select = React.forwardRef((props: SelectProps, ref) => {
         defaultValue,
         options,
         placeholder,
-        size,
         externalClassName,
         readOnly,
         transparent,
@@ -147,8 +148,6 @@ const Select = React.forwardRef((props: SelectProps, ref) => {
         } else {
             if (typeof defaultValue === 'object') {
                 const selectOption = options.find((option) => option?.[valueKey] === defaultValue?.[valueKey]);
-                console.log('defaultValue: ', defaultValue);
-                console.log('selectOption: ', selectOption);
                 // 如果没有找到匹配项，则不设置选中项
                 if (selectOption) {
                     setValue(selectOption);
@@ -188,8 +187,8 @@ const Select = React.forwardRef((props: SelectProps, ref) => {
     const getValue = () => {
         // 不能加这个逻辑，这样会导致手动选择另外的选项，返回的还是 defaultValue
         /* if (showDefaultValue) {
-          return defaultValue;
-        } */
+            return defaultValue;
+          } */
 
         if (value?.[valueKey] || value?.[valueKey] === 0 || value?.[valueKey] === false) {
             // 感觉可有可无
@@ -283,7 +282,7 @@ const Select = React.forwardRef((props: SelectProps, ref) => {
             onKeyDown={handleKeyDown}
             tabIndex={0}
             ref={selectWrapperRef}
-            className={wrapperClassName}
+            className={`${wrapperClassName} `}
             style={{
                 width,
                 ...(inline && !width ? { flex: 1, marginRight: '15px' } : {}),
@@ -308,7 +307,7 @@ const Select = React.forwardRef((props: SelectProps, ref) => {
                     {commonSuffixIcon && <i onClick={handleClickCommonSuffixIcon} className={`${commonSuffixIcon} common-suffix-icon ms-2`}></i>}
                 </div>
             ) : (
-                <div onBlur={validate} className={`content-box label-in-${labelPosition}`}>
+                <div onBlur={validate} className={`content-box label-in-${labelPosition} ${labelPosition === 'top' && inline ? 'me-2' : ''}`}>
                     {showLabel && label && (
                         <span
                             className="label-box"
@@ -329,7 +328,7 @@ const Select = React.forwardRef((props: SelectProps, ref) => {
                         <div
                             ref={customSelectRef}
                             onClick={(e: any) => handleDivClick(e)}
-                            className={`select-content form-control ${selectContentExternalCls}`}
+                            className={`select-content form-control ${selectContentExternalCls || ''}`}
                             style={{
                                 textAlign: 'left',
                                 background: transparent ? 'transparent' : readOnly ? '#eee' : '#fff',
@@ -351,7 +350,13 @@ const Select = React.forwardRef((props: SelectProps, ref) => {
                             {<i style={{ color: labelColor }} className={`icon fa-solid fa-caret-right ${isShow ? 'rotate-up' : 'rotate-down'}`}></i>}
                         </div>
                         {suffixContent && (
-                            <div className={`${suffixContentType === 'button' ? 'suffix-content-btn-wrapper px-2' : 'suffix-content-text-wrapper ms-2'}`}>{suffixContent}</div>
+                            <div
+                                className={`${
+                                    suffixContentType === 'button' ? 'suffix-content-btn-wrapper px-2' : 'suffix-content-text-wrapper ms-2'
+                                } ${suffixContentExternalCls || ''}`}
+                            >
+                                {suffixContent}
+                            </div>
                         )}
                     </div>
                     {commonSuffixIcon && <i onClick={handleClickCommonSuffixIcon} className={`${commonSuffixIcon} common-suffix-icon ms-2`}></i>}

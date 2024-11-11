@@ -165,7 +165,10 @@ const Input: React.ForwardRefRenderFunction<InputRef, InputProps> = (
                 ...(inline && !width ? { flex: 1, marginRight: '15px' } : {}),
             }}
         >
-            <div ref={wrapeerRef} className={`content-box icon-input ${inputGroup ? 'input-group' : ''} label-in-${labelPosition}`}>
+            <div
+                ref={wrapeerRef}
+                className={`content-box icon-input ${inputGroup ? 'input-group' : ''} label-in-${labelPosition} ${labelPosition === 'top' && inline ? 'me-2' : ''}`}
+            >
                 {prefixContent && <span className="input-group-text">{prefixContent}</span>}
                 {label && (
                     <span
@@ -236,6 +239,7 @@ const Input: React.ForwardRefRenderFunction<InputRef, InputProps> = (
         </div>
     );
 };
+
 Input.displayName = 'Input';
 
 export default forwardRef(Input);
