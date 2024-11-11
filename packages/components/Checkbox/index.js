@@ -660,6 +660,9 @@ var update = injectStylesIntoStyleTag_default()(cjs_ruleSet_1_rules_1_use_2_src/
 
 const Checkbox = (_ref, ref) => {
   let {
+    valueKey = "value",
+    labelKey = "label",
+    returnType,
     suffixContentType = "button",
     suffixContent,
     name,
@@ -687,11 +690,13 @@ const Checkbox = (_ref, ref) => {
     if (typeof defaultValue === "string") {
       return value === defaultValue;
     } else if (Array.isArray(defaultValue)) {
-      if (Array.isArray(defaultValue) && typeof defaultValue[0] !== "string") {
+      if (typeof defaultValue[0] !== "string") {
         return defaultValue.some(item => item.value === value);
       } else {
-        return defaultValue.includes(value);
+        return defaultValue.some(item => item === value);
       }
+    } else {
+      return (defaultValue === null || defaultValue === void 0 ? void 0 : defaultValue[valueKey]) === value || (defaultValue === null || defaultValue === void 0 ? void 0 : defaultValue[labelKey]) === value;
     }
     return false;
   };
@@ -713,9 +718,13 @@ const Checkbox = (_ref, ref) => {
       return option;
     });
     setOptionsList(updatedOptions);
-    const checkedList = updatedOptions.filter(opt => opt.checked);
-    onChange && onChange(checkedList);
-    onFormDataChange && onFormDataChange(name, checkedList);
+    const data = updatedOptions.filter(opt => opt.checked);
+    onChange && onChange(data);
+    if (returnType === "obj") {
+      onFormDataChange && onFormDataChange(name, data);
+    } else {
+      onFormDataChange && onFormDataChange(name, data.map(item => item[valueKey || labelKey]));
+    }
     if (updatedOptions.some(option => option.checked)) {
       setError(false);
     } else {
@@ -730,7 +739,6 @@ const Checkbox = (_ref, ref) => {
   };
   const [error, setError] = (0,external_root_React_commonjs2_react_commonjs_react_amd_react_.useState)(false);
   const validate = () => {
-    console.log("13: ", 13);
     if (!required) return true;
     if (optionsList.some(item => item.checked)) {
       setError(false);
@@ -761,6 +769,7 @@ const Checkbox = (_ref, ref) => {
     [externalClassName]: externalClassName
   });
   (0,external_root_React_commonjs2_react_commonjs_react_amd_react_.useEffect)(() => {
+    console.log("defaultValue: ", defaultValue);
     // Update optionsList when defaultValue changes
     const updatedOptions = options.map(option => ({
       ...option,
@@ -768,7 +777,6 @@ const Checkbox = (_ref, ref) => {
     }));
     setOptionsList(updatedOptions);
   }, [defaultValue, options]);
-  (0,external_root_React_commonjs2_react_commonjs_react_amd_react_.useEffect)(() => {}, [defaultValue]);
   return /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("div", {
     className: checkboxClasses
   }, /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("div", {

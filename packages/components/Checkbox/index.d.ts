@@ -1,6 +1,9 @@
 import React from "react";
 import "./index.scss";
 interface CheckboxProps {
+    valueKey?: string;
+    labelKey?: string;
+    returnType?: "str" | "obj";
     suffixContentType?: string;
     suffixContent?: any;
     name?: string;

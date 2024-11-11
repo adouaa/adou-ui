@@ -1,6 +1,7 @@
 import React from "react";
 import "./index.scss";
 export interface SelectProps {
+    suffixContentExternalCls?: string;
     selectContentExternalCls?: string;
     minWidth?: any;
     noWrap?: boolean;
@@ -9,7 +10,7 @@ export interface SelectProps {
         font: string;
         bgc: string;
     };
-    returnType?: "str" | "obj";
+    returnType?: 'str' | 'obj';
     showEmpty?: boolean;
     showDefaultValue?: boolean;
     labelKey?: string;
@@ -25,14 +26,14 @@ export interface SelectProps {
     commonSuffixIcon?: string;
     width?: any;
     label?: any;
-    labelPosition?: "left-top" | "center" | "top";
+    labelPosition?: 'left-top' | 'center' | 'top';
     inputGroup?: boolean;
     labelColor?: string;
     required?: boolean;
     defaultValue?: any;
     options: any[];
     placeholder?: string;
-    size?: "sm" | "lg";
+    size?: 'sm' | 'lg';
     externalClassName?: string;
     readOnly?: boolean;
     transparent?: boolean;
@@ -42,6 +43,7 @@ export interface SelectProps {
 }
 declare const _default: React.ComponentType<Omit<{
     ref?: React.LegacyRef<unknown> | undefined;
+    suffixContentExternalCls?: string | undefined;
     selectContentExternalCls?: string | undefined;
     minWidth?: any;
     noWrap?: boolean | undefined;

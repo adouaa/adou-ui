@@ -190,17 +190,32 @@ ___CSS_LOADER_EXPORT___.push([module.id, `@charset "UTF-8";
 }
 .list-node-wrapper .node-item-list {
   position: relative;
-  /*  &::after {
-      content: '';
-      position: absolute;
-      top: -13px;
-      left: -6px;
-      bottom: 12px;
-      // border-inline-end: 1px solid #d9d9d9;
-      width: 18px;
-      border-left: 1px solid #d9d9d9;
-      z-index: -1;
-  } */
+}
+.list-node-wrapper .node-item-list.show-line::before {
+  height: 2.3125rem;
+  content: "";
+  position: absolute;
+  left: -8px;
+  width: 0.875rem;
+  top: calc(0px - 1.24rem);
+  border-bottom: 1px solid #d9d9d9;
+  border-left: 1px solid #d9d9d9;
+  z-index: 0;
+}
+.list-node-wrapper .node-item-list.show-line:not(.each-last):after {
+  content: "";
+  position: absolute;
+  left: -8px;
+  bottom: -16px;
+  width: 0.875rem;
+  height: 100%;
+  border-bottom: 1px solid #d9d9d9;
+  border-left: 1px solid #d9d9d9;
+  border-bottom-width: 0;
+  z-index: -1;
+}
+.list-node-wrapper .node-item-list.show-line.first::before {
+  border-left-width: 0px;
 }
 .list-node-wrapper .node-item-list .list-node-wrapper {
   /* &::after {
@@ -237,17 +252,6 @@ ___CSS_LOADER_EXPORT___.push([module.id, `@charset "UTF-8";
       color: #fff;
       background-color: #2783d8;
   } */
-}
-.list-node-wrapper .node-item-list .node-item-content.show-line:after {
-  content: "";
-  position: absolute;
-  top: -1000px;
-  left: -8px;
-  bottom: 12px;
-  width: 0.875rem;
-  border-bottom: 1px solid #d9d9d9;
-  border-left: 1px solid #d9d9d9;
-  z-index: 0;
 }
 .list-node-wrapper .node-item-list .node-item-content .tag1 {
   font-size: 12px;
@@ -303,7 +307,7 @@ ___CSS_LOADER_EXPORT___.push([module.id, `@charset "UTF-8";
   /* 添加过渡效果 */
   max-height: 1000px;
   /* 展开时高度自动适应内容 */
-}`, "",{"version":3,"sources":["webpack://./src/ListNode/index.scss"],"names":[],"mappings":"AAAA,gBAAgB;AAAhB;EACI,cAAA;EACA,eAAA;AAEJ;AAAI;EACI,kBAAA;EAEA;;;;;;;;;;KAAA;AAWR;AACQ;EACI;;;;;;;;;;KAAA;AAWZ;AAEQ;EAcI;;;;;;;;KAAA;EAWA,aAAA;EACA,mBAAA;EACA,oEAAA;EACA,0BAAA;EAEA,kBAAA;EACA,iBAAA;EACA,gBAAA;EACA,eAAA;EAMA;;;KAAA;AAlBZ;AApBY;EACI,WAAA;EACA,kBAAA;EACA,YAAA;EACA,UAAA;EACA,YAAA;EAEA,eAAA;EACA,gCAAA;EACA,8BAAA;EACA,UAAA;AAqBhB;AAYY;EACI,eAAA;EACA,gBAAA;EACA,kBAAA;EACA,yBAAA;EACA,cAAA;EACA,mBAAA;AAVhB;AAaY;EACI,eAAA;EACA,gBAAA;EACA,kBAAA;EACA,yBAAA;EACA,cAAA;EACA,mBAAA;AAXhB;AAeY;EACI,YAAA;EACA,kBAAA;EACA,kBAAA;EAEA,WAAA;EACA,cAAA;EACA,sBAAA;EACA,YAAA;AAdhB;AAiBgB;EACI,aAAA;AAfpB;AAmBY;EACI,kBAAA;EAEA;;;;;;;;;KAAA;AAThB;AAiCI;EACI,aAAA;EACA,cAAA;EAGA,WAAA;AAjCR;AAkCQ;EACI,iCAAA;AAhCZ;AAmCQ;EAEI,gCAAA;EACA,WAAA;EACA,kBAAA;EACA,gBAAA;AAlCZ","sourcesContent":[".list-node-wrapper {\r\n    color: #606266;\r\n    font-size: 14px;\r\n\r\n    .node-item-list {\r\n        position: relative;\r\n\r\n        /*  &::after {\r\n            content: '';\r\n            position: absolute;\r\n            top: -13px;\r\n            left: -6px;\r\n            bottom: 12px;\r\n            // border-inline-end: 1px solid #d9d9d9;\r\n            width: 18px;\r\n            border-left: 1px solid #d9d9d9;\r\n            z-index: -1;\r\n        } */\r\n\r\n        .list-node-wrapper {\r\n            /* &::after {\r\n                content: '';\r\n                position: absolute;\r\n                top: -13px;\r\n                left: -6px;\r\n                bottom: 12px;\r\n                // border-inline-end: 1px solid #d9d9d9;\r\n                width: 18px;\r\n                border-left: 1px solid #d9d9d9;\r\n                z-index: -1;\r\n            } */\r\n        }\r\n\r\n        .node-item-content {\r\n            &.show-line:after {\r\n                content: '';\r\n                position: absolute;\r\n                top: -1000px;\r\n                left: -8px;\r\n                bottom: 12px;\r\n                // border-inline-end: 1px solid #d9d9d9;\r\n                width: 0.875rem;\r\n                border-bottom: 1px solid #d9d9d9;\r\n                border-left: 1px solid #d9d9d9;\r\n                z-index: 0;\r\n            }\r\n\r\n            /* &::after {\r\n                content: '';\r\n                position: absolute;\r\n                top: -13px;\r\n                left: 0px;\r\n                bottom: 12px;\r\n                border-left: 1px solid #d9d9d9;\r\n                border-bottom: 1px solid #d9d9d9;\r\n            } */\r\n\r\n            // 使用 display 会出现 hover背景色和 active高亮色宽度比较短，但是没事。。\r\n            display: flex;\r\n            align-items: center;\r\n            /* display: inline-block; // 这个加上就会把这个盒子的宽度变成跟内容的宽度一样，而不会是根据父容器的宽度 */\r\n            padding: 3px 20px 3px 14px;\r\n            // white-space: wrap;\r\n            position: relative;\r\n            /* 添加相对定位--好像没用 */\r\n            min-width: 120px;\r\n            cursor: pointer;\r\n\r\n            // &:hover {\r\n            //     background-color: #f6f6f6;\r\n            // }\r\n\r\n            /*  &.active {\r\n                color: #fff;\r\n                background-color: #2783d8;\r\n            } */\r\n\r\n            .tag1 {\r\n                font-size: 12px;\r\n                padding: 2px 6px;\r\n                border-radius: 6px;\r\n                background-color: #f0f9eb;\r\n                color: #6dc442;\r\n                white-space: nowrap;\r\n            }\r\n\r\n            .tag2 {\r\n                font-size: 12px;\r\n                padding: 2px 6px;\r\n                border-radius: 6px;\r\n                background-color: #fef0f0;\r\n                color: #f67878;\r\n                white-space: nowrap;\r\n\r\n            }\r\n\r\n            .right-content {\r\n                padding: 1px;\r\n                position: absolute;\r\n                border-radius: 4px;\r\n                // top: 2px;\r\n                right: 10px;\r\n                color: #606266;\r\n                background-color: #fff;\r\n                z-index: 999;\r\n\r\n\r\n                i {\r\n                    margin: 0 4px;\r\n                }\r\n            }\r\n\r\n            .toggle-icon.has-children-toggle-icon.not-root-toggle-icon {\r\n                position: relative;\r\n\r\n                /* &::after {\r\n                    content: '';\r\n                    position: absolute;\r\n                    top: 18px;\r\n                    left: 5px;\r\n                    height: 10px;\r\n                    width: 10px;\r\n                    border: solid #d9d9d9;\r\n                    border-width: 1px 0 0 0;\r\n                } */\r\n\r\n\r\n            }\r\n\r\n\r\n        }\r\n\r\n        .has-children {}\r\n\r\n        .no-children {\r\n            // padding-left: 10px;\r\n        }\r\n    }\r\n\r\n    .children {\r\n        max-height: 0;\r\n        /* 初始状态下高度为0 */\r\n        // overflow-y: hidden;\r\n\r\n        /* 隐藏溢出内容 */\r\n        &.not-expand {\r\n            transition: max-height .25s ease; //这个加上过度效果会出现点击的节点的内部闪现x轴滚动条\r\n        }\r\n\r\n        &.expanded {\r\n            // overflow-y: clip; // 这句话加上就不会出现很多歌滚动条。。。\r\n            transition: max-height .3s ease;\r\n            /* 添加过渡效果 */\r\n            max-height: 1000px;\r\n            /* 展开时高度自动适应内容 */\r\n        }\r\n    }\r\n}"],"sourceRoot":""}]);
+}`, "",{"version":3,"sources":["webpack://./src/ListNode/index.scss"],"names":[],"mappings":"AAAA,gBAAgB;AAAhB;EACI,cAAA;EACA,eAAA;AAEJ;AAAI;EACI,kBAAA;AAER;AAAQ;EACI,iBAAA;EACA,WAAA;EACA,kBAAA;EACA,UAAA;EAEA,eAAA;EACA,wBAAA;EACA,gCAAA;EACA,8BAAA;EACA,UAAA;AACZ;AAIQ;EACI,WAAA;EACA,kBAAA;EAEA,UAAA;EACA,aAAA;EAEA,eAAA;EACA,YAAA;EACA,gCAAA;EACA,8BAAA;EACA,sBAAA;EACA,WAAA;AAJZ;AAWQ;EACI,sBAAA;AATZ;AAYQ;EACI;;;;;;;;;;KAAA;AAAZ;AAaQ;EAGI;;;;;;;;KAAA;EAWA,aAAA;EACA,mBAAA;EACA,oEAAA;EACA,0BAAA;EAEA,kBAAA;EACA,iBAAA;EACA,gBAAA;EACA,eAAA;EAMA;;;KAAA;AAlBZ;AAuBY;EACI,eAAA;EACA,gBAAA;EACA,kBAAA;EACA,yBAAA;EACA,cAAA;EACA,mBAAA;AArBhB;AAwBY;EACI,eAAA;EACA,gBAAA;EACA,kBAAA;EACA,yBAAA;EACA,cAAA;EACA,mBAAA;AAtBhB;AA0BY;EACI,YAAA;EACA,kBAAA;EACA,kBAAA;EAEA,WAAA;EACA,cAAA;EACA,sBAAA;EACA,YAAA;AAzBhB;AA4BgB;EACI,aAAA;AA1BpB;AA8BY;EACI,kBAAA;EAEA;;;;;;;;;KAAA;AApBhB;AA4CI;EACI,aAAA;EACA,cAAA;EAGA,WAAA;AA5CR;AA6CQ;EACI,iCAAA;AA3CZ;AA8CQ;EAEI,gCAAA;EACA,WAAA;EACA,kBAAA;EACA,gBAAA;AA7CZ","sourcesContent":[".list-node-wrapper {\r\n    color: #606266;\r\n    font-size: 14px;\r\n\r\n    .node-item-list {\r\n        position: relative;\r\n\r\n        &.show-line::before {\r\n            height: calc(0.875rem * 1.5 + 0.5rem + 0.5rem);\r\n            content: '';\r\n            position: absolute;\r\n            left: -8px;\r\n            // border-inline-end: 1px solid #d9d9d9;\r\n            width: 0.875rem;\r\n            top: calc(0px - 1.24rem);\r\n            border-bottom: 1px solid #d9d9d9;\r\n            border-left: 1px solid #d9d9d9;\r\n            z-index: 0;\r\n        }\r\n\r\n\r\n\r\n        &.show-line:not(.each-last):after {\r\n            content: '';\r\n            position: absolute;\r\n            // top: calc(0.875rem * 1.5);\r\n            left: -8px;\r\n            bottom: -16px;\r\n            // border-inline-end: 1px solid #d9d9d9;\r\n            width: 0.875rem;\r\n            height: 100%;\r\n            border-bottom: 1px solid #d9d9d9;\r\n            border-left: 1px solid #d9d9d9;\r\n            border-bottom-width: 0;\r\n            z-index: -1;\r\n        }\r\n\r\n        &.show-line.first::after {\r\n            // border-left-width: 5px;  \r\n        }\r\n\r\n        &.show-line.first::before {\r\n            border-left-width: 0px;\r\n        }\r\n\r\n        .list-node-wrapper {\r\n            /* &::after {\r\n                content: '';\r\n                position: absolute;\r\n                top: -13px;\r\n                left: -6px;\r\n                bottom: 12px;\r\n                // border-inline-end: 1px solid #d9d9d9;\r\n                width: 18px;\r\n                border-left: 1px solid #d9d9d9;\r\n                z-index: -1;\r\n            } */\r\n        }\r\n\r\n        .node-item-content {\r\n\r\n\r\n            /* &::after {\r\n                content: '';\r\n                position: absolute;\r\n                top: -13px;\r\n                left: 0px;\r\n                bottom: 12px;\r\n                border-left: 1px solid #d9d9d9;\r\n                border-bottom: 1px solid #d9d9d9;\r\n            } */\r\n\r\n            // 使用 display 会出现 hover背景色和 active高亮色宽度比较短，但是没事。。\r\n            display: flex;\r\n            align-items: center;\r\n            /* display: inline-block; // 这个加上就会把这个盒子的宽度变成跟内容的宽度一样，而不会是根据父容器的宽度 */\r\n            padding: 3px 20px 3px 14px;\r\n            // white-space: wrap;\r\n            position: relative;\r\n            /* 添加相对定位--好像没用 */\r\n            min-width: 120px;\r\n            cursor: pointer;\r\n\r\n            // &:hover {\r\n            //     background-color: #f6f6f6;\r\n            // }\r\n\r\n            /*  &.active {\r\n                color: #fff;\r\n                background-color: #2783d8;\r\n            } */\r\n\r\n            .tag1 {\r\n                font-size: 12px;\r\n                padding: 2px 6px;\r\n                border-radius: 6px;\r\n                background-color: #f0f9eb;\r\n                color: #6dc442;\r\n                white-space: nowrap;\r\n            }\r\n\r\n            .tag2 {\r\n                font-size: 12px;\r\n                padding: 2px 6px;\r\n                border-radius: 6px;\r\n                background-color: #fef0f0;\r\n                color: #f67878;\r\n                white-space: nowrap;\r\n\r\n            }\r\n\r\n            .right-content {\r\n                padding: 1px;\r\n                position: absolute;\r\n                border-radius: 4px;\r\n                // top: 2px;\r\n                right: 10px;\r\n                color: #606266;\r\n                background-color: #fff;\r\n                z-index: 999;\r\n\r\n\r\n                i {\r\n                    margin: 0 4px;\r\n                }\r\n            }\r\n\r\n            .toggle-icon.has-children-toggle-icon.not-root-toggle-icon {\r\n                position: relative;\r\n\r\n                /* &::after {\r\n                    content: '';\r\n                    position: absolute;\r\n                    top: 18px;\r\n                    left: 5px;\r\n                    height: 10px;\r\n                    width: 10px;\r\n                    border: solid #d9d9d9;\r\n                    border-width: 1px 0 0 0;\r\n                } */\r\n\r\n\r\n            }\r\n\r\n\r\n        }\r\n\r\n        .has-children {}\r\n\r\n        .no-children {\r\n            // padding-left: 10px;\r\n        }\r\n    }\r\n\r\n    .children {\r\n        max-height: 0;\r\n        /* 初始状态下高度为0 */\r\n        // overflow-y: hidden;\r\n\r\n        /* 隐藏溢出内容 */\r\n        &.not-expand {\r\n            transition: max-height .25s ease; //这个加上过度效果会出现点击的节点的内部闪现x轴滚动条\r\n        }\r\n\r\n        &.expanded {\r\n            // overflow-y: clip; // 这句话加上就不会出现很多歌滚动条。。。\r\n            transition: max-height .3s ease;\r\n            /* 添加过渡效果 */\r\n            max-height: 1000px;\r\n            /* 展开时高度自动适应内容 */\r\n        }\r\n    }\r\n}"],"sourceRoot":""}]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 
@@ -2914,6 +2918,7 @@ const ListNodeWrapper = dt.div(_templateObject || (_templateObject = _taggedTemp
 
 const ListNode_ListNode = _ref => {
   let {
+    defaltExpandNodes,
     showLine,
     maxLevel,
     onLoadNode,
@@ -2946,15 +2951,16 @@ const ListNode_ListNode = _ref => {
   // 计算children的maxWidth
   const [childrenMaxHeight, setChildrenMaxHeight] = (0,external_root_React_commonjs2_react_commonjs_react_amd_react_.useState)(0);
   const toggledNodeItemRef = (0,external_root_React_commonjs2_react_commonjs_react_amd_react_.useRef)(null);
-  const [nodeInstances, setNodeInstances] = (0,external_root_React_commonjs2_react_commonjs_react_amd_react_.useState)({});
+  const toggleIconRef = (0,external_root_React_commonjs2_react_commonjs_react_amd_react_.useRef)(null);
+  const [arr, setarr] = (0,external_root_React_commonjs2_react_commonjs_react_amd_react_.useState)([]);
   const handleToggle = () => {
     setIsExpanded(prev => !prev);
     onToggle && onToggle(node);
     /* setTimeout(() => {
-      onToggleIconClick && onToggleIconClick(node);
+    onToggleIconClick && onToggleIconClick(node);
     }); */
   };
-  const handleItemClick = node => {
+  const handleNodeNameClick = (e, node) => {
     onItemClick && onItemClick(node);
   };
   const setMaxHeights = function (element, expandedParents) {
@@ -3002,14 +3008,13 @@ const ListNode_ListNode = _ref => {
   }
 
   /* const updateNodeLoadInfo = (node: any) => {
-    if (!node.hasLoaded) {
-      setNode({ ...node, loading: true });
-    }
+  if (!node.hasLoaded) {
+    setNode({ ...node, loading: true });
+  }
   }; */
 
   const generateCalcDom = selector => {
     var _toggledNodeItemRef$c;
-    console.log("generateCalcDom: ");
     const notExpandedChildren = (_toggledNodeItemRef$c = toggledNodeItemRef.current) === null || _toggledNodeItemRef$c === void 0 ? void 0 : _toggledNodeItemRef$c.querySelector(".children.".concat(selector || "not-expand"));
     // console.log("notExpandedChildren: ", notExpandedChildren);
     // childrenList: 类名为 children下的所有div节点
@@ -3062,11 +3067,17 @@ const ListNode_ListNode = _ref => {
 
     // 如果获取到了子节点数据，更新节点的相关属性
     if (parentLoadNodeRes) {
-      updatedNode.children = parentLoadNodeRes.map(item => ({
-        ...item,
-        level: clickNode.level + 1,
-        isExpanded: false
-      }));
+      updatedNode.children = parentLoadNodeRes.map((item, index) => {
+        let nodeInfo = {
+          ...item,
+          level: clickNode.level + 1,
+          isExpanded: false
+        };
+        if (index === parentLoadNodeRes.length - 1) {
+          nodeInfo.isEachLast = true;
+        }
+        return nodeInfo;
+      });
 
       // 设置加载状态为false，表示子节点数据加载完成
       updatedNode.loading = false;
@@ -3079,15 +3090,21 @@ const ListNode_ListNode = _ref => {
   };
   const handleToggleIconClick = async (node, e) => {
     var _target$parentNode;
-    e.stopPropagation();
+    // 公共操作
+    let target;
+    if (e) {
+      e.stopPropagation();
+      target = e.target;
+    } else {
+      target = toggleIconRef.current;
+    }
+    handleToggle();
+
     // 如果是懒加载，并且还没加载过 子节点 的数据，则 加载子节点数据
     if (isTree && lazy && !node.hasLoaded) {
       await handleLoadNode(node);
     }
-    // 公共操作
-    e.stopPropagation();
-    handleToggle();
-    const target = e.target;
+
     // 因为点击的是 折叠icon，所以要去 父元素 (left-content) 的 父元素(node-item-list)
     const nodeItem = (_target$parentNode = target.parentNode) === null || _target$parentNode === void 0 ? void 0 : _target$parentNode.parentNode;
     toggledNodeItemRef.current = nodeItem;
@@ -3099,7 +3116,7 @@ const ListNode_ListNode = _ref => {
     // 1. 如果未展开，设置高度为 nodeItem 的 scrollHeight，这样子节点才能显示出来。
     if (!isExpanded) {
       // 如果是展开，这个操作也是不能少的--具体原因未知。。。
-      setChildrenMaxHeight(nodeItem.scrollHeight);
+      setChildrenMaxHeight(nodeItem === null || nodeItem === void 0 ? void 0 : nodeItem.scrollHeight);
     } else {
       // 如果是折叠，直接maxHeight设置为0即可。虽热子节点的maxHeight不会为，但是父节点的maxHeight为0，就隐藏子节点了
       setChildrenMaxHeight(0);
@@ -3108,9 +3125,6 @@ const ListNode_ListNode = _ref => {
 
     // 一开始还没点击展开的时候，都是 not-expanded
     // （如果数据是 异步 请求回来的话，可能会出问题：数据还没回来，但是 js已经取完 dom了，导致高度计算失败）
-  };
-  const handleNodeNameClick = (node, e) => {
-    // onItemClick && onItemClick(node); // 注释掉，防止出现调用两次 onItemClick
   };
   const handleChildrenIconClick = node => {
     onToggleIconClick && onToggleIconClick(node);
@@ -3148,12 +3162,16 @@ const ListNode_ListNode = _ref => {
     }));
   };
   (0,external_root_React_commonjs2_react_commonjs_react_amd_react_.useEffect)(() => {
-    // TODO：数据变化的时候 loading设置为false，第一次点击之后将 hasLoaded 设置为 true
-    /* if (isTree && lazy && !node.hasLoaded && node.loading) {
-      setNode({ ...data, loading: false, hasLoaded: true });
-    } else {
-      setNode(data);
-    } */
+    if (defaltExpandNodes !== null && defaltExpandNodes !== void 0 && defaltExpandNodes.includes(data.id)) {
+      // 因为子节点展开与否会影响父节点的样式，所以需要延迟执行，等子节点的样式计算完成后，再执行父节点的样式计算，但是为什么是 level === 1的呢？
+      if (data.level === 1) {
+        setTimeout(() => {
+          handleToggleIconClick(node);
+        }, 100);
+      } else {
+        handleToggleIconClick(node);
+      }
+    }
   }, [data]);
   (0,external_root_React_commonjs2_react_commonjs_react_amd_react_.useEffect)(() => {
     if (!node.loading && node.hasLoaded) {
@@ -3171,7 +3189,7 @@ const ListNode_ListNode = _ref => {
     }, /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("div", {
       className: "list-node-wrapper"
     }, /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("div", {
-      className: "node-item-list"
+      className: "node-item-list  ".concat(showLine ? "show-line" : "", " ").concat(node.isEachLast ? "each-last" : "", " ").concat(node.isFirst ? "first" : "")
     }, /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("div", {
       style: {
         backgroundColor: node.bgc,
@@ -3179,11 +3197,9 @@ const ListNode_ListNode = _ref => {
           paddingLeft: node.level * 26 + "px"
         }) // 让树节点的层级有缩进，并且是充满一整行的样式
       },
-      className: "node-item-content pe-1 ".concat(!node.level ? "ps-2" : "", " ").concat(showLine ? "show-line" : ""),
-      onClick: () => handleItemClick(node),
-      onMouseEnter: () => setIsShowIcons(true),
-      onMouseLeave: () => setIsShowIcons(false)
-    }, isTree && (!node.hasLoaded || node.children && node.children.length > 0) && node.level !== maxLevel - 1 && /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("i", {
+      className: "node-item-content pe-1 ".concat(!node.level ? "ps-2" : "")
+    }, isTree && (!node.hasLoaded && lazy || node.children && node.children.length > 0) && node.level !== maxLevel - 1 && /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("i", {
+      ref: toggleIconRef,
       onMouseEnter: handleMouseEnterExpandIcon,
       onMouseLeave: handleMouseLeaveExpandIcon,
       style: {
@@ -3216,7 +3232,9 @@ const ListNode_ListNode = _ref => {
           backgroundColor: activeBgc
         } : "")
       },
-      onClick: e => handleNodeNameClick(node, e),
+      onClick: e => handleNodeNameClick(e, node),
+      onMouseEnter: () => setIsShowIcons(true),
+      onMouseLeave: () => setIsShowIcons(false),
       className: "ms-1 py-1 item-name ".concat(node.children && node.children.length > 0 ? "has-children" : "no-children", " ").concat(String(activeId) === String(node.id) ? "active" : "")
     }, node.name), /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("div", {
       className: "right-content",
@@ -3252,6 +3270,7 @@ const ListNode_ListNode = _ref => {
     // 如果是传递的属性的话，是需要写的,像父组件那样子写，用的参数是父组件传递过来的，类似父组件那样再写一遍
     // 注意！！！如果传递的是回调的话，直接将 父组件List 传递给 子组件ListNode 的回调再次传递给子组件ListNode(children) 的props，这样子组件ListNode(children) 才能正确调用这个回调，包括调用回调时候数据是否正确、函数是否正确【eg：onLoadNode={onLoadNode}】
     external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement(ListNode_ListNode, {
+      defaltExpandNodes: defaltExpandNodes,
       showLine: showLine,
       maxLevel: maxLevel,
       onLoadNode: onLoadNode,
@@ -3268,7 +3287,7 @@ const ListNode_ListNode = _ref => {
       activeId: activeId,
       onOptIconClick: (type, child) => handleChildrenOptIconClick(type, child),
       onToggleIconClick: handleChildrenIconClick,
-      onItemClick: handleItemClick,
+      onItemClick: onItemClick,
       key: child.id,
       node: child,
       isTree: isTree,
@@ -3283,6 +3302,7 @@ const ListNode_ListNode = _ref => {
 
 const List = /*#__PURE__*/(0,external_root_React_commonjs2_react_commonjs_react_amd_react_.forwardRef)((_ref, ref) => {
   let {
+    defaltExpandNodes,
     showLine,
     maxLevel,
     lazy,
@@ -3303,7 +3323,7 @@ const List = /*#__PURE__*/(0,external_root_React_commonjs2_react_commonjs_react_
     showEditIcon = true,
     activeId,
     maxWidth = 300,
-    maxHeight = "100%",
+    maxHeight = '100%',
     onToggle,
     onItemClick,
     onToggleIconClick,
@@ -3334,7 +3354,7 @@ const List = /*#__PURE__*/(0,external_root_React_commonjs2_react_commonjs_react_
       if (listRef.current) {
         listRef.current.scrollTo({
           top: listRef.current.scrollHeight,
-          behavior: "smooth"
+          behavior: 'smooth'
         });
       }
     }, 0);
@@ -3344,11 +3364,43 @@ const List = /*#__PURE__*/(0,external_root_React_commonjs2_react_commonjs_react_
       if (listRef.current) {
         listRef.current.scrollTo({
           top: 0,
-          behavior: "smooth"
+          behavior: 'smooth'
         });
       }
     }, 0);
   };
+  function markLastChildrenAndFirstItem(items) {
+    let lastItemIndex = -1;
+    items.forEach((item, index) => {
+      if (item.children && item.children.length > 0) {
+        // 递归处理子节点
+        item.children = markLastChildrenAndFirstItem(item.children);
+
+        // 获取子节点中的最后一项并设置isLast为true
+        const lastChild = item.children[item.children.length - 1];
+        if (lastChild) {
+          lastChild.isEachLast = true;
+        }
+      }
+
+      // 判断当前项是否为这一层级的最后一项
+      if (index === items.length - 1) {
+        item.isEachLast = true;
+        lastItemIndex = index;
+      } else {
+        item.isEachLast = false;
+      }
+
+      // 判断是否为数组的第一条数据，若是则添加first属性并设置为true
+      if (index === 0) {}
+    });
+
+    // 如果这一层级没有子节点且之前有过节点（通过lastItemIndex判断），则将最后一个节点的isLast设为true
+    if (items.length === 0 && lastItemIndex >= 0) {
+      items[lastItemIndex].isEachLast = true;
+    }
+    return items;
+  }
   const convertListToTree = (list, pid) => {
     let level = 0;
     // 递归辅助函数，用于处理每个节点及其子节点
@@ -3391,7 +3443,15 @@ const List = /*#__PURE__*/(0,external_root_React_commonjs2_react_commonjs_react_
     data.forEach(rootNode => {
       flattenRecursive(rootNode, null);
     });
-    return flattened;
+    return flattened.map((item, index) => {
+      if (index === 0) {
+        return {
+          ...item,
+          isFirst: true
+        };
+      }
+      return item;
+    });
   }
   const handleLoadNode = async node => {
     if (onLoadNode) {
@@ -3410,21 +3470,21 @@ const List = /*#__PURE__*/(0,external_root_React_commonjs2_react_commonjs_react_
   }, [activeId]);
   (0,external_root_React_commonjs2_react_commonjs_react_amd_react_.useEffect)(() => {
     var _data$;
-    settreeData(convertListToTree(flattenDataWithoutNesting(data), (data === null || data === void 0 || (_data$ = data[0]) === null || _data$ === void 0 ? void 0 : _data$.pid) || null));
+    settreeData(markLastChildrenAndFirstItem(convertListToTree(flattenDataWithoutNesting(data), (data === null || data === void 0 || (_data$ = data[0]) === null || _data$ === void 0 ? void 0 : _data$.pid) || null)));
     // data 变化的时候，也要将 选中的id 置为 -1，防止遗留上一次 选中的id
     if (!activeId) {
       set_ActiveId(-1);
     }
   }, [data]);
   (0,external_root_React_commonjs2_react_commonjs_react_amd_react_.useEffect)(() => {
-    // console.log("treeData: ", treeData);
+    console.log('treeData: ', treeData);
   }, [treeData]);
   return /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("div", {
-    className: "list-wrapper ".concat(showLine ? "ps-2" : ""),
+    className: "list-wrapper ".concat(showLine ? "ps-2" : ''),
     style: {
       flex: 1,
-      height: "100%",
-      overflow: "auto"
+      height: '100%',
+      overflow: 'auto'
     }
   }, /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("div", {
     ref: listRef,
@@ -3434,6 +3494,7 @@ const List = /*#__PURE__*/(0,external_root_React_commonjs2_react_commonjs_react_
       maxHeight: maxHeight
     }
   }, treeData && treeData.map(item => /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement(src_ListNode_0, {
+    defaltExpandNodes: defaltExpandNodes,
     showLine: showLine,
     maxLevel: maxLevel,
     onLoadNode: handleLoadNode,

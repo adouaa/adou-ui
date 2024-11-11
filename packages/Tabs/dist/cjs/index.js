@@ -1898,90 +1898,80 @@ var update = injectStylesIntoStyleTag_default()(cjs_ruleSet_1_rules_1_use_2_src/
 
 const Tabs = props => {
   const {
-    animationType = "slide",
-    extraData,
+    headerItemExternalCls,
+    extraContentCls,
+    contentHeight,
     showExtraContent,
-    commonExtraContent,
-    linearGradient = "#dafbff, #fff",
+    lineaGradient = '#dafbff, #fff',
     children,
+    onLabelClick,
     activeIndex = 0,
-    activeLabelColor = "#409eff",
-    tabStyle = "bootstrap",
+    activeLabelColor = '#409eff',
+    tabStyle = 'bootstrap',
     contentPadding,
-    clearOnChange = true,
-    onLabelClick
+    clearOnChange = true
   } = props;
-  const [currentIndex, setCurrentIndex] = (0,external_root_React_commonjs2_react_commonjs_react_amd_react_.useState)(activeIndex);
-
-  // 加上动画需要的数据
-  const [isSliding, setIsSliding] = (0,external_root_React_commonjs2_react_commonjs_react_amd_react_.useState)(false);
-  const [nextIndex, setNextIndex] = (0,external_root_React_commonjs2_react_commonjs_react_amd_react_.useState)(null);
+  const [updateKey, setupdateKey] = (0,external_root_React_commonjs2_react_commonjs_react_amd_react_.useState)(0);
+  const [currentIndex, setcurrentIndex] = (0,external_root_React_commonjs2_react_commonjs_react_amd_react_.useState)(activeIndex);
   const content = (0,external_root_React_commonjs2_react_commonjs_react_amd_react_.useRef)();
-  const handleLabelClickFn = (index, tabItemInfo) => {
-    if (index !== currentIndex) {
-      setNextIndex(index);
-      setIsSliding(true);
-    } else {
-      onLabelClick && onLabelClick(index, tabItemInfo);
-    }
+  const handleLabelClickFn = (index, itemInfo) => {
+    setcurrentIndex(index);
+    onLabelClick && onLabelClick(index, itemInfo);
   };
-  (0,external_root_React_commonjs2_react_commonjs_react_amd_react_.useEffect)(() => {
-    if (isSliding) {
-      const timer = setTimeout(() => {
-        setCurrentIndex(nextIndex);
-        setIsSliding(false);
-        onLabelClick && onLabelClick(nextIndex, children[nextIndex]);
-      }, 200); // 动画持续时间
-      return () => clearTimeout(timer);
-    }
-  }, [isSliding, nextIndex]);
   const renderHeader = () => {
     const tabItems = [];
     external_root_React_commonjs2_react_commonjs_react_amd_react_default().Children.map(children, child => {
       tabItems.push(child);
     });
-    return /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement((external_root_React_commonjs2_react_commonjs_react_amd_react_default()).Fragment, null, tabStyle === "common" ? /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("div", {
+    return /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement((external_root_React_commonjs2_react_commonjs_react_amd_react_default()).Fragment, null, tabStyle === 'common' ? /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("div", {
       className: "header-wrapper"
     }, /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("div", {
-      className: "tabs-header"
+      className: "tabs-header mb-2"
     }, tabItems.map((child, index) => {
       var _child$props;
-      if (!child) return null;
+      if (!child) return;
       return /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("div", {
         key: index
       }, /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("div", {
-        className: "tabs-header-item-box ".concat(index === 0 ? "first" : "")
+        className: "tabs-header-item-box ".concat(index === 0 && 'first')
       }, /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("div", {
         onClick: () => handleLabelClickFn(index, child),
-        className: "tabs-header-item ".concat(currentIndex === index ? "active" : "")
+        className: "tabs-header-item  ".concat(currentIndex === index && 'active')
       }, child === null || child === void 0 || (_child$props = child.props) === null || _child$props === void 0 ? void 0 : _child$props.label)));
     })), showExtraContent && /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("div", {
       className: "extra-content"
-    }, commonExtraContent)) : /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("div", {
+    }, content.current)) : /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("div", {
       className: "header-wrapper"
     }, /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("ul", {
       className: "nav nav-tabs mb-2"
-    }, tabItems.map((child, index) => /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("li", {
-      key: index,
-      className: "nav-item d-flex",
-      onClick: () => handleLabelClickFn(index, child)
-    }, /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("a", {
-      style: {
-        marginLeft: index === 0 ? "10px" : "",
-        color: index === currentIndex ? child.props.activeLabelColor || activeLabelColor : "",
-        cursor: "pointer",
-        ...(index === currentIndex ? {
-          background: "linear-gradient(".concat(linearGradient, ")")
-        } : {})
-      },
-      className: "nav-link ".concat(index === currentIndex ? "active" : ""),
-      "aria-current": "page"
-    }, /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("i", {
-      className: "".concat(child.props.prefixIcon, " me-1")
-    }), child.props.label)))), showExtraContent && /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("div", {
-      className: "extra-content"
+    }, tabItems.map((child, index) => {
+      return /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("li", {
+        key: index,
+        className: "nav-item d-flex",
+        onClick: () => handleLabelClickFn(index, child)
+      }, /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("a", {
+        style: {
+          marginLeft: index === 0 ? '10px' : '',
+          color: index === currentIndex ? child.props.activeLabelColor || activeLabelColor : '',
+          cursor: 'pointer',
+          ...(index === currentIndex ? {
+            background: "linear-gradient(".concat(lineaGradient, ")")
+          } : {})
+        },
+        className: "".concat(index === currentIndex ? 'active' : '', " ").concat(headerItemExternalCls, " nav-link"),
+        "aria-current": "page"
+      }, /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("i", {
+        className: child.props.prefixIcon + ' me-1'
+      }), child.props.label));
+    })), showExtraContent && /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("div", {
+      className: "extra-content ".concat(extraContentCls)
     }, content.current)));
   };
+  (0,external_root_React_commonjs2_react_commonjs_react_amd_react_.useEffect)(() => {
+    // 因为extraContent是用ref保存的，
+    // 所以为了在切换回来的时候重新渲染extraContent的内容，需要强制修改state来重新渲染页面
+    setupdateKey(updateKey + 1);
+  }, [currentIndex]);
   const renderContent = () => {
     const renderChildren = [];
     external_root_React_commonjs2_react_commonjs_react_amd_react_default().Children.map(children, (child, index) => {
@@ -1998,13 +1988,21 @@ const Tabs = props => {
         renderChildren.push(enhancedChildren);
       }
     });
-    return renderChildren;
+    return /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("div", {
+      className: "tab-content",
+      style: {
+        ...(contentHeight ? {
+          height: contentHeight
+        } : {})
+      }
+    }, renderChildren);
   };
-  return /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("div", {
-    className: "tabs-box"
-  }, renderHeader(), /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("div", {
-    className: "tab-content ".concat(isSliding ? animationType === "slide" ? "slide-exit" : "fade-exit" : animationType === "slide" ? "slide-enter" : "fade-enter")
-  }, renderContent()));
+  return /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement((external_root_React_commonjs2_react_commonjs_react_amd_react_default()).Fragment, null, /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("div", {
+    className: "tabs-box",
+    style: {
+      height: '100%'
+    }
+  }, renderHeader(), renderContent()));
 };
 /* harmony default export */ const src_0 = (withTranslation()(Tabs));
 })();

@@ -198,7 +198,9 @@ const Input: React.ForwardRefRenderFunction<InputRef, InputProps> = (
         ref={wrapeerRef}
         className={`content-box icon-input ${
           inputGroup ? "input-group" : ""
-        } label-in-${labelPosition}`}
+        } label-in-${labelPosition} ${
+          labelPosition === "top" && inline ? "me-2" : ""
+        }`}
       >
         {prefixContent && (
           <span className="input-group-text">{prefixContent}</span>
@@ -216,45 +218,47 @@ const Input: React.ForwardRefRenderFunction<InputRef, InputProps> = (
             {label}
           </span>
         )}
-        <input
-          ref={inputRef}
-          required={required}
-          style={{
-            borderRadius: "6px",
-            borderTopLeftRadius: prefixContent ? 0 : "6px",
-            borderBottomLeftRadius: prefixContent ? 0 : "6px",
-            background: transparent ? "transparent" : "#fff",
-            flex: 1,
-          }}
-          step={1}
-          name={name}
-          value={value}
-          readOnly={readOnly}
-          placeholder={placeholder}
-          onChange={handleChange}
-          onBlur={(e) => handleBlur(e)}
-          onFocus={(e) => handleFocus(e)}
-          onClick={(e) => handleClick(e)}
-          type={type}
-          className={`form-control input pe-0 ${
-            textEnd || type === "number" ? "text-end" : ""
-          } ${
-            suffixContent && suffixContentType === "button"
-              ? "suffix-content-btn"
-              : ""
-          } ${inputExternalClassName || ""}`}
-        />
-        {suffixContent && (
-          <div
-            className={`${
-              suffixContentType === "button"
-                ? "suffix-content-btn-wrapper"
-                : "suffix-content-text-wrapper ms-1"
-            } ${suffixContentExternalClassName || ""}`}
-          >
-            {suffixContent}
-          </div>
-        )}
+        <div className="input-form-content">
+          <input
+            ref={inputRef}
+            required={required}
+            style={{
+              borderRadius: "6px",
+              borderTopLeftRadius: prefixContent ? 0 : "6px",
+              borderBottomLeftRadius: prefixContent ? 0 : "6px",
+              background: transparent ? "transparent" : "#fff",
+              flex: 1,
+            }}
+            step={1}
+            name={name}
+            value={value}
+            readOnly={readOnly}
+            placeholder={placeholder}
+            onChange={handleChange}
+            onBlur={(e) => handleBlur(e)}
+            onFocus={(e) => handleFocus(e)}
+            onClick={(e) => handleClick(e)}
+            type={type}
+            className={`form-control input pe-0 ${
+              textEnd || type === "number" ? "text-end" : ""
+            } ${
+              suffixContent && suffixContentType === "button"
+                ? "suffix-content-btn"
+                : ""
+            } ${inputExternalClassName || ""}`}
+          />
+          {suffixContent && (
+            <div
+              className={`${
+                suffixContentType === "button"
+                  ? "suffix-content-btn-wrapper"
+                  : "suffix-content-text-wrapper ms-1"
+              } ${suffixContentExternalClassName || ""}`}
+            >
+              {suffixContent}
+            </div>
+          )}
+        </div>
 
         {commonSuffixIcon && (
           <i
@@ -290,6 +294,7 @@ const Input: React.ForwardRefRenderFunction<InputRef, InputProps> = (
     </div>
   );
 };
+
 Input.displayName = "Input";
 
 export default forwardRef(Input);
