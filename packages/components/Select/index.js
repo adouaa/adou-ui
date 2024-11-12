@@ -7344,19 +7344,20 @@ var Utils = __webpack_require__(36);
 
 const Select = /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().forwardRef((props, ref) => {
   const {
+    errorPaddingLeft,
     suffixContentExternalCls,
     selectContentExternalCls,
     minWidth,
     noWrap = true,
     shouldFocus = false,
     activeColor = {
-      font: '#fff',
-      bgc: '#2783d8'
+      font: "#fff",
+      bgc: "#2783d8"
     },
-    returnType = 'obj',
+    returnType = "obj",
     showDefaultValue = false,
-    labelKey = 'label',
-    valueKey = 'value',
+    labelKey = "label",
+    valueKey = "value",
     suffixContent,
     showLabel = true,
     suffixContentType,
@@ -7366,7 +7367,7 @@ const Select = /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_a
     errMsg,
     labelWidth,
     label,
-    labelPosition = 'center',
+    labelPosition = "center",
     inputGroup = false,
     labelColor,
     required = false,
@@ -7379,7 +7380,7 @@ const Select = /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_a
     externalClassName,
     readOnly,
     transparent,
-    maxHeight = '200px',
+    maxHeight = "200px",
     onChange,
     onFormDataChange
   } = props;
@@ -7422,7 +7423,7 @@ const Select = /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_a
   };
   const handleSelect = item => {
     setValue(item);
-    const returnValue = returnType === 'obj' || showDefaultValue ? item : item[valueKey];
+    const returnValue = returnType === "obj" || showDefaultValue ? item : item[valueKey];
     onChange && onChange(returnValue);
     setError(false);
     handleClose();
@@ -7434,16 +7435,16 @@ const Select = /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_a
   (0,external_root_React_commonjs2_react_commonjs_react_amd_react_.useEffect)(() => {
     // 如果是必须展示默认值，不通过列表匹配的话，进入这个判断
     if (showDefaultValue) {
-      if (typeof defaultValue !== 'object') {
+      if (typeof defaultValue !== "object") {
         setValue({
           [valueKey]: defaultValue,
           [labelKey]: defaultValue
         });
-      } else if (typeof defaultValue === 'object') {
+      } else if (typeof defaultValue === "object") {
         setValue(defaultValue);
       }
     } else {
-      if (typeof defaultValue === 'object') {
+      if (typeof defaultValue === "object") {
         const selectOption = options.find(option => (option === null || option === void 0 ? void 0 : option[valueKey]) === (defaultValue === null || defaultValue === void 0 ? void 0 : defaultValue[valueKey]));
         // 如果没有找到匹配项，则不设置选中项
         if (selectOption) {
@@ -7454,7 +7455,7 @@ const Select = /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_a
           const selectOption = options.find(option => option[valueKey] === defaultValue);
           setValue(selectOption);
         } else {
-          setValue('');
+          setValue("");
         }
       }
     }
@@ -7480,12 +7481,12 @@ const Select = /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_a
   const getValue = () => {
     // 不能加这个逻辑，这样会导致手动选择另外的选项，返回的还是 defaultValue
     /* if (showDefaultValue) {
-        return defaultValue;
-      } */
+          return defaultValue;
+        } */
 
     if (value !== null && value !== void 0 && value[valueKey] || (value === null || value === void 0 ? void 0 : value[valueKey]) === 0 || (value === null || value === void 0 ? void 0 : value[valueKey]) === false) {
       // 感觉可有可无
-      if (returnType === 'obj') {
+      if (returnType === "obj") {
         onFormDataChange && onFormDataChange(name, value);
       } else {
         onFormDataChange && onFormDataChange(name, value[valueKey] || value[labelKey]);
@@ -7507,7 +7508,7 @@ const Select = /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_a
     }
   };
   const clear = () => {
-    setValue('');
+    setValue("");
   };
   const handleClickCommonSuffixIcon = () => {
     clear();
@@ -7518,11 +7519,11 @@ const Select = /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_a
     clear,
     getValue
   }));
-  const wrapperClassName = "select-wrapper ".concat(!error && isFormItem && 'mb-3', " ").concat(externalClassName || '').trim();
+  const wrapperClassName = "select-wrapper ".concat(!error && isFormItem && "mb-3", " ").concat(externalClassName || "").trim();
 
   // 全部都 通过 KeyDown来关闭下拉列表项
   const handleKeyDown = event => {
-    if (event.key === 'Tab') {
+    if (event.key === "Tab") {
       // 当下拉项展开的时候进入这个回调，来关闭下拉项
       if (isShow) {
         handleClose();
@@ -7530,13 +7531,13 @@ const Select = /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_a
       }
       return; // 让焦点移动到下一个表单元素
     } else if (isShow) {
-      if (event.key === 'ArrowUp') {
+      if (event.key === "ArrowUp") {
         event.preventDefault();
         setFocusedIndex(prevIndex => prevIndex <= 0 ? newOptions.length - 1 : prevIndex - 1);
-      } else if (event.key === 'ArrowDown') {
+      } else if (event.key === "ArrowDown") {
         event.preventDefault();
         setFocusedIndex(prevIndex => prevIndex >= newOptions.length - 1 ? 0 : prevIndex + 1);
-      } else if (event.key === 'Enter') {
+      } else if (event.key === "Enter") {
         handleClose();
         if (focusedIndex == -1) return;
         event.preventDefault();
@@ -7570,12 +7571,12 @@ const Select = /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_a
       width,
       ...(inline && !width ? {
         flex: 1,
-        marginRight: '15px'
+        marginRight: "15px"
       } : {})
     }
   }, /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("select", {
     style: {
-      display: 'none'
+      display: "none"
     },
     name: name
   }, /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("option", {
@@ -7600,19 +7601,19 @@ const Select = /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_a
     className: "".concat(commonSuffixIcon, " common-suffix-icon ms-2")
   })) : /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("div", {
     onBlur: validate,
-    className: "content-box label-in-".concat(labelPosition, " ").concat(labelPosition === 'top' && inline ? 'me-2' : '')
+    className: "content-box label-in-".concat(labelPosition, " ").concat(labelPosition === "top" && inline ? "me-2" : "")
   }, showLabel && label && /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("span", {
     className: "label-box",
     style: {
       color: labelColor,
       width: labelWidth,
-      flexWrap: 'nowrap',
-      alignItems: labelPosition === 'left-top' ? 'start' : 'center',
-      ...(labelPosition !== 'top' && {
-        display: 'flex'
+      flexWrap: "nowrap",
+      alignItems: labelPosition === "left-top" ? "start" : "center",
+      ...(labelPosition !== "top" && {
+        display: "flex"
       }),
       ...(noWrap && {
-        whiteSpace: 'nowrap'
+        whiteSpace: "nowrap"
       }),
       ...(minWidth && {
         minWidth
@@ -7623,12 +7624,12 @@ const Select = /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_a
   }, /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("div", {
     ref: customSelectRef,
     onClick: e => handleDivClick(e),
-    className: "select-content form-control ".concat(selectContentExternalCls || ''),
+    className: "select-content form-control ".concat(selectContentExternalCls || ""),
     style: {
-      textAlign: 'left',
-      background: transparent ? 'transparent' : readOnly ? '#eee' : '#fff',
+      textAlign: "left",
+      background: transparent ? "transparent" : readOnly ? "#eee" : "#fff",
       flex: 1,
-      ...(suffixContentType === 'button' ? {
+      ...(suffixContentType === "button" ? {
         borderTopRightRadius: 0,
         borderBottomRightRadius: 0
         // borderRight: "none",
@@ -7642,45 +7643,45 @@ const Select = /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_a
     style: {
       color: labelColor
     },
-    className: "icon fa-solid fa-caret-right ".concat(isShow ? 'rotate-up' : 'rotate-down')
+    className: "icon fa-solid fa-caret-right ".concat(isShow ? "rotate-up" : "rotate-down")
   })), suffixContent && /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("div", {
-    className: "".concat(suffixContentType === 'button' ? 'suffix-content-btn-wrapper px-2' : 'suffix-content-text-wrapper ms-2', " ").concat(suffixContentExternalCls || '')
+    className: "".concat(suffixContentType === "button" ? "suffix-content-btn-wrapper px-2" : "suffix-content-text-wrapper ms-2", " ").concat(suffixContentExternalCls || "")
   }, suffixContent)), commonSuffixIcon && /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("i", {
     onClick: handleClickCommonSuffixIcon,
     className: "".concat(commonSuffixIcon, " common-suffix-icon ms-2")
   }), /*#__PURE__*/external_root_ReactDOM_commonjs2_react_dom_commonjs_react_dom_amd_react_dom_default().createPortal( /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("div", {
     style: {
-      position: 'absolute',
-      top: customSelectContentPosition.y + customSelectContentPosition.height + 'px',
-      left: customSelectContentPosition.x + 'px',
+      position: "absolute",
+      top: customSelectContentPosition.y + customSelectContentPosition.height + "px",
+      left: customSelectContentPosition.x + "px",
       ...(isShow ? {
-        maxHeight: calcMaxHeight > parseInt(maxHeight) ? maxHeight : calcMaxHeight + 'px'
+        maxHeight: calcMaxHeight > parseInt(maxHeight) ? maxHeight : calcMaxHeight + "px"
       } : {}),
       ...(closing ? {
         opacity: 0,
-        transform: 'scaleY(0)'
+        transform: "scaleY(0)"
       } : {})
     },
     ref: contentRef,
-    className: "select-option-content ".concat(isShow ? 'select-option-content-open' : '', " ").concat(closing ? 'select-option-content-closing' : '')
+    className: "select-option-content ".concat(isShow ? "select-option-content-open" : "", " ").concat(closing ? "select-option-content-closing" : "")
   }, isShow && /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("div", {
     className: "option-box"
   }, newOptions.length > 0 ? newOptions.map((item, index) => /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("div", {
     onClick: () => handleSelect(item),
     style: {
-      color: (value === null || value === void 0 ? void 0 : value[valueKey]) === item[valueKey] ? activeColor.font : '#000',
-      backgroundColor: (value === null || value === void 0 ? void 0 : value[valueKey]) === item[valueKey] ? activeColor.bgc : ''
+      color: (value === null || value === void 0 ? void 0 : value[valueKey]) === item[valueKey] ? activeColor.font : "#000",
+      backgroundColor: (value === null || value === void 0 ? void 0 : value[valueKey]) === item[valueKey] ? activeColor.bgc : ""
     },
-    className: "select-option ".concat((value === null || value === void 0 ? void 0 : value[valueKey]) === item[valueKey] ? 'select-option-active' : '', " ").concat(focusedIndex === index ? 'focused' : ''),
+    className: "select-option ".concat((value === null || value === void 0 ? void 0 : value[valueKey]) === item[valueKey] ? "select-option-active" : "", " ").concat(focusedIndex === index ? "focused" : ""),
     key: item[valueKey]
   }, item[labelKey])) : /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("div", {
     className: "none-match ps-2"
   }, "No content"))), document.body)), error && required && /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("div", {
     className: "animate__animated animate__fadeIn mb-1",
     style: {
-      color: '#DC3545',
-      fontSize: '14px',
-      paddingLeft: parseInt(labelWidth) > 120 ? '120px' : parseInt(labelWidth) + 20 + 'px'
+      color: "#DC3545",
+      fontSize: "14px",
+      paddingLeft: errorPaddingLeft ? errorPaddingLeft : parseInt(labelWidth) > 120 ? "120px" : parseInt(labelWidth) + 20 + "px"
     }
   }, "".concat(errMsg || "".concat(label || name, "\u4E0D\u80FD\u4E3A\u7A7A"))));
 });

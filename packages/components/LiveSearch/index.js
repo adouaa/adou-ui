@@ -240,7 +240,9 @@ module.exports = function (item) {
       __nested_webpack_require_918__.d(__nested_webpack_exports__, {
         convertArrayKeysToCamelCase: () => ( /* reexport */libs_convertArrayKeysToCamelCase),
         convertArrayKeysToSnakeCase: () => ( /* reexport */libs_convertArrayKeysToSnakeCase),
+        convertListToTree: () => ( /* reexport */libs_convertListToTree),
         convertToTag: () => ( /* reexport */libs_convertToTag),
+        flattenDataWithoutNesting: () => ( /* reexport */libs_flattenDataWithoutNesting),
         getAbsolutePosition: () => ( /* reexport */libs_getAbsolutePositionOfStage),
         isEmptyO: () => ( /* reexport */libs_isEmptyO),
         timeFormatter: () => ( /* reexport */time_formatter_namespaceObject),
@@ -259,7 +261,6 @@ module.exports = function (item) {
       function getAbsolutePositionOfStage(domElement) {
         let left = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 0;
         let top = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : 0;
-        console.log(domElement);
         if (!parseInt(left)) {
           left = 0;
         } else {
@@ -366,6 +367,56 @@ module.exports = function (item) {
       }
       /* harmony default export */
       const libs_convertArrayKeysToSnakeCase = convertArrayKeysToSnakeCase;
+      ; // CONCATENATED MODULE: ./src/libs/convertListToTree.ts
+      const convertListToTree = (list, pid) => {
+        let level = 0;
+        // 递归辅助函数，用于处理每个节点及其子节点
+        const buildTree = (items, parentId, currentLevel) => {
+          const children = [];
+          items.forEach(item => {
+            if (item.pid === parentId) {
+              item.level = currentLevel;
+              children.push(item);
+              // 递归调用自身处理子节点，层级加1
+              item.children = buildTree(list, item.id, currentLevel + 1);
+            }
+          });
+          return children;
+        };
+        const data = buildTree(list, pid, level);
+        return data;
+      };
+      /* harmony default export */
+      const libs_convertListToTree = convertListToTree;
+      ; // CONCATENATED MODULE: ./src/libs/flattenDataWithoutNesting.ts
+      function flattenDataWithoutNesting(data) {
+        let flattened = [];
+        function flattenRecursive(node, parentId) {
+          const {
+            id,
+            name,
+            isExpanded
+          } = node;
+          flattened.push({
+            ...node,
+            id,
+            name,
+            isExpanded,
+            pid: parentId
+          });
+          if (node.children && node.children.length > 0) {
+            node.children.forEach(child => {
+              flattenRecursive(child, id);
+            });
+          }
+        }
+        data.forEach(rootNode => {
+          flattenRecursive(rootNode, null);
+        });
+        return flattened;
+      }
+      /* harmony default export */
+      const libs_flattenDataWithoutNesting = flattenDataWithoutNesting;
       ; // CONCATENATED MODULE: ../../node_modules/@remix-run/router/dist/router.js
       /**
        * @remix-run/router v1.5.0
@@ -6148,7 +6199,7 @@ const LiveSearch = /*#__PURE__*/external_root_React_commonjs2_react_commonjs_rea
     valueKey = "value",
     inline,
     suffixContent,
-    suffixContentType = "button",
+    suffixContentType,
     contentWidth,
     attribute = "value",
     required,
@@ -6346,7 +6397,7 @@ const LiveSearch = /*#__PURE__*/external_root_React_commonjs2_react_commonjs_rea
   };
   const retrieveSelectClasses = classnames_default()({
     "mb-3": !error && isFormItem,
-    "live-search-select-wrapper": true,
+    "retrieve-select-wrapper": true,
     [externalClassName]: externalClassName
   });
   const handleFocus = event => {
@@ -6442,16 +6493,9 @@ const LiveSearch = /*#__PURE__*/external_root_React_commonjs2_react_commonjs_rea
       width: labelWidth
     }
   }, label), /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("div", {
-    className: "live-search-form-content"
-  }, /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("div", {
     style: {
       display: "flex",
-      flexWrap: "wrap",
-      ...(suffixContentType === "button" ? {
-        borderTopRightRadius: 0,
-        borderBottomRightRadius: 0
-        // borderRight: "none",
-      } : {})
+      flexWrap: "wrap"
     },
     ref: retrieveSelectWrapperFormControlRef,
     tabIndex: 0,
@@ -6468,19 +6512,19 @@ const LiveSearch = /*#__PURE__*/external_root_React_commonjs2_react_commonjs_rea
     onClick: handleInputClick,
     readOnly: readOnly,
     type: "text",
-    className: "live-search-input ".concat(type === "number" ? "text-end" : ""),
+    className: "retrieve-input ".concat(type === "number" ? "text-end" : ""),
     "aria-label": "Username",
     "aria-describedby": "basic-addon1"
   })), /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("div", {
     className: "icon-box"
   }, /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("i", {
     className: "icon small text-secondary fa-solid fa-magnifying-glass"
-  }))), suffixContent && /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("div", {
-    className: "".concat(suffixContentType === "button" ? "suffix-content-btn-wrapper" : "ms-1")
-  }, suffixContent)), commonSuffixIcon && /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("i", {
+  }))), commonSuffixIcon && /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("i", {
     onClick: handleClickCommonSuffixIcon,
     className: "".concat(commonSuffixIcon, " common-suffix-icon ms-2")
-  })), /*#__PURE__*/external_root_ReactDOM_commonjs2_react_dom_commonjs_react_dom_amd_react_dom_default().createPortal( /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("div", {
+  }), suffixContent && /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("div", {
+    className: "".concat(suffixContentType === "button" ? "suffix-content-btn-wrapper" : "ms-1")
+  }, suffixContent)), /*#__PURE__*/external_root_ReactDOM_commonjs2_react_dom_commonjs_react_dom_amd_react_dom_default().createPortal( /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("div", {
     ref: contentRef,
     style: {
       width: contentWidth,
@@ -6489,7 +6533,7 @@ const LiveSearch = /*#__PURE__*/external_root_React_commonjs2_react_commonjs_rea
       left: customSelectContentPosition.x + "px",
       maxHeight
     },
-    className: "live-search-select-content ".concat(showOptions ? "live-search-select-content-open" : "")
+    className: "retrieve-select-content ".concat(showOptions ? "retrieve-select-content-open" : "")
   }, !readOnly && isOpen && ((optionList === null || optionList === void 0 ? void 0 : optionList.length) > 0 ? optionList === null || optionList === void 0 ? void 0 : optionList.map((option, index) => {
     return /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("div", {
       key: index,
@@ -6498,7 +6542,7 @@ const LiveSearch = /*#__PURE__*/external_root_React_commonjs2_react_commonjs_rea
         backgroundColor: option.selected ? activeColor.bgc : ""
       },
       onClick: () => handleSelect(option),
-      className: "live-search-select-option ".concat(option.selected && "live-search-select-option-active", " ").concat(focusedIndex === index && "live-search-select-option-focused")
+      className: "retrieve-select-option ".concat(option.selected && "retrieve-select-option-active", " ").concat(focusedIndex === index && "retrieve-select-option-focused")
     }, option[labelKey]);
   }) : /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("div", {
     className: "none-match ps-2 font-italic"

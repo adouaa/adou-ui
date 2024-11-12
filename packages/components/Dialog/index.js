@@ -1495,6 +1495,9 @@ var update = injectStylesIntoStyleTag_default()(cjs_ruleSet_1_rules_1_use_2_src/
 
 const Dialog = _ref => {
   let {
+    maxY,
+    maxX,
+    max,
     showConfirm = true,
     showCancel = true,
     showClose = true,
@@ -1510,6 +1513,7 @@ const Dialog = _ref => {
     type = "",
     maxHeight = "500px",
     width = "600px",
+    height,
     maxWidth,
     onCancel,
     onClose = () => {},
@@ -1539,7 +1543,9 @@ const Dialog = _ref => {
         const dialogHeight = dialogRef.current.offsetHeight;
         const initialX = (window.innerWidth - dialogWidth) / 2;
         const initialY = (window.innerHeight - dialogHeight) / 2;
-        dialogRef.current.style.top = "".concat(type === "tip" ? "".concat(initialY, "px") : "2%");
+        if (!maxY && !max) {
+          dialogRef.current.style.top = "".concat(type === "tip" ? "".concat(initialY, "px") : "2%");
+        }
         dialogRef.current.style.left = "".concat(initialX, "px");
         setTimeout(() => {
           dialogRef.current.focus(); // 将焦点设置到 modal
@@ -1576,8 +1582,8 @@ const Dialog = _ref => {
       top: "".concat(position.y - 20, "px"),
       left: "".concat(position.x, "px"),
       transform: "translateY(".concat(firstOpen ? "20px" : "0", ")"),
-      width,
-      maxWidth
+      maxWidth: max || maxX ? "100vw" : width || maxWidth,
+      width: max || maxX ? "100vw" : width || maxWidth
     }
   }, /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("div", {
     className: "dialog-header p-2 ps-3",
@@ -1590,7 +1596,8 @@ const Dialog = _ref => {
   }, "\xD7")), /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("div", {
     className: "dialog-content",
     style: {
-      maxHeight
+      maxHeight: max || maxY ? "79.5vh" : height || maxHeight,
+      height: max || maxY ? "79.5vh" : height || maxHeight
     }
   }, children), /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("div", {
     className: "dialog-footer d-flex justify-content-end p-3"

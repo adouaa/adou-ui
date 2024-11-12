@@ -780,6 +780,9 @@ module.exports = {
 
       const Input = (_ref, ref) => {
         let {
+          suffixContentExternalClassName,
+          inputExternalClassName,
+          textEnd,
           name,
           inline,
           isFormItem,
@@ -838,12 +841,13 @@ module.exports = {
         };
         const handleChange = function (e) {
           const value = e.target.value;
+          const returnValue = type === "number" ? Number(value) : value;
           setValue(value);
           for (var _len4 = arguments.length, args = new Array(_len4 > 1 ? _len4 - 1 : 0), _key4 = 1; _key4 < _len4; _key4++) {
             args[_key4 - 1] = arguments[_key4];
           }
-          onChange && onChange(value, ...args);
-          onFormDataChange && onFormDataChange(name, value);
+          onChange && onChange(returnValue, ...args);
+          onFormDataChange && onFormDataChange(name, returnValue);
         };
         const handleIconClick = () => {
           onIconClick && onIconClick(value);
@@ -900,10 +904,9 @@ module.exports = {
           }
         }, /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("div", {
           ref: wrapeerRef,
-          className: "content-box icon-input ".concat(inputGroup ? "input-group" : "", " label-in-").concat(labelPosition)
+          className: "content-box icon-input ".concat(inputGroup ? "input-group" : "", " label-in-").concat(labelPosition, " ").concat(labelPosition === "top" && inline ? "me-2" : "")
         }, prefixContent && /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("span", {
-          className: "input-group-text",
-          id: "basic-addon1"
+          className: "input-group-text"
         }, prefixContent), label && /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("span", {
           className: "label-box",
           style: {
@@ -936,11 +939,9 @@ module.exports = {
           onFocus: e => handleFocus(e),
           onClick: e => handleClick(e),
           type: type,
-          className: "form-control input ".concat(suffixContent && suffixContentType === "button" ? "suffix-content-btn" : ""),
-          "aria-label": "Username",
-          "aria-describedby": "basic-addon1"
+          className: "form-control input pe-0 ".concat(textEnd || type === "number" ? "text-end" : "", " ").concat(suffixContent && suffixContentType === "button" ? "suffix-content-btn" : "", " ").concat(inputExternalClassName || "")
         }), suffixContent && /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("div", {
-          className: "".concat(suffixContentType === "button" ? "suffix-content-btn-wrapper px-2" : "suffix-content-text-wrapper ms-1")
+          className: "".concat(suffixContentType === "button" ? "suffix-content-btn-wrapper" : "suffix-content-text-wrapper ms-1", " ").concat(suffixContentExternalClassName || "")
         }, suffixContent)), commonSuffixIcon && /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("i", {
           onClick: handleClickCommonSuffixIcon,
           className: "".concat(commonSuffixIcon, " common-suffix-icon ms-2")
@@ -2852,6 +2853,7 @@ var update = injectStylesIntoStyleTag_default()(cjs_ruleSet_1_rules_1_use_2_src/
 
 const Table = props => {
   const {
+    tableBgc,
     tableRef,
     activeId,
     maxWidth,
@@ -2865,7 +2867,7 @@ const Table = props => {
     expandAll = true,
     size = "lg",
     data,
-    headers,
+    headLabels,
     propsData,
     tableHover = true,
     tableStriped = true,
@@ -2882,7 +2884,8 @@ const Table = props => {
     divider,
     maxHeight = "500px",
     minHeight = "300px",
-    onRowDoubleClick
+    onRowDoubleClick,
+    onRowClick
   } = props;
   const cls = classnames_default()({
     table: true,
@@ -2933,7 +2936,7 @@ const Table = props => {
       style: {
         position: headSticky ? "sticky" : "unset",
         top: 0,
-        backgroundColor: "".concat(headBGC),
+        backgroundColor: "".concat(headBGC || tableBgc, " "),
         zIndex: 999
       },
       className: "text-".concat(headTextColor)
@@ -3157,7 +3160,7 @@ const Table = props => {
         return item;
       });
     });
-    onRowDoubleClick && onRowDoubleClick(row);
+    onRowClick && onRowClick(row);
   };
   const handleCheckboxChange = (e, row) => {
     const checked = e.target.checked;
@@ -3242,6 +3245,9 @@ const Table = props => {
     },
     className: "table-wrapper ".concat("table-responsive".concat("-" + tableResponsive))
   }, /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("table", {
+    style: {
+      background: tableBgc
+    },
     className: cls
   }, renderCollapseChildren())));
 };

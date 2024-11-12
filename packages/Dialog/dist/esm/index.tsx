@@ -6,6 +6,9 @@ import Button from "adou-ui/Button";
 import "./index.scss";
 
 interface DialogProps {
+  maxY?: boolean;
+  maxX?: boolean;
+  max?: boolean;
   showConfirm?: boolean;
   showCancel?: boolean;
   showClose?: boolean;
@@ -21,12 +24,16 @@ interface DialogProps {
   type?: string;
   maxHeight?: string;
   width?: string;
+  height?: string;
   maxWidth?: string;
   onCancel?: () => void;
   onClose?: () => void;
   onConfirm?: () => void;
 }
 const Dialog: React.FC<DialogProps> = ({
+  maxY,
+  maxX,
+  max,
   showConfirm = true,
   showCancel = true,
   showClose = true,
@@ -42,6 +49,7 @@ const Dialog: React.FC<DialogProps> = ({
   type = "",
   maxHeight = "500px",
   width = "600px",
+  height,
   maxWidth,
   onCancel,
   onClose = () => {},
@@ -68,9 +76,11 @@ const Dialog: React.FC<DialogProps> = ({
         const dialogHeight = dialogRef.current.offsetHeight;
         const initialX = (window.innerWidth - dialogWidth) / 2;
         const initialY = (window.innerHeight - dialogHeight) / 2;
-        dialogRef.current.style.top = `${
-          type === "tip" ? `${initialY}px` : "2%"
-        }`;
+        if (!maxY && !max) {
+          dialogRef.current.style.top = `${
+            type === "tip" ? `${initialY}px` : "2%"
+          }`;
+        }
         dialogRef.current.style.left = `${initialX}px`;
         setTimeout(() => {
           dialogRef.current.focus(); // 将焦点设置到 modal
@@ -113,8 +123,8 @@ const Dialog: React.FC<DialogProps> = ({
                 top: `${position.y - 20}px`,
                 left: `${position.x}px`,
                 transform: `translateY(${firstOpen ? "20px" : "0"})`,
-                width,
-                maxWidth,
+                maxWidth: max || maxX ? "100vw" : width || maxWidth,
+                width: max || maxX ? "100vw" : width || maxWidth,
               }}
             >
               <div
@@ -131,7 +141,13 @@ const Dialog: React.FC<DialogProps> = ({
                   </button>
                 )}
               </div>
-              <div className="dialog-content" style={{ maxHeight }}>
+              <div
+                className="dialog-content"
+                style={{
+                  maxHeight: max || maxY ? "79.5vh" : height || maxHeight,
+                  height: max || maxY ? "79.5vh" : height || maxHeight,
+                }}
+              >
                 {children}
               </div>
               <div className="dialog-footer d-flex justify-content-end p-3">

@@ -32,7 +32,7 @@ const useDrag_1 = __importDefault(require("../../Utils/src/hooks/useDrag"));
 const useClickOutside_1 = __importDefault(require("../../Utils/src/hooks/useClickOutside"));
 const Button_1 = __importDefault(require("adou-ui/Button"));
 require("./index.scss");
-const Dialog = ({ showConfirm = true, showCancel = true, showClose = true, canConfirm = true, clickOutside = false, confirmText = "确定", cancelText = "取消", confirmBtnClass = "primary", cancelBtnClass = "secondary", show: isOpen = false, title = "提示", children = null, type = "", maxHeight = "500px", width = "600px", maxWidth, onCancel, onClose = () => { }, onConfirm = () => { }, }) => {
+const Dialog = ({ maxY, maxX, max, showConfirm = true, showCancel = true, showClose = true, canConfirm = true, clickOutside = false, confirmText = "确定", cancelText = "取消", confirmBtnClass = "primary", cancelBtnClass = "secondary", show: isOpen = false, title = "提示", children = null, type = "", maxHeight = "500px", width = "600px", height, maxWidth, onCancel, onClose = () => { }, onConfirm = () => { }, }) => {
     const dialogRef = (0, react_1.useRef)(null);
     const [show, setShow] = (0, react_1.useState)(false);
     const [isAnimating, setIsAnimating] = (0, react_1.useState)(false);
@@ -51,7 +51,9 @@ const Dialog = ({ showConfirm = true, showCancel = true, showClose = true, canCo
                 const dialogHeight = dialogRef.current.offsetHeight;
                 const initialX = (window.innerWidth - dialogWidth) / 2;
                 const initialY = (window.innerHeight - dialogHeight) / 2;
-                dialogRef.current.style.top = `${type === "tip" ? `${initialY}px` : "2%"}`;
+                if (!maxY && !max) {
+                    dialogRef.current.style.top = `${type === "tip" ? `${initialY}px` : "2%"}`;
+                }
                 dialogRef.current.style.left = `${initialX}px`;
                 setTimeout(() => {
                     dialogRef.current.focus(); // 将焦点设置到 modal
@@ -84,13 +86,16 @@ const Dialog = ({ showConfirm = true, showCancel = true, showClose = true, canCo
                     top: `${position.y - 20}px`,
                     left: `${position.x}px`,
                     transform: `translateY(${firstOpen ? "20px" : "0"})`,
-                    width,
-                    maxWidth,
+                    maxWidth: max || maxX ? "100vw" : width || maxWidth,
+                    width: max || maxX ? "100vw" : width || maxWidth,
                 } },
                 react_1.default.createElement("div", { className: "dialog-header p-2 ps-3", onMouseDown: handleMouseDown },
                     react_1.default.createElement("span", { className: "fs-5" }, title),
                     showClose && (react_1.default.createElement("button", { className: "dialog-close hover-scale", onClick: onClose }, "\u00D7"))),
-                react_1.default.createElement("div", { className: "dialog-content", style: { maxHeight } }, children),
+                react_1.default.createElement("div", { className: "dialog-content", style: {
+                        maxHeight: max || maxY ? "79.5vh" : height || maxHeight,
+                        height: max || maxY ? "79.5vh" : height || maxHeight,
+                    } }, children),
                 react_1.default.createElement("div", { className: "dialog-footer d-flex justify-content-end p-3" },
                     showCancel && (react_1.default.createElement(Button_1.default, { className: `me-2 btn-${cancelBtnClass}`, size: "md", onClickOK: onCancel ?? onClose }, cancelText)),
                     showConfirm && (react_1.default.createElement(Button_1.default, { disabled: !canConfirm, className: `btn-${confirmBtnClass}`, size: "md", onClickOK: onConfirm }, confirmText))))), document.body)));
