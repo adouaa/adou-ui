@@ -1,9 +1,9 @@
 import React, { useEffect, useRef, useState } from 'react';
 import './index.scss'; // 引入样式
 import AdouSelect from '../adou-new-form/adou-select';
-import AdouModal from 'components/adou-modal';
 import AdouNewForm from 'components/adou-new-form';
-import AdouInput from 'components/adou-Input';
+import AdouInput from 'components/adou-new-form/adou-Input';
+import Dialog from 'test-dialog';
 
 interface EventCalendarProps {
     cellHeight?: any;
@@ -515,7 +515,7 @@ const EventCalendar = ({ cellHeight, date, wrapperHeight = '500px', contentHeigh
                 <i className="fa-solid fa-angle-right "></i>
             </div>
             {/* 事件弹窗 */}
-            <AdouModal show={modalShow} onCancel={handleCloseModal} onClose={handleCloseModal} onConfirm={handleCofirmModal}>
+            <Dialog show={modalShow} onCancel={handleCloseModal} onClose={handleCloseModal} onConfirm={handleCofirmModal}>
                 {
                     <>
                         <AdouNewForm data={{}} ref={formRef}>
@@ -523,7 +523,7 @@ const EventCalendar = ({ cellHeight, date, wrapperHeight = '500px', contentHeigh
                         </AdouNewForm>
                     </>
                 }
-            </AdouModal>
+            </Dialog>
         </div>
     );
 };

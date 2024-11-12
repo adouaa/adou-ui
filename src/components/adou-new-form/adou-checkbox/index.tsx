@@ -155,7 +155,6 @@ const Checkbox: ForwardRefRenderFunction<any, CheckboxProps> = (
     });
 
     useEffect(() => {
-        console.log('defaultValue: ', defaultValue);
         // Update optionsList when defaultValue changes
         const updatedOptions = options.map((option) => ({
             ...option,

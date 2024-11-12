@@ -86,17 +86,14 @@ const LiveSearch: React.FC<LiveSearchProps> = React.forwardRef((props: LiveSearc
         onFormDataChange,
     } = props;
 
-    const searchValueRef = useRef<string>(defaultValue || '');
     const [showOptions, setShowOptions] = useState(false);
     const [optionList, setOptionList] = useState(options);
     const [selectedOptions, setSelectedOptions] = useState<any[]>([]);
-    const [showSelectedOptions, setShowSelectedOptions] = useState(false);
     const [isHighlighted, setIsHighlighted] = useState(false);
     const [focusedIndex, setFocusedIndex] = useState<number>(-1); // 新增状态，用于跟踪当前聚焦的选项
     const [inputValue, setInputValue] = useState<any>(''); // 用来存储输入框的值
 
     const retrieveInputRef = useRef<any>();
-    const selectListRef = useRef<any>();
     const retrieveSelectWrapperFormControlRef = useRef<any>();
     const contentRef = useRef<any>();
     const [customSelectContentPosition, setCustomSelectContentPosition] = useState<any>({});
@@ -155,6 +152,7 @@ const LiveSearch: React.FC<LiveSearchProps> = React.forwardRef((props: LiveSearc
             setSelectedOptions(data);
             onLiveSearchChange && onLiveSearchChange(hasSelected ? {} : option);
             onFormDataChange && onFormDataChange(name!, data[0]?.[valueKey]);
+            setInputValue(data[0]?.[valueKey] || ''); // 记住 这边要给个 "" 兜底，不然会无法取消选择
         } else {
             const currentSelectedOptions = [...selectedOptions, option];
             const data = hasSelected ? selectedOptions.filter((item: any) => item[valueKey] !== option[valueKey]) : currentSelectedOptions;
@@ -162,7 +160,6 @@ const LiveSearch: React.FC<LiveSearchProps> = React.forwardRef((props: LiveSearc
             onLiveSearchChange && onLiveSearchChange(data);
             onFormDataChange && onFormDataChange(name!, data);
         }
-        setShowSelectedOptions(true);
 
         setTimeout(() => {
             toggleDropdown();
@@ -175,7 +172,7 @@ const LiveSearch: React.FC<LiveSearchProps> = React.forwardRef((props: LiveSearc
 
     const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         let value = e.target?.value;
-        searchValueRef.current = value;
+        setInputValue(value);
         onInputChange && onInputChange(e.target?.value);
         onFormDataChange && onFormDataChange(name!, value);
         // 输入词修改时也需要展示选项

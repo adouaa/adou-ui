@@ -7,6 +7,7 @@ import ReactDOM from 'react-dom';
 import useClickOutside from 'hooks/useClickOutside';
 
 export interface SelectProps {
+    errorPaddingLeft?: any;
     suffixContentExternalCls?: string;
     selectContentExternalCls?: string;
     minWidth?: any;
@@ -47,6 +48,7 @@ export interface SelectProps {
 
 const Select = React.forwardRef((props: SelectProps, ref) => {
     const {
+        errorPaddingLeft,
         suffixContentExternalCls,
         selectContentExternalCls,
         minWidth,
@@ -411,7 +413,7 @@ const Select = React.forwardRef((props: SelectProps, ref) => {
                     style={{
                         color: '#DC3545',
                         fontSize: '14px',
-                        paddingLeft: parseInt(labelWidth) > 120 ? '120px' : parseInt(labelWidth) + 20 + 'px',
+                        paddingLeft: errorPaddingLeft ? errorPaddingLeft : parseInt(labelWidth) > 120 ? '120px' : parseInt(labelWidth) + 20 + 'px',
                     }}
                 >{`${errMsg || `${label || name}不能为空`}`}</div>
             )}

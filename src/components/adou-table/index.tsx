@@ -6,7 +6,9 @@ import './index.scss';
 import Tooltip from 'components/adou-tooltip';
 
 export { EditableTableCell };
+
 interface TableProps {
+    tableBgc?: any;
     tableRef?: any;
     activeId?: number | string;
     maxWidth?: any;
@@ -21,7 +23,7 @@ interface TableProps {
     eidtable?: boolean;
     size?: 'lg' | 'sm';
     data: any;
-    headers?: any;
+    headLabels?: any;
     propsData?: any;
     tableHover?: boolean;
     tableStriped?: boolean;
@@ -41,11 +43,13 @@ interface TableProps {
     minHeight?: string;
     onEditOK?: (data: any) => void;
     onRowDoubleClick?: (row: any) => void;
+    onRowClick?: (row: any) => void;
     onClearSelected?: () => void;
 }
 
 const Table = (props: TableProps) => {
     const {
+        tableBgc,
         tableRef,
         activeId,
         maxWidth,
@@ -59,7 +63,7 @@ const Table = (props: TableProps) => {
         expandAll = true,
         size = 'lg',
         data,
-        headers,
+        headLabels,
         propsData,
         tableHover = true,
         tableStriped = true,
@@ -77,6 +81,7 @@ const Table = (props: TableProps) => {
         maxHeight = '500px',
         minHeight = '300px',
         onRowDoubleClick,
+        onRowClick,
     } = props;
 
     const cls = classNames({
@@ -132,7 +137,7 @@ const Table = (props: TableProps) => {
                     style={{
                         position: headSticky ? 'sticky' : 'unset',
                         top: 0,
-                        backgroundColor: `${headBGC}`,
+                        backgroundColor: `${headBGC || tableBgc} `,
                         zIndex: 999,
                     }}
                     className={`text-${headTextColor}`}
@@ -397,7 +402,7 @@ const Table = (props: TableProps) => {
             });
         });
 
-        onRowDoubleClick && onRowDoubleClick(row);
+        onRowClick && onRowClick(row);
     };
 
     const handleCheckboxChange = (e: any, row: any) => {
@@ -495,12 +500,13 @@ const Table = (props: TableProps) => {
     return (
         <>
             <div style={{ minHeight: minHeight, maxHeight: maxHeight, overflow: 'auto' }} className={`table-wrapper ${`table-responsive${'-' + tableResponsive}`}`}>
-                <table className={cls}>{renderCollapseChildren()}</table>
+                <table style={{ background: tableBgc }} className={cls}>
+                    {renderCollapseChildren()}
+                </table>
             </div>
         </>
     );
 };
-
 Table.EditableTableCell = EditableTableCell;
 
 export default Table;

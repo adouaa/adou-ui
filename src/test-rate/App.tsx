@@ -12,6 +12,12 @@ import TextArea from 'components/adou-new-form/adou-textarea';
 
 const App = () => {
     const [rateValue, setRateValue] = useState<number>(3);
+    const [options, setOptions] = useState<any>([
+        {
+            label: '遵医嘱未使用',
+            value: '遵医嘱未使用',
+        },
+    ]);
 
     const handleRateChange = (value: number) => {
         setRateValue(value);
@@ -28,14 +34,14 @@ const App = () => {
                     suffixContent={<i className="fa fa-solid fa-trash"></i>}
                     label="复选框"
                     options={[
-                        { label: '测试', value: 'test' },
-                        { label: '测试', value: 'test' },
-                        { label: '测试', value: 'test' },
+                        { label: '测试', value: 'test1' },
+                        { label: '测试', value: 'test2' },
+                        { label: '测试', value: 'test3' },
                     ]}
                     name="checkbox"
                 ></AdouCheckbox>
-                <LiveSearch label="搜索框" name="search" options={[]} suffixContent={<i className="fa fa-solid fa-trash"></i>}></LiveSearch>
-                <AdouRadio suffixContent={<i className="fa fa-solid fa-trash"></i>} options={[{ label: '测试', value: 'test' }]} label="单选" name="radio"></AdouRadio>
+                <LiveSearch label="搜索框" name="search" options={options} suffixContent={<i className="fa fa-solid fa-trash"></i>}></LiveSearch>
+                <AdouRadio suffixContent={<i className="fa fa-solid fa-trash"></i>} options={[{ label: '测试', value: 'test4' }]} label="单选" name="radio"></AdouRadio>
                 <RetrievrSelect single={false} returnType="obj" options={[]} label="下拉框" name="select" suffixContent={<i className="fa fa-solid fa-trash"></i>}></RetrievrSelect>
                 <Select suffixContentType="button" options={[]} label="下拉框2" name="select2" suffixContent={<i className="fa fa-solid fa-trash"></i>}></Select>
                 <TagInput name="aa" label="标签" suffixContent={<i className="fa fa-solid fa-trash"></i>}></TagInput>
