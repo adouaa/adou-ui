@@ -2952,13 +2952,18 @@ const ListNode_ListNode = _ref => {
   const [childrenMaxHeight, setChildrenMaxHeight] = (0,external_root_React_commonjs2_react_commonjs_react_amd_react_.useState)(0);
   const toggledNodeItemRef = (0,external_root_React_commonjs2_react_commonjs_react_amd_react_.useRef)(null);
   const toggleIconRef = (0,external_root_React_commonjs2_react_commonjs_react_amd_react_.useRef)(null);
-  const [arr, setarr] = (0,external_root_React_commonjs2_react_commonjs_react_amd_react_.useState)([]);
   const handleToggle = () => {
     setIsExpanded(prev => !prev);
     onToggle && onToggle(node);
     /* setTimeout(() => {
     onToggleIconClick && onToggleIconClick(node);
     }); */
+  };
+  const handleMouseLeaveRightContent = () => {
+    setIsShowIcons(false);
+  };
+  const handleMouseEnterRightContent = () => {
+    setIsShowIcons(true);
   };
   const handleNodeNameClick = (e, node) => {
     onItemClick && onItemClick(node);
@@ -3089,7 +3094,7 @@ const ListNode_ListNode = _ref => {
     setNode(updatedNode);
   };
   const handleToggleIconClick = async (node, e) => {
-    var _target$parentNode;
+    var _target;
     // 公共操作
     let target;
     if (e) {
@@ -3106,11 +3111,11 @@ const ListNode_ListNode = _ref => {
     }
 
     // 因为点击的是 折叠icon，所以要去 父元素 (left-content) 的 父元素(node-item-list)
-    const nodeItem = (_target$parentNode = target.parentNode) === null || _target$parentNode === void 0 ? void 0 : _target$parentNode.parentNode;
+    const nodeItem = (_target = target) === null || _target === void 0 || (_target = _target.parentNode) === null || _target === void 0 ? void 0 : _target.parentNode;
     toggledNodeItemRef.current = nodeItem;
     // console.log("nodeItem: ", nodeItem);
     /* if (lazy) {
-      updateNodeLoadInfo(node);
+    updateNodeLoadInfo(node);
     } */
 
     // 1. 如果未展开，设置高度为 nodeItem 的 scrollHeight，这样子节点才能显示出来。
@@ -3191,6 +3196,8 @@ const ListNode_ListNode = _ref => {
     }, /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("div", {
       className: "node-item-list  ".concat(showLine ? "show-line" : "", " ").concat(node.isEachLast ? "each-last" : "", " ").concat(node.isFirst ? "first" : "")
     }, /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("div", {
+      onMouseEnter: handleMouseEnterRightContent,
+      onMouseLeave: handleMouseLeaveRightContent,
       style: {
         backgroundColor: node.bgc,
         ...(!showLine && {
@@ -3225,7 +3232,7 @@ const ListNode_ListNode = _ref => {
       className: "prefix-tag ms-2"
     }, /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("i", {
       className: "".concat(prefixTag, " ").concat(activeId === node.id ? "text-white" : "")
-    })), showTag && renderTag(), /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("span", {
+    })), showTag && renderTag(), /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("div", {
       style: {
         whiteSpace: "".concat(wrap ? "normal" : "nowrap"),
         ...(Number(activeId) === Number(node.id) ? {
@@ -3233,8 +3240,6 @@ const ListNode_ListNode = _ref => {
         } : "")
       },
       onClick: e => handleNodeNameClick(e, node),
-      onMouseEnter: () => setIsShowIcons(true),
-      onMouseLeave: () => setIsShowIcons(false),
       className: "ms-1 py-1 item-name ".concat(node.children && node.children.length > 0 ? "has-children" : "no-children", " ").concat(String(activeId) === String(node.id) ? "active" : "")
     }, node.name), /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("div", {
       className: "right-content",

@@ -240,7 +240,9 @@ module.exports = function (item) {
       __nested_webpack_require_918__.d(__nested_webpack_exports__, {
         convertArrayKeysToCamelCase: () => ( /* reexport */libs_convertArrayKeysToCamelCase),
         convertArrayKeysToSnakeCase: () => ( /* reexport */libs_convertArrayKeysToSnakeCase),
+        convertListToTree: () => ( /* reexport */libs_convertListToTree),
         convertToTag: () => ( /* reexport */libs_convertToTag),
+        flattenDataWithoutNesting: () => ( /* reexport */libs_flattenDataWithoutNesting),
         getAbsolutePosition: () => ( /* reexport */libs_getAbsolutePositionOfStage),
         isEmptyO: () => ( /* reexport */libs_isEmptyO),
         timeFormatter: () => ( /* reexport */time_formatter_namespaceObject),
@@ -259,7 +261,6 @@ module.exports = function (item) {
       function getAbsolutePositionOfStage(domElement) {
         let left = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 0;
         let top = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : 0;
-        console.log(domElement);
         if (!parseInt(left)) {
           left = 0;
         } else {
@@ -366,6 +367,56 @@ module.exports = function (item) {
       }
       /* harmony default export */
       const libs_convertArrayKeysToSnakeCase = convertArrayKeysToSnakeCase;
+      ; // CONCATENATED MODULE: ./src/libs/convertListToTree.ts
+      const convertListToTree = (list, pid) => {
+        let level = 0;
+        // 递归辅助函数，用于处理每个节点及其子节点
+        const buildTree = (items, parentId, currentLevel) => {
+          const children = [];
+          items.forEach(item => {
+            if (item.pid === parentId) {
+              item.level = currentLevel;
+              children.push(item);
+              // 递归调用自身处理子节点，层级加1
+              item.children = buildTree(list, item.id, currentLevel + 1);
+            }
+          });
+          return children;
+        };
+        const data = buildTree(list, pid, level);
+        return data;
+      };
+      /* harmony default export */
+      const libs_convertListToTree = convertListToTree;
+      ; // CONCATENATED MODULE: ./src/libs/flattenDataWithoutNesting.ts
+      function flattenDataWithoutNesting(data) {
+        let flattened = [];
+        function flattenRecursive(node, parentId) {
+          const {
+            id,
+            name,
+            isExpanded
+          } = node;
+          flattened.push({
+            ...node,
+            id,
+            name,
+            isExpanded,
+            pid: parentId
+          });
+          if (node.children && node.children.length > 0) {
+            node.children.forEach(child => {
+              flattenRecursive(child, id);
+            });
+          }
+        }
+        data.forEach(rootNode => {
+          flattenRecursive(rootNode, null);
+        });
+        return flattened;
+      }
+      /* harmony default export */
+      const libs_flattenDataWithoutNesting = flattenDataWithoutNesting;
       ; // CONCATENATED MODULE: ../../node_modules/@remix-run/router/dist/router.js
       /**
        * @remix-run/router v1.5.0
@@ -6143,21 +6194,22 @@ const useClickOutside = function (refs, callback) {
 
 const RetrievrSelect = /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().forwardRef((props, ref) => {
   const {
+    showLabel = true,
     maxSelectedListWidth,
-    maxHeight = '300px',
+    maxHeight = "300px",
     activeColor = {
-      font: '#fff',
-      bgc: '#2783d8'
+      font: "#fff",
+      bgc: "#2783d8"
     },
     returnType,
     showDefaultValue = true,
-    placeholder = '请输入',
+    placeholder = "请输入",
     isFormItem = true,
-    labelKey = 'label',
-    valueKey = 'value',
+    labelKey = "label",
+    valueKey = "value",
     inline,
     suffixContent,
-    suffixContentType = 'button',
+    suffixContentType,
     contentWidth,
     required,
     errMsg,
@@ -6166,7 +6218,7 @@ const RetrievrSelect = /*#__PURE__*/external_root_React_commonjs2_react_commonjs
     width,
     label,
     labelColor,
-    labelPosition = 'center',
+    labelPosition = "center",
     inputGroup = false,
     single = true,
     name,
@@ -6181,7 +6233,7 @@ const RetrievrSelect = /*#__PURE__*/external_root_React_commonjs2_react_commonjs
     onDelete,
     onFormDataChange
   } = props;
-  const searchValueRef = (0,external_root_React_commonjs2_react_commonjs_react_amd_react_.useRef)(defaultValue || '');
+  const searchValueRef = (0,external_root_React_commonjs2_react_commonjs_react_amd_react_.useRef)(defaultValue || "");
   const [tempOptions, setTempOptions] = (0,external_root_React_commonjs2_react_commonjs_react_amd_react_.useState)(options || []);
   const [showOptions, setShowOptions] = (0,external_root_React_commonjs2_react_commonjs_react_amd_react_.useState)(false);
   const [optionList, setOptionList] = (0,external_root_React_commonjs2_react_commonjs_react_amd_react_.useState)(options);
@@ -6191,7 +6243,7 @@ const RetrievrSelect = /*#__PURE__*/external_root_React_commonjs2_react_commonjs
   const [focusedIndex, setFocusedIndex] = (0,external_root_React_commonjs2_react_commonjs_react_amd_react_.useState)(-1); // 新增状态，用于跟踪当前聚焦的选项
   const [isInputFocusing, setIsInputFocusing] = (0,external_root_React_commonjs2_react_commonjs_react_amd_react_.useState)(false);
   const [isOpen, setIsOpen] = (0,external_root_React_commonjs2_react_commonjs_react_amd_react_.useState)(false);
-  const [closing, setClosing] = (0,external_root_React_commonjs2_react_commonjs_react_amd_react_.useState)(false);
+  const dropdownRef = (0,external_root_React_commonjs2_react_commonjs_react_amd_react_.useRef)(null);
   const retrieveInputRef = (0,external_root_React_commonjs2_react_commonjs_react_amd_react_.useRef)();
   const selectListRef = (0,external_root_React_commonjs2_react_commonjs_react_amd_react_.useRef)();
   const retrieveSelectWrapperFormControlRef = (0,external_root_React_commonjs2_react_commonjs_react_amd_react_.useRef)();
@@ -6201,27 +6253,17 @@ const RetrievrSelect = /*#__PURE__*/external_root_React_commonjs2_react_commonjs
     setIsOpen(prev => !prev);
   };
   const handleClose = () => {
-    if (readOnly) return;
-    if (isOpen) {
-      validate();
-      setClosing(true);
-      setTimeout(() => {
-        setClosing(false);
-        setIsOpen(prev => !prev);
-      }, 100);
-    } else {
-      setIsOpen(prev => !prev);
-    }
+    setIsOpen(false);
     setShowOptions(false);
     setIsInputFocusing(false);
-    retrieveInputRef.current.value = '';
+    retrieveInputRef.current.value = "";
     validate(); // 不能在 div onBlur的时候调用这个函数
     setFocusedIndex(-1);
   };
   utils_useClickOutside([retrieveSelectWrapperFormControlRef, contentRef], handleClose, isOpen && contentRef.current);
   const handleSelect = option => {
     if (!option) return;
-    retrieveInputRef.current.value = '';
+    retrieveInputRef.current.value = "";
     const currentSelectList = optionList.filter(item => item[valueKey] != option[valueKey]).filter(i => i.selected);
     if (option.selected) {
       option.selected = false;
@@ -6265,7 +6307,7 @@ const RetrievrSelect = /*#__PURE__*/external_root_React_commonjs2_react_commonjs
       const data = hasSelected ? [] : [option];
       setSelectedOptions(data);
       onRetrieveSelectChange && onRetrieveSelectChange(hasSelected ? {} : option);
-      if (returnType === 'obj' || showDefaultValue) {
+      if (returnType === "obj" || showDefaultValue) {
         onFormDataChange && onFormDataChange(name, data[0]);
       } else {
         var _data$;
@@ -6290,12 +6332,10 @@ const RetrievrSelect = /*#__PURE__*/external_root_React_commonjs2_react_commonjs
 
   // 输入框聚焦
   const handleInputFocus = () => {
+    var _selectedOptions$;
     setIsInputFocusing(single);
-    if (single) {
-      var _selectedOptions$;
-      retrieveInputRef.current.value = ((_selectedOptions$ = selectedOptions[0]) === null || _selectedOptions$ === void 0 ? void 0 : _selectedOptions$[labelKey]) || '';
-      retrieveInputRef.current.select();
-    }
+    retrieveInputRef.current.value = ((_selectedOptions$ = selectedOptions[0]) === null || _selectedOptions$ === void 0 ? void 0 : _selectedOptions$[labelKey]) || "";
+    retrieveInputRef.current.select();
   };
   const handleInputChange = e => {
     var _e$target, _e$target2;
@@ -6320,8 +6360,8 @@ const RetrievrSelect = /*#__PURE__*/external_root_React_commonjs2_react_commonjs
     validate();
     onDelete && onDelete();
   };
-  const handleBlur = () => {};
   const handleWrapperClick = e => {
+    e.stopPropagation();
     if (readOnly) return;
     // retrieveInputRef.current && retrieveInputRef.current.focus();
     setIsHighlighted(true);
@@ -6332,15 +6372,15 @@ const RetrievrSelect = /*#__PURE__*/external_root_React_commonjs2_react_commonjs
     }
     // 为了适配通过tab键来定位聚焦，把这些点击的逻辑去掉
     /* if (!isOpen) {
-      toggleDropdown();
-       // e.stopPropagation(); 这里不能加，否则会导致Select展开的时候点击RetrieveSelect无法关闭Select的选项
-      setTimeout(() => {
-        setShowOptions(true);
-      }, 10);
-    } else {
-      setShowOptions(false);
-      toggleDropdown();
-    } */
+        toggleDropdown();
+           // e.stopPropagation(); 这里不能加，否则会导致Select展开的时候点击RetrieveSelect无法关闭Select的选项
+        setTimeout(() => {
+          setShowOptions(true);
+        }, 10);
+      } else {
+        setShowOptions(false);
+        toggleDropdown();
+      } */
   };
   const getValue = () => {
     return selectedOptions;
@@ -6372,7 +6412,7 @@ const RetrievrSelect = /*#__PURE__*/external_root_React_commonjs2_react_commonjs
     validate,
     clear
   }));
-  const judgeOptionsByAttribute = (arr, item) => {
+  const judgeOptionsByValueKey = (arr, item) => {
     arr.forEach(i => {
       if (i[valueKey] === item[valueKey]) {
         i.selected = true;
@@ -6381,15 +6421,15 @@ const RetrievrSelect = /*#__PURE__*/external_root_React_commonjs2_react_commonjs
     setOptionList(arr);
   };
   const retrieveSelectClasses = classnames_default()({
-    'mb-3': !error && isFormItem,
-    'retrieve-select-wrapper': true,
+    "mb-3": !error && isFormItem,
+    "retrieve-select-wrapper": true,
     [externalClassName]: externalClassName
   });
   const handleFocus = event => {
     var _retrieveInputRef$cur;
     setIsHighlighted(true);
-    // 没值的时候打开， 去掉了&& selectedOptions.length === 0 这个判断
-    if (!readOnly && !isOpen) {
+    // 没值的时候打开
+    if (!readOnly && !isOpen && selectedOptions.length === 0) {
       toggleDropdown(); // 键盘tab过来的时候打开下拉框
       setTimeout(() => {
         setShowOptions(true);
@@ -6402,28 +6442,29 @@ const RetrievrSelect = /*#__PURE__*/external_root_React_commonjs2_react_commonjs
 
   // 全部都 通过 KeyDown来关闭下拉列表项
   const handleKeyDown = event => {
-    if (event.key === 'Tab') {
+    if (event.key === "Tab") {
       // 当下拉项展开的时候进入这个回调，来关闭下拉项
       if (isOpen) {
         toggleDropdown();
       }
       return; // 让焦点移动到下一个表单元素
-    } else if (event.key === 'ArrowUp') {
+    } else if (event.key === "ArrowUp") {
+      console.log("FocusedIndex: ", focusedIndex);
       event.preventDefault();
       setFocusedIndex(prevIndex => prevIndex <= 0 ? optionList.length - 1 : prevIndex - 1);
-    } else if (event.key === 'ArrowDown') {
+    } else if (event.key === "ArrowDown") {
       event.preventDefault();
       setFocusedIndex(prevIndex => prevIndex >= optionList.length - 1 ? 0 : prevIndex + 1);
-    } else if (event.key === 'Enter') {
+    } else if (event.key === "Enter") {
       event.preventDefault();
       handleSelect(optionList === null || optionList === void 0 ? void 0 : optionList[focusedIndex]);
-    } else if (event.key === 'Escape') {
+    } else if (event.key === "Escape") {
       setShowOptions(false);
     }
   };
   const handleInputKeyDown = event => {
-    if (event.key === 'Tab') {
-      retrieveInputRef.current.value = ''; // tab走的时候要清空输入框
+    if (event.key === "Tab") {
+      retrieveInputRef.current.value = ""; // tab走的时候要清空输入框
       setIsInputFocusing(false); // 记住tab走的时候要吧 isInputFocusing 设置为false
     }
   };
@@ -6433,15 +6474,16 @@ const RetrievrSelect = /*#__PURE__*/external_root_React_commonjs2_react_commonjs
       if (defaultValue) {
         if (showDefaultValue) {
           // 如果 defaultValue 是对象，并且 valueKey属性有值，则根据 valueKey 找到对应的 option
-          if (defaultValue && typeof defaultValue === 'object' && defaultValue[valueKey] !== undefined && defaultValue[valueKey] !== null && defaultValue[valueKey] !== 0) {
+          if (defaultValue && typeof defaultValue === "object" && defaultValue[valueKey] !== undefined && defaultValue[valueKey] !== null && defaultValue[valueKey] !== 0) {
             setSelectedOptions([defaultValue]);
             setShowSelectedList(true);
-            setOptionList(preArr => {
-              return preArr === null || preArr === void 0 ? void 0 : preArr.map(item => ({
-                ...item,
-                selected: defaultValue[valueKey] === item[valueKey]
-              }));
-            });
+            // 这一步可以由下面的 judgeOptionsByValueKey 函数来代替实现
+            /* setOptionList((preArr) => {
+                return preArr?.map((item) => ({
+                  ...item,
+                  selected: defaultValue[valueKey] === item[valueKey],
+                }));
+              }); */
           } else {
             // 如果 defaultValue没值，则数据置空
             setSelectedOptions([]);
@@ -6453,14 +6495,14 @@ const RetrievrSelect = /*#__PURE__*/external_root_React_commonjs2_react_commonjs
             });
           }
         } else {
-          if (typeof defaultValue === 'object' && defaultValue[valueKey]) {
+          if (typeof defaultValue === "object" && defaultValue[valueKey]) {
             tempOptions.some(option => {
-              option[valueKey] === defaultValue[valueKey] && arr.push(option);
+              (option[valueKey] === defaultValue[valueKey] || option[labelKey] === defaultValue[valueKey]) && arr.push(option);
               return false;
             });
           } else {
             tempOptions.some(option => {
-              option[valueKey] === defaultValue && arr.push(option);
+              (option[valueKey] === defaultValue || option[labelKey] === defaultValue) && arr.push(option);
               return false;
             });
           }
@@ -6521,7 +6563,7 @@ const RetrievrSelect = /*#__PURE__*/external_root_React_commonjs2_react_commonjs
   (0,external_root_React_commonjs2_react_commonjs_react_amd_react_.useEffect)(() => {
     if (selectedOptions.length) {
       selectedOptions.forEach(item => {
-        judgeOptionsByAttribute(options, item);
+        judgeOptionsByValueKey(options, item);
       });
     } else {
       setOptionList(options);
@@ -6529,8 +6571,8 @@ const RetrievrSelect = /*#__PURE__*/external_root_React_commonjs2_react_commonjs
     setTempOptions(options);
     // 不应该有这个逻辑
     /* if (!isOpen) {
-      toggleDropdown();
-    } */
+        toggleDropdown();
+      } */
   }, [options]);
   return /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("div", {
     onFocus: handleFocus,
@@ -6540,41 +6582,30 @@ const RetrievrSelect = /*#__PURE__*/external_root_React_commonjs2_react_commonjs
       width,
       ...(inline && !width ? {
         flex: 1,
-        marginRight: '15px'
+        marginRight: "15px"
       } : {})
     }
   }, /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("div", {
-    className: "content-box ".concat(inputGroup ? 'inputGroup' : "label-in-".concat(labelPosition))
-  }, /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("span", {
-    className: "label-box ".concat(inputGroup ? 'input-group-text' : ''),
+    className: "content-box ".concat(inputGroup ? "inputGroup" : "label-in-".concat(labelPosition))
+  }, showLabel && /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("span", {
+    className: "retrieve-select-label-box ".concat(inputGroup ? "input-group-text" : ""),
     style: {
       color: labelColor,
       width: labelWidth,
-      alignItems: labelPosition === 'left-top' ? 'start' : 'center',
-      ...(labelPosition !== 'top' && {
-        display: 'flex'
-      })
+      minWidth: isFormItem ? "50px" : "0"
     }
   }, label), /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("div", {
-    className: "retrieve-select-form-content"
-  }, /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("div", {
     style: {
-      display: 'flex',
-      flexWrap: single ? 'nowrap' : 'wrap',
-      ...(suffixContentType === 'button' ? {
-        borderTopRightRadius: 0,
-        borderBottomRightRadius: 0
-        // borderRight: "none",
-      } : {})
+      display: "flex",
+      flexWrap: single ? "nowrap" : "wrap"
     },
     ref: retrieveSelectWrapperFormControlRef,
     tabIndex: 0,
-    onBlur: handleBlur,
     onClick: handleWrapperClick,
-    className: "select-list-box form-control ".concat(isHighlighted ? 'focus' : '')
+    className: "select-list-box form-control ".concat(isHighlighted ? "focus" : "")
   }, /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("select", {
     style: {
-      display: 'none'
+      display: "none"
     },
     name: name
   }, showSelected && showSelectedList && (selectedOptions === null || selectedOptions === void 0 ? void 0 : selectedOptions.map((option, index) => {
@@ -6582,7 +6613,7 @@ const RetrievrSelect = /*#__PURE__*/external_root_React_commonjs2_react_commonjs
       key: index,
       value: option[valueKey]
     });
-  })), ' '), /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("div", {
+  })), " "), /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("div", {
     ref: selectListRef,
     className: "select-list"
   }, !isInputFocusing && showSelected && showSelectedList && (selectedOptions === null || selectedOptions === void 0 ? void 0 : selectedOptions.map((option, index) => {
@@ -6592,7 +6623,7 @@ const RetrievrSelect = /*#__PURE__*/external_root_React_commonjs2_react_commonjs
           maxWidth: maxSelectedListWidth
         } : {})
       },
-      className: "".concat(single ? 'selected-option-single ellipsis-1' : 'selected-option'),
+      className: "".concat(single ? "selected-option-single ellipsis-1" : "selected-option"),
       key: option[valueKey]
     }, option[labelKey], !single && /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("i", {
       onClick: () => handleDeleteItem(option),
@@ -6603,7 +6634,7 @@ const RetrievrSelect = /*#__PURE__*/external_root_React_commonjs2_react_commonjs
   }, /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("input", {
     onKeyDown: handleInputKeyDown,
     ref: retrieveInputRef,
-    placeholder: isInputFocusing ? placeholder : '',
+    placeholder: isInputFocusing ? placeholder : "",
     onFocus: handleInputFocus,
     onChange: e => handleInputChange(e),
     onClick: handleInputClick,
@@ -6615,44 +6646,40 @@ const RetrievrSelect = /*#__PURE__*/external_root_React_commonjs2_react_commonjs
   })), /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("div", {
     className: "icon-box"
   }, /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("i", {
-    className: "icon text-secondary fa-solid fa-angle-right ".concat(isOpen ? 'rotate-up' : 'rotate-down')
-  }))), suffixContent && /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("div", {
-    className: "".concat(suffixContentType === 'button' ? 'suffix-content-btn-wrapper px-2' : 'ms-2')
-  }, suffixContent)), commonSuffixIcon && /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("i", {
+    className: "icon text-secondary fa-solid fa-angle-right ".concat(isOpen ? "rotate-up" : "rotate-down")
+  }))), commonSuffixIcon && /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("i", {
     onClick: handleClickCommonSuffixIcon,
     className: "".concat(commonSuffixIcon, " common-suffix-icon ms-2")
-  })), /*#__PURE__*/external_root_ReactDOM_commonjs2_react_dom_commonjs_react_dom_amd_react_dom_default().createPortal( /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("div", {
+  }), suffixContent && /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("div", {
+    className: "".concat(suffixContentType === "button" ? "suffix-content-btn-wrapper" : "ms-2")
+  }, suffixContent)), /*#__PURE__*/external_root_ReactDOM_commonjs2_react_dom_commonjs_react_dom_amd_react_dom_default().createPortal( /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("div", {
     ref: contentRef,
     style: {
       width: contentWidth,
-      position: 'absolute',
-      top: customSelectContentPosition.y + customSelectContentPosition.height + 'px',
-      left: customSelectContentPosition.x + 'px',
-      maxHeight,
-      ...(closing ? {
-        opacity: 0,
-        transform: 'scaleY(0)'
-      } : {})
+      position: "absolute",
+      top: customSelectContentPosition.y + customSelectContentPosition.height + "px",
+      left: customSelectContentPosition.x + "px",
+      maxHeight
     },
-    className: "retrieve-select-content ".concat(showOptions ? 'retrieve-select-content-open' : '')
+    className: "retrieve-select-content ".concat(showOptions ? "retrieve-select-content-open" : "")
   }, !readOnly && isOpen && ((optionList === null || optionList === void 0 ? void 0 : optionList.length) > 0 ? optionList === null || optionList === void 0 ? void 0 : optionList.map((option, index) => {
     return /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("div", {
       key: index,
       style: {
-        color: option.selected ? activeColor.font : '#000',
-        backgroundColor: option.selected ? activeColor.bgc : ''
+        color: option.selected ? activeColor.font : "#000",
+        backgroundColor: option.selected ? activeColor.bgc : ""
       },
       onClick: () => handleSelect(option),
-      className: "retrieve-select-option ".concat(option.selected && 'retrieve-select-option-active', " ").concat(focusedIndex === index && 'retrieve-select-option-focused')
+      className: "retrieve-select-option ".concat(option.selected && "retrieve-select-option-active", " ").concat(focusedIndex === index && "retrieve-select-option-focused")
     }, option[labelKey]);
   }) : /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("div", {
     className: "none-match ps-2 font-italic"
   }, "No content"))), document.body), error && required && /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("div", {
     className: "animate__animated animate__fadeIn mb-1",
     style: {
-      color: '#DC3545',
-      fontSize: '14px',
-      paddingLeft: parseInt(labelWidth) > 120 ? '120px' : parseFloat(labelWidth) + 20 + 'px'
+      color: "#DC3545",
+      fontSize: "14px",
+      paddingLeft: parseInt(labelWidth) > 120 ? "120px" : parseFloat(labelWidth) + 20 + "px"
     }
   }, "".concat(errMsg || "".concat(label, "\u4E0D\u80FD\u4E3A\u7A7A"))));
 });

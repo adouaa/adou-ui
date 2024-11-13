@@ -9,11 +9,11 @@ import React, {
 import { withTranslation } from "react-i18next";
 import TableCell from "./TableCell";
 import "./index.scss";
-import Tooltip from "adou-ui/Tooltip";
 
 export { TableCell };
 
 interface TableProps {
+  width?: any; // 控制 table的宽度，太宽的话 可以形成滚动条
   tableBgc?: any;
   tableRef?: any;
   activeId?: number | string;
@@ -23,22 +23,17 @@ interface TableProps {
   id?: string;
   trPointer?: boolean;
   textPosition?: "center" | "left" | "right" | "justify";
+  verticalAlign?: "top" | "middle" | "bottom";
   collection?: boolean;
   collapse?: boolean;
   expandAll?: boolean;
   eidtable?: boolean;
   size?: "lg" | "sm";
   data: any;
-  headLabels?: any;
-  propsData?: any;
-  tableHover?: boolean;
   tableStriped?: boolean;
   tableBorderd?: boolean;
   tableBorderless?: boolean;
   headColor?: "light" | "dark";
-  align?: "top" | "middle" | "bottom";
-  captionContent?: any;
-  captionPosition?: "top" | "bottom";
   tableResponsive?: "sm" | "md" | "lg" | "xl" | "xxl";
   children?: any;
   headSticky?: boolean;
@@ -55,6 +50,7 @@ interface TableProps {
 
 const Table = (props: TableProps) => {
   const {
+    width, // 控制 table的宽度，太宽的话 可以形成滚动条
     tableBgc,
     tableRef,
     activeId,
@@ -64,20 +60,16 @@ const Table = (props: TableProps) => {
     id = "id",
     trPointer = true,
     textPosition,
+    verticalAlign,
     collection,
     collapse,
     expandAll = true,
     size = "lg",
     data,
-    headLabels,
-    propsData,
-    tableHover = true,
     tableStriped = true,
     tableBorderd = false,
     tableBorderless = false,
     headColor = "null",
-    captionContent,
-    captionPosition = "top",
     tableResponsive = "xxl",
     eidtable = false,
     headSticky = true,
@@ -85,7 +77,7 @@ const Table = (props: TableProps) => {
     headBGC = "#2782d7",
     divider,
     maxHeight = "500px",
-    minHeight = "300px",
+    minHeight = "0px",
     onRowDoubleClick,
     onRowClick,
   } = props;
@@ -98,6 +90,7 @@ const Table = (props: TableProps) => {
     "table-borderless": tableBorderless,
     [`table-${size}`]: true,
     [`table-${headColor}`]: true,
+    "mb-0": true,
   });
 
   const [tabelData, setTableData] = useState([]);
@@ -130,9 +123,9 @@ const Table = (props: TableProps) => {
       if (item?.props) {
         widthObject[item.props.prop] = item.props.width;
         textPositionObject[item.props.prop] =
-          item.props.textPosition || "center";
+          item.props.textPosition || textPosition || "center";
         verticalAlignObject[item.props.prop] =
-          item.props.verticalAlign || "middle";
+          item.props.verticalAlign || verticalAlign || "middle";
       }
     });
     if (Object.values(widthObject).every((item: any) => !item)) {
@@ -196,15 +189,15 @@ const Table = (props: TableProps) => {
               })}
           </tr>
         </thead>
-        <tbody className={`${divider ? "table-group-divider" : ""}`}>
-          {tabelData.length > 0 &&
-            tabelData.map((data: any, rowIndex: number) => {
+        {tabelData.length > 0 ? (
+          <tbody className={`${divider ? "table-group-divider" : ""}`}>
+            {tabelData.map((data: any, rowIndex: number) => {
               return (
-                <Fragment key={data[id]}>
+                <Fragment /* key={data[id]} */ key={rowIndex}>
                   <tr
                     onClick={() => handleRowClick(data)}
                     // onDoubleClick={() => handleRowDoubleClick(data)}
-                    key={rowIndex}
+                    // key={rowIndex}
                     className={`tr-content ${data.checked ? "tr-checked" : ""}`}
                     style={{ ...(trPointer ? { cursor: "pointer" } : "") }}
                   >
@@ -367,7 +360,8 @@ const Table = (props: TableProps) => {
                 </Fragment>
               );
             })}
-        </tbody>
+          </tbody>
+        ) : null}
       </>
     );
   };
@@ -381,8 +375,8 @@ const Table = (props: TableProps) => {
       };
     });
 
-    const totalLabelLength = newHeaderLabels.reduce(
-      (acc, curr) => acc + curr.label.length,
+    const totalLabelLength = newHeaderLabels?.reduce(
+      (acc, curr) => acc + curr.label?.length,
       0
     );
 
@@ -523,7 +517,8 @@ const Table = (props: TableProps) => {
   useEffect(() => {
     setTableData((preData: any) =>
       preData.map((item: any) => {
-        if (item[id] === activeId) {
+        // 判断 id 是否存在，如果 id 不存在，并且 activeId 也不存在，那也是相等的，得排除
+        if (item[id] && item[id] === activeId) {
           item.checked = true;
         } else {
           item.checked = false;
@@ -545,9 +540,12 @@ const Table = (props: TableProps) => {
           "-" + tableResponsive
         }`}`}
       >
-        <table style={{ background: tableBgc }} className={cls}>
+        <table style={{ background: tableBgc, width }} className={cls}>
           {renderCollapseChildren()}
         </table>
+        {tabelData.length === 0 && (
+          <div className="text-center py-2">暂无数据~</div>
+        )}
       </div>
     </>
   );

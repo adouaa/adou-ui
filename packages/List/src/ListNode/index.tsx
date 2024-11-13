@@ -67,7 +67,6 @@ const ListNode = ({
   const [childrenMaxHeight, setChildrenMaxHeight] = useState<any>(0);
   const toggledNodeItemRef = useRef<any>(null);
   const toggleIconRef = useRef<any>(null);
-  const [arr, setarr] = useState<any[]>([]);
 
   const handleToggle = () => {
     setIsExpanded((prev) => !prev);
@@ -75,6 +74,14 @@ const ListNode = ({
     /* setTimeout(() => {
     onToggleIconClick && onToggleIconClick(node);
   }); */
+  };
+
+  const handleMouseLeaveRightContent = () => {
+    setIsShowIcons(false);
+  };
+
+  const handleMouseEnterRightContent = () => {
+    setIsShowIcons(true);
   };
 
   const handleNodeNameClick = (e: any, node: any) => {
@@ -234,12 +241,12 @@ const ListNode = ({
     }
 
     // 因为点击的是 折叠icon，所以要去 父元素 (left-content) 的 父元素(node-item-list)
-    const nodeItem = target.parentNode?.parentNode;
+    const nodeItem = target?.parentNode?.parentNode;
     toggledNodeItemRef.current = nodeItem;
     // console.log("nodeItem: ", nodeItem);
     /* if (lazy) {
-      updateNodeLoadInfo(node);
-    } */
+    updateNodeLoadInfo(node);
+  } */
 
     // 1. 如果未展开，设置高度为 nodeItem 的 scrollHeight，这样子节点才能显示出来。
     if (!isExpanded) {
@@ -330,6 +337,8 @@ const ListNode = ({
         >
           {/* handleNodeNameClick: 整个树节点的点击事件 */}
           <div
+            onMouseEnter={handleMouseEnterRightContent}
+            onMouseLeave={handleMouseLeaveRightContent}
             style={{
               backgroundColor: node.bgc,
 
@@ -382,7 +391,7 @@ const ListNode = ({
             {/* 展示标志 */}
             {showTag && renderTag()}
             {/* 节点名字 */}
-            <span
+            <div
               style={{
                 whiteSpace: `${wrap ? "normal" : "nowrap"}`,
                 ...(Number(activeId) === Number(node.id)
@@ -390,8 +399,6 @@ const ListNode = ({
                   : ""),
               }}
               onClick={(e) => handleNodeNameClick(e, node)}
-              onMouseEnter={() => setIsShowIcons(true)}
-              onMouseLeave={() => setIsShowIcons(false)}
               className={`ms-1 py-1 item-name ${
                 node.children && node.children.length > 0
                   ? "has-children"
@@ -399,7 +406,7 @@ const ListNode = ({
               } ${String(activeId) === String(node.id) ? "active" : ""}`}
             >
               {node.name}
-            </span>
+            </div>
             <div
               className="right-content"
               style={{

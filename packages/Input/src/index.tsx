@@ -107,6 +107,7 @@ const Input: React.ForwardRefRenderFunction<InputRef, InputProps> = (
     e: React.MouseEvent<HTMLInputElement, MouseEvent>,
     ...args: any
   ) => {
+    e.stopPropagation();
     onClick && onClick(e, ...args);
   };
 

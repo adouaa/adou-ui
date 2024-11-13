@@ -1,10 +1,11 @@
 import React from "react";
 import "./index.scss";
 export interface SelectProps {
+    selectValueMaxWidth?: any;
     errorPaddingLeft?: any;
     suffixContentExternalCls?: string;
     selectContentExternalCls?: string;
-    minWidth?: any;
+    labelMinWidth?: any;
     noWrap?: boolean;
     shouldFocus?: boolean;
     activeColor?: {
@@ -38,16 +39,17 @@ export interface SelectProps {
     externalClassName?: string;
     readOnly?: boolean;
     transparent?: boolean;
-    maxHeight?: string;
+    optionContentMaxHeight?: string;
     onChange?: (e?: any, ...args: any) => void;
     onFormDataChange?: (key: string, value: any) => void;
 }
 declare const _default: React.ComponentType<Omit<{
     ref?: React.LegacyRef<unknown> | undefined;
+    selectValueMaxWidth?: any;
     errorPaddingLeft?: any;
     suffixContentExternalCls?: string | undefined;
     selectContentExternalCls?: string | undefined;
-    minWidth?: any;
+    labelMinWidth?: any;
     noWrap?: boolean | undefined;
     shouldFocus?: boolean | undefined;
     activeColor?: {
@@ -81,7 +83,7 @@ declare const _default: React.ComponentType<Omit<{
     externalClassName?: string | undefined;
     readOnly?: boolean | undefined;
     transparent?: boolean | undefined;
-    maxHeight?: string | undefined;
+    optionContentMaxHeight?: string | undefined;
     onChange?: ((e?: any, ...args: any) => void) | undefined;
     onFormDataChange?: ((key: string, value: any) => void) | undefined;
     key?: React.Key | null | undefined;

@@ -2853,6 +2853,8 @@ var update = injectStylesIntoStyleTag_default()(cjs_ruleSet_1_rules_1_use_2_src/
 
 const Table = props => {
   const {
+    width,
+    // 控制 table的宽度，太宽的话 可以形成滚动条
     tableBgc,
     tableRef,
     activeId,
@@ -2862,20 +2864,16 @@ const Table = props => {
     id = "id",
     trPointer = true,
     textPosition,
+    verticalAlign,
     collection,
     collapse,
     expandAll = true,
     size = "lg",
     data,
-    headLabels,
-    propsData,
-    tableHover = true,
     tableStriped = true,
     tableBorderd = false,
     tableBorderless = false,
     headColor = "null",
-    captionContent,
-    captionPosition = "top",
     tableResponsive = "xxl",
     eidtable = false,
     headSticky = true,
@@ -2883,7 +2881,7 @@ const Table = props => {
     headBGC = "#2782d7",
     divider,
     maxHeight = "500px",
-    minHeight = "300px",
+    minHeight = "0px",
     onRowDoubleClick,
     onRowClick
   } = props;
@@ -2894,7 +2892,8 @@ const Table = props => {
     "table-bordered": tableBorderd,
     "table-borderless": tableBorderless,
     ["table-".concat(size)]: true,
-    ["table-".concat(headColor)]: true
+    ["table-".concat(headColor)]: true,
+    "mb-0": true
   });
   const [tabelData, setTableData] = (0,external_root_React_commonjs2_react_commonjs_react_amd_react_.useState)([]);
 
@@ -2925,8 +2924,8 @@ const Table = props => {
     array.forEach(item => {
       if (item !== null && item !== void 0 && item.props) {
         widthObject[item.props.prop] = item.props.width;
-        textPositionObject[item.props.prop] = item.props.textPosition || "center";
-        verticalAlignObject[item.props.prop] = item.props.verticalAlign || "middle";
+        textPositionObject[item.props.prop] = item.props.textPosition || textPosition || "center";
+        verticalAlignObject[item.props.prop] = item.props.verticalAlign || verticalAlign || "middle";
       }
     });
     if (Object.values(widthObject).every(item => !item)) {
@@ -2966,16 +2965,16 @@ const Table = props => {
           key: child.props.label
         }, child.props.label);
       }
-    }))), /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("tbody", {
+    }))), tabelData.length > 0 ? /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("tbody", {
       className: "".concat(divider ? "table-group-divider" : "")
-    }, tabelData.length > 0 && tabelData.map((data, rowIndex) => {
-      return /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement(external_root_React_commonjs2_react_commonjs_react_amd_react_.Fragment, {
-        key: data[id]
+    }, tabelData.map((data, rowIndex) => {
+      return /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement(external_root_React_commonjs2_react_commonjs_react_amd_react_.Fragment /* key={data[id]} */, {
+        key: rowIndex
       }, /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("tr", {
         onClick: () => handleRowClick(data)
         // onDoubleClick={() => handleRowDoubleClick(data)}
+        // key={rowIndex}
         ,
-        key: rowIndex,
         className: "tr-content ".concat(data.checked ? "tr-checked" : ""),
         style: {
           ...(trPointer ? {
@@ -3096,7 +3095,7 @@ const Table = props => {
           }, enhancedChild);
         }
       }))));
-    })));
+    })) : null);
   };
   const calculateHeaderWidth = headerLabels => {
     const labelLengthObj = {};
@@ -3106,7 +3105,10 @@ const Table = props => {
         prop: item.props.prop
       };
     });
-    const totalLabelLength = newHeaderLabels.reduce((acc, curr) => acc + curr.label.length, 0);
+    const totalLabelLength = newHeaderLabels === null || newHeaderLabels === void 0 ? void 0 : newHeaderLabels.reduce((acc, curr) => {
+      var _curr$label;
+      return acc + ((_curr$label = curr.label) === null || _curr$label === void 0 ? void 0 : _curr$label.length);
+    }, 0);
     newHeaderLabels.forEach(item => {
       var _item$label;
       labelLengthObj[item.prop] = Number((((_item$label = item.label) === null || _item$label === void 0 ? void 0 : _item$label.length) / totalLabelLength).toFixed(2)) * 100 + "%";
@@ -3226,7 +3228,8 @@ const Table = props => {
   }, [data]);
   (0,external_root_React_commonjs2_react_commonjs_react_amd_react_.useEffect)(() => {
     setTableData(preData => preData.map(item => {
-      if (item[id] === activeId) {
+      // 判断 id 是否存在，如果 id 不存在，并且 activeId 也不存在，那也是相等的，得排除
+      if (item[id] && item[id] === activeId) {
         item.checked = true;
       } else {
         item.checked = false;
@@ -3246,10 +3249,13 @@ const Table = props => {
     className: "table-wrapper ".concat("table-responsive".concat("-" + tableResponsive))
   }, /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("table", {
     style: {
-      background: tableBgc
+      background: tableBgc,
+      width
     },
     className: cls
-  }, renderCollapseChildren())));
+  }, renderCollapseChildren()), tabelData.length === 0 && /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("div", {
+    className: "text-center py-2"
+  }, "\u6682\u65E0\u6570\u636E~")));
 };
 Table.TableCell = src_TableCell;
 /* harmony default export */ const src_0 = (withTranslation()(Table));

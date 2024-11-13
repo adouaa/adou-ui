@@ -8,7 +8,9 @@ declare const _default: React.ComponentType<Omit<{
     maxWidth?: any;
     children?: any;
     eidtable?: boolean | undefined;
+    width?: any;
     textPosition?: "center" | "left" | "right" | "justify" | undefined;
+    verticalAlign?: "middle" | "top" | "bottom" | undefined;
     onEditOK?: ((data: any) => void) | undefined;
     tableBgc?: any;
     tableRef?: any;
@@ -20,16 +22,10 @@ declare const _default: React.ComponentType<Omit<{
     collection?: boolean | undefined;
     expandAll?: boolean | undefined;
     size?: "lg" | "sm" | undefined;
-    headLabels?: any;
-    propsData?: any;
-    tableHover?: boolean | undefined;
     tableStriped?: boolean | undefined;
     tableBorderd?: boolean | undefined;
     tableBorderless?: boolean | undefined;
     headColor?: "light" | "dark" | undefined;
-    align?: "middle" | "top" | "bottom" | undefined;
-    captionContent?: any;
-    captionPosition?: "top" | "bottom" | undefined;
     tableResponsive?: "lg" | "sm" | "md" | "xl" | "xxl" | undefined;
     headSticky?: boolean | undefined;
     headTextColor?: string | undefined;
