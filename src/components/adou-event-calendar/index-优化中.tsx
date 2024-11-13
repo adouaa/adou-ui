@@ -5,7 +5,6 @@ import AdouSelect from '../adou-new-form/adou-select';
 interface EventCalendarProps {
     calendarRef?: any;
     cellHeight?: any;
-    minCellHeight?: any;
     date?: Date;
     data?: any[];
     wrapperHeight?: any;
@@ -16,17 +15,7 @@ interface EventCalendarProps {
 }
 
 // 属性为 数组 的话默认值不能为 [] ，否则会导致 useEffect 循环执行，会导致出现问题
-const EventCalendar = ({
-    minCellHeight,
-    calendarRef,
-    cellHeight,
-    date,
-    wrapperHeight = '500px',
-    contentHeight = '500px',
-    data,
-    renderEvent,
-    onDoubleClick,
-}: EventCalendarProps) => {
+const EventCalendar = ({ calendarRef, cellHeight, date, wrapperHeight = '500px', contentHeight = '500px', data, renderEvent, onDoubleClick }: EventCalendarProps) => {
     // 某天高亮
     const [activeId, setActiveId] = useState<string>();
 
@@ -122,14 +111,17 @@ const EventCalendar = ({
 
     // 获取上一个月需要展示在该月份的日期号数
     const getShouldShowPreMonthDays = () => {
-        // 因为 有可能某一个月的第一天是 周日(firstDay为0)，所以这边要特殊判断，如果是 null，代表还没有获取到数据，所以直接 return，而如果是 0，表明 已经获取到数据了，但是为 周日(0)，但还是要去获取上一个月的日期号数
-        if (currentMonthInfo.firstDay === null) return;
+        console.log('currentMonthInfo.firstDay: ', currentMonthInfo.firstDay);
+
+        if (!currentMonthInfo || currentMonthInfo.firstDay === 0) return [];
+        console.log('currentMonthInfo.firstDay: ', currentMonthInfo.firstDay);
         const data_ = Array.from({ length: currentMonthInfo.firstDay ? currentMonthInfo.firstDay - 1 : 6 }, (_, i) => {
             const findId = `${currentYear}-${currentMonth - 1}-${prevMonthDays - i}`;
             const event = data?.find((item: any) => item.id === findId);
 
             return { id: `${currentYear}-${currentMonth - 1}-${prevMonthDays - i}`, event: event?.event, day: prevMonthDays - i, isCurrentMonth: false };
         }).reverse();
+
         setshouldShowPreMonthDays(data_);
     };
 
@@ -182,8 +174,8 @@ const EventCalendar = ({
     const [currentMonthInfo, setcurrentMonthInfo] = useState<any>({
         firstDate: null, // 这个月的第一天(date)
         lastDate: null, // 这个月的最后一天(date)
-        firstDay: null, // 这个月的第一天是星期几(day)
-        lastDay: null, // 这个月的最后一天是星期几(day)
+        firstDay: 0, // 这个月的第一天是星期几(day)
+        lastDay: 0, // 这个月的最后一天是星期几(day)
     });
     // 这个月的第一天(date)
     const [currentMonthFirstDate, setCurrentMonthFirstDate] = useState<any>();
@@ -326,7 +318,6 @@ const EventCalendar = ({
     // 获取上 / 下 一个月的日期
     const getPreviousMonthDate = (date: any = currentDate, step: number = -1) => {
         let currentData = new Date(date);
-        console.log('🚀 ~ getPreviousMonthDate ~ currentData:', currentData);
         // 创建一个新的 Date 对象，避免修改原始日期
         const prevMonthDate = new Date(currentData.getFullYear(), currentData.getMonth() + step, currentData.getDate());
 
@@ -335,7 +326,7 @@ const EventCalendar = ({
         if (prevMonthDate.getMonth() !== (currentData.getMonth() + step + 12) % 12) {
             prevMonthDate.setDate(0);
         }
-        console.log('prevMonthDate: ', prevMonthDate);
+
         setCurrentDate(prevMonthDate);
     };
 
@@ -367,7 +358,7 @@ const EventCalendar = ({
     };
 
     /**
-     * 当前日期改变的时候，生成 当前月份的信息，并且同时获取 上一个月的天数(下一个月的天数没用上)
+     * 生成当前月份的信息
      */
     const generateCurrentMonthInfo = (currentDate?: any) => {
         const { firstDate, lastDate }: any = getCurrentMonthFirstAndLastDate(currentDate);
@@ -389,7 +380,7 @@ const EventCalendar = ({
     }, []);
 
     useEffect(() => {
-        // 当前日期改变的时候，生成 当前月份的信息，并且同时获取 上一个月的天数(下一个月的天数没用上)
+        console.log('currentDate: ', currentDate);
         generateCurrentMonthInfo(currentDate);
         getTopLeftDay(currentDate);
         getTopLeftMonth(currentDate);
@@ -417,6 +408,17 @@ const EventCalendar = ({
     }, [allDays]);
 
     useEffect(() => {
+        /* if (date) {
+            setCurrentDate(date!);
+        }
+        if (data?.length) {
+            setAllDays(data);
+            if (date) {
+                setCurrentDate(date!);
+            } else {
+                setCurrentDate(new Date(data[0]?.id));
+            }
+        } */
         getCurrentMonthDays();
     }, [data, date]);
 
@@ -483,7 +485,7 @@ const EventCalendar = ({
                             <tr key={weekIndex}>
                                 {week.map((dayInfo: any, dayIndex: number) => (
                                     <td onDoubleClick={() => handleTdDoubleClick(dayInfo)} onClick={() => handleTdClick(dayInfo)} key={dayInfo.id} className={`calendar-cell`}>
-                                        <div className={`calendar-cell-content-box`} style={{ height: cellHeight, minHeight: minCellHeight }}>
+                                        <div className={`calendar-cell-content-box`} style={{ height: cellHeight }}>
                                             <span className={`calendar-cell-content-day ${!dayInfo.isCurrentMonth ? 'gray' : ''}  ${activeId == dayInfo.id ? 'active' : ''}`}>
                                                 {dayInfo.day}
                                             </span>

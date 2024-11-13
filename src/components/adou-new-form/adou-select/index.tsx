@@ -5,12 +5,14 @@ import React from 'react';
 import getAbsolutePosition from 'utils/getAbsolutePosition';
 import ReactDOM from 'react-dom';
 import useClickOutside from 'hooks/useClickOutside';
+import Tooltip from 'components/adou-tooltip';
 
 export interface SelectProps {
+    selectValueMaxWidth?: any;
     errorPaddingLeft?: any;
     suffixContentExternalCls?: string;
     selectContentExternalCls?: string;
-    minWidth?: any;
+    labelMinWidth?: any;
     noWrap?: boolean;
     shouldFocus?: boolean;
     activeColor?: { font: string; bgc: string };
@@ -41,17 +43,18 @@ export interface SelectProps {
     externalClassName?: string;
     readOnly?: boolean;
     transparent?: boolean;
-    maxHeight?: string;
+    optionContentMaxHeight?: string;
     onChange?: (e?: any, ...args: any) => void;
     onFormDataChange?: (key: string, value: any) => void;
 }
 
 const Select = React.forwardRef((props: SelectProps, ref) => {
     const {
+        selectValueMaxWidth,
         errorPaddingLeft,
         suffixContentExternalCls,
         selectContentExternalCls,
-        minWidth,
+        labelMinWidth,
         noWrap = true,
         shouldFocus = false,
         activeColor = { font: '#fff', bgc: '#2783d8' },
@@ -81,7 +84,7 @@ const Select = React.forwardRef((props: SelectProps, ref) => {
         externalClassName,
         readOnly,
         transparent,
-        maxHeight = '200px',
+        optionContentMaxHeight = '200px',
         onChange,
         onFormDataChange,
     } = props;
@@ -117,6 +120,7 @@ const Select = React.forwardRef((props: SelectProps, ref) => {
     };
 
     const handleDivClick = (e: any) => {
+        e.stopPropagation();
         if (readOnly) return;
         const position = getAbsolutePosition(customSelectRef.current, 0, 0);
         setCustomSelectContentPosition(position);
@@ -320,7 +324,7 @@ const Select = React.forwardRef((props: SelectProps, ref) => {
                                 alignItems: labelPosition === 'left-top' ? 'start' : 'center',
                                 ...(labelPosition !== 'top' && { display: 'flex' }),
                                 ...(noWrap && { whiteSpace: 'nowrap' }),
-                                ...(minWidth && { minWidth }),
+                                ...(labelMinWidth && { labelMinWidth }),
                             }}
                         >
                             {label}
@@ -345,7 +349,15 @@ const Select = React.forwardRef((props: SelectProps, ref) => {
                             }}
                         >
                             {value?.[valueKey] || value?.[valueKey] === 0 || value?.[valueKey] === false ? (
-                                <span className="select-value">{value[labelKey]}</span>
+                                selectValueMaxWidth ? (
+                                    <Tooltip text={value?.[labelKey]}>
+                                        <span className="select-value ellipsis-1" style={{ maxWidth: selectValueMaxWidth }}>
+                                            {value[labelKey]}
+                                        </span>
+                                    </Tooltip>
+                                ) : (
+                                    <span className="select-value">{value[labelKey]}</span>
+                                )
                             ) : (
                                 <span className="select-placeholder">{placeholder}</span>
                             )}
@@ -371,7 +383,7 @@ const Select = React.forwardRef((props: SelectProps, ref) => {
                                 left: customSelectContentPosition.x + 'px',
                                 ...(isShow
                                     ? {
-                                          maxHeight: calcMaxHeight > parseInt(maxHeight!) ? maxHeight : calcMaxHeight + 'px',
+                                          maxHeight: calcMaxHeight > parseInt(optionContentMaxHeight!) ? optionContentMaxHeight : calcMaxHeight + 'px',
                                       }
                                     : {}),
                                 ...(closing ? { opacity: 0, transform: 'scaleY(0)' } : {}),

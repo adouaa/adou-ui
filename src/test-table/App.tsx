@@ -120,7 +120,6 @@ const App = ({}: AppProps) => {
             </Dialog> */}
             <Form data={{}}>
                 <Select
-                    maxHeight="200px"
                     ref={testRef}
                     options={[
                         { label: '小笼包', value: 'Xiǎolóngbāo' },

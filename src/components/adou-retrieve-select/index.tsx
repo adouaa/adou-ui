@@ -5,9 +5,12 @@ import './index.scss';
 import { useEffect, useRef, useState } from 'react';
 import ReactDOM from 'react-dom';
 import getAbsolutePosition from '../../utils/getAbsolutePosition';
-import useClickOutside from 'utils/hooks/useClickOutside';
+import useClickOutside from 'hooks/useClickOutside';
 
 export interface SelectProps {
+    showLabel?: boolean;
+    maxSelectedListWidth?: any;
+    maxHeight?: string;
     activeColor?: { font: string; bgc: string };
     returnType?: 'str' | 'obj';
     showDefaultValue?: boolean;
@@ -48,18 +51,20 @@ interface RetrieveSelectProps extends SelectProps {
 
 const RetrievrSelect: React.FC<RetrieveSelectProps> = React.forwardRef((props: RetrieveSelectProps, ref) => {
     const {
+        showLabel = true,
+        maxSelectedListWidth,
+        maxHeight = '300px',
         activeColor = { font: '#fff', bgc: '#2783d8' },
         returnType,
         showDefaultValue = true,
         placeholder = '请输入',
-        isFormItem,
+        isFormItem = true,
         labelKey = 'label',
         valueKey = 'value',
         inline,
         suffixContent,
         suffixContentType,
         contentWidth,
-        attribute = 'value',
         required,
         errMsg,
         labelWidth,
@@ -88,23 +93,38 @@ const RetrievrSelect: React.FC<RetrieveSelectProps> = React.forwardRef((props: R
     const [showOptions, setShowOptions] = useState(false);
     const [optionList, setOptionList] = useState(options);
     const [selectedOptions, setSelectedOptions] = useState<any[]>([]);
-    const [showSelectedOptions, setShowSelectedOptions] = useState(false);
+    const [showSelectedList, setShowSelectedList] = useState(false);
     const [isHighlighted, setIsHighlighted] = useState(false);
     const [focusedIndex, setFocusedIndex] = useState<number>(-1); // 新增状态，用于跟踪当前聚焦的选项
+    const [isInputFocusing, setIsInputFocusing] = useState<boolean>(false);
+
+    const [isOpen, setIsOpen] = useState<boolean>(false);
+    const dropdownRef = useRef<any>(null);
 
     const retrieveInputRef = useRef<any>();
     const selectListRef = useRef<any>();
     const retrieveSelectWrapperFormControlRef = useRef<any>();
-    const customretrieveSelectRef = useRef<any>();
     const contentRef = useRef<any>();
     const [customSelectContentPosition, setCustomSelectContentPosition] = useState<any>({});
 
-    const { isOpen, dropdownRef, toggleDropdown } = useClickOutside(() => {
+    const toggleDropdown = () => {
+        setIsOpen((prev: boolean) => !prev);
+    };
+
+    const handleClose = () => {
+        setIsOpen(false);
         setShowOptions(false);
+        setIsInputFocusing(false);
+        retrieveInputRef.current.value = '';
+        validate(); // 不能在 div onBlur的时候调用这个函数
         setFocusedIndex(-1);
-    });
+    };
+
+    useClickOutside([retrieveSelectWrapperFormControlRef, contentRef], handleClose, isOpen && contentRef.current);
 
     const handleSelect = (option: any) => {
+        if (!option) return;
+        retrieveInputRef.current.value = '';
         const currentSelectList = optionList.filter((item: any) => item[valueKey] != option[valueKey]).filter((i: any) => i.selected);
 
         if (option.selected) {
@@ -148,8 +168,8 @@ const RetrievrSelect: React.FC<RetrieveSelectProps> = React.forwardRef((props: R
         if (single) {
             const data = hasSelected ? [] : [option];
             setSelectedOptions(data);
-            onRetrieveSelectChange && onRetrieveSelectChange(option);
-            if (returnType === 'obj') {
+            onRetrieveSelectChange && onRetrieveSelectChange(hasSelected ? {} : option);
+            if (returnType === 'obj' || showDefaultValue) {
                 onFormDataChange && onFormDataChange(name!, data[0]);
             } else {
                 onFormDataChange && onFormDataChange(name!, data[0]?.[valueKey]);
@@ -161,22 +181,35 @@ const RetrievrSelect: React.FC<RetrieveSelectProps> = React.forwardRef((props: R
             onRetrieveSelectChange && onRetrieveSelectChange(data);
             onFormDataChange && onFormDataChange(name!, data);
         }
-        setShowSelectedOptions(true);
+        setShowSelectedList(true);
 
-        setTimeout(() => {
-            toggleDropdown();
-        }, 10);
+        setShowOptions(false);
+        setIsOpen(false);
+        setIsInputFocusing(false);
+
+        setFocusedIndex(-1);
     };
 
     const handleInputClick = (e: any) => {
         setIsHighlighted(true);
     };
 
+    // 输入框聚焦
+    const handleInputFocus = () => {
+        setIsInputFocusing(single);
+        retrieveInputRef.current.value = selectedOptions[0]?.[labelKey] || '';
+        retrieveInputRef.current.select();
+    };
+
     const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         let value = e.target?.value;
         searchValueRef.current = value;
         onInputChange && onInputChange(e.target?.value);
-        // 搜索词修改时也需要展示选项
+        // 搜索词修改时也需要展示选项--为了防止有值的时候 handleFocus无法打开
+        setIsOpen(true);
+        setTimeout(() => {
+            setShowOptions(true);
+        }, 10);
     };
 
     const handleDeleteItem = (item: any) => {
@@ -194,29 +227,28 @@ const RetrievrSelect: React.FC<RetrieveSelectProps> = React.forwardRef((props: R
         onDelete && onDelete();
     };
 
-    const handleBlur = () => {};
-
     const handleWrapperClick = (e: any) => {
+        e.stopPropagation();
         if (readOnly) return;
         // retrieveInputRef.current && retrieveInputRef.current.focus();
         setIsHighlighted(true);
         const position = getAbsolutePosition(retrieveSelectWrapperFormControlRef.current, 0, 0);
         setCustomSelectContentPosition(position);
-        if (!isOpen) {
+        if (!isOpen && selectedOptions.length === 0) {
             toggleDropdown();
         }
         // 为了适配通过tab键来定位聚焦，把这些点击的逻辑去掉
         /* if (!isOpen) {
-          toggleDropdown();
-  
-          // e.stopPropagation(); 这里不能加，否则会导致Select展开的时候点击RetrieveSelect无法关闭Select的选项
-          setTimeout(() => {
-            setShowOptions(true);
-          }, 10);
-        } else {
-          setShowOptions(false);
-          toggleDropdown();
-        } */
+        toggleDropdown();
+
+        // e.stopPropagation(); 这里不能加，否则会导致Select展开的时候点击RetrieveSelect无法关闭Select的选项
+        setTimeout(() => {
+          setShowOptions(true);
+        }, 10);
+      } else {
+        setShowOptions(false);
+        toggleDropdown();
+      } */
     };
 
     const getValue = () => {
@@ -256,9 +288,9 @@ const RetrievrSelect: React.FC<RetrieveSelectProps> = React.forwardRef((props: R
         clear,
     }));
 
-    const judgeOptionsByAttribute = (arr: any, item: any) => {
+    const judgeOptionsByValueKey = (arr: any, item: any) => {
         arr.forEach((i: any) => {
-            if (i[attribute] === item[attribute]) {
+            if (i[valueKey] === item[valueKey]) {
                 i.selected = true;
             }
         });
@@ -272,19 +304,21 @@ const RetrievrSelect: React.FC<RetrieveSelectProps> = React.forwardRef((props: R
     });
 
     const handleFocus = (event: any) => {
-        console.log('focus: ');
         setIsHighlighted(true);
-        toggleDropdown();
+        // 没值的时候打开
+        if (!readOnly && !isOpen && selectedOptions.length === 0) {
+            toggleDropdown(); // 键盘tab过来的时候打开下拉框
+            setTimeout(() => {
+                setShowOptions(true);
+            }, 10);
+        }
         const position = getAbsolutePosition(retrieveSelectWrapperFormControlRef.current, 0, 0);
         setCustomSelectContentPosition(position);
-        setTimeout(() => {
-            setShowOptions(true);
-        }, 10);
+        retrieveInputRef.current?.focus();
     };
 
     // 全部都 通过 KeyDown来关闭下拉列表项
     const handleKeyDown = (event: React.KeyboardEvent<HTMLDivElement>) => {
-        console.log('tab: ');
         if (event.key === 'Tab') {
             // 当下拉项展开的时候进入这个回调，来关闭下拉项
             if (isOpen) {
@@ -300,9 +334,16 @@ const RetrievrSelect: React.FC<RetrieveSelectProps> = React.forwardRef((props: R
             setFocusedIndex((prevIndex) => (prevIndex >= optionList.length - 1 ? 0 : prevIndex + 1));
         } else if (event.key === 'Enter') {
             event.preventDefault();
-            handleSelect(optionList[focusedIndex]);
+            handleSelect(optionList?.[focusedIndex]);
         } else if (event.key === 'Escape') {
             setShowOptions(false);
+        }
+    };
+
+    const handleInputKeyDown = (event: React.KeyboardEvent<HTMLDivElement>) => {
+        if (event.key === 'Tab') {
+            retrieveInputRef.current.value = ''; // tab走的时候要清空输入框
+            setIsInputFocusing(false); // 记住tab走的时候要吧 isInputFocusing 设置为false
         }
     };
 
@@ -311,36 +352,48 @@ const RetrievrSelect: React.FC<RetrieveSelectProps> = React.forwardRef((props: R
         if (single) {
             if (defaultValue) {
                 if (showDefaultValue) {
-                    if (typeof defaultValue === 'object' && defaultValue[valueKey]) {
+                    // 如果 defaultValue 是对象，并且 valueKey属性有值，则根据 valueKey 找到对应的 option
+                    if (
+                        defaultValue &&
+                        typeof defaultValue === 'object' &&
+                        defaultValue[valueKey] !== undefined &&
+                        defaultValue[valueKey] !== null &&
+                        defaultValue[valueKey] !== 0
+                    ) {
                         setSelectedOptions([defaultValue]);
-                        setShowSelectedOptions(true);
+                        setShowSelectedList(true);
+                        // 这一步可以由下面的 judgeOptionsByValueKey 函数来代替实现
+                        /* setOptionList((preArr) => {
+                return preArr?.map((item) => ({
+                  ...item,
+                  selected: defaultValue[valueKey] === item[valueKey],
+                }));
+              }); */
+                    } else {
+                        // 如果 defaultValue没值，则数据置空
+                        setSelectedOptions([]);
                         setOptionList((preArr) => {
                             return preArr?.map((item) => ({
                                 ...item,
-                                selected: defaultValue[valueKey] === item[valueKey],
+                                selected: false,
                             }));
                         });
                     }
                 } else {
-                    if (typeof defaultValue === 'object') {
+                    if (typeof defaultValue === 'object' && defaultValue[valueKey]) {
                         tempOptions.some((option: any) => {
-                            if (option[valueKey] === defaultValue[valueKey]) {
-                                arr.push(option);
-                            }
-                            // return false; 这个应该没用了
+                            (option[valueKey] === defaultValue[valueKey] || option[labelKey] === defaultValue[valueKey]) && arr.push(option);
+                            return false;
                         });
                     } else {
                         tempOptions.some((option: any) => {
-                            if (option[valueKey] === defaultValue) {
-                                arr.push(option);
-                            }
-                            // return false;
+                            (option[valueKey] === defaultValue || option[labelKey] === defaultValue) && arr.push(option);
+                            return false;
                         });
                     }
-                    // arr有值代表有匹配上的
                     if (arr?.length) {
                         setSelectedOptions(arr);
-                        setShowSelectedOptions(true);
+                        setShowSelectedList(true);
                         setTimeout(() => {
                             setOptionList((preArr) => {
                                 return preArr?.map((item) => ({
@@ -366,17 +419,15 @@ const RetrievrSelect: React.FC<RetrieveSelectProps> = React.forwardRef((props: R
             if (defaultValue?.length) {
                 defaultValue?.map((item: any) => {
                     tempOptions.some((option: any) => {
-                        if (option[valueKey] === item[valueKey]) {
-                            arr.push(option);
-                        }
-                        // return false;
+                        option[valueKey] === item[valueKey] && arr.push(option);
+                        return false;
                     });
-                    // return false;
+                    return false;
                 });
 
                 if (arr?.length) {
                     setSelectedOptions(arr);
-                    setShowSelectedOptions(true);
+                    setShowSelectedList(true);
                     setTimeout(() => {
                         setOptionList((preArr) => {
                             return preArr?.map((item) => ({
@@ -395,60 +446,78 @@ const RetrievrSelect: React.FC<RetrieveSelectProps> = React.forwardRef((props: R
                 );
             }
         }
+        if (defaultValue) {
+            setError(false);
+        }
     }, [defaultValue, tempOptions]);
 
     useEffect(() => {
         if (selectedOptions.length) {
             selectedOptions.forEach((item: any) => {
-                judgeOptionsByAttribute(options, item);
+                judgeOptionsByValueKey(options, item);
             });
         } else {
             setOptionList(options);
         }
         setTempOptions(options);
-        if (!isOpen) {
-            toggleDropdown();
-        }
+        // 不应该有这个逻辑
+        /* if (!isOpen) {
+        toggleDropdown();
+      } */
     }, [options]);
 
     return (
         <div
             onFocus={handleFocus}
             onKeyDown={handleKeyDown}
-            ref={dropdownRef}
             className={retrieveSelectClasses}
             style={{
                 width,
                 ...(inline && !width ? { flex: 1, marginRight: '15px' } : {}),
             }}
-            onBlur={validate}
         >
             <div className={`content-box ${inputGroup ? 'inputGroup' : `label-in-${labelPosition}`}`}>
-                <span className={`label-box ${inputGroup ? 'input-group-text' : ''}`} style={{ color: labelColor, width: labelWidth }}>
-                    {label}
-                </span>
+                {showLabel && (
+                    <span
+                        className={`retrieve-select-label-box ${inputGroup ? 'input-group-text' : ''}`}
+                        style={{
+                            color: labelColor,
+                            width: labelWidth,
+                            minWidth: isFormItem ? '50px' : '0',
+                        }}
+                    >
+                        {label}
+                    </span>
+                )}
                 <div
-                    style={{ display: 'flex', flexWrap: 'wrap' }}
+                    style={{ display: 'flex', flexWrap: single ? 'nowrap' : 'wrap' }}
                     ref={retrieveSelectWrapperFormControlRef}
                     tabIndex={0}
-                    onBlur={handleBlur}
                     onClick={handleWrapperClick}
                     className={`select-list-box form-control ${isHighlighted ? 'focus' : ''}`}
                 >
                     <select style={{ display: 'none' }} name={name}>
                         {showSelected &&
-                            showSelectedOptions &&
+                            showSelectedList &&
                             selectedOptions?.map((option, index) => {
                                 return <option key={index} value={option[valueKey]}></option>;
                             })}{' '}
                     </select>
+
                     <div ref={selectListRef} className="select-list">
-                        {showSelected &&
-                            showSelectedOptions &&
+                        {!isInputFocusing &&
+                            showSelected &&
+                            showSelectedList &&
                             selectedOptions?.map((option, index) => {
                                 return (
-                                    <div className={`${single ? 'selected-option-single' : 'selected-option'}`} key={option[valueKey]}>
-                                        {option[labelKey] || '无'}
+                                    <div
+                                        style={{
+                                            ...(single ? { maxWidth: maxSelectedListWidth } : {}),
+                                        }}
+                                        className={`${single ? 'selected-option-single ellipsis-1' : 'selected-option'}`}
+                                        key={option[valueKey]}
+                                    >
+                                        {option[labelKey]}
                                         {!single && <i onClick={() => handleDeleteItem(option)} className="option-icon fa-regular fa-circle-xmark"></i>}
                                     </div>
                                 );
@@ -456,8 +525,10 @@ const RetrievrSelect: React.FC<RetrieveSelectProps> = React.forwardRef((props: R
                     </div>
                     <div className="input-control">
                         <input
+                            onKeyDown={handleInputKeyDown}
                             ref={retrieveInputRef}
-                            placeholder={placeholder}
+                            placeholder={isInputFocusing ? placeholder : ''}
+                            onFocus={handleInputFocus}
                             onChange={(e) => handleInputChange(e)}
                             onClick={handleInputClick}
                             readOnly={readOnly}
@@ -467,9 +538,12 @@ const RetrievrSelect: React.FC<RetrieveSelectProps> = React.forwardRef((props: R
                             aria-describedby="basic-addon1"
                         />
                     </div>
+                    <div className="icon-box">
+                        <i className={`icon text-secondary fa-solid fa-angle-right ${isOpen ? 'rotate-up' : 'rotate-down'}`}></i>
+                    </div>
                 </div>
                 {commonSuffixIcon && <i onClick={handleClickCommonSuffixIcon} className={`${commonSuffixIcon} common-suffix-icon ms-2`}></i>}
-                {suffixContent && <div className={`${suffixContentType === 'button' ? 'suffix-content-btn-wrapper' : ''}`}>{suffixContent}</div>}
+                {suffixContent && <div className={`${suffixContentType === 'button' ? 'suffix-content-btn-wrapper' : 'ms-2'}`}>{suffixContent}</div>}
             </div>
             {ReactDOM.createPortal(
                 <div
@@ -479,6 +553,7 @@ const RetrievrSelect: React.FC<RetrieveSelectProps> = React.forwardRef((props: R
                         position: 'absolute',
                         top: customSelectContentPosition.y + customSelectContentPosition.height + 'px',
                         left: customSelectContentPosition.x + 'px',
+                        maxHeight,
                     }}
                     className={`retrieve-select-content ${showOptions ? 'retrieve-select-content-open' : ''}`}
                 >
@@ -494,7 +569,9 @@ const RetrievrSelect: React.FC<RetrieveSelectProps> = React.forwardRef((props: R
                                             backgroundColor: option.selected ? activeColor.bgc : '',
                                         }}
                                         onClick={() => handleSelect(option)}
-                                        className={`retrieve-select-option ${option.selected && 'retrieve-select-option-active'} ${focusedIndex === index && 'retrieve-select-option-focused'}`}
+                                        className={`retrieve-select-option ${option.selected && 'retrieve-select-option-active'} ${
+                                            focusedIndex === index && 'retrieve-select-option-focused'
+                                        }`}
                                     >
                                         {option[labelKey]}
                                     </div>
@@ -512,11 +589,12 @@ const RetrievrSelect: React.FC<RetrieveSelectProps> = React.forwardRef((props: R
                     style={{
                         color: '#DC3545',
                         fontSize: '14px',
-                        paddingLeft: parseInt(labelWidth) > 120 ? '120px' : labelWidth,
+                        paddingLeft: parseInt(labelWidth) > 120 ? '120px' : parseFloat(labelWidth) + 20 + 'px',
                     }}
-                >{`${errMsg || `${name}不能为空`}`}</div>
+                >{`${errMsg || `${label}不能为空`}`}</div>
             )}
         </div>
     );
 });
+
 export default RetrievrSelect;

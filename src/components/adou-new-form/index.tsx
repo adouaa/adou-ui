@@ -4,7 +4,7 @@ import React from 'react';
 interface FormProps {
     onSubmit?: () => void;
     oneLine?: boolean;
-    data: any;
+    data?: any;
     children?: any;
     labelColor?: string;
     eachWordWidth?: number;

@@ -89,6 +89,7 @@ const Input: React.ForwardRefRenderFunction<InputRef, InputProps> = (
     });
 
     const handleClick = (e: React.MouseEvent<HTMLInputElement, MouseEvent>, ...args: any) => {
+        e.stopPropagation();
         onClick && onClick(e, ...args);
     };
 
@@ -210,7 +211,9 @@ const Input: React.ForwardRefRenderFunction<InputRef, InputProps> = (
                     />
                     {suffixContent && (
                         <div
-                            className={`${suffixContentType === 'button' ? 'suffix-content-btn-wrapper' : 'suffix-content-text-wrapper ms-1'} ${suffixContentExternalClassName || ''}`}
+                            className={`${
+                                suffixContentType === 'button' ? 'suffix-content-btn-wrapper' : 'suffix-content-text-wrapper ms-1'
+                            } ${suffixContentExternalClassName || ''}`}
                         >
                             {suffixContent}
                         </div>

@@ -362,11 +362,11 @@ const LiveSearch: React.FC<LiveSearchProps> = React.forwardRef((props: LiveSearc
             }}
             onBlur={validate}
         >
-            <div className={`content-box ${inputGroup ? 'inputGroup' : `label-in-${labelPosition}`}`}>
+            <div className={`content-box ${inputGroup ? 'inputGroup' : `label-in-${labelPosition}`} ${labelPosition === 'top' && inline ? 'me-2' : ''}`}>
                 <span className={`label-box ${inputGroup ? 'input-group-text' : ''}`} style={{ color: labelColor, width: labelWidth }}>
                     {label}
                 </span>
-                <div className="live-search-form-content">
+                <div className="live-search-form-content f-1">
                     <div
                         style={{
                             display: 'flex',

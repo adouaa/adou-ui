@@ -29,8 +29,9 @@ const App = () => {
             <h1>Rating Component</h1>
             <Rate activeBgc="green" value={3.5} onChange={handleRateChange} allowHalf={true} max={5} />
             <Form labelPosition="top" data={{}}>
-                <AdouInput labelPosition="left-top" label="测试123" name="event" suffixContent={<i className="fa fa-solid fa-trash text-danger"></i>}></AdouInput>
+                <AdouInput width={'50%'} labelPosition="left-top" label="测试123" name="event" suffixContent={<i className="fa fa-solid fa-trash text-danger"></i>}></AdouInput>
                 <AdouCheckbox
+                    // width={'50%'}
                     suffixContent={<i className="fa fa-solid fa-trash"></i>}
                     label="复选框"
                     options={[
@@ -40,12 +41,26 @@ const App = () => {
                     ]}
                     name="checkbox"
                 ></AdouCheckbox>
-                <LiveSearch label="搜索框" name="search" options={options} suffixContent={<i className="fa fa-solid fa-trash"></i>}></LiveSearch>
-                <AdouRadio suffixContent={<i className="fa fa-solid fa-trash"></i>} options={[{ label: '测试', value: 'test4' }]} label="单选" name="radio"></AdouRadio>
-                <RetrievrSelect single={false} returnType="obj" options={[]} label="下拉框" name="select" suffixContent={<i className="fa fa-solid fa-trash"></i>}></RetrievrSelect>
-                <Select suffixContentType="button" options={[]} label="下拉框2" name="select2" suffixContent={<i className="fa fa-solid fa-trash"></i>}></Select>
-                <TagInput name="aa" label="标签" suffixContent={<i className="fa fa-solid fa-trash"></i>}></TagInput>
-                <TextArea label="富文本" name="text" suffixContent={<i className="fa fa-solid fa-trash"></i>}></TextArea>
+                <LiveSearch width={'50%'} label="搜索框" name="search" options={options} suffixContent={<i className="fa fa-solid fa-trash"></i>}></LiveSearch>
+                <AdouRadio
+                    // width={'50%'}
+                    suffixContent={<i className="fa fa-solid fa-trash"></i>}
+                    options={[{ label: '测试', value: 'test4' }]}
+                    label="单选"
+                    name="radio"
+                ></AdouRadio>
+                <RetrievrSelect
+                    width={'50%'}
+                    single={false}
+                    returnType="obj"
+                    options={[]}
+                    label="下拉框"
+                    name="select"
+                    suffixContent={<i className="fa fa-solid fa-trash"></i>}
+                ></RetrievrSelect>
+                <Select width={'50%'} suffixContentType="button" options={[]} label="下拉框2" name="select2" suffixContent={<i className="fa fa-solid fa-trash"></i>}></Select>
+                <TagInput width={'50%'} name="aa" label="标签" suffixContent={<i className="fa fa-solid fa-trash"></i>}></TagInput>
+                <TextArea width={'50%'} label="富文本" name="text" suffixContent={<i className="fa fa-solid fa-trash"></i>}></TextArea>
             </Form>
         </div>
     );
