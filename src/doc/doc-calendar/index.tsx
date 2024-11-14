@@ -1,7 +1,6 @@
 import EventCalendar from 'components/adou-event-calendar';
-import Form from 'components/adou-new-form';
 import AdouInput from 'components/adou-new-form/adou-Input';
-import React, { ReactNode, useMemo, useRef, useState } from 'react';
+import React, { useRef, useState } from 'react';
 import Dialog from 'test-dialog';
 
 const App = () => {
@@ -14,18 +13,16 @@ const App = () => {
 
     // 示例数据--注意：日期必须是 两位数 05  01  10  15
     const [eventDate, setEventDate] = useState<any[]>([
-        { id: '2024-12-01', event: '会议' },
+        { id: '2024-12-01', event: '会议项目截止项目截止' },
         { id: '2024-11-05', event: '项目截止' },
         { id: '2024-11-10', event: '生日派对555' },
     ]);
 
     const calendarRef = useRef<any>(null);
-    const formRef = useRef<any>(null);
     const handleCloseModal = () => {
         setModalShow(false);
     };
     const handleCofirmModal = () => {
-        calendarRef.current.updateDay && calendarRef.current.updateDay(dayInfo, eventName);
         const findDay = eventDate.find((item: any) => item.id === dayInfo.id);
         if (findDay?.id) {
             setEventDate((preData: any) =>
@@ -58,9 +55,8 @@ const App = () => {
             <EventCalendar
                 calendarRef={calendarRef}
                 onDoubleClick={handleDoubleClick}
-                minCellHeight={'50px'}
                 data={eventDate} // 传入示例数据
-                renderEvent={(dayInfo) => (
+                renderEventUIFn={(dayInfo) => (
                     <span className="text-primary" style={{ wordWrap: 'break-word' }}>
                         {dayInfo.event}
                     </span>

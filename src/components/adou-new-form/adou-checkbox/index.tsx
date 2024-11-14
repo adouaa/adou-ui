@@ -3,6 +3,7 @@ import React, { useEffect, useState, forwardRef, ForwardRefRenderFunction, useIm
 import './index.scss';
 
 interface CheckboxProps {
+    width?: any;
     valueKey?: string;
     labelKey?: string;
     returnType?: 'str' | 'obj';
@@ -30,6 +31,7 @@ interface CheckboxProps {
 
 const Checkbox: ForwardRefRenderFunction<any, CheckboxProps> = (
     {
+        width,
         valueKey = 'value',
         labelKey = 'label',
         returnType,
@@ -164,7 +166,7 @@ const Checkbox: ForwardRefRenderFunction<any, CheckboxProps> = (
     }, [defaultValue, options]);
 
     return (
-        <div className={checkboxClasses}>
+        <div className={checkboxClasses} style={{ width }}>
             <div className={`content-box d-flex ${inputGroup ? 'inputGroup' : `label-in-${labelPosition}`}`}>
                 {label && (
                     <span style={{ color: labelColor, width: labelWidth }} className={`${inputGroup ? 'input-group-text' : ''} label-box`}>
@@ -178,6 +180,7 @@ const Checkbox: ForwardRefRenderFunction<any, CheckboxProps> = (
                             className={`form-check ${index !== optionsList.length - 1 ? 'me-2' : ''}`}
                             style={{
                                 textAlign: 'left',
+                                marginRight: '20px',
                                 marginBottom: 0,
                             }}
                         >

@@ -28,7 +28,7 @@ const App = () => {
         <div>
             <h1>Rating Component</h1>
             <Rate activeBgc="green" value={3.5} onChange={handleRateChange} allowHalf={true} max={5} />
-            <Form labelPosition="top" data={{}}>
+            <Form labelPosition="top" data={{ radio: { value: 'test4' } }}>
                 <AdouInput width={'50%'} labelPosition="left-top" label="测试123" name="event" suffixContent={<i className="fa fa-solid fa-trash text-danger"></i>}></AdouInput>
                 <AdouCheckbox
                     // width={'50%'}
@@ -44,7 +44,7 @@ const App = () => {
                 <LiveSearch width={'50%'} label="搜索框" name="search" options={options} suffixContent={<i className="fa fa-solid fa-trash"></i>}></LiveSearch>
                 <AdouRadio
                     // width={'50%'}
-                    suffixContent={<i className="fa fa-solid fa-trash"></i>}
+                    // suffixContent={<i className="fa fa-solid fa-trash"></i>}
                     options={[{ label: '测试', value: 'test4' }]}
                     label="单选"
                     name="radio"

@@ -19,20 +19,17 @@ interface CalendarProps {
 
 // 属性为 数组 的话默认值不能为 [] ，否则会导致 useEffect 循环执行，会导致出现问题
 const Calendar = ({
-    minCellHeight = '50px',
+    minCellHeight,
     calendarRef,
     cellHeight,
     date,
     wrapperWidth = '500px',
     wrapperHeight = '500px',
-    contentHeight = '500px',
+    contentHeight,
     data,
     renderEventUIFn,
     onDoubleClick,
 }: CalendarProps) => {
-    // 标记是否是第一次展示日历
-    const [isFirstShow, setIsFirstShow] = useState<boolean>(true);
-
     // 某天高亮
     const [activeId, setActiveId] = useState<string>();
 
@@ -433,12 +430,9 @@ const Calendar = ({
     }, [allDays]);
 
     useEffect(() => {
-        if (data && data.length && isFirstShow) {
+        if (data && data.length) {
             setCurrentDate(new Date(data[0].id));
-            setIsFirstShow(false);
         } else {
-            // 记得在非第一次展示日历的时候 重新获取当前日历的内容，不然新增或者修改后不会更新日历
-            getCurrentMonthDays();
         }
     }, [data, date]);
 

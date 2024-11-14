@@ -211,7 +211,7 @@ const App = () => {
                     date={date}
                     data={data}
                     wrapperHeight={'600px'}
-                    renderEvent={(dayInfo: any) => <div style={{ color: 'red' }}>{dayInfo.event}</div>}
+                    renderEventUIFn={(dayInfo: any) => <div style={{ color: 'red' }}>{dayInfo.event}</div>}
                 />
             </div>
         </div>
