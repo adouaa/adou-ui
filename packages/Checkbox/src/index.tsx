@@ -9,9 +9,12 @@ import React, {
 import "./index.scss";
 
 interface CheckboxProps {
+  width?: any;
   valueKey?: string;
   labelKey?: string;
   returnType?: "str" | "obj";
+  suffixContentType?: string;
+  suffixContent?: any;
   name?: string;
   isFormItem?: boolean;
   errMsg?: string;
@@ -34,9 +37,12 @@ interface CheckboxProps {
 
 const Checkbox: ForwardRefRenderFunction<any, CheckboxProps> = (
   {
+    width,
     valueKey = "value",
     labelKey = "label",
     returnType,
+    suffixContentType = "button",
+    suffixContent,
     name,
     isFormItem,
     errMsg,
@@ -171,7 +177,7 @@ const Checkbox: ForwardRefRenderFunction<any, CheckboxProps> = (
   }, [defaultValue, options]);
 
   return (
-    <div className={checkboxClasses}>
+    <div className={checkboxClasses} style={{ width }}>
       <div
         className={`content-box d-flex ${
           inputGroup ? "inputGroup" : `label-in-${labelPosition}`
@@ -185,11 +191,16 @@ const Checkbox: ForwardRefRenderFunction<any, CheckboxProps> = (
             {label}
           </span>
         )}
-        <div className="option-box" style={{ display: inline ? "flex" : "" }}>
-          {optionsList.map((item: any) => (
+        <div
+          className="checkbox-form-content option-box"
+          style={{ display: inline ? "flex" : "" }}
+        >
+          {optionsList.map((item: any, index: number) => (
             <div
               key={item.value}
-              className="form-check"
+              className={`form-check ${
+                index !== optionsList.length - 1 ? "me-2" : ""
+              }`}
               style={{
                 textAlign: "left",
                 marginRight: "20px",
@@ -199,22 +210,32 @@ const Checkbox: ForwardRefRenderFunction<any, CheckboxProps> = (
               <input
                 ref={ref} // 将 ref 绑定到 input 元素
                 required={required}
+                onBlur={handleBlur}
                 className={cls}
                 type="checkbox"
                 name={name}
                 id={item.value}
                 checked={item.checked}
                 onChange={() => handleChange(item)}
-                onBlur={handleBlur}
-                onClick={(e) => e.stopPropagation()}
                 value={item.value}
                 readOnly={readOnly}
               />
               <label className="form-check-label" htmlFor={item.value}>
-                {item[labelKey] || "Default Checkbox"}
+                {item.label || "Default Checkbox"}
               </label>
             </div>
           ))}
+          {suffixContent && (
+            <div
+              className={`${
+                suffixContentType === "button"
+                  ? "suffix-content-btn-wrapper px-2"
+                  : "ms-2"
+              }`}
+            >
+              {suffixContent}
+            </div>
+          )}
         </div>
         {commonSuffixIcon && (
           <i
@@ -236,4 +257,5 @@ const Checkbox: ForwardRefRenderFunction<any, CheckboxProps> = (
     </div>
   );
 };
+
 export default forwardRef(Checkbox);

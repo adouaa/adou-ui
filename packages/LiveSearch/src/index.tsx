@@ -87,6 +87,7 @@ const LiveSearch: React.FC<LiveSearchProps> = React.forwardRef(
       onFormDataChange,
     } = props;
 
+    const [isOpen, setisOpen] = useState<boolean>(false);
     const [showOptions, setShowOptions] = useState(false);
     const [optionList, setOptionList] = useState(options);
     const [selectedOptions, setSelectedOptions] = useState<any[]>([]);
@@ -101,17 +102,34 @@ const LiveSearch: React.FC<LiveSearchProps> = React.forwardRef(
       useState<any>({});
     const [originlOptions, setOriginOptions] = useState<any[]>([]); // 存放最初的值， 用来做过滤
 
-    const { isOpen, dropdownRef, toggleDropdown } = useClickOutside(() => {
+    const liveSearchSelectRef = useRef<any>(null);
+
+    // 由于第一次选择之后有几率出现 error 闪烁的情况，所以需要设置一个判断
+    // 判断：如果是第一次选择，则不通过 validate进行校验，而是在 选择的逻辑那边直接进行校验
+    const handleClose = (isSelect?: boolean) => {
+      setisOpen(false);
       setShowOptions(false);
       setFocusedIndex(-1);
-    });
+      if (isOpen && !isSelect) {
+        validate();
+      }
+    };
 
+    useClickOutside(
+      [liveSearchSelectRef, contentRef],
+      handleClose,
+      isOpen && contentRef.current
+    );
+    // currentSelectList 这玩意很有问题？
     const handleSelect = (option: any) => {
       if (!option) return;
       const currentSelectList = optionList
-        ?.filter((item: any) => item?.[valueKey] != option?.[valueKey])
-        .filter((i: any) => i.selected);
-
+        ?.filter((item: any) => {
+          return item?.[valueKey] != option?.[valueKey];
+        })
+        .filter((i: any) => {
+          return i.selected;
+        });
       if (option.selected) {
         option.selected = false;
         if (currentSelectList.length) {
@@ -120,7 +138,10 @@ const LiveSearch: React.FC<LiveSearchProps> = React.forwardRef(
           if (!required) {
             setError(false);
           } else {
-            setError(true);
+            // 这里必须加上 定时器，不然无法正确 校验 validate 选择已经选中的数据(此时应该校验失败)
+            setTimeout(() => {
+              setError(true);
+            });
           }
         }
         setInputValue("");
@@ -155,8 +176,11 @@ const LiveSearch: React.FC<LiveSearchProps> = React.forwardRef(
       );
       if (single) {
         const data = hasSelected ? [] : [option];
+        const returnData = returnType === "str" ? data[0]?.[valueKey] : data[0];
         setSelectedOptions(data);
-        onLiveSearchChange && onLiveSearchChange(hasSelected ? {} : option);
+        // 这边在 返回数据的时候，根据 returnType 返回不同的数据类型
+        onLiveSearchChange && onLiveSearchChange(hasSelected ? {} : returnData);
+        // 这边在 改变表单数据的时候，直接赋值给表单 valueKey的值，而不是一个 对象
         onFormDataChange && onFormDataChange(name!, data[0]?.[valueKey]);
         setInputValue(data[0]?.[valueKey] || ""); // 记住 这边要给个 "" 兜底，不然会无法取消选择
       } else {
@@ -171,9 +195,7 @@ const LiveSearch: React.FC<LiveSearchProps> = React.forwardRef(
         onFormDataChange && onFormDataChange(name!, data);
       }
 
-      setTimeout(() => {
-        toggleDropdown();
-      }, 10);
+      handleClose(true);
     };
 
     const handleInputClick = (e: any) => {
@@ -221,11 +243,11 @@ const LiveSearch: React.FC<LiveSearchProps> = React.forwardRef(
       );
       setCustomSelectContentPosition(position);
       if (!isOpen) {
-        toggleDropdown();
+        setisOpen(true);
       }
       // 为了适配通过tab键来定位聚焦，把这些点击的逻辑去掉
       /* if (!isOpen) {
-        toggleDropdown();
+        handleClose();
 
         // e.stopPropagation(); 这里不能加，否则会导致Select展开的时候点击LiveSearch无法关闭Select的选项
         setTimeout(() => {
@@ -233,7 +255,7 @@ const LiveSearch: React.FC<LiveSearchProps> = React.forwardRef(
         }, 10);
       } else {
         setShowOptions(false);
-        toggleDropdown();
+        handleClose();
       } */
     };
 
@@ -243,6 +265,7 @@ const LiveSearch: React.FC<LiveSearchProps> = React.forwardRef(
 
     const [error, setError] = useState<boolean>(false);
     const validate = () => {
+      console.log("6: ", 6);
       if (!required) return true;
       if (selectedOptions.length || inputValue) {
         setError(false);
@@ -283,7 +306,7 @@ const LiveSearch: React.FC<LiveSearchProps> = React.forwardRef(
       setOptionList(arr);
     };
 
-    const retrieveSelectClasses = classNames({
+    const liveSearchSelectClasses = classNames({
       "mb-3": !error && isFormItem,
       "live-search-select-wrapper": true,
       [externalClassName as string]: externalClassName,
@@ -291,7 +314,7 @@ const LiveSearch: React.FC<LiveSearchProps> = React.forwardRef(
 
     const handleFocus = (event: any) => {
       setIsHighlighted(true);
-      toggleDropdown();
+      handleClose();
       const position = getAbsolutePosition(
         retrieveSelectWrapperFormControlRef.current,
         0,
@@ -308,7 +331,7 @@ const LiveSearch: React.FC<LiveSearchProps> = React.forwardRef(
       if (event.key === "Tab") {
         // 当下拉项展开的时候进入这个回调，来关闭下拉项
         if (isOpen) {
-          toggleDropdown();
+          handleClose();
         }
         return; // 让焦点移动到下一个表单元素
       } else if (event.key === "ArrowUp") {
@@ -322,7 +345,7 @@ const LiveSearch: React.FC<LiveSearchProps> = React.forwardRef(
           prevIndex >= optionList.length - 1 ? 0 : prevIndex + 1
         );
       } else if (event.key === "Enter") {
-        toggleDropdown();
+        handleClose();
         event.preventDefault();
         handleSelect(optionList?.[focusedIndex]);
       } else if (event.key === "Escape") {
@@ -332,7 +355,12 @@ const LiveSearch: React.FC<LiveSearchProps> = React.forwardRef(
 
     useEffect(() => {
       if (defaultValue) {
+        const convertedValue =
+          typeof defaultValue === "object"
+            ? defaultValue?.[valueKey]
+            : defaultValue;
         let arr: any[] = [];
+        // 这边不能省略，不然会造成 选择已经被选中的数据的时候无法正确清除掉
         originlOptions?.some((option: any) => {
           option[labelKey] === defaultValue && arr.push(option);
           return false;
@@ -341,10 +369,10 @@ const LiveSearch: React.FC<LiveSearchProps> = React.forwardRef(
         setOptionList((preArr) => {
           return preArr?.map((item) => ({
             ...item,
-            selected: defaultValue === item[labelKey],
+            selected: convertedValue === item[valueKey],
           }));
         });
-        setInputValue(defaultValue);
+        setInputValue(convertedValue);
       } else {
         setSelectedOptions([]);
         if (!defaultValue) {
@@ -368,7 +396,7 @@ const LiveSearch: React.FC<LiveSearchProps> = React.forwardRef(
       setOriginOptions(options);
       // 不应该有这个逻辑吧，不然会出现列表一变化就展示列表
       /* if (!isOpen) {
-        toggleDropdown();
+        handleClose();
       } */
     }, [options]);
 
@@ -376,13 +404,12 @@ const LiveSearch: React.FC<LiveSearchProps> = React.forwardRef(
       <div
         onFocus={handleFocus}
         onKeyDown={handleKeyDown}
-        ref={dropdownRef}
-        className={retrieveSelectClasses}
+        ref={liveSearchSelectRef}
+        className={liveSearchSelectClasses}
         style={{
           width,
           ...(inline && !width ? { flex: 1, marginRight: "15px" } : {}),
         }}
-        onBlur={validate}
       >
         <div
           className={`content-box ${
@@ -518,4 +545,5 @@ const LiveSearch: React.FC<LiveSearchProps> = React.forwardRef(
     );
   }
 );
+
 export default LiveSearch;

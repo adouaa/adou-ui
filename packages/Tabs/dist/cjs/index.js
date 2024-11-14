@@ -246,17 +246,13 @@ ___CSS_LOADER_EXPORT___.push([module.id, `/* index.scss */
   border-bottom: 1px solid #409eff;
   color: #409eff;
   box-sizing: border-box;
-  background: linear-gradient(#dafbff, #fff);
 }
 .tabs-box .header-wrapper {
   position: relative;
 }
 .tabs-box .header-wrapper .extra-content {
-  position: absolute;
-  right: 0;
-  top: 0;
   cursor: pointer;
-}`, "",{"version":3,"sources":["webpack://./src/index.scss"],"names":[],"mappings":"AAAA,eAAA;AACA;EACI;IACI,4BAAA;IACA,UAAA;EACN;EAEE;IACI,wBAAA;IACA,UAAA;EAAN;AACF;AAGA;EACI;IACI,wBAAA;IACA,UAAA;EADN;EAIE;IACI,2BAAA;IACA,UAAA;EAFN;AACF;AAKA;EACI,wCAAA;AAHJ;;AAMA;EACI,wCAAA;AAHJ;;AAMA,eAAA;AACA;EACI;IACI,UAAA;EAHN;EAME;IACI,UAAA;EAJN;AACF;AAOA;EACI;IACI,UAAA;EALN;EAQE;IACI,UAAA;EANN;AACF;AASA;EACI,+BAAA;AAPJ;;AAUA;EACI,gCAAA;AAPJ;;AAaQ;EACI,WAAA;AAVZ;AAcI;EACI,aAAA;EACA,gCAAA;AAZR;AAcQ;EACI,eAAA;AAZZ;AAcY;EACI,eAAA;EACA,mBAAA;EACA,eAAA;EACA,eAAA;AAZhB;AAgBQ;EACI,iBAAA;AAdZ;AAiBQ;EACI,gCAAA;EACA,cAAA;EACA,sBAAA;EACA,0CAAA;AAfZ;AAmBI;EACI,kBAAA;AAjBR;AAmBQ;EACI,kBAAA;EACA,QAAA;EACA,MAAA;EACA,eAAA;AAjBZ","sourcesContent":["/* index.scss */\n@keyframes slideInFromLeft {\n    from {\n        transform: translateX(-100%);\n        opacity: 0;\n    }\n\n    to {\n        transform: translateX(0);\n        opacity: 1;\n    }\n}\n\n@keyframes slideOutToRight {\n    from {\n        transform: translateX(0);\n        opacity: 1;\n    }\n\n    to {\n        transform: translateX(100%);\n        opacity: 0;\n    }\n}\n\n.slide-enter {\n    animation: slideInFromLeft 0.5s forwards;\n}\n\n.slide-exit {\n    animation: slideOutToRight 0.5s forwards;\n}\n\n/* styles.css */\n@keyframes fadeIn {\n    from {\n        opacity: 0;\n    }\n\n    to {\n        opacity: 1;\n    }\n}\n\n@keyframes fadeOut {\n    from {\n        opacity: 1;\n    }\n\n    to {\n        opacity: 0;\n    }\n}\n\n.fade-enter {\n    animation: fadeIn 0.5s forwards;\n}\n\n.fade-exit {\n    animation: fadeOut 0.5s forwards;\n}\n\n\n.tabs-box {\n    .nav {\n        .nav-link {\n            color: #000;\n        }\n    }\n\n    .tabs-header {\n        display: flex;\n        border-bottom: 1px solid #dcdfe6;\n\n        .tabs-header-item-box {\n            padding: 0 15px;\n\n            .tabs-header-item {\n                padding: 10px 0;\n                margin-bottom: -1px;\n                font-size: 14px;\n                cursor: pointer;\n            }\n        }\n\n        .tabs-header-item-box.first {\n            padding-left: 0px;\n        }\n\n        .tabs-header-item.active {\n            border-bottom: 1px solid #409eff;\n            color: #409eff;\n            box-sizing: border-box;\n            background: linear-gradient(#dafbff, #fff);\n        }\n    }\n\n    .header-wrapper {\n        position: relative;\n\n        .extra-content {\n            position: absolute;\n            right: 0;\n            top: 0;\n            cursor: pointer;\n        }\n    }\n}"],"sourceRoot":""}]);
+}`, "",{"version":3,"sources":["webpack://./src/index.scss"],"names":[],"mappings":"AAAA,eAAA;AACA;EACI;IACI,4BAAA;IACA,UAAA;EACN;EAEE;IACI,wBAAA;IACA,UAAA;EAAN;AACF;AAGA;EACI;IACI,wBAAA;IACA,UAAA;EADN;EAIE;IACI,2BAAA;IACA,UAAA;EAFN;AACF;AAKA;EACI,wCAAA;AAHJ;;AAMA;EACI,wCAAA;AAHJ;;AAMA,eAAA;AACA;EACI;IACI,UAAA;EAHN;EAME;IACI,UAAA;EAJN;AACF;AAOA;EACI;IACI,UAAA;EALN;EAQE;IACI,UAAA;EANN;AACF;AASA;EACI,+BAAA;AAPJ;;AAUA;EACI,gCAAA;AAPJ;;AAaQ;EACI,WAAA;AAVZ;AAgBI;EACI,aAAA;EACA,gCAAA;AAdR;AAgBQ;EACI,eAAA;AAdZ;AAgBY;EACI,eAAA;EACA,mBAAA;EACA,eAAA;EACA,eAAA;AAdhB;AAkBQ;EACI,iBAAA;AAhBZ;AAmBQ;EACI,gCAAA;EACA,cAAA;EACA,sBAAA;AAjBZ;AAsBI;EACI,kBAAA;AApBR;AAsBQ;EAEI,eAAA;AArBZ","sourcesContent":["/* index.scss */\n@keyframes slideInFromLeft {\n    from {\n        transform: translateX(-100%);\n        opacity: 0;\n    }\n\n    to {\n        transform: translateX(0);\n        opacity: 1;\n    }\n}\n\n@keyframes slideOutToRight {\n    from {\n        transform: translateX(0);\n        opacity: 1;\n    }\n\n    to {\n        transform: translateX(100%);\n        opacity: 0;\n    }\n}\n\n.slide-enter {\n    animation: slideInFromLeft 0.5s forwards;\n}\n\n.slide-exit {\n    animation: slideOutToRight 0.5s forwards;\n}\n\n/* styles.css */\n@keyframes fadeIn {\n    from {\n        opacity: 0;\n    }\n\n    to {\n        opacity: 1;\n    }\n}\n\n@keyframes fadeOut {\n    from {\n        opacity: 1;\n    }\n\n    to {\n        opacity: 0;\n    }\n}\n\n.fade-enter {\n    animation: fadeIn 0.5s forwards;\n}\n\n.fade-exit {\n    animation: fadeOut 0.5s forwards;\n}\n\n\n.tabs-box {\n    .nav {\n        .nav-link {\n            color: #000;\n        }\n\n        .nav-link.active {}\n    }\n\n    .tabs-header {\n        display: flex;\n        border-bottom: 1px solid #dcdfe6;\n\n        .tabs-header-item-box {\n            padding: 0 15px;\n\n            .tabs-header-item {\n                padding: 10px 0;\n                margin-bottom: -1px;\n                font-size: 14px;\n                cursor: pointer;\n            }\n        }\n\n        .tabs-header-item-box.first {\n            padding-left: 0px;\n        }\n\n        .tabs-header-item.active {\n            border-bottom: 1px solid #409eff;\n            color: #409eff;\n            box-sizing: border-box;\n\n        }\n    }\n\n    .header-wrapper {\n        position: relative;\n\n        .extra-content {\n\n            cursor: pointer;\n        }\n    }\n}"],"sourceRoot":""}]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 
@@ -1898,16 +1894,17 @@ var update = injectStylesIntoStyleTag_default()(cjs_ruleSet_1_rules_1_use_2_src/
 
 const Tabs = props => {
   const {
+    commonExtraContent,
     headerItemExternalCls,
     extraContentCls,
     contentHeight,
     showExtraContent,
-    lineaGradient = '#dafbff, #fff',
+    lineaGradient = "#dafbff, #fff",
     children,
     onLabelClick,
     activeIndex = 0,
-    activeLabelColor = '#409eff',
-    tabStyle = 'bootstrap',
+    activeLabelColor = "#409eff",
+    tabStyle = "bootstrap",
     contentPadding,
     clearOnChange = true
   } = props;
@@ -1923,27 +1920,39 @@ const Tabs = props => {
     external_root_React_commonjs2_react_commonjs_react_amd_react_default().Children.map(children, child => {
       tabItems.push(child);
     });
-    return /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement((external_root_React_commonjs2_react_commonjs_react_amd_react_default()).Fragment, null, tabStyle === 'common' ? /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("div", {
+    return /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement((external_root_React_commonjs2_react_commonjs_react_amd_react_default()).Fragment, null, tabStyle === "common" ? /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("div", {
       className: "header-wrapper"
     }, /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("div", {
-      className: "tabs-header mb-2"
+      className: "tabs-header mb-2  d-flex align-items-center"
+    }, /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("div", {
+      className: "tabs-header-content d-flex",
+      style: {
+        flex: 1
+      }
     }, tabItems.map((child, index) => {
       var _child$props;
       if (!child) return;
       return /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("div", {
         key: index
       }, /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("div", {
-        className: "tabs-header-item-box ".concat(index === 0 && 'first')
+        className: "tabs-header-item-box ".concat(index === 0 && "first")
       }, /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("div", {
         onClick: () => handleLabelClickFn(index, child),
-        className: "tabs-header-item  ".concat(currentIndex === index && 'active')
+        className: "tabs-header-item  ".concat(currentIndex === index && "active")
       }, child === null || child === void 0 || (_child$props = child.props) === null || _child$props === void 0 ? void 0 : _child$props.label)));
-    })), showExtraContent && /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("div", {
+    })), commonExtraContent && /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("div", {
+      className: "common-extra-content"
+    }, commonExtraContent), content.current && /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("div", {
       className: "extra-content"
-    }, content.current)) : /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("div", {
+    }, content.current))) : /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("div", {
       className: "header-wrapper"
+    }, /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("div", {
+      className: "bootstrap-tabs-header d-flex"
     }, /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("ul", {
-      className: "nav nav-tabs mb-2"
+      className: "nav nav-tabs mb-2",
+      style: {
+        flex: 1
+      }
     }, tabItems.map((child, index) => {
       return /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("li", {
         key: index,
@@ -1951,21 +1960,23 @@ const Tabs = props => {
         onClick: () => handleLabelClickFn(index, child)
       }, /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("a", {
         style: {
-          marginLeft: index === 0 ? '10px' : '',
-          color: index === currentIndex ? child.props.activeLabelColor || activeLabelColor : '',
-          cursor: 'pointer',
+          marginLeft: index === 0 ? "10px" : "",
+          color: index === currentIndex ? child.props.activeLabelColor || activeLabelColor : "",
+          cursor: "pointer",
           ...(index === currentIndex ? {
             background: "linear-gradient(".concat(lineaGradient, ")")
           } : {})
         },
-        className: "".concat(index === currentIndex ? 'active' : '', " ").concat(headerItemExternalCls, " nav-link"),
+        className: "".concat(index === currentIndex ? "active" : "", " ").concat(headerItemExternalCls, " nav-link"),
         "aria-current": "page"
       }, /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("i", {
-        className: child.props.prefixIcon + ' me-1'
+        className: child.props.prefixIcon + " me-1"
       }), child.props.label));
-    })), showExtraContent && /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("div", {
-      className: "extra-content ".concat(extraContentCls)
-    }, content.current)));
+    })), commonExtraContent && /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("div", {
+      className: "common-extra-content"
+    }, commonExtraContent), content.current && /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("div", {
+      className: "extra-content"
+    }, content.current))));
   };
   (0,external_root_React_commonjs2_react_commonjs_react_amd_react_.useEffect)(() => {
     // 因为extraContent是用ref保存的，
@@ -2000,7 +2011,7 @@ const Tabs = props => {
   return /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement((external_root_React_commonjs2_react_commonjs_react_amd_react_default()).Fragment, null, /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("div", {
     className: "tabs-box",
     style: {
-      height: '100%'
+      height: "100%"
     }
   }, renderHeader(), renderContent()));
 };

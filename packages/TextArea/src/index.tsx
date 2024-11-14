@@ -4,6 +4,7 @@ import "./index.scss";
 import classNames from "classnames";
 
 interface TextareaProps {
+  rows?: number;
   suffixContentType?: string;
   suffixContent?: any;
   name?: string;
@@ -31,6 +32,7 @@ interface TextareaProps {
 const Textarea: React.FC<TextareaProps> = React.forwardRef(
   (props: TextareaProps, ref) => {
     const {
+      rows,
       suffixContentType = "button",
       suffixContent,
       errMsg,
@@ -128,12 +130,16 @@ const Textarea: React.FC<TextareaProps> = React.forwardRef(
               {label}
             </span>
           )}
-          <div className="textarea-form-content">
+          <div
+            className={`textarea-form-content ${
+              labelPosition === "top" && inline ? "me-2" : ""
+            }`}
+          >
             <textarea
               style={{
                 width,
                 ...(inline && !width ? { flex: 1, marginRight: "15px" } : {}),
-                ...(suffixContentType === "button"
+                ...(suffixContent && suffixContentType === "button"
                   ? {
                       borderTopRightRadius: 0,
                       borderBottomRightRadius: 0,
@@ -141,6 +147,7 @@ const Textarea: React.FC<TextareaProps> = React.forwardRef(
                     }
                   : {}),
               }}
+              rows={rows}
               readOnly={readOnly}
               required={required}
               name={name}
@@ -188,4 +195,5 @@ const Textarea: React.FC<TextareaProps> = React.forwardRef(
     );
   }
 );
+
 export default Textarea;

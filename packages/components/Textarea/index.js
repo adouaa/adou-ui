@@ -678,6 +678,7 @@ var classnames_default = /*#__PURE__*/__webpack_require__.n(classnames);
 
 const Textarea = /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().forwardRef((props, ref) => {
   const {
+    rows,
     suffixContentType = "button",
     suffixContent,
     errMsg,
@@ -764,7 +765,7 @@ const Textarea = /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react
     },
     className: "".concat(inputGroup ? "input-group-text" : "", " label-box")
   }, label), /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("div", {
-    className: "textarea-form-content"
+    className: "textarea-form-content ".concat(labelPosition === "top" && inline ? "me-2" : "")
   }, /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("textarea", {
     style: {
       width,
@@ -772,12 +773,13 @@ const Textarea = /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react
         flex: 1,
         marginRight: "15px"
       } : {}),
-      ...(suffixContentType === "button" ? {
+      ...(suffixContent && suffixContentType === "button" ? {
         borderTopRightRadius: 0,
         borderBottomRightRadius: 0
         // borderRight: "none",
       } : {})
     },
+    rows: rows,
     readOnly: readOnly,
     required: required,
     name: name,

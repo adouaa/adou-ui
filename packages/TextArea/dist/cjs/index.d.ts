@@ -1,6 +1,7 @@
 import React from "react";
 import "./index.scss";
 interface TextareaProps {
+    rows?: number;
     suffixContentType?: string;
     suffixContent?: any;
     name?: string;

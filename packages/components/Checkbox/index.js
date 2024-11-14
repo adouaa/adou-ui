@@ -660,9 +660,12 @@ var update = injectStylesIntoStyleTag_default()(cjs_ruleSet_1_rules_1_use_2_src/
 
 const Checkbox = (_ref, ref) => {
   let {
+    width,
     valueKey = "value",
     labelKey = "label",
     returnType,
+    suffixContentType = "button",
+    suffixContent,
     name,
     isFormItem,
     errMsg,
@@ -775,7 +778,10 @@ const Checkbox = (_ref, ref) => {
     setOptionsList(updatedOptions);
   }, [defaultValue, options]);
   return /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("div", {
-    className: checkboxClasses
+    className: checkboxClasses,
+    style: {
+      width
+    }
   }, /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("div", {
     className: "content-box d-flex ".concat(inputGroup ? "inputGroup" : "label-in-".concat(labelPosition))
   }, label && /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("span", {
@@ -785,13 +791,13 @@ const Checkbox = (_ref, ref) => {
     },
     className: "".concat(inputGroup ? "input-group-text" : "", " label-box")
   }, label), /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("div", {
-    className: "option-box",
+    className: "checkbox-form-content option-box",
     style: {
       display: inline ? "flex" : ""
     }
-  }, optionsList.map(item => /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("div", {
+  }, optionsList.map((item, index) => /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("div", {
     key: item.value,
-    className: "form-check",
+    className: "form-check ".concat(index !== optionsList.length - 1 ? "me-2" : ""),
     style: {
       textAlign: "left",
       marginRight: "20px",
@@ -801,20 +807,21 @@ const Checkbox = (_ref, ref) => {
     ref: ref // 将 ref 绑定到 input 元素
     ,
     required: required,
+    onBlur: handleBlur,
     className: cls,
     type: "checkbox",
     name: name,
     id: item.value,
     checked: item.checked,
     onChange: () => handleChange(item),
-    onBlur: handleBlur,
-    onClick: e => e.stopPropagation(),
     value: item.value,
     readOnly: readOnly
   }), /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("label", {
     className: "form-check-label",
     htmlFor: item.value
-  }, item[labelKey] || "Default Checkbox")))), commonSuffixIcon && /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("i", {
+  }, item.label || "Default Checkbox"))), suffixContent && /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("div", {
+    className: "".concat(suffixContentType === "button" ? "suffix-content-btn-wrapper px-2" : "ms-2")
+  }, suffixContent)), commonSuffixIcon && /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("i", {
     onClick: handleClickCommonSuffixIcon,
     className: "".concat(commonSuffixIcon, " common-suffix-icon ms-2")
   })), error && required && /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("div", {
