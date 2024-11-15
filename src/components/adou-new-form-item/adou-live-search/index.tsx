@@ -393,7 +393,7 @@ const LiveSearch: React.FC<LiveSearchProps> = React.forwardRef((props: LiveSearc
                         style={{
                             display: 'flex',
                             flexWrap: 'wrap',
-                            ...(suffixContent && suffixContentType === 'button'
+                            ...(suffixContentType === 'button'
                                 ? {
                                       borderTopRightRadius: 0,
                                       borderBottomRightRadius: 0,
@@ -480,4 +480,5 @@ const LiveSearch: React.FC<LiveSearchProps> = React.forwardRef((props: LiveSearc
         </div>
     );
 });
+
 export default LiveSearch;

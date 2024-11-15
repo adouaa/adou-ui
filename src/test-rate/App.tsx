@@ -9,61 +9,85 @@ import RetrievrSelect from 'components/adou-new-form/adou-retrieve-select';
 import Select from 'components/adou-new-form/adou-select';
 import TagInput from 'components/adou-new-form/adou-tag-input';
 import TextArea from 'components/adou-new-form/adou-textarea';
+import './index.scss';
 
-const App = () => {
-    const [rateValue, setRateValue] = useState<number>(3);
-    const [options, setOptions] = useState<any>([
-        {
-            label: '遵医嘱未使用',
-            value: '遵医嘱未使用',
-        },
-    ]);
+const Table = ({ rows, cols }) => {
+    const [isSelecting, setIsSelecting] = useState(false);
+    const [selectedCells, setSelectedCells] = useState([]);
+    const [startCell, setStartCell] = useState<any>(null);
 
-    const handleRateChange = (value: number) => {
-        setRateValue(value);
-        console.log('Selected rate:', value);
+    // 开始选择
+    const handleMouseDown = (row, col, event) => {
+        const isMultiSelect = event.ctrlKey || event.metaKey; // 检查是否按下 Ctrl 或 Command 键
+
+        setIsSelecting(true);
+        setStartCell({ row, col });
+
+        setSelectedCells((prevSelectedCells: any) => {
+            if (isMultiSelect) {
+                // 多选模式：添加或移除单元格
+                const cellExists = prevSelectedCells.some(([r, c]) => r === row && c === col);
+                if (cellExists) {
+                    return prevSelectedCells.filter(([r, c]) => !(r === row && c === col));
+                } else {
+                    return [...prevSelectedCells, [row, col]];
+                }
+            } else {
+                // 单选模式：清空之前的选择，仅选中当前单元格
+                return [[row, col]];
+            }
+        });
+    };
+
+    // 正在选择
+    const handleMouseEnter = (row, col, event) => {
+        if (isSelecting && startCell) {
+            const newSelectedCells: any = [];
+            const [minRow, maxRow] = [startCell.row, row].sort((a, b) => a - b);
+            const [minCol, maxCol] = [startCell.col, col].sort((a, b) => a - b);
+
+            for (let r = minRow; r <= maxRow; r++) {
+                for (let c = minCol; c <= maxCol; c++) {
+                    newSelectedCells.push([r, c]);
+                }
+            }
+            setSelectedCells(newSelectedCells);
+        }
+    };
+
+    // 停止选择
+    const handleMouseUp = () => {
+        setIsSelecting(false);
+    };
+
+    // 判断是否为选中的单元格
+    const isSelected = (row, col) => {
+        return selectedCells.some(([r, c]: any) => r === row && c === col);
     };
 
     return (
-        <div>
-            <h1>Rating Component</h1>
-            <Rate activeBgc="green" value={3.5} onChange={handleRateChange} allowHalf={true} max={5} />
-            <Form labelPosition="top" data={{ radio: { value: 'test4' } }}>
-                <AdouInput width={'50%'} labelPosition="left-top" label="测试123" name="event" suffixContent={<i className="fa fa-solid fa-trash text-danger"></i>}></AdouInput>
-                <AdouCheckbox
-                    // width={'50%'}
-                    suffixContent={<i className="fa fa-solid fa-trash"></i>}
-                    label="复选框"
-                    options={[
-                        { label: '测试', value: 'test1' },
-                        { label: '测试', value: 'test2' },
-                        { label: '测试', value: 'test3' },
-                    ]}
-                    name="checkbox"
-                ></AdouCheckbox>
-                <LiveSearch width={'50%'} label="搜索框" name="search" options={options} suffixContent={<i className="fa fa-solid fa-trash"></i>}></LiveSearch>
-                <AdouRadio
-                    // width={'50%'}
-                    // suffixContent={<i className="fa fa-solid fa-trash"></i>}
-                    options={[{ label: '测试', value: 'test4' }]}
-                    label="单选"
-                    name="radio"
-                ></AdouRadio>
-                <RetrievrSelect
-                    width={'50%'}
-                    single={false}
-                    returnType="obj"
-                    options={[]}
-                    label="下拉框"
-                    name="select"
-                    suffixContent={<i className="fa fa-solid fa-trash"></i>}
-                ></RetrievrSelect>
-                <Select width={'50%'} suffixContentType="button" options={[]} label="下拉框2" name="select2" suffixContent={<i className="fa fa-solid fa-trash"></i>}></Select>
-                <TagInput width={'50%'} name="aa" label="标签" suffixContent={<i className="fa fa-solid fa-trash"></i>}></TagInput>
-                <TextArea width={'50%'} label="富文本" name="text" suffixContent={<i className="fa fa-solid fa-trash"></i>}></TextArea>
-            </Form>
-        </div>
+        <>
+            <table onMouseLeave={handleMouseUp} onMouseUp={handleMouseUp}>
+                <tbody>
+                    {Array.from({ length: rows }).map((_, row) => (
+                        <tr key={row}>
+                            {Array.from({ length: cols }).map((_, col) => (
+                                <td
+                                    key={col}
+                                    className={isSelected(row, col) ? 'selected' : ''}
+                                    onMouseDown={(e) => handleMouseDown(row, col, e)}
+                                    onMouseEnter={(e) => handleMouseEnter(row, col, e)}
+                                />
+                            ))}
+                        </tr>
+                    ))}
+                </tbody>
+            </table>
+            Result: {selectedCells.join(',')}
+        </>
     );
 };
+
+const App = () => <Table rows={10} cols={10}></Table>;
 
 export default App;
