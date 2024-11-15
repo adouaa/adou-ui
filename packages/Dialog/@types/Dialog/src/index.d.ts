@@ -1,6 +1,7 @@
 import React from "react";
 import "./index.scss";
 interface DialogProps {
+    needDestroy?: boolean;
     maxY?: boolean;
     maxX?: boolean;
     max?: boolean;

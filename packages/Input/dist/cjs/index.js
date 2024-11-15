@@ -884,7 +884,8 @@ const Input = (_ref, ref) => {
       borderTopLeftRadius: prefixContent ? 0 : "6px",
       borderBottomLeftRadius: prefixContent ? 0 : "6px",
       background: transparent ? "transparent" : "#fff",
-      flex: 1
+      flex: 1,
+      height: "38px"
     },
     step: 1,
     name: name,

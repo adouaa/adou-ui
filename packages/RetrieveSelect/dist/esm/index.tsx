@@ -56,7 +56,7 @@ const RetrievrSelect: React.FC<RetrieveSelectProps> = React.forwardRef(
       maxHeight = "300px",
       activeColor = { font: "#fff", bgc: "#2783d8" },
       returnType,
-      showDefaultValue = true,
+      showDefaultValue,
       placeholder = "请输入",
       isFormItem = true,
       labelKey = "label",
@@ -121,6 +121,7 @@ const RetrievrSelect: React.FC<RetrieveSelectProps> = React.forwardRef(
         setTimeout(() => {
           setClosing(false);
           setIsOpen((prev: boolean) => !prev);
+          setIsHighlighted(false);
         }, 100);
       } else {
         setIsOpen((prev: boolean) => !prev);
@@ -194,6 +195,7 @@ const RetrievrSelect: React.FC<RetrieveSelectProps> = React.forwardRef(
         if (returnType === "obj" || showDefaultValue) {
           onFormDataChange && onFormDataChange(name!, data[0]);
         } else {
+          console.log("5666: ", 5666);
           onFormDataChange && onFormDataChange(name!, data[0]?.[valueKey]);
         }
       } else {
@@ -285,7 +287,19 @@ const RetrievrSelect: React.FC<RetrieveSelectProps> = React.forwardRef(
     };
 
     const getValue = () => {
-      return selectedOptions;
+      if (single) {
+        if (returnType === "str") {
+          return selectedOptions[0]?.[valueKey] || "";
+        } else {
+          return selectedOptions[0] || {};
+        }
+      } else {
+        if (returnType === "str") {
+          return selectedOptions.map((option: any) => option[valueKey]);
+        } else {
+          return selectedOptions;
+        }
+      }
     };
 
     const [error, setError] = useState<boolean>(false);
@@ -388,6 +402,7 @@ const RetrievrSelect: React.FC<RetrieveSelectProps> = React.forwardRef(
     };
 
     useEffect(() => {
+      console.log("defaultValue: ", defaultValue);
       let arr: any[] = [];
       if (single) {
         if (defaultValue) {

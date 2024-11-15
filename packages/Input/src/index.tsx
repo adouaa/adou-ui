@@ -229,6 +229,7 @@ const Input: React.ForwardRefRenderFunction<InputRef, InputProps> = (
               borderBottomLeftRadius: prefixContent ? 0 : "6px",
               background: transparent ? "transparent" : "#fff",
               flex: 1,
+              height: "38px",
             }}
             step={1}
             name={name}
@@ -295,6 +296,7 @@ const Input: React.ForwardRefRenderFunction<InputRef, InputProps> = (
     </div>
   );
 };
+
 
 Input.displayName = "Input";
 

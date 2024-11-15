@@ -71,6 +71,7 @@ const TagInput = React.forwardRef(
     };
 
     const handleKeyDown = (event: any) => {
+      event.stopPropagation();
       const value = event.target.value.trim(); // 会有一个空格存在，要去掉
       if (!value) return;
       let flag = false;
@@ -173,6 +174,8 @@ const TagInput = React.forwardRef(
                       // borderRight: "none",
                     }
                   : {}),
+                height: "38px",
+                paddingTop: "4px",
               }}
               onClick={handleClickFormControl}
               className={`form-control ${isHighlighted ? "focus" : ""}`}

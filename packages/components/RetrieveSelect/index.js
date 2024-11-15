@@ -6202,7 +6202,7 @@ const RetrievrSelect = /*#__PURE__*/external_root_React_commonjs2_react_commonjs
       bgc: "#2783d8"
     },
     returnType,
-    showDefaultValue = true,
+    showDefaultValue,
     placeholder = "请输入",
     isFormItem = true,
     labelKey = "label",
@@ -6260,6 +6260,7 @@ const RetrievrSelect = /*#__PURE__*/external_root_React_commonjs2_react_commonjs
       setTimeout(() => {
         setClosing(false);
         setIsOpen(prev => !prev);
+        setIsHighlighted(false);
       }, 100);
     } else {
       setIsOpen(prev => !prev);
@@ -6321,6 +6322,7 @@ const RetrievrSelect = /*#__PURE__*/external_root_React_commonjs2_react_commonjs
         onFormDataChange && onFormDataChange(name, data[0]);
       } else {
         var _data$;
+        console.log("5666: ", 5666);
         onFormDataChange && onFormDataChange(name, (_data$ = data[0]) === null || _data$ === void 0 ? void 0 : _data$[valueKey]);
       }
     } else {
@@ -6395,7 +6397,20 @@ const RetrievrSelect = /*#__PURE__*/external_root_React_commonjs2_react_commonjs
     } */
   };
   const getValue = () => {
-    return selectedOptions;
+    if (single) {
+      if (returnType === "str") {
+        var _selectedOptions$2;
+        return ((_selectedOptions$2 = selectedOptions[0]) === null || _selectedOptions$2 === void 0 ? void 0 : _selectedOptions$2[valueKey]) || "";
+      } else {
+        return selectedOptions[0] || {};
+      }
+    } else {
+      if (returnType === "str") {
+        return selectedOptions.map(option => option[valueKey]);
+      } else {
+        return selectedOptions;
+      }
+    }
   };
   const [error, setError] = (0,external_root_React_commonjs2_react_commonjs_react_amd_react_.useState)(false);
   const validate = () => {
@@ -6480,6 +6495,7 @@ const RetrievrSelect = /*#__PURE__*/external_root_React_commonjs2_react_commonjs
     }
   };
   (0,external_root_React_commonjs2_react_commonjs_react_amd_react_.useEffect)(() => {
+    console.log("defaultValue: ", defaultValue);
     let arr = [];
     if (single) {
       if (defaultValue) {

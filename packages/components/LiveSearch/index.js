@@ -6512,7 +6512,7 @@ const LiveSearch = /*#__PURE__*/external_root_React_commonjs2_react_commonjs_rea
     style: {
       display: "flex",
       flexWrap: "wrap",
-      ...(suffixContentType === "button" ? {
+      ...(suffixContent && suffixContentType === "button" ? {
         borderTopRightRadius: 0,
         borderBottomRightRadius: 0
         // borderRight: "none",

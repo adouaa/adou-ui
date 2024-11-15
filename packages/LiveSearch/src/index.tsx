@@ -427,7 +427,7 @@ const LiveSearch: React.FC<LiveSearchProps> = React.forwardRef(
               style={{
                 display: "flex",
                 flexWrap: "wrap",
-                ...(suffixContentType === "button"
+                ...(suffixContent && suffixContentType === "button"
                   ? {
                       borderTopRightRadius: 0,
                       borderBottomRightRadius: 0,

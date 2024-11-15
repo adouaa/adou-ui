@@ -1495,6 +1495,7 @@ var update = injectStylesIntoStyleTag_default()(cjs_ruleSet_1_rules_1_use_2_src/
 
 const Dialog = _ref => {
   let {
+    needDestroy = false,
     maxY,
     maxX,
     max,
@@ -1521,6 +1522,7 @@ const Dialog = _ref => {
   } = _ref;
   const dialogRef = (0,external_root_React_commonjs2_react_commonjs_react_amd_react_.useRef)(null);
   const [show, setShow] = (0,external_root_React_commonjs2_react_commonjs_react_amd_react_.useState)(false);
+  const [destroied, setDestroied] = (0,external_root_React_commonjs2_react_commonjs_react_amd_react_.useState)(false);
   const [isAnimating, setIsAnimating] = (0,external_root_React_commonjs2_react_commonjs_react_amd_react_.useState)(false);
   const [initialPosition, setInitialPosition] = (0,external_root_React_commonjs2_react_commonjs_react_amd_react_.useState)({
     x: 0,
@@ -1534,6 +1536,8 @@ const Dialog = _ref => {
   const handleKeyDown = event => {
     if (event.key === "Enter") {
       onConfirm && onConfirm();
+    } else if (event.key === "Escape") {
+      onClose && onClose();
     }
   };
   (0,external_root_React_commonjs2_react_commonjs_react_amd_react_.useEffect)(() => {
@@ -1547,6 +1551,8 @@ const Dialog = _ref => {
           dialogRef.current.style.top = "".concat(type === "tip" ? "".concat(initialY, "px") : "2%");
         }
         dialogRef.current.style.left = "".concat(initialX, "px");
+
+        // 注意，这边要给个 100ms 差不多的定时器来确保 dialogRef.current 已经渲染完成
         setTimeout(() => {
           dialogRef.current.focus(); // 将焦点设置到 modal
         }, 100);
@@ -1558,6 +1564,7 @@ const Dialog = _ref => {
   }, [show]);
   (0,external_root_React_commonjs2_react_commonjs_react_amd_react_.useEffect)(() => {
     if (isOpen) {
+      setDestroied(false);
       setTimeout(() => {
         setShow(isOpen);
       }, 100);
@@ -1568,12 +1575,18 @@ const Dialog = _ref => {
       setTimeout(() => {
         setShow(isOpen);
       }, 100);
+      // 需要销毁再执行该逻辑
+      if (needDestroy) {
+        setTimeout(() => {
+          setDestroied(true);
+        }, 300); // 注意，延迟时间要 300差不多
+      }
     }
   }, [isOpen, type]);
   hooks_useClickOutside(dialogRef, clickOutside && onClose);
   return /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement((external_root_React_commonjs2_react_commonjs_react_amd_react_default()).Fragment, null, (isOpen || isAnimating) && /*#__PURE__*/external_root_ReactDOM_commonjs2_react_dom_commonjs_react_dom_amd_react_dom_default().createPortal( /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("div", {
     className: "dialog-overlay ".concat(show ? "open" : "")
-  }, /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("div", {
+  }, !destroied && /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("div", {
     onKeyDown: handleKeyDown,
     tabIndex: 0,
     ref: dialogRef,
