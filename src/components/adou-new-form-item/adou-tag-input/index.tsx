@@ -4,6 +4,12 @@ import './index.scss';
 import { withTranslation } from 'react-i18next';
 
 interface TagInputProps {
+    wrapperStyle?: React.CSSProperties;
+    wrapperWidth?: any;
+    commonSuffixContent?: string;
+    clearable?: boolean;
+    formStyle?: React.CSSProperties;
+    size?: 'lg' | 'default';
     suffixContentType?: string;
     suffixContent?: any;
     name?: string;
@@ -20,11 +26,18 @@ interface TagInputProps {
     labelColor?: string;
     defaultValue?: any;
     onChange?: (value: any) => void;
+    onFieldChange?: (data: any) => void;
 }
 
 const TagInput = React.forwardRef(
     (
         {
+            wrapperWidth,
+            wrapperStyle,
+            size = 'default',
+            clearable = true,
+            commonSuffixContent,
+            formStyle,
             suffixContentType = 'button',
             suffixContent,
             required,
@@ -41,6 +54,7 @@ const TagInput = React.forwardRef(
             name,
             defaultValue,
             onChange,
+            onFieldChange,
         }: TagInputProps,
         ref
     ) => {
@@ -50,6 +64,8 @@ const TagInput = React.forwardRef(
 
         const [isHighlighted, setIsHighlighted] = useState(false);
 
+        const [isEnter, setIsEnter] = useState<boolean>(false);
+
         const addInput = () => {
             // 因为state是异步的，所以要把数据先处理好再使用
             const data = [...inputList, inputValue];
@@ -57,6 +73,7 @@ const TagInput = React.forwardRef(
             setInputValue('');
             // 把数据传回给父组件
             onChange && onChange(data);
+            onFieldChange && onFieldChange(data);
             setError(false);
         };
 
@@ -82,6 +99,7 @@ const TagInput = React.forwardRef(
             }
             setInputList(tagList);
             onChange && onChange(tagList);
+            onFieldChange?.(tagList);
             // 注意，这边不能直接用 inputList给 formData赋值，会出现不一致的情况
         };
 
@@ -120,10 +138,21 @@ const TagInput = React.forwardRef(
         const clear = () => {
             setInputList('');
         };
-        const handleClickCommonSuffixIcon = () => {
+        const handleClearIconClick = () => {
             clear();
             setError(true);
+            onFieldChange && onFieldChange('');
         };
+        const handleClickCommonSuffixIcon = () => {};
+
+        const handleMouseEnter = () => {
+            setIsEnter(true);
+        };
+
+        const handleMouseLeave = () => {
+            setIsEnter(false);
+        };
+
         // Expose validate method via ref
         useImperativeHandle(ref, () => ({
             getValue,
@@ -140,40 +169,32 @@ const TagInput = React.forwardRef(
         }, [defaultValue]);
 
         return (
-            <div className={`tag-input-wrapper ${!error && isFormItem && 'mb-3'}`} style={{ width }}>
-                <div className={`content-box ${inputGroup ? 'inputGroup' : `label-in-${labelPosition}`}`}>
-                    <span className={`label-box ${inputGroup ? 'input-group-text' : ''}`} style={{ color: labelColor, width: labelWidth }}>
-                        {label}
-                    </span>
-                    <div className="tag-input-form-content">
-                        <div
-                            style={{
-                                display: 'flex',
-                                ...(suffixContentType === 'button'
-                                    ? {
-                                          borderTopRightRadius: 0,
-                                          borderBottomRightRadius: 0,
-                                          // borderRight: "none",
-                                      }
-                                    : {}),
-                            }}
-                            onClick={handleClickFormControl}
-                            className={`form-control ${isHighlighted ? 'focus' : ''}`}
-                        >
-                            <ul className="tag-input-list">
-                                {Array.isArray(inputList) &&
-                                    inputList.map((item: any) => {
-                                        return (
-                                            <li className="list-item" key={item}>
-                                                {item}
-                                                <span onClick={() => handleDeleteItem(item)} className="item-icon">
-                                                    x
-                                                </span>
-                                            </li>
-                                        );
-                                    })}
-                            </ul>
-                            <div className="tag-input-control">
+            <div className={`adou-tag-input-wrapper`} style={{ ...wrapperStyle, ...(wrapperWidth ? { width: wrapperWidth } : { flex: 1 }) }}>
+                <div className="adou-tag-input-form-content">
+                    <div
+                        className={`adou-tag-input form-control d-flex align-items-center ${isHighlighted ? 'focus' : ''}`}
+                        style={{
+                            minHeight: size === 'lg' ? '48px' : '40px',
+                            ...formStyle,
+                        }}
+                        onMouseEnter={handleMouseEnter}
+                        onMouseLeave={handleMouseLeave}
+                        onClick={handleClickFormControl}
+                    >
+                        <ul className="adou-tag-input-list">
+                            {Array.isArray(inputList) &&
+                                inputList.map((item: any) => {
+                                    return (
+                                        <li className="list-item" key={item}>
+                                            {item}
+                                            <span onClick={() => handleDeleteItem(item)} className="item-icon">
+                                                x
+                                            </span>
+                                        </li>
+                                    );
+                                })}
+
+                            <div className="adou-tag-input-control d-flex" style={{ minWidth: '40px', flex: 1 }}>
                                 <input
                                     readOnly={readOnly}
                                     ref={inputRef}
@@ -189,11 +210,22 @@ const TagInput = React.forwardRef(
                                     className="input"
                                 ></input>
                             </div>
-                        </div>
-                        {suffixContent && <div className={`${suffixContentType === 'button' ? 'suffix-content-btn-wrapper px-2' : 'ms-2'}`}>{suffixContent}</div>}
+                        </ul>
+                        {clearable && isEnter && inputList.length ? (
+                            <div className="adou-input-clear-icon-box fade-enter">
+                                <i
+                                    className="adou-input-clear-icon fa-regular fa-circle-xmark text-secondary"
+                                    style={{ fontSize: '12px', cursor: 'pointer' }}
+                                    onClick={handleClearIconClick}
+                                ></i>
+                            </div>
+                        ) : (
+                            <div className="adou-input-common-sufiix-content text-secondary">{commonSuffixContent}</div>
+                        )}
                     </div>
-                    {commonSuffixIcon && <i onClick={handleClickCommonSuffixIcon} className={`${commonSuffixIcon} common-suffix-icon ms-2`}></i>}
+                    {suffixContent && <div className={`${suffixContentType === 'button' ? 'suffix-content-btn-wrapper px-2' : 'ms-2'}`}>{suffixContent}</div>}
                 </div>
+                {commonSuffixIcon && <i onClick={handleClickCommonSuffixIcon} className={`${commonSuffixIcon} common-suffix-icon ms-2`}></i>}
 
                 {/* 实现点击后高亮，div必须加上 form-control，这个类名会空值高亮以动画效果出现。并且 focus类名必须动态添加 */}
                 {error && required && (

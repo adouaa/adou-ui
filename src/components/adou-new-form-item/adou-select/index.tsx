@@ -8,6 +8,12 @@ import useClickOutside from 'hooks/useClickOutside';
 import Tooltip from 'components/adou-tooltip';
 
 export interface SelectProps {
+    wrapperStyle?: React.CSSProperties;
+    wrapperWidth?: any;
+    commonSuffixContent?: string;
+    clearable?: boolean;
+    isAddon?: boolean;
+    formStyle?: React.CSSProperties;
     selectValueMaxWidth?: any;
     errorPaddingLeft?: any;
     suffixContentExternalCls?: string;
@@ -39,17 +45,26 @@ export interface SelectProps {
     defaultValue?: any;
     options: any[];
     placeholder?: string;
-    size?: 'sm' | 'lg';
+    size?: 'sm' | 'lg' | 'default';
     externalClassName?: string;
     readOnly?: boolean;
     transparent?: boolean;
     optionContentMaxHeight?: string;
     onChange?: (e?: any, ...args: any) => void;
     onFormDataChange?: (key: string, value: any) => void;
+    onFieldChange?: (data: any) => void;
+    onValidateField?: (data?: any) => void;
 }
 
 const Select = React.forwardRef((props: SelectProps, ref) => {
     const {
+        wrapperWidth,
+        commonSuffixContent,
+        size,
+        clearable = true,
+        isAddon,
+        wrapperStyle,
+        formStyle,
         selectValueMaxWidth,
         errorPaddingLeft,
         suffixContentExternalCls,
@@ -58,7 +73,7 @@ const Select = React.forwardRef((props: SelectProps, ref) => {
         noWrap = true,
         shouldFocus = false,
         activeColor = { font: '#fff', bgc: '#2783d8' },
-        returnType = 'obj',
+        returnType = 'str',
         showDefaultValue = false,
         labelKey = 'label',
         valueKey = 'value',
@@ -87,10 +102,13 @@ const Select = React.forwardRef((props: SelectProps, ref) => {
         optionContentMaxHeight = '200px',
         onChange,
         onFormDataChange,
+        onFieldChange,
+        onValidateField,
     } = props;
 
     const [isShow, setIsShow] = useState<boolean>(false);
     const [closing, setClosing] = useState<boolean>(false);
+    const [isEnter, setIsEnter] = useState<boolean>(false);
 
     // const { isShow, selectWrapperRef, handleClose } = useClickOutside();
 
@@ -114,20 +132,22 @@ const Select = React.forwardRef((props: SelectProps, ref) => {
                 setClosing(false);
                 setIsShow((prev: boolean) => !prev);
             }, 100);
+            setIsEnter(false);
         } else {
             setIsShow((prev: boolean) => !prev);
         }
     };
 
-    const handleDivClick = (e: any) => {
+    const handleValidate = (data?: any) => {
+        onValidateField && onValidateField(data);
+    };
+
+    const handleFormContentClick = (e: any) => {
         e.stopPropagation();
         if (readOnly) return;
         const position = getAbsolutePosition(customSelectRef.current, 0, 0);
         setCustomSelectContentPosition(position);
-        if (!isDropdownOpen) {
-            handleClose();
-            setIsDropdownOpen(true);
-        }
+        handleClose();
     };
 
     const handleSelect = (item: any) => {
@@ -139,8 +159,10 @@ const Select = React.forwardRef((props: SelectProps, ref) => {
         setIsDropdownOpen(false);
         // 新增onFormDataChange来修改外部传入的数据
         onFormDataChange && onFormDataChange(name!, returnValue);
+        onFieldChange && onFieldChange(returnValue);
 
         setError(false);
+        handleValidate(item);
     };
 
     useEffect(() => {
@@ -200,8 +222,10 @@ const Select = React.forwardRef((props: SelectProps, ref) => {
             // 感觉可有可无
             if (returnType === 'obj') {
                 onFormDataChange && onFormDataChange(name!, value);
+                onFieldChange && onFieldChange(value);
             } else {
                 onFormDataChange && onFormDataChange(name!, value[valueKey] || value[labelKey]);
+                onFieldChange && onFieldChange(value[valueKey] || value[labelKey]);
             }
             return value[valueKey] || value[labelKey];
         } else {
@@ -226,9 +250,14 @@ const Select = React.forwardRef((props: SelectProps, ref) => {
         setValue('');
     };
 
-    const handleClickCommonSuffixIcon = () => {
+    const handleClickCommonSuffixIcon = () => {};
+
+    const handleClearIconClick = (e: React.MouseEvent<HTMLDivElement>) => {
+        e.stopPropagation();
         clear();
         setError(true);
+        onFieldChange?.(returnType === 'str' ? '' : {});
+        handleValidate('');
     };
 
     useImperativeHandle(ref, () => ({
@@ -237,7 +266,7 @@ const Select = React.forwardRef((props: SelectProps, ref) => {
         getValue,
     }));
 
-    const wrapperClassName = `select-wrapper ${!error && isFormItem && 'mb-3'} ${externalClassName || ''}`.trim();
+    const wrapperClassName = `adou-select-wrapper ${externalClassName || ''}`.trim();
 
     // 全部都 通过 KeyDown来关闭下拉列表项
     const handleKeyDown = (event: React.KeyboardEvent<HTMLDivElement>) => {
@@ -273,6 +302,14 @@ const Select = React.forwardRef((props: SelectProps, ref) => {
         setIsDropdownOpen(true);
     };
 
+    const handleMouseEnter = () => {
+        setIsEnter(true);
+    };
+
+    const handleMouseLeave = () => {
+        setIsEnter(false);
+    };
+
     useEffect(() => {
         if (!isShow) {
             setIsDropdownOpen(false);
@@ -289,145 +326,120 @@ const Select = React.forwardRef((props: SelectProps, ref) => {
             tabIndex={0}
             ref={selectWrapperRef}
             className={`${wrapperClassName} `}
-            style={{
-                width,
-                ...(inline && !width ? { flex: 1, marginRight: '15px' } : {}),
-            }}
+            style={{ ...wrapperStyle, ...(wrapperWidth ? { width: wrapperWidth } : { flex: 1 }) }}
         >
-            <select style={{ display: 'none' }} name={name}>
+            {/*   <select style={{ display: 'none' }} name={name}>
                 <option value={value?.[valueKey]}>{value?.[labelKey]}</option>
-            </select>
+            </select> */}
             {/* inputGroup风格 */}
-            {inputGroup ? (
-                <div className="input-group">
-                    <label className="input-group-text" htmlFor="inputGroupSelect01">
-                        {label}
-                    </label>
-                    <select onBlur={validate} onChange={handleSelectChange} value={value?.[valueKey]} disabled={readOnly} className="form-select" id="inputGroupSelect01">
-                        {newOptions?.map((option: any) => (
-                            <option key={option[valueKey]} value={option[valueKey]}>
-                                {option[labelKey]}
-                            </option>
-                        ))}
-                    </select>
-                    {commonSuffixIcon && <i onClick={handleClickCommonSuffixIcon} className={`${commonSuffixIcon} common-suffix-icon ms-2`}></i>}
-                </div>
-            ) : (
-                <div onBlur={validate} className={`content-box label-in-${labelPosition} ${labelPosition === 'top' && inline ? 'me-2' : ''}`}>
-                    {showLabel && label && (
-                        <span
-                            className="label-box"
-                            style={{
-                                color: labelColor,
-                                width: labelWidth,
-                                flexWrap: 'nowrap',
-                                alignItems: labelPosition === 'left-top' ? 'start' : 'center',
-                                ...(labelPosition !== 'top' && { display: 'flex' }),
-                                ...(noWrap && { whiteSpace: 'nowrap' }),
-                                ...(labelMinWidth && { labelMinWidth }),
-                            }}
-                        >
-                            {label}
+            <div className="adou-select-form-content">
+                <div
+                    ref={customSelectRef}
+                    onMouseEnter={handleMouseEnter}
+                    onMouseLeave={handleMouseLeave}
+                    onClick={(e: any) => handleFormContentClick(e)}
+                    className={`adou-select d-flex align-items-center form-control ${selectContentExternalCls || ''}`}
+                    style={{
+                        textAlign: 'left',
+                        background: transparent ? 'transparent' : readOnly ? '#eee' : '#fff',
+                        flex: 1,
+                        ...(suffixContentType === 'button'
+                            ? {
+                                  borderTopRightRadius: 0,
+                                  borderBottomRightRadius: 0,
+                                  // borderRight: "none",
+                              }
+                            : {}),
+                        height: size === 'lg' ? '48px' : size === 'sm' ? '31px' : '40px',
+
+                        ...formStyle,
+                    }}
+                >
+                    {value?.[valueKey] || value?.[valueKey] === 0 || value?.[valueKey] === false ? (
+                        selectValueMaxWidth ? (
+                            <Tooltip text={value?.[labelKey]}>
+                                <span className="adou-select-value ellipsis-1" style={{ maxWidth: selectValueMaxWidth, flex: 1 }}>
+                                    {value[labelKey]}
+                                </span>
+                            </Tooltip>
+                        ) : (
+                            <span className="adou-select-value" style={{ flex: 1 }}>
+                                {value[labelKey]}
+                            </span>
+                        )
+                    ) : (
+                        <span className="adou-select-placeholder text-secondary" style={{ flex: 1 }}>
+                            {placeholder}
                         </span>
                     )}
-                    <div className="select-form-content">
-                        <div
-                            ref={customSelectRef}
-                            onClick={(e: any) => handleDivClick(e)}
-                            className={`select-content form-control ${selectContentExternalCls || ''}`}
-                            style={{
-                                textAlign: 'left',
-                                background: transparent ? 'transparent' : readOnly ? '#eee' : '#fff',
-                                flex: 1,
-                                ...(suffixContentType === 'button'
-                                    ? {
-                                          borderTopRightRadius: 0,
-                                          borderBottomRightRadius: 0,
-                                          // borderRight: "none",
-                                      }
-                                    : {}),
-                            }}
-                        >
-                            {value?.[valueKey] || value?.[valueKey] === 0 || value?.[valueKey] === false ? (
-                                selectValueMaxWidth ? (
-                                    <Tooltip text={value?.[labelKey]}>
-                                        <span className="select-value ellipsis-1" style={{ maxWidth: selectValueMaxWidth }}>
-                                            {value[labelKey]}
-                                        </span>
-                                    </Tooltip>
-                                ) : (
-                                    <span className="select-value">{value[labelKey]}</span>
-                                )
-                            ) : (
-                                <span className="select-placeholder">{placeholder}</span>
-                            )}
-                            {<i style={{ color: labelColor }} className={`icon fa-solid fa-caret-right ${isShow ? 'rotate-up' : 'rotate-down'}`}></i>}
-                        </div>
-                        {suffixContent && (
-                            <div
-                                className={`${
-                                    suffixContentType === 'button' ? 'suffix-content-btn-wrapper px-2' : 'suffix-content-text-wrapper ms-2'
-                                } ${suffixContentExternalCls || ''}`}
-                            >
-                                {suffixContent}
-                            </div>
-                        )}
-                    </div>
-                    {commonSuffixIcon && <i onClick={handleClickCommonSuffixIcon} className={`${commonSuffixIcon} common-suffix-icon ms-2`}></i>}
 
-                    {ReactDOM.createPortal(
-                        <div
-                            style={{
-                                position: 'absolute',
-                                top: customSelectContentPosition.y + customSelectContentPosition.height + 'px',
-                                left: customSelectContentPosition.x + 'px',
-                                ...(isShow
-                                    ? {
-                                          maxHeight: calcMaxHeight > parseInt(optionContentMaxHeight!) ? optionContentMaxHeight : calcMaxHeight + 'px',
-                                      }
-                                    : {}),
-                                ...(closing ? { opacity: 0, transform: 'scaleY(0)' } : {}),
-                            }}
-                            ref={contentRef}
-                            className={`select-option-content ${isShow ? 'select-option-content-open' : ''} ${closing ? 'select-option-content-closing' : ''}`}
-                        >
-                            {isShow && (
-                                <div className={`option-box`}>
-                                    {newOptions.length > 0 ? (
-                                        newOptions.map((item, index) => (
-                                            <div
-                                                onClick={() => handleSelect(item)}
-                                                style={{
-                                                    color: value?.[valueKey] === item[valueKey] ? activeColor.font : '#000',
-                                                    backgroundColor: value?.[valueKey] === item[valueKey] ? activeColor.bgc : '',
-                                                }}
-                                                className={`select-option ${
-                                                    value?.[valueKey] === item[valueKey] ? 'select-option-active' : ''
-                                                } ${focusedIndex === index ? 'focused' : ''}`}
-                                                key={item[valueKey]}
-                                            >
-                                                {item[labelKey]}
-                                            </div>
-                                        ))
-                                    ) : (
-                                        <div className="none-match ps-2">No content</div>
-                                    )}
-                                </div>
-                            )}
-                        </div>,
-                        document.body
+                    {clearable && isEnter && value ? (
+                        <div className="adou-select-clear-icon-box fade-enter d-flex">
+                            <i
+                                className="adou-select-clear-icon fa-regular fa-circle-xmark text-secondary"
+                                style={{ fontSize: '12px', cursor: 'pointer' }}
+                                onClick={handleClearIconClick}
+                            ></i>
+                        </div>
+                    ) : (
+                        <div className="adou-retrieve-select-common-sufiix-content text-secondary" style={{ textAlign: 'right' }}>
+                            {commonSuffixContent}
+                        </div>
                     )}
+                    {commonSuffixIcon && <i onClick={handleClickCommonSuffixIcon} className={`${commonSuffixIcon} adou-select-common-suffix-icon`}></i>}
+                    <div className="adou-select-icon-box ms-2">
+                        <i
+                            style={{ color: labelColor, right: isAddon ? '0px' : '14px' }}
+                            className={`adou-select-icon fa-solid fa-caret-right ${isShow ? 'rotate-up' : 'rotate-down'}`}
+                        ></i>
+                    </div>
                 </div>
-            )}
-            {error && required && (
+                {/* {suffixContent && (
+                    <div className={`${suffixContentType === 'button' ? 'suffix-content-btn-wrapper px-2' : 'suffix-content-text-wrapper ms-2'} ${suffixContentExternalCls || ''}`}>
+                        {suffixContent}
+                    </div>
+                )} */}
+            </div>
+
+            {ReactDOM.createPortal(
                 <div
-                    className="animate__animated animate__fadeIn mb-1"
                     style={{
-                        color: '#DC3545',
-                        fontSize: '14px',
-                        paddingLeft: errorPaddingLeft ? errorPaddingLeft : parseInt(labelWidth) > 120 ? '120px' : parseInt(labelWidth) + 20 + 'px',
+                        position: 'absolute',
+                        top: customSelectContentPosition.y + customSelectContentPosition.height + 'px',
+                        left: customSelectContentPosition.x + 'px',
+                        ...(isShow
+                            ? {
+                                  maxHeight: calcMaxHeight > parseInt(optionContentMaxHeight!) ? optionContentMaxHeight : calcMaxHeight + 'px',
+                              }
+                            : {}),
+                        ...(closing ? { opacity: 0, transform: 'scaleY(0)' } : {}),
                     }}
-                >{`${errMsg || `${label || name}不能为空`}`}</div>
+                    ref={contentRef}
+                    className={`adou-select-option-content ${isShow ? 'adou-select-option-content-open' : ''} ${closing ? 'aduo-select-option-content-closing' : ''}`}
+                >
+                    {isShow && (
+                        <div className={`adou-select-option-box`}>
+                            {newOptions.length > 0 ? (
+                                newOptions.map((item, index) => (
+                                    <div
+                                        onClick={() => handleSelect(item)}
+                                        style={{
+                                            color: value?.[valueKey] === item[valueKey] ? activeColor.font : '#000',
+                                            backgroundColor: value?.[valueKey] === item[valueKey] ? activeColor.bgc : '',
+                                        }}
+                                        className={`adou-select-option ${value?.[valueKey] === item[valueKey] ? 'adou-select-option-active' : ''} ${focusedIndex === index ? 'focused' : ''}`}
+                                        key={item[valueKey]}
+                                    >
+                                        {item[labelKey]}
+                                    </div>
+                                ))
+                            ) : (
+                                <div className="none-match ps-2">No content</div>
+                            )}
+                        </div>
+                    )}
+                </div>,
+                document.body
             )}
         </div>
     );

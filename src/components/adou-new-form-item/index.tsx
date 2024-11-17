@@ -1,8 +1,17 @@
 import { forwardRef, useEffect, useImperativeHandle, useRef, useState } from 'react';
 import React from 'react';
+import FormItem from './adou-form-item';
 
 interface FormProps {
-    onSubmit?: () => void;
+    commonRules?: any;
+    form?: any;
+    commonFormItemWrapperWidth?: any;
+    commonWrapperWidth?: any;
+    clearable?: boolean;
+    size?: 'lg' | 'default' | 'sm';
+    labelWidth?: any;
+    layout?: 'horizontal' | 'horizontal-top' | 'vertical' | 'inline';
+    // 以上是新增的属性
     oneLine?: boolean;
     data?: any;
     children?: any;
@@ -13,11 +22,25 @@ interface FormProps {
     inline?: boolean;
     labelPosition?: 'center' | 'top' | 'left-top';
     onFormDataChange?: (key: string, value: any) => void;
+    onSubmit?: () => void;
+}
+
+// 新增一个接口来扩展 Form 组件类型，使其包含 Item 属性
+interface ExtendedForm extends React.ForwardRefExoticComponent<FormProps & React.RefAttributes<unknown>> {
+    Item: React.ComponentType<any>;
 }
 
 const Form = forwardRef(
     (
         {
+            commonRules,
+            form,
+            commonFormItemWrapperWidth,
+            commonWrapperWidth,
+            clearable = true,
+            size,
+            labelWidth,
+            layout,
             oneLine = false,
             data,
             labelPosition,
@@ -25,7 +48,7 @@ const Form = forwardRef(
             inline,
             required,
             children,
-            eachWordWidth = 21,
+            eachWordWidth = 22,
             commonSuffixIcon = '',
             onFormDataChange,
             onSubmit,
@@ -36,12 +59,24 @@ const Form = forwardRef(
 
         const formRef = useRef<any>(null);
 
-        const handleChangeData = (key: string, value: any) => {
+        // 存放 FormItem 的 refs
+        const formItemRefs = useRef<{ [key: string]: React.MutableRefObject<any> }>({});
+
+        /* const handleChangeData = (key: string, value: any) => {
             setFormData((prevData: any) => ({
                 ...prevData,
                 [key]: value,
             }));
             onFormDataChange && onFormDataChange(key, value);
+        }; */
+
+        const validate = () => {
+            for (const key in formItemRefs.current) {
+                const formItemRef = formItemRefs.current[key];
+                if (formItemRef.current) {
+                    formItemRef.current.validateField();
+                }
+            }
         };
 
         const getData = (needCheck: boolean = true) => {
@@ -51,6 +86,9 @@ const Form = forwardRef(
             }
 
             return formData;
+        };
+        const clearFormData = () => {
+            setFormData({});
         };
 
         const getFormData = (needCheck: boolean = true) => {
@@ -166,36 +204,45 @@ const Form = forwardRef(
             calcMaxLabelWidth();
             // 这个方法可行
             React.Children.map(children, (child) => {
-                if (!child?.props?.name) {
-                    renderChildren.push(child);
-                } else {
-                    const childRef = React.createRef<any>(); // 创建一个 ref
-                    // child.type 子元素自身（FormItem），检查其静态属性 displayName 是否满足条件
-                    const enhancedChildren = React.cloneElement(child, {
-                        key: child.props.name,
-                        ...(child.ref ? { ref: child.ref } : { ref: childRef }),
-                        labelWidth: maxLengthLabelWidth + 'px',
-                        commonSuffixIcon,
-                        isFormItem: !oneLine,
-                        ...(labelPosition ? { labelPosition } : {}), // 动态添加 required 属性
+                const props = child.props;
+                if (child.type.displayName !== 'FormItem') return; // 过滤掉不是 FormItem
+                const formItemRef = React.createRef<any>(); // 创建一个 ref
+                // child.type 子元素自身（FormItem），检查其静态属性 displayName 是否满足条件
+                const enhancedChildren = React.cloneElement(child, {
+                    labelWidth: labelWidth || maxLengthLabelWidth + 'px',
+                    key: props.name,
+                    // ref 稍后哦再做，可能子组件要用 React.ForwdRef() 来包裹
+                    ...(child.formItemRef ? { formItemRef: child.formItemRef } : { formItemRef }),
+                    4: maxLengthLabelWidth + 'px',
+                    commonSuffixIcon,
+                    isFormItem: !oneLine,
+                    ...(labelPosition ? { labelPosition } : {}), // 动态添加 required 属性
 
-                        ...(inline ? { inline: true } : {}), // 动态添加 required 属性
+                    ...(inline ? { inline: true } : {}), // 动态添加 required 属性
 
-                        ...(required ? { required: true } : {}), // 动态添加 required 属性
-                        labelColor,
-                        onFormDataChange: handleChangeData,
-                        defaultValue: data?.[child.props.name],
+                    ...(required ? { required: true } : {}), // 动态添加 required 属性
+                    labelColor,
+                    setFieldValue: form.setFieldValue, // 设置表单数据
+                    // onFormDataChange: handleChangeData,
+                    data: form.formData,
+                    // 注意：一个组件只能有一个 ref，要么外面提供ref手动处理，要么在 Form组件下统一提供ref
+                    // 可以自定义要不要在Form下给表单组件提供 ref
+                    // [`${props.name === "test-select" ? "" : "ref"}`]: childRef
+                    size,
+                    clearable,
 
-                        // 注意：一个组件只能有一个 ref，要么外面提供ref手动处理，要么在 Form组件下统一提供ref
-                        // 可以自定义要不要在Form下给表单组件提供 ref
-                        // [`${child.props.name === "test-select" ? "" : "ref"}`]: childRef
-                    });
-                    renderChildren.push(enhancedChildren);
-                    // 将子组件的 ref 存储到 childRefs 中
-                    // 如果子组件内部没有用 useImperativeHandle来暴露东西的话，chidRef.current就是null
-                    if (child.props.name) {
-                        childRefs.current[child.props.name] = child.ref ? child.ref : childRef;
-                    }
+                    layout,
+                    wrapperWidth: commonWrapperWidth,
+                    formItemWrapperWidth: commonFormItemWrapperWidth,
+                    rules: commonRules,
+                    ...props, // 为了不覆盖 FormItem 本来的 属性
+                });
+                renderChildren.push(enhancedChildren);
+                // 将子组件的 ref 存储到 childRefs 中
+                // 如果子组件内部没有用 useImperativeHandle来暴露东西的话，chidRef.current就是null
+                if (props.name) {
+                    // childRefs.current[props.name] = child.ref ? child.ref : childRef;
+                    formItemRefs.current[props.name] = child.formItemRef ? child.formItemRef : formItemRef;
                 }
             });
             return renderChildren;
@@ -207,6 +254,8 @@ const Form = forwardRef(
             getData,
             clearForm,
             validateForm,
+            clearFormData,
+            validate,
         }));
 
         useEffect(() => {
@@ -223,11 +272,13 @@ const Form = forwardRef(
         };
 
         return (
-            <div className={`adou-new-form-wrapper flex-wrap ${inline ? 'd-flex' : ''}`} ref={formRef} onKeyDown={handleKeyDown}>
+            <div className={`adou-new-form-wrapper flex-wrap ${layout === 'inline' ? 'd-flex' : ''}`} ref={formRef} onKeyDown={handleKeyDown}>
                 {renderChildren()}
             </div>
         );
     }
-);
+) as ExtendedForm;
+
+Form.Item = FormItem;
 
 export default Form;

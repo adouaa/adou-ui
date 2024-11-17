@@ -1,8 +1,12 @@
 import React, { forwardRef, useEffect, useRef, useState, useImperativeHandle } from 'react';
-import classNames from 'classnames';
 import './index.scss';
 
 export interface InputProps {
+    wrapperWidth?: any;
+    wrapperStyle?: React.CSSProperties;
+    commonSuffixContent?: string;
+    clearable?: boolean;
+    formStyle?: React.CSSProperties;
     suffixContentExternalClassName?: string;
     inputExternalClassName?: string;
     textEnd?: boolean;
@@ -20,7 +24,7 @@ export interface InputProps {
     required?: boolean;
     type?: 'text' | 'datetime-local' | 'date' | 'time' | 'number';
     defaultValue?: any;
-    size?: 'large' | 'middle' | 'small' | undefined;
+    size?: 'lg' | 'default' | 'sm';
     externalClassName?: string;
     prefixContent?: any;
     suffixContent?: any;
@@ -36,6 +40,8 @@ export interface InputProps {
     onChange?: (value: any, ...args: any) => void;
     onIconClick?: (value: string) => void;
     onFormDataChange?: (key: string, value: any) => void;
+    onFieldChange?: (data: any) => void;
+    onValidateField?: (data?: any) => void;
 }
 
 export interface InputRef {
@@ -44,6 +50,11 @@ export interface InputRef {
 
 const Input: React.ForwardRefRenderFunction<InputRef, InputProps> = (
     {
+        wrapperWidth,
+        wrapperStyle,
+        clearable = true,
+        commonSuffixContent,
+        formStyle,
         suffixContentExternalClassName,
         inputExternalClassName,
         textEnd,
@@ -77,16 +88,14 @@ const Input: React.ForwardRefRenderFunction<InputRef, InputProps> = (
         onChange,
         onIconClick,
         onFormDataChange,
+        onFieldChange,
+        onValidateField,
     },
     ref
 ) => {
     const inputRef = useRef<HTMLInputElement>(null);
     const [value, setValue] = useState(defaultValue ?? '');
-
-    const cls = classNames({
-        [`input-group-${size}`]: size,
-        [externalClassName as string]: externalClassName,
-    });
+    const [isEnter, setIsEnter] = useState<boolean>(false);
 
     const handleClick = (e: React.MouseEvent<HTMLInputElement, MouseEvent>, ...args: any) => {
         e.stopPropagation();
@@ -99,7 +108,7 @@ const Input: React.ForwardRefRenderFunction<InputRef, InputProps> = (
 
     const handleBlur = (e: React.FocusEvent<HTMLInputElement, Element>, ...args: any) => {
         onBlur && onBlur(e, ...args);
-        validate();
+        handleValidate(value);
     };
 
     const handleChange = (e: React.ChangeEvent<HTMLInputElement>, ...args: any) => {
@@ -108,6 +117,8 @@ const Input: React.ForwardRefRenderFunction<InputRef, InputProps> = (
         setValue(value);
         onChange && onChange(returnValue, ...args);
         onFormDataChange && onFormDataChange(name!, returnValue);
+        onFieldChange && onFieldChange(value);
+        handleValidate(value);
     };
 
     const handleIconClick = () => {
@@ -115,24 +126,29 @@ const Input: React.ForwardRefRenderFunction<InputRef, InputProps> = (
     };
 
     const [error, setError] = useState<boolean>(false);
-    const validate = () => {
-        if (!required) return true;
-        // Example validation logic, replace with your actual validation needs
-        if (value) {
-            setError(false);
-            return true;
-        } else {
-            setError(true);
-            return false;
-        }
+
+    const handleValidate = (data: any) => {
+        onValidateField && onValidateField(data);
     };
+
+    const validate = () => {};
     const clear = () => {
         setValue('');
     };
 
-    const handleClickCommonSuffixIcon = () => {
+    const handleMouseEnter = () => {
+        setIsEnter(true);
+    };
+
+    const handleMouseLeave = () => {
+        setIsEnter(false);
+    };
+
+    const handleClearIconClick = () => {
         clear();
-        if (required) setError(true);
+        onFieldChange?.('');
+        console.log('5: ', 5);
+        handleValidate('');
     };
 
     // Expose validate method via ref
@@ -160,89 +176,53 @@ const Input: React.ForwardRefRenderFunction<InputRef, InputProps> = (
 
     return (
         <div
-            className={`${cls} input-wrapper ${inputGroup ? '' : 'lable-in-control'} ${!error && isFormItem && 'mb-3'}`}
-            style={{
-                width,
-                ...(inline && !width ? { flex: 1, marginRight: '15px' } : {}),
-            }}
+            onMouseEnter={handleMouseEnter}
+            onMouseLeave={handleMouseLeave}
+            className="adou-input-wrapper position-relative"
+            style={{ ...wrapperStyle, ...(wrapperWidth ? { width: wrapperWidth } : { flex: 1 }) }}
         >
-            <div
-                ref={wrapeerRef}
-                className={`content-box icon-input ${inputGroup ? 'input-group' : ''} label-in-${labelPosition} ${labelPosition === 'top' && inline ? 'me-2' : ''}`}
-            >
-                {prefixContent && <span className="input-group-text">{prefixContent}</span>}
-                {label && (
-                    <span
-                        className="label-box"
-                        style={{
-                            color: labelColor,
-                            width: labelWidth,
-                            alignItems: labelPosition === 'left-top' ? 'start' : 'center',
-                            ...(labelPosition !== 'top' && { display: 'flex' }),
-                        }}
-                    >
-                        {label}
-                    </span>
-                )}
-                <div className="input-form-content">
-                    <input
-                        ref={inputRef}
-                        required={required}
-                        style={{
-                            borderRadius: '6px',
-                            borderTopLeftRadius: prefixContent ? 0 : '6px',
-                            borderBottomLeftRadius: prefixContent ? 0 : '6px',
-                            background: transparent ? 'transparent' : '#fff',
-                            flex: 1,
-                        }}
-                        step={1}
-                        name={name}
-                        value={value}
-                        readOnly={readOnly}
-                        placeholder={placeholder}
-                        onChange={handleChange}
-                        onBlur={(e) => handleBlur(e)}
-                        onFocus={(e) => handleFocus(e)}
-                        onClick={(e) => handleClick(e)}
-                        type={type}
-                        className={`form-control input pe-0 ${textEnd || type === 'number' ? 'text-end' : ''} ${
-                            suffixContent && suffixContentType === 'button' ? 'suffix-content-btn' : ''
-                        } ${inputExternalClassName || ''}`}
-                    />
-                    {suffixContent && (
-                        <div
-                            className={`${
-                                suffixContentType === 'button' ? 'suffix-content-btn-wrapper' : 'suffix-content-text-wrapper ms-1'
-                            } ${suffixContentExternalClassName || ''}`}
-                        >
-                            {suffixContent}
-                        </div>
-                    )}
+            <input
+                className={`form-control adou-input pe-0 ${textEnd || type === 'number' ? 'text-end' : ''} ${
+                    suffixContent && suffixContentType === 'button' ? 'suffix-content-btn' : ''
+                } ${inputExternalClassName || ''}`}
+                ref={inputRef}
+                required={required}
+                style={{
+                    flex: 1,
+                    height: size === 'lg' ? '48px' : size === 'sm' ? '31px' : '40px',
+                    ...formStyle,
+                    width,
+                }}
+                step={1}
+                name={name}
+                value={value}
+                readOnly={readOnly}
+                placeholder={placeholder}
+                onChange={handleChange}
+                onBlur={(e) => handleBlur(e)}
+                onFocus={(e) => handleFocus(e)}
+                onClick={(e) => handleClick(e)}
+                type={type}
+            />
+            {clearable && isEnter && value ? (
+                <div className="adou-input-clear-icon-box fade-enter" style={{ top: size === 'sm' ? '2px' : size === 'lg' ? ' 10px' : '6px' }}>
+                    <i
+                        className="adou-input-clear-icon fa-regular fa-circle-xmark text-secondary"
+                        style={{ fontSize: '12px', cursor: 'pointer' }}
+                        onClick={handleClearIconClick}
+                    ></i>
                 </div>
-
-                {commonSuffixIcon && <i onClick={handleClickCommonSuffixIcon} className={`${commonSuffixIcon} common-suffix-icon ms-2`}></i>}
-                {children && (
-                    <div onClick={handleIconClick} className="suffix-icon" style={{ right: commonSuffixIcon && '32px' }}>
-                        {children}
-                    </div>
-                )}
-            </div>
-            {error && required && (
+            ) : (
                 <div
-                    className="animate__animated animate__fadeIn mb-1"
-                    style={{
-                        color: '#DC3545',
-                        fontSize: '14px',
-                        paddingLeft: parseInt(labelWidth) > 120 ? '120px' : parseFloat(labelWidth) + 20 + 'px',
-                    }}
+                    className="adou-input-common-sufiix-content position-absolute text-secondary"
+                    style={{ right: '14px', top: size === 'sm' ? '14%' : size === 'lg' ? ' 26%' : '18%' }}
                 >
-                    {`${errMsg || `${label}不能为空`}`}
+                    {commonSuffixContent}
                 </div>
             )}
         </div>
     );
 };
-
 Input.displayName = 'Input';
 
 export default forwardRef(Input);

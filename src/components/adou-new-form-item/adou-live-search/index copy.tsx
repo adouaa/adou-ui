@@ -45,15 +45,12 @@ export interface SelectProps {
     onInputChange?: (e?: any, ...args: any) => void;
     onFormDataChange?: (key: string, value: any) => void;
     onFieldChange?: (data: any) => void;
-    onValidateField?: (data?: any) => void;
 }
 
 interface LiveSearchProps extends SelectProps {
     onLiveSearchChange?: (selectedOptions: any[]) => void;
     onDelete?: () => void;
 }
-
-// 传进来的 options 的每一项的 唯一标识 如果是数字的话，不能为 字符串，唯一标识最后是 数字的id
 
 const LiveSearch: React.FC<LiveSearchProps> = React.forwardRef((props: LiveSearchProps, ref) => {
     const {
@@ -98,7 +95,6 @@ const LiveSearch: React.FC<LiveSearchProps> = React.forwardRef((props: LiveSearc
         onDelete,
         onFormDataChange,
         onFieldChange,
-        onValidateField,
     } = props;
 
     const [isOpen, setisOpen] = useState<boolean>(false);
@@ -109,9 +105,7 @@ const LiveSearch: React.FC<LiveSearchProps> = React.forwardRef((props: LiveSearc
     const [focusedIndex, setFocusedIndex] = useState<number>(-1); // 新增状态，用于跟踪当前聚焦的选项
     const [inputValue, setInputValue] = useState<any>(''); // 用来存储输入框的值
     const [isEnter, setIsEnter] = useState<boolean>(false);
-
-    // 其实类似是 isFirst，第一次进来的时候要做一些操作。后面有空改成 value 配合 defaultValue 来实现会合理点
-    // const [isInput, setisInput] = useState<boolean>(false);
+    const [isFirst, setIsFirst] = useState<boolean>(true); // 第一次要根据 value来判断
 
     const retrieveInputRef = useRef<any>();
     const retrieveSelectWrapperFormControlRef = useRef<any>();
@@ -133,14 +127,9 @@ const LiveSearch: React.FC<LiveSearchProps> = React.forwardRef((props: LiveSearc
         }
     };
 
-    const handleValidate = (data?: any) => {
-        onValidateField && onValidateField(data);
-    };
-
     useClickOutside([liveSearchSelectRef, contentRef], handleClose, isOpen && contentRef.current);
     // currentSelectList 这玩意很有问题？
     const handleSelect = (option: any, e?: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
-        console.log('option: ', option);
         e?.stopPropagation();
         if (!option) return;
         const currentSelectList = optionList
@@ -168,7 +157,6 @@ const LiveSearch: React.FC<LiveSearchProps> = React.forwardRef((props: LiveSearc
         } else {
             setError(false);
             if (single) {
-                console.log('进啦: ');
                 setOptionList((preArr: any) => {
                     return preArr.map((item: any) => {
                         if (item[valueKey] === option[valueKey]) {
@@ -202,8 +190,7 @@ const LiveSearch: React.FC<LiveSearchProps> = React.forwardRef((props: LiveSearc
             // 这边在 改变表单数据的时候，直接赋值给表单 valueKey的值，而不是一个 对象
             onFormDataChange && onFormDataChange(name!, data[0]?.[valueKey]);
             onFieldChange && onFieldChange(data[0]?.[valueKey]);
-            handleValidate(data[0]?.[valueKey]);
-            console.log('data: ', data);
+
             setInputValue(data[0]?.[labelKey] || ''); // 记住 这边要给个 "" 兜底，不然会无法取消选择
         } else {
             const currentSelectedOptions = [...selectedOptions, option];
@@ -212,8 +199,8 @@ const LiveSearch: React.FC<LiveSearchProps> = React.forwardRef((props: LiveSearc
             onLiveSearchChange && onLiveSearchChange(data);
             onFormDataChange && onFormDataChange(name!, data);
             onFieldChange && onFieldChange(data);
-            handleValidate(data);
         }
+
         handleClose(true);
     };
 
@@ -233,7 +220,6 @@ const LiveSearch: React.FC<LiveSearchProps> = React.forwardRef((props: LiveSearc
             (item: any) => String(item[labelKey]).includes(value) // 刚好如果输入是空的，就会展示所有的
         );
         setOptionList(filterdOptions);
-        handleValidate(value);
     };
 
     const handleDeleteItem = (item: any) => {
@@ -298,7 +284,6 @@ const LiveSearch: React.FC<LiveSearchProps> = React.forwardRef((props: LiveSearc
         clear();
         if (required) setError(true);
         onFieldChange?.('');
-        handleValidate('');
     };
 
     useImperativeHandle(ref, () => ({
@@ -358,25 +343,25 @@ const LiveSearch: React.FC<LiveSearchProps> = React.forwardRef((props: LiveSearc
     };
 
     useEffect(() => {
-        console.log('1: ', defaultValue);
-
         if (defaultValue) {
+            setIsFirst(false);
             const convertedValue = typeof defaultValue === 'object' ? defaultValue?.[valueKey] : defaultValue;
             let arr: any[] = [];
             // 这边不能省略，不然会造成 选择已经被选中的数据的时候无法正确清除掉
-            originlOptions?.forEach((option: any) => {
-                (option[valueKey] === defaultValue || option[labelKey] === defaultValue) && arr.push(option);
+            originlOptions?.some((option: any) => {
+                isFirst ? (option[valueKey] === defaultValue || option[labelKey] === defaultValue) && arr.push(option) : option[labelKey] === convertedValue && arr.push(option);
+                return false;
             });
             setSelectedOptions(arr);
-
             setOptionList((preArr) => {
                 return preArr?.map((item) => ({
                     ...item,
-                    selected: convertedValue === item[valueKey] || convertedValue === item[labelKey],
+                    selected: isFirst ? convertedValue === item[valueKey] || convertedValue === item[labelKey] : convertedValue === item[labelKey],
                 }));
             });
+            console.log('arr: ', arr);
             const value = arr?.[0]?.[labelKey];
-            setInputValue(value ?? inputValue);
+            setInputValue(value);
         } else {
             setSelectedOptions([]);
             if (!defaultValue) {
@@ -412,6 +397,7 @@ const LiveSearch: React.FC<LiveSearchProps> = React.forwardRef((props: LiveSearc
             className={`adou-live-search-wrapper ${externalClassName}`}
             style={{ ...wrapperStyle, ...(wrapperWidth ? { width: wrapperWidth } : { flex: 1 }) }}
         >
+            f = {String(isFirst)}
             <div className="adou-live-search-form-content f-1">
                 <div
                     className={`adou-live-search form-control ${isHighlighted ? 'focus' : ''}`}
