@@ -134,7 +134,8 @@ const RetrievrSelect: React.FC<RetrieveSelectProps> = React.forwardRef((props: R
 
     useClickOutside([retrieveSelectWrapperFormControlRef, contentRef], handleClose, isOpen && contentRef.current);
 
-    const handleSelect = (option: any) => {
+    const handleSelect = (option: any, e?: React.MouseEvent) => {
+        e?.stopPropagation();
         if (!option) return;
         retrieveInputRef.current.value = '';
         const currentSelectList = optionList.filter((item: any) => item[valueKey] != option[valueKey]).filter((i: any) => i.selected);
@@ -199,6 +200,7 @@ const RetrievrSelect: React.FC<RetrieveSelectProps> = React.forwardRef((props: R
         setShowOptions(false);
         setIsOpen(false);
         setIsInputFocusing(false);
+        setIsHighlighted(false); // 手动取消高亮，没去调用 handleClose
 
         setFocusedIndex(-1);
     };
@@ -317,7 +319,7 @@ const RetrievrSelect: React.FC<RetrieveSelectProps> = React.forwardRef((props: R
     }));
 
     const judgeOptionsByAttribute = (arr: any, item: any) => {
-        arr.forEach((i: any) => {
+        arr?.forEach((i: any) => {
             if (i[valueKey] === item[valueKey]) {
                 i.selected = true;
             }
@@ -609,7 +611,7 @@ const RetrievrSelect: React.FC<RetrieveSelectProps> = React.forwardRef((props: R
                                             color: option.selected ? activeColor.font : '#000',
                                             backgroundColor: option.selected ? activeColor.bgc : '',
                                         }}
-                                        onClick={() => handleSelect(option)}
+                                        onClick={(e) => handleSelect(option, e)}
                                         className={`retrieve-select-option ${option.selected && 'retrieve-select-option-active'} ${
                                             focusedIndex === index && 'retrieve-select-option-focused'
                                         }`}

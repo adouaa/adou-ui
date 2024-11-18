@@ -108,6 +108,7 @@ const LiveSearch: React.FC<LiveSearchProps> = React.forwardRef((props: LiveSearc
         setisOpen(false);
         setShowOptions(false);
         setFocusedIndex(-1);
+        setIsHighlighted(false);
         if (isOpen && !isSelect) {
             validate();
         }
@@ -187,7 +188,7 @@ const LiveSearch: React.FC<LiveSearchProps> = React.forwardRef((props: LiveSearc
     };
 
     const handleInputClick = (e: any) => {
-        setIsHighlighted(true);
+        setIsHighlighted(!readOnly);
     };
 
     const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -223,7 +224,7 @@ const LiveSearch: React.FC<LiveSearchProps> = React.forwardRef((props: LiveSearc
     const handleWrapperClick = (e: any) => {
         if (readOnly) return;
         // retrieveInputRef.current && retrieveInputRef.current.focus();
-        setIsHighlighted(true);
+        setIsHighlighted(!readOnly);
         const position = getAbsolutePosition(retrieveSelectWrapperFormControlRef.current, 0, 0);
         setCustomSelectContentPosition(position);
         if (!isOpen) {
@@ -297,7 +298,7 @@ const LiveSearch: React.FC<LiveSearchProps> = React.forwardRef((props: LiveSearc
     });
 
     const handleFocus = (event: any) => {
-        setIsHighlighted(true);
+        setIsHighlighted(!readOnly);
         handleClose();
         const position = getAbsolutePosition(retrieveSelectWrapperFormControlRef.current, 0, 0);
         setCustomSelectContentPosition(position);
@@ -400,6 +401,7 @@ const LiveSearch: React.FC<LiveSearchProps> = React.forwardRef((props: LiveSearc
                                       // borderRight: "none",
                                   }
                                 : {}),
+                            background: readOnly ? '#eee' : '',
                         }}
                         ref={retrieveSelectWrapperFormControlRef}
                         tabIndex={0}
@@ -417,6 +419,9 @@ const LiveSearch: React.FC<LiveSearchProps> = React.forwardRef((props: LiveSearc
                                 readOnly={readOnly}
                                 type="text"
                                 className={`live-search-input ${type === 'number' ? 'text-end' : ''}`}
+                                style={{
+                                    background: readOnly ? '#eee' : '',
+                                }}
                                 aria-label="Username"
                                 aria-describedby="basic-addon1"
                             />
@@ -480,4 +485,5 @@ const LiveSearch: React.FC<LiveSearchProps> = React.forwardRef((props: LiveSearc
         </div>
     );
 });
+
 export default LiveSearch;

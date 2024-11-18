@@ -86,7 +86,7 @@ const Table = (props: TableProps) => {
         'mb-0': true,
     });
 
-    const [tabelData, setTableData] = useState([]);
+    const [tableData, setTableData] = useState([]);
 
     // 折叠的逻辑
     const handleCollapseClick = (row: any, rowIndex: number) => {
@@ -171,9 +171,9 @@ const Table = (props: TableProps) => {
                             })}
                     </tr>
                 </thead>
-                {tabelData.length > 0 ? (
+                {tableData.length > 0 ? (
                     <tbody className={`${divider ? 'table-group-divider' : ''}`}>
-                        {tabelData.map((data: any, rowIndex: number) => {
+                        {tableData.map((data: any, rowIndex: number) => {
                             return (
                                 <Fragment /* key={data[id]} */ key={rowIndex}>
                                     <tr
@@ -410,10 +410,11 @@ const Table = (props: TableProps) => {
                 return item;
             });
         });
-        setCheckedAll(areAllChecked(tabelData));
+        setCheckedAll(areAllChecked(tableData));
     };
 
     function areAllChecked(data: any[]): any {
+        if (!data.length || !data) return false;
         // 遍历数组中的每个对象
         return data?.every((item) => {
             // 检查当前对象的 `checked` 属性
@@ -446,7 +447,7 @@ const Table = (props: TableProps) => {
             });
         };
 
-        setTableData(updateCheckedState(tabelData) as any);
+        setTableData(updateCheckedState(tableData) as any);
     };
 
     const handleClearChecked = () => {
@@ -456,6 +457,10 @@ const Table = (props: TableProps) => {
                 return item;
             })
         );
+    };
+
+    const handleGetCheckedList = () => {
+        return tableData.filter((item: any) => item.checked);
     };
 
     useEffect(() => {
@@ -489,6 +494,7 @@ const Table = (props: TableProps) => {
 
     useImperativeHandle(tableRef, () => ({
         clearChecked: handleClearChecked,
+        getCheckedList: handleGetCheckedList,
     }));
 
     return (
@@ -497,7 +503,7 @@ const Table = (props: TableProps) => {
                 <table style={{ background: tableBgc, width }} className={cls}>
                     {renderCollapseChildren()}
                 </table>
-                {tabelData.length === 0 && <div className="text-center py-2">暂无数据~</div>}
+                {tableData.length === 0 && <div className="text-center py-2">暂无数据~</div>}
             </div>
         </>
     );
