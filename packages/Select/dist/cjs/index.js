@@ -8525,7 +8525,7 @@ const Select = /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_a
     className: "select-content form-control ".concat(selectContentExternalCls || ""),
     style: {
       textAlign: "left",
-      background: transparent ? "transparent" : readOnly ? "#eee" : "#fff",
+      background: transparent ? "transparent" : readOnly ? "#eee" : "",
       flex: 1,
       ...(suffixContentType === "button" ? {
         borderTopRightRadius: 0,

@@ -380,7 +380,7 @@ const Select = React.forwardRef((props: SelectProps, ref) => {
                   ? "transparent"
                   : readOnly
                   ? "#eee"
-                  : "#fff",
+                  : "",
                 flex: 1,
                 ...(suffixContentType === "button"
                   ? {

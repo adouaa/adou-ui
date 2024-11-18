@@ -140,7 +140,8 @@ const RetrievrSelect: React.FC<RetrieveSelectProps> = React.forwardRef(
       isOpen && contentRef.current
     );
 
-    const handleSelect = (option: any) => {
+    const handleSelect = (option: any, e?: React.MouseEvent) => {
+      e?.stopPropagation();
       if (!option) return;
       retrieveInputRef.current.value = "";
       const currentSelectList = optionList
@@ -214,6 +215,7 @@ const RetrievrSelect: React.FC<RetrieveSelectProps> = React.forwardRef(
       setShowOptions(false);
       setIsOpen(false);
       setIsInputFocusing(false);
+      setIsHighlighted(false); // 手动取消高亮，没去调用 handleClose
 
       setFocusedIndex(-1);
     };
@@ -274,16 +276,16 @@ const RetrievrSelect: React.FC<RetrieveSelectProps> = React.forwardRef(
       }
       // 为了适配通过tab键来定位聚焦，把这些点击的逻辑去掉
       /* if (!isOpen) {
-        toggleDropdown();
+      toggleDropdown();
 
-        // e.stopPropagation(); 这里不能加，否则会导致Select展开的时候点击RetrieveSelect无法关闭Select的选项
-        setTimeout(() => {
-          setShowOptions(true);
-        }, 10);
-      } else {
-        setShowOptions(false);
-        toggleDropdown();
-      } */
+      // e.stopPropagation(); 这里不能加，否则会导致Select展开的时候点击RetrieveSelect无法关闭Select的选项
+      setTimeout(() => {
+        setShowOptions(true);
+      }, 10);
+    } else {
+      setShowOptions(false);
+      toggleDropdown();
+    } */
     };
 
     const getValue = () => {
@@ -336,7 +338,7 @@ const RetrievrSelect: React.FC<RetrieveSelectProps> = React.forwardRef(
     }));
 
     const judgeOptionsByAttribute = (arr: any, item: any) => {
-      arr.forEach((i: any) => {
+      arr?.forEach((i: any) => {
         if (i[valueKey] === item[valueKey]) {
           i.selected = true;
         }
@@ -402,7 +404,6 @@ const RetrievrSelect: React.FC<RetrieveSelectProps> = React.forwardRef(
     };
 
     useEffect(() => {
-      console.log("defaultValue: ", defaultValue);
       let arr: any[] = [];
       if (single) {
         if (defaultValue) {
@@ -516,8 +517,8 @@ const RetrievrSelect: React.FC<RetrieveSelectProps> = React.forwardRef(
       setTempOptions(options);
       // 不应该有这个逻辑
       /* if (!isOpen) {
-        toggleDropdown();
-      } */
+      toggleDropdown();
+    } */
     }, [options]);
 
     return (
@@ -678,7 +679,7 @@ const RetrievrSelect: React.FC<RetrieveSelectProps> = React.forwardRef(
                         color: option.selected ? activeColor.font : "#000",
                         backgroundColor: option.selected ? activeColor.bgc : "",
                       }}
-                      onClick={() => handleSelect(option)}
+                      onClick={(e) => handleSelect(option, e)}
                       className={`retrieve-select-option ${
                         option.selected && "retrieve-select-option-active"
                       } ${

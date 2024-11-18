@@ -6186,22 +6186,22 @@ var Utils = __webpack_require__(36);
 const LiveSearch = /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().forwardRef((props, ref) => {
   const {
     type,
-    maxHeight = "300px",
+    maxHeight = '300px',
     activeColor = {
-      font: "#fff",
-      bgc: "#2783d8"
+      font: '#fff',
+      bgc: '#2783d8'
     },
-    returnType = "str",
+    returnType = 'str',
     showDefaultValue = true,
-    placeholder = "请输入",
+    placeholder = '请输入',
     isFormItem = true,
-    labelKey = "label",
-    valueKey = "value",
+    labelKey = 'label',
+    valueKey = 'value',
     inline,
     suffixContent,
-    suffixContentType = "button",
+    suffixContentType = 'button',
     contentWidth,
-    attribute = "value",
+    attribute = 'value',
     required,
     errMsg,
     labelWidth,
@@ -6209,7 +6209,7 @@ const LiveSearch = /*#__PURE__*/external_root_React_commonjs2_react_commonjs_rea
     width,
     label,
     labelColor,
-    labelPosition = "center",
+    labelPosition = 'center',
     inputGroup = false,
     single = true,
     name,
@@ -6230,7 +6230,7 @@ const LiveSearch = /*#__PURE__*/external_root_React_commonjs2_react_commonjs_rea
   const [selectedOptions, setSelectedOptions] = (0,external_root_React_commonjs2_react_commonjs_react_amd_react_.useState)([]);
   const [isHighlighted, setIsHighlighted] = (0,external_root_React_commonjs2_react_commonjs_react_amd_react_.useState)(false);
   const [focusedIndex, setFocusedIndex] = (0,external_root_React_commonjs2_react_commonjs_react_amd_react_.useState)(-1); // 新增状态，用于跟踪当前聚焦的选项
-  const [inputValue, setInputValue] = (0,external_root_React_commonjs2_react_commonjs_react_amd_react_.useState)(""); // 用来存储输入框的值
+  const [inputValue, setInputValue] = (0,external_root_React_commonjs2_react_commonjs_react_amd_react_.useState)(''); // 用来存储输入框的值
 
   const retrieveInputRef = (0,external_root_React_commonjs2_react_commonjs_react_amd_react_.useRef)();
   const retrieveSelectWrapperFormControlRef = (0,external_root_React_commonjs2_react_commonjs_react_amd_react_.useRef)();
@@ -6246,6 +6246,7 @@ const LiveSearch = /*#__PURE__*/external_root_React_commonjs2_react_commonjs_rea
     setisOpen(false);
     setShowOptions(false);
     setFocusedIndex(-1);
+    setIsHighlighted(false);
     if (isOpen && !isSelect) {
       validate();
     }
@@ -6273,7 +6274,7 @@ const LiveSearch = /*#__PURE__*/external_root_React_commonjs2_react_commonjs_rea
           });
         }
       }
-      setInputValue("");
+      setInputValue('');
     } else {
       setError(false);
       if (single) {
@@ -6304,13 +6305,13 @@ const LiveSearch = /*#__PURE__*/external_root_React_commonjs2_react_commonjs_rea
     if (single) {
       var _data$, _data$2, _data$3;
       const data = hasSelected ? [] : [option];
-      const returnData = returnType === "str" ? (_data$ = data[0]) === null || _data$ === void 0 ? void 0 : _data$[valueKey] : data[0];
+      const returnData = returnType === 'str' ? (_data$ = data[0]) === null || _data$ === void 0 ? void 0 : _data$[valueKey] : data[0];
       setSelectedOptions(data);
       // 这边在 返回数据的时候，根据 returnType 返回不同的数据类型
       onLiveSearchChange && onLiveSearchChange(hasSelected ? {} : returnData);
       // 这边在 改变表单数据的时候，直接赋值给表单 valueKey的值，而不是一个 对象
       onFormDataChange && onFormDataChange(name, (_data$2 = data[0]) === null || _data$2 === void 0 ? void 0 : _data$2[valueKey]);
-      setInputValue(((_data$3 = data[0]) === null || _data$3 === void 0 ? void 0 : _data$3[valueKey]) || ""); // 记住 这边要给个 "" 兜底，不然会无法取消选择
+      setInputValue(((_data$3 = data[0]) === null || _data$3 === void 0 ? void 0 : _data$3[valueKey]) || ''); // 记住 这边要给个 "" 兜底，不然会无法取消选择
     } else {
       const currentSelectedOptions = [...selectedOptions, option];
       const data = hasSelected ? selectedOptions.filter(item => item[valueKey] !== option[valueKey]) : currentSelectedOptions;
@@ -6321,7 +6322,7 @@ const LiveSearch = /*#__PURE__*/external_root_React_commonjs2_react_commonjs_rea
     handleClose(true);
   };
   const handleInputClick = e => {
-    setIsHighlighted(true);
+    setIsHighlighted(!readOnly);
   };
   const handleInputChange = e => {
     var _e$target, _e$target2;
@@ -6351,7 +6352,7 @@ const LiveSearch = /*#__PURE__*/external_root_React_commonjs2_react_commonjs_rea
   const handleWrapperClick = e => {
     if (readOnly) return;
     // retrieveInputRef.current && retrieveInputRef.current.focus();
-    setIsHighlighted(true);
+    setIsHighlighted(!readOnly);
     const position = (0,Utils.getAbsolutePosition)(retrieveSelectWrapperFormControlRef.current, 0, 0);
     setCustomSelectContentPosition(position);
     if (!isOpen) {
@@ -6374,7 +6375,7 @@ const LiveSearch = /*#__PURE__*/external_root_React_commonjs2_react_commonjs_rea
   };
   const [error, setError] = (0,external_root_React_commonjs2_react_commonjs_react_amd_react_.useState)(false);
   const validate = () => {
-    console.log("6: ", 6);
+    console.log('6: ', 6);
     if (!required) return true;
     if (selectedOptions.length || inputValue) {
       setError(false);
@@ -6409,12 +6410,12 @@ const LiveSearch = /*#__PURE__*/external_root_React_commonjs2_react_commonjs_rea
     setOptionList(arr);
   };
   const liveSearchSelectClasses = classnames_default()({
-    "mb-3": !error && isFormItem,
-    "live-search-select-wrapper": true,
+    'mb-3': !error && isFormItem,
+    'live-search-select-wrapper': true,
     [externalClassName]: externalClassName
   });
   const handleFocus = event => {
-    setIsHighlighted(true);
+    setIsHighlighted(!readOnly);
     handleClose();
     const position = (0,Utils.getAbsolutePosition)(retrieveSelectWrapperFormControlRef.current, 0, 0);
     setCustomSelectContentPosition(position);
@@ -6425,29 +6426,29 @@ const LiveSearch = /*#__PURE__*/external_root_React_commonjs2_react_commonjs_rea
 
   // 全部都 通过 KeyDown来关闭下拉列表项
   const handleKeyDown = event => {
-    if (event.key === "Tab") {
+    if (event.key === 'Tab') {
       // 当下拉项展开的时候进入这个回调，来关闭下拉项
       if (isOpen) {
         handleClose();
       }
       return; // 让焦点移动到下一个表单元素
-    } else if (event.key === "ArrowUp") {
+    } else if (event.key === 'ArrowUp') {
       event.preventDefault();
       setFocusedIndex(prevIndex => prevIndex <= 0 ? optionList.length - 1 : prevIndex - 1);
-    } else if (event.key === "ArrowDown") {
+    } else if (event.key === 'ArrowDown') {
       event.preventDefault();
       setFocusedIndex(prevIndex => prevIndex >= optionList.length - 1 ? 0 : prevIndex + 1);
-    } else if (event.key === "Enter") {
+    } else if (event.key === 'Enter') {
       handleClose();
       event.preventDefault();
       handleSelect(optionList === null || optionList === void 0 ? void 0 : optionList[focusedIndex]);
-    } else if (event.key === "Escape") {
+    } else if (event.key === 'Escape') {
       setShowOptions(false);
     }
   };
   (0,external_root_React_commonjs2_react_commonjs_react_amd_react_.useEffect)(() => {
     if (defaultValue) {
-      const convertedValue = typeof defaultValue === "object" ? defaultValue === null || defaultValue === void 0 ? void 0 : defaultValue[valueKey] : defaultValue;
+      const convertedValue = typeof defaultValue === 'object' ? defaultValue === null || defaultValue === void 0 ? void 0 : defaultValue[valueKey] : defaultValue;
       let arr = [];
       // 这边不能省略，不然会造成 选择已经被选中的数据的时候无法正确清除掉
       originlOptions === null || originlOptions === void 0 || originlOptions.some(option => {
@@ -6465,7 +6466,7 @@ const LiveSearch = /*#__PURE__*/external_root_React_commonjs2_react_commonjs_rea
     } else {
       setSelectedOptions([]);
       if (!defaultValue) {
-        setInputValue("");
+        setInputValue('');
       } // 默认值如果为undefined / null / 0的话，需要手动置为 ""，不能只判断为undefined的情况
     }
     if (defaultValue) {
@@ -6495,13 +6496,13 @@ const LiveSearch = /*#__PURE__*/external_root_React_commonjs2_react_commonjs_rea
       width,
       ...(inline && !width ? {
         flex: 1,
-        marginRight: "15px"
+        marginRight: '15px'
       } : {})
     }
   }, /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("div", {
-    className: "content-box ".concat(inputGroup ? "inputGroup" : "label-in-".concat(labelPosition), " ").concat(labelPosition === "top" && inline ? "me-2" : "")
+    className: "content-box ".concat(inputGroup ? 'inputGroup' : "label-in-".concat(labelPosition), " ").concat(labelPosition === 'top' && inline ? 'me-2' : '')
   }, /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("span", {
-    className: "label-box ".concat(inputGroup ? "input-group-text" : ""),
+    className: "label-box ".concat(inputGroup ? 'input-group-text' : ''),
     style: {
       color: labelColor,
       width: labelWidth
@@ -6510,19 +6511,20 @@ const LiveSearch = /*#__PURE__*/external_root_React_commonjs2_react_commonjs_rea
     className: "live-search-form-content f-1"
   }, /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("div", {
     style: {
-      display: "flex",
-      flexWrap: "wrap",
-      ...(suffixContent && suffixContentType === "button" ? {
+      display: 'flex',
+      flexWrap: 'wrap',
+      ...(suffixContent && suffixContentType === 'button' ? {
         borderTopRightRadius: 0,
         borderBottomRightRadius: 0
         // borderRight: "none",
-      } : {})
+      } : {}),
+      background: readOnly ? '#eee' : ''
     },
     ref: retrieveSelectWrapperFormControlRef,
     tabIndex: 0,
     onBlur: handleBlur,
     onClick: handleWrapperClick,
-    className: "select-list-box form-control ".concat(isHighlighted ? "focus" : "")
+    className: "select-list-box form-control ".concat(isHighlighted ? 'focus' : '')
   }, /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("div", {
     className: "input-control"
   }, /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("input", {
@@ -6533,7 +6535,10 @@ const LiveSearch = /*#__PURE__*/external_root_React_commonjs2_react_commonjs_rea
     onClick: handleInputClick,
     readOnly: readOnly,
     type: "text",
-    className: "live-search-input ".concat(type === "number" ? "text-end" : ""),
+    className: "live-search-input ".concat(type === 'number' ? 'text-end' : ''),
+    style: {
+      background: readOnly ? '#eee' : ''
+    },
     "aria-label": "Username",
     "aria-describedby": "basic-addon1"
   })), /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("div", {
@@ -6541,7 +6546,7 @@ const LiveSearch = /*#__PURE__*/external_root_React_commonjs2_react_commonjs_rea
   }, /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("i", {
     className: "icon small text-secondary fa-solid fa-magnifying-glass"
   }))), suffixContent && /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("div", {
-    className: "".concat(suffixContentType === "button" ? "suffix-content-btn-wrapper" : "ms-1")
+    className: "".concat(suffixContentType === 'button' ? 'suffix-content-btn-wrapper' : 'ms-1')
   }, suffixContent)), commonSuffixIcon && /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("i", {
     onClick: handleClickCommonSuffixIcon,
     className: "".concat(commonSuffixIcon, " common-suffix-icon ms-2")
@@ -6549,30 +6554,30 @@ const LiveSearch = /*#__PURE__*/external_root_React_commonjs2_react_commonjs_rea
     ref: contentRef,
     style: {
       width: contentWidth,
-      position: "absolute",
-      top: customSelectContentPosition.y + customSelectContentPosition.height + "px",
-      left: customSelectContentPosition.x + "px",
+      position: 'absolute',
+      top: customSelectContentPosition.y + customSelectContentPosition.height + 'px',
+      left: customSelectContentPosition.x + 'px',
       maxHeight
     },
-    className: "live-search-select-content ".concat(showOptions ? "live-search-select-content-open" : "")
+    className: "live-search-select-content ".concat(showOptions ? 'live-search-select-content-open' : '')
   }, !readOnly && isOpen && ((optionList === null || optionList === void 0 ? void 0 : optionList.length) > 0 ? optionList === null || optionList === void 0 ? void 0 : optionList.map((option, index) => {
     return /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("div", {
       key: index,
       style: {
-        color: option.selected ? activeColor.font : "#000",
-        backgroundColor: option.selected ? activeColor.bgc : ""
+        color: option.selected ? activeColor.font : '#000',
+        backgroundColor: option.selected ? activeColor.bgc : ''
       },
       onClick: () => handleSelect(option),
-      className: "live-search-select-option ".concat(option.selected && "live-search-select-option-active", " ").concat(focusedIndex === index && "live-search-select-option-focused")
+      className: "live-search-select-option ".concat(option.selected && 'live-search-select-option-active', " ").concat(focusedIndex === index && 'live-search-select-option-focused')
     }, option[labelKey]);
   }) : /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("div", {
     className: "none-match ps-2 font-italic"
   }, "No content"))), document.body), error && required && /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("div", {
     className: "animate__animated animate__fadeIn mb-1",
     style: {
-      color: "#DC3545",
-      fontSize: "14px",
-      paddingLeft: parseInt(labelWidth) > 120 ? "120px" : parseFloat(labelWidth) + 20 + "px"
+      color: '#DC3545',
+      fontSize: '14px',
+      paddingLeft: parseInt(labelWidth) > 120 ? '120px' : parseFloat(labelWidth) + 20 + 'px'
     }
   }, "".concat(errMsg || "".concat(label, "\u4E0D\u80FD\u4E3A\u7A7A"))));
 });
