@@ -47,7 +47,7 @@ export interface SelectProps {
     single?: boolean;
     onInputChange?: (e?: any, ...args: any) => void;
     onFormDataChange?: (key: string, value: any) => void;
-    onFieldChange?: (data: any) => void;
+    onFieldChange?: (name: string, value: any) => void;
     onValidateField?: (data?: any) => void;
 }
 
@@ -124,6 +124,10 @@ const RetrievrSelect: React.FC<RetrieveSelectProps> = React.forwardRef((props: R
 
     const toggleDropdown = () => {
         setIsOpen((prev: boolean) => !prev);
+    };
+
+    const handleFieldChange = (value: any) => {
+        onFieldChange && onFieldChange(name!, value);
     };
 
     const handleValidate = (data?: any) => {
@@ -204,11 +208,11 @@ const RetrievrSelect: React.FC<RetrieveSelectProps> = React.forwardRef((props: R
             onRetrieveSelectChange && onRetrieveSelectChange(hasSelected ? {} : option);
             if (returnType === 'obj' || showDefaultValue) {
                 onFormDataChange && onFormDataChange(name!, data[0]);
-                onFieldChange && onFieldChange(data[0]);
+                handleFieldChange && handleFieldChange(data[0]);
                 onValidateField && onValidateField(data[0]);
             } else {
                 onFormDataChange && onFormDataChange(name!, data[0]?.[valueKey]);
-                onFieldChange && onFieldChange(data[0]?.[valueKey]);
+                handleFieldChange && handleFieldChange(data[0]?.[valueKey]);
                 onValidateField && onValidateField(data[0]?.[valueKey]);
             }
         } else {
@@ -217,7 +221,7 @@ const RetrievrSelect: React.FC<RetrieveSelectProps> = React.forwardRef((props: R
             setSelectedOptions(data);
             onRetrieveSelectChange && onRetrieveSelectChange(data);
             onFormDataChange && onFormDataChange(name!, data);
-            onFieldChange && onFieldChange(data[0]?.[valueKey]);
+            handleFieldChange && handleFieldChange(data[0]?.[valueKey]);
             onValidateField && onValidateField(data[0]?.[valueKey]);
         }
         setShowSelectedList(true);
@@ -331,7 +335,7 @@ const RetrievrSelect: React.FC<RetrieveSelectProps> = React.forwardRef((props: R
         e.stopPropagation();
         clear();
         if (required) setError(true);
-        onFieldChange?.(returnType === 'str' ? '' : {});
+        handleFieldChange?.(returnType === 'str' ? '' : {});
         retrieveInputRef.current.value = '';
         handleValidate('');
     };

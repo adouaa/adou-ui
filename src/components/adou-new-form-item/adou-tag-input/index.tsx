@@ -26,7 +26,8 @@ interface TagInputProps {
     labelColor?: string;
     defaultValue?: any;
     onChange?: (value: any) => void;
-    onFieldChange?: (data: any) => void;
+    onFieldChange?: (name: string, value: any) => void;
+    onValidateField?: (data?: any) => void;
 }
 
 const TagInput = React.forwardRef(
@@ -55,6 +56,7 @@ const TagInput = React.forwardRef(
             defaultValue,
             onChange,
             onFieldChange,
+            onValidateField,
         }: TagInputProps,
         ref
     ) => {
@@ -66,6 +68,14 @@ const TagInput = React.forwardRef(
 
         const [isEnter, setIsEnter] = useState<boolean>(false);
 
+        const handleFieldChange = (value: any) => {
+            onFieldChange && onFieldChange(name!, value);
+        };
+
+        const handleValidateField = (value?: any) => {
+            onValidateField && onValidateField(value);
+        };
+
         const addInput = () => {
             // 因为state是异步的，所以要把数据先处理好再使用
             const data = [...inputList, inputValue];
@@ -73,8 +83,9 @@ const TagInput = React.forwardRef(
             setInputValue('');
             // 把数据传回给父组件
             onChange && onChange(data);
-            onFieldChange && onFieldChange(data);
+            handleFieldChange && handleFieldChange(data);
             setError(false);
+            handleValidateField(data);
         };
 
         const handleInputChange = (e: any) => {
@@ -99,7 +110,7 @@ const TagInput = React.forwardRef(
             }
             setInputList(tagList);
             onChange && onChange(tagList);
-            onFieldChange?.(tagList);
+            handleFieldChange?.(tagList);
             // 注意，这边不能直接用 inputList给 formData赋值，会出现不一致的情况
         };
 
@@ -141,7 +152,8 @@ const TagInput = React.forwardRef(
         const handleClearIconClick = () => {
             clear();
             setError(true);
-            onFieldChange && onFieldChange('');
+            handleFieldChange && handleFieldChange('');
+            handleValidateField('');
         };
         const handleClickCommonSuffixIcon = () => {};
 

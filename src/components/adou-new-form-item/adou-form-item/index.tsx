@@ -1,15 +1,18 @@
 import { useState, useEffect, useRef, ReactNode, useImperativeHandle } from 'react';
-import { useParams } from 'react-router-dom';
 import React from 'react';
 import getAbsolutePosition from 'utils/getAbsolutePosition';
 import './index.scss';
+import isEmptyO from '../isEmptyO';
 
 interface FormItemProps {
-    wrap?: boolean;
+    contentWrapperWidth?: any;
+    wrapperStyle?: React.CSSProperties;
+    contentWrap?: boolean;
+    oneLine?: boolean;
+    labelWrap?: boolean;
     formItemRef?: any;
     rules?: any;
     setFieldValue?: any;
-    formItemWrapperWidth?: any;
     wrapperWidth?: any;
     data?: any;
     clearable?: boolean;
@@ -19,17 +22,19 @@ interface FormItemProps {
     layout?: 'horizontal' | 'horizontal-top' | 'vertical' | 'inline';
     addonBefore?: ReactNode | string | number;
     label?: string;
-    width?: any;
     name?: string;
     children?: ReactNode;
 }
 
 const FormItem = ({
-    wrap = false,
+    contentWrapperWidth,
+    wrapperStyle,
+    contentWrap = false,
+    oneLine,
+    labelWrap = false,
     formItemRef,
     rules,
     setFieldValue,
-    formItemWrapperWidth,
     wrapperWidth,
     data,
     clearable = true,
@@ -39,7 +44,6 @@ const FormItem = ({
     layout = 'horizontal',
     addonBefore,
     label,
-    width,
     name,
     children,
 }: FormItemProps) => {
@@ -64,46 +68,48 @@ const FormItem = ({
     // 统一处理 addonBefore
     let processedAddonBefore = addonBefore;
     /* if (React.isValidElement(addonBefore)) {
-        const props = addonBefore.props;
-        // 如果是 ReactNode（通过 isValidElement 判断是否为有效的 React 元素），添加 isaddon 属性
-        processedAddonBefore = React.cloneElement(addonBefore as any, { isaddon: 'true', formStyle: { background: 'transparent', border: 0 }, size, clearable, ...props });
-    }
- */
+          const props = addonBefore.props;
+          // 如果是 ReactNode（通过 isValidElement 判断是否为有效的 React 元素），添加 isaddon 属性
+          processedAddonBefore = React.cloneElement(addonBefore as any, { isaddon: 'true', formStyle: { background: 'transparent', border: 0 }, size, clearable, ...props });
+      }
+   */
     let processedAddonAfter = addonAfter;
     /* if (React.isValidElement(addonAfter)) {
-        const props = addonAfter.props;
-        // 如果是 ReactNode（通过 isValidElement 判断是否为有效的 React 元素），添加 isaddon 属性
-        processedAddonAfter = React.cloneElement(addonAfter as any, { isaddon: 'true', formStyle: { background: 'transparent', border: 0 }, size, clearable, ...props });
-    } */
+          const props = addonAfter.props;
+          // 如果是 ReactNode（通过 isValidElement 判断是否为有效的 React 元素），添加 isaddon 属性
+          processedAddonAfter = React.cloneElement(addonAfter as any, { isaddon: 'true', formStyle: { background: 'transparent', border: 0 }, size, clearable, ...props });
+      } */
 
-    const handleFieldChange = (value: any) => {
+    const handleFieldChange = (name: string, value: any) => {
         setFieldValue && setFieldValue({ [name!]: value });
     };
 
     // 由于使用 value = data[name]的话，会滞后一节拍，所以索性直接在调用 validateField 的时候，把 data 传入
-    const validateField = (value?: any) => {
-        if (!rules) return;
+    const validateField = (value?: any, isForm: boolean = false) => {
+        if (!rules) return true;
+        const validateValue = !isForm ? value : value || data[name!];
         for (const rule of rules) {
-            if (rule.required && (value === undefined || value === null || value === '')) {
+            if (rule.required && (validateValue === undefined || validateValue === null || validateValue === '' || isEmptyO(validateValue))) {
                 setIsError(true);
                 setErrorMessage(rule.message || 'This field is required');
-                break;
+                return false;
             } else {
                 setIsError(false);
                 setErrorMessage('');
             }
             if (rule.validator) {
-                const error = rule.validator(value);
+                const error = rule.validator(validateValue);
                 if (error) {
                     setIsError(true);
                     setErrorMessage(error.message || 'This field is invalid');
-                    break;
+                    return false;
                 } else {
                     setIsError(false);
                     setErrorMessage('');
                 }
             }
         }
+        return true;
     };
 
     const enhancedChildren = React.Children.map(children, (child: any, index: number) => {
@@ -111,11 +117,21 @@ const FormItem = ({
         const isChildrenArray = Array.isArray(children);
         const { formStyle: originalFormStyle } = props; // 获取原组件的 formStyle 属性
         const mergedFormStyle = {
-            ...(processedAddonBefore && { borderTopLeftRadius: 0, borderBottomLeftRadius: 0 }),
-            ...(processedAddonAfter && { borderTopRightRadius: 0, borderBottomRightRadius: 0 }),
+            ...(processedAddonBefore && {
+                borderTopLeftRadius: 0,
+                borderBottomLeftRadius: 0,
+            }),
+            ...(processedAddonAfter && {
+                borderTopRightRadius: 0,
+                borderBottomRightRadius: 0,
+            }),
             ...(index !== 0 && { borderLeft: 0 }),
             // 多个子组件时，并且没有 addon 的时候，要对样式做边框处理
-            ...(isChildrenArray && index !== children.length - 1 && { borderTopRightRadius: 0, borderBottomRightRadius: 0 }),
+            ...(isChildrenArray &&
+                index !== children.length - 1 && {
+                    borderTopRightRadius: 0,
+                    borderBottomRightRadius: 0,
+                }),
             ...(isChildrenArray && index !== 0 && { borderTopLeftRadius: 0, borderBottomLeftRadius: 0 }),
             ...originalFormStyle, // 合并原组件的 formStyle 属性
         };
@@ -126,7 +142,7 @@ const FormItem = ({
             clearable,
             formStyle: mergedFormStyle,
             defaultValue: data?.[props.name || name],
-            wrapperWidth,
+            wrapperWidth: contentWrapperWidth,
             onFieldChange: handleFieldChange,
             onValidateField: validateField,
             ...props,
@@ -139,6 +155,16 @@ const FormItem = ({
         setCustomSelectContentPosition(position);
     };
 
+    const generateWrapperCls = () => {
+        if (layout === 'horizontal' && !isError) {
+            return 'mb-3';
+        } else if (layout === 'inline' && oneLine) {
+            return 'mb-0';
+        } else {
+            return 'mb-3';
+        }
+    };
+
     useImperativeHandle(formItemRef, () => ({
         validateField,
     }));
@@ -148,19 +174,42 @@ const FormItem = ({
     }, [isError, errorMessage]);
 
     return (
-        <div className={`adou-form-item-wrapper ${layout === 'horizontal' && !isError ? 'mb-3' : ''}`} style={{ width: formItemWrapperWidth }}>
-            <div className={`adou-form-item-content ${judgeFormItemContentCls()} ${layout === 'vertical' ? 'mb-1' : !isError ? 'mb-3' : 'mb-1'}`}>
+        <div
+            className={`adou-form-item-wrapper ${generateWrapperCls()}`}
+            style={{
+                width: wrapperWidth,
+                ...wrapperStyle,
+            }}
+        >
+            {/*  ${
+            layout === "vertical" ? "mb-1" : !isError ? "mb-3" : "mb-1"
+          } */}
+            <div
+                className={`adou-form-item-content ${judgeFormItemContentCls()} ${isError ? 'border-danger' : ''} ${
+                    isError && layout !== 'horizontal-top' ? ' align-items-baseline' : ''
+                }`}
+            >
                 {label && (
-                    <div className={`adou-form-item-label-box ${layout === 'vertical' ? 'mb-1' : layout === 'horizontal' ? 'text-end pe-3' : ''}`} style={{ width: labelWidth }}>
-                        <span className="form-item-label-text" style={{ fontSize: '14px', whiteSpace: wrap ? 'wrap' : 'nowrap' }}>
+                    <div
+                        className={`adou-form-item-label-box text-end pe-3 position-relative ${rules && rules.length && rules.some((item: any) => item.required) ? 'required' : ''} ${layout === 'vertical' ? 'mb-1' : layout === 'horizontal' ? 'text-end pe-3' : ''}`}
+                        style={{ width: labelWidth }}
+                    >
+                        <span
+                            className="form-item-label-text"
+                            style={{
+                                fontSize: '14px',
+                                whiteSpace: labelWrap ? 'wrap' : 'nowrap',
+                            }}
+                        >
                             {label}
                         </span>
+                        {rules && rules.length && rules.some((item: any) => item.required) && <span className="form-item-label-text-required">*</span>}
                     </div>
                 )}
                 <div ref={adouFormRef} className="adou-form-box" style={{ flex: 1 }}>
                     <div className="adou-form-content">
                         {processedAddonBefore ? (
-                            <div className="input-group">
+                            <div className="input-group" style={{ flexWrap: contentWrap ? 'wrap' : 'nowrap' }}>
                                 <span className="input-group-text py-0" style={{ fontSize: '14px' }}>
                                     {processedAddonBefore}
                                 </span>

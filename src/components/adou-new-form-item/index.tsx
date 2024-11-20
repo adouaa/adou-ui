@@ -3,10 +3,13 @@ import React from 'react';
 import FormItem from './adou-form-item';
 
 interface FormProps {
+    wrpa?: boolean;
+    externalWrapperClassName?: string;
+    externalWrapperStyle?: React.CSSProperties;
     commonRules?: any;
     form?: any;
     commonFormItemWrapperWidth?: any;
-    commonWrapperWidth?: any;
+    commonContentWrapperWidth?: any;
     clearable?: boolean;
     size?: 'lg' | 'default' | 'sm';
     labelWidth?: any;
@@ -33,10 +36,13 @@ interface ExtendedForm extends React.ForwardRefExoticComponent<FormProps & React
 const Form = forwardRef(
     (
         {
+            wrpa = true,
+            externalWrapperClassName,
+            externalWrapperStyle,
             commonRules,
             form,
             commonFormItemWrapperWidth,
-            commonWrapperWidth,
+            commonContentWrapperWidth,
             clearable = true,
             size,
             labelWidth,
@@ -63,12 +69,12 @@ const Form = forwardRef(
         const formItemRefs = useRef<{ [key: string]: React.MutableRefObject<any> }>({});
 
         /* const handleChangeData = (key: string, value: any) => {
-            setFormData((prevData: any) => ({
-                ...prevData,
-                [key]: value,
-            }));
-            onFormDataChange && onFormDataChange(key, value);
-        }; */
+              setFormData((prevData: any) => ({
+                  ...prevData,
+                  [key]: value,
+              }));
+              onFormDataChange && onFormDataChange(key, value);
+          }; */
 
         const validate = () => {
             for (const key in formItemRefs.current) {
@@ -79,7 +85,21 @@ const Form = forwardRef(
             }
         };
 
-        const getData = (needCheck: boolean = true) => {
+        const validateForm = () => {
+            let isValid = true;
+            for (const key in formItemRefs.current) {
+                const formItemRef = formItemRefs.current[key];
+                if (formItemRef.current) {
+                    const result = formItemRef.current.validateField('', true);
+                    if (!result) {
+                        isValid = false;
+                    }
+                }
+            }
+            return isValid;
+        };
+
+        const getFormData = (needCheck: boolean = true) => {
             if (needCheck) {
                 const isValid = validateForm();
                 if (!isValid) return false;
@@ -91,61 +111,61 @@ const Form = forwardRef(
             setFormData({});
         };
 
-        const getFormData = (needCheck: boolean = true) => {
-            const formWrapper = formRef.current; // 获取 search-wrapper 的 DOM 元素
-            if (!formWrapper) return;
-
-            if (needCheck) {
-                const isValid = validateForm();
-                if (!isValid) return false;
-            }
-
-            // 遍历所有表单元素
-            const formValues: any = {};
-            const formElements = formWrapper.querySelectorAll('input, select, textarea');
-
-            formElements.forEach((element: any) => {
-                const { name, value, tagName, type } = element;
-                if (!name) return;
-                const child = childRefs.current[name]?.current;
-                // 处理 input 元素
-                if (tagName === 'INPUT') {
-                    if (type === 'checkbox') {
-                        // 如果是复选框，更新 formValues[name] 为选中的复选框的值的数组
-                        if (!formValues[name]) {
-                            formValues[name] = [];
-                        }
-                        if (element.checked) {
-                            // 如果是 checkbox的话，会造出多个 input type="checkbox"的表单
-                            formValues[name].push(value);
-                        }
-                    } else {
-                        if (child?.getValue) {
-                            formValues[name] = child.getValue();
-                        } else {
-                            formValues[name] = type === 'number' ? Number(value) : value;
-                        }
-                    }
-                }
-                // 处理 select 元素
-                else if (tagName === 'SELECT') {
-                    if (child?.getValue) {
-                        formValues[name] = child.getValue();
-                    } else {
-                        formValues[name] = element.value;
-                    }
-                }
-                // 处理 textarea 元素
-                else if (tagName === 'TEXTAREA') {
-                    formValues[name] = value;
-                }
-            });
-
-            // 输出收集到的表单值
-
-            // 这里可以根据需要，将 formValues 传递给其他处理函数或者组件
-            return formValues;
-        };
+        /* const getFormData = (needCheck: boolean = true) => {
+              const formWrapper = formRef.current; // 获取 search-wrapper 的 DOM 元素
+              if (!formWrapper) return;
+  
+              if (needCheck) {
+                  const isValid = validateForm();
+                  if (!isValid) return false;
+              }
+  
+              // 遍历所有表单元素
+              const formValues: any = {};
+              const formElements = formWrapper.querySelectorAll('input, select, textarea');
+  
+              formElements.forEach((element: any) => {
+                  const { name, value, tagName, type } = element;
+                  if (!name) return;
+                  const child = childRefs.current[name]?.current;
+                  // 处理 input 元素
+                  if (tagName === 'INPUT') {
+                      if (type === 'checkbox') {
+                          // 如果是复选框，更新 formValues[name] 为选中的复选框的值的数组
+                          if (!formValues[name]) {
+                              formValues[name] = [];
+                          }
+                          if (element.checked) {
+                              // 如果是 checkbox的话，会造出多个 input type="checkbox"的表单
+                              formValues[name].push(value);
+                          }
+                      } else {
+                          if (child?.getValue) {
+                              formValues[name] = child.getValue();
+                          } else {
+                              formValues[name] = type === 'number' ? Number(value) : value;
+                          }
+                      }
+                  }
+                  // 处理 select 元素
+                  else if (tagName === 'SELECT') {
+                      if (child?.getValue) {
+                          formValues[name] = child.getValue();
+                      } else {
+                          formValues[name] = element.value;
+                      }
+                  }
+                  // 处理 textarea 元素
+                  else if (tagName === 'TEXTAREA') {
+                      formValues[name] = value;
+                  }
+              });
+  
+              // 输出收集到的表单值
+  
+              // 这里可以根据需要，将 formValues 传递给其他处理函数或者组件
+              return formValues;
+          }; */
 
         const clearForm = () => {
             const formWrapper = formRef.current; // 获取 search-wrapper 的 DOM 元素
@@ -158,33 +178,33 @@ const Form = forwardRef(
             }
         };
 
-        const validateForm = () => {
-            const formWrapper = formRef.current; // 获取 search-wrapper 的 DOM 元素
-            if (!formWrapper) return false;
-
-            let isValid = true; // 默认表单验证通过
-
-            // 遍历所有child
-            for (let key in childRefs.current) {
-                let child = childRefs.current[key];
-                // 如果该表单组件没有validate方法，代表不做校验
-                if (child.current?.validate) {
-                    const valid = child.current && child.current.validate && child.current.validate();
-
-                    if (!valid) {
-                        console.log('存在校验不通过的表单：', key);
-
-                        isValid = false;
-                    }
-                }
-            }
-
-            if (!isValid) {
-                console.log('表单校验失败，请填写所有必填项！');
-            }
-
-            return isValid;
-        };
+        /* const validateForm = () => {
+              const formWrapper = formRef.current; // 获取 search-wrapper 的 DOM 元素
+              if (!formWrapper) return false;
+  
+              let isValid = true; // 默认表单验证通过
+  
+              // 遍历所有child
+              for (let key in childRefs.current) {
+                  let child = childRefs.current[key];
+                  // 如果该表单组件没有validate方法，代表不做校验
+                  if (child.current?.validate) {
+                      const valid = child.current && child.current.validate && child.current.validate();
+  
+                      if (!valid) {
+                          console.log('存在校验不通过的表单：', key);
+  
+                          isValid = false;
+                      }
+                  }
+              }
+  
+              if (!isValid) {
+                  console.log('表单校验失败，请填写所有必填项！');
+              }
+  
+              return isValid;
+          }; */
 
         const childRefs = useRef<{ [key: string]: React.MutableRefObject<any> }>({});
         let maxLengthLabelWidth: number = 0;
@@ -232,9 +252,10 @@ const Form = forwardRef(
                     clearable,
 
                     layout,
-                    wrapperWidth: commonWrapperWidth,
-                    formItemWrapperWidth: commonFormItemWrapperWidth,
+                    contentWrapperWidth: commonContentWrapperWidth,
+                    wrapperWidth: commonFormItemWrapperWidth,
                     rules: commonRules,
+                    oneLine,
                     ...props, // 为了不覆盖 FormItem 本来的 属性
                 });
                 renderChildren.push(enhancedChildren);
@@ -250,12 +271,11 @@ const Form = forwardRef(
 
         // 对外暴露的API
         useImperativeHandle(AdouFormRef, () => ({
-            getFormData,
-            getData,
-            clearForm,
+            // getFormData,
+            // clearForm,
             validateForm,
-            clearFormData,
-            validate,
+            // clearFormData,
+            // validate,
         }));
 
         useEffect(() => {
@@ -272,7 +292,12 @@ const Form = forwardRef(
         };
 
         return (
-            <div className={`adou-new-form-wrapper flex-wrap ${layout === 'inline' ? 'd-flex' : ''}`} ref={formRef} onKeyDown={handleKeyDown}>
+            <div
+                style={{ flex: 1 }}
+                className={`adou-new-form-wrapper ${wrpa ? 'flex-wrap' : 'flex-nowrap'} ${layout === 'inline' ? 'd-flex' : ''}`}
+                ref={formRef}
+                onKeyDown={handleKeyDown}
+            >
                 {renderChildren()}
             </div>
         );

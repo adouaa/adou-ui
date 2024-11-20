@@ -52,7 +52,7 @@ export interface SelectProps {
     optionContentMaxHeight?: string;
     onChange?: (e?: any, ...args: any) => void;
     onFormDataChange?: (key: string, value: any) => void;
-    onFieldChange?: (data: any) => void;
+    onFieldChange?: (name: string, value: any) => void;
     onValidateField?: (data?: any) => void;
 }
 
@@ -138,6 +138,10 @@ const Select = React.forwardRef((props: SelectProps, ref) => {
         }
     };
 
+    const handleFieldChange = (value: any) => {
+        onFieldChange && onFieldChange(name!, value);
+    };
+
     const handleValidate = (data?: any) => {
         onValidateField && onValidateField(data);
     };
@@ -159,7 +163,7 @@ const Select = React.forwardRef((props: SelectProps, ref) => {
         setIsDropdownOpen(false);
         // 新增onFormDataChange来修改外部传入的数据
         onFormDataChange && onFormDataChange(name!, returnValue);
-        onFieldChange && onFieldChange(returnValue);
+        handleFieldChange && handleFieldChange(returnValue);
 
         setError(false);
         handleValidate(item);
@@ -222,10 +226,10 @@ const Select = React.forwardRef((props: SelectProps, ref) => {
             // 感觉可有可无
             if (returnType === 'obj') {
                 onFormDataChange && onFormDataChange(name!, value);
-                onFieldChange && onFieldChange(value);
+                handleFieldChange && handleFieldChange(value);
             } else {
                 onFormDataChange && onFormDataChange(name!, value[valueKey] || value[labelKey]);
-                onFieldChange && onFieldChange(value[valueKey] || value[labelKey]);
+                handleFieldChange && handleFieldChange(value[valueKey] || value[labelKey]);
             }
             return value[valueKey] || value[labelKey];
         } else {
@@ -256,7 +260,7 @@ const Select = React.forwardRef((props: SelectProps, ref) => {
         e.stopPropagation();
         clear();
         setError(true);
-        onFieldChange?.(returnType === 'str' ? '' : {});
+        handleFieldChange?.(returnType === 'str' ? '' : {});
         handleValidate('');
     };
 
@@ -400,7 +404,6 @@ const Select = React.forwardRef((props: SelectProps, ref) => {
                     </div>
                 )} */}
             </div>
-
             {ReactDOM.createPortal(
                 <div
                     style={{
