@@ -49,7 +49,7 @@ const Dialog: React.FC<DialogProps> = ({
   title = "提示",
   children = null,
   type = "",
-  maxHeight = "500px",
+  maxHeight = "400px",
   width = "600px",
   height,
   maxWidth,
@@ -81,10 +81,16 @@ const Dialog: React.FC<DialogProps> = ({
         const dialogHeight = dialogRef.current.offsetHeight;
         const initialX = (window.innerWidth - dialogWidth) / 2;
         const initialY = (window.innerHeight - dialogHeight) / 2;
+
+        // 如果对 Y轴 没有要求，则按 type 来定位
         if (!maxY && !max) {
+          // 减去20是因为有个 transForm: translateY(20px);
           dialogRef.current.style.top = `${
-            type === "tip" ? `${initialY}px` : "2%"
+            type === "tip" ? `${initialY - 20}px` : "2%"
           }`;
+        } else {
+          // 如果是对 Y轴 有最大要求，则不仅是第一次，每次都要让 Y轴 在浏览器最上面，Y轴 占满整个屏幕
+          dialogRef.current.style.top = `-20px`;
         }
         dialogRef.current.style.left = `${initialX}px`;
 
@@ -160,7 +166,7 @@ const Dialog: React.FC<DialogProps> = ({
                   className="dialog-content"
                   style={{
                     maxHeight: max || maxY ? "79.5vh" : height || maxHeight,
-                    height: max || maxY ? "79.5vh" : height || maxHeight,
+                    height: max || maxY ? "79.5vh" : height,
                   }}
                 >
                   {children}

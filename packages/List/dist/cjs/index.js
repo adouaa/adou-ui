@@ -3177,6 +3177,7 @@ const ListNode_ListNode = _ref => {
         handleToggleIconClick(node);
       }
     }
+    setNode(data); // 更新 node信息
   }, [data]);
   (0,external_root_React_commonjs2_react_commonjs_react_amd_react_.useEffect)(() => {
     if (!node.loading && node.hasLoaded) {
@@ -3248,13 +3249,13 @@ const ListNode_ListNode = _ref => {
       }
     }, /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("i", {
       style: {
-        display: showAddIcon ? "inline-block" : "none"
+        display: showAddIcon || addIconClass ? "inline-block" : "none"
       },
       className: "icon fa ".concat(addIconClass || "fa-plus text-success"),
       onClick: e => handleOptIconClick(e, "add", node)
     }), /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("i", {
       style: {
-        display: showEditIcon ? "inline-block" : "none"
+        display: showEditIcon || editIconClass ? "inline-block" : "none"
       },
       className: "icon fa ".concat(editIconClass || "fa-pencil text-warning"),
       onClick: e => handleOptIconClick(e, "edit", node)

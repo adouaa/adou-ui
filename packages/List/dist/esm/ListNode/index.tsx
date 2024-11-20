@@ -312,6 +312,7 @@ const ListNode = ({
         handleToggleIconClick(node);
       }
     }
+    setNode(data); // 更新 node信息
   }, [data]);
 
   useEffect(() => {
@@ -414,12 +415,18 @@ const ListNode = ({
               }}
             >
               <i
-                style={{ display: showAddIcon ? "inline-block" : "none" }}
+                style={{
+                  display:
+                    showAddIcon || addIconClass ? "inline-block" : "none",
+                }}
                 className={`icon fa ${addIconClass || "fa-plus text-success"}`}
                 onClick={(e) => handleOptIconClick(e, "add", node)}
               ></i>
               <i
-                style={{ display: showEditIcon ? "inline-block" : "none" }}
+                style={{
+                  display:
+                    showEditIcon || editIconClass ? "inline-block" : "none",
+                }}
                 className={`icon fa ${
                   editIconClass || "fa-pencil text-warning"
                 }`}
@@ -483,5 +490,6 @@ const ListNode = ({
     </ListNodeWrapper>
   );
 };
+
 
 export default ListNode;

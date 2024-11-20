@@ -643,7 +643,7 @@ var update = injectStylesIntoStyleTag_default()(cjs_ruleSet_1_rules_1_use_2_src/
 
 const TagInput = /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().forwardRef((_ref, ref) => {
   let {
-    suffixContentType = "button",
+    suffixContentType,
     suffixContent,
     required,
     isFormItem,
@@ -658,7 +658,8 @@ const TagInput = /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react
     labelPosition = "center",
     name,
     defaultValue,
-    onChange
+    onChange,
+    onFormDataChange
   } = _ref;
   const [inputList, setInputList] = (0,external_root_React_commonjs2_react_commonjs_react_amd_react_.useState)(defaultValue || []);
   const [inputValue, setInputValue] = (0,external_root_React_commonjs2_react_commonjs_react_amd_react_.useState)("");
@@ -670,6 +671,7 @@ const TagInput = /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react
     setInputValue("");
     // 把数据传回给父组件
     onChange && onChange(data);
+    onFormDataChange && onFormDataChange(name, data);
     setError(false);
   };
   const handleInputChange = e => {
@@ -693,6 +695,8 @@ const TagInput = /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react
     }
     setInputList(tagList);
     onChange && onChange(tagList);
+    onFormDataChange && onFormDataChange(name, tagList);
+
     // 注意，这边不能直接用 inputList给 formData赋值，会出现不一致的情况
   };
   const handleBlur = () => {

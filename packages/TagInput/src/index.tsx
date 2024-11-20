@@ -26,12 +26,13 @@ interface TagInputProps {
   labelColor?: string;
   defaultValue?: any;
   onChange?: (value: any) => void;
+  onFormDataChange?: (key: string, value: any) => void;
 }
 
 const TagInput = React.forwardRef(
   (
     {
-      suffixContentType = "button",
+      suffixContentType,
       suffixContent,
       required,
       isFormItem,
@@ -47,6 +48,7 @@ const TagInput = React.forwardRef(
       name,
       defaultValue,
       onChange,
+      onFormDataChange,
     }: TagInputProps,
     ref
   ) => {
@@ -63,6 +65,7 @@ const TagInput = React.forwardRef(
       setInputValue("");
       // 把数据传回给父组件
       onChange && onChange(data);
+      onFormDataChange && onFormDataChange(name!, data);
       setError(false);
     };
 
@@ -90,6 +93,8 @@ const TagInput = React.forwardRef(
       }
       setInputList(tagList);
       onChange && onChange(tagList);
+      onFormDataChange && onFormDataChange(name!, tagList);
+
       // 注意，这边不能直接用 inputList给 formData赋值，会出现不一致的情况
     };
 

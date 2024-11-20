@@ -97,17 +97,40 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(442);
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
 
+
 const ListGroup = _ref => {
   let {
+    externalClassName,
+    noWrap,
+    defaultFirst = false,
     data,
-    activeList,
-    valueKey,
-    type,
+    activeList: selectList,
+    labelKey = "label",
+    valueKey = "value",
+    type = "primary",
     render,
-    onItemClick
+    onItemClick,
+    onItemDoubleClick
   } = _ref;
+  const [activeList, setActiveList] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(selectList || {});
   const handleItemClick = item => {
-    onItemClick && onItemClick(item);
+    let data;
+    if (Array.isArray(activeList)) {
+      const hasSelected = activeList.some(selectedItem => selectedItem[valueKey] === item[valueKey]);
+      data = hasSelected ? activeList.filter(selectedItem => selectedItem[valueKey] !== item[valueKey]) : [...activeList, item];
+      setActiveList(data);
+      onItemClick && onItemClick(item);
+    } else {
+      const hasSelected = activeList[valueKey] === item[valueKey];
+      data = hasSelected ? {} : item;
+      setActiveList(data);
+      onItemClick && onItemClick(data);
+    }
+  };
+  const handleItemDoubleClick = (e, item) => {
+    e.preventDefault(); // 阻止可能触发的默认点击行为
+    e.stopPropagation();
+    onItemDoubleClick && onItemDoubleClick(item);
   };
   const judgeIsActive = item => {
     let flag = false;
@@ -118,18 +141,31 @@ const ListGroup = _ref => {
     }
     if (flag) {
       return "active bg-".concat(type, " border-").concat(type);
+    } else {
+      return "";
     }
   };
+  (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(() => {
+    if (selectList) {
+      setActiveList(selectList || {});
+    } else if (defaultFirst) {
+      setActiveList(data === null || data === void 0 ? void 0 : data[0]);
+    }
+  }, [selectList, data]);
   return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", {
-    className: "list-group-wrapper"
+    className: "list-group-wrapper ".concat(externalClassName)
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", {
     className: "list-group"
-  }, data.map(item => /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("button", {
+  }, data === null || data === void 0 ? void 0 : data.map(item => /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("button", {
+    style: {
+      whiteSpace: noWrap ? "nowrap" : "normal"
+    },
     onClick: () => handleItemClick(item),
+    onDoubleClick: e => handleItemDoubleClick(e, item),
     key: item[valueKey],
     type: "button",
     className: "list-group-item list-group-item-action ".concat(judgeIsActive(item))
-  }, render(item)))));
+  }, render ? render(item) : item[labelKey]))));
 };
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (ListGroup);
 })();

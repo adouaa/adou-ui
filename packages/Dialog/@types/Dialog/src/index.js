@@ -32,7 +32,7 @@ const useDrag_1 = __importDefault(require("../../Utils/src/hooks/useDrag"));
 const useClickOutside_1 = __importDefault(require("../../Utils/src/hooks/useClickOutside"));
 const Button_1 = __importDefault(require("adou-ui/Button"));
 require("./index.scss");
-const Dialog = ({ needDestroy = false, maxY, maxX, max, showConfirm = true, showCancel = true, showClose = true, canConfirm = true, clickOutside = false, confirmText = "确定", cancelText = "取消", confirmBtnClass = "primary", cancelBtnClass = "secondary", show: isOpen = false, title = "提示", children = null, type = "", maxHeight = "500px", width = "600px", height, maxWidth, onCancel, onClose = () => { }, onConfirm = () => { }, }) => {
+const Dialog = ({ needDestroy = false, maxY, maxX, max, showConfirm = true, showCancel = true, showClose = true, canConfirm = true, clickOutside = false, confirmText = "确定", cancelText = "取消", confirmBtnClass = "primary", cancelBtnClass = "secondary", show: isOpen = false, title = "提示", children = null, type = "", maxHeight = "400px", width = "600px", height, maxWidth, onCancel, onClose = () => { }, onConfirm = () => { }, }) => {
     const dialogRef = (0, react_1.useRef)(null);
     const [show, setShow] = (0, react_1.useState)(false);
     const [destroied, setDestroied] = (0, react_1.useState)(false);
@@ -55,8 +55,14 @@ const Dialog = ({ needDestroy = false, maxY, maxX, max, showConfirm = true, show
                 const dialogHeight = dialogRef.current.offsetHeight;
                 const initialX = (window.innerWidth - dialogWidth) / 2;
                 const initialY = (window.innerHeight - dialogHeight) / 2;
+                // 如果对 Y轴 没有要求，则按 type 来定位
                 if (!maxY && !max) {
-                    dialogRef.current.style.top = `${type === "tip" ? `${initialY}px` : "2%"}`;
+                    // 减去20是因为有个 transForm: translateY(20px);
+                    dialogRef.current.style.top = `${type === "tip" ? `${initialY - 20}px` : "2%"}`;
+                }
+                else {
+                    // 如果是对 Y轴 有最大要求，则不仅是第一次，每次都要让 Y轴 在浏览器最上面，Y轴 占满整个屏幕
+                    dialogRef.current.style.top = `-20px`;
                 }
                 dialogRef.current.style.left = `${initialX}px`;
                 // 注意，这边要给个 100ms 差不多的定时器来确保 dialogRef.current 已经渲染完成
@@ -105,7 +111,7 @@ const Dialog = ({ needDestroy = false, maxY, maxX, max, showConfirm = true, show
                 showClose && (react_1.default.createElement("button", { className: "dialog-close hover-scale", onClick: onClose }, "\u00D7"))),
             react_1.default.createElement("div", { className: "dialog-content", style: {
                     maxHeight: max || maxY ? "79.5vh" : height || maxHeight,
-                    height: max || maxY ? "79.5vh" : height || maxHeight,
+                    height: max || maxY ? "79.5vh" : height,
                 } }, children),
             react_1.default.createElement("div", { className: "dialog-footer d-flex justify-content-end p-3" },
                 showCancel && (react_1.default.createElement(Button_1.default, { className: `me-2 btn-${cancelBtnClass}`, size: "md", onClickOK: onCancel ?? onClose }, cancelText)),

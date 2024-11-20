@@ -12,6 +12,8 @@ declare const _default: React.ComponentType<Omit<{
     textPosition?: "center" | "left" | "right" | "justify" | undefined;
     verticalAlign?: "middle" | "top" | "bottom" | undefined;
     onEditOK?: ((data: any) => void) | undefined;
+    defaultChecked?: any;
+    headerFontWeight?: "bold" | "normal" | undefined;
     tableBgc?: any;
     tableRef?: any;
     activeId?: string | number | undefined;

@@ -1512,7 +1512,7 @@ const Dialog = _ref => {
     title = "提示",
     children = null,
     type = "",
-    maxHeight = "500px",
+    maxHeight = "400px",
     width = "600px",
     height,
     maxWidth,
@@ -1547,8 +1547,14 @@ const Dialog = _ref => {
         const dialogHeight = dialogRef.current.offsetHeight;
         const initialX = (window.innerWidth - dialogWidth) / 2;
         const initialY = (window.innerHeight - dialogHeight) / 2;
+
+        // 如果对 Y轴 没有要求，则按 type 来定位
         if (!maxY && !max) {
-          dialogRef.current.style.top = "".concat(type === "tip" ? "".concat(initialY, "px") : "2%");
+          // 减去20是因为有个 transForm: translateY(20px);
+          dialogRef.current.style.top = "".concat(type === "tip" ? "".concat(initialY - 20, "px") : "2%");
+        } else {
+          // 如果是对 Y轴 有最大要求，则不仅是第一次，每次都要让 Y轴 在浏览器最上面，Y轴 占满整个屏幕
+          dialogRef.current.style.top = "-20px";
         }
         dialogRef.current.style.left = "".concat(initialX, "px");
 
@@ -1610,7 +1616,7 @@ const Dialog = _ref => {
     className: "dialog-content",
     style: {
       maxHeight: max || maxY ? "79.5vh" : height || maxHeight,
-      height: max || maxY ? "79.5vh" : height || maxHeight
+      height: max || maxY ? "79.5vh" : height
     }
   }, children), /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("div", {
     className: "dialog-footer d-flex justify-content-end p-3"

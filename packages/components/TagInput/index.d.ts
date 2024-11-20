@@ -17,6 +17,7 @@ interface TagInputProps {
     labelColor?: string;
     defaultValue?: any;
     onChange?: (value: any) => void;
+    onFormDataChange?: (key: string, value: any) => void;
 }
 declare const TagInput: React.ForwardRefExoticComponent<TagInputProps & React.RefAttributes<unknown>>;
 export default TagInput;
