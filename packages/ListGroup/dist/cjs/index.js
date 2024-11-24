@@ -90,16 +90,46 @@ module.exports = __WEBPACK_EXTERNAL_MODULE__442__;
 var __webpack_exports__ = {};
 // This entry need to be wrapped in an IIFE because it need to be isolated against other modules in the chunk.
 (() => {
+// ESM COMPAT FLAG
 __webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
-/* harmony export */ });
-/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(442);
-/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
+
+// EXPORTS
+__webpack_require__.d(__webpack_exports__, {
+  "default": () => (/* binding */ src)
+});
+
+// EXTERNAL MODULE: external {"root":"React","commonjs2":"react","commonjs":"react","amd":"react"}
+var external_root_React_commonjs2_react_commonjs_react_amd_react_ = __webpack_require__(442);
+var external_root_React_commonjs2_react_commonjs_react_amd_react_default = /*#__PURE__*/__webpack_require__.n(external_root_React_commonjs2_react_commonjs_react_amd_react_);
+;// CONCATENATED MODULE: ./src/splitFilesIntoColumns.ts
+// 根据列数和每列展示的文件数量来分割文件
+const splitFilesIntoColumns = (files, filesPerColumn) => {
+  const result = [];
+  let currentColumn = [];
+  files.forEach((file, index) => {
+    currentColumn.push(file);
+    if ((index + 1) % filesPerColumn === 0 || index === files.length - 1) {
+      result.push(currentColumn);
+      currentColumn = [];
+    }
+  });
+  return result;
+};
+/* harmony default export */ const src_splitFilesIntoColumns = (splitFilesIntoColumns);
+;// CONCATENATED MODULE: ./src/index.tsx
+
 
 
 const ListGroup = _ref => {
   let {
+    itemHeight = 40,
+    columnMaxHeight,
+    lineBreak,
+    filesPerColumn,
+    columns = 2,
+    height,
+    maxHeight,
+    canActive = true,
     externalClassName,
     noWrap,
     defaultFirst = false,
@@ -112,7 +142,10 @@ const ListGroup = _ref => {
     onItemClick,
     onItemDoubleClick
   } = _ref;
-  const [activeList, setActiveList] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(selectList || {});
+  const [list, setList] = (0,external_root_React_commonjs2_react_commonjs_react_amd_react_.useState)([]);
+  const [activeList, setActiveList] = (0,external_root_React_commonjs2_react_commonjs_react_amd_react_.useState)(selectList || {});
+  const [parentMaxHeight, setParentMaxHeight] = (0,external_root_React_commonjs2_react_commonjs_react_amd_react_.useState)(columnMaxHeight);
+  const listGroupRef = (0,external_root_React_commonjs2_react_commonjs_react_amd_react_.useRef)(null);
   const handleItemClick = item => {
     let data;
     if (Array.isArray(activeList)) {
@@ -133,6 +166,7 @@ const ListGroup = _ref => {
     onItemDoubleClick && onItemDoubleClick(item);
   };
   const judgeIsActive = item => {
+    if (!canActive) return "";
     let flag = false;
     if (Array.isArray(activeList)) {
       if (activeList.map(item => item[valueKey]).includes(item[valueKey])) flag = true;
@@ -145,20 +179,87 @@ const ListGroup = _ref => {
       return "";
     }
   };
-  (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(() => {
+  (0,external_root_React_commonjs2_react_commonjs_react_amd_react_.useEffect)(() => {
     if (selectList) {
       setActiveList(selectList || {});
     } else if (defaultFirst) {
       setActiveList(data === null || data === void 0 ? void 0 : data[0]);
     }
-  }, [selectList, data]);
-  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", {
-    className: "list-group-wrapper ".concat(externalClassName)
-  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", {
-    className: "list-group"
-  }, data === null || data === void 0 ? void 0 : data.map(item => /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("button", {
+    if (columnMaxHeight) {
+      setParentMaxHeight(columnMaxHeight);
+    } else if (listGroupRef.current) {
+      const parentElement = listGroupRef.current.parentElement;
+      if (parentElement && parentElement.clientHeight > 0) {
+        setParentMaxHeight(parentElement.clientHeight);
+      }
+    }
+  }, [selectList, data, columnMaxHeight]);
+  (0,external_root_React_commonjs2_react_commonjs_react_amd_react_.useEffect)(() => {
+    // 如果需要换行，则根据 判断 filesPerColunm 是否有值，有值则直接分割，没有值则根据 parentMaxHeight 和 itemHeight 计算每列的文件数量
+    if (lineBreak) {
+      if (filesPerColumn) {
+        setList(src_splitFilesIntoColumns(data || [], filesPerColumn));
+      } else {
+        // 存放列表的数据，二维数组：[["1", "2", "3"], ["4", "5", "6"]]
+        const columnsData = [];
+        let currentColumn = [];
+        let currentHeight = 0;
+        data === null || data === void 0 || data.forEach(item => {
+          // 假设每个项的高度为 40px
+          // 如果加上这个 item的高度 超过了最大高度，则把之前那一组的数据 放到 columnsData 中，然后清空数据，开始新的列
+          if (currentHeight + itemHeight > parseFloat(parentMaxHeight)) {
+            columnsData.push(currentColumn);
+            currentColumn = [];
+            currentHeight = 0;
+          }
+          currentColumn.push(item);
+          currentHeight += itemHeight;
+        });
+        if (currentColumn.length > 0) {
+          columnsData.push(currentColumn);
+        }
+        setList(columnsData);
+      }
+    } else {
+      setList(data || []);
+    }
+  }, [data, lineBreak, parentMaxHeight]);
+  return /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("div", {
+    className: "list-group-wrapper ".concat(externalClassName || ""),
+    ref: listGroupRef
+  }, lineBreak ? /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("div", {
+    className: "row g-0"
+  }, list.map((columnItems, columnIndex) => /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("div", {
+    className: "".concat(filesPerColumn ? "col-".concat(columns) : "col"),
+    key: columnIndex
+  }, /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("ul", {
+    className: "list-group me-2",
     style: {
-      whiteSpace: noWrap ? "nowrap" : "normal"
+      height,
+      maxHeight: maxHeight || height || parentMaxHeight,
+      overflowY: "auto",
+      border: "1px solid #ccc",
+      borderRadius: "5px",
+      boxSizing: "border-box"
+    }
+  }, Array.isArray(columnItems) && (columnItems === null || columnItems === void 0 ? void 0 : columnItems.map((item, itemIndex) => /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("button", {
+    onClick: () => handleItemClick(item),
+    onDoubleClick: e => handleItemDoubleClick(e, item),
+    key: itemIndex,
+    type: "button",
+    className: "list-group-item list-group-item-action border-0 ".concat(judgeIsActive(item))
+  }, render ? render(item) : item[labelKey]))))))) : /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("div", {
+    className: "list-group",
+    style: {
+      height,
+      maxHeight: maxHeight || height || parentMaxHeight,
+      overflowY: "auto",
+      border: list.length ? "1px solid #ccc" : "none"
+    }
+  }, list === null || list === void 0 ? void 0 : list.map((item, index) => /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("button", {
+    style: {
+      whiteSpace: noWrap ? "nowrap" : "normal",
+      border: "none"
     },
     onClick: () => handleItemClick(item),
     onDoubleClick: e => handleItemDoubleClick(e, item),
@@ -167,7 +268,7 @@ const ListGroup = _ref => {
     className: "list-group-item list-group-item-action ".concat(judgeIsActive(item))
   }, render ? render(item) : item[labelKey]))));
 };
-/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (ListGroup);
+/* harmony default export */ const src = (ListGroup);
 })();
 
 /******/ 	return __webpack_exports__;

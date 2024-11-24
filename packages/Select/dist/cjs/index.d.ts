@@ -1,7 +1,7 @@
 import React from "react";
 import "./index.scss";
 export interface SelectProps {
-    selectValueMaxWidth?: any;
+    ellipsis?: boolean;
     errorPaddingLeft?: any;
     suffixContentExternalCls?: string;
     selectContentExternalCls?: string;
@@ -45,7 +45,7 @@ export interface SelectProps {
 }
 declare const _default: React.ComponentType<Omit<{
     ref?: React.LegacyRef<unknown> | undefined;
-    selectValueMaxWidth?: any;
+    ellipsis?: boolean | undefined;
     errorPaddingLeft?: any;
     suffixContentExternalCls?: string | undefined;
     selectContentExternalCls?: string | undefined;

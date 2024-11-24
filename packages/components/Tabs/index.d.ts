@@ -3,9 +3,9 @@ import TabItem from "./TabItem";
 export { TabItem };
 import "./index.scss";
 declare const _default: React.ComponentType<Omit<{
-    clearOnChange?: boolean | undefined;
     children?: any;
     contentPadding?: string | undefined;
+    clearOnChange?: boolean | undefined;
     headerItemExternalCls?: string | undefined;
     extraContentCls?: string | undefined;
     contentHeight?: any;

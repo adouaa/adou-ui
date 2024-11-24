@@ -6,6 +6,7 @@ import convertArrayKeysToCamelCase from "./libs/convertArrayKeysToCamelCase";
 import convertArrayKeysToSnakeCase from "./libs/convertArrayKeysToSnakeCase";
 import convertListToTree from "./libs/convertListToTree";
 import flattenDataWithoutNesting from "./libs/flattenDataWithoutNesting";
+import splitFilesIntoColumns from "./libs/splitFilesIntoColumns";
 
 import useNavigateTo from "./hooks/useNavigateTo";
 import useClickOutside from "./hooks/useClickOutside";
@@ -20,6 +21,7 @@ export {
   convertArrayKeysToSnakeCase,
   convertListToTree,
   flattenDataWithoutNesting,
+  splitFilesIntoColumns,
   useNavigateTo,
   useClickOutside,
   useDrag,

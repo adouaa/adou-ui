@@ -75,11 +75,16 @@ const Tabs = (props: TabsProps) => {
                       >
                         <div
                           onClick={() => handleLabelClickFn(index, child)}
-                          className={`tabs-header-item  ${
+                          className={`tabs-header-item d-flex align-items-center  ${
                             currentIndex === index && "active"
                           }`}
                         >
-                          {child?.props?.label}
+                          <div className={`label-icon me-1`}>
+                            {child?.props?.headerIcon}
+                          </div>
+                          <div className="label-text">
+                            {child?.props?.label}
+                          </div>
                         </div>
                       </div>
                     </div>
@@ -121,11 +126,16 @@ const Tabs = (props: TabsProps) => {
                         }}
                         className={`${
                           index === currentIndex ? "active" : ""
-                        } ${headerItemExternalCls} nav-link`}
+                        } ${headerItemExternalCls} nav-link d-flex align-items-center`}
                         aria-current="page"
                       >
-                        <i className={child.props.prefixIcon + " me-1"}></i>
-                        {child.props.label}
+                        {child.props.prefixIcon && (
+                          <i className={child.props.prefixIcon + " me-1"}></i>
+                        )}
+                        <div className={`label-icon me-1`}>
+                          {child?.props?.headerIcon}
+                        </div>
+                        <div className="label-text">{child?.props?.label}</div>
                       </a>
                     </li>
                   );

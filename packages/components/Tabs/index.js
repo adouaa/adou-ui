@@ -1814,6 +1814,8 @@ var selectOrdinal = function selectOrdinal() {
 
 const TabItem = props => {
   const {
+    prefixIcon,
+    headerIcon,
     extraContent,
     label,
     url,
@@ -1822,9 +1824,18 @@ const TabItem = props => {
     contentPadding = "0px",
     clearOnChange
   } = props;
-  return /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement((external_root_React_commonjs2_react_commonjs_react_amd_react_default()).Fragment, null, clearOnChange ? active && /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("div", {
+  return /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("div", {
+    className: "tab-item-wrapper"
+    // 当 active为 true 时，设置高度为 100%，否则为 0，避免父组件设置了 contentHeight 时，影响到 隐藏的 tabItem 的高度
+    ,
     style: {
-      padding: contentPadding || "0px 10px"
+      height: active ? "100%" : "0"
+    }
+  }, clearOnChange ? active && /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("div", {
+    className: "tab-item-content",
+    style: {
+      padding: contentPadding || "0px 10px",
+      height: "100%"
     }
   }, children) :
   /*#__PURE__*/
@@ -1930,7 +1941,7 @@ const Tabs = props => {
         flex: 1
       }
     }, tabItems.map((child, index) => {
-      var _child$props;
+      var _child$props, _child$props2;
       if (!child) return;
       return /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("div", {
         key: index
@@ -1938,8 +1949,12 @@ const Tabs = props => {
         className: "tabs-header-item-box ".concat(index === 0 && "first")
       }, /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("div", {
         onClick: () => handleLabelClickFn(index, child),
-        className: "tabs-header-item  ".concat(currentIndex === index && "active")
-      }, child === null || child === void 0 || (_child$props = child.props) === null || _child$props === void 0 ? void 0 : _child$props.label)));
+        className: "tabs-header-item d-flex align-items-center  ".concat(currentIndex === index && "active")
+      }, /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("div", {
+        className: "label-icon me-1"
+      }, child === null || child === void 0 || (_child$props = child.props) === null || _child$props === void 0 ? void 0 : _child$props.headerIcon), /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("div", {
+        className: "label-text"
+      }, child === null || child === void 0 || (_child$props2 = child.props) === null || _child$props2 === void 0 ? void 0 : _child$props2.label))));
     })), commonExtraContent && /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("div", {
       className: "common-extra-content"
     }, commonExtraContent), content.current && /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("div", {
@@ -1954,6 +1969,7 @@ const Tabs = props => {
         flex: 1
       }
     }, tabItems.map((child, index) => {
+      var _child$props3, _child$props4;
       return /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("li", {
         key: index,
         className: "nav-item d-flex",
@@ -1967,11 +1983,15 @@ const Tabs = props => {
             background: "linear-gradient(".concat(lineaGradient, ")")
           } : {})
         },
-        className: "".concat(index === currentIndex ? "active" : "", " ").concat(headerItemExternalCls, " nav-link"),
+        className: "".concat(index === currentIndex ? "active" : "", " ").concat(headerItemExternalCls, " nav-link d-flex align-items-center"),
         "aria-current": "page"
-      }, /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("i", {
+      }, child.props.prefixIcon && /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("i", {
         className: child.props.prefixIcon + " me-1"
-      }), child.props.label));
+      }), /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("div", {
+        className: "label-icon me-1"
+      }, child === null || child === void 0 || (_child$props3 = child.props) === null || _child$props3 === void 0 ? void 0 : _child$props3.headerIcon), /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("div", {
+        className: "label-text"
+      }, child === null || child === void 0 || (_child$props4 = child.props) === null || _child$props4 === void 0 ? void 0 : _child$props4.label)));
     })), commonExtraContent && /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("div", {
       className: "common-extra-content"
     }, commonExtraContent), content.current && /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("div", {

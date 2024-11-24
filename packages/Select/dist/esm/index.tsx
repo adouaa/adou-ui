@@ -7,7 +7,7 @@ import { getAbsolutePosition, useClickOutside } from "adou-ui/Utils/index";
 import Tooltip from "../../Tooltip";
 
 export interface SelectProps {
-  selectValueMaxWidth?: any;
+  ellipsis?: boolean;
   errorPaddingLeft?: any;
   suffixContentExternalCls?: string;
   selectContentExternalCls?: string;
@@ -49,7 +49,7 @@ export interface SelectProps {
 
 const Select = React.forwardRef((props: SelectProps, ref) => {
   const {
-    selectValueMaxWidth,
+    ellipsis,
     errorPaddingLeft,
     suffixContentExternalCls,
     selectContentExternalCls,
@@ -105,6 +105,9 @@ const Select = React.forwardRef((props: SelectProps, ref) => {
   const [customSelectContentPosition, setCustomSelectContentPosition] =
     useState<any>({});
 
+  // 内容最大宽度
+  const [selectValueMaxWidth, setSelectValueMaxWidth] = useState<any>("");
+
   const handleClose = () => {
     if (readOnly) return;
     if (isShow) {
@@ -130,7 +133,10 @@ const Select = React.forwardRef((props: SelectProps, ref) => {
     }
   };
 
-  const handleSelect = (item: any) => {
+  const handleSelect = (item: any, e?: any) => {
+    if (e) {
+      e.stopPropagation();
+    }
     setValue(item);
     const returnValue =
       returnType === "obj" || showDefaultValue ? item : item[valueKey];
@@ -138,6 +144,7 @@ const Select = React.forwardRef((props: SelectProps, ref) => {
     setError(false);
     handleClose();
     setIsDropdownOpen(false);
+    console.log("returnValue: ", returnValue);
     // 新增onFormDataChange来修改外部传入的数据
     onFormDataChange && onFormDataChange(name!, returnValue);
 
@@ -195,6 +202,11 @@ const Select = React.forwardRef((props: SelectProps, ref) => {
     setValue(e.target[valueKey]);
   };
 
+  useEffect(() => {
+    const width = customSelectRef.current.clientWidth;
+    setSelectValueMaxWidth(width - 30 + "px");
+  }, []);
+
   const getValue = () => {
     // 不能加这个逻辑，这样会导致手动选择另外的选项，返回的还是 defaultValue
     /* if (showDefaultValue) {
@@ -222,7 +234,6 @@ const Select = React.forwardRef((props: SelectProps, ref) => {
   const [error, setError] = useState<boolean>(false);
   const validate = () => {
     if (!required) return true;
-
     if (value) {
       setError(false);
       return true;
@@ -394,20 +405,22 @@ const Select = React.forwardRef((props: SelectProps, ref) => {
               {value?.[valueKey] ||
               value?.[valueKey] === 0 ||
               value?.[valueKey] === false ? (
-                selectValueMaxWidth ? (
-                  <Tooltip text={value?.[labelKey]}>
-                    <span
-                      className="select-value ellipsis-1"
-                      style={{ maxWidth: selectValueMaxWidth }}
-                    >
-                      {value[labelKey]}
-                    </span>
-                  </Tooltip>
+                ellipsis ? (
+                  <span
+                    className="select-value ellipsis-1"
+                    style={{ maxWidth: selectValueMaxWidth }}
+                  >
+                    {value[labelKey]}
+                  </span>
                 ) : (
                   <span className="select-value">{value[labelKey]}</span>
                 )
               ) : (
-                <span className="select-placeholder">{placeholder}</span>
+                <>
+                  <span className="select-placeholder">
+                    {placeholder || "请选择"}
+                  </span>
+                </>
               )}
               {
                 <i
@@ -466,7 +479,7 @@ const Select = React.forwardRef((props: SelectProps, ref) => {
                   {newOptions.length > 0 ? (
                     newOptions.map((item, index) => (
                       <div
-                        onClick={() => handleSelect(item)}
+                        onClick={(e) => handleSelect(item, e)}
                         style={{
                           color:
                             value?.[valueKey] === item[valueKey]
@@ -514,5 +527,6 @@ const Select = React.forwardRef((props: SelectProps, ref) => {
     </div>
   );
 });
+
 
 export default withTranslation()(Select);

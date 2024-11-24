@@ -90,6 +90,7 @@ __webpack_require__.d(__webpack_exports__, {
   flattenDataWithoutNesting: () => (/* reexport */ libs_flattenDataWithoutNesting),
   getAbsolutePosition: () => (/* reexport */ libs_getAbsolutePositionOfStage),
   isEmptyO: () => (/* reexport */ libs_isEmptyO),
+  splitFilesIntoColumns: () => (/* reexport */ libs_splitFilesIntoColumns),
   timeFormatter: () => (/* reexport */ time_formatter_namespaceObject),
   useClickOutside: () => (/* reexport */ hooks_useClickOutside),
   useDrag: () => (/* reexport */ hooks_useDrag),
@@ -255,6 +256,21 @@ function flattenDataWithoutNesting(data) {
   return flattened;
 }
 /* harmony default export */ const libs_flattenDataWithoutNesting = (flattenDataWithoutNesting);
+;// CONCATENATED MODULE: ./src/libs/splitFilesIntoColumns.ts
+// 根据列数和每列展示的文件数量来分割文件
+const splitFilesIntoColumns = (files, filesPerColumn) => {
+  const result = [];
+  let currentColumn = [];
+  files.forEach((file, index) => {
+    currentColumn.push(file);
+    if ((index + 1) % filesPerColumn === 0 || index === files.length - 1) {
+      result.push(currentColumn);
+      currentColumn = [];
+    }
+  });
+  return result;
+};
+/* harmony default export */ const libs_splitFilesIntoColumns = (splitFilesIntoColumns);
 ;// CONCATENATED MODULE: ../../node_modules/@remix-run/router/dist/router.js
 /**
  * @remix-run/router v1.5.0
@@ -5326,6 +5342,7 @@ const useDrag = function (elementRef) {
 };
 /* harmony default export */ const hooks_useDrag = (useDrag);
 ;// CONCATENATED MODULE: ./src/index.tsx
+
 
 
 
