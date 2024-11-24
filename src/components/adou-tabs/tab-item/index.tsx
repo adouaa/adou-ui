@@ -2,6 +2,8 @@ import React from 'react';
 import { withTranslation } from 'react-i18next';
 
 interface TabItemProps {
+    prefixIcon?: string;
+    headerIcon?: any;
     extraContent?: any;
     label?: string;
     url?: string;
@@ -12,15 +14,21 @@ interface TabItemProps {
 }
 
 const TabItem = (props: TabItemProps) => {
-    const { extraContent, label, url, children, active, contentPadding = '0px', clearOnChange } = props;
+    const { prefixIcon, headerIcon, extraContent, label, url, children, active, contentPadding = '0px', clearOnChange } = props;
     return (
-        <>
+        <div
+            className="tab-item-wrapper"
+            // 当 active为 true 时，设置高度为 100%，否则为 0，避免父组件设置了 contentHeight 时，影响到 隐藏的 tabItem 的高度
+            style={{ height: active ? '100%' : '0' }}
+        >
             {/* clearOnChange为true，则进行组件的销毁和重建 */}
             {clearOnChange ? (
                 active && (
                     <div
+                        className="tab-item-content"
                         style={{
                             padding: contentPadding || '0px 10px',
+                            height: '100%',
                         }}
                     >
                         {children}
@@ -37,7 +45,7 @@ const TabItem = (props: TabItemProps) => {
                     {children}
                 </div>
             )}
-        </>
+        </div>
     );
 };
 

@@ -2,6 +2,8 @@ import React, { forwardRef, useEffect, useRef, useState, useImperativeHandle } f
 import './index.scss';
 
 export interface InputProps {
+    valueKey?: string;
+    labelKey?: string;
     wrapperWidth?: any;
     wrapperStyle?: React.CSSProperties;
     commonSuffixContent?: string;
@@ -40,7 +42,7 @@ export interface InputProps {
     onChange?: (value: any, ...args: any) => void;
     onIconClick?: (value: string) => void;
     onFormDataChange?: (key: string, value: any) => void;
-    onFieldChange?: (data: any) => void;
+    onFieldChange?: (name: string, value: any) => void;
     onValidateField?: (data?: any) => void;
 }
 
@@ -50,6 +52,8 @@ export interface InputRef {
 
 const Input: React.ForwardRefRenderFunction<InputRef, InputProps> = (
     {
+        valueKey,
+        labelKey,
         wrapperWidth,
         wrapperStyle,
         clearable = true,
@@ -117,7 +121,7 @@ const Input: React.ForwardRefRenderFunction<InputRef, InputProps> = (
         setValue(value);
         onChange && onChange(returnValue, ...args);
         onFormDataChange && onFormDataChange(name!, returnValue);
-        onFieldChange && onFieldChange(value);
+        handleFieldChange && handleFieldChange(returnValue);
         handleValidate(value);
     };
 
@@ -126,6 +130,10 @@ const Input: React.ForwardRefRenderFunction<InputRef, InputProps> = (
     };
 
     const [error, setError] = useState<boolean>(false);
+
+    const handleFieldChange = (value: any) => {
+        onFieldChange && onFieldChange(name!, value);
+    };
 
     const handleValidate = (data: any) => {
         onValidateField && onValidateField(data);
@@ -146,7 +154,7 @@ const Input: React.ForwardRefRenderFunction<InputRef, InputProps> = (
 
     const handleClearIconClick = () => {
         clear();
-        onFieldChange?.('');
+        handleFieldChange('');
         console.log('5: ', 5);
         handleValidate('');
     };
@@ -179,7 +187,10 @@ const Input: React.ForwardRefRenderFunction<InputRef, InputProps> = (
             onMouseEnter={handleMouseEnter}
             onMouseLeave={handleMouseLeave}
             className="adou-input-wrapper position-relative"
-            style={{ ...wrapperStyle, ...(wrapperWidth ? { width: wrapperWidth } : { flex: 1 }) }}
+            style={{
+                ...wrapperStyle,
+                ...(wrapperWidth ? { width: wrapperWidth } : { flex: 1 }),
+            }}
         >
             <input
                 className={`form-control adou-input pe-0 ${textEnd || type === 'number' ? 'text-end' : ''} ${
@@ -204,18 +215,26 @@ const Input: React.ForwardRefRenderFunction<InputRef, InputProps> = (
                 onClick={(e) => handleClick(e)}
                 type={type}
             />
-            {clearable && isEnter && value ? (
-                <div className="adou-input-clear-icon-box fade-enter" style={{ top: size === 'sm' ? '2px' : size === 'lg' ? ' 10px' : '6px' }}>
+            {clearable && true && value ? (
+                <span
+                    className="adou-input-clear-icon-box fade-enter"
+                    style={{
+                        top: size === 'sm' ? '2px' : size === 'lg' ? ' 10px' : '6px',
+                    }}
+                >
                     <i
                         className="adou-input-clear-icon fa-regular fa-circle-xmark text-secondary"
                         style={{ fontSize: '12px', cursor: 'pointer' }}
                         onClick={handleClearIconClick}
                     ></i>
-                </div>
+                </span>
             ) : (
                 <div
                     className="adou-input-common-sufiix-content position-absolute text-secondary"
-                    style={{ right: '14px', top: size === 'sm' ? '14%' : size === 'lg' ? ' 26%' : '18%' }}
+                    style={{
+                        right: '14px',
+                        top: size === 'sm' ? '14%' : size === 'lg' ? ' 26%' : '18%',
+                    }}
                 >
                     {commonSuffixContent}
                 </div>
@@ -223,6 +242,7 @@ const Input: React.ForwardRefRenderFunction<InputRef, InputProps> = (
         </div>
     );
 };
+
 Input.displayName = 'Input';
 
 export default forwardRef(Input);

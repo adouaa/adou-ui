@@ -44,7 +44,7 @@ export interface SelectProps {
     single?: boolean;
     onInputChange?: (e?: any, ...args: any) => void;
     onFormDataChange?: (key: string, value: any) => void;
-    onFieldChange?: (data: any) => void;
+    onFieldChange?: (name: string, value: any) => void;
     onValidateField?: (data?: any) => void;
 }
 
@@ -133,6 +133,10 @@ const LiveSearch: React.FC<LiveSearchProps> = React.forwardRef((props: LiveSearc
         }
     };
 
+    const handleFieldChange = (value: any) => {
+        onFieldChange && onFieldChange(name!, value);
+    };
+
     const handleValidate = (data?: any) => {
         onValidateField && onValidateField(data);
     };
@@ -201,7 +205,7 @@ const LiveSearch: React.FC<LiveSearchProps> = React.forwardRef((props: LiveSearc
             onLiveSearchChange && onLiveSearchChange(hasSelected ? {} : returnData);
             // 这边在 改变表单数据的时候，直接赋值给表单 valueKey的值，而不是一个 对象
             onFormDataChange && onFormDataChange(name!, data[0]?.[valueKey]);
-            onFieldChange && onFieldChange(data[0]?.[valueKey]);
+            handleFieldChange && handleFieldChange(data[0]?.[valueKey]);
             handleValidate(data[0]?.[valueKey]);
             console.log('data: ', data);
             setInputValue(data[0]?.[labelKey] || ''); // 记住 这边要给个 "" 兜底，不然会无法取消选择
@@ -211,7 +215,7 @@ const LiveSearch: React.FC<LiveSearchProps> = React.forwardRef((props: LiveSearc
             setSelectedOptions(data);
             onLiveSearchChange && onLiveSearchChange(data);
             onFormDataChange && onFormDataChange(name!, data);
-            onFieldChange && onFieldChange(data);
+            handleFieldChange && handleFieldChange(data);
             handleValidate(data);
         }
         handleClose(true);
@@ -226,7 +230,7 @@ const LiveSearch: React.FC<LiveSearchProps> = React.forwardRef((props: LiveSearc
         setInputValue(value);
         onInputChange && onInputChange(e.target?.value);
         onFormDataChange && onFormDataChange(name!, value);
-        onFieldChange && onFieldChange(value);
+        handleFieldChange && handleFieldChange(value);
         // 输入词修改时也需要展示选项
         // 【注意：关键是把最开始的列表值存到一个state中，然后再用这个state去过滤，然后再赋值给要展示的列表】
         const filterdOptions = originlOptions?.filter(
@@ -297,7 +301,7 @@ const LiveSearch: React.FC<LiveSearchProps> = React.forwardRef((props: LiveSearc
         e.stopPropagation();
         clear();
         if (required) setError(true);
-        onFieldChange?.('');
+        handleFieldChange?.('');
         handleValidate('');
     };
 
@@ -358,8 +362,6 @@ const LiveSearch: React.FC<LiveSearchProps> = React.forwardRef((props: LiveSearc
     };
 
     useEffect(() => {
-        console.log('1: ', defaultValue);
-
         if (defaultValue) {
             const convertedValue = typeof defaultValue === 'object' ? defaultValue?.[valueKey] : defaultValue;
             let arr: any[] = [];

@@ -31,7 +31,8 @@ interface TextreaProps {
     disabled?: boolean;
     onChangeOK?: (value: any, ...args: any) => void;
     onFormDataChange?: (key: string, value: any) => void;
-    onFieldChange?: (data: any) => void;
+    onFieldChange?: (name: string, value: any) => void;
+    onValidateField?: (data?: any) => void;
 }
 
 const Textarea: React.FC<TextreaProps> = React.forwardRef((props: TextreaProps, ref) => {
@@ -64,12 +65,21 @@ const Textarea: React.FC<TextreaProps> = React.forwardRef((props: TextreaProps, 
         onChangeOK,
         onFormDataChange,
         onFieldChange,
+        onValidateField,
     } = props;
 
     // 获取 `FormContext.Provider` 提供提供的 `value` 值
 
     const [value, setValue] = useState(defaultValue ?? '');
     const [isEnter, setIsEnter] = useState<boolean>(false);
+
+    const handleFieldChange = (value: any) => {
+        onFieldChange && onFieldChange(name!, value);
+    };
+
+    const handleValidate = (value?: string) => {
+        onValidateField && onValidateField(value);
+    };
 
     const handleMouseEnter = () => {
         setIsEnter(true);
@@ -80,11 +90,13 @@ const Textarea: React.FC<TextreaProps> = React.forwardRef((props: TextreaProps, 
     };
 
     const handleChange = (e: React.ChangeEvent<HTMLTextAreaElement>, ...args: any) => {
-        setValue(e.target.value); // 手动将表单的value值赋值
-        // context.handleChange(context.name, e.target.value) // 这边不能直接用 handleChange来赋值，会出现赋值错误的情况
-        onChangeOK && onChangeOK(e.target.value, ...args);
-        onFormDataChange && onFormDataChange(name!, e.target.value);
-        onFieldChange && onFieldChange(e.target.value);
+        const value = e.target.value;
+        setValue(value); // 手动将表单的value值赋值
+        // context.handleChange(context.name, value) // 这边不能直接用 handleChange来赋值，会出现赋值错误的情况
+        onChangeOK && onChangeOK(value, ...args);
+        onFormDataChange && onFormDataChange(name!, value);
+        handleFieldChange && handleFieldChange(value);
+        handleValidate(value);
     };
 
     const handleBlur = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
@@ -96,7 +108,8 @@ const Textarea: React.FC<TextreaProps> = React.forwardRef((props: TextreaProps, 
     const handleClearIconClick = () => {
         setValue('');
         setError(true);
-        onFieldChange && onFieldChange('');
+        handleFieldChange && handleFieldChange('');
+        handleValidate('');
     };
 
     const [error, setError] = useState<boolean>(false);

@@ -7,6 +7,8 @@ import useClickOutside from '../../../hooks/useClickOutside';
 import getAbsolutePosition from 'utils/getAbsolutePosition';
 
 export interface SelectProps {
+    shouldFocus?: boolean;
+    closeWhenSelect?: boolean;
     wrapperStyle?: React.CSSProperties;
     wrapperWidth?: any;
     commonSuffixContent?: string;
@@ -47,7 +49,7 @@ export interface SelectProps {
     single?: boolean;
     onInputChange?: (e?: any, ...args: any) => void;
     onFormDataChange?: (key: string, value: any) => void;
-    onFieldChange?: (data: any) => void;
+    onFieldChange?: (name: string, value: any) => void;
     onValidateField?: (data?: any) => void;
 }
 
@@ -58,6 +60,8 @@ interface RetrieveSelectProps extends SelectProps {
 
 const RetrievrSelect: React.FC<RetrieveSelectProps> = React.forwardRef((props: RetrieveSelectProps, ref) => {
     const {
+        shouldFocus = true, // 是否聚焦
+        closeWhenSelect = true,
         wrapperStyle,
         wrapperWidth,
         clearable = true,
@@ -126,6 +130,10 @@ const RetrievrSelect: React.FC<RetrieveSelectProps> = React.forwardRef((props: R
         setIsOpen((prev: boolean) => !prev);
     };
 
+    const handleFieldChange = (value: any) => {
+        onFieldChange && onFieldChange(name!, value);
+    };
+
     const handleValidate = (data?: any) => {
         onValidateField && onValidateField(data);
     };
@@ -153,6 +161,18 @@ const RetrievrSelect: React.FC<RetrieveSelectProps> = React.forwardRef((props: R
     };
 
     useClickOutside([retrieveSelectWrapperFormControlRef, contentRef], handleClose, isOpen && contentRef.current);
+
+    const calcContentPosition = () => {
+        const position = getAbsolutePosition(retrieveSelectWrapperFormControlRef.current, 0, 0);
+        const viewportHeight = window.innerHeight;
+        const rect = retrieveSelectWrapperFormControlRef.current.getBoundingClientRect();
+        const distanceToBottom = viewportHeight - rect.bottom;
+        // 如果 距离底部小于内容高度，则向上弹出
+        if (distanceToBottom < contentRef.current?.clientHeight) {
+            position.y = position.y - contentRef.current?.clientHeight - position.height;
+        }
+        setCustomSelectContentPosition(position);
+    };
 
     const handleSelect = (option: any, e?: React.MouseEvent<HTMLDivElement>) => {
         e?.stopPropagation();
@@ -197,31 +217,32 @@ const RetrievrSelect: React.FC<RetrieveSelectProps> = React.forwardRef((props: R
                 });
             }
         }
-        let hasSelected = selectedOptions.some((item) => item[labelKey] === option[labelKey]);
+        let hasSelected = selectedOptions.some((item) => item[valueKey || labelKey] === option[valueKey || labelKey]);
         if (single) {
             const data = hasSelected ? [] : [option];
             setSelectedOptions(data);
             onRetrieveSelectChange && onRetrieveSelectChange(hasSelected ? {} : option);
             if (returnType === 'obj' || showDefaultValue) {
                 onFormDataChange && onFormDataChange(name!, data[0]);
-                onFieldChange && onFieldChange(data[0]);
+                handleFieldChange && handleFieldChange(data[0]);
                 onValidateField && onValidateField(data[0]);
             } else {
                 onFormDataChange && onFormDataChange(name!, data[0]?.[valueKey]);
-                onFieldChange && onFieldChange(data[0]?.[valueKey]);
+                handleFieldChange && handleFieldChange(data[0]?.[valueKey]);
                 onValidateField && onValidateField(data[0]?.[valueKey]);
             }
         } else {
             const currentSelectedOptions = [...selectedOptions, option];
             const data = hasSelected ? selectedOptions.filter((item: any) => item[valueKey] !== option[valueKey]) : currentSelectedOptions;
             setSelectedOptions(data);
-            onRetrieveSelectChange && onRetrieveSelectChange(data);
             onFormDataChange && onFormDataChange(name!, data);
-            onFieldChange && onFieldChange(data[0]?.[valueKey]);
+
+            onRetrieveSelectChange && onRetrieveSelectChange(option);
+            handleFieldChange && handleFieldChange(option);
             onValidateField && onValidateField(data[0]?.[valueKey]);
         }
         setShowSelectedList(true);
-        handleClose();
+        closeWhenSelect && handleClose();
     };
 
     // 输入框聚焦
@@ -277,26 +298,26 @@ const RetrievrSelect: React.FC<RetrieveSelectProps> = React.forwardRef((props: R
         if (readOnly) return;
         // retrieveInputRef.current && retrieveInputRef.current.focus();
         setIsHighlighted(true);
-        const position = getAbsolutePosition(retrieveSelectWrapperFormControlRef.current, 0, 0);
-        setCustomSelectContentPosition(position);
+
         if (!isOpen && selectedOptions.length === 0) {
             toggleDropdown();
             setTimeout(() => {
                 setShowOptions(true);
+                calcContentPosition();
             }, 10);
         }
         // 为了适配通过tab键来定位聚焦，把这些点击的逻辑去掉
         /* if (!isOpen) {
-          toggleDropdown();
-  
-          // e.stopPropagation(); 这里不能加，否则会导致Select展开的时候点击RetrieveSelect无法关闭Select的选项
-          setTimeout(() => {
-            setShowOptions(true);
-          }, 10);
-        } else {
-          setShowOptions(false);
-          toggleDropdown();
-        } */
+            toggleDropdown();
+    
+            // e.stopPropagation(); 这里不能加，否则会导致Select展开的时候点击RetrieveSelect无法关闭Select的选项
+            setTimeout(() => {
+              setShowOptions(true);
+            }, 10);
+          } else {
+            setShowOptions(false);
+            toggleDropdown();
+          } */
     };
 
     const getValue = () => {
@@ -331,7 +352,7 @@ const RetrievrSelect: React.FC<RetrieveSelectProps> = React.forwardRef((props: R
         e.stopPropagation();
         clear();
         if (required) setError(true);
-        onFieldChange?.(returnType === 'str' ? '' : {});
+        handleFieldChange?.(returnType === 'str' ? '' : {});
         retrieveInputRef.current.value = '';
         handleValidate('');
     };
@@ -358,6 +379,7 @@ const RetrievrSelect: React.FC<RetrieveSelectProps> = React.forwardRef((props: R
     });
 
     const handleFocus = (event: any) => {
+        if (!shouldFocus) return;
         setIsHighlighted(true);
         // 没值的时候打开， 去掉了&& selectedOptions.length === 0 这个判断
         if (!readOnly && !isOpen && selectedOptions.length === 0) {
@@ -367,6 +389,7 @@ const RetrievrSelect: React.FC<RetrieveSelectProps> = React.forwardRef((props: R
             }, 10);
         }
         const position = getAbsolutePosition(retrieveSelectWrapperFormControlRef.current, 0, 0);
+        position.y = position.y + contentRef.current?.clientHeight;
         setCustomSelectContentPosition(position);
         retrieveInputRef.current?.focus();
     };
@@ -514,8 +537,8 @@ const RetrievrSelect: React.FC<RetrieveSelectProps> = React.forwardRef((props: R
         setTempOptions(options);
         // 不应该有这个逻辑
         /* if (!isOpen) {
-          toggleDropdown();
-        } */
+            toggleDropdown();
+          } */
     }, [options]);
 
     return (
@@ -524,10 +547,13 @@ const RetrievrSelect: React.FC<RetrieveSelectProps> = React.forwardRef((props: R
             onFocus={handleFocus}
             onKeyDown={handleKeyDown}
             className={retrieveSelectClasses}
-            style={{ ...wrapperStyle, ...(wrapperWidth ? { width: wrapperWidth } : { flex: 1 }) }}
+            style={{
+                ...wrapperStyle,
+                ...(wrapperWidth ? { width: wrapperWidth } : { flex: 1 }),
+            }}
         >
             <div className={`adou-retrieve-select-content-box ${inputGroup ? 'inputGroup' : `label-in-${labelPosition}`} ${labelPosition === 'top' && inline ? 'me-2' : ''}`}>
-                <div className="adou-retrieve-select" onMouseEnter={handleMouseEnter} onMouseLeave={handleMouseLeave}>
+                <div className="adou-retrieve-select" style={{ flex: 1 }} onMouseEnter={handleMouseEnter} onMouseLeave={handleMouseLeave}>
                     <div
                         style={{
                             flexWrap: single ? 'nowrap' : 'wrap',
@@ -590,6 +616,7 @@ const RetrievrSelect: React.FC<RetrieveSelectProps> = React.forwardRef((props: R
                                 style={{
                                     // 要比父组件 少 2px，否则会把父组件给挡住
                                     height: size === 'lg' ? '46px' : size === 'sm' ? '30px' : '38px',
+                                    // maxWidth: "60px",
                                 }}
                             />
                         </div>

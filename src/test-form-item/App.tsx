@@ -15,20 +15,26 @@ import useForm from 'components/adou-new-form-item/useForm';
 interface AppProps {}
 
 const App = ({}: AppProps) => {
-    const [formData, setFormData] = useState<any>();
-    const form = useForm(formData);
+    const form = useForm({});
 
     const formRef = useRef<any>(null);
 
     const handleGetData = () => {
-        // form.clear();
-        // console.log('form.getData();: ', form.getData());
-        formRef.current.validate();
+        console.log('form.getData();: ', form.getData());
+    };
+
+    const handleClear = () => {
+        form.clear();
+    };
+
+    const handleValidate = () => {
+        const valid = formRef.current.validateForm();
+        console.log('valid: ', valid);
     };
 
     const [options, setOptions] = useState<any>([
-        { label: '你好123你好123', value: 1 },
-        { label: '你好5555', value: 2 },
+        { label: '你好123你好123', value: '你好123你好123' },
+        { label: '你好5555', value: '你好5555' },
     ]);
 
     const [liveOptions, setliveOptions] = useState<any>([
@@ -38,15 +44,14 @@ const App = ({}: AppProps) => {
 
     useEffect(() => {
         setTimeout(() => {
-            setFormData({
+            form.setFormData({
                 position1: 'xm',
-                cs1: 'cs11',
                 cs2: 'cs21',
-                area: 1,
+                area: '你好123你好123',
                 position2: '人民万岁',
                 position3: ['你好呀', '同志们'],
                 liveSearch2: '米粉',
-                remote: 2,
+                remote: '你好5555',
             });
         }, 300);
     }, []);
@@ -58,12 +63,18 @@ const App = ({}: AppProps) => {
             {JSON.stringify(form.formData)}
 
             <Button onClickOK={handleGetData} type="primary">
-                测试
+                获取
+            </Button>
+            <Button externalClassName="me-2" onClickOK={handleClear} type="danger">
+                删除
+            </Button>
+            <Button onClickOK={handleValidate} type="warning">
+                校验
             </Button>
 
-            <Form commonRules={rules} eachWordWidth={25} form={form} commonFormItemWrapperWidth="50%" ref={formRef} clearable layout="inline">
+            <Form commonFormItemWrapperWidth={'50%'} commonRules={rules} eachWordWidth={25} form={form} ref={formRef} clearable layout="inline">
                 {/* Input */}
-                <FormItem addonBefore={'问候'} rules={rules} /* addonBefore={'测试'} */ /* addonAfter={'测试'} */ name="cs1" label="你好">
+                <FormItem rules={rules} addonBefore={'问候'} /* addonBefore={'测试'} */ /* addonAfter={'测试'} */ name="cs1" label="你好">
                     <AdouInput></AdouInput>
                 </FormItem>
                 <FormItem addonBefore={'问候'} addonAfter={'问候'} rules={rules} label="频次" name="cs2">
@@ -71,9 +82,10 @@ const App = ({}: AppProps) => {
                 </FormItem>
                 <FormItem rules={rules} addonBefore={'问候'} label="地点" name="area">
                     <Select placeholder="请选择" commonSuffixContent="市区" options={options}></Select>
+                    <AdouInput commonSuffixContent="测" name="cccc"></AdouInput>
                 </FormItem>
                 <FormItem label="搜索" /* addonBefore={'关键'} */ /* addonAfter={'结尾'} */ name="remote" /* layout="horizontal" */>
-                    <RetrievrSelect returnType="obj" commonSuffixContent="地区" options={options}></RetrievrSelect>
+                    <RetrievrSelect returnType="obj" commonSuffixContent="地区32" options={options}></RetrievrSelect>
                 </FormItem>
                 <FormItem label="搜索" /* addonBefore={'关键'} */ /* addonAfter={'结尾'} */ name="position1" /* layout="horizontal" */>
                     <LiveSearch options={liveOptions}></LiveSearch>
