@@ -92,60 +92,33 @@ const FormItem = ({
 
     // 由于使用 value = data[name]的话，会滞后一节拍，所以索性直接在调用 validateField 的时候，把 data 传入
     const validateField = (fieldName?: string, value?: any, isForm: boolean = false) => {
-        let isValid: boolean = true;
-        let message: string = '';
-        if (!rules) return isValid;
+        if (!rules) return true;
         // 规则：如果不是 整体，则是某个表单项，则可以取到 fieldName 和 value，正常走逻辑
         // 如果是整体，则没有 fieldName 和 value，则取 data 中的值。
         // 先取 传递过来的值，最后用 data 的值给整体表单校验进行兜底
-        if (children && Array.isArray(children) && children.length > 1) {
-            for (const rule of rules) {
-                if (rule.required) {
-                    for (const child of children) {
-                        const childProps = child.props;
-                        const childName = childProps.name || name;
-                        // 注意：如果当前调用该校验函数 validateField 所传递过来的字段名 fieldName 和子组件的 name(在这边是childName) 一致(代表当前校验的是 正在修改的表单)，则取传递过来的值(这个值才是实时的，如果对当前正在修改的表单取 data 中的值作为校验值，会慢一节拍)，否则取data中的值
-                        const childValue = childName === fieldName ? value : data[childName!];
-                        if (!childValue) {
-                            isValid = false;
-                            setIsError(true);
-                            setErrorMessage(message || 'This field is invalid');
-                            return isValid;
-                        } else {
-                            isValid = true;
-                            setIsError(false);
-                            setErrorMessage('');
-                        }
-                    }
-                }
+        const validateValue = !isForm ? value : value || data[fieldName!] || data[name!];
+        for (const rule of rules) {
+            if (rule.required && (validateValue === undefined || validateValue === null || validateValue === '' || isEmptyO(validateValue))) {
+                setIsError(true);
+                setErrorMessage(rule.message || 'This field is required');
+                return false;
+            } else {
+                setIsError(false);
+                setErrorMessage('');
             }
-        } else {
-            const validateValue = !isForm ? value : value || data[fieldName!] || data[name!];
-            for (const rule of rules) {
-                if (rule.required && (validateValue === undefined || validateValue === null || validateValue === '' || isEmptyO(validateValue))) {
-                    isValid = false;
+            if (rule.validator) {
+                const error = rule.validator(validateValue);
+                if (error) {
+                    setIsError(true);
+                    setErrorMessage(error.message || 'This field is invalid');
+                    return false;
                 } else {
-                    isValid = true;
-                }
-                if (rule.validator) {
-                    const error = rule.validator(validateValue);
-                    if (error) {
-                        isValid = false;
-                        message = error.message || 'This field is invalid';
-                    } else {
-                        isValid = true;
-                    }
+                    setIsError(false);
+                    setErrorMessage('');
                 }
             }
         }
-        if (!isValid) {
-            setIsError(true);
-            setErrorMessage(message || 'This field is invalid');
-        } else {
-            setIsError(false);
-            setErrorMessage('');
-        }
-        return isValid;
+        return true;
     };
 
     const enhancedChildren = React.Children.map(children, (child: any, index: number) => {

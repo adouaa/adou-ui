@@ -43,7 +43,7 @@ export interface InputProps {
     onIconClick?: (value: string) => void;
     onFormDataChange?: (key: string, value: any) => void;
     onFieldChange?: (name: string, value: any) => void;
-    onValidateField?: (data?: any) => void;
+    onValidateField?: (name: string, value?: any) => void;
 }
 
 export interface InputRef {
@@ -136,7 +136,7 @@ const Input: React.ForwardRefRenderFunction<InputRef, InputProps> = (
     };
 
     const handleValidate = (data: any) => {
-        onValidateField && onValidateField(data);
+        onValidateField && onValidateField(name!, data);
     };
 
     const validate = () => {};
@@ -154,6 +154,7 @@ const Input: React.ForwardRefRenderFunction<InputRef, InputProps> = (
 
     const handleClearIconClick = () => {
         clear();
+        handleFieldChange('');
         handleFieldChange('');
         console.log('5: ', 5);
         handleValidate('');

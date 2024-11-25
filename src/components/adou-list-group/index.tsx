@@ -98,15 +98,15 @@ const ListGroup = ({
             setParentMaxHeight(columnMaxHeight);
         } else if (listGroupRef.current) {
             const parentElement = listGroupRef.current.parentElement;
-            if (parentElement) {
+            if (parentElement && parentElement.clientHeight > 0) {
                 setParentMaxHeight(parentElement.clientHeight);
             }
         }
-    }, [selectList, data, lineBreak, columnMaxHeight]);
+    }, [selectList, data, columnMaxHeight]);
 
     useEffect(() => {
         // 如果需要换行，则根据 判断 filesPerColunm 是否有值，有值则直接分割，没有值则根据 parentMaxHeight 和 itemHeight 计算每列的文件数量
-        if (lineBreak && parseFloat(parentMaxHeight)) {
+        if (lineBreak) {
             if (filesPerColumn) {
                 setList(splitFilesIntoColumns(data || [], filesPerColumn));
             } else {
@@ -136,69 +136,68 @@ const ListGroup = ({
         } else {
             setList(data || []);
         }
-    }, [lineBreak, parentMaxHeight]);
+    }, [data, lineBreak, parentMaxHeight]);
 
     return (
         <div className={`list-group-wrapper ${externalClassName || ''}`} ref={listGroupRef}>
-            {parentMaxHeight > 0 ? (
-                lineBreak ? (
-                    <div className="row">
-                        {list.map((columnItems, columnIndex) => (
-                            <div className={`col-${12 / columns} mb-2`} key={columnIndex}>
-                                <ul
-                                    className="list-group"
-                                    style={{
-                                        height,
-                                        maxHeight: maxHeight || height || parentMaxHeight,
-                                        overflowY: 'auto',
-                                        border: '1px solid #ccc',
-                                        borderRadius: '5px',
-                                    }}
-                                >
-                                    {Array.isArray(columnItems) &&
-                                        columnItems?.map((item: any, itemIndex: number) => (
-                                            <button
-                                                onClick={() => handleItemClick(item)}
-                                                onDoubleClick={(e) => handleItemDoubleClick(e, item)}
-                                                key={itemIndex}
-                                                type="button"
-                                                className={`list-group-item list-group-item-action border-0 ${judgeIsActive(item)}`}
-                                            >
-                                                {render ? render(item) : item[labelKey!]}
-                                            </button>
-                                        ))}
-                                </ul>
-                            </div>
-                        ))}
-                    </div>
-                ) : (
-                    <div
-                        className="list-group"
-                        style={{
-                            height,
-                            maxHeight: maxHeight || height || parentMaxHeight,
-                            overflowY: 'auto',
-                            border: list.length ? '1px solid #ccc' : 'none',
-                        }}
-                    >
-                        {list!?.map((item: any, index: number) => (
-                            <button
+            {lineBreak ? (
+                <div className="row g-0">
+                    {list.map((columnItems, columnIndex) => (
+                        <div className={`${filesPerColumn ? `col-${columns}` : 'col'}`} key={columnIndex}>
+                            <ul
+                                className="list-group me-2"
                                 style={{
-                                    whiteSpace: noWrap ? 'nowrap' : 'normal',
-                                    border: 'none',
+                                    height,
+                                    maxHeight: maxHeight || height || parentMaxHeight,
+                                    overflowY: 'auto',
+                                    border: '1px solid #ccc',
+                                    borderRadius: '5px',
+                                    boxSizing: 'border-box',
                                 }}
-                                onClick={() => handleItemClick(item)}
-                                onDoubleClick={(e) => handleItemDoubleClick(e, item)}
-                                key={item[valueKey!]}
-                                type="button"
-                                className={`list-group-item list-group-item-action ${judgeIsActive(item)}`}
                             >
-                                {render ? render(item) : item[labelKey!]}
-                            </button>
-                        ))}
-                    </div>
-                )
-            ) : null}
+                                {Array.isArray(columnItems) &&
+                                    columnItems?.map((item: any, itemIndex: number) => (
+                                        <button
+                                            onClick={() => handleItemClick(item)}
+                                            onDoubleClick={(e) => handleItemDoubleClick(e, item)}
+                                            key={itemIndex}
+                                            type="button"
+                                            className={`list-group-item list-group-item-action border-0 ${judgeIsActive(item)}`}
+                                        >
+                                            {render ? render(item) : item[labelKey!]}
+                                        </button>
+                                    ))}
+                            </ul>
+                        </div>
+                    ))}
+                </div>
+            ) : (
+                <div
+                    className="list-group"
+                    style={{
+                        height,
+                        maxHeight: maxHeight || height || parentMaxHeight,
+                        overflowY: 'auto',
+                        border: list.length ? '1px solid #ccc' : 'none',
+                    }}
+                >
+                    {list!?.map((item: any, index: number) => (
+                        <button
+                            style={{
+                                whiteSpace: noWrap ? 'nowrap' : 'normal',
+                                border: 'none',
+                            }}
+                            onClick={() => handleItemClick(item)}
+                            onDoubleClick={(e) => handleItemDoubleClick(e, item)}
+                            key={item[valueKey!]}
+                            type="button"
+                            className={`list-group-item list-group-item-action ${judgeIsActive(item)}`}
+                        >
+                            {render ? render(item) : item[labelKey!]}
+                        </button>
+                    ))}
+                </div>
+            )}
         </div>
     );
 };

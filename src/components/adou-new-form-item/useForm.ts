@@ -17,7 +17,7 @@ const useForm = (data: any) => {
     const getFieldValue = (key: string) => {
         return formData[key];
     };
-    const validate = async () => {}; // 也可以在这边实现，把 rules都传过来，然后返回的时候多传一个 errors，给 FormIten使用
+    let validate; // 也可以在这边实现，把 rules都传过来，然后返回的时候多传一个 errors，给 FormIten使用
 
     const reset = () => {
         setFormData(data);

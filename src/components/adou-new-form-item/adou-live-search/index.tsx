@@ -45,7 +45,7 @@ export interface SelectProps {
     onInputChange?: (e?: any, ...args: any) => void;
     onFormDataChange?: (key: string, value: any) => void;
     onFieldChange?: (name: string, value: any) => void;
-    onValidateField?: (data?: any) => void;
+    onValidateField?: (name: string, value: any) => void;
 }
 
 interface LiveSearchProps extends SelectProps {
@@ -138,7 +138,7 @@ const LiveSearch: React.FC<LiveSearchProps> = React.forwardRef((props: LiveSearc
     };
 
     const handleValidate = (data?: any) => {
-        onValidateField && onValidateField(data);
+        onValidateField && onValidateField(name!, data);
     };
 
     useClickOutside([liveSearchSelectRef, contentRef], handleClose, isOpen && contentRef.current);

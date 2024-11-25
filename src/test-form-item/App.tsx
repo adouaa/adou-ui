@@ -28,8 +28,9 @@ const App = ({}: AppProps) => {
     };
 
     const handleValidate = () => {
-        const valid = formRef.current.validateForm();
-        console.log('valid: ', valid);
+        // const valid = formRef.current.validateForm();
+        // console.log('valid: ', valid);
+        // console.log('form.validate: ', form.validate());
     };
 
     const [options, setOptions] = useState<any>([
@@ -61,7 +62,10 @@ const App = ({}: AppProps) => {
     return (
         <div className="app-wrapper p-3">
             {JSON.stringify(form.formData)}
-
+            <FormItem rules={rules} addonBefore={'问候'} label="地点" name="area">
+                <Select placeholder="请选择" commonSuffixContent="市区" options={options}></Select>
+                <AdouInput commonSuffixContent="测" name="cccc"></AdouInput>
+            </FormItem>
             <Button onClickOK={handleGetData} type="primary">
                 获取
             </Button>
@@ -72,7 +76,7 @@ const App = ({}: AppProps) => {
                 校验
             </Button>
 
-            <Form commonFormItemWrapperWidth={'50%'} commonRules={rules} eachWordWidth={25} form={form} ref={formRef} clearable layout="inline">
+            <Form commonFormItemWrapperWidth={'50%'} commonRules={rules} form={form} ref={formRef} clearable layout="inline">
                 {/* Input */}
                 <FormItem rules={rules} addonBefore={'问候'} /* addonBefore={'测试'} */ /* addonAfter={'测试'} */ name="cs1" label="你好">
                     <AdouInput></AdouInput>

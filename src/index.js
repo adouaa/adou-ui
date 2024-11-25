@@ -68,9 +68,9 @@ import ReactDOM from 'react-dom/client';
 
 // import App from './doc/doc-calendar';
 
-// import App from './test-form-item/App.tsx';
+import App from './test-form-item/App.tsx';
 
-import App from './test-line-break-list/App.tsx';
+// import App from './test-line-break-list/App.tsx';
 
 import 'bootstrap/dist/css/bootstrap.min.css';
 

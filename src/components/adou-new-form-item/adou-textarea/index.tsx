@@ -32,7 +32,7 @@ interface TextreaProps {
     onChangeOK?: (value: any, ...args: any) => void;
     onFormDataChange?: (key: string, value: any) => void;
     onFieldChange?: (name: string, value: any) => void;
-    onValidateField?: (data?: any) => void;
+    onValidateField?: (name: string, value: any) => void;
 }
 
 const Textarea: React.FC<TextreaProps> = React.forwardRef((props: TextreaProps, ref) => {
@@ -78,7 +78,7 @@ const Textarea: React.FC<TextreaProps> = React.forwardRef((props: TextreaProps, 
     };
 
     const handleValidate = (value?: string) => {
-        onValidateField && onValidateField(value);
+        onValidateField && onValidateField(name!, value);
     };
 
     const handleMouseEnter = () => {

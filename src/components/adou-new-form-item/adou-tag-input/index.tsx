@@ -27,7 +27,7 @@ interface TagInputProps {
     defaultValue?: any;
     onChange?: (value: any) => void;
     onFieldChange?: (name: string, value: any) => void;
-    onValidateField?: (data?: any) => void;
+    onValidateField?: (name: string, value: any) => void;
 }
 
 const TagInput = React.forwardRef(
@@ -73,7 +73,7 @@ const TagInput = React.forwardRef(
         };
 
         const handleValidateField = (value?: any) => {
-            onValidateField && onValidateField(value);
+            onValidateField && onValidateField(name!, value);
         };
 
         const addInput = () => {

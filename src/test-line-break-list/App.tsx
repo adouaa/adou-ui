@@ -31,7 +31,7 @@ const App = ({}: AppProps) => {
             <h1>文件资源管理器</h1>
             {/* <FileExplorer files={files} filesPerColumn={10} columns={2} /> */}
             <div className="test" style={{ height: '210px' }}>
-                <ListGroup itemHeight={10} filesPerColumn={5} columnMaxHeight={'100'} lineBreak columns={2} data={files}></ListGroup>
+                <ListGroup lineBreak columns={6} data={[...files, ...files, ...files]}></ListGroup>
             </div>
         </div>
     );
