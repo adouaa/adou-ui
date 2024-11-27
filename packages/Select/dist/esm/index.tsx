@@ -164,9 +164,12 @@ const Select = React.forwardRef((props: SelectProps, ref) => {
         const selectOption = options.find(
           (option) => option?.[valueKey] === defaultValue?.[valueKey]
         );
-        // 如果没有找到匹配项，则不设置选中项
+        // 如果找到匹配项，则设置选中项
         if (selectOption) {
           setValue(selectOption);
+        } else {
+          // 如果没有找到匹配项，则不设置选中项
+          setValue({});
         }
       } else {
         if (defaultValue || defaultValue === 0 || defaultValue === false) {
@@ -527,6 +530,4 @@ const Select = React.forwardRef((props: SelectProps, ref) => {
     </div>
   );
 });
-
-
 export default withTranslation()(Select);

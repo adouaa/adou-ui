@@ -104,9 +104,7 @@ const ListGroup = ({
     } else if (defaultFirst) {
       setActiveList(data?.[0]);
     }
-    if (columnMaxHeight) {
-      setParentMaxHeight(columnMaxHeight);
-    } else if (listGroupRef.current) {
+    if (listGroupRef.current) {
       const parentElement = listGroupRef.current.parentElement;
       if (parentElement && parentElement.clientHeight > 0) {
         setParentMaxHeight(parentElement.clientHeight);
@@ -128,7 +126,10 @@ const ListGroup = ({
         data?.forEach((item) => {
           // 假设每个项的高度为 40px
           // 如果加上这个 item的高度 超过了最大高度，则把之前那一组的数据 放到 columnsData 中，然后清空数据，开始新的列
-          if (currentHeight + itemHeight > parseFloat(parentMaxHeight)) {
+          if (
+            currentHeight + itemHeight >
+            parseFloat(columnMaxHeight || maxHeight || parentMaxHeight)
+          ) {
             columnsData.push(currentColumn);
             currentColumn = [];
             currentHeight = 0;
@@ -146,7 +147,7 @@ const ListGroup = ({
     } else {
       setList(data || []);
     }
-  }, [data, lineBreak, parentMaxHeight]);
+  }, [data, lineBreak, columnMaxHeight, maxHeight, parentMaxHeight]);
 
   return (
     <div
@@ -156,15 +157,15 @@ const ListGroup = ({
       {lineBreak ? (
         <div className="row g-0">
           {list.map((columnItems, columnIndex) => (
-            <div
-              className={`${filesPerColumn ? `col-${columns}` : "col"}`}
-              key={columnIndex}
-            >
+            <div className={`col`} key={columnIndex}>
               <ul
                 className="list-group me-2"
                 style={{
                   height,
-                  maxHeight: maxHeight || height || parentMaxHeight,
+                  // maxHeight:
+                  //   maxHeight || height || lineBreak ? parentMaxHeight : "",
+                  maxHeight:
+                    columnMaxHeight || maxHeight || height || parentMaxHeight,
                   overflowY: "auto",
                   border: "1px solid #ccc",
                   borderRadius: "5px",
@@ -194,7 +195,7 @@ const ListGroup = ({
           className="list-group"
           style={{
             height,
-            maxHeight: maxHeight || height || parentMaxHeight,
+            maxHeight: maxHeight || height,
             overflowY: "auto",
             border: list.length ? "1px solid #ccc" : "none",
           }}

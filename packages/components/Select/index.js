@@ -272,6 +272,7 @@ module.exports = {
         flattenDataWithoutNesting: () => ( /* reexport */libs_flattenDataWithoutNesting),
         getAbsolutePosition: () => ( /* reexport */libs_getAbsolutePositionOfStage),
         isEmptyO: () => ( /* reexport */libs_isEmptyO),
+        splitFilesIntoColumns: () => ( /* reexport */libs_splitFilesIntoColumns),
         timeFormatter: () => ( /* reexport */time_formatter_namespaceObject),
         useClickOutside: () => ( /* reexport */hooks_useClickOutside),
         useDrag: () => ( /* reexport */hooks_useDrag),
@@ -444,6 +445,22 @@ module.exports = {
       }
       /* harmony default export */
       const libs_flattenDataWithoutNesting = flattenDataWithoutNesting;
+      ; // CONCATENATED MODULE: ./src/libs/splitFilesIntoColumns.ts
+      // 根据列数和每列展示的文件数量来分割文件
+      const splitFilesIntoColumns = (files, filesPerColumn) => {
+        const result = [];
+        let currentColumn = [];
+        files.forEach((file, index) => {
+          currentColumn.push(file);
+          if ((index + 1) % filesPerColumn === 0 || index === files.length - 1) {
+            result.push(currentColumn);
+            currentColumn = [];
+          }
+        });
+        return result;
+      };
+      /* harmony default export */
+      const libs_splitFilesIntoColumns = splitFilesIntoColumns;
       ; // CONCATENATED MODULE: ../../node_modules/@remix-run/router/dist/router.js
       /**
        * @remix-run/router v1.5.0
@@ -7455,9 +7472,12 @@ const Select = /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_a
     } else {
       if (typeof defaultValue === "object") {
         const selectOption = options.find(option => (option === null || option === void 0 ? void 0 : option[valueKey]) === (defaultValue === null || defaultValue === void 0 ? void 0 : defaultValue[valueKey]));
-        // 如果没有找到匹配项，则不设置选中项
+        // 如果找到匹配项，则设置选中项
         if (selectOption) {
           setValue(selectOption);
+        } else {
+          // 如果没有找到匹配项，则不设置选中项
+          setValue({});
         }
       } else {
         if (defaultValue || defaultValue === 0 || defaultValue === false) {

@@ -2719,10 +2719,7 @@ var Input_default = /*#__PURE__*/__webpack_require__.n(Input);
 
 const TableCell = props => {
   const {
-    tooltip,
     sortable,
-    collapse,
-    isParent,
     maxWidth,
     render,
     rowData,
@@ -2732,14 +2729,14 @@ const TableCell = props => {
     colIndex,
     value,
     eidtable,
-    textPosition = 'center',
+    textPosition = "center",
     width,
     onChange,
     onEditCancel,
     onEditOK
   } = props;
   const [isEditing, setIsEditing] = (0,external_root_React_commonjs2_react_commonjs_react_amd_react_.useState)(false);
-  const [editedValue, setEditedValue] = (0,external_root_React_commonjs2_react_commonjs_react_amd_react_.useState)(value || ''); // 最终展示的值
+  const [editedValue, setEditedValue] = (0,external_root_React_commonjs2_react_commonjs_react_amd_react_.useState)(value || ""); // 最终展示的值
   const wrapperRef = (0,external_root_React_commonjs2_react_commonjs_react_amd_react_.useRef)(null);
   const handleDoubleClick = () => {
     eidtable && setIsEditing(true);
@@ -2763,38 +2760,33 @@ const TableCell = props => {
   return /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("div", {
     className: "table-cell d-flex",
     style: {
-      width: '100%'
+      width: "100%"
     }
   }, render ? render(editedValue, rowData, rowIndex, prop, colIndex) : /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("div", {
     className: "table-cell-wrapper",
     style: {
-      display: 'inline-block',
-      overflow: 'hidden',
-      width: '100%'
+      display: "inline-block",
+      overflow: "hidden",
+      width: "100%"
     },
     onDoubleClick: handleDoubleClick,
     ref: wrapperRef
   }, isEditing ? /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("div", {
     style: {
-      width: wrapperRef.current ? "".concat(wrapperRef.current.clientWidth, "px") : '100%',
-      boxSizing: 'border-box'
+      width: wrapperRef.current ? "".concat(wrapperRef.current.clientWidth, "px") : "100%",
+      boxSizing: "border-box"
     }
   }, /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement((Input_default()), {
     defaultValue: editedValue,
     onChange: e => handleChange(e),
     onBlur: e => handleBlur(e)
   })) : /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("div", {
-    className: "ps-1"
-  }, /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("div", {
-    className: "value d-flex align-items-center"
-  }, isParent && /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("i", {
-    className: "fa-solid fa-chevron-right me-2 ".concat(collapse ? 'rotate-down' : '', " collapse-icon")
-  }), /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("div", {
+    className: "ellipsis-1",
     style: {
+      minWidth: "100px",
       maxWidth
-    },
-    className: "ellipsis-1 "
-  }, editedValue)))));
+    }
+  }, editedValue)));
 };
 /* harmony default export */ const src_TableCell = (withTranslation()(TableCell));
 // EXTERNAL MODULE: ../../node_modules/style-loader/dist/runtime/injectStylesIntoStyleTag.js
@@ -2881,8 +2873,8 @@ const Table = props => {
     tableResponsive = "xxl",
     eidtable = false,
     headSticky = true,
-    headTextColor = "white",
-    headBGC = "#2782d7",
+    headTextColor = "black",
+    headBGC = "#f6f6fb",
     divider,
     maxHeight = "500px",
     minHeight = "0px",
@@ -2962,7 +2954,8 @@ const Table = props => {
         return /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("th", {
           style: {
             whiteSpace: "nowrap",
-            width: widthObject[child.props.prop],
+            minWidth: child === null || child === void 0 ? void 0 : child.props.minWidth,
+            width: (child === null || child === void 0 ? void 0 : child.props.width) || widthObject[child.props.prop],
             fontWeight: headerFontWeight
           },
           className: "".concat("text-" + textPositionObject[child.props.prop]),
@@ -3090,7 +3083,8 @@ const Table = props => {
             className: "".concat("text-" + textPositionObject[prop]),
             style: {
               verticalAlign: verticalAlignObject[prop],
-              width: widthObject[child.props.prop],
+              minWidth: child.props.minWidth,
+              width: child.props.width || widthObject[child.props.prop],
               overflowWrap: "break-word",
               wordWrap: "break-word",
               wordBreak: "break-word",
@@ -3154,19 +3148,20 @@ const Table = props => {
    * 单击tr
    */
   const handleRowClick = row => {
-    const finalChecked = !row.checked;
-    setTableData(preArr => {
-      return preArr.map(item => {
-        if (item[id] === row[id]) {
-          item.checked = !item.checked;
-        } else {
-          if (single) {
-            item.checked = false;
-          }
+    const data = tableData.map(item => {
+      if (item[id] === row[id]) {
+        item.checked = !item.checked;
+      } else {
+        if (single) {
+          item.checked = false;
         }
-        return item;
-      });
+      }
+      return item;
     });
+    setTableData(data);
+    if (collection) {
+      setCheckedAll(areAllChecked(data));
+    }
     onRowClick && onRowClick(row);
   };
   const handleCheckboxChange = (e, row) => {
@@ -3175,7 +3170,6 @@ const Table = props => {
     setTableData(preArr => {
       return preArr.map(item => {
         if (item[id] === row[id]) {
-          console.log("jinlaile: ");
           item.checked = checked;
         }
         return item;
@@ -3254,10 +3248,12 @@ const Table = props => {
   (0,external_root_React_commonjs2_react_commonjs_react_amd_react_.useEffect)(() => {
     setTableData(preData => preData.map(item => {
       // 判断 id 是否存在，如果 id 不存在，并且 activeId 也不存在，那也是相等的，得排除
-      if (item[id] && item[id] === activeId) {
-        item.checked = true;
-      } else {
-        item.checked = false;
+      if (activeId) {
+        if (item[id] && item[id] === activeId) {
+          item.checked = true;
+        } else {
+          item.checked = false;
+        }
       }
       return item;
     }));

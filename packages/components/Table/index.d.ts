@@ -4,12 +4,11 @@ import "./index.scss";
 export { TableCell };
 declare const _default: React.ComponentType<Omit<{
     data: any;
-    collapse?: boolean | undefined;
     maxWidth?: any;
     children?: any;
     eidtable?: boolean | undefined;
     width?: any;
-    textPosition?: "center" | "left" | "right" | "justify" | undefined;
+    textPosition?: "center" | "start" | "end" | "justify" | undefined;
     verticalAlign?: "middle" | "top" | "bottom" | undefined;
     onEditOK?: ((data: any) => void) | undefined;
     defaultChecked?: any;
@@ -22,6 +21,7 @@ declare const _default: React.ComponentType<Omit<{
     id?: string | undefined;
     trPointer?: boolean | undefined;
     collection?: boolean | undefined;
+    collapse?: boolean | undefined;
     expandAll?: boolean | undefined;
     size?: "lg" | "sm" | undefined;
     tableStriped?: boolean | undefined;
