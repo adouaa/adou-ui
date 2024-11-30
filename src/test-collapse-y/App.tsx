@@ -1,5 +1,6 @@
 import Button from 'components/adou-button';
 import CollapseY from 'components/adou-collapseY';
+import CollapseItem from 'components/adou-collapseY/collapseItem';
 import React, { useState } from 'react';
 
 const App = () => {
@@ -21,24 +22,21 @@ const App = () => {
     const [activeIndex, setActiveIndex] = useState<number | null>(null);
 
     const handleCollapseToggle = (index: number) => {
-        if (activeIndex === index) {
-            setActiveIndex(null);
-        } else {
-            setActiveIndex(index);
-        }
+        console.log('index: ', index);
     };
 
     const accordionItems1 = [
         {
-            controlContent: 'Section 1',
-            content: 'Content for section 1',
+            title: 'Section 1',
+            content:
+                'Content for section 1 Consistent with real life: in line with the process and logic of real          life, and comply with languages and habits that the users are used to;',
         },
         {
-            controlContent: 'Section 2',
+            title: 'Section 2',
             content: 'Content for section 2',
         },
         {
-            controlContent: 'Section 3',
+            title: 'Section 3',
             content: 'Content for section 3',
         },
     ];
@@ -46,11 +44,13 @@ const App = () => {
     return (
         <div style={{ padding: '50px' }}>
             <div className="accordionY-container">
-                {accordionItems1.map((item, index) => (
-                    <CollapseY hover single={true} key={index} controlContent={item.controlContent} onClick={() => handleCollapseToggle(index)} showContent={activeIndex === index}>
-                        {item.content}
-                    </CollapseY>
-                ))}
+                <CollapseY according activeName="1">
+                    {accordionItems1.map((item, index) => (
+                        <CollapseItem name={index} key={index} title={item.title} onClick={() => handleCollapseToggle(index)}>
+                            {item.content}
+                        </CollapseItem>
+                    ))}
+                </CollapseY>
             </div>
         </div>
     );

@@ -59,6 +59,8 @@ const FormItem = ({
     const adouFormRef = useRef<any>(null);
     const [customSelectContentPosition, setCustomSelectContentPosition] = useState<any>({});
 
+    const [isCheckbox, setIsCheckbox] = useState<boolean>(false);
+
     const judgeFormItemContentCls = () => {
         if (layout === 'horizontal') {
             return 'adou-form-item-content-horizontal d-flex align-items-center';
@@ -149,6 +151,11 @@ const FormItem = ({
     };
 
     const enhancedChildren = React.Children.map(children, (child: any, index: number) => {
+        // 检查 child.type 是否存在
+        if (!child.type) {
+            console.warn('Child does not have a type:', child);
+            return child;
+        }
         const props = child.props;
         const isChildrenArray = Array.isArray(children);
         const { formStyle: originalFormStyle } = props; // 获取原组件的 formStyle 属性
@@ -209,6 +216,15 @@ const FormItem = ({
         getAbsolutePositionFn();
     }, [isError, errorMessage]);
 
+    useEffect(() => {
+        // 检查子组件中是否有 Checkbox
+        const hasCheckbox = React.Children.toArray(children).some((child: any) => {
+            const displayName = child.type.displayName || child.type.name || 'Unknown';
+            return displayName === 'Checkbox';
+        });
+        setIsCheckbox(hasCheckbox);
+    }, [children]);
+
     return (
         <div
             className={`adou-form-item-wrapper ${generateWrapperCls()}`}
@@ -225,7 +241,7 @@ const FormItem = ({
           } */}
             <div
                 className={`adou-form-item-content ${judgeFormItemContentCls()} ${isError ? 'border-danger' : ''} ${
-                    isError && layout !== 'horizontal-top' ? ' align-items-baseline' : ''
+                    isError && layout !== 'horizontal-top' && !isCheckbox ? ' align-items-baseline' : ''
                 }`}
             >
                 {label && (

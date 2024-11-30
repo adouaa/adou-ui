@@ -6,6 +6,8 @@ import Button from 'components/adou-button';
 import './index.scss';
 
 interface DialogProps {
+    draggable?: boolean;
+    confirmLoading?: boolean;
     needDestroy?: boolean; // 是否需要销毁
     maxY?: boolean;
     maxX?: boolean;
@@ -32,6 +34,8 @@ interface DialogProps {
     onConfirm?: () => void;
 }
 const Dialog: React.FC<DialogProps> = ({
+    draggable,
+    confirmLoading,
     needDestroy = false,
     maxY,
     maxX,
@@ -72,6 +76,11 @@ const Dialog: React.FC<DialogProps> = ({
         } else if (event.key === 'Escape') {
             onClose && onClose();
         }
+    };
+
+    const handleClose = (e: React.MouseEvent) => {
+        e.stopPropagation();
+        onClose && onClose();
     };
 
     useEffect(() => {
@@ -125,7 +134,7 @@ const Dialog: React.FC<DialogProps> = ({
         }
     }, [isOpen, type]);
 
-    useClickOutside(dialogRef, clickOutside && onClose);
+    useClickOutside([dialogRef], clickOutside && onClose);
 
     return (
         <>
@@ -146,10 +155,16 @@ const Dialog: React.FC<DialogProps> = ({
                                     width: max || maxX ? '100vw' : width || maxWidth,
                                 }}
                             >
-                                <div className="dialog-header p-2 ps-3" onMouseDown={handleMouseDown}>
+                                <div
+                                    className="dialog-header p-2 ps-3"
+                                    {...(draggable && {
+                                        onMouseDown: handleMouseDown,
+                                    })}
+                                    style={{ cursor: draggable ? 'move' : 'default' }}
+                                >
                                     <span className="fs-5">{title}</span>
                                     {showClose && (
-                                        <button className="dialog-close hover-scale" onClick={onClose}>
+                                        <button className="dialog-close hover-scale" onClick={handleClose}>
                                             &times;
                                         </button>
                                     )}
@@ -161,16 +176,23 @@ const Dialog: React.FC<DialogProps> = ({
                                         height: max || maxY ? '79.5vh' : height,
                                     }}
                                 >
-                                    {children}
+                                    {children || '默认对话框内容'}
                                 </div>
                                 <div className="dialog-footer d-flex justify-content-end p-3">
                                     {showCancel && (
-                                        <Button externalClassName={`me-2 btn-${cancelBtnClass}`} size="md" onClickOK={onCancel ?? onClose}>
+                                        <Button type="secondary" externalClassName={`me-2 btn-${cancelBtnClass}`} size="md" onClickOK={onCancel ?? onClose}>
                                             {cancelText}
                                         </Button>
                                     )}
                                     {showConfirm && (
-                                        <Button disabled={!canConfirm} externalClassName={`btn-${confirmBtnClass}`} size="md" onClickOK={onConfirm}>
+                                        <Button
+                                            type="primary"
+                                            loading={confirmLoading}
+                                            disabled={!canConfirm}
+                                            externalClassName={`btn-${confirmBtnClass}`}
+                                            size="md"
+                                            onClickOK={onConfirm}
+                                        >
                                             {confirmText}
                                         </Button>
                                     )}

@@ -160,7 +160,8 @@ const Select = React.forwardRef((props: SelectProps, ref) => {
         handleClose();
     };
 
-    const handleSelect = (item: any) => {
+    const handleSelect = (item: any, e?: React.MouseEvent) => {
+        e?.stopPropagation();
         setValue(item);
         const returnValue = returnType === 'obj' || showDefaultValue ? item : item[valueKey];
         onChange && onChange(returnValue);
@@ -186,9 +187,12 @@ const Select = React.forwardRef((props: SelectProps, ref) => {
         } else {
             if (typeof defaultValue === 'object') {
                 const selectOption = options.find((option) => option?.[valueKey] === defaultValue?.[valueKey]);
-                // 如果没有找到匹配项，则不设置选中项
+                // 如果找到匹配项，则设置选中项
                 if (selectOption) {
                     setValue(selectOption);
+                } else {
+                    // 如果没有找到匹配项，则不设置选中项
+                    setValue({});
                 }
             } else {
                 if (defaultValue || defaultValue === 0 || defaultValue === false) {
@@ -225,8 +229,8 @@ const Select = React.forwardRef((props: SelectProps, ref) => {
     const getValue = () => {
         // 不能加这个逻辑，这样会导致手动选择另外的选项，返回的还是 defaultValue
         /* if (showDefaultValue) {
-            return defaultValue;
-          } */
+              return defaultValue;
+            } */
 
         if (value?.[valueKey] || value?.[valueKey] === 0 || value?.[valueKey] === false) {
             // 感觉可有可无
@@ -267,9 +271,7 @@ const Select = React.forwardRef((props: SelectProps, ref) => {
         clear();
         setError(true);
         handleFieldChange?.(returnType === 'str' ? '' : {});
-        setTimeout(() => {
-            handleValidate('');
-        }, 100);
+        handleValidate('');
     };
 
     useImperativeHandle(ref, () => ({
@@ -360,8 +362,8 @@ const Select = React.forwardRef((props: SelectProps, ref) => {
             }}
         >
             {/*   <select style={{ display: 'none' }} name={name}>
-                <option value={value?.[valueKey]}>{value?.[labelKey]}</option>
-            </select> */}
+                  <option value={value?.[valueKey]}>{value?.[labelKey]}</option>
+              </select> */}
             {/* inputGroup风格 */}
             <div className="adou-select-form-content">
                 <div
@@ -428,10 +430,10 @@ const Select = React.forwardRef((props: SelectProps, ref) => {
                     </div>
                 </div>
                 {/* {suffixContent && (
-                    <div className={`${suffixContentType === 'button' ? 'suffix-content-btn-wrapper px-2' : 'suffix-content-text-wrapper ms-2'} ${suffixContentExternalCls || ''}`}>
-                        {suffixContent}
-                    </div>
-                )} */}
+                      <div className={`${suffixContentType === 'button' ? 'suffix-content-btn-wrapper px-2' : 'suffix-content-text-wrapper ms-2'} ${suffixContentExternalCls || ''}`}>
+                          {suffixContent}
+                      </div>
+                  )} */}
             </div>
             {ReactDOM.createPortal(
                 <div
@@ -454,7 +456,7 @@ const Select = React.forwardRef((props: SelectProps, ref) => {
                             {newOptions.length > 0 ? (
                                 newOptions.map((item, index) => (
                                     <div
-                                        onClick={() => handleSelect(item)}
+                                        onClick={(e) => handleSelect(item, e)}
                                         style={{
                                             color: value?.[valueKey] === item[valueKey] ? activeColor.font : '#000',
                                             backgroundColor: value?.[valueKey] === item[valueKey] ? activeColor.bgc : '',
@@ -478,5 +480,5 @@ const Select = React.forwardRef((props: SelectProps, ref) => {
         </div>
     );
 });
-
+Select.displayName = 'Select';
 export default Select;

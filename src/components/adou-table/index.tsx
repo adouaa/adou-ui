@@ -18,7 +18,7 @@ interface TableProps {
     single?: boolean;
     id?: string;
     trPointer?: boolean;
-    textPosition?: 'center' | 'left' | 'right' | 'justify';
+    textPosition?: 'center' | 'start' | 'end' | 'justify';
     verticalAlign?: 'top' | 'middle' | 'bottom';
     collection?: boolean;
     collapse?: boolean;

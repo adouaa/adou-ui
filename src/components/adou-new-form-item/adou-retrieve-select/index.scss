@@ -24,6 +24,7 @@
             &-list {
                 display: flex;
                 flex-wrap: wrap;
+                gap: 6px
             }
 
             &-option-icon {
@@ -57,7 +58,7 @@
             &-clear-icon {
 
                 cursor: pointer;
-                transition: all 0.3s;
+                transition: transform 0.3s, color 0.3s ease;
                 color: #c6c6cd;
 
                 &:hover {
@@ -76,7 +77,6 @@
             border-radius: 13px;
             background-color: #f4f4f5;
             position: relative;
-            margin-right: 6px;
         }
 
 

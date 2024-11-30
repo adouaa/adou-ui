@@ -11,6 +11,9 @@ import LiveSearch from 'components/adou-new-form-item/adou-live-search';
 import Textarea from 'components/adou-new-form-item/adou-textarea';
 import TagInput from 'components/adou-new-form-item/adou-tag-input';
 import useForm from 'components/adou-new-form-item/useForm';
+import AdouCheckbox from 'components/adou-new-form-item/adou-checkbox';
+import AdouRadio from 'components/adou-new-form-item/adou-radio';
+import CodeTextArea from 'components/adou-codeTextArea';
 
 interface AppProps {}
 
@@ -28,7 +31,7 @@ const App = ({}: AppProps) => {
     };
 
     const handleValidate = () => {
-        // const valid = formRef.current.validateForm();
+        const valid = formRef.current.validateForm();
         // console.log('valid: ', valid);
         // console.log('form.validate: ', form.validate());
     };
@@ -36,6 +39,17 @@ const App = ({}: AppProps) => {
     const [options, setOptions] = useState<any>([
         { label: '你好123你好123', value: '你好123你好123' },
         { label: '你好5555', value: '你好5555' },
+        { label: '你好55rr', value: '你好55rr' },
+        { label: '你好44', value: '你好44' },
+        { label: '你好ee', value: '你好ee' },
+    ]);
+
+    const [foodList, setFoodList] = useState<any[]>([
+        { label: '苹果', value: '苹果' },
+        { label: '香蕉', value: '香蕉' },
+        { label: '橙子', value: '橙子' },
+        { label: '西瓜', value: '西瓜' },
+        { label: '葡萄', value: '葡萄' },
     ]);
 
     const [liveOptions, setliveOptions] = useState<any>([
@@ -89,7 +103,7 @@ const App = ({}: AppProps) => {
                     <AdouInput commonSuffixContent="测" name="cccc"></AdouInput>
                 </FormItem>
                 <FormItem label="搜索" /* addonBefore={'关键'} */ /* addonAfter={'结尾'} */ name="remote" /* layout="horizontal" */>
-                    <RetrievrSelect returnType="obj" commonSuffixContent="地区32" options={options}></RetrievrSelect>
+                    <RetrievrSelect single={false} returnType="obj" commonSuffixContent="地区32" options={options}></RetrievrSelect>
                 </FormItem>
                 <FormItem label="搜索" /* addonBefore={'关键'} */ /* addonAfter={'结尾'} */ name="position1" /* layout="horizontal" */>
                     <LiveSearch options={liveOptions}></LiveSearch>
@@ -100,7 +114,14 @@ const App = ({}: AppProps) => {
                 <FormItem label="搜索" /* addonBefore={'关键'}  */ /* addonAfter={'结尾'} */ name="position3" /* layout="horizontal" */>
                     <TagInput commonSuffixContent="天"></TagInput>
                 </FormItem>
+                <FormItem label="美食" /* addonBefore={'关键'}  */ /* addonAfter={'结尾'} */ name="food" /* layout="horizontal" */>
+                    <AdouCheckbox inline={false} options={foodList}></AdouCheckbox>
+                </FormItem>
+                <FormItem label="爱好" /* addonBefore={'关键'}  */ /* addonAfter={'结尾'} */ name="hobby" /* layout="horizontal" */>
+                    <AdouRadio inline={false} options={foodList}></AdouRadio>
+                </FormItem>
             </Form>
+            <CodeTextArea defaultValue="455555555555555"></CodeTextArea>
         </div>
     );
 };

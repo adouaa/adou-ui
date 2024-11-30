@@ -216,7 +216,7 @@ const Input: React.ForwardRefRenderFunction<InputRef, InputProps> = (
                 onClick={(e) => handleClick(e)}
                 type={type}
             />
-            {clearable && true && value ? (
+            {clearable && isEnter && value ? (
                 <span
                     className="adou-input-clear-icon-box fade-enter"
                     style={{
@@ -244,6 +244,10 @@ const Input: React.ForwardRefRenderFunction<InputRef, InputProps> = (
     );
 };
 
-Input.displayName = 'Input';
+// 对于使用 forwardRef 包装的组件，displayName 需要在 forwardRef 调用之后设置
+// 上述代码中，Input 组件是通过 forwardRef 包装的，因此需要在 forwardRef 调用之后设置 displayName
 
-export default forwardRef(Input);
+const ForwardedInput = forwardRef(Input);
+ForwardedInput.displayName = 'Input';
+
+export default ForwardedInput;

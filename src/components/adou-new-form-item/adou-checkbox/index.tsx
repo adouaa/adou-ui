@@ -1,9 +1,10 @@
-import classNames from 'classnames';
-import React, { useEffect, useState, forwardRef, ForwardRefRenderFunction, useImperativeHandle } from 'react';
+import React, { useEffect, useState, forwardRef, ForwardRefRenderFunction, useImperativeHandle, useId } from 'react';
 import './index.scss';
 
 interface CheckboxProps {
-    width?: any;
+    contentWidth?: any;
+    id?: any;
+    wrapperWidth?: any;
     valueKey?: string;
     labelKey?: string;
     returnType?: 'str' | 'obj';
@@ -20,18 +21,22 @@ interface CheckboxProps {
     labelPosition?: 'left-top' | 'center' | 'top' | 'input-group';
     labelColor?: string;
     required?: boolean;
-    defaultValue?: string | string[] | { label: string; value: string }[];
+    defaultValue?: string | string[] | any[];
     externalClassName?: string;
-    options?: { label: string; value: string }[];
+    options?: any[];
     inline?: boolean;
     wrap?: boolean;
-    onChange?: (item: { label: string; value: string }[]) => void;
+    onChange?: (item: any[]) => void;
     onFormDataChange?: (key: string, value: any) => void;
+    onFieldChange?: (name: string, value: any) => void;
+    onValidateField?: (name: string, value?: any) => void;
 }
 
 const Checkbox: ForwardRefRenderFunction<any, CheckboxProps> = (
     {
-        width,
+        contentWidth,
+        id,
+        wrapperWidth,
         valueKey = 'value',
         labelKey = 'label',
         returnType,
@@ -56,9 +61,13 @@ const Checkbox: ForwardRefRenderFunction<any, CheckboxProps> = (
         wrap = true,
         onChange,
         onFormDataChange,
+        onFieldChange,
+        onValidateField,
     },
     ref
 ) => {
+    const checkboxId = useId();
+
     // Function to check if an option should be checked
     const isChecked = (value: string, defaultValue: string | string[] | { label: string; value: string }[] | any) => {
         if (typeof defaultValue === 'string') {
@@ -83,9 +92,13 @@ const Checkbox: ForwardRefRenderFunction<any, CheckboxProps> = (
 
     const [optionsList, setOptionsList] = useState(initialOptions);
 
-    const cls = classNames({
-        'form-check-input': true,
-    });
+    const handleFieldChange = (value: any) => {
+        onFieldChange && onFieldChange(name!, value);
+    };
+
+    const handleValidate = (data: any) => {
+        onValidateField && onValidateField(name!, data);
+    };
 
     const handleChange = (item: { label: string; value: string }) => {
         const updatedOptions = optionsList.map((option) => {
@@ -98,14 +111,16 @@ const Checkbox: ForwardRefRenderFunction<any, CheckboxProps> = (
         setOptionsList(updatedOptions);
         const data = updatedOptions.filter((opt) => opt.checked);
         onChange && onChange(data);
+
         if (returnType === 'obj') {
             onFormDataChange && onFormDataChange(name!, data);
+            handleFieldChange(data);
+            handleValidate(data);
         } else {
-            onFormDataChange &&
-                onFormDataChange(
-                    name!,
-                    data.map((item: any) => item[valueKey || labelKey])
-                );
+            const returnData = data.map((item: any) => item[valueKey || labelKey]);
+            onFormDataChange && onFormDataChange(name!, returnData);
+            handleFieldChange(returnData);
+            handleValidate(returnData);
         }
         if (updatedOptions.some((option: any) => option.checked)) {
             setError(false);
@@ -119,6 +134,7 @@ const Checkbox: ForwardRefRenderFunction<any, CheckboxProps> = (
     const handleBlur = () => {
         const checkedList = optionsList.filter((item) => item.checked);
         // Optionally handle blur event
+        handleValidate(checkedList);
     };
 
     const [error, setError] = useState<boolean>(false);
@@ -150,12 +166,6 @@ const Checkbox: ForwardRefRenderFunction<any, CheckboxProps> = (
         clear,
     }));
 
-    const checkboxClasses = classNames({
-        'mb-3': !error && isFormItem,
-        'checkbox-wrapper': true,
-        [externalClassName as string]: externalClassName,
-    });
-
     useEffect(() => {
         // Update optionsList when defaultValue changes
         const updatedOptions = options.map((option) => ({
@@ -166,14 +176,22 @@ const Checkbox: ForwardRefRenderFunction<any, CheckboxProps> = (
     }, [defaultValue, options]);
 
     return (
-        <div className={checkboxClasses} style={{ width }}>
+        <div className={`${!error && isFormItem ? 'mb-3' : ''} checkbox-wrapper ${externalClassName}`} style={{ width: wrapperWidth }}>
             <div className={`content-box d-flex ${inputGroup ? 'inputGroup' : `label-in-${labelPosition}`}`}>
                 {label && (
                     <span style={{ color: labelColor, width: labelWidth }} className={`${inputGroup ? 'input-group-text' : ''} label-box`}>
                         {label}
                     </span>
                 )}
-                <div className="checkbox-form-content option-box" style={{ display: inline ? 'flex' : '' }}>
+                <div
+                    className="checkbox-form-content option-box"
+                    style={{
+                        display: inline ? 'flex' : 'block',
+                        width: contentWidth,
+                        flexWrap: wrap ? 'wrap' : 'nowrap',
+                        ...(contentWidth ? {} : { flex: 1 }),
+                    }}
+                >
                     {optionsList.map((item: any, index: number) => (
                         <div
                             key={item.value}
@@ -188,16 +206,16 @@ const Checkbox: ForwardRefRenderFunction<any, CheckboxProps> = (
                                 ref={ref} // 将 ref 绑定到 input 元素
                                 required={required}
                                 onBlur={handleBlur}
-                                className={cls}
+                                className={'form-check-input'}
                                 type="checkbox"
                                 name={name}
-                                id={item.value}
+                                id={(id || checkboxId) + item.value}
                                 checked={item.checked}
                                 onChange={() => handleChange(item)}
                                 value={item.value}
                                 readOnly={readOnly}
                             />
-                            <label className="form-check-label" htmlFor={item.value}>
+                            <label className="form-check-label" htmlFor={id || checkboxId + item.value}>
                                 {item.label || 'Default Checkbox'}
                             </label>
                         </div>
@@ -208,16 +226,19 @@ const Checkbox: ForwardRefRenderFunction<any, CheckboxProps> = (
             </div>
             {error && required && (
                 <div
-                    className="animate__animated animate__fadeIn mb-1"
+                    className="fadeInDown mb-1"
                     style={{
                         color: '#DC3545',
                         fontSize: '14px',
                         paddingLeft: parseInt(labelWidth) > 120 ? '120px' : labelWidth,
                     }}
-                >{`${errMsg || `${name}不能为空`}`}</div>
+                >{`${errMsg || `${label || name}不能为空`}`}</div>
             )}
         </div>
     );
 };
 
-export default forwardRef(Checkbox);
+const forWardCheckbox = forwardRef(Checkbox);
+forWardCheckbox.displayName = 'Checkbox';
+
+export default forWardCheckbox;

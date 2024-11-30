@@ -1,6 +1,4 @@
 import React, { ReactNode } from 'react';
-import classNames from 'classnames';
-import './index.scss';
 
 type ThemeType = 'primary' | 'secondary' | 'danger' | 'success' | 'warning' | 'info' | 'light' | 'dark';
 
@@ -31,8 +29,8 @@ const Button: React.FC<buttonProps> = (props: buttonProps) => {
         suffixIcon,
         prefixIcon,
         children,
-        type,
-        size,
+        type = 'warning',
+        size = 'md',
         externalClassName,
         round,
         textColor,
@@ -44,16 +42,6 @@ const Button: React.FC<buttonProps> = (props: buttonProps) => {
     const handleOnClick = () => {
         onClickOK && onClickOK();
     };
-    const cls = classNames({
-        btn: true,
-        [`btn-${type}`]: type, // 是 true就会加上这个类名
-        [`btn-${size}`]: size,
-        [`rounded-pill`]: round,
-        [`text-${textColor}`]: textColor,
-        [`btn-outline-${outlineColor}`]: outlineColor,
-        disabled,
-        [externalClassName as string]: externalClassName,
-    });
 
     const renderPrefixIcon = () => {
         return <i className={`${prefixIcon}`}></i>;
@@ -82,7 +70,7 @@ const Button: React.FC<buttonProps> = (props: buttonProps) => {
                 child = <span>{child}</span>;
                 const enhancedChild = React.cloneElement(child, {
                     style: {
-                        margin: '0 0.5rem',
+                        margin: '0 0.2rem',
                         fontSize,
                     },
                 } as React.Attributes);
@@ -116,7 +104,14 @@ const Button: React.FC<buttonProps> = (props: buttonProps) => {
 
     return (
         <span className="button-wrapper">
-            <button style={{ cursor: 'pointer', height: '100%' }} onClick={handleOnClick} className={cls} disabled={loading}>
+            <button
+                style={{ cursor: 'pointer', height: '100%' }}
+                onClick={handleOnClick}
+                className={`btn btn-${type} btn-${size} ${round ? 'rounded-pill' : ''} text-${textColor} btn-outline-${outlineColor} ${
+                    disabled ? 'disabled' : ''
+                } ${externalClassName}`}
+                disabled={loading}
+            >
                 {loading ? (
                     <div className="loading-btn">
                         {renderLoadingIcon()}

@@ -55,7 +55,7 @@ export interface SelectProps {
 
 interface RetrieveSelectProps extends SelectProps {
     onRetrieveSelectChange?: (selectedOptions: any[]) => void;
-    onDelete?: () => void;
+    onDelete?: (item: any) => void;
 }
 
 const RetrievrSelect: React.FC<RetrieveSelectProps> = React.forwardRef((props: RetrieveSelectProps, ref) => {
@@ -225,13 +225,11 @@ const RetrievrSelect: React.FC<RetrieveSelectProps> = React.forwardRef((props: R
             if (returnType === 'obj' || showDefaultValue) {
                 onFormDataChange && onFormDataChange(name!, data[0]);
                 handleFieldChange && handleFieldChange(data[0]);
-                handleFieldChange && handleFieldChange(data[0]);
-                handleValidate(data[0]);
+                handleValidate && handleValidate(data[0]);
             } else {
                 onFormDataChange && onFormDataChange(name!, data[0]?.[valueKey]);
                 handleFieldChange && handleFieldChange(data[0]?.[valueKey]);
-                handleFieldChange && handleFieldChange(data[0]?.[valueKey]);
-                handleValidate(data[0]?.[valueKey]);
+                handleValidate && handleValidate(data[0]?.[valueKey]);
             }
         } else {
             const currentSelectedOptions = [...selectedOptions, option];
@@ -240,11 +238,13 @@ const RetrievrSelect: React.FC<RetrieveSelectProps> = React.forwardRef((props: R
             onFormDataChange && onFormDataChange(name!, data);
 
             onRetrieveSelectChange && onRetrieveSelectChange(option);
-            handleFieldChange && handleFieldChange(option);
-            handleValidate(data[0]?.[valueKey]);
+            handleFieldChange && handleFieldChange(data);
+            handleValidate && handleValidate(data[0]?.[valueKey]);
         }
         setShowSelectedList(true);
-        closeWhenSelect && handleClose();
+        if (single) {
+            closeWhenSelect && handleClose();
+        }
     };
 
     // 输入框聚焦
@@ -269,8 +269,16 @@ const RetrievrSelect: React.FC<RetrieveSelectProps> = React.forwardRef((props: R
         }, 10);
     };
 
-    const handleDeleteItem = (item: any) => {
-        const selectedList = selectedOptions.filter((option) => option !== item);
+    const handleDeleteIconFocus = (e: React.FocusEvent<HTMLSpanElement>) => {
+        console.log('1: ', 1);
+        e.stopPropagation();
+        debugger;
+    };
+
+    const handleDeleteItem = (e: React.MouseEvent, item: any) => {
+        e.stopPropagation();
+        const selectedList = selectedOptions.filter((option) => option[valueKey] !== item[valueKey]);
+        console.log('selectedList: ', selectedList);
         setSelectedOptions(selectedList);
         setOptionList(
             optionList.map((v: any) => {
@@ -281,7 +289,9 @@ const RetrievrSelect: React.FC<RetrieveSelectProps> = React.forwardRef((props: R
             })
         );
         validate();
-        onDelete && onDelete();
+        onDelete && onDelete(item);
+        handleValidate(selectedList);
+        handleFieldChange(selectedList);
     };
 
     const handleBlur = () => {
@@ -296,7 +306,9 @@ const RetrievrSelect: React.FC<RetrieveSelectProps> = React.forwardRef((props: R
         setIsEnter(false);
     };
 
-    const handleWrapperClick = (e: any) => {
+    const handleWrapperClick = (e: React.MouseEvent<HTMLDivElement>) => {
+        console.log('wrapper: ');
+        e.stopPropagation();
         if (readOnly) return;
         // retrieveInputRef.current && retrieveInputRef.current.focus();
         setIsHighlighted(true);
@@ -355,7 +367,6 @@ const RetrievrSelect: React.FC<RetrieveSelectProps> = React.forwardRef((props: R
         clear();
         if (required) setError(true);
         handleFieldChange?.(returnType === 'str' ? '' : {});
-        handleFieldChange?.(returnType === 'str' ? '' : {});
         retrieveInputRef.current.value = '';
         handleValidate('');
     };
@@ -391,9 +402,7 @@ const RetrievrSelect: React.FC<RetrieveSelectProps> = React.forwardRef((props: R
                 setShowOptions(true);
             }, 10);
         }
-        const position = getAbsolutePosition(retrieveSelectWrapperFormControlRef.current, 0, 0);
-        position.y = position.y + contentRef.current?.clientHeight;
-        setCustomSelectContentPosition(position);
+        calcContentPosition();
         retrieveInputRef.current?.focus();
     };
 
@@ -427,6 +436,7 @@ const RetrievrSelect: React.FC<RetrieveSelectProps> = React.forwardRef((props: R
     };
 
     useEffect(() => {
+        console.log('defaultValue: ', defaultValue);
         let arr: any[] = [];
         if (single) {
             if (defaultValue) {
@@ -495,7 +505,7 @@ const RetrievrSelect: React.FC<RetrieveSelectProps> = React.forwardRef((props: R
             }
         } else {
             if (defaultValue?.length) {
-                defaultValue?.map((item: any) => {
+                defaultValue?.map?.((item: any) => {
                     tempOptions.some((option: any) => {
                         option[valueKey] === item[valueKey] && arr.push(option);
                         return false;
@@ -559,7 +569,7 @@ const RetrievrSelect: React.FC<RetrieveSelectProps> = React.forwardRef((props: R
                 <div className="adou-retrieve-select" style={{ flex: 1 }} onMouseEnter={handleMouseEnter} onMouseLeave={handleMouseLeave}>
                     <div
                         style={{
-                            flexWrap: single ? 'nowrap' : 'wrap',
+                            flexWrap: 'nowrap',
                             ...(suffixContent && suffixContentType === 'button'
                                 ? {
                                       borderTopRightRadius: 0,
@@ -569,13 +579,14 @@ const RetrievrSelect: React.FC<RetrieveSelectProps> = React.forwardRef((props: R
                                 : {}),
 
                             ...formStyle,
-                            height: size === 'lg' ? '48px' : size === 'sm' ? '31px' : '40px',
+                            /* minHeight:
+                    size === "lg" ? "48px" : size === "sm" ? "31px" : "40px", */
                         }}
                         ref={retrieveSelectWrapperFormControlRef}
                         tabIndex={0}
                         onBlur={handleBlur}
                         // onClick={handleWrapperClick}
-                        className={`adou-retrieve-select-list-box d-flex align-items-center form-control py-0 ${isHighlighted ? 'focus' : ''}`}
+                        className={`adou-retrieve-select-list-box d-flex align-items-center form-control ${isHighlighted ? 'focus' : ''}`}
                     >
                         <select style={{ display: 'none' }} name={name}>
                             {showSelected &&
@@ -598,7 +609,9 @@ const RetrievrSelect: React.FC<RetrieveSelectProps> = React.forwardRef((props: R
                                             key={option[valueKey]}
                                         >
                                             {option[labelKey]}
-                                            {!single && <i onClick={() => handleDeleteItem(option)} className="adou-retrieve-select-option-icon fa-regular fa-circle-xmark"></i>}
+                                            {!single && (
+                                                <i onClick={(e) => handleDeleteItem(e, option)} className="adou-retrieve-select-option-icon fa-regular fa-circle-xmark"></i>
+                                            )}
                                         </div>
                                     );
                                 })}
@@ -616,15 +629,18 @@ const RetrievrSelect: React.FC<RetrieveSelectProps> = React.forwardRef((props: R
                                 className="adou-retrieve-select-input"
                                 aria-label="Username"
                                 aria-describedby="basic-addon1"
-                                style={{
-                                    // 要比父组件 少 2px，否则会把父组件给挡住
-                                    height: size === 'lg' ? '46px' : size === 'sm' ? '30px' : '38px',
-                                    // maxWidth: "60px",
-                                }}
+                                style={
+                                    {
+                                        // 要比父组件 少 2px，否则会把父组件给挡住
+                                        /* minHeight:
+                        size === "lg" ? "46px" : size === "sm" ? "30px" : "38px", */
+                                        // maxWidth: "60px",
+                                    }
+                                }
                             />
                         </div>
                         {clearable && isEnter && selectedOptions.length ? (
-                            <div onClick={(e) => e.stopPropagation()} className="adou-retrieve-select-clear-icon-box d-flex fade-enter">
+                            <div onClick={(e) => e.stopPropagation()} className="adou-retrieve-select-clear-icon-box">
                                 <i
                                     onFocus={(e) => e.stopPropagation()}
                                     className="adou-retrieve-select-clear-icon fa-regular fa-circle-xmark text-secondary"
@@ -633,11 +649,10 @@ const RetrievrSelect: React.FC<RetrieveSelectProps> = React.forwardRef((props: R
                                 ></i>
                             </div>
                         ) : (
-                            <div className="adou-retrieve-select-common-sufiix-content text-secondary">{commonSuffixContent}</div>
+                            <div className="adou-retrieve-select-icon-box">
+                                <i className={`adou-retrieve-select-icon text-secondary fa-solid fa-angle-right ${isOpen ? 'rotate-up' : 'rotate-down'}`}></i>
+                            </div>
                         )}
-                        <div className="adou-retrieve-select-icon-box ms-2">
-                            <i className={`adou-retrieve-select-icon text-secondary fa-solid fa-angle-right ${isOpen ? 'rotate-up' : 'rotate-down'}`}></i>
-                        </div>
                     </div>
                 </div>
 
@@ -695,5 +710,7 @@ const RetrievrSelect: React.FC<RetrieveSelectProps> = React.forwardRef((props: R
         </div>
     );
 });
+
+RetrievrSelect.displayName = 'RetrievrSelect';
 
 export default RetrievrSelect;

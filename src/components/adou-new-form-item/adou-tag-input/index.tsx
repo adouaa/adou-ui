@@ -254,4 +254,6 @@ const TagInput = React.forwardRef(
     }
 );
 
+TagInput.displayName = 'TagInput';
+
 export default TagInput;

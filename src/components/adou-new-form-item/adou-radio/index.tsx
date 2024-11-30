@@ -1,4 +1,3 @@
-import classNames from 'classnames';
 import React, { useEffect, useId, useImperativeHandle, useState } from 'react';
 import './index.scss';
 
@@ -28,6 +27,8 @@ interface RadioProps {
     inline?: boolean;
     onChangeOK?: (item: any) => void;
     onFormDataChange?: (key: string, value: any) => void;
+    onFieldChange?: (name: string, value: any) => void;
+    onValidateField?: (name: string, value?: any) => void;
 }
 
 const Radio: React.ForwardRefRenderFunction<any, RadioProps> = (props, ref) => {
@@ -54,36 +55,21 @@ const Radio: React.ForwardRefRenderFunction<any, RadioProps> = (props, ref) => {
         defaultValue,
         onChangeOK,
         onFormDataChange,
+        onFieldChange,
+        onValidateField,
     } = props;
 
     const radioId = useId();
 
     const [optionsList, setOptionsList] = useState(options || []);
 
-    useEffect(() => {
-        if (options) {
-            if (defaultValue && typeof defaultValue === 'object') {
-                setOptionsList(
-                    options.map((option) => ({
-                        ...option,
-                        checked: defaultValue && (option[valueKey] === defaultValue[valueKey] || option[labelKey] === defaultValue[labelKey]),
-                    }))
-                );
-            } else {
-                setOptionsList(
-                    options.map((option) => ({
-                        ...option,
-                        checked: defaultValue && (option[valueKey] === defaultValue || option[labelKey] === defaultValue),
-                    }))
-                );
-            }
-        }
-    }, [defaultValue, options]);
+    const handleFieldChange = (value: any) => {
+        onFieldChange && onFieldChange(name!, value);
+    };
 
-    const cls = classNames({
-        'form-check-input': true,
-        [externalClassName as string]: externalClassName,
-    });
+    const handleValidate = (data: any) => {
+        onValidateField && onValidateField(name!, data);
+    };
 
     const handleChange = (item: any) => {
         const data = optionsList.map((option) => {
@@ -96,8 +82,10 @@ const Radio: React.ForwardRefRenderFunction<any, RadioProps> = (props, ref) => {
         onChangeOK && onChangeOK(item);
         if (returnType === 'obj') {
             onFormDataChange && onFormDataChange(name!, item);
+            handleFieldChange && handleFieldChange(item);
         } else {
             onFormDataChange && onFormDataChange(name!, item[valueKey] || item[labelKey]);
+            handleFieldChange && handleFieldChange(item[valueKey] || item[labelKey]);
         }
         setError(false);
     };
@@ -143,15 +131,29 @@ const Radio: React.ForwardRefRenderFunction<any, RadioProps> = (props, ref) => {
         clear,
     }));
 
-    const radioClasses = classNames({
-        'radio-warpper': true,
-        'mb-3': !error && isFormItem,
-        [externalClassName as string]: externalClassName,
-    });
+    useEffect(() => {
+        if (options) {
+            if (defaultValue && typeof defaultValue === 'object') {
+                setOptionsList(
+                    options.map((option) => ({
+                        ...option,
+                        checked: defaultValue && (option[valueKey] === defaultValue[valueKey] || option[labelKey] === defaultValue[labelKey]),
+                    }))
+                );
+            } else {
+                setOptionsList(
+                    options.map((option) => ({
+                        ...option,
+                        checked: defaultValue && (option[valueKey] === defaultValue || option[labelKey] === defaultValue),
+                    }))
+                );
+            }
+        }
+    }, [defaultValue, options]);
 
     return (
         <div
-            className={radioClasses}
+            className={`radio-warpper ${!error && isFormItem ? 'mb-3' : ''} ${externalClassName}`}
             style={{
                 width,
                 ...(inline && !width ? { flex: 1, marginRight: '15px' } : {}),
@@ -168,7 +170,7 @@ const Radio: React.ForwardRefRenderFunction<any, RadioProps> = (props, ref) => {
                         <div key={item[valueKey] + index} className="form-check me-2">
                             <input
                                 disabled={readOnly ?? item.disabled}
-                                className={cls}
+                                className={`form-check-input ${externalClassName}`}
                                 type="radio"
                                 name={name}
                                 id={radioId + index + ''}
@@ -198,4 +200,7 @@ const Radio: React.ForwardRefRenderFunction<any, RadioProps> = (props, ref) => {
     );
 };
 
-export default React.forwardRef(Radio);
+const forwardRadio = React.forwardRef(Radio);
+forwardRadio.displayName = 'Radio';
+
+export default forwardRadio;

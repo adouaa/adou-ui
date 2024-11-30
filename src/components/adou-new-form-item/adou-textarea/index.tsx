@@ -198,4 +198,7 @@ const Textarea: React.FC<TextreaProps> = React.forwardRef((props: TextreaProps, 
         </div>
     );
 });
+
+Textarea.displayName = "Textarea"
+
 export default Textarea;

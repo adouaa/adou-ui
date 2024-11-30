@@ -511,4 +511,6 @@ const LiveSearch: React.FC<LiveSearchProps> = React.forwardRef((props: LiveSearc
     );
 });
 
+LiveSearch.displayName = "LiveSearch"
+
 export default LiveSearch;
