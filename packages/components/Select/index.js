@@ -7510,7 +7510,8 @@ const Select = /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_a
   (0,external_root_React_commonjs2_react_commonjs_react_amd_react_.useEffect)(() => {
     const width = customSelectRef.current.clientWidth;
     setSelectValueMaxWidth(width - 30 + "px");
-  }, []);
+  }, [defaultValue]); // 等待defaultValue变化后，再计算宽度
+
   const getValue = () => {
     // 不能加这个逻辑，这样会导致手动选择另外的选项，返回的还是 defaultValue
     /* if (showDefaultValue) {

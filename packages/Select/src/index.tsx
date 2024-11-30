@@ -7,7 +7,7 @@ import { getAbsolutePosition, useClickOutside } from "adou-ui/Utils/index";
 import Tooltip from "../../Tooltip";
 
 export interface SelectProps {
-  ellipsis?: boolean;
+  ellipsis?: boolean; // 注意：想要省略号，父级不能是 flex布局
   errorPaddingLeft?: any;
   suffixContentExternalCls?: string;
   selectContentExternalCls?: string;
@@ -208,7 +208,7 @@ const Select = React.forwardRef((props: SelectProps, ref) => {
   useEffect(() => {
     const width = customSelectRef.current.clientWidth;
     setSelectValueMaxWidth(width - 30 + "px");
-  }, []);
+  }, [defaultValue]); // 等待defaultValue变化后，再计算宽度
 
   const getValue = () => {
     // 不能加这个逻辑，这样会导致手动选择另外的选项，返回的还是 defaultValue
@@ -530,4 +530,5 @@ const Select = React.forwardRef((props: SelectProps, ref) => {
     </div>
   );
 });
+
 export default withTranslation()(Select);

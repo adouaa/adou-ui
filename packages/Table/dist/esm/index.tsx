@@ -586,7 +586,6 @@ const Table = (props: TableProps) => {
     </>
   );
 };
-
 Table.TableCell = TableCell;
 
 export default withTranslation()(Table);

@@ -1,16 +1,9 @@
 import React from "react";
-import "./index.scss";
 interface CollapseYProps {
-    wrapperClassName?: string;
-    controlRightIcon?: string;
-    controlClassName?: string;
-    showBorder?: boolean;
-    single?: boolean;
-    hover?: boolean;
-    controlContent?: any;
+    activeName?: string;
     children?: any;
-    showContent?: boolean;
-    onClick?: () => void;
+    according?: boolean;
+    canHover?: boolean;
 }
-declare const CollapseY: ({ wrapperClassName, controlRightIcon, controlClassName, showBorder, single, hover, controlContent, children, onClick, showContent, }: CollapseYProps) => React.JSX.Element;
+declare const CollapseY: ({ children, according, activeName, canHover, }: CollapseYProps) => React.JSX.Element;
 export default CollapseY;

@@ -32,10 +32,9 @@ const useDrag_1 = __importDefault(require("../../Utils/src/hooks/useDrag"));
 const useClickOutside_1 = __importDefault(require("../../Utils/src/hooks/useClickOutside"));
 const Button_1 = __importDefault(require("adou-ui/Button"));
 require("./index.scss");
-const Dialog = ({ needDestroy = false, maxY, maxX, max, showConfirm = true, showCancel = true, showClose = true, canConfirm = true, clickOutside = false, confirmText = "确定", cancelText = "取消", confirmBtnClass = "primary", cancelBtnClass = "secondary", show: isOpen = false, title = "提示", children = null, type = "", maxHeight = "400px", width = "600px", height, maxWidth, onCancel, onClose = () => { }, onConfirm = () => { }, }) => {
+const Dialog = ({ showConfirm = true, showCancel = true, showClose = true, canConfirm = true, clickOutside = false, confirmText = "确定", cancelText = "取消", confirmBtnClass = "primary", cancelBtnClass = "secondary", show: isOpen = false, title = "提示", children = null, type = "", maxHeight = "500px", width = "600px", maxWidth, onCancel, onClose = () => { }, onConfirm = () => { }, }) => {
     const dialogRef = (0, react_1.useRef)(null);
     const [show, setShow] = (0, react_1.useState)(false);
-    const [destroied, setDestroied] = (0, react_1.useState)(false);
     const [isAnimating, setIsAnimating] = (0, react_1.useState)(false);
     const [initialPosition, setInitialPosition] = (0, react_1.useState)({ x: 0, y: 0 });
     const [firstOpen, setFirstOpen] = (0, react_1.useState)(false);
@@ -43,9 +42,6 @@ const Dialog = ({ needDestroy = false, maxY, maxX, max, showConfirm = true, show
     const handleKeyDown = (event) => {
         if (event.key === "Enter") {
             onConfirm && onConfirm();
-        }
-        else if (event.key === "Escape") {
-            onClose && onClose();
         }
     };
     (0, react_1.useEffect)(() => {
@@ -55,17 +51,8 @@ const Dialog = ({ needDestroy = false, maxY, maxX, max, showConfirm = true, show
                 const dialogHeight = dialogRef.current.offsetHeight;
                 const initialX = (window.innerWidth - dialogWidth) / 2;
                 const initialY = (window.innerHeight - dialogHeight) / 2;
-                // 如果对 Y轴 没有要求，则按 type 来定位
-                if (!maxY && !max) {
-                    // 减去20是因为有个 transForm: translateY(20px);
-                    dialogRef.current.style.top = `${type === "tip" ? `${initialY - 20}px` : "2%"}`;
-                }
-                else {
-                    // 如果是对 Y轴 有最大要求，则不仅是第一次，每次都要让 Y轴 在浏览器最上面，Y轴 占满整个屏幕
-                    dialogRef.current.style.top = `-20px`;
-                }
+                dialogRef.current.style.top = `${type === "tip" ? `${initialY}px` : "2%"}`;
                 dialogRef.current.style.left = `${initialX}px`;
-                // 注意，这边要给个 100ms 差不多的定时器来确保 dialogRef.current 已经渲染完成
                 setTimeout(() => {
                     dialogRef.current.focus(); // 将焦点设置到 modal
                 }, 100);
@@ -77,7 +64,6 @@ const Dialog = ({ needDestroy = false, maxY, maxX, max, showConfirm = true, show
     }, [show]);
     (0, react_1.useEffect)(() => {
         if (isOpen) {
-            setDestroied(false);
             setTimeout(() => {
                 setShow(isOpen);
             }, 100);
@@ -89,33 +75,25 @@ const Dialog = ({ needDestroy = false, maxY, maxX, max, showConfirm = true, show
             setTimeout(() => {
                 setShow(isOpen);
             }, 100);
-            // 需要销毁再执行该逻辑
-            if (needDestroy) {
-                setTimeout(() => {
-                    setDestroied(true);
-                }, 300); // 注意，延迟时间要 300差不多
-            }
         }
     }, [isOpen, type]);
     (0, useClickOutside_1.default)(dialogRef, clickOutside && onClose);
     return (react_1.default.createElement(react_1.default.Fragment, null, (isOpen || isAnimating) &&
-        react_dom_1.default.createPortal(react_1.default.createElement("div", { className: `dialog-overlay ${show ? "open" : ""}` }, !destroied && (react_1.default.createElement("div", { onKeyDown: handleKeyDown, tabIndex: 0, ref: dialogRef, className: `dialog ${show ? "open" : ""}`, style: {
-                top: `${position.y - 20}px`,
-                left: `${position.x}px`,
-                transform: `translateY(${firstOpen ? "20px" : "0"})`,
-                maxWidth: max || maxX ? "100vw" : width || maxWidth,
-                width: max || maxX ? "100vw" : width || maxWidth,
-            } },
-            react_1.default.createElement("div", { className: "dialog-header p-2 ps-3", onMouseDown: handleMouseDown },
-                react_1.default.createElement("span", { className: "fs-5" }, title),
-                showClose && (react_1.default.createElement("button", { className: "dialog-close hover-scale", onClick: onClose }, "\u00D7"))),
-            react_1.default.createElement("div", { className: "dialog-content", style: {
-                    maxHeight: max || maxY ? "79.5vh" : height || maxHeight,
-                    height: max || maxY ? "79.5vh" : height,
-                } }, children),
-            react_1.default.createElement("div", { className: "dialog-footer d-flex justify-content-end p-3" },
-                showCancel && (react_1.default.createElement(Button_1.default, { className: `me-2 btn-${cancelBtnClass}`, size: "md", onClickOK: onCancel ?? onClose }, cancelText)),
-                showConfirm && (react_1.default.createElement(Button_1.default, { disabled: !canConfirm, className: `btn-${confirmBtnClass}`, size: "md", onClickOK: onConfirm }, confirmText)))))), document.body)));
+        react_dom_1.default.createPortal(react_1.default.createElement("div", { className: `dialog-overlay ${show ? "open" : ""}` },
+            react_1.default.createElement("div", { onKeyDown: handleKeyDown, tabIndex: 0, ref: dialogRef, className: `dialog ${show ? "open" : ""}`, style: {
+                    top: `${position.y - 20}px`,
+                    left: `${position.x}px`,
+                    transform: `translateY(${firstOpen ? "20px" : "0"})`,
+                    width,
+                    maxWidth,
+                } },
+                react_1.default.createElement("div", { className: "dialog-header p-2 ps-3", onMouseDown: handleMouseDown },
+                    react_1.default.createElement("span", { className: "fs-5" }, title),
+                    showClose && (react_1.default.createElement("button", { className: "dialog-close hover-scale", onClick: onClose }, "\u00D7"))),
+                react_1.default.createElement("div", { className: "dialog-content", style: { maxHeight } }, children),
+                react_1.default.createElement("div", { className: "dialog-footer d-flex justify-content-end p-3" },
+                    showCancel && (react_1.default.createElement(Button_1.default, { externalClassName: `me-2 btn-${cancelBtnClass}`, size: "md", onClick: onCancel ?? onClose }, cancelText)),
+                    showConfirm && (react_1.default.createElement(Button_1.default, { disabled: !canConfirm, externalClassName: `btn-${confirmBtnClass}`, size: "md", onClick: onConfirm }, confirmText))))), document.body)));
 };
 exports.default = Dialog;
 //# sourceMappingURL=index.js.map
