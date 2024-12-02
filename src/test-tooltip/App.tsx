@@ -9,7 +9,7 @@ const App = () => {
                 width={'120px'}
                 tooltipBgc="red"
                 tooltipFontColor="black"
-                text="这是一个是一个一个示信息这是一个示信息这是一个这是一个是一个一个示信息这是一个示信息这是一个这是一个是一个一个示信息这是一个示信息这是一个这是一个是一个一个示信息这是一个示信息这是一个 left={'300px'} left={'300px'}"
+                text="111111111111这是一个是一个一个示信息这是一个示信息这是一个这是一个是一个一个示信息这是一个示信息这是一个这是一个是一个一个示信息这是一个示信息这是一个这是一个是一个一个示信息这是一个示信息这是一个 left={'300px'} left={'300px'}"
                 position="top"
                 arrowBorderColor="orange"
             >
@@ -21,6 +21,7 @@ const App = () => {
                 text="right这是一个示fsfsdfsdfsdfd悬停我悬停我悬停我悬停我悬停我悬停我悬停我悬停我悬停我悬停我悬停我悬停我信息"
                 position="top-right"
                 arrowBorderColor="blue"
+                width={'200px'}
             >
                 <button style={{ padding: '30px' }}>right悬停我悬停我悬停我悬停我</button>
             </Tooltip>

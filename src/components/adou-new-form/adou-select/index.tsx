@@ -351,7 +351,7 @@ const Select = React.forwardRef((props: SelectProps, ref) => {
                             className={`select-content form-control ${selectContentExternalCls || ''}`}
                             style={{
                                 textAlign: 'left',
-                                background: transparent ? 'transparent' : readOnly ? '#eee' : '',
+                                background: transparent ? 'transparent' : readOnly ? '#eee' : 'transparent',
                                 flex: 1,
                                 ...(suffixContentType === 'button'
                                     ? {

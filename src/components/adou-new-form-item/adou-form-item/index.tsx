@@ -107,7 +107,7 @@ const FormItem = ({
                         const childProps = child.props;
                         const childName = childProps.name || name;
                         // 注意：如果当前调用该校验函数 validateField 所传递过来的字段名 fieldName 和子组件的 name(在这边是childName) 一致(代表当前校验的是 正在修改的表单)，则取传递过来的值(这个值才是实时的，如果对当前正在修改的表单取 data 中的值作为校验值，会慢一节拍)，否则取data中的值
-                        const childValue = childName === fieldName ? value : data[childName!];
+                        const childValue = childName === fieldName ? value : data?.[childName!];
                         if (!childValue) {
                             isValid = false;
                             setIsError(true);

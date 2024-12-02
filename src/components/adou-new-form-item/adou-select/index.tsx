@@ -55,7 +55,7 @@ export interface SelectProps {
     onChange?: (e?: any, ...args: any) => void;
     onFormDataChange?: (key: string, value: any) => void;
     onFieldChange?: (name: string, value: any) => void;
-    onValidateField?: (name: string, value: any) => void;
+    onValidateField?: (data?: any) => void;
 }
 
 const Select = React.forwardRef((props: SelectProps, ref) => {
@@ -66,7 +66,7 @@ const Select = React.forwardRef((props: SelectProps, ref) => {
         wrapperWidth,
         commonSuffixContent,
         size,
-        clearable = true,
+        clearable = false,
         isAddon,
         wrapperStyle,
         formStyle,
@@ -149,7 +149,7 @@ const Select = React.forwardRef((props: SelectProps, ref) => {
     };
 
     const handleValidate = (data?: any) => {
-        onValidateField && onValidateField(name!, data);
+        onValidateField && onValidateField(data);
     };
 
     const handleFormContentClick = (e: any) => {
@@ -408,7 +408,7 @@ const Select = React.forwardRef((props: SelectProps, ref) => {
                         </span>
                     )}
 
-                    {clearable && isEnter && value ? (
+                    {clearable && isEnter && value?.[valueKey || labelKey] ? (
                         <div className="adou-select-clear-icon-box fade-enter d-flex">
                             <i
                                 className="adou-select-clear-icon fa-regular fa-circle-xmark text-secondary"

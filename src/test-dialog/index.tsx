@@ -54,7 +54,7 @@ const Dialog: React.FC<DialogProps> = ({
     children = null,
     type = '',
     maxHeight = '400px',
-    width = '600px',
+    width = type === 'tip' ? '420px' : '600px',
     height,
     maxWidth,
     onCancel,
@@ -178,9 +178,14 @@ const Dialog: React.FC<DialogProps> = ({
                                 >
                                     {children || '默认对话框内容'}
                                 </div>
-                                <div className="dialog-footer d-flex justify-content-end p-3">
+                                <div className={`dialog-footer d-flex justify-content-end ${type === 'tip' ? 'p-2' : 'p-3'}`}>
                                     {showCancel && (
-                                        <Button type="secondary" externalClassName={`me-2 btn-${cancelBtnClass}`} size="md" onClickOK={onCancel ?? onClose}>
+                                        <Button
+                                            type="secondary"
+                                            externalClassName={`me-2 btn-${cancelBtnClass}`}
+                                            size={`${type === 'tip' ? 'sm' : 'md'}`}
+                                            onClickOK={onCancel ?? onClose}
+                                        >
                                             {cancelText}
                                         </Button>
                                     )}
@@ -190,7 +195,7 @@ const Dialog: React.FC<DialogProps> = ({
                                             loading={confirmLoading}
                                             disabled={!canConfirm}
                                             externalClassName={`btn-${confirmBtnClass}`}
-                                            size="md"
+                                            size={`${type === 'tip' ? 'sm' : 'md'}`}
                                             onClickOK={onConfirm}
                                         >
                                             {confirmText}

@@ -39,7 +39,7 @@ const Textarea: React.FC<TextreaProps> = React.forwardRef((props: TextreaProps, 
     const {
         wrapperWidth,
         wrapperStyle,
-        clearable = true,
+        clearable = false,
         commonSuffixContent,
         formStyle,
         rows,
@@ -199,6 +199,6 @@ const Textarea: React.FC<TextreaProps> = React.forwardRef((props: TextreaProps, 
     );
 });
 
-Textarea.displayName = "Textarea"
+Textarea.displayName = 'Textarea';
 
 export default Textarea;

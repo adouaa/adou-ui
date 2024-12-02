@@ -135,14 +135,7 @@
 .adou-input-wrapper {
 
     .adou-input {
-
-        &-form-content {
-            height: 100%;
-            border: 1px solid #ced4da;
-            border-radius: 0.375rem;
-            // box-shadow: 0 1px 1px rgba(0, 0, 0, 0.075); 加上这个在 borderless 情况下底部会有条线
-            transition: background-color 0.5s ease, border-color 0.5s ease, box-shadow 0.5s ease;
-        }
+        transition: background-color 0.3s ease border-color 0.3s ease;
 
         &-label-vertical {
             display: flex;
@@ -153,29 +146,22 @@
 
         &-label-horizontal {
             display: flex;
-            justify-content: center;
             align-items: center;
+            justify-content: center;
             flex-direction: row;
-
-            .adou-input-label-box {
-                display: flex;
-                align-items: center;
-                justify-content: center;
-            }
         }
 
         &-label-horizontal-top {
             display: flex;
+            align-items: flex-start;
             justify-content: center;
-            align-items: self-start;
             flex-direction: row;
         }
 
         &-clear-icon-box {
-            width: 24px;
-            text-align: right;
-            display: flex;
-            align-items: center;
+            position: absolute;
+            right: 12px;
+            top: 20%;
         }
 
         &-clear-icon {

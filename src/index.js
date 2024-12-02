@@ -70,7 +70,9 @@ import ReactDOM from 'react-dom/client';
 
 // import App from './test-form-item/App.tsx';
 
-import App from './test-collapse-y/App.tsx';
+import App from './test-input/App.tsx';
+
+// import App from './test-collapse-y/App.tsx';
 
 // import App from './test-line-break-list/App.tsx';
 

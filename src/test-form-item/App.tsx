@@ -20,17 +20,22 @@ interface AppProps {}
 const App = ({}: AppProps) => {
     const form = useForm({});
 
+    const [layout, setLayout] = useState<any>('inline');
+
     const formRef = useRef<any>(null);
 
     const handleGetData = () => {
         console.log('form.getData();: ', form.getData());
+        setLayout('horizontal');
     };
 
     const handleClear = () => {
         form.clear();
+        setLayout('inline');
     };
 
     const handleValidate = () => {
+        setLayout('top');
         const valid = formRef.current.validateForm();
         // console.log('valid: ', valid);
         // console.log('form.validate: ', form.validate());
@@ -60,6 +65,7 @@ const App = ({}: AppProps) => {
     useEffect(() => {
         setTimeout(() => {
             form.setFormData({
+                cs1: '测试测试草率四',
                 position1: 'xm',
                 cs2: 'cs21',
                 area: '你好123你好123',
@@ -90,10 +96,10 @@ const App = ({}: AppProps) => {
                 校验
             </Button>
 
-            <Form commonFormItemWrapperWidth={'50%'} commonRules={rules} form={form} ref={formRef} clearable layout="inline">
+            <Form commonFormItemWrapperWidth={'50%'} commonRules={rules} form={form} ref={formRef} layout={layout}>
                 {/* Input */}
                 <FormItem rules={rules} addonBefore={'问候'} /* addonBefore={'测试'} */ /* addonAfter={'测试'} */ name="cs1" label="你好">
-                    <AdouInput></AdouInput>
+                    <AdouInput varient="filled"></AdouInput>
                 </FormItem>
                 <FormItem addonBefore={'问候'} addonAfter={'问候'} rules={rules} label="频次" name="cs2">
                     <AdouInput commonSuffixContent="次"></AdouInput>

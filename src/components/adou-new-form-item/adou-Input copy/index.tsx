@@ -2,9 +2,6 @@ import React, { forwardRef, useEffect, useRef, useState, useImperativeHandle, Re
 import './index.scss';
 
 export interface InputProps {
-    inputStyle?: React.CSSProperties;
-    prefix?: any; // 前缀
-    suffix?: any; // 后缀
     addonBefore?: ReactNode | string | number;
     addonAfter?: ReactNode | string | number;
     varient?: 'outlined' | 'filled' | 'borderless';
@@ -42,10 +39,10 @@ export interface InputProps {
     readOnly?: boolean;
     transparent?: boolean;
     children?: any;
-    onClick?: (e: React.MouseEvent<HTMLInputElement, MouseEvent>) => void;
-    onFocus?: (e: React.FocusEvent<HTMLInputElement, Element>) => void;
-    onBlur?: (e: React.FocusEvent<HTMLInputElement, Element>) => void;
-    onChange?: (value: any) => void;
+    onClick?: (e: React.MouseEvent<HTMLInputElement, MouseEvent>, ...args: any) => void;
+    onFocus?: (e: React.FocusEvent<HTMLInputElement, Element>, ...args: any) => void;
+    onBlur?: (e: React.FocusEvent<HTMLInputElement, Element>, ...args: any) => void;
+    onChange?: (value: any, ...args: any) => void;
     onIconClick?: (value: string) => void;
     onFormDataChange?: (key: string, value: any) => void;
     onFieldChange?: (name: string, value: any) => void;
@@ -58,9 +55,6 @@ export interface InputRef {
 
 const Input: React.ForwardRefRenderFunction<InputRef, InputProps> = (
     {
-        inputStyle,
-        prefix,
-        suffix,
         addonBefore,
         addonAfter,
         varient = 'outlined',
@@ -68,19 +62,22 @@ const Input: React.ForwardRefRenderFunction<InputRef, InputProps> = (
         labelKey,
         wrapperWidth,
         wrapperStyle,
-        clearable = false,
+        clearable = true,
         commonSuffixContent,
         formStyle,
         suffixContentExternalClassName,
         inputExternalClassName,
         textEnd,
         name,
+        inline,
+        isFormItem,
         errMsg,
         labelWidth,
         commonSuffixIcon,
+        inputGroup = false,
         width,
         label,
-        layout = 'horizontal',
+        layout = 'center',
         labelColor,
         required = false,
         type = 'text',
@@ -106,41 +103,36 @@ const Input: React.ForwardRefRenderFunction<InputRef, InputProps> = (
     },
     ref
 ) => {
+    const inputRef = useRef<HTMLInputElement>(null);
     const [value, setValue] = useState(defaultValue ?? '');
     const [isEnter, setIsEnter] = useState<boolean>(false);
-    const [isFocus, setIsFocus] = useState<boolean>(false);
-
-    const inputRef = useRef<HTMLInputElement>(null);
-    const inputFormContentRef = useRef<any>(null);
 
     const handleClick = (e: React.MouseEvent<HTMLInputElement, MouseEvent>, ...args: any) => {
         e.stopPropagation();
-        onClick && onClick(e);
+        onClick && onClick(e, ...args);
     };
 
     const handleFocus = (e: React.FocusEvent<HTMLInputElement, Element>, ...args: any) => {
         e.stopPropagation();
-        if (varient === 'filled' && inputFormContentRef.current) {
-            inputFormContentRef.current.style.backgroundColor = '';
+        if (varient === 'filled' && inputRef.current) {
+            inputRef.current.style.backgroundColor = '';
         }
-        setIsFocus(true);
-        onFocus && onFocus(e);
+        onFocus && onFocus(e, ...args);
     };
 
     const handleBlur = (e: React.FocusEvent<HTMLInputElement, Element>, ...args: any) => {
-        onBlur && onBlur(e);
+        onBlur && onBlur(e, ...args);
         handleValidate(value);
-        if (varient === 'filled' && inputFormContentRef.current) {
-            inputFormContentRef.current.style.backgroundColor = '#f0f0f0';
+        if (varient === 'filled' && inputRef.current) {
+            inputRef.current.style.backgroundColor = '#f0f0f0';
         }
-        setIsFocus(false);
     };
 
     const handleChange = (e: React.ChangeEvent<HTMLInputElement>, ...args: any) => {
         const value = e.target.value;
         const returnValue = type === 'number' ? Number(value) : value;
         setValue(value);
-        onChange && onChange(returnValue);
+        onChange && onChange(returnValue, ...args);
         onFormDataChange && onFormDataChange(name!, returnValue);
         handleFieldChange && handleFieldChange(returnValue);
         handleValidate(value);
@@ -191,22 +183,27 @@ const Input: React.ForwardRefRenderFunction<InputRef, InputProps> = (
 
             case 'vertical':
                 return 'adou-input-label-vertical';
+
+            default:
+            case 'center':
+                return 'adou-input-label-center';
         }
+        return '';
     };
 
     const commonElement = (
         <>
             <input
-                className={`border-0 flex-fill ${textEnd || type === 'number' ? 'text-end' : ''} ${
+                className={`form-control adou-input pe-2 ${textEnd || type === 'number' ? 'text-end' : ''} ${
                     suffixContent && suffixContentType === 'button' ? 'suffix-content-btn' : ''
-                } ${inputExternalClassName || ''} `}
+                } ${inputExternalClassName || ''} ${varient === 'borderless' ? 'border-0' : varient === 'filled' && !addonAfter && !addonBefore ? 'border-0' : ''}`}
                 ref={inputRef}
                 required={required}
                 style={{
                     flex: 1,
+                    minHeight: size === 'lg' ? '48px' : size === 'sm' ? '31px' : '40px',
                     width,
-                    outline: 'none',
-                    ...(varient === 'filled' && { backgroundColor: 'transparent' }),
+                    ...(varient === 'filled' && { backgroundColor: '#f0f0f0' }),
                     ...(addonBefore && {
                         borderTopLeftRadius: 0,
                         borderBottomLeftRadius: 0,
@@ -215,9 +212,7 @@ const Input: React.ForwardRefRenderFunction<InputRef, InputProps> = (
                         borderTopRightRadius: 0,
                         borderBottomRightRadius: 0,
                     }),
-                    height: size === 'lg' ? '48px' : size === 'sm' ? '32px' : '40px',
-
-                    ...inputStyle,
+                    ...formStyle,
                 }}
                 step={1}
                 name={name}
@@ -230,17 +225,15 @@ const Input: React.ForwardRefRenderFunction<InputRef, InputProps> = (
                 onClick={(e) => handleClick(e)}
                 type={type}
             />
-            {suffix && <div className="suffix-box">{suffix}</div>}
-
             {clearable && true && value ? (
                 <span
-                    className="adou-input-clear-icon-box fade-enter me-1"
+                    className="adou-input-clear-icon-box fade-enter"
                     style={{
                         top: size === 'sm' ? '2px' : size === 'lg' ? ' 10px' : '6px',
                     }}
                 >
                     <i
-                        className="adou-input-clear-icon fa-regular fa-circle-xmark text-secondary flex-fill"
+                        className="adou-input-clear-icon fa-regular fa-circle-xmark text-secondary"
                         style={{ fontSize: '12px', cursor: 'pointer' }}
                         onClick={handleClearIconClick}
                     ></i>
@@ -292,32 +285,14 @@ const Input: React.ForwardRefRenderFunction<InputRef, InputProps> = (
                 ...(wrapperWidth ? { width: wrapperWidth } : { flex: 1 }),
             }}
         >
-            {!label ? (
-                <div className={`adou-input ${size === 'sm' ? '' : ''}`}>
-                    <div
-                        className="input-group"
-                        style={
-                            {
-                                // height: size === 'lg' ? '48px' : size === 'sm' ? '32px' : '40px',
-                            }
-                        }
-                    >
-                        {addonBefore && (
-                            <span className="input-group-text py-0" style={{ fontSize: '14px' }}>
-                                {addonBefore}
-                            </span>
-                        )}
-                        <div
-                            style={{
-                                ...(varient === 'filled' && { backgroundColor: '#f0f0f0', border: addonBefore || addonAfter ? '' : 'none' }),
-                                ...formStyle,
-                            }}
-                            ref={inputFormContentRef}
-                            tabIndex={1}
-                            className={`adou-input-form-content px-2 d-flex flex-fill align-items-center ${isFocus ? 'adou-form-control-focus' : ''}`}
-                        >
-                            {prefix && <div className="prefix-box">{prefix}</div>}
-                            <div className="input-box flex-fill d-flex px-2 align-items-center">{commonElement}</div>
+            {addonBefore || addonAfter ? (
+                <div className="adou-input">
+                    <div className="input-group">
+                        <span className="input-group-text py-0" style={{ fontSize: '14px' }}>
+                            {addonBefore && addonBefore}
+                        </span>
+                        <div className="adou-form d-flex" style={{ flex: 1 }}>
+                            {commonElement}
                         </div>
                         {addonAfter && (
                             <span className="input-group-text py-0" style={{ fontSize: '14px' }}>
@@ -327,26 +302,9 @@ const Input: React.ForwardRefRenderFunction<InputRef, InputProps> = (
                     </div>
                 </div>
             ) : (
-                // 只有在是 label 的情况下才去对 生成对应的类名
-                <div className={`adou-input flex-fill ${generateClsWhenHasLabel()}`}>
-                    {label && (
-                        <span className={`pe-3 ${layout === 'vertical' ? 'pb-1' : ''}`} style={{ width: labelWidth }}>
-                            {label}
-                        </span>
-                    )}
-                    <div
-                        tabIndex={1}
-                        style={{
-                            width: '100%',
-                            ...(varient === 'filled' && { backgroundColor: '#f0f0f0', border: 'none' }),
-                            ...formStyle,
-                        }}
-                        ref={inputFormContentRef}
-                        className={`adou-input-form-content flex-fill d-flex px-2 align-items-center ${isFocus ? 'adou-form-control-focus' : ''} ${varient === 'borderless' ? 'border-0' : varient === 'filled' && !addonAfter && !addonBefore ? 'border-0' : ''}`}
-                    >
-                        {prefix && <div className="prefix-box">{prefix}</div>}
-                        <div className="input-box flex-fill d-flex px-2 align-items-center">{commonElement}</div>
-                    </div>
+                <div className={`adou-input flex-fill  ${generateClsWhenHasLabel()}`}>
+                    {label && <span className="pe-3">{label}</span>}
+                    {commonElement}
                 </div>
             )}
         </div>
