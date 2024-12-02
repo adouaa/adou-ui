@@ -1,6 +1,12 @@
 import React from "react";
 import "./index.scss";
 interface DialogProps {
+    draggable?: boolean;
+    confirmLoading?: boolean;
+    needDestroy?: boolean;
+    maxY?: boolean;
+    maxX?: boolean;
+    max?: boolean;
     showConfirm?: boolean;
     showCancel?: boolean;
     showClose?: boolean;
@@ -16,6 +22,7 @@ interface DialogProps {
     type?: string;
     maxHeight?: string;
     width?: string;
+    height?: string;
     maxWidth?: string;
     onCancel?: () => void;
     onClose?: () => void;

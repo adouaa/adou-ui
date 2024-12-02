@@ -2,7 +2,7 @@
   "author": "adou",
   "email": "1041137820@qq.com",
   "name": "adou-ui",
-  "version": "0.0.178",
+  "version": "0.0.179",
   "description": "feat:修复了TagInput无法清空的问题",
   "repository": {
     "type": "git",

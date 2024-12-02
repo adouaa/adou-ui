@@ -397,7 +397,7 @@ ___CSS_LOADER_EXPORT___.push([module.id, `.dialog-overlay {
   align-items: center;
   opacity: 0;
   visibility: hidden;
-  transition: opacity 0.3s ease-in-out, visibility 0.3s ease-in-out;
+  transition: opacity 0.2s ease-in-out, visibility 0.2s ease-in-out;
 }
 .dialog-overlay.open {
   opacity: 1;
@@ -413,7 +413,7 @@ ___CSS_LOADER_EXPORT___.push([module.id, `.dialog-overlay {
   position: absolute;
   transform: scale(0.9);
   opacity: 0;
-  transition: transform 0.3s ease-in-out, opacity 0.3s ease-in-out;
+  transition: transform 0.2s ease-in-out, opacity 0.2s ease-in-out;
 }
 .dialog.open {
   transform: scale(1);
@@ -425,7 +425,6 @@ ___CSS_LOADER_EXPORT___.push([module.id, `.dialog-overlay {
 
 .dialog-header {
   border-bottom: 1px solid #e0e0e0;
-  cursor: move;
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -435,7 +434,6 @@ ___CSS_LOADER_EXPORT___.push([module.id, `.dialog-overlay {
   color: #b0aaaa;
   background: none;
   border: none;
-  font-size: 36px;
   cursor: pointer;
   outline: none;
 }
@@ -454,8 +452,8 @@ ___CSS_LOADER_EXPORT___.push([module.id, `.dialog-overlay {
 }
 .hover-scale:hover {
   color: red;
-  transform: scale(1.2);
-}`, "",{"version":3,"sources":["webpack://./src/index.scss"],"names":[],"mappings":"AAAA;EACI,eAAA;EACA,aAAA;EACA,MAAA;EACA,OAAA;EACA,WAAA;EACA,YAAA;EACA,oCAAA;EACA,aAAA;EACA,uBAAA;EACA,mBAAA;EACA,UAAA;EACA,kBAAA;EACA,iEAAA;AACJ;AACI;EACI,UAAA;EACA,mBAAA;AACR;;AAGA;EACI,uBAAA;EACA,kBAAA;EACA,yCAAA;EACA,YAAA;EACA,cAAA;EACA,kBAAA;EAEA,qBAAA;EACA,UAAA;EACA,gEAAA;AADJ;AAGI;EACI,mBAAA;EACA,UAAA;AADR;AAII;EACI,aAAA;AAFR;;AAMA;EACI,gCAAA;EACA,YAAA;EACA,aAAA;EACA,8BAAA;EACA,mBAAA;AAHJ;;AAOA;EACI,cAAA;EACA,gBAAA;EACA,YAAA;EACA,eAAA;EACA,eAAA;EACA,aAAA;AAJJ;;AAOA;EACI,aAAA;EACA,cAAA;AAJJ;;AAQA;EACI,6BAAA;AALJ;;AAQA;EACI,yBAAA;AALJ;AAOI;EACI,UAAA;EACA,qBAAA;AALR","sourcesContent":[".dialog-overlay {\r\n    position: fixed;\r\n    z-index: 1002; // z-index应该加在最外层的父级才有作用\r\n    top: 0;\r\n    left: 0;\r\n    width: 100%;\r\n    height: 100%;\r\n    background-color: rgba(0, 0, 0, 0.5);\r\n    display: flex;\r\n    justify-content: center;\r\n    align-items: center;\r\n    opacity: 0;\r\n    visibility: hidden;\r\n    transition: opacity 0.3s ease-in-out, visibility 0.3s ease-in-out;\r\n\r\n    &.open {\r\n        opacity: 1;\r\n        visibility: visible;\r\n    }\r\n}\r\n\r\n.dialog {\r\n    background-color: white;\r\n    border-radius: 4px;\r\n    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);\r\n    width: 400px;\r\n    max-width: 90%;\r\n    position: absolute;\r\n    // z-index: 999;\r\n    transform: scale(0.9);\r\n    opacity: 0;\r\n    transition: transform 0.3s ease-in-out, opacity 0.3s ease-in-out;\r\n\r\n    &.open {\r\n        transform: scale(1);\r\n        opacity: 1;\r\n    }\r\n\r\n    &:focus {\r\n        outline: none;\r\n    }\r\n}\r\n\r\n.dialog-header {\r\n    border-bottom: 1px solid #e0e0e0;\r\n    cursor: move;\r\n    display: flex;\r\n    justify-content: space-between;\r\n    align-items: center;\r\n\r\n}\r\n\r\n.dialog-close {\r\n    color: #b0aaaa;\r\n    background: none;\r\n    border: none;\r\n    font-size: 36px;\r\n    cursor: pointer;\r\n    outline: none;\r\n}\r\n\r\n.dialog-content {\r\n    padding: 16px;\r\n    overflow: auto;\r\n\r\n}\r\n\r\n.dialog-footer {\r\n    border-top: 1px solid #e0e0e0;\r\n}\r\n\r\n.hover-scale {\r\n    transition: all 0.3s ease;\r\n\r\n    &:hover {\r\n        color: red;\r\n        transform: scale(1.2);\r\n    }\r\n}"],"sourceRoot":""}]);
+  transform: scale(1.3);
+}`, "",{"version":3,"sources":["webpack://./src/index.scss"],"names":[],"mappings":"AAAA;EACI,eAAA;EACA,aAAA;EACA,MAAA;EACA,OAAA;EACA,WAAA;EACA,YAAA;EACA,oCAAA;EACA,aAAA;EACA,uBAAA;EACA,mBAAA;EACA,UAAA;EACA,kBAAA;EACA,iEAAA;AACJ;AACI;EACI,UAAA;EACA,mBAAA;AACR;;AAGA;EACI,uBAAA;EACA,kBAAA;EACA,yCAAA;EACA,YAAA;EACA,cAAA;EACA,kBAAA;EAEA,qBAAA;EACA,UAAA;EACA,gEAAA;AADJ;AAGI;EACI,mBAAA;EACA,UAAA;AADR;AAII;EACI,aAAA;AAFR;;AAMA;EACI,gCAAA;EACA,aAAA;EACA,8BAAA;EACA,mBAAA;AAHJ;;AAOA;EACI,cAAA;EACA,gBAAA;EACA,YAAA;EACA,eAAA;EACA,aAAA;AAJJ;;AAOA;EACI,aAAA;EACA,cAAA;AAJJ;;AAQA;EACI,6BAAA;AALJ;;AAQA;EACI,yBAAA;AALJ;AAOI;EACI,UAAA;EACA,qBAAA;AALR","sourcesContent":[".dialog-overlay {\r\n    position: fixed;\r\n    z-index: 1002; // z-index应该加在最外层的父级才有作用\r\n    top: 0;\r\n    left: 0;\r\n    width: 100%;\r\n    height: 100%;\r\n    background-color: rgba(0, 0, 0, 0.5);\r\n    display: flex;\r\n    justify-content: center;\r\n    align-items: center;\r\n    opacity: 0;\r\n    visibility: hidden;\r\n    transition: opacity 0.2s ease-in-out, visibility 0.2s ease-in-out;\r\n\r\n    &.open {\r\n        opacity: 1;\r\n        visibility: visible;\r\n    }\r\n}\r\n\r\n.dialog {\r\n    background-color: white;\r\n    border-radius: 4px;\r\n    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);\r\n    width: 400px;\r\n    max-width: 90%;\r\n    position: absolute;\r\n    // z-index: 999;\r\n    transform: scale(0.9);\r\n    opacity: 0;\r\n    transition: transform 0.2s ease-in-out, opacity 0.2s ease-in-out;\r\n\r\n    &.open {\r\n        transform: scale(1);\r\n        opacity: 1;\r\n    }\r\n\r\n    &:focus {\r\n        outline: none;\r\n    }\r\n}\r\n\r\n.dialog-header {\r\n    border-bottom: 1px solid #e0e0e0;\r\n    display: flex;\r\n    justify-content: space-between;\r\n    align-items: center;\r\n\r\n}\r\n\r\n.dialog-close {\r\n    color: #b0aaaa;\r\n    background: none;\r\n    border: none;\r\n    cursor: pointer;\r\n    outline: none;\r\n}\r\n\r\n.dialog-content {\r\n    padding: 16px;\r\n    overflow: auto;\r\n\r\n}\r\n\r\n.dialog-footer {\r\n    border-top: 1px solid #e0e0e0;\r\n}\r\n\r\n.hover-scale {\r\n    transition: all 0.3s ease;\r\n\r\n    &:hover {\r\n        color: red;\r\n        transform: scale(1.3);\r\n    }\r\n}"],"sourceRoot":""}]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 
@@ -987,6 +985,7 @@ var update = injectStylesIntoStyleTag_default()(cjs_ruleSet_1_rules_1_use_2_src/
        /* harmony default export */ const src = (cjs_ruleSet_1_rules_1_use_2_src/* default */.A && cjs_ruleSet_1_rules_1_use_2_src/* default */.A.locals ? cjs_ruleSet_1_rules_1_use_2_src/* default */.A.locals : undefined);
 
 ;// CONCATENATED MODULE: ./src/index.tsx
+function _extends() { _extends = Object.assign ? Object.assign.bind() : function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; }; return _extends.apply(this, arguments); }
 
 
 
@@ -995,6 +994,12 @@ var update = injectStylesIntoStyleTag_default()(cjs_ruleSet_1_rules_1_use_2_src/
 
 const Dialog = _ref => {
   let {
+    draggable,
+    confirmLoading,
+    needDestroy = false,
+    maxY,
+    maxX,
+    max,
     showConfirm = true,
     showCancel = true,
     showClose = true,
@@ -1008,8 +1013,9 @@ const Dialog = _ref => {
     title = "提示",
     children = null,
     type = "",
-    maxHeight = "500px",
-    width = "600px",
+    maxHeight = "400px",
+    width = type === "tip" ? "420px" : "600px",
+    height,
     maxWidth,
     onCancel,
     onClose = () => {},
@@ -1017,6 +1023,7 @@ const Dialog = _ref => {
   } = _ref;
   const dialogRef = (0,external_root_React_commonjs2_react_commonjs_react_amd_react_.useRef)(null);
   const [show, setShow] = (0,external_root_React_commonjs2_react_commonjs_react_amd_react_.useState)(false);
+  const [destroied, setDestroied] = (0,external_root_React_commonjs2_react_commonjs_react_amd_react_.useState)(false);
   const [isAnimating, setIsAnimating] = (0,external_root_React_commonjs2_react_commonjs_react_amd_react_.useState)(false);
   const [initialPosition, setInitialPosition] = (0,external_root_React_commonjs2_react_commonjs_react_amd_react_.useState)({
     x: 0,
@@ -1030,7 +1037,13 @@ const Dialog = _ref => {
   const handleKeyDown = event => {
     if (event.key === "Enter") {
       onConfirm && onConfirm();
+    } else if (event.key === "Escape") {
+      onClose && onClose();
     }
+  };
+  const handleClose = e => {
+    e.stopPropagation();
+    onClose && onClose();
   };
   (0,external_root_React_commonjs2_react_commonjs_react_amd_react_.useEffect)(() => {
     if (show) {
@@ -1039,8 +1052,18 @@ const Dialog = _ref => {
         const dialogHeight = dialogRef.current.offsetHeight;
         const initialX = (window.innerWidth - dialogWidth) / 2;
         const initialY = (window.innerHeight - dialogHeight) / 2;
-        dialogRef.current.style.top = "".concat(type === "tip" ? "".concat(initialY, "px") : "2%");
+
+        // 如果对 Y轴 没有要求，则按 type 来定位
+        if (!maxY && !max) {
+          // 减去20是因为有个 transForm: translateY(20px);
+          dialogRef.current.style.top = "".concat(type === "tip" ? "".concat(initialY - 20, "px") : "2%");
+        } else {
+          // 如果是对 Y轴 有最大要求，则不仅是第一次，每次都要让 Y轴 在浏览器最上面，Y轴 占满整个屏幕
+          dialogRef.current.style.top = "-20px";
+        }
         dialogRef.current.style.left = "".concat(initialX, "px");
+
+        // 注意，这边要给个 100ms 差不多的定时器来确保 dialogRef.current 已经渲染完成
         setTimeout(() => {
           dialogRef.current.focus(); // 将焦点设置到 modal
         }, 100);
@@ -1052,6 +1075,7 @@ const Dialog = _ref => {
   }, [show]);
   (0,external_root_React_commonjs2_react_commonjs_react_amd_react_.useEffect)(() => {
     if (isOpen) {
+      setDestroied(false);
       setTimeout(() => {
         setShow(isOpen);
       }, 100);
@@ -1062,12 +1086,18 @@ const Dialog = _ref => {
       setTimeout(() => {
         setShow(isOpen);
       }, 100);
+      // 需要销毁再执行该逻辑
+      if (needDestroy) {
+        setTimeout(() => {
+          setDestroied(true);
+        }, 300); // 注意，延迟时间要 300差不多
+      }
     }
   }, [isOpen, type]);
-  hooks_useClickOutside(dialogRef, clickOutside && onClose);
+  hooks_useClickOutside([dialogRef], clickOutside && onClose);
   return /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement((external_root_React_commonjs2_react_commonjs_react_amd_react_default()).Fragment, null, (isOpen || isAnimating) && /*#__PURE__*/external_root_ReactDOM_commonjs2_react_dom_commonjs_react_dom_amd_react_dom_default().createPortal( /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("div", {
     className: "dialog-overlay ".concat(show ? "open" : "")
-  }, /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("div", {
+  }, !destroied && /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("div", {
     onKeyDown: handleKeyDown,
     tabIndex: 0,
     ref: dialogRef,
@@ -1076,32 +1106,41 @@ const Dialog = _ref => {
       top: "".concat(position.y - 20, "px"),
       left: "".concat(position.x, "px"),
       transform: "translateY(".concat(firstOpen ? "20px" : "0", ")"),
-      width,
-      maxWidth
+      maxWidth: max || maxX ? "100vw" : width || maxWidth,
+      width: max || maxX ? "100vw" : width || maxWidth
     }
-  }, /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("div", {
-    className: "dialog-header p-2 ps-3",
+  }, /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("div", _extends({
+    className: "dialog-header p-2 ps-3"
+  }, draggable && {
     onMouseDown: handleMouseDown
-  }, /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("span", {
+  }, {
+    style: {
+      cursor: draggable ? "move" : "default"
+    }
+  }), /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("span", {
     className: "fs-5"
   }, title), showClose && /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("button", {
     className: "dialog-close hover-scale",
-    onClick: onClose
+    onClick: handleClose
   }, "\xD7")), /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("div", {
     className: "dialog-content",
     style: {
-      maxHeight
+      maxHeight: max || maxY ? "79.5vh" : height || maxHeight,
+      height: max || maxY ? "79.5vh" : height
     }
-  }, children), /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("div", {
-    className: "dialog-footer d-flex justify-content-end p-3"
+  }, children || "默认对话框内容"), /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("div", {
+    className: "dialog-footer d-flex justify-content-end ".concat(type === "tip" ? "p-2" : "p-3")
   }, showCancel && /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement((Button_default()), {
+    type: "secondary",
     externalClassName: "me-2 btn-".concat(cancelBtnClass),
-    size: "md",
+    size: "".concat(type === "tip" ? "sm" : "md"),
     onClick: onCancel !== null && onCancel !== void 0 ? onCancel : onClose
   }, cancelText), showConfirm && /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement((Button_default()), {
+    type: "primary",
+    loading: confirmLoading,
     disabled: !canConfirm,
     externalClassName: "btn-".concat(confirmBtnClass),
-    size: "md",
+    size: "".concat(type === "tip" ? "sm" : "md"),
     onClick: onConfirm
   }, confirmText)))), document.body));
 };

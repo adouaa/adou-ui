@@ -2758,7 +2758,7 @@ const TableCell = props => {
     setEditedValue(value);
   }, [value]);
   return /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("div", {
-    className: "table-cell d-flex",
+    className: "table-cell text-".concat(textPosition),
     style: {
       width: "100%"
     }
@@ -3021,7 +3021,7 @@ const Table = props => {
             colIndex: colIndex,
             canCollapse: data.children,
             collapse: collapse,
-            textPosition,
+            textPosition: textPositionObject[prop],
             width: widthObject[child.props.prop]
           });
           return /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("td", {

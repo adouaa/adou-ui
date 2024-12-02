@@ -251,7 +251,7 @@ const Table = (props: TableProps) => {
                           colIndex: colIndex,
                           canCollapse: data.children,
                           collapse: collapse,
-                          textPosition,
+                          textPosition: textPositionObject[prop],
                           width:
                             widthObject[
                               (child as React.ReactElement).props.prop
@@ -586,6 +586,7 @@ const Table = (props: TableProps) => {
     </>
   );
 };
+
 Table.TableCell = TableCell;
 
 export default withTranslation()(Table);

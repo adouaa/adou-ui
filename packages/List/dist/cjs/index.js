@@ -3329,7 +3329,7 @@ const List = /*#__PURE__*/(0,external_root_React_commonjs2_react_commonjs_react_
     showEditIcon = true,
     activeId,
     maxWidth = 300,
-    maxHeight = '100%',
+    maxHeight = "100%",
     onToggle,
     onItemClick,
     onToggleIconClick,
@@ -3337,7 +3337,7 @@ const List = /*#__PURE__*/(0,external_root_React_commonjs2_react_commonjs_react_
     onLoadNode
   } = _ref;
   const [_activeId, set_ActiveId] = (0,external_root_React_commonjs2_react_commonjs_react_amd_react_.useState)(activeId);
-  const [treeData, settreeData] = (0,external_root_React_commonjs2_react_commonjs_react_amd_react_.useState)([]);
+  const [treeData, setTreeData] = (0,external_root_React_commonjs2_react_commonjs_react_amd_react_.useState)([]);
   const handleItemClick = node => {
     set_ActiveId(node.id);
     onItemClick && onItemClick(node);
@@ -3360,17 +3360,17 @@ const List = /*#__PURE__*/(0,external_root_React_commonjs2_react_commonjs_react_
       if (listRef.current) {
         listRef.current.scrollTo({
           top: listRef.current.scrollHeight,
-          behavior: 'smooth'
+          behavior: "smooth"
         });
       }
-    }, 0);
+    }, 10);
   };
   const scrollToTop = () => {
     setTimeout(() => {
       if (listRef.current) {
         listRef.current.scrollTo({
           top: 0,
-          behavior: 'smooth'
+          behavior: "smooth"
         });
       }
     }, 0);
@@ -3476,28 +3476,26 @@ const List = /*#__PURE__*/(0,external_root_React_commonjs2_react_commonjs_react_
   }, [activeId]);
   (0,external_root_React_commonjs2_react_commonjs_react_amd_react_.useEffect)(() => {
     var _data$;
-    settreeData(markLastChildrenAndFirstItem(convertListToTree(flattenDataWithoutNesting(data), (data === null || data === void 0 || (_data$ = data[0]) === null || _data$ === void 0 ? void 0 : _data$.pid) || null)));
+    setTreeData(markLastChildrenAndFirstItem(convertListToTree(flattenDataWithoutNesting(data), (data === null || data === void 0 || (_data$ = data[0]) === null || _data$ === void 0 ? void 0 : _data$.pid) || null)));
     // data 变化的时候，也要将 选中的id 置为 -1，防止遗留上一次 选中的id
     if (!activeId) {
       set_ActiveId(-1);
     }
   }, [data]);
-  (0,external_root_React_commonjs2_react_commonjs_react_amd_react_.useEffect)(() => {
-    console.log('treeData: ', treeData);
-  }, [treeData]);
+  (0,external_root_React_commonjs2_react_commonjs_react_amd_react_.useEffect)(() => {}, [treeData]);
   return /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("div", {
-    className: "list-wrapper ".concat(showLine ? "ps-2" : ''),
+    className: "list-wrapper ".concat(showLine ? "ps-2" : ""),
     style: {
       flex: 1,
-      height: '100%',
-      overflow: 'auto'
+      height: "100%"
     }
   }, /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("div", {
     ref: listRef,
     className: "list-content",
     style: {
       maxWidth: maxWidth,
-      maxHeight: maxHeight
+      maxHeight: maxHeight,
+      overflowY: "auto"
     }
   }, treeData && treeData.map(item => /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement(src_ListNode_0, {
     defaltExpandNodes: defaltExpandNodes,
