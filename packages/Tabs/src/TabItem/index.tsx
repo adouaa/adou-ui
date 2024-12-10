@@ -2,6 +2,7 @@ import React from "react";
 import { withTranslation } from "react-i18next";
 
 interface TabItemProps {
+  exsternalClsaaName?: string;
   prefixIcon?: string;
   headerIcon?: any;
   extraContent?: any;
@@ -15,6 +16,7 @@ interface TabItemProps {
 
 const TabItem = (props: TabItemProps) => {
   const {
+    exsternalClsaaName,
     prefixIcon,
     headerIcon,
     extraContent,

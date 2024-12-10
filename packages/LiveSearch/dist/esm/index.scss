@@ -11,6 +11,11 @@
                 /* 去掉右下角的圆角 */
             }
 
+            .suffix-content-common-wrapper {
+                display: flex;
+                align-items: center;
+                justify-content: center;
+            }
 
             .suffix-content-btn-wrapper {
                 min-width: 37px;
@@ -141,7 +146,7 @@
 }
 
 .live-search-select-content {
-    min-width: 200px;
+    min-width: 140px;
     background-color: #fff;
     position: absolute;
     z-index: 10000;

@@ -7,6 +7,7 @@ import { getAbsolutePosition, useClickOutside } from "adou-ui/Utils/index";
 import Tooltip from "../../Tooltip";
 
 export interface SelectProps {
+  optionListWidth?: any;
   ellipsis?: boolean; // 注意：想要省略号，父级不能是 flex布局
   errorPaddingLeft?: any;
   suffixContentExternalCls?: string;
@@ -49,6 +50,7 @@ export interface SelectProps {
 
 const Select = React.forwardRef((props: SelectProps, ref) => {
   const {
+    optionListWidth, // 选项列表宽度
     ellipsis,
     errorPaddingLeft,
     suffixContentExternalCls,
@@ -403,6 +405,7 @@ const Select = React.forwardRef((props: SelectProps, ref) => {
                       // borderRight: "none",
                     }
                   : {}),
+                minHeight: "37.6px",
               }}
             >
               {value?.[valueKey] ||
@@ -471,6 +474,7 @@ const Select = React.forwardRef((props: SelectProps, ref) => {
                     }
                   : {}),
                 ...(closing ? { opacity: 0, transform: "scaleY(0)" } : {}),
+                width: optionListWidth,
               }}
               ref={contentRef}
               className={`select-option-content ${
@@ -530,5 +534,4 @@ const Select = React.forwardRef((props: SelectProps, ref) => {
     </div>
   );
 });
-
 export default withTranslation()(Select);

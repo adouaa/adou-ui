@@ -604,7 +604,6 @@ __webpack_require__.r(__webpack_exports__);
 
 // EXPORTS
 __webpack_require__.d(__webpack_exports__, {
-  TabItem: () => (/* reexport */ src_TabItem),
   "default": () => (/* binding */ src_0)
 });
 
@@ -1809,45 +1808,6 @@ var plural = function plural() {
 var selectOrdinal = function selectOrdinal() {
   return '';
 };
-;// CONCATENATED MODULE: ./src/TabItem/index.tsx
-
-
-const TabItem = props => {
-  const {
-    prefixIcon,
-    headerIcon,
-    extraContent,
-    label,
-    url,
-    children,
-    active,
-    contentPadding = "0px",
-    clearOnChange
-  } = props;
-  return /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("div", {
-    className: "tab-item-wrapper"
-    // 当 active为 true 时，设置高度为 100%，否则为 0，避免父组件设置了 contentHeight 时，影响到 隐藏的 tabItem 的高度
-    ,
-    style: {
-      height: active ? "100%" : "0"
-    }
-  }, clearOnChange ? active && /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("div", {
-    className: "tab-item-content",
-    style: {
-      padding: contentPadding || "0px 10px",
-      height: "100%"
-    }
-  }, children) :
-  /*#__PURE__*/
-  // clearOnChange为true，不进行组件的销毁和重建，直接使用 d-none来进行切换
-  external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("div", {
-    className: "".concat(active ? "" : "d-none"),
-    style: {
-      padding: contentPadding || "0px 10px"
-    }
-  }, children));
-};
-/* harmony default export */ const src_TabItem = (withTranslation()(TabItem));
 // EXTERNAL MODULE: ../../node_modules/style-loader/dist/runtime/injectStylesIntoStyleTag.js
 var injectStylesIntoStyleTag = __webpack_require__(591);
 var injectStylesIntoStyleTag_default = /*#__PURE__*/__webpack_require__.n(injectStylesIntoStyleTag);
@@ -1901,12 +1861,11 @@ var update = injectStylesIntoStyleTag_default()(cjs_ruleSet_1_rules_1_use_2_src/
 
 
 
-
-
 const Tabs = props => {
   const {
+    commonTabItemHeaderExternalCls,
+    tabRef,
     commonExtraContent,
-    headerItemExternalCls,
     extraContentCls,
     contentHeight,
     showExtraContent,
@@ -1920,10 +1879,10 @@ const Tabs = props => {
     clearOnChange = true
   } = props;
   const [updateKey, setupdateKey] = (0,external_root_React_commonjs2_react_commonjs_react_amd_react_.useState)(0);
-  const [currentIndex, setcurrentIndex] = (0,external_root_React_commonjs2_react_commonjs_react_amd_react_.useState)(activeIndex);
+  const [currentIndex, setCurrentIndex] = (0,external_root_React_commonjs2_react_commonjs_react_amd_react_.useState)(activeIndex);
   const content = (0,external_root_React_commonjs2_react_commonjs_react_amd_react_.useRef)();
   const handleLabelClickFn = (index, itemInfo) => {
-    setcurrentIndex(index);
+    setCurrentIndex(index);
     onLabelClick && onLabelClick(index, itemInfo);
   };
   const renderHeader = () => {
@@ -1941,12 +1900,12 @@ const Tabs = props => {
         flex: 1
       }
     }, tabItems.map((child, index) => {
-      var _child$props, _child$props2;
+      var _child$propps, _child$props, _child$props2;
       if (!child) return;
       return /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("div", {
         key: index
       }, /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("div", {
-        className: "tabs-header-item-box ".concat(index === 0 && "first")
+        className: "tabs-header-item-box ".concat(((_child$propps = child.propps) === null || _child$propps === void 0 ? void 0 : _child$propps.exsternalClsaaName) || commonTabItemHeaderExternalCls, " ").concat(index === 0 && "first")
       }, /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("div", {
         onClick: () => handleLabelClickFn(index, child),
         className: "tabs-header-item d-flex align-items-center  ".concat(currentIndex === index && "active")
@@ -1969,21 +1928,21 @@ const Tabs = props => {
         flex: 1
       }
     }, tabItems.map((child, index) => {
-      var _child$props3, _child$props4;
+      var _child$propps2, _child$props3, _child$props4;
       return /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("li", {
         key: index,
         className: "nav-item d-flex",
         onClick: () => handleLabelClickFn(index, child)
       }, /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("a", {
         style: {
-          marginLeft: index === 0 ? "10px" : "",
+          // marginLeft: index === 0 ? "10px" : "", // 展示头部小尾巴
           color: index === currentIndex ? child.props.activeLabelColor || activeLabelColor : "",
           cursor: "pointer",
           ...(index === currentIndex ? {
             background: "linear-gradient(".concat(lineaGradient, ")")
           } : {})
         },
-        className: "".concat(index === currentIndex ? "active" : "", " ").concat(headerItemExternalCls, " nav-link d-flex align-items-center"),
+        className: "".concat(index === currentIndex ? "active" : "", " ").concat(((_child$propps2 = child.propps) === null || _child$propps2 === void 0 ? void 0 : _child$propps2.exsternalClsaaName) || commonTabItemHeaderExternalCls, " nav-link d-flex align-items-center"),
         "aria-current": "page"
       }, child.props.prefixIcon && /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("i", {
         className: child.props.prefixIcon + " me-1"
@@ -2028,6 +1987,12 @@ const Tabs = props => {
       }
     }, renderChildren);
   };
+  const goTo = index => {
+    setCurrentIndex(index);
+  };
+  (0,external_root_React_commonjs2_react_commonjs_react_amd_react_.useImperativeHandle)(tabRef, () => ({
+    goTo
+  }));
   return /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement((external_root_React_commonjs2_react_commonjs_react_amd_react_default()).Fragment, null, /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("div", {
     className: "tabs-box",
     style: {

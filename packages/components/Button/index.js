@@ -99,24 +99,24 @@ __webpack_require__.r(__webpack_exports__);
 
 const Button = props => {
   const {
-    fontSize = "14px",
+    fontSize,
     spinerType = "border",
     spinerColor,
     loading,
     suffixIcon,
     prefixIcon,
     children,
-    type = "warning",
+    type,
     size = "md",
     externalClassName,
     round,
     textColor,
     disabled,
     outlineColor,
-    onClick
+    onClickOK
   } = props;
   const handleOnClick = () => {
-    onClick && onClick();
+    onClickOK && onClickOK();
   };
   const renderPrefixIcon = () => {
     return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("i", {
@@ -148,7 +148,6 @@ const Button = props => {
         child = /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("span", null, child);
         const enhancedChild = /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().cloneElement(child, {
           style: {
-            margin: "0 0.2rem",
             fontSize
           }
         });
@@ -162,7 +161,6 @@ const Button = props => {
       var _child$props;
       if ((_child$props = child.props) !== null && _child$props !== void 0 && (_child$props = _child$props.className) !== null && _child$props !== void 0 && _child$props.includes("loader")) {
         hasLoader = true;
-        console.log("有: ");
       }
     });
     if (hasLoader) {
@@ -174,7 +172,7 @@ const Button = props => {
       });
     } else {
       return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement((react__WEBPACK_IMPORTED_MODULE_0___default().Fragment), null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", {
-        className: "spinner-".concat(spinerType, " spinner-").concat(spinerType, "-sm text-").concat(spinerColor),
+        className: "me-2 spinner-".concat(spinerType, " spinner-").concat(spinerType, "-sm text-").concat(spinerColor),
         role: "status"
       }));
     }
@@ -187,7 +185,7 @@ const Button = props => {
       height: "100%"
     },
     onClick: handleOnClick,
-    className: "btn btn-".concat(type, " btn-").concat(size, " ").concat(round ? "rounded-pill" : "", " text-").concat(textColor, " btn-outline-").concat(outlineColor, " ").concat(disabled ? "disabled" : "", " ").concat(externalClassName),
+    className: "btn btn-".concat(type, " btn-").concat(size, " ").concat(round ? "rounded-pill" : "", " ").concat(textColor ? "text-".concat(textColor) : "", " ").concat(outlineColor ? "btn-outline-".concat(outlineColor) : "", " ").concat(disabled ? "disabled" : "", " ").concat(externalClassName),
     disabled: loading
   }, loading ? /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", {
     className: "loading-btn"

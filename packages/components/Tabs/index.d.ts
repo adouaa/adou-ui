@@ -1,21 +1,20 @@
 import React from "react";
-import TabItem from "./TabItem";
-export { TabItem };
 import "./index.scss";
 declare const _default: React.ComponentType<Omit<{
-    children?: any;
-    contentPadding?: string | undefined;
-    clearOnChange?: boolean | undefined;
-    headerItemExternalCls?: string | undefined;
+    commonTabItemHeaderExternalCls?: string | undefined;
+    tabRef?: any;
     extraContentCls?: string | undefined;
     contentHeight?: any;
     extraData?: any;
     showExtraContent?: boolean | undefined;
     commonExtraContent?: any;
-    onLabelClick?: any;
+    children?: any;
     activeIndex?: number | undefined;
     activeLabelColor?: string | undefined;
     tabStyle?: "common" | "bootstrap" | undefined;
+    contentPadding?: string | undefined;
+    clearOnChange?: boolean | undefined;
     lineaGradient?: string | undefined;
+    onLabelClick?: ((index: number, itemInfo: any) => void) | undefined;
 }, keyof import("react-i18next").WithTranslation<N, undefined>> & import("react-i18next").WithTranslationProps>;
 export default _default;

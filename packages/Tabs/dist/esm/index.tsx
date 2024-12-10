@@ -1,33 +1,31 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { useEffect, useImperativeHandle, useRef, useState } from "react";
 import { withTranslation } from "react-i18next";
-
-import TabItem from "./TabItem";
-
-export { TabItem };
 
 import "./index.scss";
 
 interface TabsProps {
-  headerItemExternalCls?: string;
+  commonTabItemHeaderExternalCls?: string;
+  tabRef?: any;
   extraContentCls?: string;
   contentHeight?: any;
   extraData?: any;
   showExtraContent?: boolean;
   commonExtraContent?: any;
   children?: any;
-  onLabelClick?: any;
   activeIndex?: number;
   activeLabelColor?: string;
   tabStyle?: "common" | "bootstrap";
   contentPadding?: string;
   clearOnChange?: boolean;
   lineaGradient?: string;
+  onLabelClick?: (index: number, itemInfo: any) => void;
 }
 
 const Tabs = (props: TabsProps) => {
   const {
+    commonTabItemHeaderExternalCls,
+    tabRef,
     commonExtraContent,
-    headerItemExternalCls,
     extraContentCls,
     contentHeight,
     showExtraContent,
@@ -43,12 +41,12 @@ const Tabs = (props: TabsProps) => {
 
   const [updateKey, setupdateKey] = useState<number>(0);
 
-  const [currentIndex, setcurrentIndex] = useState<number>(activeIndex);
+  const [currentIndex, setCurrentIndex] = useState<number>(activeIndex);
 
   const content = useRef<any>();
 
   const handleLabelClickFn = (index: number, itemInfo: any) => {
-    setcurrentIndex(index);
+    setCurrentIndex(index);
     onLabelClick && onLabelClick(index, itemInfo);
   };
 
@@ -70,8 +68,9 @@ const Tabs = (props: TabsProps) => {
                     <div key={index}>
                       <div
                         className={`tabs-header-item-box ${
-                          index === 0 && "first"
-                        }`}
+                          child.propps?.exsternalClsaaName ||
+                          commonTabItemHeaderExternalCls
+                        } ${index === 0 && "first"}`}
                       >
                         <div
                           onClick={() => handleLabelClickFn(index, child)}
@@ -112,7 +111,7 @@ const Tabs = (props: TabsProps) => {
                     >
                       <a
                         style={{
-                          marginLeft: index === 0 ? "10px" : "",
+                          // marginLeft: index === 0 ? "10px" : "", // 展示头部小尾巴
                           color:
                             index === currentIndex
                               ? child.props.activeLabelColor || activeLabelColor
@@ -124,9 +123,10 @@ const Tabs = (props: TabsProps) => {
                               }
                             : {}),
                         }}
-                        className={`${
-                          index === currentIndex ? "active" : ""
-                        } ${headerItemExternalCls} nav-link d-flex align-items-center`}
+                        className={`${index === currentIndex ? "active" : ""} ${
+                          child.propps?.exsternalClsaaName ||
+                          commonTabItemHeaderExternalCls
+                        } nav-link d-flex align-items-center`}
                         aria-current="page"
                       >
                         {child.props.prefixIcon && (
@@ -185,6 +185,14 @@ const Tabs = (props: TabsProps) => {
       </div>
     );
   };
+
+  const goTo = (index: number) => {
+    setCurrentIndex(index);
+  };
+
+  useImperativeHandle(tabRef, () => ({
+    goTo,
+  }));
 
   return (
     <>

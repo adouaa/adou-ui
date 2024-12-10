@@ -16,7 +16,7 @@ interface buttonProps {
     spinerType?: "border" | "grow";
     spinerColor?: ThemeType;
     fontSize?: string;
-    onClick?: () => void;
+    onClickOK?: () => void;
 }
 declare const Button: React.FC<buttonProps>;
 export default Button;
