@@ -192,7 +192,7 @@ const Input: React.ForwardRefRenderFunction<InputRef, InputProps> = (
                             borderRadius: '6px',
                             borderTopLeftRadius: prefixContent ? 0 : '6px',
                             borderBottomLeftRadius: prefixContent ? 0 : '6px',
-                            background: transparent ? 'transparent' : '#fff',
+                            background: transparent ? 'transparent' : '',
                             flex: 1,
                             height: '38px',
                         }}

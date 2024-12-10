@@ -1,6 +1,7 @@
 .select-wrapper {
     select option:first-child {
         display: none;
+
     }
 
     position: relative;
@@ -148,7 +149,7 @@
 
 
 .select-option-content {
-    min-width: 200px;
+    min-width: 140px;
     text-align-last: left;
     background-color: #fff;
     overflow: hidden;
@@ -200,7 +201,7 @@
 
 
 .none-option {
-    width: 200px;
+    min-width: 140px;
     height: 50px;
 
     color: #a4a3a3;

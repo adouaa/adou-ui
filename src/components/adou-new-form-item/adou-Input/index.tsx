@@ -120,10 +120,10 @@ const Input: React.ForwardRefRenderFunction<InputRef, InputProps> = (
 
     const handleFocus = (e: React.FocusEvent<HTMLInputElement, Element>, ...args: any) => {
         e.stopPropagation();
-        if (varient === 'filled' && inputFormContentRef.current) {
+        if (varient === 'filled' && inputFormContentRef.current && !readOnly) {
             inputFormContentRef.current.style.backgroundColor = '';
+            setIsFocus(true);
         }
-        setIsFocus(true);
         onFocus && onFocus(e);
     };
 
@@ -194,6 +194,24 @@ const Input: React.ForwardRefRenderFunction<InputRef, InputProps> = (
         }
     };
 
+    const judgeBgColor = () => {
+        if (readOnly) {
+            return '#eee';
+        } else if (varient === 'filled') {
+            return '#f0f0f0';
+        }
+    };
+
+    const judgeBorder = () => {
+        if (varient === 'borderless') {
+            return 'border-0';
+        } else if (varient === 'filled' && !addonAfter && !addonBefore) {
+            return 'border-0';
+        } else {
+            return '';
+        }
+    };
+
     const commonElement = (
         <>
             <input
@@ -216,7 +234,8 @@ const Input: React.ForwardRefRenderFunction<InputRef, InputProps> = (
                         borderBottomRightRadius: 0,
                     }),
                     height: size === 'lg' ? '48px' : size === 'sm' ? '32px' : '40px',
-
+                    backgroundColor: 'transparent',
+                    cursor: readOnly ? 'not-allowed' : 'auto',
                     ...inputStyle,
                 }}
                 step={1}
@@ -290,10 +309,11 @@ const Input: React.ForwardRefRenderFunction<InputRef, InputProps> = (
             style={{
                 ...wrapperStyle,
                 ...(wrapperWidth ? { width: wrapperWidth } : { flex: 1 }),
+                cursor: readOnly ? 'not-allowed' : 'auto',
             }}
         >
             {!label ? (
-                <div className={`adou-input ${size === 'sm' ? '' : ''}`}>
+                <div className={`adou-input`}>
                     <div
                         className="input-group"
                         style={
@@ -309,8 +329,10 @@ const Input: React.ForwardRefRenderFunction<InputRef, InputProps> = (
                         )}
                         <div
                             style={{
-                                ...(varient === 'filled' && { backgroundColor: '#f0f0f0', border: addonBefore || addonAfter ? '' : 'none' }),
+                                ...(varient === 'filled' && { border: addonBefore || addonAfter ? '' : 'none' }),
                                 ...formStyle,
+                                backgroundColor: judgeBgColor(),
+                                border: varient === 'outlined' ? '1px solid #ced4da' : '',
                             }}
                             ref={inputFormContentRef}
                             tabIndex={1}
@@ -339,10 +361,11 @@ const Input: React.ForwardRefRenderFunction<InputRef, InputProps> = (
                         style={{
                             width: '100%',
                             ...(varient === 'filled' && { backgroundColor: '#f0f0f0', border: 'none' }),
+                            border: varient === 'outlined' ? '1px solid #ced4da' : '',
                             ...formStyle,
                         }}
                         ref={inputFormContentRef}
-                        className={`adou-input-form-content flex-fill d-flex px-2 align-items-center ${isFocus ? 'adou-form-control-focus' : ''} ${varient === 'borderless' ? 'border-0' : varient === 'filled' && !addonAfter && !addonBefore ? 'border-0' : ''}`}
+                        className={`adou-input-form-content flex-fill d-flex px-2 align-items-center ${isFocus ? 'adou-form-control-focus' : ''} ${judgeBorder()}`}
                     >
                         {prefix && <div className="prefix-box">{prefix}</div>}
                         <div className="input-box flex-fill d-flex px-2 align-items-center">{commonElement}</div>

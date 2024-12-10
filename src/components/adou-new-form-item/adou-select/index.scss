@@ -218,9 +218,13 @@
 
     .adou-select-form-content {
         .adou-select {
-            height: 38px;
-            position: relative;
+            height: 100%;
+            border: 1px solid #ced4da;
+            border-radius: 0.475rem;
+            // box-shadow: 0 1px 1px rgba(0, 0, 0, 0.075); 加上这个在 borderless 情况下底部会有条线
+            transition: background-color 0.5s ease, border-color 0.5s ease, box-shadow 0.5s ease;
             cursor: pointer;
+            padding: 0 12px;
 
             i {
                 transition: transform 0.3s ease;
@@ -259,6 +263,17 @@
                     transform: scale(1.2);
                     color: red !important;
                 }
+            }
+
+            &-input-box {
+                background-color: red;
+            }
+
+            &-input {
+                // min-width: 120px;
+                width: 100%;
+                outline: none;
+                border: none;
             }
         }
     }

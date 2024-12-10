@@ -2,6 +2,7 @@ import React from 'react';
 import { withTranslation } from 'react-i18next';
 
 interface TabItemProps {
+    exsternalClsaaName?: string;
     prefixIcon?: string;
     headerIcon?: any;
     extraContent?: any;
@@ -14,7 +15,7 @@ interface TabItemProps {
 }
 
 const TabItem = (props: TabItemProps) => {
-    const { prefixIcon, headerIcon, extraContent, label, url, children, active, contentPadding = '0px', clearOnChange } = props;
+    const { exsternalClsaaName, prefixIcon, headerIcon, extraContent, label, url, children, active, contentPadding = '0px', clearOnChange } = props;
     return (
         <div
             className="tab-item-wrapper"

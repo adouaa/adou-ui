@@ -22,14 +22,14 @@ interface buttonProps {
 }
 const Button: React.FC<buttonProps> = (props: buttonProps) => {
     const {
-        fontSize = '14px',
+        fontSize,
         spinerType = 'border',
         spinerColor,
         loading,
         suffixIcon,
         prefixIcon,
         children,
-        type = 'warning',
+        type,
         size = 'md',
         externalClassName,
         round,
@@ -70,7 +70,6 @@ const Button: React.FC<buttonProps> = (props: buttonProps) => {
                 child = <span>{child}</span>;
                 const enhancedChild = React.cloneElement(child, {
                     style: {
-                        margin: '0 0.2rem',
                         fontSize,
                     },
                 } as React.Attributes);
@@ -84,7 +83,6 @@ const Button: React.FC<buttonProps> = (props: buttonProps) => {
         React.Children.map(children, (child: any) => {
             if (child.props?.className?.includes('loader')) {
                 hasLoader = true;
-                console.log('有: ');
             }
         });
         if (hasLoader) {
@@ -96,7 +94,7 @@ const Button: React.FC<buttonProps> = (props: buttonProps) => {
         } else {
             return (
                 <>
-                    <div className={`spinner-${spinerType} spinner-${spinerType}-sm text-${spinerColor}`} role="status"></div>
+                    <div className={`me-2 spinner-${spinerType} spinner-${spinerType}-sm text-${spinerColor}`} role="status"></div>
                 </>
             );
         }
@@ -107,7 +105,7 @@ const Button: React.FC<buttonProps> = (props: buttonProps) => {
             <button
                 style={{ cursor: 'pointer', height: '100%' }}
                 onClick={handleOnClick}
-                className={`btn btn-${type} btn-${size} ${round ? 'rounded-pill' : ''} text-${textColor} btn-outline-${outlineColor} ${
+                className={`btn btn-${type} btn-${size} ${round ? 'rounded-pill' : ''} ${textColor ? `text-${textColor}` : ''} ${outlineColor ? `btn-outline-${outlineColor}` : ''} ${
                     disabled ? 'disabled' : ''
                 } ${externalClassName}`}
                 disabled={loading}

@@ -3,7 +3,7 @@ import './index.scss';
 import { useEffect, useRef, useState } from 'react';
 import ReactDOM from 'react-dom';
 import getAbsolutePosition from 'utils/getAbsolutePosition';
-import useClickOutside from './utils/useClickOutside';
+import useClickOutside from 'hooks/useClickOutside';
 
 export interface SelectProps {
     wrapperStyle?: React.CSSProperties;
@@ -119,14 +119,22 @@ const LiveSearch: React.FC<LiveSearchProps> = React.forwardRef((props: LiveSearc
     const [customSelectContentPosition, setCustomSelectContentPosition] = useState<any>({});
     const [originlOptions, setOriginOptions] = useState<any[]>([]); // 存放最初的值， 用来做过滤
 
+    const [closing, setClosing] = useState<boolean>(false);
+
     const liveSearchSelectRef = useRef<any>(null);
 
     // 由于第一次选择之后有几率出现 error 闪烁的情况，所以需要设置一个判断
     // 判断：如果是第一次选择，则不通过 validate进行校验，而是在 选择的逻辑那边直接进行校验
     const handleClose = (isSelect?: boolean) => {
-        setisOpen(false);
         setShowOptions(false);
         setIsHighlighted(false);
+        if (isOpen) {
+            setClosing(true);
+            setTimeout(() => {
+                setClosing(false);
+                setisOpen((prev: boolean) => !prev);
+            }, 100);
+        }
         setFocusedIndex(-1);
         if (isOpen && !isSelect) {
             validate();
@@ -478,8 +486,9 @@ const LiveSearch: React.FC<LiveSearchProps> = React.forwardRef((props: LiveSearc
                         top: customSelectContentPosition.y + customSelectContentPosition.height + 'px',
                         left: customSelectContentPosition.x + 'px',
                         maxHeight,
+                        ...(closing ? { opacity: 0, transform: 'scaleY(0)' } : {}),
                     }}
-                    className={`adou-live-search-content ${showOptions ? 'adou-live-search-content-open' : ''}`}
+                    className={`adou-live-search-content ${showOptions ? 'adou-live-search-content-open' : ''} ${closing ? 'aduo-live-search-option-content-closing' : ''}`}
                 >
                     {!readOnly &&
                         isOpen &&
@@ -511,6 +520,6 @@ const LiveSearch: React.FC<LiveSearchProps> = React.forwardRef((props: LiveSearc
     );
 });
 
-LiveSearch.displayName = "LiveSearch"
+LiveSearch.displayName = 'LiveSearch';
 
 export default LiveSearch;

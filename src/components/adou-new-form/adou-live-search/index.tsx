@@ -7,6 +7,7 @@ import getAbsolutePosition from 'utils/getAbsolutePosition';
 import useClickOutside from './utils/useClickOutside';
 
 export interface SelectProps {
+    labelMinWidth?: string;
     type?: 'text' | 'number';
     maxHeight?: string;
     activeColor?: { font: string; bgc: string };
@@ -49,6 +50,7 @@ interface LiveSearchProps extends SelectProps {
 
 const LiveSearch: React.FC<LiveSearchProps> = React.forwardRef((props: LiveSearchProps, ref) => {
     const {
+        labelMinWidth,
         type,
         maxHeight = '300px',
         activeColor = { font: '#fff', bgc: '#2783d8' },
@@ -386,10 +388,17 @@ const LiveSearch: React.FC<LiveSearchProps> = React.forwardRef((props: LiveSearc
             }}
         >
             <div className={`content-box ${inputGroup ? 'inputGroup' : `label-in-${labelPosition}`} ${labelPosition === 'top' && inline ? 'me-2' : ''}`}>
-                <span className={`label-box ${inputGroup ? 'input-group-text' : ''}`} style={{ color: labelColor, width: labelWidth }}>
+                <span
+                    className={`label-box ${inputGroup ? 'input-group-text' : ''}`}
+                    style={{
+                        color: labelColor,
+                        width: labelWidth,
+                        minWidth: labelMinWidth,
+                    }}
+                >
                     {label}
                 </span>
-                <div className="live-search-form-content f-1">
+                <div className="live-search-form-content flex-fill">
                     <div
                         style={{
                             display: 'flex',
@@ -430,7 +439,7 @@ const LiveSearch: React.FC<LiveSearchProps> = React.forwardRef((props: LiveSearc
                             <i className="icon small text-secondary fa-solid fa-magnifying-glass"></i>
                         </div>
                     </div>
-                    {suffixContent && <div className={`${suffixContentType === 'button' ? 'suffix-content-btn-wrapper' : 'ms-1'}`}>{suffixContent}</div>}
+                    {suffixContent && <div className={`${suffixContentType === 'button' ? 'suffix-content-btn-wrapper' : 'suffix-content-common-wrapper'}`}>{suffixContent}</div>}
                 </div>
                 {commonSuffixIcon && <i onClick={handleClickCommonSuffixIcon} className={`${commonSuffixIcon} common-suffix-icon ms-2`}></i>}
             </div>
