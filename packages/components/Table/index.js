@@ -1,13 +1,13 @@
 (function webpackUniversalModuleDefinition(root, factory) {
 	if(typeof exports === 'object' && typeof module === 'object')
-		module.exports = factory(require("react"));
+		module.exports = factory(require("react"), require("react-dom"));
 	else if(typeof define === 'function' && define.amd)
-		define(["react"], factory);
+		define(["react", "react-dom"], factory);
 	else if(typeof exports === 'object')
-		exports["RPB"] = factory(require("react"));
+		exports["RPB"] = factory(require("react"), require("react-dom"));
 	else
-		root["RPB"] = factory(root["React"]);
-})(this, (__WEBPACK_EXTERNAL_MODULE__442__) => {
+		root["RPB"] = factory(root["React"], root["ReactDOM"]);
+})(this, (__WEBPACK_EXTERNAL_MODULE__442__, __WEBPACK_EXTERNAL_MODULE__3__) => {
 return /******/ (() => { // webpackBootstrap
 /******/ 	var __webpack_modules__ = ({
 
@@ -153,19 +153,20 @@ module.exports = {
 
 /***/ }),
 
-/***/ 281:
+/***/ 214:
 /***/ (function(module, __unused_webpack_exports, __webpack_require__) {
 
 (function webpackUniversalModuleDefinition(root, factory) {
-  if (true) module.exports = factory(__webpack_require__(442));else {}
-})(this, __WEBPACK_EXTERNAL_MODULE__442__ => {
+  if (true) module.exports = factory(__webpack_require__(442), __webpack_require__(3));else {}
+})(this, (__WEBPACK_EXTERNAL_MODULE__442__, __WEBPACK_EXTERNAL_MODULE__3__) => {
   return /******/(() => {
     // webpackBootstrap
     /******/
+    "use strict";
+
+    /******/
     var __webpack_modules__ = {
       /***/191: ( /***/module => {
-        "use strict";
-
         /*
           MIT License http://www.opensource.org/licenses/mit-license.php
           Author Tobias Koppers @sokra
@@ -253,8 +254,6 @@ module.exports = {
         /***/
       }),
       /***/73: ( /***/module => {
-        "use strict";
-
         module.exports = function (item) {
           var content = item[1];
           var cssMapping = item[3];
@@ -272,32 +271,29 @@ module.exports = {
 
         /***/
       }),
-      /***/483: ( /***/(module, __nested_webpack_exports__, __nested_webpack_require_4272__) => {
-        "use strict";
-
-        /* harmony export */
-        __nested_webpack_require_4272__.d(__nested_webpack_exports__, {
+      /***/483: ( /***/(module, __nested_webpack_exports__, __nested_webpack_require_4367__) => {
+        /* harmony export */__nested_webpack_require_4367__.d(__nested_webpack_exports__, {
           /* harmony export */A: () => __WEBPACK_DEFAULT_EXPORT__
           /* harmony export */
         });
         /* harmony import */
-        var _node_modules_css_loader_dist_runtime_sourceMaps_js__WEBPACK_IMPORTED_MODULE_0__ = __nested_webpack_require_4272__(73);
+        var _node_modules_css_loader_dist_runtime_sourceMaps_js__WEBPACK_IMPORTED_MODULE_0__ = __nested_webpack_require_4367__(73);
         /* harmony import */
-        var _node_modules_css_loader_dist_runtime_sourceMaps_js__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__nested_webpack_require_4272__.n(_node_modules_css_loader_dist_runtime_sourceMaps_js__WEBPACK_IMPORTED_MODULE_0__);
+        var _node_modules_css_loader_dist_runtime_sourceMaps_js__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__nested_webpack_require_4367__.n(_node_modules_css_loader_dist_runtime_sourceMaps_js__WEBPACK_IMPORTED_MODULE_0__);
         /* harmony import */
-        var _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_1__ = __nested_webpack_require_4272__(191);
+        var _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_1__ = __nested_webpack_require_4367__(191);
         /* harmony import */
-        var _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__nested_webpack_require_4272__.n(_node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_1__);
+        var _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__nested_webpack_require_4367__.n(_node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_1__);
         // Imports
 
         var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_1___default()(_node_modules_css_loader_dist_runtime_sourceMaps_js__WEBPACK_IMPORTED_MODULE_0___default());
         // Module
-        ___CSS_LOADER_EXPORT___.push([module.id, "@charset \"UTF-8\";\n.suffix-icon {\n  /* margin-left: -40px !important;\n  margin-top: 6px;\n  z-index: 9; */\n  position: absolute;\n  right: 12px;\n  top: 30px;\n  /* \u5782\u76F4\u5C45\u4E2D */\n  cursor: pointer;\n  /* \u9F20\u6807\u60AC\u505C\u65F6\u663E\u793A\u6307\u9488\u6837\u5F0F */\n  transition: transform 0.3s;\n  /* \u6DFB\u52A0\u8FC7\u6E21\u6548\u679C */\n  color: #c6c6cd;\n}\n.suffix-icon:hover {\n  transform: scale(1.3);\n  /* \u6C34\u5E73\u548C\u5782\u76F4\u65B9\u5411\u90FD\u653E\u59271.5\u500D */\n  color: #51515b;\n}\n\n.common-suffix-icon {\n  display: flex;\n  align-items: center;\n  cursor: pointer;\n}\n\n.common-suffix-icon {\n  display: flex;\n  align-items: center;\n  cursor: pointer;\n}\n\n.label-box {\n  font-size: 14px;\n  min-width: 50px;\n  text-align: right;\n  justify-content: flex-end;\n  padding-right: 10px;\n  flex-wrap: wrap;\n}\n\n.icon-input {\n  position: relative;\n  /* \u8BA9\u4F2A\u5143\u7D20\u76F8\u5BF9\u4E8E\u8F93\u5165\u6846\u5B9A\u4F4D */\n}\n\n.input-wrapper input::placeholder {\n  color: #999;\n}\n.input-wrapper .content-box {\n  flex: 1;\n  align-items: stretch;\n}\n.input-wrapper .content-box .input-form-content {\n  flex: 1;\n  display: flex;\n}\n.input-wrapper .content-box .suffix-content-btn {\n  border-top-right-radius: 0 !important;\n  /* \u53BB\u6389\u53F3\u4E0A\u89D2\u7684\u5706\u89D2 */\n  border-bottom-right-radius: 0 !important;\n  border-right: none;\n  /* \u53BB\u6389\u53F3\u4E0B\u89D2\u7684\u5706\u89D2 */\n}\n.input-wrapper .content-box .suffix-content-btn-wrapper {\n  min-width: 37px;\n  display: flex;\n  align-items: center;\n  justify-content: center;\n  background-color: #eee;\n  border-top-right-radius: 6px;\n  border-bottom-right-radius: 6px;\n}\n.input-wrapper .content-box .suffix-content-btn-wrapper .btn {\n  border-top-left-radius: 0;\n  /* \u53BB\u6389\u5DE6\u4E0A\u89D2\u7684\u5706\u89D2 */\n  border-bottom-left-radius: 0;\n  /* \u53BB\u6389\u5DE6\u4E0B\u89D2\u7684\u5706\u89D2 */\n}\n.input-wrapper .content-box .suffix-content-text-wrapper {\n  display: flex;\n  align-items: center;\n  justify-content: center;\n}\n\n.label-in-center {\n  display: flex;\n}\n.label-in-center .suffix-icon {\n  top: 7px;\n}\n\n.label-in-left-top {\n  display: flex;\n}\n.label-in-left-top .label-box {\n  display: flex;\n  align-items: start;\n}\n.label-in-left-top .suffix-icon {\n  top: 7px;\n}\n\n.input-group .suffix-icon {\n  top: 7px !important;\n}\n\n.input-group-text {\n  cursor: pointer;\n}", "", {
+        ___CSS_LOADER_EXPORT___.push([module.id, "@charset \"UTF-8\";\n.adou-tooltip-wrapper {\n  position: relative;\n  width: fit-content;\n}\n.adou-tooltip-wrapper .adou-tooltip-content {\n  width: fit-content;\n}\n\n.adou-tooltip {\n  height: fit-content;\n  position: absolute;\n  color: #fff;\n  padding: 5px 10px;\n  border-radius: 4px;\n  font-size: 14px;\n  opacity: 0;\n  transform: scale(0);\n  /* \u521D\u59CB\u72B6\u6001\u4E3A\u7F29\u5C0F */\n  transition: opacity 0.2s ease-in-out, transform 0.2s ease-in-out;\n  /* \u6DFB\u52A0 transform \u8FC7\u6E21\u6548\u679C */\n  /* \u9632\u6B62\u9F20\u6807\u4E8B\u4EF6\u7A7F\u900F\u5230 Tooltip \u540E\u9762\u7684\u5143\u7D20 */\n  z-index: 10000;\n}\n.adou-tooltip .adou-tooltip-arrow {\n  position: absolute;\n  width: 0;\n  height: 0;\n  border-style: solid;\n}\n\n.show-tool-tip {\n  opacity: 1;\n  /* \u663E\u793A\u65F6\u653E\u5927 */\n  pointer-events: auto;\n  /* \u542F\u7528\u9F20\u6807\u4E8B\u4EF6 */\n}\n\n.adou-tooltip-top,\n.adou-tooltip-top-left,\n.adou-tooltip-top-right {\n  bottom: 100%;\n  left: 50%;\n  transform: translate(-50%, -10px) scale(0);\n  /* \u521D\u59CB\u72B6\u6001\u4E3A\u7F29\u5C0F */\n}\n.adou-tooltip-top.show-tool-tip,\n.adou-tooltip-top-left.show-tool-tip,\n.adou-tooltip-top-right.show-tool-tip {\n  transform: translate(-50%, -10px) scale(1);\n  /* \u663E\u793A\u65F6\u653E\u5927 */\n}\n\n.adou-tooltip-bottom,\n.adou-tooltip-bottom-left,\n.adou-tooltip-bottom-right {\n  top: 100%;\n  left: 50%;\n  transform: translate(-50%, 10px) scale(0);\n  /* \u521D\u59CB\u72B6\u6001\u4E3A\u7F29\u5C0F */\n}\n.adou-tooltip-bottom.show-tool-tip,\n.adou-tooltip-bottom-left.show-tool-tip,\n.adou-tooltip-bottom-right.show-tool-tip {\n  transform: translate(-50%, 10px) scale(1);\n  /* \u663E\u793A\u65F6\u653E\u5927 */\n}\n\n.adou-tooltip-left,\n.adou-tooltip-left-top,\n.adou-tooltip-left-bottom {\n  right: 100%;\n  top: 50%;\n  transform: translate(-10px, -50%) scale(0);\n  width: fit-content;\n  /* \u521D\u59CB\u72B6\u6001\u4E3A\u7F29\u5C0F */\n}\n.adou-tooltip-left.show-tool-tip,\n.adou-tooltip-left-top.show-tool-tip,\n.adou-tooltip-left-bottom.show-tool-tip {\n  transform: translate(-10px, -50%) scale(1);\n  /* \u663E\u793A\u65F6\u653E\u5927 */\n}\n\n.adou-tooltip-right,\n.adou-tooltip-right-top,\n.adou-tooltip-right-bottom {\n  top: 50%;\n  transform: translate(10px, -50%) scale(0);\n  /* \u521D\u59CB\u72B6\u6001\u4E3A\u7F29\u5C0F */\n}\n.adou-tooltip-right.show-tool-tip,\n.adou-tooltip-right-top.show-tool-tip,\n.adou-tooltip-right-bottom.show-tool-tip {\n  transform: translate(10px, -50%) scale(1);\n  /* \u663E\u793A\u65F6\u653E\u5927 */\n}\n\n.adou-tooltip-arrow-top {\n  border-width: 9px 9px 0 9px;\n  border-color: green transparent transparent transparent;\n  bottom: -9px;\n  left: 50%;\n  transform: translateX(-50%);\n}\n\n.adou-tooltip-arrow-top-left,\n.adou-tooltip-arrow-top-right {\n  border-width: 9px 9px 0 9px;\n  border-color: green transparent transparent transparent;\n  bottom: -9px;\n  transform: translateX(-50%);\n}\n\n.adou-tooltip-arrow-bottom {\n  border-width: 0 9px 9px 9px;\n  border-color: transparent transparent green transparent;\n  top: -9px;\n  left: 50%;\n  transform: translateX(-50%);\n}\n\n.adou-tooltip-arrow-left,\n.adou-tooltip-arrow-left-bottom {\n  border-width: 9px 0 9px 9px;\n  border-color: transparent transparent transparent green;\n  right: -9px;\n  top: 50%;\n  transform: translateY(-50%);\n}\n\n.adou-tooltip-arrow-right {\n  border-width: 9px 9px 9px 0;\n  border-color: transparent green transparent transparent;\n  left: -9px;\n  top: 50%;\n  transform: translateY(-50%);\n}\n\n.adou-tooltip-arrow-right-top,\n.adou-tooltip-arrow-right-bottom {\n  border-width: 9px 9px 9px 0;\n  border-color: transparent green transparent transparent;\n  transform: translateY(-50%);\n}\n\n.adou-tooltip-arrow-bottom-left,\n.adou-tooltip-arrow-bottom-right {\n  border-width: 0 9px 9px 9px;\n  border-color: transparent transparent green transparent;\n  top: -9px;\n  transform: translateX(-50%);\n}\n\n.adou-tooltip-arrow-left-top {\n  border-width: 9px 0 9px 9px;\n  border-color: transparent transparent transparent green;\n  transform: translateY(-50%);\n}", "", {
           "version": 3,
           "sources": ["webpack://./src/index.scss"],
           "names": [],
-          "mappings": "AAAA,gBAAgB;AAAhB;EACI;;eAAA;EAGA,kBAAA;EACA,WAAA;EACA,SAAA;EACA,SAAA;EACA,eAAA;EACA,gBAAA;EACA,0BAAA;EACA,WAAA;EACA,cAAA;AAEJ;AAAI;EACI,qBAAA;EACA,mBAAA;EACA,cAAA;AAER;;AAEA;EACI,aAAA;EACA,mBAAA;EACA,eAAA;AACJ;;AAEA;EACI,aAAA;EACA,mBAAA;EACA,eAAA;AACJ;;AAEA;EACI,eAAA;EACA,eAAA;EACA,iBAAA;EACA,yBAAA;EACA,mBAAA;EACA,eAAA;AACJ;;AAEA;EACI,kBAAA;EACA,iBAAA;AACJ;;AAII;EACI,WAAA;AADR;AAII;EACI,OAAA;EACA,oBAAA;AAFR;AAMQ;EACI,OAAA;EACA,aAAA;AAJZ;AAOQ;EACI,qCAAA;EACA,aAAA;EACA,wCAAA;EACA,kBAAA;EACA,aAAA;AALZ;AAQQ;EACI,eAAA;EACA,aAAA;EACA,mBAAA;EACA,uBAAA;EACA,sBAAA;EACA,4BAAA;EACA,+BAAA;AANZ;AASQ;EACI,yBAAA;EACA,aAAA;EACA,4BAAA;EACA,aAAA;AAPZ;AAUQ;EACI,aAAA;EACA,mBAAA;EACA,uBAAA;AARZ;;AAeA;EACI,aAAA;AAZJ;AAcI;EACI,QAAA;AAZR;;AAgBA;EACI,aAAA;AAbJ;AAeI;EACI,aAAA;EACA,kBAAA;AAbR;AAgBI;EACI,QAAA;AAdR;;AAqBI;EACI,mBAAA;AAlBR;;AAsBA;EACI,eAAA;AAnBJ",
-          "sourcesContent": [".suffix-icon {\r\n    /* margin-left: -40px !important;\r\n    margin-top: 6px;\r\n    z-index: 9; */\r\n    position: absolute;\r\n    right: 12px;\r\n    top: 30px;\r\n    /* 垂直居中 */\r\n    cursor: pointer;\r\n    /* 鼠标悬停时显示指针样式 */\r\n    transition: transform 0.3s;\r\n    /* 添加过渡效果 */\r\n    color: #c6c6cd;\r\n\r\n    &:hover {\r\n        transform: scale(1.3);\r\n        /* 水平和垂直方向都放大1.5倍 */\r\n        color: #51515b;\r\n    }\r\n}\r\n\r\n.common-suffix-icon {\r\n    display: flex;\r\n    align-items: center;\r\n    cursor: pointer;\r\n}\r\n\r\n.common-suffix-icon {\r\n    display: flex;\r\n    align-items: center;\r\n    cursor: pointer;\r\n}\r\n\r\n.label-box {\r\n    font-size: 14px;\r\n    min-width: 50px;\r\n    text-align: right;\r\n    justify-content: flex-end;\r\n    padding-right: 10px;\r\n    flex-wrap: wrap;\r\n}\r\n\r\n.icon-input {\r\n    position: relative;\r\n    /* 让伪元素相对于输入框定位 */\r\n\r\n}\r\n\r\n.input-wrapper {\r\n    input::placeholder {\r\n        color: #999; // 你可以根据需要修改颜色\r\n    }\r\n\r\n    .content-box {\r\n        flex: 1;\r\n        align-items: stretch;\r\n\r\n        .label-box {}\r\n\r\n        .input-form-content {\r\n            flex: 1;\r\n            display: flex;\r\n        }\r\n\r\n        .suffix-content-btn {\r\n            border-top-right-radius: 0 !important;\r\n            /* 去掉右上角的圆角 */\r\n            border-bottom-right-radius: 0 !important;\r\n            border-right: none;\r\n            /* 去掉右下角的圆角 */\r\n        }\r\n\r\n        .suffix-content-btn-wrapper {\r\n            min-width: 37px;\r\n            display: flex;\r\n            align-items: center;\r\n            justify-content: center;\r\n            background-color: #eee;\r\n            border-top-right-radius: 6px;\r\n            border-bottom-right-radius: 6px;\r\n        }\r\n\r\n        .suffix-content-btn-wrapper .btn {\r\n            border-top-left-radius: 0;\r\n            /* 去掉左上角的圆角 */\r\n            border-bottom-left-radius: 0;\r\n            /* 去掉左下角的圆角 */\r\n        }\r\n\r\n        .suffix-content-text-wrapper {\r\n            display: flex;\r\n            align-items: center;\r\n            justify-content: center;\r\n        }\r\n\r\n    }\r\n\r\n}\r\n\r\n.label-in-center {\r\n    display: flex;\r\n\r\n    .suffix-icon {\r\n        top: 7px;\r\n    }\r\n}\r\n\r\n.label-in-left-top {\r\n    display: flex;\r\n\r\n    .label-box {\r\n        display: flex;\r\n        align-items: start;\r\n    }\r\n\r\n    .suffix-icon {\r\n        top: 7px;\r\n    }\r\n}\r\n\r\n\r\n\r\n.input-group {\r\n    .suffix-icon {\r\n        top: 7px !important;\r\n    }\r\n}\r\n\r\n.input-group-text {\r\n    cursor: pointer;\r\n}\r\n\r\n.lable-in-control {}"],
+          "mappings": "AAAA,gBAAgB;AAAhB;EACI,kBAAA;EACA,kBAAA;AAEJ;AAAI;EACI,kBAAA;AAER;;AAEA;EACI,mBAAA;EACA,kBAAA;EACA,WAAA;EACA,iBAAA;EACA,kBAAA;EACA,eAAA;EACA,UAAA;EACA,mBAAA;EACA,YAAA;EACA,gEACI;EAEJ,sBAAA;EAEA,4BAAA;EACA,cAAA;AAFJ;AAII;EACI,kBAAA;EACA,QAAA;EACA,SAAA;EACA,mBAAA;AAFR;;AAMA;EACI,UAAA;EACA,UAAA;EACA,oBAAA;EACA,WAAA;AAHJ;;AAMA;;;EAGI,YAAA;EACA,SAAA;EACA,0CAAA;EACA,YAAA;AAHJ;AAKI;;;EACI,0CAAA;EACA,UAAA;AADR;;AAKA;;;EAGI,SAAA;EACA,SAAA;EACA,yCAAA;EACA,YAAA;AAFJ;AAII;;;EACI,yCAAA;EACA,UAAA;AAAR;;AAIA;;;EAGI,WAAA;EACA,QAAA;EACA,0CAAA;EACA,kBAAA;EACA,YAAA;AADJ;AAGI;;;EACI,0CAAA;EACA,UAAA;AACR;;AAGA;;;EAGI,QAAA;EACA,yCAAA;EACA,YAAA;AAAJ;AAEI;;;EACI,yCAAA;EACA,UAAA;AAER;;AAGA;EACI,2BAAA;EACA,uDAAA;EACA,YAAA;EACA,SAAA;EACA,2BAAA;AAAJ;;AAGA;;EAEI,2BAAA;EACA,uDAAA;EACA,YAAA;EACA,2BAAA;AAAJ;;AAGA;EACI,2BAAA;EACA,uDAAA;EACA,SAAA;EACA,SAAA;EACA,2BAAA;AAAJ;;AAGA;;EAEI,2BAAA;EACA,uDAAA;EACA,WAAA;EACA,QAAA;EACA,2BAAA;AAAJ;;AAGA;EACI,2BAAA;EACA,uDAAA;EACA,UAAA;EACA,QAAA;EACA,2BAAA;AAAJ;;AAIA;;EAEI,2BAAA;EACA,uDAAA;EACA,2BAAA;AADJ;;AAIA;;EAEI,2BAAA;EACA,uDAAA;EACA,SAAA;EACA,2BAAA;AADJ;;AAIA;EACI,2BAAA;EACA,uDAAA;EACA,2BAAA;AADJ",
+          "sourcesContent": [".adou-tooltip-wrapper {\r\n    position: relative;\r\n    width: fit-content;\r\n\r\n    .adou-tooltip-content {\r\n        width: fit-content;\r\n    }\r\n}\r\n\r\n.adou-tooltip {\r\n    height: fit-content;\r\n    position: absolute;\r\n    color: #fff;\r\n    padding: 5px 10px;\r\n    border-radius: 4px;\r\n    font-size: 14px;\r\n    opacity: 0;\r\n    transform: scale(0);\r\n    /* 初始状态为缩小 */\r\n    transition:\r\n        opacity 0.2s ease-in-out,\r\n        transform 0.2s ease-in-out;\r\n    /* 添加 transform 过渡效果 */\r\n    // pointer-events: none;\r\n    /* 防止鼠标事件穿透到 Tooltip 后面的元素 */\r\n    z-index: 10000;\r\n\r\n    .adou-tooltip-arrow {\r\n        position: absolute;\r\n        width: 0;\r\n        height: 0;\r\n        border-style: solid;\r\n    }\r\n}\r\n\r\n.show-tool-tip {\r\n    opacity: 1;\r\n    /* 显示时放大 */\r\n    pointer-events: auto;\r\n    /* 启用鼠标事件 */\r\n}\r\n\r\n.adou-tooltip-top,\r\n.adou-tooltip-top-left,\r\n.adou-tooltip-top-right {\r\n    bottom: 100%;\r\n    left: 50%;\r\n    transform: translate(-50%, -10px) scale(0);\r\n    /* 初始状态为缩小 */\r\n\r\n    &.show-tool-tip {\r\n        transform: translate(-50%, -10px) scale(1);\r\n        /* 显示时放大 */\r\n    }\r\n}\r\n\r\n.adou-tooltip-bottom,\r\n.adou-tooltip-bottom-left,\r\n.adou-tooltip-bottom-right {\r\n    top: 100%;\r\n    left: 50%;\r\n    transform: translate(-50%, 10px) scale(0);\r\n    /* 初始状态为缩小 */\r\n\r\n    &.show-tool-tip {\r\n        transform: translate(-50%, 10px) scale(1);\r\n        /* 显示时放大 */\r\n    }\r\n}\r\n\r\n.adou-tooltip-left,\r\n.adou-tooltip-left-top,\r\n.adou-tooltip-left-bottom {\r\n    right: 100%;\r\n    top: 50%;\r\n    transform: translate(-10px, -50%) scale(0);\r\n    width: fit-content;\r\n    /* 初始状态为缩小 */\r\n\r\n    &.show-tool-tip {\r\n        transform: translate(-10px, -50%) scale(1);\r\n        /* 显示时放大 */\r\n    }\r\n}\r\n\r\n.adou-tooltip-right,\r\n.adou-tooltip-right-top,\r\n.adou-tooltip-right-bottom {\r\n    top: 50%;\r\n    transform: translate(10px, -50%) scale(0);\r\n    /* 初始状态为缩小 */\r\n\r\n    &.show-tool-tip {\r\n        transform: translate(10px, -50%) scale(1);\r\n        /* 显示时放大 */\r\n    }\r\n}\r\n\r\n\r\n.adou-tooltip-arrow-top {\r\n    border-width: 9px 9px 0 9px;\r\n    border-color: green transparent transparent transparent;\r\n    bottom: -9px;\r\n    left: 50%;\r\n    transform: translateX(-50%);\r\n}\r\n\r\n.adou-tooltip-arrow-top-left,\r\n.adou-tooltip-arrow-top-right {\r\n    border-width: 9px 9px 0 9px;\r\n    border-color: green transparent transparent transparent;\r\n    bottom: -9px;\r\n    transform: translateX(-50%);\r\n}\r\n\r\n.adou-tooltip-arrow-bottom {\r\n    border-width: 0 9px 9px 9px;\r\n    border-color: transparent transparent green transparent;\r\n    top: -9px;\r\n    left: 50%;\r\n    transform: translateX(-50%);\r\n}\r\n\r\n.adou-tooltip-arrow-left,\r\n.adou-tooltip-arrow-left-bottom {\r\n    border-width: 9px 0 9px 9px;\r\n    border-color: transparent transparent transparent green;\r\n    right: -9px;\r\n    top: 50%;\r\n    transform: translateY(-50%);\r\n}\r\n\r\n.adou-tooltip-arrow-right {\r\n    border-width: 9px 9px 9px 0;\r\n    border-color: transparent green transparent transparent;\r\n    left: -9px;\r\n    top: 50%;\r\n    transform: translateY(-50%);\r\n}\r\n\r\n\r\n.adou-tooltip-arrow-right-top,\r\n.adou-tooltip-arrow-right-bottom {\r\n    border-width: 9px 9px 9px 0;\r\n    border-color: transparent green transparent transparent;\r\n    transform: translateY(-50%);\r\n}\r\n\r\n.adou-tooltip-arrow-bottom-left,\r\n.adou-tooltip-arrow-bottom-right {\r\n    border-width: 0 9px 9px 9px;\r\n    border-color: transparent transparent green transparent;\r\n    top: -9px;\r\n    transform: translateX(-50%);\r\n}\r\n\r\n.adou-tooltip-arrow-left-top {\r\n    border-width: 9px 0 9px 9px;\r\n    border-color: transparent transparent transparent green;\r\n    transform: translateY(-50%);\r\n}"],
           "sourceRoot": ""
         }]);
         // Exports
@@ -307,8 +303,6 @@ module.exports = {
         /***/
       }),
       /***/591: ( /***/module => {
-        "use strict";
-
         var stylesInDOM = [];
         function getIndexByIdentifier(identifier) {
           var result = -1;
@@ -395,8 +389,6 @@ module.exports = {
         /***/
       }),
       /***/128: ( /***/module => {
-        "use strict";
-
         var memo = {};
 
         /* istanbul ignore next  */
@@ -433,8 +425,6 @@ module.exports = {
         /***/
       }),
       /***/51: ( /***/module => {
-        "use strict";
-
         /* istanbul ignore next  */
         function insertStyleElement(options) {
           var element = document.createElement("style");
@@ -446,12 +436,10 @@ module.exports = {
 
         /***/
       }),
-      /***/855: ( /***/(module, __unused_webpack_exports, __nested_webpack_require_16978__) => {
-        "use strict";
-
+      /***/855: ( /***/(module, __unused_webpack_exports, __nested_webpack_require_20125__) => {
         /* istanbul ignore next  */
         function setAttributesWithoutAttributes(styleElement) {
-          var nonce =  true ? __nested_webpack_require_16978__.nc : 0;
+          var nonce =  true ? __nested_webpack_require_20125__.nc : 0;
           if (nonce) {
             styleElement.setAttribute("nonce", nonce);
           }
@@ -461,8 +449,6 @@ module.exports = {
         /***/
       }),
       /***/740: ( /***/module => {
-        "use strict";
-
         /* istanbul ignore next  */
         function apply(styleElement, options, obj) {
           var css = "";
@@ -526,8 +512,6 @@ module.exports = {
         /***/
       }),
       /***/656: ( /***/module => {
-        "use strict";
-
         /* istanbul ignore next  */
         function styleTagTransform(css, styleElement) {
           if (styleElement.styleSheet) {
@@ -544,74 +528,12 @@ module.exports = {
         /***/
       }),
       /***/442: ( /***/module => {
-        "use strict";
-
         module.exports = __WEBPACK_EXTERNAL_MODULE__442__;
 
         /***/
       }),
-      /***/650: ( /***/(module, exports) => {
-        var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__; /*!
-                                                                         Copyright (c) 2018 Jed Watson.
-                                                                         Licensed under the MIT License (MIT), see
-                                                                         http://jedwatson.github.io/classnames
-                                                                         */
-        /* global define */
-
-        (function () {
-          'use strict';
-
-          var hasOwn = {}.hasOwnProperty;
-          function classNames() {
-            var classes = '';
-            for (var i = 0; i < arguments.length; i++) {
-              var arg = arguments[i];
-              if (arg) {
-                classes = appendClass(classes, parseValue(arg));
-              }
-            }
-            return classes;
-          }
-          function parseValue(arg) {
-            if (typeof arg === 'string' || typeof arg === 'number') {
-              return arg;
-            }
-            if (typeof arg !== 'object') {
-              return '';
-            }
-            if (Array.isArray(arg)) {
-              return classNames.apply(null, arg);
-            }
-            if (arg.toString !== Object.prototype.toString && !arg.toString.toString().includes('[native code]')) {
-              return arg.toString();
-            }
-            var classes = '';
-            for (var key in arg) {
-              if (hasOwn.call(arg, key) && arg[key]) {
-                classes = appendClass(classes, key);
-              }
-            }
-            return classes;
-          }
-          function appendClass(value, newClass) {
-            if (!newClass) {
-              return value;
-            }
-            if (value) {
-              return value + ' ' + newClass;
-            }
-            return value + newClass;
-          }
-          if ( true && module.exports) {
-            classNames.default = classNames;
-            module.exports = classNames;
-          } else if (true) {
-            // register as 'classnames', consistent with npm package name
-            !(__WEBPACK_AMD_DEFINE_ARRAY__ = [], __WEBPACK_AMD_DEFINE_RESULT__ = function () {
-              return classNames;
-            }.apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__), __WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
-          } else {}
-        })();
+      /***/3: ( /***/module => {
+        module.exports = __WEBPACK_EXTERNAL_MODULE__3__;
 
         /***/
       })
@@ -625,7 +547,7 @@ module.exports = {
     /******/
     /******/ // The require function
     /******/
-    function __nested_webpack_require_22901__(moduleId) {
+    function __nested_webpack_require_23535__(moduleId) {
       /******/ // Check if module is in cache
       /******/var cachedModule = __webpack_module_cache__[moduleId];
       /******/
@@ -644,7 +566,7 @@ module.exports = {
       /******/
       /******/ // Execute the module function
       /******/
-      __webpack_modules__[moduleId](module, module.exports, __nested_webpack_require_22901__);
+      __webpack_modules__[moduleId](module, module.exports, __nested_webpack_require_23535__);
       /******/
       /******/ // Return the exports of the module
       /******/
@@ -657,10 +579,10 @@ module.exports = {
     /******/
     (() => {
       /******/ // getDefaultExport function for compatibility with non-harmony modules
-      /******/__nested_webpack_require_22901__.n = module => {
+      /******/__nested_webpack_require_23535__.n = module => {
         /******/var getter = module && module.__esModule ? /******/() => module['default'] : /******/() => module;
         /******/
-        __nested_webpack_require_22901__.d(getter, {
+        __nested_webpack_require_23535__.d(getter, {
           a: getter
         });
         /******/
@@ -674,9 +596,9 @@ module.exports = {
     /******/
     (() => {
       /******/ // define getter functions for harmony exports
-      /******/__nested_webpack_require_22901__.d = (exports, definition) => {
+      /******/__nested_webpack_require_23535__.d = (exports, definition) => {
         /******/for (var key in definition) {
-          /******/if (__nested_webpack_require_22901__.o(definition, key) && !__nested_webpack_require_22901__.o(exports, key)) {
+          /******/if (__nested_webpack_require_23535__.o(definition, key) && !__nested_webpack_require_23535__.o(exports, key)) {
             /******/Object.defineProperty(exports, key, {
               enumerable: true,
               get: definition[key]
@@ -693,7 +615,7 @@ module.exports = {
     /******/ /* webpack/runtime/hasOwnProperty shorthand */
     /******/
     (() => {
-      /******/__nested_webpack_require_22901__.o = (obj, prop) => Object.prototype.hasOwnProperty.call(obj, prop);
+      /******/__nested_webpack_require_23535__.o = (obj, prop) => Object.prototype.hasOwnProperty.call(obj, prop);
       /******/
     })();
     /******/
@@ -701,7 +623,7 @@ module.exports = {
     /******/
     (() => {
       /******/ // define __esModule on exports
-      /******/__nested_webpack_require_22901__.r = exports => {
+      /******/__nested_webpack_require_23535__.r = exports => {
         /******/if (typeof Symbol !== 'undefined' && Symbol.toStringTag) {
           /******/Object.defineProperty(exports, Symbol.toStringTag, {
             value: 'Module'
@@ -720,50 +642,45 @@ module.exports = {
     /******/ /* webpack/runtime/nonce */
     /******/
     (() => {
-      /******/__nested_webpack_require_22901__.nc = undefined;
+      /******/__nested_webpack_require_23535__.nc = undefined;
       /******/
     })();
     /******/
     /************************************************************************/
     var __nested_webpack_exports__ = {};
-    // This entry need to be wrapped in an IIFE because it need to be in strict mode.
+    // This entry need to be wrapped in an IIFE because it need to be isolated against other modules in the chunk.
     (() => {
-      "use strict";
-
       // ESM COMPAT FLAG
-      __nested_webpack_require_22901__.r(__nested_webpack_exports__);
+      __nested_webpack_require_23535__.r(__nested_webpack_exports__);
 
       // EXPORTS
-      __nested_webpack_require_22901__.d(__nested_webpack_exports__, {
+      __nested_webpack_require_23535__.d(__nested_webpack_exports__, {
         "default": () => ( /* binding */src_0)
       });
 
       // EXTERNAL MODULE: external {"root":"React","commonjs2":"react","commonjs":"react","amd":"react"}
-      var external_root_React_commonjs2_react_commonjs_react_amd_react_ = __nested_webpack_require_22901__(442);
-      var external_root_React_commonjs2_react_commonjs_react_amd_react_default = /*#__PURE__*/__nested_webpack_require_22901__.n(external_root_React_commonjs2_react_commonjs_react_amd_react_);
-      // EXTERNAL MODULE: ../../../node_modules/classnames/index.js
-      var classnames = __nested_webpack_require_22901__(650);
-      var classnames_default = /*#__PURE__*/__nested_webpack_require_22901__.n(classnames);
+      var external_root_React_commonjs2_react_commonjs_react_amd_react_ = __nested_webpack_require_23535__(442);
+      var external_root_React_commonjs2_react_commonjs_react_amd_react_default = /*#__PURE__*/__nested_webpack_require_23535__.n(external_root_React_commonjs2_react_commonjs_react_amd_react_);
       // EXTERNAL MODULE: ../../node_modules/style-loader/dist/runtime/injectStylesIntoStyleTag.js
-      var injectStylesIntoStyleTag = __nested_webpack_require_22901__(591);
-      var injectStylesIntoStyleTag_default = /*#__PURE__*/__nested_webpack_require_22901__.n(injectStylesIntoStyleTag);
+      var injectStylesIntoStyleTag = __nested_webpack_require_23535__(591);
+      var injectStylesIntoStyleTag_default = /*#__PURE__*/__nested_webpack_require_23535__.n(injectStylesIntoStyleTag);
       // EXTERNAL MODULE: ../../node_modules/style-loader/dist/runtime/styleDomAPI.js
-      var styleDomAPI = __nested_webpack_require_22901__(740);
-      var styleDomAPI_default = /*#__PURE__*/__nested_webpack_require_22901__.n(styleDomAPI);
+      var styleDomAPI = __nested_webpack_require_23535__(740);
+      var styleDomAPI_default = /*#__PURE__*/__nested_webpack_require_23535__.n(styleDomAPI);
       // EXTERNAL MODULE: ../../node_modules/style-loader/dist/runtime/insertBySelector.js
-      var insertBySelector = __nested_webpack_require_22901__(128);
-      var insertBySelector_default = /*#__PURE__*/__nested_webpack_require_22901__.n(insertBySelector);
+      var insertBySelector = __nested_webpack_require_23535__(128);
+      var insertBySelector_default = /*#__PURE__*/__nested_webpack_require_23535__.n(insertBySelector);
       // EXTERNAL MODULE: ../../node_modules/style-loader/dist/runtime/setAttributesWithoutAttributes.js
-      var setAttributesWithoutAttributes = __nested_webpack_require_22901__(855);
-      var setAttributesWithoutAttributes_default = /*#__PURE__*/__nested_webpack_require_22901__.n(setAttributesWithoutAttributes);
+      var setAttributesWithoutAttributes = __nested_webpack_require_23535__(855);
+      var setAttributesWithoutAttributes_default = /*#__PURE__*/__nested_webpack_require_23535__.n(setAttributesWithoutAttributes);
       // EXTERNAL MODULE: ../../node_modules/style-loader/dist/runtime/insertStyleElement.js
-      var insertStyleElement = __nested_webpack_require_22901__(51);
-      var insertStyleElement_default = /*#__PURE__*/__nested_webpack_require_22901__.n(insertStyleElement);
+      var insertStyleElement = __nested_webpack_require_23535__(51);
+      var insertStyleElement_default = /*#__PURE__*/__nested_webpack_require_23535__.n(insertStyleElement);
       // EXTERNAL MODULE: ../../node_modules/style-loader/dist/runtime/styleTagTransform.js
-      var styleTagTransform = __nested_webpack_require_22901__(656);
-      var styleTagTransform_default = /*#__PURE__*/__nested_webpack_require_22901__.n(styleTagTransform);
+      var styleTagTransform = __nested_webpack_require_23535__(656);
+      var styleTagTransform_default = /*#__PURE__*/__nested_webpack_require_23535__.n(styleTagTransform);
       // EXTERNAL MODULE: ../../node_modules/css-loader/dist/cjs.js??ruleSet[1].rules[1].use[1]!../../node_modules/sass-loader/dist/cjs.js??ruleSet[1].rules[1].use[2]!./src/index.scss
-      var cjs_ruleSet_1_rules_1_use_2_src = __nested_webpack_require_22901__(483);
+      var cjs_ruleSet_1_rules_1_use_2_src = __nested_webpack_require_23535__(483);
       ; // CONCATENATED MODULE: ./src/index.scss
 
       var options = {};
@@ -776,195 +693,348 @@ module.exports = {
 
       /* harmony default export */
       const src = cjs_ruleSet_1_rules_1_use_2_src /* default */.A && cjs_ruleSet_1_rules_1_use_2_src /* default */.A.locals ? cjs_ruleSet_1_rules_1_use_2_src /* default */.A.locals : undefined;
+      ; // CONCATENATED MODULE: ./src/utils/getAbsolutePosition.js
+      function getAbsolutePosition(domElement) {
+        let left = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 0;
+        let top = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : 0;
+        if (!parseInt(left)) {
+          left = 0;
+        } else {
+          left = parseInt(left);
+        }
+        if (!parseInt(top)) {
+          top = 0;
+        } else {
+          top = parseInt(top);
+        }
+        const box = domElement.getBoundingClientRect();
+        const body = document.body;
+        const docElem = document.documentElement;
+        const scrollTop = window.pageYOffset || docElem.scrollTop || body.scrollTop;
+        const scrollLeft = window.pageXOffset || docElem.scrollLeft || body.scrollLeft;
+        const clientTop = docElem.clientTop || body.clientTop || 0;
+        const clientLeft = docElem.clientLeft || body.clientLeft || 0;
+        const attr = {};
+        attr.y = box.top + scrollTop - clientTop + top;
+        attr.x = box.left + scrollLeft - clientLeft + left;
+        attr.width = box.width;
+        attr.height = box.height;
+        return attr;
+      }
+      /* harmony default export */
+      const utils_getAbsolutePosition = getAbsolutePosition;
+      // EXTERNAL MODULE: external {"root":"ReactDOM","commonjs2":"react-dom","commonjs":"react-dom","amd":"react-dom"}
+      var external_root_ReactDOM_commonjs2_react_dom_commonjs_react_dom_amd_react_dom_ = __nested_webpack_require_23535__(3);
+      var external_root_ReactDOM_commonjs2_react_dom_commonjs_react_dom_amd_react_dom_default = /*#__PURE__*/__nested_webpack_require_23535__.n(external_root_ReactDOM_commonjs2_react_dom_commonjs_react_dom_amd_react_dom_);
       ; // CONCATENATED MODULE: ./src/index.tsx
 
-      const Input = (_ref, ref) => {
-        let {
-          suffixContentExternalClassName,
-          inputExternalClassName,
-          textEnd,
-          name,
-          inline,
-          isFormItem,
-          errMsg,
-          labelWidth,
-          commonSuffixIcon,
-          inputGroup = false,
-          width,
-          label,
-          labelPosition = "center",
-          labelColor,
-          required = false,
-          type = "text",
-          defaultValue,
-          size,
-          externalClassName,
-          prefixContent,
-          suffixContent,
-          suffixContentType = "button",
-          placeholder,
-          style,
-          readOnly,
-          transparent,
-          children,
-          onClick,
-          onFocus,
-          onBlur,
-          onChange,
-          onIconClick,
-          onFormDataChange
-        } = _ref;
-        const inputRef = (0, external_root_React_commonjs2_react_commonjs_react_amd_react_.useRef)(null);
-        const [value, setValue] = (0, external_root_React_commonjs2_react_commonjs_react_amd_react_.useState)(defaultValue !== null && defaultValue !== void 0 ? defaultValue : "");
-        const cls = classnames_default()({
-          ["input-group-".concat(size)]: size,
-          [externalClassName]: externalClassName
-        });
-        const handleClick = function (e) {
-          e.stopPropagation();
-          for (var _len = arguments.length, args = new Array(_len > 1 ? _len - 1 : 0), _key = 1; _key < _len; _key++) {
-            args[_key - 1] = arguments[_key];
-          }
-          onClick && onClick(e, ...args);
-        };
-        const handleFocus = function (e) {
-          for (var _len2 = arguments.length, args = new Array(_len2 > 1 ? _len2 - 1 : 0), _key2 = 1; _key2 < _len2; _key2++) {
-            args[_key2 - 1] = arguments[_key2];
-          }
-          onFocus && onFocus(e, ...args);
-        };
-        const handleBlur = function (e) {
-          for (var _len3 = arguments.length, args = new Array(_len3 > 1 ? _len3 - 1 : 0), _key3 = 1; _key3 < _len3; _key3++) {
-            args[_key3 - 1] = arguments[_key3];
-          }
-          onBlur && onBlur(e, ...args);
-          validate();
-        };
-        const handleChange = function (e) {
-          const value = e.target.value;
-          const returnValue = type === "number" ? Number(value) : value;
-          setValue(value);
-          for (var _len4 = arguments.length, args = new Array(_len4 > 1 ? _len4 - 1 : 0), _key4 = 1; _key4 < _len4; _key4++) {
-            args[_key4 - 1] = arguments[_key4];
-          }
-          onChange && onChange(returnValue, ...args);
-          onFormDataChange && onFormDataChange(name, returnValue);
-        };
-        const handleIconClick = () => {
-          onIconClick && onIconClick(value);
-        };
-        const [error, setError] = (0, external_root_React_commonjs2_react_commonjs_react_amd_react_.useState)(false);
-        const validate = () => {
-          if (!required) return true;
-          // Example validation logic, replace with your actual validation needs
-          if (value) {
-            setError(false);
-            return true;
-          } else {
-            setError(true);
-            return false;
-          }
-        };
-        const clear = () => {
-          setValue("");
-        };
-        const handleClickCommonSuffixIcon = () => {
-          clear();
-          if (required) setError(true);
-        };
+      // 引入样式文件
 
-        // Expose validate method via ref
-        (0, external_root_React_commonjs2_react_commonjs_react_amd_react_.useImperativeHandle)(ref, () => ({
-          validate,
-          clear
-        }));
-        (0, external_root_React_commonjs2_react_commonjs_react_amd_react_.useEffect)(() => {
-          if (defaultValue || defaultValue === 0) {
-            setValue(defaultValue);
-          } else {
-            setValue("");
+      const Tooltip = _ref => {
+        var _text$trim;
+        let {
+          left,
+          right,
+          top,
+          bottom,
+          wrap = false,
+          width,
+          arrowOffsetPercent,
+          wrapperFlex,
+          mustShow,
+          show = true,
+          text,
+          position = "top",
+          children,
+          tooltipBgc = "#333",
+          tooltipFontColor,
+          arrowBorderColor = "#333",
+          wrapperClassname
+        } = _ref;
+        const [isShow, setIsShow] = (0, external_root_React_commonjs2_react_commonjs_react_amd_react_.useState)(false);
+        const [isVisible, setIsVisible] = (0, external_root_React_commonjs2_react_commonjs_react_amd_react_.useState)(false); // 用来实现当鼠标进入提示区域可以让提示存在的效果
+        const tooltipRef = (0, external_root_React_commonjs2_react_commonjs_react_amd_react_.useRef)(null);
+        // ！！！用来记录鼠标是否进入提示区域
+        //       当鼠标离开内容区域的时候，去判断是否进入了提示区域，如果进入，则不隐藏提示文字
+        const isEnterTooltipRef = (0, external_root_React_commonjs2_react_commonjs_react_amd_react_.useRef)(false);
+        const enterTimeoutRef = (0, external_root_React_commonjs2_react_commonjs_react_amd_react_.useRef)(null);
+        const [tooltipWidth, setTooltipWidth] = (0, external_root_React_commonjs2_react_commonjs_react_amd_react_.useState)(0);
+        const [tooltipHeight, setTooltipHeight] = (0, external_root_React_commonjs2_react_commonjs_react_amd_react_.useState)(0);
+        const contentRef = (0, external_root_React_commonjs2_react_commonjs_react_amd_react_.useRef)(null);
+        const [tooltipContentPosition, settooltipContentPosition] = (0, external_root_React_commonjs2_react_commonjs_react_amd_react_.useState)({});
+        const handleMouseEnter = () => {
+          // 进入的时候，如果存在定时器，也清除掉
+          if (enterTimeoutRef.current) {
+            clearTimeout(enterTimeoutRef.current);
           }
-          if (defaultValue) {
-            setError(false);
+          enterTimeoutRef.current = setTimeout(() => {
+            setIsShow(true);
+            setTimeout(() => {
+              setIsVisible(true);
+            }, 50);
+          }, 200); // 延迟100毫秒
+        };
+        const handleMouseLeave = () => {
+          if (mustShow) return;
+          if (enterTimeoutRef.current) {
+            clearTimeout(enterTimeoutRef.current);
           }
-        }, [defaultValue]);
+          setTimeout(() => {
+            if (!isEnterTooltipRef.current) {
+              setIsVisible(false);
+            }
+          }, 200);
+          setTimeout(() => {
+            if (!isEnterTooltipRef.current) {
+              setIsShow(false);
+            }
+          }, 300);
+        };
+        const handleClick = e => {
+          e.stopPropagation(); // 阻止事件的冒泡
+        };
 
         /**
-         * 获取组件的高度赋值给label
+         * 用来实现当鼠标进入提示区域可以让提示存在的效果
          */
-        const wrapeerRef = (0, external_root_React_commonjs2_react_commonjs_react_amd_react_.useRef)();
-        (0, external_root_React_commonjs2_react_commonjs_react_amd_react_.useEffect)(() => {}, []);
+        const handleMouseEnterTooltip = () => {
+          isEnterTooltipRef.current = true;
+          // 如果当前是显示状态才能设置isVisible为true，不然鼠标移到提示区域也会展示
+          setIsVisible(true);
+          setTimeout(() => {
+            setIsShow(true);
+          }, 400);
+        };
+        const handleMouseLeaveTooltip = () => {
+          if (mustShow) return;
+          isEnterTooltipRef.current = false;
+          setTimeout(() => {
+            setIsVisible(false);
+          }, 200);
+          setTimeout(() => {
+            setIsShow(false);
+          }, 300);
+        };
+
+        // 注意：定位完 tooltipContentPosition 和 contentRef 之后，内容是向两边撑开的
+        // 所以需要计算一下 tooltipRef 的位置(- 是left，+ 是 right)
+        const calcTooltipContentTopAndLeft = () => {
+          var _tooltipRef$current, _contentRef$current, _tooltipRef$current2, _contentRef$current2, _tooltipRef$current3, _contentRef$current3;
+          const verticalTop = tooltipContentPosition.y - ((_tooltipRef$current = tooltipRef.current) === null || _tooltipRef$current === void 0 ? void 0 : _tooltipRef$current.clientHeight) - 8 + "px";
+          const verticalBottom = tooltipContentPosition.y + ((_contentRef$current = contentRef.current) === null || _contentRef$current === void 0 ? void 0 : _contentRef$current.clientHeight) + 5 + "px";
+          const horizontalLeft = tooltipContentPosition.x - ((_tooltipRef$current2 = tooltipRef.current) === null || _tooltipRef$current2 === void 0 ? void 0 : _tooltipRef$current2.clientWidth) + "px";
+          const horizontalTop = tooltipContentPosition.y + ((_contentRef$current2 = contentRef.current) === null || _contentRef$current2 === void 0 ? void 0 : _contentRef$current2.clientHeight) / 2 - ((_tooltipRef$current3 = tooltipRef.current) === null || _tooltipRef$current3 === void 0 ? void 0 : _tooltipRef$current3.clientHeight) / 2 + "px";
+          const content = tooltipContentPosition.x + ((_contentRef$current3 = contentRef.current) === null || _contentRef$current3 === void 0 ? void 0 : _contentRef$current3.clientWidth) / 2 + "px";
+          if (position === "top") {
+            return {
+              top: verticalTop,
+              left: content
+            };
+          } else if (position === "top-right") {
+            var _contentRef$current4, _tooltipRef$current4;
+            return {
+              top: verticalTop,
+              left: tooltipContentPosition.x + ((_contentRef$current4 = contentRef.current) === null || _contentRef$current4 === void 0 ? void 0 : _contentRef$current4.clientWidth) / 2 + ((_tooltipRef$current4 = tooltipRef.current) === null || _tooltipRef$current4 === void 0 ? void 0 : _tooltipRef$current4.clientWidth) / 2 + "px"
+            };
+          } else if (position === "top-left") {
+            var _contentRef$current5, _tooltipRef$current5;
+            return {
+              top: verticalTop,
+              left: tooltipContentPosition.x + ((_contentRef$current5 = contentRef.current) === null || _contentRef$current5 === void 0 ? void 0 : _contentRef$current5.clientWidth) / 2 - ((_tooltipRef$current5 = tooltipRef.current) === null || _tooltipRef$current5 === void 0 ? void 0 : _tooltipRef$current5.clientWidth) / 2 + "px"
+            };
+          } else if (position === "bottom") {
+            return {
+              top: verticalBottom,
+              left: content
+            };
+          } else if (position === "bottom-right") {
+            var _tooltipRef$current6, _contentRef$current6;
+            return {
+              top: verticalBottom,
+              left: tooltipContentPosition.x + ((_tooltipRef$current6 = tooltipRef.current) === null || _tooltipRef$current6 === void 0 ? void 0 : _tooltipRef$current6.clientWidth) / 2 + ((_contentRef$current6 = contentRef.current) === null || _contentRef$current6 === void 0 ? void 0 : _contentRef$current6.clientWidth) / 2 + "px"
+            };
+          } else if (position === "bottom-left") {
+            var _contentRef$current7, _tooltipRef$current7;
+            return {
+              top: verticalBottom,
+              left: tooltipContentPosition.x + ((_contentRef$current7 = contentRef.current) === null || _contentRef$current7 === void 0 ? void 0 : _contentRef$current7.clientWidth) / 2 - ((_tooltipRef$current7 = tooltipRef.current) === null || _tooltipRef$current7 === void 0 ? void 0 : _tooltipRef$current7.clientWidth) / 2 + "px"
+            };
+          } else if (position === "left") {
+            var _contentRef$current8;
+            return {
+              top: tooltipContentPosition.y + ((_contentRef$current8 = contentRef.current) === null || _contentRef$current8 === void 0 ? void 0 : _contentRef$current8.clientHeight) / 2 + "px",
+              left: horizontalLeft
+            };
+          } else if (position === "left-top") {
+            return {
+              top: horizontalTop,
+              left: horizontalLeft
+            };
+          } else if (position === "left-bottom") {
+            var _contentRef$current9, _tooltipRef$current8;
+            return {
+              top: tooltipContentPosition.y + ((_contentRef$current9 = contentRef.current) === null || _contentRef$current9 === void 0 ? void 0 : _contentRef$current9.clientHeight) / 2 + ((_tooltipRef$current8 = tooltipRef.current) === null || _tooltipRef$current8 === void 0 ? void 0 : _tooltipRef$current8.clientHeight) / 2 + "px",
+              left: horizontalLeft
+            };
+          } else if (position === "right") {
+            var _contentRef$current10, _contentRef$current11;
+            return {
+              top: tooltipContentPosition.y + ((_contentRef$current10 = contentRef.current) === null || _contentRef$current10 === void 0 ? void 0 : _contentRef$current10.clientHeight) / 2 + "px",
+              left: tooltipContentPosition.x + ((_contentRef$current11 = contentRef.current) === null || _contentRef$current11 === void 0 ? void 0 : _contentRef$current11.clientWidth) + "px"
+            };
+          } else if (position === "right-top") {
+            var _contentRef$current12;
+            return {
+              top: horizontalTop,
+              left: tooltipContentPosition.x + ((_contentRef$current12 = contentRef.current) === null || _contentRef$current12 === void 0 ? void 0 : _contentRef$current12.clientWidth) + "px"
+            };
+          } else if (position === "right-bottom") {
+            var _contentRef$current13, _tooltipRef$current9, _contentRef$current14;
+            return {
+              top: tooltipContentPosition.y + ((_contentRef$current13 = contentRef.current) === null || _contentRef$current13 === void 0 ? void 0 : _contentRef$current13.clientHeight) / 2 + ((_tooltipRef$current9 = tooltipRef.current) === null || _tooltipRef$current9 === void 0 ? void 0 : _tooltipRef$current9.clientHeight) / 2 + "px",
+              left: tooltipContentPosition.x + ((_contentRef$current14 = contentRef.current) === null || _contentRef$current14 === void 0 ? void 0 : _contentRef$current14.clientWidth) + "px"
+            };
+          }
+        };
+        const calcTooltipArrowTopAndLeft = () => {
+          var _contentRef$current15, _contentRef$current16;
+          // top 和 bottom 的属性
+          const commonArrowOfsset = "-8px";
+          const horizontal = tooltipWidth * (arrowOffsetPercent || 0.2);
+          const minHorizontal = ((_contentRef$current15 = contentRef.current) === null || _contentRef$current15 === void 0 ? void 0 : _contentRef$current15.clientWidth) / 4;
+          const finalHorizontal = horizontal > minHorizontal ? minHorizontal : horizontal + "px";
+
+          // left 和 right 的属性
+          const vertival = tooltipHeight * (arrowOffsetPercent || 0.2);
+          const minVertival = ((_contentRef$current16 = contentRef.current) === null || _contentRef$current16 === void 0 ? void 0 : _contentRef$current16.clientHeight) / 4;
+          const finalVertival = vertival > minVertival ? minVertival : vertival + "px";
+          if (position === "top") {
+            return {
+              bottom: commonArrowOfsset,
+              left: "50%",
+              "border-color": "".concat(arrowBorderColor, " transparent transparent transparent")
+            };
+          } else if (position === "top-left") {
+            return {
+              bottom: commonArrowOfsset,
+              right: right || finalHorizontal,
+              "border-color": "".concat(arrowBorderColor, " transparent transparent transparent")
+            };
+          } else if (position === "top-right") {
+            return {
+              bottom: commonArrowOfsset,
+              left: left || finalHorizontal,
+              "border-color": "".concat(arrowBorderColor, " transparent transparent transparent")
+            };
+          } else if (position === "bottom") {
+            return {
+              top: commonArrowOfsset,
+              left: "50%",
+              "border-color": "transparent transparent ".concat(arrowBorderColor, " transparent")
+            };
+          } else if (position === "bottom-right") {
+            return {
+              top: commonArrowOfsset,
+              left: left || finalHorizontal,
+              "border-color": "transparent transparent ".concat(arrowBorderColor, " transparent")
+            };
+          } else if (position === "bottom-left") {
+            return {
+              top: commonArrowOfsset,
+              right: right || finalHorizontal,
+              "border-color": "transparent transparent ".concat(arrowBorderColor, " transparent")
+            };
+          } else if (position === "left-top") {
+            return {
+              bottom: bottom || finalVertival,
+              right: commonArrowOfsset,
+              "border-color": "transparent transparent transparent ".concat(arrowBorderColor)
+            };
+          } else if (position === "left-bottom") {
+            return {
+              top: top || finalVertival,
+              right: "-9px",
+              "border-color": "transparent transparent transparent ".concat(arrowBorderColor)
+            };
+          } else if (position === "right") {
+            return {
+              top: "50%",
+              left: commonArrowOfsset,
+              "border-color": "transparent ".concat(arrowBorderColor, " transparent transparent")
+            };
+          } else if (position === "right-top") {
+            return {
+              bottom: bottom || finalVertival,
+              left: commonArrowOfsset,
+              "border-color": "transparent ".concat(arrowBorderColor, " transparent transparent")
+            };
+          } else if (position === "right-bottom") {
+            return {
+              top: top || finalVertival,
+              left: commonArrowOfsset,
+              "border-color": "transparent ".concat(arrowBorderColor, " transparent transparent")
+            };
+          }
+        };
+        (0, external_root_React_commonjs2_react_commonjs_react_amd_react_.useEffect)(() => {
+          if (mustShow) {
+            handleMouseEnter();
+          } else {
+            handleMouseLeave();
+          }
+        }, [mustShow]);
+        (0, external_root_React_commonjs2_react_commonjs_react_amd_react_.useEffect)(() => {
+          if (tooltipRef.current) {
+            const tooltipElement = tooltipRef.current;
+            setTooltipWidth(tooltipElement.offsetWidth);
+            setTooltipHeight(tooltipElement.offsetHeight);
+          }
+          if (isShow) {
+            const position = utils_getAbsolutePosition(contentRef.current, 0, 0);
+            settooltipContentPosition(position);
+          }
+        }, [isShow, isVisible]);
         return /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("div", {
-          className: "".concat(cls, " input-wrapper ").concat(inputGroup ? "" : "lable-in-control", " ").concat(!error && isFormItem && "mb-3"),
+          className: "adou-tooltip-wrapper ".concat(wrapperClassname || ""),
           style: {
-            width,
-            ...(inline && !width ? {
+            ...(wrapperFlex ? {
               flex: 1,
-              marginRight: "15px"
+              display: "flex"
             } : {})
           }
         }, /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("div", {
-          ref: wrapeerRef,
-          className: "content-box icon-input ".concat(inputGroup ? "input-group" : "", " label-in-").concat(labelPosition, " ").concat(labelPosition === "top" && inline ? "me-2" : "")
-        }, prefixContent && /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("span", {
-          className: "input-group-text"
-        }, prefixContent), label && /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("span", {
-          className: "label-box",
+          ref: contentRef,
+          className: "adou-tooltip-content",
+          onMouseEnter: handleMouseEnter,
+          onMouseLeave: handleMouseLeave,
           style: {
-            color: labelColor,
-            width: labelWidth,
-            alignItems: labelPosition === "left-top" ? "start" : "center",
-            ...(labelPosition !== "top" && {
-              display: "flex"
-            })
+            ...(wrapperFlex ? {
+              flex: 1
+            } : {})
           }
-        }, label), /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("div", {
-          className: "input-form-content"
-        }, /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("input", {
-          ref: inputRef,
-          required: required,
+        }, children), (typeof text === "string" ? (text === null || text === void 0 || (_text$trim = text.trim) === null || _text$trim === void 0 || (_text$trim = _text$trim.call(text)) === null || _text$trim === void 0 ? void 0 : _text$trim.length) > 0 : text) && show && isShow && /*#__PURE__*/external_root_ReactDOM_commonjs2_react_dom_commonjs_react_dom_amd_react_dom_default().createPortal( /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("div", {
+          ref: tooltipRef,
+          onClick: handleClick,
+          onMouseEnter: handleMouseEnterTooltip,
+          onMouseLeave: handleMouseLeaveTooltip,
+          className: "adou-tooltip ".concat(isVisible ? "show-tool-tip" : "", " adou-tooltip-").concat(position),
           style: {
-            borderRadius: "6px",
-            borderTopLeftRadius: prefixContent ? 0 : "6px",
-            borderBottomLeftRadius: prefixContent ? 0 : "6px",
-            background: transparent ? "transparent" : "#fff",
-            flex: 1,
-            height: "38px"
+            backgroundColor: tooltipBgc,
+            color: tooltipFontColor,
+            width,
+            whiteSpace: wrap || width ? "normal" : "nowrap",
+            position: "absolute",
+            ...calcTooltipContentTopAndLeft()
+          }
+        }, /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("div", {
+          style: {
+            ...calcTooltipArrowTopAndLeft()
           },
-          step: 1,
-          name: name,
-          value: value,
-          readOnly: readOnly,
-          placeholder: placeholder,
-          onChange: handleChange,
-          onBlur: e => handleBlur(e),
-          onFocus: e => handleFocus(e),
-          onClick: e => handleClick(e),
-          type: type,
-          className: "form-control input pe-0 ".concat(textEnd || type === "number" ? "text-end" : "", " ").concat(suffixContent && suffixContentType === "button" ? "suffix-content-btn" : "", " ").concat(inputExternalClassName || "")
-        }), suffixContent && /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("div", {
-          className: "".concat(suffixContentType === "button" ? "suffix-content-btn-wrapper" : "suffix-content-text-wrapper ms-1", " ").concat(suffixContentExternalClassName || "")
-        }, suffixContent)), commonSuffixIcon && /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("i", {
-          onClick: handleClickCommonSuffixIcon,
-          className: "".concat(commonSuffixIcon, " common-suffix-icon ms-2")
-        }), children && /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("div", {
-          onClick: handleIconClick,
-          className: "suffix-icon",
-          style: {
-            right: commonSuffixIcon && "32px"
-          }
-        }, children)), error && required && /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("div", {
-          className: "animate__animated animate__fadeIn mb-1",
-          style: {
-            color: "#DC3545",
-            fontSize: "14px",
-            paddingLeft: parseInt(labelWidth) > 120 ? "120px" : parseFloat(labelWidth) + 20 + "px"
-          }
-        }, "".concat(errMsg || "".concat(label, "\u4E0D\u80FD\u4E3A\u7A7A"))));
+          className: "adou-tooltip-arrow adou-tooltip-arrow-".concat(position)
+        }), text), document.body));
       };
-      Input.displayName = "Input";
       /* harmony default export */
-      const src_0 = /*#__PURE__*/(0, external_root_React_commonjs2_react_commonjs_react_amd_react_.forwardRef)(Input);
+      const src_0 = Tooltip;
     })();
 
     /******/
@@ -1349,6 +1419,14 @@ module.exports = styleTagTransform;
 
 "use strict";
 module.exports = __WEBPACK_EXTERNAL_MODULE__442__;
+
+/***/ }),
+
+/***/ 3:
+/***/ ((module) => {
+
+"use strict";
+module.exports = __WEBPACK_EXTERNAL_MODULE__3__;
 
 /***/ }),
 
@@ -2710,16 +2788,15 @@ var plural = function plural() {
 var selectOrdinal = function selectOrdinal() {
   return '';
 };
-// EXTERNAL MODULE: ../components/Input/index.js
-var Input = __webpack_require__(281);
-var Input_default = /*#__PURE__*/__webpack_require__.n(Input);
 ;// CONCATENATED MODULE: ./src/TableCell/index.tsx
-
 
 
 const TableCell = props => {
   const {
+    tooltip,
     sortable,
+    collapse,
+    isParent,
     maxWidth,
     render,
     rowData,
@@ -2729,14 +2806,15 @@ const TableCell = props => {
     colIndex,
     value,
     eidtable,
-    textPosition = "center",
+    textPosition = 'center',
     width,
     onChange,
     onEditCancel,
-    onEditOK
+    onEditOK,
+    onExpand
   } = props;
   const [isEditing, setIsEditing] = (0,external_root_React_commonjs2_react_commonjs_react_amd_react_.useState)(false);
-  const [editedValue, setEditedValue] = (0,external_root_React_commonjs2_react_commonjs_react_amd_react_.useState)(value || ""); // 最终展示的值
+  const [editedValue, setEditedValue] = (0,external_root_React_commonjs2_react_commonjs_react_amd_react_.useState)(value || ''); // 最终展示的值
   const wrapperRef = (0,external_root_React_commonjs2_react_commonjs_react_amd_react_.useRef)(null);
   const handleDoubleClick = () => {
     eidtable && setIsEditing(true);
@@ -2750,6 +2828,10 @@ const TableCell = props => {
     }
   };
   const handleChange = e => {};
+  const handleExpandIconClick = () => {
+    console.log('999: ', 999);
+    onExpand && onExpand();
+  };
 
   // 这边必须要写一个监听传递过来的value的钩子函数，因为cell展示的值是 editValue
   // 当传递过来的value发生变化时，将它重新赋值给cell要展示的值
@@ -2758,35 +2840,37 @@ const TableCell = props => {
     setEditedValue(value);
   }, [value]);
   return /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("div", {
-    className: "table-cell text-".concat(textPosition),
+    className: "table-cell d-flex",
     style: {
-      width: "100%"
+      width: '100%'
     }
   }, render ? render(editedValue, rowData, rowIndex, prop, colIndex) : /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("div", {
     className: "table-cell-wrapper",
     style: {
-      display: "inline-block",
-      overflow: "hidden",
-      width: "100%"
+      display: 'inline-block',
+      overflow: 'hidden',
+      width: '100%'
     },
     onDoubleClick: handleDoubleClick,
     ref: wrapperRef
   }, isEditing ? /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("div", {
     style: {
-      width: wrapperRef.current ? "".concat(wrapperRef.current.clientWidth, "px") : "100%",
-      boxSizing: "border-box"
+      width: wrapperRef.current ? "".concat(wrapperRef.current.clientWidth, "px") : '100%',
+      boxSizing: 'border-box'
     }
-  }, /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement((Input_default()), {
-    defaultValue: editedValue,
-    onChange: e => handleChange(e),
-    onBlur: e => handleBlur(e)
-  })) : /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("div", {
-    className: "ellipsis-1",
+  }) : /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("div", {
+    className: "ps-1"
+  }, /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("div", {
+    className: "value d-flex align-items-center"
+  }, isParent && /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("i", {
+    onClick: handleExpandIconClick,
+    className: "fa-solid fa-chevron-right me-2 ".concat(collapse ? 'table-cell-folder-rotate-down' : '', " collapse-icon")
+  }), /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("div", {
     style: {
-      minWidth: "100px",
       maxWidth
-    }
-  }, editedValue)));
+    },
+    className: "ellipsis-1 "
+  }, editedValue)))));
 };
 /* harmony default export */ const src_TableCell = (withTranslation()(TableCell));
 // EXTERNAL MODULE: ../../node_modules/style-loader/dist/runtime/injectStylesIntoStyleTag.js
@@ -2838,7 +2922,11 @@ var update = injectStylesIntoStyleTag_default()(cjs_ruleSet_1_rules_1_use_2_src/
 
        /* harmony default export */ const src = (cjs_ruleSet_1_rules_1_use_2_src/* default */.A && cjs_ruleSet_1_rules_1_use_2_src/* default */.A.locals ? cjs_ruleSet_1_rules_1_use_2_src/* default */.A.locals : undefined);
 
+// EXTERNAL MODULE: ../components/Tooltip/index.js
+var Tooltip = __webpack_require__(214);
+var Tooltip_default = /*#__PURE__*/__webpack_require__.n(Tooltip);
 ;// CONCATENATED MODULE: ./src/index.tsx
+
 
 
 
@@ -2847,6 +2935,8 @@ var update = injectStylesIntoStyleTag_default()(cjs_ruleSet_1_rules_1_use_2_src/
 
 const Table = props => {
   const {
+    clickChecked,
+    showHeader = true,
     defaultChecked,
     headerFontWeight = "normal",
     width,
@@ -2860,24 +2950,28 @@ const Table = props => {
     id = "id",
     trPointer = true,
     textPosition,
-    verticalAlign,
     collection,
     collapse,
     expandAll = true,
     size = "lg",
     data,
+    headers,
+    propsData,
+    tableHover = true,
     tableStriped = true,
     tableBorderd = false,
     tableBorderless = false,
     headColor = "null",
+    captionContent,
+    captionPosition = "top",
     tableResponsive = "xxl",
     eidtable = false,
     headSticky = true,
     headTextColor = "black",
-    headBGC = "#f6f6fb",
+    headBGC = "",
     divider,
     maxHeight = "500px",
-    minHeight = "0px",
+    minHeight = "300px",
     onRowDoubleClick,
     onRowClick
   } = props;
@@ -2889,9 +2983,11 @@ const Table = props => {
     "table-borderless": tableBorderless,
     ["table-".concat(size)]: true,
     ["table-".concat(headColor)]: true,
-    "mb-0": true
+    "overflow-auto": true
   });
   const [tableData, setTableData] = (0,external_root_React_commonjs2_react_commonjs_react_amd_react_.useState)([]);
+  const [originalTableData, setOriginalTableData] = (0,external_root_React_commonjs2_react_commonjs_react_amd_react_.useState)([]);
+  const [tableHeaders, setTableHeaders] = (0,external_root_React_commonjs2_react_commonjs_react_amd_react_.useState)([]);
 
   // 折叠的逻辑
   const handleCollapseClick = (row, rowIndex) => {
@@ -2903,6 +2999,63 @@ const Table = props => {
         return item;
       });
     });
+  };
+  const generateHeaderStyle = position => {
+    switch (position) {
+      case "left":
+        return "flex-start";
+      case "right":
+        return "flex-end";
+      default:
+        return "center";
+    }
+  };
+  const judgeSortIconBGC = (prop, isDown) => {
+    const findItem = tableHeaders === null || tableHeaders === void 0 ? void 0 : tableHeaders.find(item => item.prop === prop);
+    if (!findItem) return;
+    if (isDown) {
+      if (findItem.isDown) {
+        return "7px solid red";
+      }
+    } else {
+      if (findItem.isUp) {
+        return "7px solid red";
+      }
+    }
+  };
+
+  // 排序的逻辑--坑：一定要使用 [...preArr].sort，不能直接preArr.sort，这样会影响原来的数据，有Bug！！！
+  const handleSortable = (prop, isDown) => {
+    setTableHeaders(preArr => preArr.map(item => {
+      if (prop === item.prop) {
+        if (isDown) {
+          item.isDown = !item.isDown;
+          item.isUp = false;
+          // 需要降序排序
+          if (item.isDown) {
+            console.log("down: ");
+            setTableData(preArr => [...preArr].sort((a, b) => a[prop] < b[prop] ? 1 : -1));
+          } else {
+            setTableData(data);
+          }
+        } else {
+          item.isUp = !item.isUp;
+          item.isDown = false;
+          // 需要升序排序
+          if (item.isUp) {
+            setTableData(preArr => [...preArr].sort((a, b) => a[prop] > b[prop] ? 1 : -1));
+          } else {
+            setTableData(data);
+          }
+        }
+      }
+      return item;
+    }));
+
+    // setTableData((preArr: any) => preArr.sort((a: any, b: any) => (a[prop] > b[prop] ? 1 : -1)));
+    /* if (isDown) {
+    const findItem = tableHeaders.find((item: any) => item.prop === prop);
+     } */
   };
 
   // 渲染折叠的子组件
@@ -2920,59 +3073,85 @@ const Table = props => {
     array.forEach(item => {
       if (item !== null && item !== void 0 && item.props) {
         widthObject[item.props.prop] = item.props.width;
-        textPositionObject[item.props.prop] = item.props.textPosition || textPosition || "center";
-        verticalAlignObject[item.props.prop] = item.props.verticalAlign || verticalAlign || "middle";
+        textPositionObject[item.props.prop] = item.props.textPosition || "center";
+        verticalAlignObject[item.props.prop] = item.props.verticalAlign || "middle";
       }
     });
     if (Object.values(widthObject).every(item => !item)) {
       widthObject = calculateHeaderWidth(array);
     } else {}
-    return /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement((external_root_React_commonjs2_react_commonjs_react_amd_react_default()).Fragment, null, /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("thead", {
+    return /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement((external_root_React_commonjs2_react_commonjs_react_amd_react_default()).Fragment, null, showHeader && /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("thead", {
       style: {
         position: headSticky ? "sticky" : "unset",
         top: 0,
-        backgroundColor: "".concat(headBGC || tableBgc, " "),
+        backgroundColor: "".concat(headBGC),
         zIndex: 999
       },
       className: "text-".concat(headTextColor)
     }, /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("tr", null, collection && /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement((external_root_React_commonjs2_react_commonjs_react_amd_react_default()).Fragment, null, /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("th", {
-      scope: "col",
+      scope: "col th-collection",
       style: {
-        width: "50px"
+        minWidth: "50px",
+        width: "50px",
+        maxWidth: "50px"
       }
     }, !single && /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("input", {
       checked: checkedAll,
       onChange: handleCheckedAllChange,
       type: single ? "radio" : "checkbox"
     }))), showIndex && /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement((external_root_React_commonjs2_react_commonjs_react_amd_react_default()).Fragment, null, /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("th", {
-      scope: "col",
+      scope: "col th-index",
       style: {
-        minWidth: "50px"
+        minWidth: "50px",
+        width: "50px",
+        maxWidth: "50px"
       }
     })), array && array.map((child, rowIndex) => {
       if (child !== null && child !== void 0 && child.props) {
         return /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("th", {
           style: {
             whiteSpace: "nowrap",
-            minWidth: child === null || child === void 0 ? void 0 : child.props.minWidth,
-            width: (child === null || child === void 0 ? void 0 : child.props.width) || widthObject[child.props.prop],
+            width: widthObject[child.props.prop],
             fontWeight: headerFontWeight
           },
           className: "".concat("text-" + textPositionObject[child.props.prop]),
           scope: "col",
           key: child.props.label
-        }, child.props.label);
+        }, /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("div", {
+          className: "header-content",
+          style: {
+            display: "flex",
+            alignItems: "center",
+            justifyContent: generateHeaderStyle(textPositionObject[child.props.prop])
+          }
+        }, /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("span", {
+          className: "header-text me-2"
+        }, child.props.label), child.props.sortable && /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("span", {
+          className: "header-icon"
+        }, /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("i", {
+          style: {
+            borderBottom: judgeSortIconBGC(child.props.prop) || "7px solid #000"
+          },
+          onClick: () => handleSortable(child.props.prop),
+          className: "icon sort-up"
+        }), /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("i", {
+          style: {
+            borderTop: judgeSortIconBGC(child.props.prop, true) || "7px solid #000"
+          },
+          onClick: () => handleSortable(child.props.prop, true),
+          className: "icon sort-down"
+        }))));
       }
-    }))), tableData.length > 0 ? /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("tbody", {
+    }))), /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("tbody", {
       className: "".concat(divider ? "table-group-divider" : "")
-    }, tableData.map((data, rowIndex) => {
-      return /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement(external_root_React_commonjs2_react_commonjs_react_amd_react_.Fragment /* key={data[id]} */, {
-        key: rowIndex
+    }, tableData.length > 0 && tableData.map((data, rowIndex) => {
+      return /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement(external_root_React_commonjs2_react_commonjs_react_amd_react_.Fragment, {
+        key: data[id]
       }, /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("tr", {
-        onClick: () => handleRowClick(data)
+        onClick: () => handleRowClick(data, rowIndex)
         // onDoubleClick={() => handleRowDoubleClick(data)}
-        // key={rowIndex}
         ,
+        key: rowIndex,
         className: "tr-content ".concat(data.checked ? "tr-checked" : ""),
         style: {
           ...(trPointer ? {
@@ -2985,8 +3164,11 @@ const Table = props => {
       external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("td", {
         scope: "row",
         style: {
-          width: "50px"
-        }
+          minWidth: "50px",
+          width: "50px",
+          maxWidth: "50px"
+        },
+        className: "text-center"
       }, /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("input", {
         name: data[id],
         id: data[id],
@@ -2996,23 +3178,24 @@ const Table = props => {
       })), showIndex &&
       /*#__PURE__*/
       // 索引框
-      external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("th", {
+      external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("td", {
         className: "text-center",
         scope: "col",
         style: {
           alignContent: "center",
           padding: "0px",
+          minWidth: "50px",
           width: "50px",
-          ...(data.children ? {
-            backgroundColor: "#fff",
-            boxShadow: "none"
-          } : {})
+          maxWidth: "50px"
+          /* ...(data.children ? { backgroundColor: '#fff', boxShadow: 'none' } : {}), */
         }
       }, rowIndex + 1), external_root_React_commonjs2_react_commonjs_react_amd_react_default().Children.map(array, (child, colIndex) => {
         let prop = child.props.prop;
+        const childProps = child.props;
         if ( /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().isValidElement(child)) {
           const enhancedChild = /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().cloneElement(child, {
-            onCollapseClick: handleCollapseClick,
+            onExpand: () => handleCollapseClick(data, rowIndex),
+            isParent: !colIndex && collapse && data.children,
             value: data["".concat(prop)],
             rowData: data,
             eidtable,
@@ -3020,40 +3203,46 @@ const Table = props => {
             rowIndex: rowIndex,
             colIndex: colIndex,
             canCollapse: data.children,
-            collapse: collapse,
-            textPosition: textPositionObject[prop],
-            width: widthObject[child.props.prop]
+            collapse: data.collapse,
+            textPosition,
+            width: widthObject[childProps.prop]
+            // maxWidth: childProps.maxWidth,
           });
           return /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("td", {
-            className: "".concat("text-" + textPositionObject[prop], " "),
+            className: "".concat(!colIndex && collapse && data.children ? "text-left" : "text-".concat(textPositionObject[prop]), " "),
             style: {
               verticalAlign: verticalAlignObject[prop],
-              width: widthObject[child.props.prop],
-              maxWidth: maxWidth || child.props.maxWidth,
+              width: widthObject[childProps.prop],
+              // maxWidth: maxWidth || childProps.maxWidth,
               overflowWrap: "break-word",
               wordWrap: "break-word",
               wordBreak: "break-word",
               // 如果要默认展示一行，并且x轴太长可以滚动的话，则设置为nowrap
               // 注意：此时，外部设置的 width就没作用了，表格会自己根据内容来设置宽度
-              whiteSpace: "nowrap",
-              ["".concat(!colIndex && data.children ? "paddingLeft" : "")]: "35px"
+              whiteSpace: "nowrap"
+              /*  [`${!colIndex && data.children ? 'paddingLeft' : ''}`]: '35px', */
             },
             key: colIndex
           }, /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("div", {
-            className: "d-flex collapse-table-td"
-          }, !colIndex && collapse && data.children ? "" : "", enhancedChild));
+            className: "collapse-table-td"
+          }, childProps.tooltip ? /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement((Tooltip_default()), {
+            text: data[prop]
+          }, enhancedChild) : enhancedChild));
         }
       })), data.collapse && data.children && data.children.map((childData, index) => /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("tr", {
-        className: "collapse-table-tr",
-        key: childData[id],
-        style: {
-          ["".concat(!data.collapse ? "display" : "")]: "none"
-        }
+        className: "collapse-table-tr animate__animated animate__fadeIn",
+        key: childData[id]
+        /* style={{
+                                ...(data.collapse ? { display: '' } : { display: 'none' }),
+                            }} */
       }, collection && /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("td", {
         scope: "row",
         style: {
-          width: "50px"
-        }
+          minWidth: "50px",
+          width: "50px",
+          maxWidth: "50px"
+        },
+        className: "text-center"
       }, /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("input", {
         name: childData[id],
         id: childData[id],
@@ -3063,9 +3252,12 @@ const Table = props => {
       })), showIndex && /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("th", {
         className: "text-center",
         style: {
+          minWidth: "50px",
           width: "50px",
+          maxWidth: "50px",
           padding: "0px",
-          alignContent: "center"
+          alignContent: "center",
+          fontWeight: headerFontWeight
         }
       }, "".concat(rowIndex + 1, ".").concat(index + 1)), external_root_React_commonjs2_react_commonjs_react_amd_react_default().Children.map(array, (child, colIndex) => {
         let prop = child.props.prop;
@@ -3080,21 +3272,25 @@ const Table = props => {
             textPosition
           });
           return /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("td", {
-            className: "".concat("text-" + textPositionObject[prop]),
+            className: "".concat(colIndex === 0 ? "text-left" : "text-center"),
             style: {
               verticalAlign: verticalAlignObject[prop],
-              minWidth: child.props.minWidth,
-              width: child.props.width || widthObject[child.props.prop],
+              width: widthObject[child.props.prop],
               overflowWrap: "break-word",
               wordWrap: "break-word",
               wordBreak: "break-word",
-              ["".concat(!colIndex ? "paddingLeft" : "")]: "60px"
+              ["".concat(!colIndex ? "paddingLeft" : "")]: "40px"
             },
             key: colIndex
-          }, enhancedChild);
+          }, /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("div", {
+            className: "collapse-table-td"
+          }, child.props.tooltip ? /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement((Tooltip_default()), {
+            position: "right",
+            text: childData[prop]
+          }, enhancedChild) : enhancedChild));
         }
       }))));
-    })) : null);
+    })));
   };
   const calculateHeaderWidth = headerLabels => {
     const labelLengthObj = {};
@@ -3104,10 +3300,7 @@ const Table = props => {
         prop: item.props.prop
       };
     });
-    const totalLabelLength = newHeaderLabels === null || newHeaderLabels === void 0 ? void 0 : newHeaderLabels.reduce((acc, curr) => {
-      var _curr$label;
-      return acc + ((_curr$label = curr.label) === null || _curr$label === void 0 ? void 0 : _curr$label.length);
-    }, 0);
+    const totalLabelLength = newHeaderLabels.reduce((acc, curr) => acc + curr.label.length, 0);
     newHeaderLabels.forEach(item => {
       var _item$label;
       labelLengthObj[item.prop] = Number((((_item$label = item.label) === null || _item$label === void 0 ? void 0 : _item$label.length) / totalLabelLength).toFixed(2)) * 100 + "%";
@@ -3147,22 +3340,37 @@ const Table = props => {
    *
    * 单击tr
    */
-  const handleRowClick = row => {
-    const data = tableData.map(item => {
-      if (item[id] === row[id]) {
-        item.checked = !item.checked;
-      } else {
-        if (single) {
-          item.checked = false;
+  const handleRowClick = (row, rowIndex) => {
+    // handleCollapseClick(row, rowIndex!);
+    if (clickChecked || collection) {
+      const data = tableData.map(item => {
+        if (item[id] === row[id]) {
+          item.checked = !item.checked;
+        } else {
+          if (single) {
+            item.checked = false;
+          }
         }
-      }
-      return item;
-    });
-    setTableData(data);
+        return item;
+      });
+      setTableData(data);
+    }
     if (collection) {
       setCheckedAll(areAllChecked(data));
     }
     onRowClick && onRowClick(row);
+    onRowDoubleClick && onRowDoubleClick(row);
+  };
+
+  // 新增 默认选中 / 全选
+  const handleDefaultChecked = () => {
+    if (defaultChecked === "all") {
+      setTableData(preData => preData.map(item => {
+        item.checked = true;
+        return item;
+      }));
+      setCheckedAll(true); // 头部也要勾选上
+    }
   };
   const handleCheckboxChange = (e, row) => {
     const checked = e.target.checked;
@@ -3178,7 +3386,6 @@ const Table = props => {
     setCheckedAll(areAllChecked(tableData));
   };
   function areAllChecked(data) {
-    if (!data.length || !data) return false;
     // 遍历数组中的每个对象
     return data === null || data === void 0 ? void 0 : data.every(item => {
       // 检查当前对象的 `checked` 属性
@@ -3214,32 +3421,22 @@ const Table = props => {
       return item;
     }));
   };
-  const handleGetCheckedList = () => {
-    return tableData.filter(item => item.checked);
-  };
-
-  // 新增 默认选中 / 全选
-  const handleDefaultChecked = () => {
-    if (defaultChecked === "all") {
-      setTableData(preData => preData.map(item => {
-        item.checked = true;
-        return item;
-      }));
-      setCheckedAll(true); // 头部也要勾选上
-    }
-  };
   (0,external_root_React_commonjs2_react_commonjs_react_amd_react_.useEffect)(() => {
     const checkedAll = areAllChecked(data);
     setCheckedAll(checkedAll);
     if (collapse) {
-      setTableData(data.map(item => {
+      const tempData = data.map(item => {
         item.collapse = expandAll;
         return item;
-      }));
+      });
+      setTableData(tempData);
+      setOriginalTableData(tempData);
     } else {
       setTableData(data);
+      setOriginalTableData(data);
     }
     if (data.length) {
+      // 必须给个 10ms 的延迟，不然默认选中会出现问题
       setTimeout(() => {
         handleDefaultChecked();
       }, 10);
@@ -3247,26 +3444,31 @@ const Table = props => {
   }, [data]);
   (0,external_root_React_commonjs2_react_commonjs_react_amd_react_.useEffect)(() => {
     setTableData(preData => preData.map(item => {
-      // 判断 id 是否存在，如果 id 不存在，并且 activeId 也不存在，那也是相等的，得排除
-      if (activeId) {
-        if (item[id] && item[id] === activeId) {
-          item.checked = true;
-        } else {
-          item.checked = false;
-        }
+      if (item[id] === activeId) {
+        item.checked = true;
+      } else {
+        item.checked = false;
       }
       return item;
     }));
-  }, [activeId, data]);
+  }, [activeId]);
+  (0,external_root_React_commonjs2_react_commonjs_react_amd_react_.useEffect)(() => {
+    setTableHeaders(headers);
+  }, [headers]);
+
+  /*     useEffect(() => {
+    
+  }, [tableHeaders]); */
+
   (0,external_root_React_commonjs2_react_commonjs_react_amd_react_.useImperativeHandle)(tableRef, () => ({
-    clearChecked: handleClearChecked,
-    getCheckedList: handleGetCheckedList
+    clearChecked: handleClearChecked
   }));
   return /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement((external_root_React_commonjs2_react_commonjs_react_amd_react_default()).Fragment, null, /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("div", {
     style: {
       minHeight: minHeight,
       maxHeight: maxHeight,
-      overflow: "auto"
+      overflow: "auto",
+      width
     },
     className: "table-wrapper ".concat("table-responsive".concat("-" + tableResponsive))
   }, /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("table", {
@@ -3275,9 +3477,7 @@ const Table = props => {
       width
     },
     className: cls
-  }, renderCollapseChildren()), tableData.length === 0 && /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("div", {
-    className: "text-center py-2"
-  }, "\u6682\u65E0\u6570\u636E~")));
+  }, renderCollapseChildren())), JSON.stringify(data));
 };
 Table.TableCell = src_TableCell;
 /* harmony default export */ const src_0 = (withTranslation()(Table));

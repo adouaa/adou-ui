@@ -2,6 +2,8 @@ import React, { useRef, useState, useEffect } from "react";
 import "./index.scss"; // 自定义样式
 
 interface ResizableSidebarProps {
+  toggleBtnStyle?: React.CSSProperties;
+  toggleBtnClassName?: string;
   contentOverflow?: boolean;
   contentFlex?: boolean;
   initialWidth?: any;
@@ -13,12 +15,14 @@ interface ResizableSidebarProps {
 }
 
 const ResizableSidebar = ({
+  toggleBtnStyle,
+  toggleBtnClassName,
   contentOverflow = true,
-  contentFlex = true,
+  contentFlex = false,
   initialWidth = 0,
-  initialHeight = "500px",
+  initialHeight = "100%",
   minDragWidth = 0,
-  minWidth = 0,
+  minWidth = 50,
   maxWidth = "300px",
   children,
 }: ResizableSidebarProps) => {
@@ -29,8 +33,10 @@ const ResizableSidebar = ({
   const [initialSiderBarHeight, setInitialSiderBarHeight] =
     useState<any>(initialHeight);
   const [isDragging, setIsDragging] = useState<boolean>(false);
+  const [isExpanded, setIsExpanded] = useState<boolean>(false);
   const resizeableContainerRef = useRef<any>();
   const siderBarRef = useRef<any>();
+  const toggleBtnRef = useRef<any>(null);
 
   useEffect(() => {
     const handleMouseMove = (event: any) => {
@@ -59,16 +65,15 @@ const ResizableSidebar = ({
   };
 
   const toggleSidebar = () => {
-    console.log(
-      "currentSidebarWidth: ",
-      currentSidebarWidth > minWidth ? 0 : parseFloat(maxWidth)
-    );
     setCurrentSidebarWidth(
-      parseFloat(currentSidebarWidth) > minWidth ? 0 : maxWidth
+      parseFloat(currentSidebarWidth) > minWidth
+        ? minWidth + "px"
+        : initialWidth || maxWidth
     ); // 假设展开宽度为300
+    setIsExpanded((prev: boolean) => !prev);
   };
 
-  const handleMouseDown = (e: React.MouseEvent) => {
+  const handleSliderBarMouseDown = (e: React.MouseEvent) => {
     setIsDragging(true);
   };
 
@@ -106,6 +111,12 @@ const ResizableSidebar = ({
     const content = resizeableContainerRef.current.querySelector(".content");
     return content.offsetWidth;
   };
+
+  useEffect(() => {
+    if (initialWidth) {
+      setIsExpanded(true);
+    }
+  }, [initialWidth]);
 
   useEffect(() => {
     // 延迟执行，因为父元素的内容可能是异步去获取的
@@ -157,16 +168,29 @@ const ResizableSidebar = ({
           style={{ opacity: 0, right: isDragging ? "-5px" : "-2px" }}
           className={`resize-handle-bar`}
           onMouseUp={handleDragEnd}
-          onMouseDown={handleMouseDown}
+          onMouseDown={handleSliderBarMouseDown}
           onDrag={handleDrag}
           onDragEnd={handleDragEnd}
           onDragStart={handleDragStart}
         ></div>
         {initialHeight > 0 || initialSiderBarHeight > 0 ? (
-          <div className="toggle-btn" onClick={toggleSidebar}>
+          <div
+            ref={toggleBtnRef}
+            className={`toggle-btn ${toggleBtnClassName}`}
+            onClick={toggleSidebar}
+            style={{
+              ...toggleBtnStyle,
+              /* ...(toggleBtnPosition?.right
+                ? {
+                    right: isExpanded ? toggleBtnPosition.right : "12px",
+                    top: toggleBtnPosition.top,
+                  }
+                : {}), */
+            }}
+          >
             <i
               className={`fa-solid text-white ${
-                currentSidebarWidth <= minWidth
+                parseFloat(currentSidebarWidth) <= minWidth
                   ? "fa-angles-right"
                   : "fa-angles-left"
               }`}

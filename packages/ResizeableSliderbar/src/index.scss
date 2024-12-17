@@ -17,11 +17,11 @@
     z-index: 1;
     bottom: 1rem;
     right: -15px;
-    top: 50%;
+    bottom: 50%;
     box-shadow: var(--app-shadow);
     line-height: 30px;
     text-align: center;
-    transition: .1s ease-in-out;
+    // transition: all 1s ease-in;
     cursor: pointer;
   }
 

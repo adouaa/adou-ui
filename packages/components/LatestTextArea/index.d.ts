@@ -1,0 +1,36 @@
+import React from 'react';
+import './index.scss';
+interface TextreaProps {
+    wrapperStyle?: React.CSSProperties;
+    wrapperWidth?: any;
+    commonSuffixContent?: string;
+    clearable?: boolean;
+    formStyle?: React.CSSProperties;
+    rows?: number;
+    suffixContentType?: string;
+    suffixContent?: any;
+    name?: string;
+    inline?: boolean;
+    isFormItem?: boolean;
+    errMsg?: string;
+    labelWidth?: any;
+    commonSuffixIcon?: string;
+    readOnly?: boolean;
+    externalClassName?: string;
+    width?: any;
+    inputGroup?: boolean;
+    labelPosition?: 'left-top' | 'center' | 'top' | 'input-group';
+    labelColor?: string;
+    required?: boolean;
+    ref?: any;
+    defaultValue?: string;
+    label?: any;
+    placeholder?: string;
+    disabled?: boolean;
+    onChangeOK?: (value: any, ...args: any) => void;
+    onFormDataChange?: (key: string, value: any) => void;
+    onFieldChange?: (name: string, value: any) => void;
+    onValidateField?: (name: string, value: any) => void;
+}
+declare const Textarea: React.FC<TextreaProps>;
+export default Textarea;

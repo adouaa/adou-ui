@@ -89,12 +89,14 @@ __webpack_require__.d(__webpack_exports__, {
   convertToTag: () => (/* reexport */ libs_convertToTag),
   flattenDataWithoutNesting: () => (/* reexport */ libs_flattenDataWithoutNesting),
   getAbsolutePosition: () => (/* reexport */ libs_getAbsolutePositionOfStage),
+  getContentWidth: () => (/* reexport */ libs_getContentWidth),
   isEmptyO: () => (/* reexport */ libs_isEmptyO),
   splitFilesIntoColumns: () => (/* reexport */ libs_splitFilesIntoColumns),
   timeFormatter: () => (/* reexport */ time_formatter_namespaceObject),
   useClickOutside: () => (/* reexport */ hooks_useClickOutside),
   useDrag: () => (/* reexport */ hooks_useDrag),
-  useNavigateTo: () => (/* reexport */ hooks_useNavigateTo)
+  useNavigateTo: () => (/* reexport */ hooks_useNavigateTo),
+  useThrottle: () => (/* reexport */ hooks_useThrottle)
 });
 
 // NAMESPACE OBJECT: ./src/libs/time-formatter.js
@@ -271,6 +273,15 @@ const splitFilesIntoColumns = (files, filesPerColumn) => {
   return result;
 };
 /* harmony default export */ const libs_splitFilesIntoColumns = (splitFilesIntoColumns);
+;// CONCATENATED MODULE: ./src/libs/getContentWidth.ts
+function getContentWidth(element) {
+  const computedStyle = window.getComputedStyle(element);
+  const offsetWidth = element.offsetWidth;
+  const borderWidthLeftRight = parseInt(computedStyle.borderLeftWidth) + parseInt(computedStyle.borderRightWidth);
+  const paddingWidthLeftRight = parseInt(computedStyle.paddingLeft) + parseInt(computedStyle.paddingRight);
+  return offsetWidth - borderWidthLeftRight - paddingWidthLeftRight;
+}
+/* harmony default export */ const libs_getContentWidth = (getContentWidth);
 ;// CONCATENATED MODULE: ../../node_modules/@remix-run/router/dist/router.js
 /**
  * @remix-run/router v1.5.0
@@ -5341,7 +5352,24 @@ const useDrag = function (elementRef) {
   };
 };
 /* harmony default export */ const hooks_useDrag = (useDrag);
+;// CONCATENATED MODULE: ./src/hooks/useThrottle.ts
+
+const useThrottle = function (fn, delay) {
+  let dependency = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : [];
+  const time = (0,external_root_React_commonjs2_react_commonjs_react_amd_react_.useRef)(0);
+  // react中必须要用useCallback和useRef，不然状态改变就会一直变化
+  return (0,external_root_React_commonjs2_react_commonjs_react_amd_react_.useCallback)(function () {
+    const now = Date.now();
+    if (!time.current || now - time.current >= delay) {
+      fn(...arguments);
+      time.current = now;
+    }
+  }, dependency);
+};
+/* harmony default export */ const hooks_useThrottle = (useThrottle);
 ;// CONCATENATED MODULE: ./src/index.tsx
+
+
 
 
 
