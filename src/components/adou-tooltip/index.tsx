@@ -200,67 +200,67 @@ const Tooltip: React.FC<TooltipProps> = ({
             return {
                 bottom: commonArrowOfsset,
                 left: '50%',
-                'border-color': `${arrowBorderColor} transparent transparent transparent`,
+                'borderColor': `${arrowBorderColor} transparent transparent transparent`,
             };
         } else if (position === 'top-left') {
             return {
                 bottom: commonArrowOfsset,
                 right: right || finalHorizontal,
-                'border-color': `${arrowBorderColor} transparent transparent transparent`,
+                'borderColor': `${arrowBorderColor} transparent transparent transparent`,
             };
         } else if (position === 'top-right') {
             return {
                 bottom: commonArrowOfsset,
                 left: left || finalHorizontal,
-                'border-color': `${arrowBorderColor} transparent transparent transparent`,
+                'borderColor': `${arrowBorderColor} transparent transparent transparent`,
             };
         } else if (position === 'bottom') {
             return {
                 top: commonArrowOfsset,
                 left: '50%',
-                'border-color': `transparent transparent ${arrowBorderColor} transparent`,
+                'borderColor': `transparent transparent ${arrowBorderColor} transparent`,
             };
         } else if (position === 'bottom-right') {
             return {
                 top: commonArrowOfsset,
                 left: left || finalHorizontal,
-                'border-color': `transparent transparent ${arrowBorderColor} transparent`,
+                'borderColor': `transparent transparent ${arrowBorderColor} transparent`,
             };
         } else if (position === 'bottom-left') {
             return {
                 top: commonArrowOfsset,
                 right: right || finalHorizontal,
-                'border-color': `transparent transparent ${arrowBorderColor} transparent`,
+                'borderColor': `transparent transparent ${arrowBorderColor} transparent`,
             };
         } else if (position === 'left-top') {
             return {
                 bottom: bottom || finalVertival,
                 right: commonArrowOfsset,
-                'border-color': `transparent transparent transparent ${arrowBorderColor}`,
+                'borderColor': `transparent transparent transparent ${arrowBorderColor}`,
             };
         } else if (position === 'left-bottom') {
             return {
                 top: top || finalVertival,
                 right: '-9px',
-                'border-color': `transparent transparent transparent ${arrowBorderColor}`,
+                'borderColor': `transparent transparent transparent ${arrowBorderColor}`,
             };
         } else if (position === 'right') {
             return {
                 top: '50%',
                 left: commonArrowOfsset,
-                'border-color': `transparent ${arrowBorderColor} transparent transparent`,
+                'borderColor': `transparent ${arrowBorderColor} transparent transparent`,
             };
         } else if (position === 'right-top') {
             return {
                 bottom: bottom || finalVertival,
                 left: commonArrowOfsset,
-                'border-color': `transparent ${arrowBorderColor} transparent transparent`,
+                'borderColor': `transparent ${arrowBorderColor} transparent transparent`,
             };
         } else if (position === 'right-bottom') {
             return {
                 top: top || finalVertival,
                 left: commonArrowOfsset,
-                'border-color': `transparent ${arrowBorderColor} transparent transparent`,
+                'borderColor': `transparent ${arrowBorderColor} transparent transparent`,
             };
         }
     };

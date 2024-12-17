@@ -6,7 +6,6 @@ import './index.scss';
 import Tooltip from 'components/adou-tooltip';
 
 export { EditableTableCell };
-
 interface TableProps {
     clickChecked?: boolean;
     showHeader?: boolean;
@@ -85,8 +84,8 @@ const Table = (props: TableProps) => {
         tableResponsive = 'xxl',
         eidtable = false,
         headSticky = true,
-        headTextColor = 'black',
-        headBGC = '',
+        headTextColor = 'white',
+        headBGC = '#2782d7',
         divider,
         maxHeight = '500px',
         minHeight = '300px',
@@ -102,7 +101,6 @@ const Table = (props: TableProps) => {
         'table-borderless': tableBorderless,
         [`table-${size}`]: true,
         [`table-${headColor}`]: true,
-        'overflow-auto': true,
     });
 
     const [tableData, setTableData] = useState<any[]>([]);
@@ -215,7 +213,7 @@ const Table = (props: TableProps) => {
                         style={{
                             position: headSticky ? 'sticky' : 'unset',
                             top: 0,
-                            backgroundColor: `${headBGC}`,
+                            backgroundColor: `${headBGC || tableBgc} `,
                             zIndex: 999,
                         }}
                         className={`text-${headTextColor}`}
@@ -225,7 +223,7 @@ const Table = (props: TableProps) => {
                             {collection && (
                                 <>
                                     {/* 复选框 */}
-                                    <th scope="col th-collection" style={{ minWidth: '50px', width: '50px', maxWidth: '50px' }}>
+                                    <th scope="col" style={{ width: '50px' }}>
                                         {!single && <input checked={checkedAll} onChange={handleCheckedAllChange} type={single ? 'radio' : 'checkbox'} />}
                                     </th>
                                 </>
@@ -234,7 +232,7 @@ const Table = (props: TableProps) => {
                             {showIndex && (
                                 <>
                                     {/* 索引框 */}
-                                    <th scope="col th-index" style={{ minWidth: '50px', width: '50px', maxWidth: '50px' }}></th>
+                                    <th scope="col" style={{ minWidth: '50px' }}></th>
                                 </>
                             )}
                             {array &&
@@ -244,33 +242,15 @@ const Table = (props: TableProps) => {
                                             <th
                                                 style={{
                                                     whiteSpace: 'nowrap',
-                                                    width: widthObject[(child as React.ReactElement).props.prop],
+                                                    minWidth: child?.props.minWidth,
+                                                    width: child?.props.width || widthObject[(child as React.ReactElement).props.prop],
                                                     fontWeight: headerFontWeight,
                                                 }}
                                                 className={`${'text-' + textPositionObject[child.props.prop]}`}
                                                 scope="col"
                                                 key={child.props.label}
                                             >
-                                                <div
-                                                    className="header-content"
-                                                    style={{ display: 'flex', alignItems: 'center', justifyContent: generateHeaderStyle(textPositionObject[child.props.prop]) }}
-                                                >
-                                                    <span className="header-text me-2">{child.props.label}</span>
-                                                    {child.props.sortable && (
-                                                        <span className="header-icon">
-                                                            <i
-                                                                style={{ borderBottom: judgeSortIconBGC(child.props.prop) || '7px solid #000' }}
-                                                                onClick={() => handleSortable(child.props.prop)}
-                                                                className="icon sort-up"
-                                                            ></i>
-                                                            <i
-                                                                style={{ borderTop: judgeSortIconBGC(child.props.prop, true) || '7px solid #000' }}
-                                                                onClick={() => handleSortable(child.props.prop, true)}
-                                                                className="icon sort-down"
-                                                            ></i>
-                                                        </span>
-                                                    )}
-                                                </div>
+                                                {child.props.label}
                                             </th>
                                         );
                                     }
@@ -292,7 +272,7 @@ const Table = (props: TableProps) => {
                                     >
                                         {collection && (
                                             // 复选框
-                                            <td scope="row" style={{ minWidth: '50px', width: '50px', maxWidth: '50px' }} className="text-center">
+                                            <td scope="row" style={{ width: '50px' }}>
                                                 <input
                                                     name={data[id]}
                                                     id={data[id]}
@@ -304,27 +284,26 @@ const Table = (props: TableProps) => {
                                         )}
                                         {showIndex && (
                                             // 索引框
-                                            <td
+                                            <th
                                                 className="text-center"
                                                 scope="col"
                                                 style={{
                                                     alignContent: 'center',
                                                     padding: '0px',
-                                                    minWidth: '50px',
                                                     width: '50px',
-                                                    maxWidth: '50px',
                                                     /* ...(data.children ? { backgroundColor: '#fff', boxShadow: 'none' } : {}), */
                                                 }}
                                             >
                                                 {rowIndex + 1}
-                                            </td>
+                                            </th>
                                         )}
                                         {React.Children.map(array, (child, colIndex) => {
                                             let prop = (child as React.ReactElement).props.prop;
                                             const childProps = (child as React.ReactElement).props;
                                             if (React.isValidElement(child)) {
+                                                console.log('child: ', child);
                                                 const enhancedChild = React.cloneElement(child, {
-                                                    onExpand: () => handleCollapseClick(data, rowIndex),
+                                                    onCollapseClick: handleCollapseClick,
                                                     isParent: !colIndex && collapse && data.children,
                                                     value: data[`${prop}`],
                                                     rowData: data,
@@ -336,7 +315,7 @@ const Table = (props: TableProps) => {
                                                     collapse: data.collapse,
                                                     textPosition,
                                                     width: widthObject[childProps.prop],
-                                                    // maxWidth: childProps.maxWidth,
+                                                    maxWidth: childProps.maxWidth,
                                                 } as React.Attributes);
                                                 return (
                                                     <td
@@ -344,7 +323,7 @@ const Table = (props: TableProps) => {
                                                         style={{
                                                             verticalAlign: verticalAlignObject[prop],
                                                             width: widthObject[childProps.prop],
-                                                            // maxWidth: maxWidth || childProps.maxWidth,
+                                                            maxWidth: maxWidth || childProps.maxWidth,
                                                             overflowWrap: 'break-word',
                                                             wordWrap: 'break-word',
                                                             wordBreak: 'break-word',
@@ -378,7 +357,7 @@ const Table = (props: TableProps) => {
                                             >
                                                 {/* 复选框框 */}
                                                 {collection && (
-                                                    <td scope="row" style={{ minWidth: '50px', width: '50px', maxWidth: '50px' }} className="text-center">
+                                                    <td scope="row" style={{ width: '50px' }}>
                                                         <input
                                                             name={childData[id]}
                                                             id={childData[id]}
@@ -393,12 +372,9 @@ const Table = (props: TableProps) => {
                                                     <th
                                                         className="text-center"
                                                         style={{
-                                                            minWidth: '50px',
                                                             width: '50px',
-                                                            maxWidth: '50px',
                                                             padding: '0px',
                                                             alignContent: 'center',
-                                                            fontWeight: headerFontWeight,
                                                         }}
                                                     >
                                                         {`${rowIndex + 1}.${index + 1}`}
@@ -505,7 +481,7 @@ const Table = (props: TableProps) => {
      * 单击tr
      */
     const handleRowClick = (row: any, rowIndex?: number) => {
-        // handleCollapseClick(row, rowIndex!);
+        handleCollapseClick(row, rowIndex!);
         if (clickChecked || collection) {
             const data: any = tableData.map((item: any) => {
                 if (item[id] === row[id]) {
@@ -649,7 +625,7 @@ const Table = (props: TableProps) => {
 
     return (
         <>
-            <div style={{ minHeight: minHeight, maxHeight: maxHeight, overflow: 'auto', width }} className={`table-wrapper ${`table-responsive${'-' + tableResponsive}`}`}>
+            <div style={{ minHeight: minHeight, maxHeight: maxHeight, overflow: 'auto' }} className={`table-wrapper ${`table-responsive${'-' + tableResponsive}`}`}>
                 <table style={{ background: tableBgc, width }} className={cls}>
                     {renderCollapseChildren()}
                 </table>

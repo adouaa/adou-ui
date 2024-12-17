@@ -7,6 +7,10 @@ import AdouInput from 'components/adou-new-form-item/adou-Input';
 import LiveSearch from 'components/adou-new-form-item/adou-live-search';
 import TestSelect from 'components/adou-new-form-item/adou-select/test-select';
 import RetrievrSelect from 'components/adou-new-form-item/adou-retrieve-select';
+import Form from 'components/adou-new-form-item';
+import useForm from 'components/adou-new-form-item/useForm';
+import FormItem from 'components/adou-new-form-item/adou-form-item';
+// import FormItem from 'components/adou-new-form-item/adou-form-item';
 
 interface AppProps {}
 
@@ -41,6 +45,10 @@ const App = ({}: AppProps) => {
         { label: 'Sophia', value: 'sophia' },
         { label: 'Tom', value: 'tom' },
     ]);
+    const [defaultNames, setDefaultNames] = useState<any>([
+        { label: 'Carol', value: 'carol' },
+        { label: 'David', value: 'david' },
+    ]);
 
     const handleSelectInputChange = (value: string) => {
         setTimeout(() => {
@@ -48,9 +56,45 @@ const App = ({}: AppProps) => {
         }, 500);
     };
 
+    const form = useForm({ defaultNames });
+
     return (
         <div className="app-wrapper p-3">
-            <AdouInput varient="filled"></AdouInput>
+            {JSON.stringify(form.getData())}
+            <Form form={form}>
+                <FormItem labelColor="blue" addonBefore="测试" name="defaultNames" rules={[{ required: true }]}>
+                    <TestSelect
+                        clearable
+                        size="sm"
+                        filterOption={(input: string, option: any) => option.label.toLowerCase().includes(input.toLowerCase())}
+                        showSearch
+                        placeholder="测试一下"
+                        options={names}
+                    ></TestSelect>
+                </FormItem>
+            </Form>
+            <TestSelect
+                defaultValue={defaultNames}
+                mode="tags"
+                clearable
+                size="sm"
+                filterOption={(input: string, option: any) => option.label.toLowerCase().includes(input.toLowerCase())}
+                showSearch
+                placeholder="测试一下2"
+                options={names}
+            ></TestSelect>
+            <hr />
+            <Select
+                clearable
+                required
+                labelKey="label"
+                valueKey="value"
+                optionRender={(option: any, labelKey: string, valueKey: string) => <h1>{option[labelKey]}</h1>}
+                varient="filled"
+                size="lg"
+                options={options}
+            ></Select>
+            {/* <AdouInput varient="filled"></AdouInput>
             <LiveSearch options={options}></LiveSearch>
             <Select
                 labelKey="label"
@@ -63,15 +107,17 @@ const App = ({}: AppProps) => {
             <Select1 options={options}></Select1>
             <hr />
             <TestSelect
-                filterOption={(input: string, option: any) => option.label.toLowerCase().includes('S'.toLowerCase())}
-                defaultValue={'carol'}
-                filter
+                multiple
+                clearable
+                size="sm"
+                filterOption={(input: string, option: any) => option.label.toLowerCase().includes(input.toLowerCase())}
+                defaultValue={defaultNames}
                 showSearch
                 placeholder="测试一下"
                 options={names}
             ></TestSelect>
             <hr />
-            <RetrievrSelect options={options}></RetrievrSelect>
+            <RetrievrSelect options={options}></RetrievrSelect> */}
         </div>
     );
 };

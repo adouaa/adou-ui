@@ -1,6 +1,5 @@
 import { forwardRef, useEffect, useImperativeHandle, useRef, useState } from 'react';
 import React from 'react';
-import FormItem from './adou-form-item';
 
 interface FormProps {
     commonWrapperWidth?: any;
@@ -84,6 +83,7 @@ const Form = forwardRef(
             let isValid = true;
             for (const key in formItemRefs.current) {
                 const formItemRef = formItemRefs.current[key];
+                console.log('formItemRef: ', formItemRef);
                 if (formItemRef.current) {
                     const result = formItemRef.current.validateField('', '', true);
                     if (!result) {
@@ -303,7 +303,5 @@ const Form = forwardRef(
         );
     }
 ) as ExtendedForm;
-
-Form.Item = FormItem;
 
 export default Form;

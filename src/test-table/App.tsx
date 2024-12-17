@@ -45,7 +45,7 @@ const App = ({}: AppProps) => {
             count: 10,
             checked: false,
             children: [
-                { id: 'member006', teamName: 'Frank', email: 'frank.support@company.com', age: 36, count: 5, checked: false },
+                { id: 'member006', teamName: 'Frank', email: 'frank.support@company.com', age: 36, count: 51, checked: false },
                 { id: 'member007', teamName: 'Grace', email: 'grace.support@company.com', age: 35, count: 5, checked: true },
             ],
         },
@@ -72,11 +72,11 @@ const App = ({}: AppProps) => {
     ]);
 
     const headerLabels = [
-        { label: 'Team', prop: 'teamName', width: '150px', maxWidth: '250px' }, // 团队名称
-        { label: 'Mem', prop: 'id', width: '100px', tooltip: true }, // 成员ID
-        { label: '人数', prop: 'count', width: '50px', sortable: true }, // 成员姓名
-        { label: 'YourEmail', prop: 'email', width: '200px', sortable: true }, // 成员邮箱
-        { label: 'Age', prop: 'age', width: '50px' }, // 成员年龄
+        { label: 'Team', prop: 'teamName', width: '180px', maxWidth: '120px', tooltip: true }, // 团队名称
+        { label: 'Mem', prop: 'id', width: '150px', tooltip: true }, // 成员ID
+        { label: '人数', prop: 'count', width: '150px', sortable: true }, // 成员姓名
+        { label: 'YourEmail', prop: 'email', width: '150px', sortable: true }, // 成员邮箱
+        { label: 'Age', prop: 'age', width: '150px' }, // 成员年龄
     ];
 
     const [show, setShow] = useState<boolean>(false);
@@ -94,9 +94,9 @@ const App = ({}: AppProps) => {
 
     return (
         <div className="expandAll={false} app-wrapper">
-            {/*  <AdouTable tableBorderd expandAll={false} textPosition="center" collapse headers={headerLabels} data={data}>
+            <AdouTable collection width={'600px'} headers={headerLabels} tableBorderd expandAll={false} textPosition="center" collapse data={data}>
                 {headerLabels.map((label) => (
-                    <EditableTableCell tooltip={label.tooltip} maxWidth={label.maxWidth} sortable={label.sortable} key={label.prop} prop={label.prop} label={label.label} />
+                    <EditableTableCell sortable={label.sortable} key={label.prop} {...label} />
                 ))}
             </AdouTable>
 
@@ -107,7 +107,7 @@ const App = ({}: AppProps) => {
             </Tooltip>
             <Sortable></Sortable>
 
-            <Dialog
+            {/* <Dialog
                 show={show}
                 setShow={setShow}
                 onConfirm={() =>

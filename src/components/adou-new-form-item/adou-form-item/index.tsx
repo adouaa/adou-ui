@@ -5,6 +5,7 @@ import './index.scss';
 import isEmptyO from '../isEmptyO';
 
 interface FormItemProps {
+    labelColor?: string;
     formItemWrapperMinWidth?: any;
     formItemWrapperWidth?: any;
     formItemWrapperMaxWidth?: any;
@@ -30,6 +31,7 @@ interface FormItemProps {
 }
 
 const FormItem = ({
+    labelColor,
     formItemWrapperMinWidth = '120px',
     formItemWrapperWidth,
     formItemWrapperMaxWidth,
@@ -124,6 +126,8 @@ const FormItem = ({
         } else {
             const validateValue = !isForm ? value : value || data[fieldName!] || data[name!];
             for (const rule of rules) {
+                console.log('fieldName: ', fieldName);
+                console.log('validateValue: ', validateValue);
                 if (rule.required && (validateValue === undefined || validateValue === null || validateValue === '' || isEmptyO(validateValue))) {
                     isValid = false;
                 } else {
@@ -186,6 +190,7 @@ const FormItem = ({
             formStyle: mergedFormStyle,
             defaultValue: data?.[props.name || name],
             wrapperWidth: contentWrapperWidth,
+            labelColor,
             onFieldChange: handleFieldChange,
             onValidateField: validateField,
             ...props,
@@ -256,6 +261,7 @@ const FormItem = ({
                             style={{
                                 fontSize: '14px',
                                 whiteSpace: labelWrap ? 'wrap' : 'nowrap',
+                                color: labelColor,
                             }}
                         >
                             {label}
@@ -267,14 +273,14 @@ const FormItem = ({
                     <div className="adou-form-content">
                         {processedAddonBefore ? (
                             <div className="input-group" style={{ flexWrap: contentWrap ? 'wrap' : 'nowrap' }}>
-                                <span className="input-group-text py-0" style={{ fontSize: '14px' }}>
+                                <span className="input-group-text py-0" style={{ fontSize: '14px', color: labelColor }}>
                                     {processedAddonBefore}
                                 </span>
                                 <div className="adou-form d-flex" style={{ flex: 1 }}>
                                     {enhancedChildren}
                                 </div>
                                 {processedAddonAfter && (
-                                    <span className="input-group-text py-0" style={{ fontSize: '14px' }}>
+                                    <span className="input-group-text py-0" style={{ fontSize: '14px', color: labelColor }}>
                                         {processedAddonAfter && processedAddonAfter}
                                     </span>
                                 )}

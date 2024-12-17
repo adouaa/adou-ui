@@ -57,7 +57,7 @@ export interface SelectProps {
     onChange?: (e?: any, ...args: any) => void;
     onFormDataChange?: (key: string, value: any) => void;
     onFieldChange?: (name: string, value: any) => void;
-    onValidateField?: (data?: any) => void;
+    onValidateField?: (name: string, data?: any) => void;
     optionRender?: (option: any, labelKey?: any, valueKey?: any) => void; // 自定义渲染选项
 }
 
@@ -157,7 +157,7 @@ const Select = React.forwardRef((props: SelectProps, ref) => {
     };
 
     const handleValidate = (data?: any) => {
-        onValidateField && onValidateField(data);
+        onValidateField && onValidateField(name!, data);
     };
 
     const handleFormContentClick = (e: any) => {

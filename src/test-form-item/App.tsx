@@ -4,7 +4,7 @@ import React from 'react';
 import FormItem from 'components/adou-new-form-item/adou-form-item';
 import AdouInput from 'components/adou-new-form-item/adou-Input';
 import Form from 'components/adou-new-form-item';
-import Select from 'components/adou-new-form-item/adou-select';
+import Select from 'components/adou-new-form-item/adou-select/test-select';
 import Button from 'components/adou-button';
 import RetrievrSelect from 'components/adou-new-form-item/adou-retrieve-select';
 import LiveSearch from 'components/adou-new-form-item/adou-live-search';
@@ -41,6 +41,21 @@ const App = ({}: AppProps) => {
         // console.log('form.validate: ', form.validate());
     };
 
+    const handleTest = () => {
+        setTimeout(() => {
+            form.setFormData({
+                cs1: '测试测试草率四',
+                position1: 'xm',
+                cs2: 'cs21',
+                area: ['你5', '你好44'],
+                position2: '人民万岁',
+                position3: ['你好呀', '同志们'],
+                liveSearch2: '米粉',
+                remote: '你好5555',
+            });
+        }, 1300);
+    };
+
     const [options, setOptions] = useState<any>([
         { label: '你好123你好123', value: '你好123你好123' },
         { label: '你好5555', value: '你好5555' },
@@ -68,13 +83,13 @@ const App = ({}: AppProps) => {
                 cs1: '测试测试草率四',
                 position1: 'xm',
                 cs2: 'cs21',
-                area: '你好123你好123',
+                area: '你好5555',
                 position2: '人民万岁',
                 position3: ['你好呀', '同志们'],
                 liveSearch2: '米粉',
                 remote: '你好5555',
             });
-        }, 300);
+        }, 1300);
     }, []);
 
     const rules = [{ required: true, message: '请输入' }];
@@ -82,10 +97,10 @@ const App = ({}: AppProps) => {
     return (
         <div className="app-wrapper p-3">
             {JSON.stringify(form.formData)}
-            <FormItem rules={rules} addonBefore={'问候'} label="地点" name="area">
+            {/* <FormItem rules={rules} addonBefore={'问候'} label="地点" name="area">
                 <Select placeholder="请选择" commonSuffixContent="市区" options={options}></Select>
                 <AdouInput commonSuffixContent="测" name="cccc"></AdouInput>
-            </FormItem>
+            </FormItem> */}
             <Button onClickOK={handleGetData} type="primary">
                 获取
             </Button>
@@ -95,18 +110,20 @@ const App = ({}: AppProps) => {
             <Button onClickOK={handleValidate} type="warning">
                 校验
             </Button>
+            <Button onClickOK={handleTest} type="secondary">
+                测试
+            </Button>
 
             <Form commonFormItemWrapperWidth={'50%'} commonRules={rules} form={form} ref={formRef} layout={layout}>
                 {/* Input */}
-                <FormItem rules={rules} addonBefore={'问候'} /* addonBefore={'测试'} */ /* addonAfter={'测试'} */ name="cs1" label="你好">
+                <FormItem rules={rules} addonBefore={'问候'} /* addonBefore={'测试'} */ /* addonAfter={'测试'} */ name="cs12" label="你好">
                     <AdouInput varient="filled"></AdouInput>
                 </FormItem>
                 <FormItem addonBefore={'问候'} addonAfter={'问候'} rules={rules} label="频次" name="cs2">
                     <AdouInput commonSuffixContent="次"></AdouInput>
                 </FormItem>
-                <FormItem rules={rules} addonBefore={'问候'} label="地点" name="area">
-                    <Select placeholder="请选择" commonSuffixContent="市区" options={options}></Select>
-                    <AdouInput commonSuffixContent="测" name="cccc"></AdouInput>
+                <FormItem rules={rules} addonBefore={'问候'} label="选择" name="area">
+                    <Select mode="tags" placeholder="请选择" commonSuffixContent="市区" options={options}></Select>
                 </FormItem>
                 <FormItem label="搜索" /* addonBefore={'关键'} */ /* addonAfter={'结尾'} */ name="remote" /* layout="horizontal" */>
                     <RetrievrSelect single={false} returnType="obj" commonSuffixContent="地区32" options={options}></RetrievrSelect>

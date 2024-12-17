@@ -1,6 +1,6 @@
+// import AdouInput from "adou-ui/Input";
 import React, { useEffect, useRef, useState } from 'react';
 import { withTranslation } from 'react-i18next';
-import './index.scss';
 
 interface TableCellProps {
     tooltip?: boolean;
@@ -23,7 +23,6 @@ interface TableCellProps {
     onChange?: (rowIndex: number, colIndex: number, value: string) => void;
     onEditCancel?: () => void;
     onEditOK?: (value: string) => void;
-    onExpand?: () => void;
 }
 
 const TableCell = (props: TableCellProps) => {
@@ -46,7 +45,6 @@ const TableCell = (props: TableCellProps) => {
         onChange,
         onEditCancel,
         onEditOK,
-        onExpand,
     } = props;
 
     const [isEditing, setIsEditing] = useState(false);
@@ -65,11 +63,6 @@ const TableCell = (props: TableCellProps) => {
         }
     };
     const handleChange = (e: any) => {};
-
-    const handleExpandIconClick = () => {
-        console.log('999: ', 999);
-        onExpand && onExpand();
-    };
 
     // 这边必须要写一个监听传递过来的value的钩子函数，因为cell展示的值是 editValue
     // 当传递过来的value发生变化时，将它重新赋值给cell要展示的值
@@ -90,16 +83,13 @@ const TableCell = (props: TableCellProps) => {
                                 width: wrapperRef.current ? `${wrapperRef.current.clientWidth}px` : '100%',
                                 boxSizing: 'border-box',
                             }}
-                        ></div>
+                        >
+                            {/* <AdouInput defaultValue={editedValue} onChange={(e: any) => handleChange(e)} onBlur={(e: any) => handleBlur(e)} /> */}
+                        </div>
                     ) : (
                         <div className="ps-1">
                             <div className="value d-flex align-items-center">
-                                {isParent && (
-                                    <i
-                                        onClick={handleExpandIconClick}
-                                        className={`fa-solid fa-chevron-right me-2 ${collapse ? 'table-cell-folder-rotate-down' : ''} collapse-icon`}
-                                    ></i>
-                                )}
+                                {isParent && <i className={`fa-solid fa-chevron-right me-2 ${collapse ? 'rotate-down' : ''} collapse-icon`}></i>}
                                 <div style={{ maxWidth }} className="ellipsis-1 ">
                                     {editedValue}
                                 </div>

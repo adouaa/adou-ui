@@ -436,7 +436,6 @@ const RetrievrSelect: React.FC<RetrieveSelectProps> = React.forwardRef((props: R
     };
 
     useEffect(() => {
-        console.log('defaultValue: ', defaultValue);
         let arr: any[] = [];
         if (single) {
             if (defaultValue) {
