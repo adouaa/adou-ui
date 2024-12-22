@@ -1,7 +1,12 @@
-import React, { useRef, useState, useEffect } from "react";
+import React, { useRef, useState, useEffect, useImperativeHandle } from "react";
 import "./index.scss"; // 自定义样式
 
 interface ResizableSidebarProps {
+  wrapperClsassName?: string;
+  wrapperStyle?: React.CSSProperties;
+  showTggleBtnWhenNotExpanded?: boolean;
+  resizeableSliderbarRef?: any;
+  showToggleBtn?: boolean;
   toggleBtnStyle?: React.CSSProperties;
   toggleBtnClassName?: string;
   contentOverflow?: boolean;
@@ -12,9 +17,15 @@ interface ResizableSidebarProps {
   minWidth?: number;
   maxWidth?: any;
   children?: any;
+  onToggle?: (isExpanded: boolean) => void;
 }
 
 const ResizableSidebar = ({
+  wrapperClsassName,
+  wrapperStyle,
+  showTggleBtnWhenNotExpanded = true,
+  resizeableSliderbarRef,
+  showToggleBtn = true,
   toggleBtnStyle,
   toggleBtnClassName,
   contentOverflow = true,
@@ -25,6 +36,7 @@ const ResizableSidebar = ({
   minWidth = 50,
   maxWidth = "300px",
   children,
+  onToggle,
 }: ResizableSidebarProps) => {
   const sidebarRef = useRef<any>(null);
   const [isResizing, setIsResizing] = useState(false);
@@ -70,7 +82,9 @@ const ResizableSidebar = ({
         ? minWidth + "px"
         : initialWidth || maxWidth
     ); // 假设展开宽度为300
-    setIsExpanded((prev: boolean) => !prev);
+    const oldIsExpanded = isExpanded; // 记录当前展开状态
+    onToggle && onToggle(!isExpanded);
+    setIsExpanded(!oldIsExpanded);
   };
 
   const handleSliderBarMouseDown = (e: React.MouseEvent) => {
@@ -140,16 +154,30 @@ const ResizableSidebar = ({
     }, 100);
   }, []);
 
+  useImperativeHandle(
+    resizeableSliderbarRef,
+    () => ({
+      getExpandStatus: () => {
+        return isExpanded;
+      },
+      toggleSidebar,
+    }),
+    [isExpanded]
+  );
+
   return (
     <>
       <div
         ref={resizeableContainerRef}
-        className={`pb-1 resizable-sidebar pe-1 ${isDragging ? "draging" : ""}`}
+        className={`pb-1 resizable-sidebar pe-1 ${
+          isDragging ? "draging" : ""
+        } ${wrapperClsassName ? wrapperClsassName : ""}`}
         style={{
           width: `${currentSidebarWidth}`,
           height: initialHeight || initialSiderBarHeight + "px" || 0,
           paddingLeft: "5px",
           // overflow: currentSidebarWidth === maxWidth ? "auto" : "hidden",
+          ...wrapperStyle,
         }}
       >
         <div
@@ -173,7 +201,11 @@ const ResizableSidebar = ({
           onDragEnd={handleDragEnd}
           onDragStart={handleDragStart}
         ></div>
-        {initialHeight > 0 || initialSiderBarHeight > 0 ? (
+        {(
+          isExpanded
+            ? (initialHeight > 0 || initialSiderBarHeight > 0) && showToggleBtn
+            : showTggleBtnWhenNotExpanded
+        ) ? (
           <div
             ref={toggleBtnRef}
             className={`toggle-btn ${toggleBtnClassName}`}

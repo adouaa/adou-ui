@@ -262,24 +262,24 @@ module.exports = function (item) {
       var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__nested_webpack_require_918__.n(react__WEBPACK_IMPORTED_MODULE_0__);
       const Button = props => {
         const {
-          fontSize = "14px",
+          fontSize,
           spinerType = "border",
           spinerColor,
           loading,
           suffixIcon,
           prefixIcon,
           children,
-          type = "warning",
+          type,
           size = "md",
           externalClassName,
           round,
           textColor,
           disabled,
           outlineColor,
-          onClick
+          onClickOK
         } = props;
         const handleOnClick = () => {
-          onClick && onClick();
+          onClickOK && onClickOK();
         };
         const renderPrefixIcon = () => {
           return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("i", {
@@ -311,7 +311,6 @@ module.exports = function (item) {
               child = /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("span", null, child);
               const enhancedChild = /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().cloneElement(child, {
                 style: {
-                  margin: "0 0.2rem",
                   fontSize
                 }
               });
@@ -325,7 +324,6 @@ module.exports = function (item) {
             var _child$props;
             if ((_child$props = child.props) !== null && _child$props !== void 0 && (_child$props = _child$props.className) !== null && _child$props !== void 0 && _child$props.includes("loader")) {
               hasLoader = true;
-              console.log("有: ");
             }
           });
           if (hasLoader) {
@@ -337,7 +335,7 @@ module.exports = function (item) {
             });
           } else {
             return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(react__WEBPACK_IMPORTED_MODULE_0___default().Fragment, null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", {
-              className: "spinner-".concat(spinerType, " spinner-").concat(spinerType, "-sm text-").concat(spinerColor),
+              className: "me-2 spinner-".concat(spinerType, " spinner-").concat(spinerType, "-sm text-").concat(spinerColor),
               role: "status"
             }));
           }
@@ -350,7 +348,7 @@ module.exports = function (item) {
             height: "100%"
           },
           onClick: handleOnClick,
-          className: "btn btn-".concat(type, " btn-").concat(size, " ").concat(round ? "rounded-pill" : "", " text-").concat(textColor, " btn-outline-").concat(outlineColor, " ").concat(disabled ? "disabled" : "", " ").concat(externalClassName),
+          className: "btn btn-".concat(type, " btn-").concat(size, " ").concat(round ? "rounded-pill" : "", " ").concat(textColor ? "text-".concat(textColor) : "", " ").concat(outlineColor ? "btn-outline-".concat(outlineColor) : "", " ").concat(disabled ? "disabled" : "", " ").concat(externalClassName),
           disabled: loading
         }, loading ? /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", {
           className: "loading-btn"
@@ -397,7 +395,7 @@ ___CSS_LOADER_EXPORT___.push([module.id, `.dialog-overlay {
   align-items: center;
   opacity: 0;
   visibility: hidden;
-  transition: opacity 0.2s ease-in-out, visibility 0.2s ease-in-out;
+  transition: opacity 0.3s ease-in-out, visibility 0.3s ease-in-out;
 }
 .dialog-overlay.open {
   opacity: 1;
@@ -413,7 +411,7 @@ ___CSS_LOADER_EXPORT___.push([module.id, `.dialog-overlay {
   position: absolute;
   transform: scale(0.9);
   opacity: 0;
-  transition: transform 0.2s ease-in-out, opacity 0.2s ease-in-out;
+  transition: transform 0.3s ease-in-out, opacity 0.3s ease-in-out;
 }
 .dialog.open {
   transform: scale(1);
@@ -422,9 +420,21 @@ ___CSS_LOADER_EXPORT___.push([module.id, `.dialog-overlay {
 .dialog:focus {
   outline: none;
 }
+.dialog ::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+.dialog ::-webkit-scrollbar-thumb {
+  border-radius: 2px;
+  background-color: #ccc;
+}
+.dialog ::-webkit-scrollbar-track {
+  background-color: #f1f1f1;
+}
 
 .dialog-header {
   border-bottom: 1px solid #e0e0e0;
+  cursor: move;
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -434,6 +444,7 @@ ___CSS_LOADER_EXPORT___.push([module.id, `.dialog-overlay {
   color: #b0aaaa;
   background: none;
   border: none;
+  font-size: 28px;
   cursor: pointer;
   outline: none;
 }
@@ -452,8 +463,8 @@ ___CSS_LOADER_EXPORT___.push([module.id, `.dialog-overlay {
 }
 .hover-scale:hover {
   color: red;
-  transform: scale(1.3);
-}`, "",{"version":3,"sources":["webpack://./src/index.scss"],"names":[],"mappings":"AAAA;EACI,eAAA;EACA,aAAA;EACA,MAAA;EACA,OAAA;EACA,WAAA;EACA,YAAA;EACA,oCAAA;EACA,aAAA;EACA,uBAAA;EACA,mBAAA;EACA,UAAA;EACA,kBAAA;EACA,iEAAA;AACJ;AACI;EACI,UAAA;EACA,mBAAA;AACR;;AAGA;EACI,uBAAA;EACA,kBAAA;EACA,yCAAA;EACA,YAAA;EACA,cAAA;EACA,kBAAA;EAEA,qBAAA;EACA,UAAA;EACA,gEAAA;AADJ;AAGI;EACI,mBAAA;EACA,UAAA;AADR;AAII;EACI,aAAA;AAFR;;AAMA;EACI,gCAAA;EACA,aAAA;EACA,8BAAA;EACA,mBAAA;AAHJ;;AAOA;EACI,cAAA;EACA,gBAAA;EACA,YAAA;EACA,eAAA;EACA,aAAA;AAJJ;;AAOA;EACI,aAAA;EACA,cAAA;AAJJ;;AAQA;EACI,6BAAA;AALJ;;AAQA;EACI,yBAAA;AALJ;AAOI;EACI,UAAA;EACA,qBAAA;AALR","sourcesContent":[".dialog-overlay {\r\n    position: fixed;\r\n    z-index: 1002; // z-index应该加在最外层的父级才有作用\r\n    top: 0;\r\n    left: 0;\r\n    width: 100%;\r\n    height: 100%;\r\n    background-color: rgba(0, 0, 0, 0.5);\r\n    display: flex;\r\n    justify-content: center;\r\n    align-items: center;\r\n    opacity: 0;\r\n    visibility: hidden;\r\n    transition: opacity 0.2s ease-in-out, visibility 0.2s ease-in-out;\r\n\r\n    &.open {\r\n        opacity: 1;\r\n        visibility: visible;\r\n    }\r\n}\r\n\r\n.dialog {\r\n    background-color: white;\r\n    border-radius: 4px;\r\n    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);\r\n    width: 400px;\r\n    max-width: 90%;\r\n    position: absolute;\r\n    // z-index: 999;\r\n    transform: scale(0.9);\r\n    opacity: 0;\r\n    transition: transform 0.2s ease-in-out, opacity 0.2s ease-in-out;\r\n\r\n    &.open {\r\n        transform: scale(1);\r\n        opacity: 1;\r\n    }\r\n\r\n    &:focus {\r\n        outline: none;\r\n    }\r\n}\r\n\r\n.dialog-header {\r\n    border-bottom: 1px solid #e0e0e0;\r\n    display: flex;\r\n    justify-content: space-between;\r\n    align-items: center;\r\n\r\n}\r\n\r\n.dialog-close {\r\n    color: #b0aaaa;\r\n    background: none;\r\n    border: none;\r\n    cursor: pointer;\r\n    outline: none;\r\n}\r\n\r\n.dialog-content {\r\n    padding: 16px;\r\n    overflow: auto;\r\n\r\n}\r\n\r\n.dialog-footer {\r\n    border-top: 1px solid #e0e0e0;\r\n}\r\n\r\n.hover-scale {\r\n    transition: all 0.3s ease;\r\n\r\n    &:hover {\r\n        color: red;\r\n        transform: scale(1.3);\r\n    }\r\n}"],"sourceRoot":""}]);
+  transform: scale(1.2);
+}`, "",{"version":3,"sources":["webpack://./src/index.scss"],"names":[],"mappings":"AAAA;EACI,eAAA;EACA,aAAA;EACA,MAAA;EACA,OAAA;EACA,WAAA;EACA,YAAA;EACA,oCAAA;EACA,aAAA;EACA,uBAAA;EACA,mBAAA;EACA,UAAA;EACA,kBAAA;EACA,iEAAA;AACJ;AACI;EACI,UAAA;EACA,mBAAA;AACR;;AAGA;EACI,uBAAA;EACA,kBAAA;EACA,yCAAA;EACA,YAAA;EACA,cAAA;EACA,kBAAA;EAEA,qBAAA;EACA,UAAA;EACA,gEAAA;AADJ;AAGI;EACI,mBAAA;EACA,UAAA;AADR;AAII;EACI,aAAA;AAFR;AAMI;EACI,UAAA;EACA,WAAA;AAJR;AAOI;EACI,kBAAA;EACA,sBAAA;AALR;AAQI;EACI,yBAAA;AANR;;AAUA;EACI,gCAAA;EACA,YAAA;EACA,aAAA;EACA,8BAAA;EACA,mBAAA;AAPJ;;AAWA;EACI,cAAA;EACA,gBAAA;EACA,YAAA;EACA,eAAA;EACA,eAAA;EACA,aAAA;AARJ;;AAWA;EACI,aAAA;EACA,cAAA;AARJ;;AAYA;EACI,6BAAA;AATJ;;AAYA;EACI,yBAAA;AATJ;AAWI;EACI,UAAA;EACA,qBAAA;AATR","sourcesContent":[".dialog-overlay {\r\n    position: fixed;\r\n    z-index: 1002; // z-index应该加在最外层的父级才有作用\r\n    top: 0;\r\n    left: 0;\r\n    width: 100%;\r\n    height: 100%;\r\n    background-color: rgba(0, 0, 0, 0.5);\r\n    display: flex;\r\n    justify-content: center;\r\n    align-items: center;\r\n    opacity: 0;\r\n    visibility: hidden;\r\n    transition: opacity 0.3s ease-in-out, visibility 0.3s ease-in-out;\r\n\r\n    &.open {\r\n        opacity: 1;\r\n        visibility: visible;\r\n    }\r\n}\r\n\r\n.dialog {\r\n    background-color: white;\r\n    border-radius: 4px;\r\n    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);\r\n    width: 400px;\r\n    max-width: 90%;\r\n    position: absolute;\r\n    // z-index: 999;\r\n    transform: scale(0.9);\r\n    opacity: 0;\r\n    transition: transform 0.3s ease-in-out, opacity 0.3s ease-in-out;\r\n\r\n    &.open {\r\n        transform: scale(1);\r\n        opacity: 1;\r\n    }\r\n\r\n    &:focus {\r\n        outline: none;\r\n    }\r\n\r\n    // 滚动条变细\r\n    ::-webkit-scrollbar {\r\n        width: 6px;\r\n        height: 6px;\r\n    }\r\n\r\n    ::-webkit-scrollbar-thumb {\r\n        border-radius: 2px;\r\n        background-color: #ccc;\r\n    }\r\n\r\n    ::-webkit-scrollbar-track {\r\n        background-color: #f1f1f1;\r\n    }\r\n}\r\n\r\n.dialog-header {\r\n    border-bottom: 1px solid #e0e0e0;\r\n    cursor: move;\r\n    display: flex;\r\n    justify-content: space-between;\r\n    align-items: center;\r\n\r\n}\r\n\r\n.dialog-close {\r\n    color: #b0aaaa;\r\n    background: none;\r\n    border: none;\r\n    font-size: 28px;\r\n    cursor: pointer;\r\n    outline: none;\r\n}\r\n\r\n.dialog-content {\r\n    padding: 16px;\r\n    overflow: auto;\r\n\r\n}\r\n\r\n.dialog-footer {\r\n    border-top: 1px solid #e0e0e0;\r\n}\r\n\r\n.hover-scale {\r\n    transition: all 0.3s ease;\r\n\r\n    &:hover {\r\n        color: red;\r\n        transform: scale(1.2);\r\n    }\r\n}"],"sourceRoot":""}]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 

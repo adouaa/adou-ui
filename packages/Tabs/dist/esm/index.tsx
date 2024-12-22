@@ -1,6 +1,5 @@
 import React, { useEffect, useImperativeHandle, useRef, useState } from "react";
 import { withTranslation } from "react-i18next";
-
 import "./index.scss";
 
 interface TabsProps {
@@ -192,11 +191,12 @@ const Tabs = (props: TabsProps) => {
 
   useImperativeHandle(tabRef, () => ({
     goTo,
+    getCurrentIndex: () => currentIndex,
   }));
 
   return (
     <>
-      <div className="tabs-box" style={{ height: "100%" }}>
+      <div className="tabs-box" /*  style={{ height: "100%" }} */>
         {/* 先渲染头部 */}
         {renderHeader()}
         {/* 再渲染内容 */}

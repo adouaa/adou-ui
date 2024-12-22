@@ -491,5 +491,4 @@ const ListNode = ({
   );
 };
 
-
 export default ListNode;

@@ -622,6 +622,11 @@ var update = injectStylesIntoStyleTag_default()(cjs_ruleSet_1_rules_1_use_2_src/
 
 const ResizableSidebar = _ref => {
   let {
+    wrapperClsassName,
+    wrapperStyle,
+    showTggleBtnWhenNotExpanded = true,
+    resizeableSliderbarRef,
+    showToggleBtn = true,
     toggleBtnStyle,
     toggleBtnClassName,
     contentOverflow = true,
@@ -631,7 +636,8 @@ const ResizableSidebar = _ref => {
     minDragWidth = 0,
     minWidth = 50,
     maxWidth = "300px",
-    children
+    children,
+    onToggle
   } = _ref;
   const sidebarRef = (0,external_root_React_commonjs2_react_commonjs_react_amd_react_.useRef)(null);
   const [isResizing, setIsResizing] = (0,external_root_React_commonjs2_react_commonjs_react_amd_react_.useState)(false);
@@ -663,7 +669,9 @@ const ResizableSidebar = _ref => {
   };
   const toggleSidebar = () => {
     setCurrentSidebarWidth(parseFloat(currentSidebarWidth) > minWidth ? minWidth + "px" : initialWidth || maxWidth); // 假设展开宽度为300
-    setIsExpanded(prev => !prev);
+    const oldIsExpanded = isExpanded; // 记录当前展开状态
+    onToggle && onToggle(!isExpanded);
+    setIsExpanded(!oldIsExpanded);
   };
   const handleSliderBarMouseDown = e => {
     setIsDragging(true);
@@ -717,14 +725,21 @@ const ResizableSidebar = _ref => {
       setCurrentSidebarWidth(initialWidth ? parseFloat(initialWidth) > parseFloat(maxWidth) ? maxWidth : initialWidth : 0);
     }, 100);
   }, []);
+  (0,external_root_React_commonjs2_react_commonjs_react_amd_react_.useImperativeHandle)(resizeableSliderbarRef, () => ({
+    getExpandStatus: () => {
+      return isExpanded;
+    },
+    toggleSidebar
+  }), [isExpanded]);
   return /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement((external_root_React_commonjs2_react_commonjs_react_amd_react_default()).Fragment, null, /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("div", {
     ref: resizeableContainerRef,
-    className: "pb-1 resizable-sidebar pe-1 ".concat(isDragging ? "draging" : ""),
+    className: "pb-1 resizable-sidebar pe-1 ".concat(isDragging ? "draging" : "", " ").concat(wrapperClsassName ? wrapperClsassName : ""),
     style: {
       width: "".concat(currentSidebarWidth),
       height: initialHeight || initialSiderBarHeight + "px" || 0,
-      paddingLeft: "5px"
+      paddingLeft: "5px",
       // overflow: currentSidebarWidth === maxWidth ? "auto" : "hidden",
+      ...wrapperStyle
     }
   }, /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("div", {
     className: "content",
@@ -745,7 +760,7 @@ const ResizableSidebar = _ref => {
     onDrag: handleDrag,
     onDragEnd: handleDragEnd,
     onDragStart: handleDragStart
-  }), initialHeight > 0 || initialSiderBarHeight > 0 ? /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("div", {
+  }), (isExpanded ? (initialHeight > 0 || initialSiderBarHeight > 0) && showToggleBtn : showTggleBtnWhenNotExpanded) ? /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("div", {
     ref: toggleBtnRef,
     className: "toggle-btn ".concat(toggleBtnClassName),
     onClick: toggleSidebar,

@@ -234,7 +234,7 @@ ___CSS_LOADER_EXPORT___.push([module.id, `/* index.scss */
   padding: 0 15px;
 }
 .tabs-box .tabs-header .tabs-header-item-box .tabs-header-item {
-  padding: 10px 0;
+  padding: 9px 0;
   margin-bottom: -1px;
   font-size: 14px;
   cursor: pointer;
@@ -252,7 +252,7 @@ ___CSS_LOADER_EXPORT___.push([module.id, `/* index.scss */
 }
 .tabs-box .header-wrapper .extra-content {
   cursor: pointer;
-}`, "",{"version":3,"sources":["webpack://./src/index.scss"],"names":[],"mappings":"AAAA,eAAA;AACA;EACI;IACI,4BAAA;IACA,UAAA;EACN;EAEE;IACI,wBAAA;IACA,UAAA;EAAN;AACF;AAGA;EACI;IACI,wBAAA;IACA,UAAA;EADN;EAIE;IACI,2BAAA;IACA,UAAA;EAFN;AACF;AAKA;EACI,wCAAA;AAHJ;;AAMA;EACI,wCAAA;AAHJ;;AAMA,eAAA;AACA;EACI;IACI,UAAA;EAHN;EAME;IACI,UAAA;EAJN;AACF;AAOA;EACI;IACI,UAAA;EALN;EAQE;IACI,UAAA;EANN;AACF;AASA;EACI,+BAAA;AAPJ;;AAUA;EACI,gCAAA;AAPJ;;AAaQ;EACI,WAAA;AAVZ;AAgBI;EACI,aAAA;EACA,gCAAA;AAdR;AAgBQ;EACI,eAAA;AAdZ;AAgBY;EACI,eAAA;EACA,mBAAA;EACA,eAAA;EACA,eAAA;AAdhB;AAkBQ;EACI,iBAAA;AAhBZ;AAmBQ;EACI,gCAAA;EACA,cAAA;EACA,sBAAA;AAjBZ;AAsBI;EACI,kBAAA;AApBR;AAsBQ;EAEI,eAAA;AArBZ","sourcesContent":["/* index.scss */\n@keyframes slideInFromLeft {\n    from {\n        transform: translateX(-100%);\n        opacity: 0;\n    }\n\n    to {\n        transform: translateX(0);\n        opacity: 1;\n    }\n}\n\n@keyframes slideOutToRight {\n    from {\n        transform: translateX(0);\n        opacity: 1;\n    }\n\n    to {\n        transform: translateX(100%);\n        opacity: 0;\n    }\n}\n\n.slide-enter {\n    animation: slideInFromLeft 0.5s forwards;\n}\n\n.slide-exit {\n    animation: slideOutToRight 0.5s forwards;\n}\n\n/* styles.css */\n@keyframes fadeIn {\n    from {\n        opacity: 0;\n    }\n\n    to {\n        opacity: 1;\n    }\n}\n\n@keyframes fadeOut {\n    from {\n        opacity: 1;\n    }\n\n    to {\n        opacity: 0;\n    }\n}\n\n.fade-enter {\n    animation: fadeIn 0.5s forwards;\n}\n\n.fade-exit {\n    animation: fadeOut 0.5s forwards;\n}\n\n\n.tabs-box {\n    .nav {\n        .nav-link {\n            color: #000;\n        }\n\n        .nav-link.active {}\n    }\n\n    .tabs-header {\n        display: flex;\n        border-bottom: 1px solid #dcdfe6;\n\n        .tabs-header-item-box {\n            padding: 0 15px;\n\n            .tabs-header-item {\n                padding: 10px 0;\n                margin-bottom: -1px;\n                font-size: 14px;\n                cursor: pointer;\n            }\n        }\n\n        .tabs-header-item-box.first {\n            padding-left: 0px;\n        }\n\n        .tabs-header-item.active {\n            border-bottom: 1px solid #409eff;\n            color: #409eff;\n            box-sizing: border-box;\n\n        }\n    }\n\n    .header-wrapper {\n        position: relative;\n\n        .extra-content {\n\n            cursor: pointer;\n        }\n    }\n}"],"sourceRoot":""}]);
+}`, "",{"version":3,"sources":["webpack://./src/index.scss"],"names":[],"mappings":"AAAA,eAAA;AACA;EACI;IACI,4BAAA;IACA,UAAA;EACN;EAEE;IACI,wBAAA;IACA,UAAA;EAAN;AACF;AAGA;EACI;IACI,wBAAA;IACA,UAAA;EADN;EAIE;IACI,2BAAA;IACA,UAAA;EAFN;AACF;AAKA;EACI,wCAAA;AAHJ;;AAMA;EACI,wCAAA;AAHJ;;AAMA,eAAA;AACA;EACI;IACI,UAAA;EAHN;EAME;IACI,UAAA;EAJN;AACF;AAOA;EACI;IACI,UAAA;EALN;EAQE;IACI,UAAA;EANN;AACF;AASA;EACI,+BAAA;AAPJ;;AAUA;EACI,gCAAA;AAPJ;;AAaQ;EACI,WAAA;AAVZ;AAgBI;EACI,aAAA;EACA,gCAAA;AAdR;AAgBQ;EACI,eAAA;AAdZ;AAgBY;EACI,cAAA;EACA,mBAAA;EACA,eAAA;EACA,eAAA;AAdhB;AAkBQ;EACI,iBAAA;AAhBZ;AAmBQ;EACI,gCAAA;EACA,cAAA;EACA,sBAAA;AAjBZ;AAwBI;EACI,kBAAA;AAtBR;AAwBQ;EAEI,eAAA;AAvBZ","sourcesContent":["/* index.scss */\n@keyframes slideInFromLeft {\n    from {\n        transform: translateX(-100%);\n        opacity: 0;\n    }\n\n    to {\n        transform: translateX(0);\n        opacity: 1;\n    }\n}\n\n@keyframes slideOutToRight {\n    from {\n        transform: translateX(0);\n        opacity: 1;\n    }\n\n    to {\n        transform: translateX(100%);\n        opacity: 0;\n    }\n}\n\n.slide-enter {\n    animation: slideInFromLeft 0.5s forwards;\n}\n\n.slide-exit {\n    animation: slideOutToRight 0.5s forwards;\n}\n\n/* styles.css */\n@keyframes fadeIn {\n    from {\n        opacity: 0;\n    }\n\n    to {\n        opacity: 1;\n    }\n}\n\n@keyframes fadeOut {\n    from {\n        opacity: 1;\n    }\n\n    to {\n        opacity: 0;\n    }\n}\n\n.fade-enter {\n    animation: fadeIn 0.5s forwards;\n}\n\n.fade-exit {\n    animation: fadeOut 0.5s forwards;\n}\n\n\n.tabs-box {\n    .nav {\n        .nav-link {\n            color: #000;\n        }\n\n        .nav-link.active {}\n    }\n\n    .tabs-header {\n        display: flex;\n        border-bottom: 1px solid #dcdfe6;\n\n        .tabs-header-item-box {\n            padding: 0 15px;\n\n            .tabs-header-item {\n                padding: 9px 0;\n                margin-bottom: -1px;\n                font-size: 14px;\n                cursor: pointer;\n            }\n        }\n\n        .tabs-header-item-box.first {\n            padding-left: 0px;\n        }\n\n        .tabs-header-item.active {\n            border-bottom: 1px solid #409eff;\n            color: #409eff;\n            box-sizing: border-box;\n\n        }\n\n\n    }\n\n    .header-wrapper {\n        position: relative;\n\n        .extra-content {\n\n            cursor: pointer;\n        }\n    }\n}"],"sourceRoot":""}]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 
@@ -1991,13 +1991,11 @@ const Tabs = props => {
     setCurrentIndex(index);
   };
   (0,external_root_React_commonjs2_react_commonjs_react_amd_react_.useImperativeHandle)(tabRef, () => ({
-    goTo
+    goTo,
+    getCurrentIndex: () => currentIndex
   }));
   return /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement((external_root_React_commonjs2_react_commonjs_react_amd_react_default()).Fragment, null, /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("div", {
-    className: "tabs-box",
-    style: {
-      height: "100%"
-    }
+    className: "tabs-box" /*  style={{ height: "100%" }} */
   }, renderHeader(), renderContent()));
 };
 /* harmony default export */ const src_0 = (withTranslation()(Tabs));

@@ -7,7 +7,6 @@ import React, {
   useImperativeHandle,
 } from "react";
 import ListNode from "./ListNode";
-import Input from "adou-ui/Input";
 
 export type NodeType = {
   id: string;
