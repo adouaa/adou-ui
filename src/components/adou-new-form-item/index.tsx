@@ -294,7 +294,7 @@ const Form = forwardRef(
         return (
             <div
                 style={{ flex: 1 }}
-                className={`adou-new-form-wrapper ${externalWrapperClassName} ${wrpa ? 'flex-wrap' : 'flex-nowrap'} ${layout === 'inline' ? 'd-flex' : ''}`}
+                className={`adou-new-form-wrapper ${externalWrapperClassName ? externalWrapperClassName : ''} ${wrpa ? 'flex-wrap' : 'flex-nowrap'} ${layout === 'inline' ? 'd-flex' : ''}`}
                 ref={formRef}
                 onKeyDown={handleKeyDown}
             >

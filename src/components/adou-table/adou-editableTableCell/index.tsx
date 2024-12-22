@@ -18,7 +18,7 @@ interface TableCellProps {
     eidtable?: boolean;
     render?: any;
     width?: string;
-    textPosition?: 'center' | 'left' | 'right' | 'justify';
+    textPosition?: 'center' | 'start' | 'end' | 'justify';
     verticalAlign?: 'middle' | 'top' | 'bottom' | 'baseline';
     onChange?: (rowIndex: number, colIndex: number, value: string) => void;
     onEditCancel?: () => void;
@@ -66,7 +66,8 @@ const TableCell = (props: TableCellProps) => {
     };
     const handleChange = (e: any) => {};
 
-    const handleExpandIconClick = () => {
+    const handleExpandIconClick = (e: React.MouseEvent) => {
+        e.stopPropagation();
         console.log('999: ', 999);
         onExpand && onExpand();
     };

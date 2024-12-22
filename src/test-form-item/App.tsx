@@ -83,7 +83,7 @@ const App = ({}: AppProps) => {
                 cs1: '测试测试草率四',
                 position1: 'xm',
                 cs2: 'cs21',
-                area: '你好5555',
+                area: [{ value: '你好44', label: '你好44' }, '你好5555'],
                 position2: '人民万岁',
                 position3: ['你好呀', '同志们'],
                 liveSearch2: '米粉',

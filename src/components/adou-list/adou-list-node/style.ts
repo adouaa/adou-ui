@@ -6,11 +6,49 @@ interface ListNodeWrapperProps {
 }
 
 export const ListNodeWrapper = styled.div<ListNodeWrapperProps>`
-    .list-node-wrapper {
+    .list-node-wrapper111 {
         color: #606266;
         font-size: 14px;
 
         .node-item-list {
+            position: relative;
+
+            &.show-line::before {
+                height: calc(0.875rem * 1.5 + 0.5rem + 0.5rem);
+                content: '';
+                position: absolute;
+                left: -8px;
+                // border-inline-end: 1px solid #d9d9d9;
+                width: 0.875rem;
+                top: calc(0px - 1.24rem);
+                border-bottom: 1px solid #d9d9d9;
+                border-left: 1px solid #d9d9d9;
+                z-index: 0;
+            }
+
+            &.show-line:not(.each-last):after {
+                content: '';
+                position: absolute;
+                // top: calc(0.875rem * 1.5);
+                left: -8px;
+                bottom: -16px;
+                // border-inline-end: 1px solid #d9d9d9;
+                width: 0.875rem;
+                height: 100%;
+                border-bottom: 1px solid #d9d9d9;
+                border-left: 1px solid #d9d9d9;
+                border-bottom-width: 0;
+                z-index: -1;
+            }
+
+            &.show-line.first::after {
+                // border-left-width: 5px;
+            }
+
+            &.show-line.first::before {
+                border-left-width: 0px;
+            }
+
             .node-item-content {
                 // 使用 display 会出现 hover背景色和 active高亮色宽度比较短，但是没事。。
                 display: flex;

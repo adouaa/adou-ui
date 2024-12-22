@@ -46,7 +46,7 @@ const App = ({}: AppProps) => {
             checked: false,
             children: [
                 { id: 'member006', teamName: 'Frank', email: 'frank.support@company.com', age: 36, count: 51, checked: false },
-                { id: 'member007', teamName: 'Grace', email: 'grace.support@company.com', age: 35, count: 5, checked: true },
+                { id: 'member007', teamName: 'Grace', email: 'grace.support@company.com', age: 35, count: 5, checked: false },
             ],
         },
         {
@@ -93,8 +93,8 @@ const App = ({}: AppProps) => {
     };
 
     return (
-        <div className="expandAll={false} app-wrapper">
-            <AdouTable collection width={'600px'} headers={headerLabels} tableBorderd expandAll={false} textPosition="center" collapse data={data}>
+        <div className="expandAll={false} app-wrapper p-3">
+            <AdouTable defaultChecked={'all'} multiple collection width={'600px'} headers={headerLabels} tableBorderd expandAll={false} textPosition="center" collapse data={data}>
                 {headerLabels.map((label) => (
                     <EditableTableCell sortable={label.sortable} key={label.prop} {...label} />
                 ))}

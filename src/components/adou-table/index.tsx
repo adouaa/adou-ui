@@ -1,4 +1,3 @@
-import classNames from 'classnames';
 import React, { Fragment, ReactElement, useEffect, useImperativeHandle, useState } from 'react';
 import { withTranslation } from 'react-i18next';
 import EditableTableCell from './adou-editableTableCell';
@@ -15,13 +14,14 @@ interface TableProps {
     width?: any; // 控制 table的宽度，太宽的话 可以形成滚动条
     tableBgc?: any;
     tableRef?: any;
-    activeId?: number;
+    // activeId有值，才会在列表刷新的时候，高亮显示刷新列表前选中的行。否则一刷新就会清空选中行
+    activeId?: number | string;
     maxWidth?: any;
     showIndex?: boolean;
-    single?: boolean;
+    multiple?: boolean;
     id?: string;
     trPointer?: boolean;
-    textPosition?: 'center' | 'left' | 'right' | 'justify';
+    textPosition?: 'center' | 'start' | 'end' | 'justify';
     collection?: boolean;
     collapse?: boolean;
     expandAll?: boolean;
@@ -64,7 +64,7 @@ const Table = (props: TableProps) => {
         activeId,
         maxWidth,
         showIndex = true,
-        single = true,
+        multiple = false,
         id = 'id',
         trPointer = true,
         textPosition,
@@ -89,21 +89,10 @@ const Table = (props: TableProps) => {
         headBGC = '',
         divider,
         maxHeight = '500px',
-        minHeight = '300px',
+        minHeight = '0px',
         onRowDoubleClick,
         onRowClick,
     } = props;
-
-    const cls = classNames({
-        table: true,
-        'table-striped': tableStriped,
-        // "table-hover": tableHover, 加上这句话就没有动画效果了
-        'table-bordered': tableBorderd,
-        'table-borderless': tableBorderless,
-        [`table-${size}`]: true,
-        [`table-${headColor}`]: true,
-        'overflow-auto': true,
-    });
 
     const [tableData, setTableData] = useState<any[]>([]);
     const [originalTableData, setOriginalTableData] = useState<any[]>([]);
@@ -158,8 +147,22 @@ const Table = (props: TableProps) => {
                         item.isUp = false;
                         // 需要降序排序
                         if (item.isDown) {
-                            console.log('down: ');
-                            setTableData((preArr: any) => [...preArr].sort((a: any, b: any) => (a[prop] < b[prop] ? 1 : -1)));
+                            setTableData((preArr: any) => {
+                                // 先对整个preArr进行深拷贝--不然会把原来的数据也改变掉，导致取消排序的时候无法正确的恢复数据到最初状态
+                                const newArr = JSON.parse(JSON.stringify(preArr));
+                                return newArr
+                                    .map((item: any) => {
+                                        // 对item.children进行深拷贝（假设它是数组，如果可能不存在要做相应的判断处理）
+                                        const childrenCopy = item.children ? JSON.parse(JSON.stringify(item.children)) : [];
+                                        if (childrenCopy.length > 0) {
+                                            // 对拷贝后的childrenCopy进行排序
+                                            childrenCopy.sort((a: any, b: any) => (a[prop] < b[prop] ? 1 : -1));
+                                            item.children = childrenCopy;
+                                        }
+                                        return item;
+                                    })
+                                    .sort((a: any, b: any) => (a[prop] < b[prop] ? 1 : -1));
+                            });
                         } else {
                             setTableData(data);
                         }
@@ -168,7 +171,22 @@ const Table = (props: TableProps) => {
                         item.isDown = false;
                         // 需要升序排序
                         if (item.isUp) {
-                            setTableData((preArr: any) => [...preArr].sort((a: any, b: any) => (a[prop] > b[prop] ? 1 : -1)));
+                            setTableData((preArr: any) => {
+                                // 先对整个preArr进行深拷贝--不然会把原来的数据也改变掉，导致取消排序的时候无法正确的恢复数据到最初状态
+                                const newArr = JSON.parse(JSON.stringify(preArr));
+                                return newArr
+                                    .map((item: any) => {
+                                        // 对item.children进行深拷贝（假设它是数组，如果可能不存在要做相应的判断处理）
+                                        const childrenCopy = item.children ? JSON.parse(JSON.stringify(item.children)) : [];
+                                        if (childrenCopy.length > 0) {
+                                            // 对拷贝后的childrenCopy进行排序
+                                            childrenCopy.sort((a: any, b: any) => (a[prop] > b[prop] ? 1 : -1));
+                                            item.children = childrenCopy;
+                                        }
+                                        return item;
+                                    })
+                                    .sort((a: any, b: any) => (a[prop] > b[prop] ? 1 : -1));
+                            });
                         } else {
                             setTableData(data);
                         }
@@ -225,8 +243,8 @@ const Table = (props: TableProps) => {
                             {collection && (
                                 <>
                                     {/* 复选框 */}
-                                    <th scope="col th-collection" style={{ minWidth: '50px', width: '50px', maxWidth: '50px' }}>
-                                        {!single && <input checked={checkedAll} onChange={handleCheckedAllChange} type={single ? 'radio' : 'checkbox'} />}
+                                    <th scope="col th-collection" style={{ minWidth: '50px', width: '50px', maxWidth: '50px', textAlign: 'center' }}>
+                                        {multiple && <input checked={checkedAll} onChange={handleCheckedAllChange} type={!multiple ? 'radio' : 'checkbox'} />}
                                     </th>
                                 </>
                             )}
@@ -284,7 +302,7 @@ const Table = (props: TableProps) => {
                             return (
                                 <Fragment key={data[id]}>
                                     <tr
-                                        onClick={() => handleRowClick(data, rowIndex)}
+                                        onClick={() => handleRowClick(data)}
                                         // onDoubleClick={() => handleRowDoubleClick(data)}
                                         key={rowIndex}
                                         className={`tr-content ${data.checked ? 'tr-checked' : ''}`}
@@ -298,7 +316,7 @@ const Table = (props: TableProps) => {
                                                     id={data[id]}
                                                     checked={data.checked}
                                                     onChange={(e) => handleCheckboxChange(e, data)}
-                                                    type={single ? 'radio' : 'checkbox'}
+                                                    type={!multiple ? 'radio' : 'checkbox'}
                                                 />
                                             </td>
                                         )}
@@ -334,13 +352,14 @@ const Table = (props: TableProps) => {
                                                     colIndex: colIndex,
                                                     canCollapse: data.children,
                                                     collapse: data.collapse,
-                                                    textPosition,
+                                                    // 防止 Table 的 textPosition 不生效的bug
+                                                    textPosition: textPositionObject[prop],
                                                     width: widthObject[childProps.prop],
                                                     // maxWidth: childProps.maxWidth,
                                                 } as React.Attributes);
                                                 return (
                                                     <td
-                                                        className={`${!colIndex && collapse && data.children ? 'text-left' : `text-${textPositionObject[prop]}`} `}
+                                                        className={`${!colIndex && collapse && data.children ? 'text-start' : `text-${textPositionObject[prop]}`} `}
                                                         style={{
                                                             verticalAlign: verticalAlignObject[prop],
                                                             width: widthObject[childProps.prop],
@@ -370,6 +389,7 @@ const Table = (props: TableProps) => {
                                         data.children &&
                                         data.children.map((childData: any, index: number) => (
                                             <tr
+                                                onClick={() => handleRowClick(data, true, childData)}
                                                 className="collapse-table-tr animate__animated animate__fadeIn"
                                                 key={childData[id]}
                                                 /* style={{
@@ -384,7 +404,7 @@ const Table = (props: TableProps) => {
                                                             id={childData[id]}
                                                             checked={childData.checked}
                                                             onChange={(e: any) => handleCheckboxChange(e, childData)}
-                                                            type={single ? 'radio' : 'checkbox'}
+                                                            type={!multiple ? 'radio' : 'checkbox'}
                                                         />
                                                     </td>
                                                 )}
@@ -485,7 +505,7 @@ const Table = (props: TableProps) => {
                 if (item[id] === row[id]) {
                     item.checked = !item.checked;
                 } else {
-                    if (single) {
+                    if (!multiple) {
                         item.checked = false;
                     }
                 }
@@ -504,15 +524,39 @@ const Table = (props: TableProps) => {
      *
      * 单击tr
      */
-    const handleRowClick = (row: any, rowIndex?: number) => {
+    const handleRowClick = (row: any, isChildren?: boolean, childData?: any) => {
         // handleCollapseClick(row, rowIndex!);
         if (clickChecked || collection) {
             const data: any = tableData.map((item: any) => {
-                if (item[id] === row[id]) {
-                    item.checked = !item.checked;
+                if (isChildren) {
+                    if (item[id] === row[id]) {
+                        const rowChildren = row.children;
+                        const updatedChildren = rowChildren.map((child: any) => {
+                            if (child[id] === childData[id]) {
+                                child.checked = !child.checked;
+                            } else if (!multiple) {
+                                child.checked = false;
+                            }
+                            return child;
+                        });
+                        item.children = updatedChildren;
+                        const isChildrenAllChecked = areAllChecked(updatedChildren);
+                        item.checked = isChildrenAllChecked;
+                    }
                 } else {
-                    if (single) {
-                        item.checked = false;
+                    if (item[id] === row[id]) {
+                        item.checked = !item.checked;
+                        if (row.children?.length) {
+                            // 将它的子级的所有数据都选中
+                            row.children = row.children.map((child: any) => {
+                                child.checked = item.checked;
+                                return child;
+                            });
+                        }
+                    } else {
+                        if (!multiple) {
+                            item.checked = false;
+                        }
                     }
                 }
                 return item;
@@ -533,6 +577,11 @@ const Table = (props: TableProps) => {
             setTableData((preData: any) =>
                 preData.map((item: any) => {
                     item.checked = true;
+                    item.children = item.children?.map((item: any) => {
+                        item.checked = true;
+                        return item;
+                    });
+
                     return item;
                 })
             );
@@ -623,12 +672,27 @@ const Table = (props: TableProps) => {
     }, [data]);
 
     useEffect(() => {
+        /* setTableData((preData: any) =>
+            preData.map((item: any) => {
+                const isChildrenAllChecked = areAllChecked(item.children);
+                if (isChildrenAllChecked) {
+                    item.checked = true;
+                }
+                return item;
+            })
+        ); */
+    }, [tableData]);
+
+    useEffect(() => {
         setTableData((preData: any) =>
             preData.map((item: any) => {
-                if (item[id] === activeId) {
-                    item.checked = true;
-                } else {
-                    item.checked = false;
+                // 判断 id 是否存在，如果 id 不存在，并且 activeId 也不存在，那也是相等的，得排除
+                if (activeId) {
+                    if (item[id] && item[id] === activeId) {
+                        item.checked = true;
+                    } else {
+                        item.checked = false;
+                    }
                 }
                 return item;
             })
@@ -650,7 +714,10 @@ const Table = (props: TableProps) => {
     return (
         <>
             <div style={{ minHeight: minHeight, maxHeight: maxHeight, overflow: 'auto', width }} className={`table-wrapper ${`table-responsive${'-' + tableResponsive}`}`}>
-                <table style={{ background: tableBgc, width }} className={cls}>
+                <table
+                    style={{ background: tableBgc, width }}
+                    className={`table ${tableStriped ? 'table-striped' : ''} ${tableBorderd ? 'table-bordered' : 'table-borderless'} table-${size} ${headColor ? `table-${headColor}` : ''} overflow-auto`}
+                >
                     {renderCollapseChildren()}
                 </table>
             </div>

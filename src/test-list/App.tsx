@@ -1,3 +1,4 @@
+import Card from 'components/adou-card';
 import List from 'components/adou-list';
 import React, { useEffect, useState } from 'react';
 
@@ -212,34 +213,32 @@ const App = () => {
         return flattened;
     }
 
-    useEffect(() => {
-        const flattenedData = flattenDataWithoutNesting(testData);
-        const arr = convertListToTree(flattenedData, null);
-        setMyData(arr);
-    }, []);
+    useEffect(() => {}, []);
 
     useEffect(() => {}, [myData]);
     // setMyData([]);
 
     return (
         <div className="p-5">
-            <List
-                defaltExpandNodes={['1', '1-1', '1-1-1', '3-1-1-2', 54149648565]}
-                showLine
-                activeId={activeId}
-                data={myData}
-                deleteIconClass="fa fa-trash"
-                addIconClass="fa fa-plus"
-                editIconClass="fa fa-pencil"
-                isTree={true}
-                showOptIcons={true}
-                showAddIcon={true}
-                showEditIcon={true}
-                onToggle={(node) => console.log('节点展开/折叠:', node)}
-                onItemClick={(node) => handleItemClick(node)}
-                onToggleIconClick={(node) => console.log('图标点击:', node)}
-                onOptIconClick={(type, node) => console.log(`操作图标点击: 类型:${type}, 节点:${node}`)}
-            />
+            <Card>
+                <List
+                    defaltExpandNodes={['1', '1-1', '1-1-1', '3-1-1-2', 54149648565]}
+                    showLine
+                    activeId={activeId}
+                    data={testData}
+                    deleteIconClass="fa fa-trash"
+                    addIconClass="fa fa-plus"
+                    editIconClass="fa fa-pencil"
+                    isTree={true}
+                    showOptIcons={true}
+                    showAddIcon={true}
+                    showEditIcon={true}
+                    onToggle={(node) => console.log('节点展开/折叠:', node)}
+                    onItemClick={(node) => handleItemClick(node)}
+                    onToggleIconClick={(node) => console.log('图标点击:', node)}
+                    onOptIconClick={(type, node) => console.log(`操作图标点击: 类型:${type}, 节点:${node}`)}
+                />
+            </Card>
             <h1>4测试</h1>
         </div>
     );

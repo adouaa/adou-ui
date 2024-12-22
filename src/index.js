@@ -58,11 +58,11 @@ import ReactDOM from 'react-dom/client';
 
 // import App from './test-slider/App.tsx';
 
-import App from './test-table/App.tsx';
+// import App from './test-table/App.tsx';
 
 // import App from './test-rate/App.tsx';
 
-// import App from './test-list/App.tsx';
+import App from './test-list/App.tsx';
 
 // import App from './doc/test-button';
 
@@ -75,8 +75,6 @@ import App from './test-table/App.tsx';
 // import App from './test-line-break-list/App.tsx';
 
 // import App from './test-input/App.tsx';
-
-import App from './test-select/App.tsx';
 
 import 'bootstrap/dist/css/bootstrap.min.css';
 

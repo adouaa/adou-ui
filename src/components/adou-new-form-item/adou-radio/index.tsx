@@ -25,7 +25,7 @@ interface RadioProps {
     externalClassName?: string;
     options?: any[];
     inline?: boolean;
-    onChangeOK?: (item: any) => void;
+    onChange?: (item: any) => void;
     onFormDataChange?: (key: string, value: any) => void;
     onFieldChange?: (name: string, value: any) => void;
     onValidateField?: (name: string, value?: any) => void;
@@ -53,7 +53,7 @@ const Radio: React.ForwardRefRenderFunction<any, RadioProps> = (props, ref) => {
         inline = true,
         options,
         defaultValue,
-        onChangeOK,
+        onChange,
         onFormDataChange,
         onFieldChange,
         onValidateField,
@@ -79,7 +79,7 @@ const Radio: React.ForwardRefRenderFunction<any, RadioProps> = (props, ref) => {
             };
         });
         setOptionsList(data);
-        onChangeOK && onChangeOK(item);
+        onChange && onChange(item);
         if (returnType === 'obj') {
             onFormDataChange && onFormDataChange(name!, item);
             handleFieldChange && handleFieldChange(item);
@@ -167,7 +167,7 @@ const Radio: React.ForwardRefRenderFunction<any, RadioProps> = (props, ref) => {
                 )}
                 <div className="option-box" style={{ display: inline ? 'flex' : '' }}>
                     {optionsList?.map((item, index) => (
-                        <div key={item[valueKey] + index} className="form-check me-2">
+                        <div key={item[valueKey] + index} className="form-check me-2 mb-0">
                             <input
                                 disabled={readOnly ?? item.disabled}
                                 className={`form-check-input ${externalClassName}`}
