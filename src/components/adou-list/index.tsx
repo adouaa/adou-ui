@@ -58,7 +58,7 @@ const List = forwardRef(
             wrap = true,
             data,
             isTree = false,
-            showOptIcons = true,
+            showOptIcons = false,
             showAddIcon = true,
             showEditIcon = true,
             activeId,
@@ -159,7 +159,6 @@ const List = forwardRef(
             const buildTree = (items: any[], parentId: any, currentLevel: any) => {
                 const children: any = [];
                 items.forEach((item: any) => {
-                    console.log('item: ', item.level);
                     if (item.pid === parentId) {
                         item.level = currentLevel;
                         if (item.level === 0) {
@@ -204,7 +203,6 @@ const List = forwardRef(
             });
 
             return flattened.map((item: any, index: 0) => {
-                console.log('item.level: ', item.level);
                 // 由于 overflow 的原因，所以通过让 都是第一层的节点带上 isFirst，使得左边框线的 left 为0
                 if (index === 0) {
                     return {

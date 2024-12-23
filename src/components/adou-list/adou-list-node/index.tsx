@@ -49,9 +49,9 @@ const ListNode = ({
     wrap = true,
     node: data,
     isTree,
-    showOptIcons = true,
-    showAddIcon = true,
-    showEditIcon = true,
+    showOptIcons = false,
+    showAddIcon = false,
+    showEditIcon = false,
     activeId,
     onToggle,
     onToggleIconClick,
@@ -100,7 +100,9 @@ const ListNode = ({
                 // 后面遍历到的expanded元素 因为要加上前边遍历到的expanded元素，所以要加上它的 maxHeight
                 // 如此往复就会正确计算好展开的maxHeight。。。
                 const parenetMaxHeight = parseInt(parent.style.maxHeight);
-                parent.style.maxHeight = `${currentMaxHeight + parenetMaxHeight}px`;
+                parent.style.maxHeight = `${
+                    currentMaxHeight + parenetMaxHeight
+                }px`;
             } else {
                 // 如果是第一个遍历到的expanded元素的话，只要赋上本身的 scrollHeight即可
                 // 后面遍历到的expanded元素 因为要加上前边遍历到的expanded元素，所以要加上它的 maxHeight
@@ -136,7 +138,7 @@ const ListNode = ({
   if (!node.hasLoaded) {
     setNode({ ...node, loading: true });
   }
-}; */
+  }; */
 
     const generateCalcDom = (selector?: string) => {
         const notExpandedChildren = toggledNodeItemRef.current?.querySelector(`.children.${selector || 'not-expand'}`);
@@ -327,7 +329,7 @@ const ListNode = ({
                 >
                     {/* <span className="none d-none">{String(node.loading)}</span> */}
                     {/* 有子节点的话，展示折叠按钮 */}
-                    {isTree && ((!node.hasLoaded && lazy) || (node.children && node.children.length > 0)) && node.level !== maxLevel! - 1 && (
+                    {isTree && ((!node.hasLoaded && lazy) || (node.children && node.children.length > 0)) && node.level !== maxLevel! - 1 ? (
                         <i
                             ref={toggleIconRef}
                             onMouseEnter={handleMouseEnterExpandIcon}
@@ -336,10 +338,14 @@ const ListNode = ({
                                 fontSize: '16px',
                                 width: '10px',
                                 ...(node.isEnter ? { transform: 'scale(1.4)', color: '#334155' } : ''),
+                                marginRight: '4px',
                             }}
                             onClick={(e) => handleToggleIconClick(node, e)}
                             className={`toggle-icon fa fa-caret-${isExpanded ? 'down' : 'right'}`}
                         ></i>
+                    ) : (
+                        // 留一个空的 span，来做 占位，使得样式对齐
+                        <span className="empty-placehokder" style={{ width: '14px' }}></span>
                     )}
                     {node.loading && (
                         <div style={{ width: '18px', height: '18px' }} className="spinner-border mx-1 ms-2" role="status">
@@ -347,10 +353,12 @@ const ListNode = ({
                         </div>
                     )}
                     {/* 最左边的tag */}
-                    {prefixTag && (
-                        <div className={`prefix-tag ms-2`}>
-                            <i className={`${prefixTag} ${activeId === node.id ? 'text-white' : ''}`}></i>
+                    {node.prefixTag || prefixTag ? (
+                        <div className={`prefix-tag ms-1`}>
+                            <i className={`${node.prefixTag || prefixTag} ${activeId === node.id ? '' : ''}`}></i>
                         </div>
+                    ) : (
+                        ''
                     )}
                     {/* 展示标志 */}
                     {showTag && renderTag()}
@@ -358,20 +366,24 @@ const ListNode = ({
                     <div
                         style={{
                             whiteSpace: `${wrap ? 'normal' : 'nowrap'}`,
+                            ...(isShowIcons ? { backgroundColor: '#cce1fc' } : {}),
                             ...(String(activeId) === String(node.id) ? { backgroundColor: activeBgc, color: activeFontColor } : ''), // id 要用 String 来修饰，用 Number 会出现问题
                         }}
                         onClick={(e) => handleNodeNameClick(e, node)}
-                        className={`ms-1 py-1 item-name ${
-                            node.children && node.children.length > 0 ? 'has-children' : 'no-children'
-                        } ${String(activeId) === String(node.id) ? 'active' : ''}`}
+                        className={`${
+                            (isTree && ((!node.hasLoaded && lazy) || (node.children && node.children.length > 0)) && node.level !== maxLevel! - 1) || node.prefixTag || prefixTag
+                                ? 'ms-1' // 存在 折叠按钮 或者有 prefixTag 的时候，需要缩进，否则 不需要缩进
+                                : ''
+                        } py-1 item-name ${node.children && node.children.length > 0 ? 'has-children' : 'no-children'} ${String(activeId) === String(node.id) ? 'active' : ''}`}
                     >
                         {node.name}
                     </div>
                     <div
-                        className="right-content"
-                        style={{
+                        className={`right-content ${showOptIcons && isShowIcons ? 'show-opt-icons' : 'hide-opt-icons'}`}
+                        // 这个 display 会导致动画无法生效
+                        /* style={{
                             display: showOptIcons && isShowIcons ? 'block' : 'none',
-                        }}
+                        }} */
                     >
                         <i
                             style={{

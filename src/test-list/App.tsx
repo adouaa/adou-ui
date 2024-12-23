@@ -7,16 +7,24 @@ const testData = [
         id: '1',
         name: '根节点1',
         isExpanded: false,
+        prefixTag: 'fa fa-home',
         children: [
             {
                 id: '1-1',
-                name: '子节点1-1',
                 isExpanded: false,
+                name: (
+                    <>
+                        <h3>
+                            测试<i className="fa fa-plus"></i>
+                        </h3>
+                    </>
+                ),
                 children: [
                     {
                         id: '1-1-1',
                         name: '孙节点1-1-1',
                         isExpanded: false,
+                        prefixTag: 'fa fa-trash text-danger',
                         children: [
                             {
                                 id: '1-1-1-1',
@@ -147,7 +155,7 @@ const testData = [
 ];
 
 const App = () => {
-    const [activeId, setActiveId] = useState<number>(0);
+    const [activeId, setActiveId] = useState<string>('1');
     const [myData, setMyData] = useState<any[]>([]);
     /* const convertListToTree = (list: any[], pid: any, level = 0) => {
         const arr: any = [];
@@ -220,25 +228,25 @@ const App = () => {
 
     return (
         <div className="p-5">
-            <Card>
-                <List
-                    defaltExpandNodes={['1', '1-1', '1-1-1', '3-1-1-2', 54149648565]}
-                    showLine
-                    activeId={activeId}
-                    data={testData}
-                    deleteIconClass="fa fa-trash"
-                    addIconClass="fa fa-plus"
-                    editIconClass="fa fa-pencil"
-                    isTree={true}
-                    showOptIcons={true}
-                    showAddIcon={true}
-                    showEditIcon={true}
-                    onToggle={(node) => console.log('节点展开/折叠:', node)}
-                    onItemClick={(node) => handleItemClick(node)}
-                    onToggleIconClick={(node) => console.log('图标点击:', node)}
-                    onOptIconClick={(type, node) => console.log(`操作图标点击: 类型:${type}, 节点:${node}`)}
-                />
-            </Card>
+            <List
+                maxWidth={'600px'}
+                prefixTag="fa fa-folder"
+                defaltExpandNodes={['1', '1-1', '1-1-1', '3-1-1-2', 54149648565]}
+                showLine
+                activeId={activeId}
+                data={testData}
+                deleteIconClass="fa fa-trash"
+                addIconClass="fa fa-plus"
+                editIconClass="fa fa-pencil"
+                isTree={true}
+                showOptIcons={true}
+                showAddIcon={true}
+                showEditIcon={true}
+                onToggle={(node) => console.log('节点展开/折叠:', node)}
+                onItemClick={(node) => handleItemClick(node)}
+                onToggleIconClick={(node) => console.log('图标点击:', node)}
+                onOptIconClick={(type, node) => console.log(`操作图标点击: 类型:${type}, 节点:${node}`)}
+            />
             <h1>4测试</h1>
         </div>
     );
