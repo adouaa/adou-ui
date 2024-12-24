@@ -1,4 +1,4 @@
-import React, { Fragment, ReactElement, useEffect, useImperativeHandle, useState } from 'react';
+import React, { Fragment, ReactElement, useEffect, useId, useImperativeHandle, useState } from 'react';
 import { withTranslation } from 'react-i18next';
 import EditableTableCell from './adou-editableTableCell';
 import './index.scss';
@@ -98,6 +98,12 @@ const Table = (props: TableProps) => {
     const [originalTableData, setOriginalTableData] = useState<any[]>([]);
     const [tableHeaders, setTableHeaders] = useState<any[]>([]);
 
+    // 更新的数据
+    const [updateKey, setUpdateKey] = useState<number>(0);
+
+    // 唯一 id 加上 uniqId 防止多个表格的相同复选框冲突
+    const uniqId = useId();
+
     // 折叠的逻辑
     const handleCollapseClick = (row: any, rowIndex: number) => {
         setTableData((preArr: any) => {
@@ -139,6 +145,7 @@ const Table = (props: TableProps) => {
 
     // 排序的逻辑--坑：一定要使用 [...preArr].sort，不能直接preArr.sort，这样会影响原来的数据，有Bug！！！
     const handleSortable = (prop: string, isDown?: boolean) => {
+        const tempData = JSON.parse(JSON.stringify(data));
         setTableHeaders((preArr: any) =>
             preArr.map((item: any) => {
                 if (prop === item.prop) {
@@ -164,7 +171,7 @@ const Table = (props: TableProps) => {
                                     .sort((a: any, b: any) => (a[prop] < b[prop] ? 1 : -1));
                             });
                         } else {
-                            setTableData(data);
+                            setTableData(tempData);
                         }
                     } else {
                         item.isUp = !item.isUp;
@@ -188,7 +195,7 @@ const Table = (props: TableProps) => {
                                     .sort((a: any, b: any) => (a[prop] > b[prop] ? 1 : -1));
                             });
                         } else {
-                            setTableData(data);
+                            setTableData(tempData);
                         }
                     }
                 }
@@ -198,9 +205,9 @@ const Table = (props: TableProps) => {
 
         // setTableData((preArr: any) => preArr.sort((a: any, b: any) => (a[prop] > b[prop] ? 1 : -1)));
         /* if (isDown) {
-      const findItem = tableHeaders.find((item: any) => item.prop === prop);
-
-      } */
+        const findItem = tableHeaders.find((item: any) => item.prop === prop);
+  
+        } */
     };
 
     // 渲染折叠的子组件
@@ -243,7 +250,15 @@ const Table = (props: TableProps) => {
                             {collection && (
                                 <>
                                     {/* 复选框 */}
-                                    <th scope="col th-collection" style={{ minWidth: '50px', width: '50px', maxWidth: '50px', textAlign: 'center' }}>
+                                    <th
+                                        scope="col th-collection"
+                                        style={{
+                                            minWidth: '50px',
+                                            width: '50px',
+                                            maxWidth: '50px',
+                                            textAlign: 'center',
+                                        }}
+                                    >
                                         {multiple && <input checked={checkedAll} onChange={handleCheckedAllChange} type={!multiple ? 'radio' : 'checkbox'} />}
                                     </th>
                                 </>
@@ -252,7 +267,14 @@ const Table = (props: TableProps) => {
                             {showIndex && (
                                 <>
                                     {/* 索引框 */}
-                                    <th scope="col th-index" style={{ minWidth: '50px', width: '50px', maxWidth: '50px' }}></th>
+                                    <th
+                                        scope="col th-index"
+                                        style={{
+                                            minWidth: '50px',
+                                            width: '50px',
+                                            maxWidth: '50px',
+                                        }}
+                                    ></th>
                                 </>
                             )}
                             {array &&
@@ -271,18 +293,26 @@ const Table = (props: TableProps) => {
                                             >
                                                 <div
                                                     className="header-content"
-                                                    style={{ display: 'flex', alignItems: 'center', justifyContent: generateHeaderStyle(textPositionObject[child.props.prop]) }}
+                                                    style={{
+                                                        display: 'flex',
+                                                        alignItems: 'center',
+                                                        justifyContent: generateHeaderStyle(textPositionObject[child.props.prop]),
+                                                    }}
                                                 >
                                                     <span className="header-text me-2">{child.props.label}</span>
                                                     {child.props.sortable && (
                                                         <span className="header-icon">
                                                             <i
-                                                                style={{ borderBottom: judgeSortIconBGC(child.props.prop) || '7px solid #000' }}
+                                                                style={{
+                                                                    borderBottom: judgeSortIconBGC(child.props.prop) || '7px solid #000',
+                                                                }}
                                                                 onClick={() => handleSortable(child.props.prop)}
                                                                 className="icon sort-up"
                                                             ></i>
                                                             <i
-                                                                style={{ borderTop: judgeSortIconBGC(child.props.prop, true) || '7px solid #000' }}
+                                                                style={{
+                                                                    borderTop: judgeSortIconBGC(child.props.prop, true) || '7px solid #000',
+                                                                }}
                                                                 onClick={() => handleSortable(child.props.prop, true)}
                                                                 className="icon sort-down"
                                                             ></i>
@@ -300,7 +330,8 @@ const Table = (props: TableProps) => {
                     {tableData.length > 0 &&
                         tableData.map((data: any, rowIndex: number) => {
                             return (
-                                <Fragment key={data[id]}>
+                                // 加上 uniqId 防止多个表格的相同复选框冲突
+                                <Fragment key={data[id] + uniqId}>
                                     <tr
                                         onClick={() => handleRowClick(data)}
                                         // onDoubleClick={() => handleRowDoubleClick(data)}
@@ -310,10 +341,18 @@ const Table = (props: TableProps) => {
                                     >
                                         {collection && (
                                             // 复选框
-                                            <td scope="row" style={{ minWidth: '50px', width: '50px', maxWidth: '50px' }} className="text-center">
+                                            <td
+                                                scope="row"
+                                                style={{
+                                                    minWidth: '50px',
+                                                    width: '50px',
+                                                    maxWidth: '50px',
+                                                }}
+                                                className="text-center"
+                                            >
                                                 <input
-                                                    name={data[id]}
-                                                    id={data[id]}
+                                                    name={data[id] + uniqId} // 加上 uniqId 防止多个表格的相同复选框冲突
+                                                    id={data[id] + uniqId}
                                                     checked={data.checked}
                                                     onChange={(e) => handleCheckboxChange(e, data)}
                                                     type={!multiple ? 'radio' : 'checkbox'}
@@ -393,15 +432,23 @@ const Table = (props: TableProps) => {
                                                 className="collapse-table-tr animate__animated animate__fadeIn"
                                                 key={childData[id]}
                                                 /* style={{
-                                                  ...(data.collapse ? { display: '' } : { display: 'none' }),
-                                              }} */
+                                                    ...(data.collapse ? { display: '' } : { display: 'none' }),
+                                                }} */
                                             >
                                                 {/* 复选框框 */}
                                                 {collection && (
-                                                    <td scope="row" style={{ minWidth: '50px', width: '50px', maxWidth: '50px' }} className="text-center">
+                                                    <td
+                                                        scope="row"
+                                                        style={{
+                                                            minWidth: '50px',
+                                                            width: '50px',
+                                                            maxWidth: '50px',
+                                                        }}
+                                                        className="text-center"
+                                                    >
                                                         <input
-                                                            name={childData[id]}
-                                                            id={childData[id]}
+                                                            name={childData[id] + uniqId} // 加上 uniqId 防止多个表格的相同复选框冲突
+                                                            id={childData[id] + uniqId}
                                                             checked={childData.checked}
                                                             onChange={(e: any) => handleCheckboxChange(e, childData)}
                                                             type={!multiple ? 'radio' : 'checkbox'}
@@ -525,6 +572,7 @@ const Table = (props: TableProps) => {
      * 单击tr
      */
     const handleRowClick = (row: any, isChildren?: boolean, childData?: any) => {
+        setUpdateKey(updateKey + 1);
         // handleCollapseClick(row, rowIndex!);
         if (clickChecked || collection) {
             const data: any = tableData.map((item: any) => {
@@ -648,22 +696,27 @@ const Table = (props: TableProps) => {
         );
     };
 
+    const handleGetCheckedList = () => {
+        return tableData.filter((item: any) => item.checked);
+    };
+
     useEffect(() => {
-        const checkedAll = areAllChecked(data);
+        const tempData = JSON.parse(JSON.stringify(data));
+        const checkedAll = areAllChecked(tempData);
         setCheckedAll(checkedAll);
         if (collapse) {
-            const tempData = data.map((item: any) => {
+            const tableData = tempData.map((item: any) => {
                 item.collapse = expandAll;
                 return item;
             });
+            setTableData(tableData);
+            setOriginalTableData(tableData);
+        } else {
             setTableData(tempData);
             setOriginalTableData(tempData);
-        } else {
-            setTableData(data);
-            setOriginalTableData(data);
         }
 
-        if (data.length) {
+        if (tempData.length) {
             // 必须给个 10ms 的延迟，不然默认选中会出现问题
             setTimeout(() => {
                 handleDefaultChecked();
@@ -673,14 +726,14 @@ const Table = (props: TableProps) => {
 
     useEffect(() => {
         /* setTableData((preData: any) =>
-            preData.map((item: any) => {
-                const isChildrenAllChecked = areAllChecked(item.children);
-                if (isChildrenAllChecked) {
-                    item.checked = true;
-                }
-                return item;
-            })
-        ); */
+              preData.map((item: any) => {
+                  const isChildrenAllChecked = areAllChecked(item.children);
+                  if (isChildrenAllChecked) {
+                      item.checked = true;
+                  }
+                  return item;
+              })
+          ); */
     }, [tableData]);
 
     useEffect(() => {
@@ -704,24 +757,34 @@ const Table = (props: TableProps) => {
     }, [headers]);
 
     /*     useEffect(() => {
-      
-  }, [tableHeaders]); */
+        
+    }, [tableHeaders]); */
 
     useImperativeHandle(tableRef, () => ({
         clearChecked: handleClearChecked,
+        getCheckedList: handleGetCheckedList,
     }));
 
     return (
         <>
-            <div style={{ minHeight: minHeight, maxHeight: maxHeight, overflow: 'auto', width }} className={`table-wrapper ${`table-responsive${'-' + tableResponsive}`}`}>
+            <div
+                style={{
+                    minHeight: minHeight,
+                    maxHeight: maxHeight,
+                    overflow: 'auto',
+                    width,
+                }}
+                className={`table-wrapper ${`table-responsive${'-' + tableResponsive}`}`}
+            >
                 <table
                     style={{ background: tableBgc, width }}
-                    className={`table ${tableStriped ? 'table-striped' : ''} ${tableBorderd ? 'table-bordered' : 'table-borderless'} table-${size} ${headColor ? `table-${headColor}` : ''} overflow-auto`}
+                    className={`table ${tableStriped ? 'table-striped' : ''} ${tableBorderd ? 'table-bordered' : 'table-borderless'} table-${size} ${
+                        headColor ? `table-${headColor}` : ''
+                    } overflow-auto`}
                 >
                     {renderCollapseChildren()}
                 </table>
             </div>
-            {JSON.stringify(data)}
         </>
     );
 };

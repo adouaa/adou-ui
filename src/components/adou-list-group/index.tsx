@@ -3,8 +3,8 @@ import React from 'react';
 import splitFilesIntoColumns from 'utils/splitFilesIntoColumns';
 
 interface ListGroupProps {
-    itemHeight?: any;
-    columnMaxHeight?: any;
+    itemHeight?: number;
+    columnMaxHeight?: number;
     lineBreak?: boolean;
     // 每列展示的文件数量--优先根据这个属性，没有再通过 columnMaxHeight 和 itemHeight 进行计算
     filesPerColumn?: number;
@@ -100,7 +100,7 @@ const ListGroup = ({
                 setParentMaxHeight(parentElement.clientHeight);
             }
         }
-    }, [selectList, data, columnMaxHeight]);
+    }, [selectList, data, columnMaxHeight, listGroupRef.current]);
 
     useEffect(() => {
         // 如果需要换行，则根据 判断 filesPerColunm 是否有值，有值则直接分割，没有值则根据 parentMaxHeight 和 itemHeight 计算每列的文件数量
@@ -128,7 +128,7 @@ const ListGroup = ({
                 if (currentColumn.length > 0) {
                     columnsData.push(currentColumn);
                 }
-
+                console.log('columnsData: ', columnsData);
                 setList(columnsData);
             }
         } else {
