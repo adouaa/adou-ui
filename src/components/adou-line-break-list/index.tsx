@@ -1,6 +1,6 @@
 import React from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import splitFilesIntoColumns from 'utils/splitFilesIntoColumns';
+import splitFilesIntoColumns from 'utils/splitListIntoColumns';
 
 interface FileExplorerProps {
     files: string[]; // 文件名数组
