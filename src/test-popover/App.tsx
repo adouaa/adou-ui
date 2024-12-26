@@ -12,6 +12,8 @@ const App = ({}: AppProps) => {
     return (
         <div className="app-wrapper" style={{ padding: '150px' }}>
             <Popover
+                onShowChange={(show: boolean) => setShow(show)}
+                trigger="hover"
                 show={show}
                 title={'Title'}
                 content={
