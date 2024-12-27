@@ -6,9 +6,10 @@ import isEmptyO from '../isEmptyO';
 
 interface FormItemProps {
     labelColor?: string;
-    formItemWrapperMinWidth?: any;
-    formItemWrapperWidth?: any;
-    formItemWrapperMaxWidth?: any;
+    contentBackgroundColor?: string;
+    wrapperMinWidth?: any;
+    wrapperWidth?: any;
+    wrapperMaxWidth?: any;
     contentWrapperWidth?: any;
     wrapperStyle?: React.CSSProperties;
     contentWrap?: boolean;
@@ -17,7 +18,6 @@ interface FormItemProps {
     formItemRef?: any;
     rules?: any;
     setFieldValue?: any;
-    wrapperWidth?: any;
     data?: any;
     clearable?: boolean;
     addonAfter?: ReactNode | string | number;
@@ -32,9 +32,10 @@ interface FormItemProps {
 
 const FormItem = ({
     labelColor,
-    formItemWrapperMinWidth = '120px',
-    formItemWrapperWidth,
-    formItemWrapperMaxWidth,
+    contentBackgroundColor,
+    wrapperMinWidth = '120px',
+    wrapperWidth = '100%',
+    wrapperMaxWidth,
     contentWrapperWidth,
     wrapperStyle,
     contentWrap = false,
@@ -43,9 +44,8 @@ const FormItem = ({
     formItemRef,
     rules,
     setFieldValue,
-    wrapperWidth,
     data,
-    clearable = true,
+    clearable = false,
     addonAfter,
     size = 'default',
     labelWidth,
@@ -60,8 +60,6 @@ const FormItem = ({
 
     const adouFormRef = useRef<any>(null);
     const [customSelectContentPosition, setCustomSelectContentPosition] = useState<any>({});
-
-    const [isCheckbox, setIsCheckbox] = useState<boolean>(false);
 
     const judgeFormItemContentCls = () => {
         if (layout === 'horizontal') {
@@ -95,71 +93,34 @@ const FormItem = ({
     };
 
     // 由于使用 value = data[name]的话，会滞后一节拍，所以索性直接在调用 validateField 的时候，把 data 传入
-    const validateField = (fieldName?: string, value?: any, isForm: boolean = false) => {
-        let isValid: boolean = true;
-        let message: string = '';
-        if (!rules) return isValid;
-        // 规则：如果不是 整体，则是某个表单项，则可以取到 fieldName 和 value，正常走逻辑
-        // 如果是整体，则没有 fieldName 和 value，则取 data 中的值。
-        // 先取 传递过来的值，最后用 data 的值给整体表单校验进行兜底
-        if (children && Array.isArray(children) && children.length > 1) {
-            for (const rule of rules) {
-                if (rule.required) {
-                    for (const child of children) {
-                        const childProps = child.props;
-                        const childName = childProps.name || name;
-                        // 注意：如果当前调用该校验函数 validateField 所传递过来的字段名 fieldName 和子组件的 name(在这边是childName) 一致(代表当前校验的是 正在修改的表单)，则取传递过来的值(这个值才是实时的，如果对当前正在修改的表单取 data 中的值作为校验值，会慢一节拍)，否则取data中的值
-                        const childValue = childName === fieldName ? value : data?.[childName!];
-                        if (!childValue) {
-                            isValid = false;
-                            setIsError(true);
-                            setErrorMessage(message || 'This field is invalid');
-                            return isValid;
-                        } else {
-                            isValid = true;
-                            setIsError(false);
-                            setErrorMessage('');
-                        }
-                    }
-                }
+    const validateField = (value?: any, isForm: boolean = false) => {
+        if (!rules) return true;
+        const validateValue = !isForm ? value : value || data[name!];
+        for (const rule of rules) {
+            if (rule.required && (validateValue === undefined || validateValue === null || validateValue === '' || isEmptyO(validateValue))) {
+                setIsError(true);
+                setErrorMessage(rule.message || 'This field is required');
+                return false;
+            } else {
+                setIsError(false);
+                setErrorMessage('');
             }
-        } else {
-            const validateValue = !isForm ? value : value || data[fieldName!] || data[name!];
-            for (const rule of rules) {
-                console.log('fieldName: ', fieldName);
-                console.log('validateValue: ', validateValue);
-                if (rule.required && (validateValue === undefined || validateValue === null || validateValue === '' || isEmptyO(validateValue))) {
-                    isValid = false;
+            if (rule.validator) {
+                const error = rule.validator(validateValue);
+                if (error) {
+                    setIsError(true);
+                    setErrorMessage(error.message || 'This field is invalid');
+                    return false;
                 } else {
-                    isValid = true;
-                }
-                if (rule.validator) {
-                    const error = rule.validator(validateValue);
-                    if (error) {
-                        isValid = false;
-                        message = error.message || 'This field is invalid';
-                    } else {
-                        isValid = true;
-                    }
+                    setIsError(false);
+                    setErrorMessage('');
                 }
             }
         }
-        if (!isValid) {
-            setIsError(true);
-            setErrorMessage(message || 'This field is invalid');
-        } else {
-            setIsError(false);
-            setErrorMessage('');
-        }
-        return isValid;
+        return true;
     };
 
     const enhancedChildren = React.Children.map(children, (child: any, index: number) => {
-        // 检查 child.type 是否存在
-        if (!child.type) {
-            console.warn('Child does not have a type:', child);
-            return child;
-        }
         const props = child.props;
         const isChildrenArray = Array.isArray(children);
         const { formStyle: originalFormStyle } = props; // 获取原组件的 formStyle 属性
@@ -190,6 +151,7 @@ const FormItem = ({
             formStyle: mergedFormStyle,
             defaultValue: data?.[props.name || name],
             wrapperWidth: contentWrapperWidth,
+            backgroundColor: contentBackgroundColor, // 传递背景色
             labelColor,
             onFieldChange: handleFieldChange,
             onValidateField: validateField,
@@ -221,24 +183,15 @@ const FormItem = ({
         getAbsolutePositionFn();
     }, [isError, errorMessage]);
 
-    useEffect(() => {
-        // 检查子组件中是否有 Checkbox
-        const hasCheckbox = React.Children.toArray(children).some((child: any) => {
-            const displayName = child.type.displayName || child.type.name || 'Unknown';
-            return displayName === 'Checkbox';
-        });
-        setIsCheckbox(hasCheckbox);
-    }, [children]);
-
     return (
         <div
             className={`adou-form-item-wrapper ${generateWrapperCls()}`}
             style={{
-                width: formItemWrapperWidth,
-                minWidth: formItemWrapperMinWidth,
-                maxWidth: formItemWrapperMaxWidth,
+                width: wrapperWidth,
+                minWidth: wrapperMinWidth,
+                maxWidth: wrapperMaxWidth,
                 ...wrapperStyle,
-                ...(layout === 'inline' && !formItemWrapperWidth && !formItemWrapperMaxWidth && { flex: 1 }),
+                ...(layout === 'inline' && !wrapperWidth && !wrapperMaxWidth && { flex: 1 }),
             }}
         >
             {/*  ${
@@ -246,7 +199,7 @@ const FormItem = ({
           } */}
             <div
                 className={`adou-form-item-content ${judgeFormItemContentCls()} ${isError ? 'border-danger' : ''} ${
-                    isError && layout !== 'horizontal-top' && !isCheckbox ? ' align-items-baseline' : ''
+                    isError && layout !== 'horizontal-top' ? ' align-items-baseline' : ''
                 }`}
             >
                 {label && (
@@ -261,7 +214,6 @@ const FormItem = ({
                             style={{
                                 fontSize: '14px',
                                 whiteSpace: labelWrap ? 'wrap' : 'nowrap',
-                                color: labelColor,
                             }}
                         >
                             {label}
@@ -273,14 +225,14 @@ const FormItem = ({
                     <div className="adou-form-content">
                         {processedAddonBefore ? (
                             <div className="input-group" style={{ flexWrap: contentWrap ? 'wrap' : 'nowrap' }}>
-                                <span className="input-group-text py-0" style={{ fontSize: '14px', color: labelColor }}>
+                                <span className="input-group-text py-0" style={{ fontSize: '14px' }}>
                                     {processedAddonBefore}
                                 </span>
                                 <div className="adou-form d-flex" style={{ flex: 1 }}>
                                     {enhancedChildren}
                                 </div>
                                 {processedAddonAfter && (
-                                    <span className="input-group-text py-0" style={{ fontSize: '14px', color: labelColor }}>
+                                    <span className="input-group-text py-0" style={{ fontSize: '14px' }}>
                                         {processedAddonAfter && processedAddonAfter}
                                     </span>
                                 )}

@@ -11,11 +11,11 @@ interface ResizableSidebarProps {
     toggleBtnClassName?: string;
     contentOverflow?: boolean;
     contentFlex?: boolean;
-    initialWidth?: any;
+    initialWidth?: string;
     initialHeight?: any;
     minDragWidth?: number;
     minWidth?: number;
-    maxWidth?: any;
+    maxWidth?: string;
     children?: any;
     onToggle?: (isExpanded: boolean) => void;
 }
@@ -30,7 +30,7 @@ const ResizableSidebar = ({
     toggleBtnClassName,
     contentOverflow = true,
     contentFlex = false,
-    initialWidth = 0,
+    initialWidth = '0px',
     initialHeight = '100%',
     minDragWidth = 0,
     minWidth = 50,
@@ -74,7 +74,7 @@ const ResizableSidebar = ({
     };
 
     const toggleSidebar = () => {
-        setCurrentSidebarWidth(parseFloat(currentSidebarWidth) > minWidth ? minWidth + 'px' : initialWidth || maxWidth); // 假设展开宽度为300
+        setCurrentSidebarWidth(parseFloat(currentSidebarWidth) > minWidth ? minWidth + 'px' : parseFloat(initialWidth) ? initialWidth : maxWidth); // 假设展开宽度为300
         const oldIsExpanded = isExpanded; // 记录当前展开状态
         onToggle && onToggle(!isExpanded);
         setIsExpanded(!oldIsExpanded);
@@ -120,7 +120,7 @@ const ResizableSidebar = ({
     };
 
     useEffect(() => {
-        if (initialWidth) {
+        if (parseFloat(initialWidth)) {
             setIsExpanded(true);
         }
     }, [initialWidth]);
@@ -135,7 +135,7 @@ const ResizableSidebar = ({
     // 为第一次出现添加动画效果
     useEffect(() => {
         setTimeout(() => {
-            setCurrentSidebarWidth(initialWidth ? (parseFloat(initialWidth!) > parseFloat(maxWidth) ? maxWidth : initialWidth) : 0);
+            setCurrentSidebarWidth(parseFloat(initialWidth) ? (parseFloat(initialWidth!) > parseFloat(maxWidth) ? maxWidth : initialWidth) : 0);
         }, 100);
     }, []);
 

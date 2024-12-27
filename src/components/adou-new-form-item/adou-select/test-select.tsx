@@ -10,6 +10,7 @@ import useThrottle from 'hooks/useThrottle';
 import IconClose from 'assets/svg/icon_close';
 
 export interface SelectProps {
+    backgroundColor?: string;
     mode?: 'common' | 'liveSearch' | 'tags';
     multiple?: boolean;
     showSearch?: boolean;
@@ -71,6 +72,7 @@ export interface SelectProps {
 
 const Select = React.forwardRef((props: SelectProps, ref) => {
     const {
+        backgroundColor,
         mode = 'common',
         multiple,
         showSearch,
@@ -139,7 +141,7 @@ const Select = React.forwardRef((props: SelectProps, ref) => {
     // const { isShow, selectWrapperRef, handleClose } = useClickOutside();
     const [newOptions, setNewOptions] = useState(options || []);
     const [originalOptions, setOriginalOptions] = useState<any>(options || []);
-    const [selectValue, setSelectValue] = useState({});
+    const [selectValue, setSelectValue] = useState<any>({});
     const [selectValueList, setSelectValueList] = useState<any[]>([]);
     // 暂存上一次选中的数据，防止更换 options 的时候，无法展示上次的数据
     const [tempSelectValue, setTempSelectValue] = useState<any>(defaultValue || null);
@@ -463,6 +465,7 @@ const Select = React.forwardRef((props: SelectProps, ref) => {
     // 计算所取到的值能展示的最大宽度
     const getMaxSelectValueWidth = () => {
         const selectWidth = getContentWidth(selectRef.current);
+
         if (!selectWidth) return;
         const cliearIconBoxWidth = document.querySelector('.adou-select-clear-icon-box')?.clientWidth;
         const adouSelectIconBoxWidth = document.querySelector('.adou-select-icon-box')?.clientWidth;
@@ -636,7 +639,7 @@ const Select = React.forwardRef((props: SelectProps, ref) => {
         setTimeout(() => {
             getMaxSelectValueWidth();
         }, 100);
-    }, []);
+    }, [defaultValue]);
 
     // 为了做 聚焦高亮，只能把第三个参数写为 true，本来是 contentRef.current && isShow
     useClickOutside([selectRef, contentRef, inputRef], handleClose, true);
@@ -662,7 +665,7 @@ const Select = React.forwardRef((props: SelectProps, ref) => {
                     className={`adou-select d-flex align-items-center ${selectContentExternalCls || ''} ${isFocus ? 'adou-form-control-focus' : ''}`}
                     style={{
                         textAlign: 'left',
-                        background: transparent ? 'transparent' : disabled ? '#eee' : varient === 'filled' ? '#f0f0f0' : '',
+                        background: backgroundColor ? backgroundColor : transparent ? 'transparent' : disabled ? '#eee' : varient === 'filled' ? '#f0f0f0' : '',
                         flex: 1,
                         /* ...(suffixContentType === 'button'
                             ? {
@@ -726,6 +729,7 @@ const Select = React.forwardRef((props: SelectProps, ref) => {
                                     title={selectValue[labelKey]}
                                     className={`adou-select-value ${contentWrap ? 'ellipsis-1' : ''}`} // ellipsis-1 加上这个，选择框会自动变大或者变小
                                     style={{
+                                        maxWidth: selectValueMaxWidth, // 设置最大宽度来支持 ellipsis
                                         ...(!showSearch && !filterOption && mode !== 'liveSearch' ? { flex: 1 } : {}),
                                     }}
                                 >
