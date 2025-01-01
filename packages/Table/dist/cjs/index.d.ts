@@ -9,7 +9,7 @@ declare const _default: React.ComponentType<Omit<{
     children?: any;
     eidtable?: boolean | undefined;
     width?: any;
-    textPosition?: "center" | "left" | "right" | "justify" | undefined;
+    textPosition?: "center" | "start" | "end" | "justify" | undefined;
     onEditOK?: ((data: any) => void) | undefined;
     clickChecked?: boolean | undefined;
     showHeader?: boolean | undefined;
@@ -17,9 +17,9 @@ declare const _default: React.ComponentType<Omit<{
     headerFontWeight?: "bold" | "normal" | undefined;
     tableBgc?: any;
     tableRef?: any;
-    activeId?: number | undefined;
+    activeId?: string | number | undefined;
     showIndex?: boolean | undefined;
-    single?: boolean | undefined;
+    multiple?: boolean | undefined;
     id?: string | undefined;
     trPointer?: boolean | undefined;
     collection?: boolean | undefined;

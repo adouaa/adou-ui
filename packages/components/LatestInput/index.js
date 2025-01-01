@@ -182,7 +182,7 @@ ___CSS_LOADER_EXPORT___.push([module.id, `.adou-input-wrapper .adou-input-form-c
 .adou-input-wrapper .adou-input-clear-icon:hover {
   transform: scale(1.2);
   color: red !important;
-}`, "",{"version":3,"sources":["webpack://./src/index.scss"],"names":[],"mappings":"AA0IQ;EACI,YAAA;EACA,uBAAA;EAEA,oFAAA;AA1IZ;AA6IQ;EACI,aAAA;EACA,uBAAA;EACA,uBAAA;EACA,sBAAA;AA3IZ;AA8IQ;EACI,aAAA;EACA,uBAAA;EACA,mBAAA;EACA,mBAAA;AA5IZ;AA8IY;EACI,aAAA;EACA,mBAAA;EACA,uBAAA;AA5IhB;AAgJQ;EACI,aAAA;EACA,uBAAA;EACA,uBAAA;EACA,mBAAA;AA9IZ;AAiJQ;EACI,WAAA;EACA,iBAAA;EACA,aAAA;EACA,mBAAA;AA/IZ;AAkJQ;EAEI,eAAA;EACA,oBAAA;EACA,cAAA;AAjJZ;AAmJY;EACI,qBAAA;EACA,qBAAA;AAjJhB","sourcesContent":["// .suffix-icon {\r\n//     /* margin-left: -40px !important;\r\n//     margin-top: 6px;\r\n//     z-index: 9; */\r\n//     position: absolute;\r\n//     right: 12px;\r\n//     top: 30px;\r\n//     /* 垂直居中 */\r\n//     cursor: pointer;\r\n//     /* 鼠标悬停时显示指针样式 */\r\n//     transition: transform 0.3s;\r\n//     /* 添加过渡效果 */\r\n//     color: #c6c6cd;\r\n\r\n//     &:hover {\r\n//         transform: scale(1.3);\r\n//         /* 水平和垂直方向都放大1.5倍 */\r\n//         color: #51515b;\r\n//     }\r\n// }\r\n\r\n// .common-suffix-icon {\r\n//     display: flex;\r\n//     align-items: center;\r\n//     cursor: pointer;\r\n// }\r\n\r\n// .common-suffix-icon {\r\n//     display: flex;\r\n//     align-items: center;\r\n//     cursor: pointer;\r\n// }\r\n\r\n// .label-box {\r\n//     font-size: 14px;\r\n//     min-width: 50px;\r\n//     text-align: right;\r\n//     justify-content: flex-end;\r\n//     padding-right: 10px;\r\n//     flex-wrap: wrap;\r\n// }\r\n\r\n// .icon-input {\r\n//     position: relative;\r\n//     /* 让伪元素相对于输入框定位 */\r\n\r\n// }\r\n\r\n// .input-wrapper {\r\n//     input::placeholder {\r\n//         color: #999; // 你可以根据需要修改颜色\r\n//     }\r\n\r\n//     .content-box {\r\n//         flex: 1;\r\n//         align-items: stretch;\r\n\r\n//         .label-box {}\r\n\r\n//         .input-form-content {\r\n//             flex: 1;\r\n//             display: flex;\r\n//         }\r\n\r\n//         .suffix-content-btn {\r\n//             border-top-right-radius: 0 !important;\r\n//             /* 去掉右上角的圆角 */\r\n//             border-bottom-right-radius: 0 !important;\r\n//             border-right: none;\r\n//             /* 去掉右下角的圆角 */\r\n//         }\r\n\r\n//         .suffix-content-btn-wrapper {\r\n//             min-width: 37px;\r\n//             display: flex;\r\n//             align-items: center;\r\n//             justify-content: center;\r\n//             background-color: #eee;\r\n//             border-top-right-radius: 6px;\r\n//             border-bottom-right-radius: 6px;\r\n//         }\r\n\r\n//         .suffix-content-btn-wrapper .btn {\r\n//             border-top-left-radius: 0;\r\n//             /* 去掉左上角的圆角 */\r\n//             border-bottom-left-radius: 0;\r\n//             /* 去掉左下角的圆角 */\r\n//         }\r\n\r\n//         .suffix-content-text-wrapper {\r\n//             display: flex;\r\n//             align-items: center;\r\n//             justify-content: center;\r\n//         }\r\n\r\n//     }\r\n\r\n// }\r\n\r\n// .label-in-center {\r\n//     display: flex;\r\n\r\n//     .suffix-icon {\r\n//         top: 7px;\r\n//     }\r\n// }\r\n\r\n// .label-in-left-top {\r\n//     display: flex;\r\n\r\n//     .label-box {\r\n//         display: flex;\r\n//         align-items: start;\r\n//     }\r\n\r\n//     .suffix-icon {\r\n//         top: 7px;\r\n//     }\r\n// }\r\n\r\n\r\n\r\n// .input-group {\r\n//     .suffix-icon {\r\n//         top: 7px !important;\r\n//     }\r\n// }\r\n\r\n// .input-group-text {\r\n//     cursor: pointer;\r\n// }\r\n\r\n// .lable-in-control {}\r\n\r\n.adou-input-wrapper {\r\n\r\n    .adou-input {\r\n\r\n        &-form-content {\r\n            height: 100%;\r\n            border-radius: 0.375rem;\r\n            // box-shadow: 0 1px 1px rgba(0, 0, 0, 0.075); 加上这个在 borderless 情况下底部会有条线\r\n            transition: background-color 0.5s ease, border-color 0.5s ease, box-shadow 0.5s ease;\r\n        }\r\n\r\n        &-label-vertical {\r\n            display: flex;\r\n            align-items: self-start;\r\n            justify-content: center;\r\n            flex-direction: column;\r\n        }\r\n\r\n        &-label-horizontal {\r\n            display: flex;\r\n            justify-content: center;\r\n            align-items: center;\r\n            flex-direction: row;\r\n\r\n            .adou-input-label-box {\r\n                display: flex;\r\n                align-items: center;\r\n                justify-content: center;\r\n            }\r\n        }\r\n\r\n        &-label-horizontal-top {\r\n            display: flex;\r\n            justify-content: center;\r\n            align-items: self-start;\r\n            flex-direction: row;\r\n        }\r\n\r\n        &-clear-icon-box {\r\n            width: 24px;\r\n            text-align: right;\r\n            display: flex;\r\n            align-items: center;\r\n        }\r\n\r\n        &-clear-icon {\r\n\r\n            cursor: pointer;\r\n            transition: all 0.3s;\r\n            color: #c6c6cd;\r\n\r\n            &:hover {\r\n                transform: scale(1.2);\r\n                color: red !important;\r\n            }\r\n        }\r\n    }\r\n}"],"sourceRoot":""}]);
+}`, "",{"version":3,"sources":["webpack://./src/index.scss"],"names":[],"mappings":"AAIQ;EACI,YAAA;EACA,uBAAA;EAEA,oFAAA;AAJZ;AAOQ;EACI,aAAA;EACA,uBAAA;EACA,uBAAA;EACA,sBAAA;AALZ;AAQQ;EACI,aAAA;EACA,uBAAA;EACA,mBAAA;EACA,mBAAA;AANZ;AAQY;EACI,aAAA;EACA,mBAAA;EACA,uBAAA;AANhB;AAUQ;EACI,aAAA;EACA,uBAAA;EACA,uBAAA;EACA,mBAAA;AARZ;AAWQ;EACI,WAAA;EACA,iBAAA;EACA,aAAA;EACA,mBAAA;AATZ;AAYQ;EAEI,eAAA;EACA,oBAAA;EACA,cAAA;AAXZ;AAaY;EACI,qBAAA;EACA,qBAAA;AAXhB","sourcesContent":[".adou-input-wrapper {\r\n\r\n    .adou-input {\r\n\r\n        &-form-content {\r\n            height: 100%;\r\n            border-radius: 0.375rem;\r\n            // box-shadow: 0 1px 1px rgba(0, 0, 0, 0.075); 加上这个在 borderless 情况下底部会有条线\r\n            transition: background-color 0.5s ease, border-color 0.5s ease, box-shadow 0.5s ease;\r\n        }\r\n\r\n        &-label-vertical {\r\n            display: flex;\r\n            align-items: self-start;\r\n            justify-content: center;\r\n            flex-direction: column;\r\n        }\r\n\r\n        &-label-horizontal {\r\n            display: flex;\r\n            justify-content: center;\r\n            align-items: center;\r\n            flex-direction: row;\r\n\r\n            .adou-input-label-box {\r\n                display: flex;\r\n                align-items: center;\r\n                justify-content: center;\r\n            }\r\n        }\r\n\r\n        &-label-horizontal-top {\r\n            display: flex;\r\n            justify-content: center;\r\n            align-items: self-start;\r\n            flex-direction: row;\r\n        }\r\n\r\n        &-clear-icon-box {\r\n            width: 24px;\r\n            text-align: right;\r\n            display: flex;\r\n            align-items: center;\r\n        }\r\n\r\n        &-clear-icon {\r\n\r\n            cursor: pointer;\r\n            transition: all 0.3s;\r\n            color: #c6c6cd;\r\n\r\n            &:hover {\r\n                transform: scale(1.2);\r\n                color: red !important;\r\n            }\r\n        }\r\n    }\r\n}"],"sourceRoot":""}]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 
@@ -586,6 +586,10 @@ var update = injectStylesIntoStyleTag_default()(cjs_ruleSet_1_rules_1_use_2_src/
 
 const Input = (_ref, ref) => {
   let {
+    title,
+    wrap,
+    wrapperClassName,
+    backgroundColor,
     inputStyle,
     prefix,
     suffix,
@@ -606,7 +610,7 @@ const Input = (_ref, ref) => {
     errMsg,
     labelWidth,
     commonSuffixIcon,
-    width,
+    width = '100%',
     label,
     layout = 'horizontal',
     labelColor,
@@ -720,7 +724,7 @@ const Input = (_ref, ref) => {
     }
   };
   const commonElement = /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement((external_root_React_commonjs2_react_commonjs_react_amd_react_default()).Fragment, null, /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("input", {
-    className: "border-0 flex-fill ".concat(textEnd || type === 'number' ? 'text-end' : '', " ").concat(suffixContent && suffixContentType === 'button' ? 'suffix-content-btn' : '', " ").concat(inputExternalClassName || '', " "),
+    className: "input border-0 flex-fill ".concat(textEnd || type === 'number' ? 'text-end' : '', " ").concat(suffixContent && suffixContentType === 'button' ? 'suffix-content-btn' : '', " ").concat(inputExternalClassName || '', " "),
     ref: inputRef,
     required: required,
     style: {
@@ -739,8 +743,10 @@ const Input = (_ref, ref) => {
         borderBottomRightRadius: 0
       }),
       height: size === 'lg' ? '48px' : size === 'sm' ? '32px' : '40px',
-      backgroundColor: 'transparent',
+      backgroundColor: backgroundColor ? backgroundColor : 'transparent',
       cursor: readOnly ? 'not-allowed' : 'auto',
+      borderRadius: '0.375rem',
+      // 和父组件的 borderRadius 保持一致
       ...inputStyle
     },
     step: 1,
@@ -797,9 +803,10 @@ const Input = (_ref, ref) => {
   const wrapeerRef = (0,external_root_React_commonjs2_react_commonjs_react_amd_react_.useRef)();
   (0,external_root_React_commonjs2_react_commonjs_react_amd_react_.useEffect)(() => {}, []);
   return /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("div", {
+    title: title || label,
     onMouseEnter: handleMouseEnter,
     onMouseLeave: handleMouseLeave,
-    className: "adou-input-wrapper position-relative",
+    className: "adou-input-wrapper position-relative ".concat(wrapperClassName ? wrapperClassName : ''),
     style: {
       ...wrapperStyle,
       ...(wrapperWidth ? {
@@ -809,11 +816,12 @@ const Input = (_ref, ref) => {
       }),
       cursor: readOnly ? 'not-allowed' : 'auto'
     }
-  }, !label ? /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("div", {
+  }, !label && (addonAfter || addonBefore) ? /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("div", {
     className: "adou-input"
   }, /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("div", {
     className: "input-group",
     style: {
+      flexWrap: wrap ? 'wrap' : 'nowrap'
       // height: size === 'lg' ? '48px' : size === 'sm' ? '32px' : '40px',
     }
   }, addonBefore && /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("span", {
@@ -827,16 +835,16 @@ const Input = (_ref, ref) => {
         border: addonBefore || addonAfter ? '' : 'none'
       }),
       ...formStyle,
-      backgroundColor: judgeBgColor(),
+      backgroundColor: backgroundColor ? backgroundColor : judgeBgColor(),
       border: varient === 'outlined' ? '1px solid #ced4da' : ''
     },
     ref: inputFormContentRef,
     tabIndex: 1,
-    className: "adou-input-form-content px-2 d-flex flex-fill align-items-center ".concat(isFocus ? 'adou-form-control-focus' : '')
+    className: "adou-input-form-content d-flex flex-fill align-items-center ".concat(isFocus ? 'adou-form-control-focus' : '', " ").concat(type !== 'number' ? 'px-2' : '')
   }, prefix && /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("div", {
     className: "prefix-box"
   }, prefix), /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("div", {
-    className: "input-box flex-fill d-flex px-2 align-items-center"
+    className: "input-box flex-fill d-flex  align-items-center ".concat(type !== 'number' ? 'px-2' : '')
   }, commonElement)), addonAfter && /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("span", {
     className: "input-group-text py-0",
     style: {
@@ -861,14 +869,15 @@ const Input = (_ref, ref) => {
         border: 'none'
       }),
       border: varient === 'outlined' ? '1px solid #ced4da' : '',
+      backgroundColor: backgroundColor ? backgroundColor : 'transparent',
       ...formStyle
     },
     ref: inputFormContentRef,
-    className: "adou-input-form-content flex-fill d-flex px-2 align-items-center ".concat(isFocus ? 'adou-form-control-focus' : '', " ").concat(judgeBorder())
+    className: "adou-input-form-content flex-fill d-flex align-items-center ".concat(isFocus ? 'adou-form-control-focus' : '', " ").concat(judgeBorder(), " ").concat(type !== 'number' ? 'px-2' : '')
   }, prefix && /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("div", {
     className: "prefix-box"
   }, prefix), /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("div", {
-    className: "input-box flex-fill d-flex px-2 align-items-center"
+    className: "input-box flex-fill d-flex align-items-center ".concat(type !== 'number' ? 'px-2' : '')
   }, commonElement))));
 };
 

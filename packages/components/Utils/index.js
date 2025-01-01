@@ -120,7 +120,15 @@ function getAbsolutePositionOfStage(domElement) {
   } else {
     top = parseInt(top);
   }
-  const box = domElement.getBoundingClientRect();
+  if (!domElement) {
+    return {
+      x: 0,
+      y: 0,
+      width: 0,
+      height: 0
+    };
+  }
+  const box = domElement === null || domElement === void 0 ? void 0 : domElement.getBoundingClientRect();
   const body = document.body;
   const docElem = document.documentElement;
   const scrollTop = window.pageYOffset || docElem.scrollTop || body.scrollTop;

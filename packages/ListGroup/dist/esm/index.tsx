@@ -1,18 +1,18 @@
 import { useState, useEffect, useRef } from "react";
-import { useParams } from "react-router-dom";
 import React from "react";
-import splitFilesIntoColumns from "./splitFilesIntoColumns";
+import splitListIntoColumns from "./splitListIntoColumns";
+import "./index.scss";
 
 interface ListGroupProps {
-  itemHeight?: any;
-  columnMaxHeight?: any;
+  multiple?: boolean;
+  itemHeight?: number;
+  columnMaxHeight?: number;
   lineBreak?: boolean;
   // 每列展示的文件数量--优先根据这个属性，没有再通过 columnMaxHeight 和 itemHeight 进行计算
-  filesPerColumn?: number;
-  columns?: number; // 展示的列数
+  listPerColumn?: number;
   height?: any;
   maxHeight?: any;
-  canActive?: boolean;
+  activeOnClick?: boolean;
   externalClassName?: string;
   noWrap?: boolean;
   defaultFirst?: boolean;
@@ -23,18 +23,18 @@ interface ListGroupProps {
   type?: string;
   onItemClick?: (item?: any) => void;
   onItemDoubleClick?: (item?: any) => void;
-  render?: any;
+  render?: (item: any, labelKey: string, valueKey: string) => void;
 }
 
 const ListGroup = ({
+  multiple,
   itemHeight = 40,
   columnMaxHeight,
-  lineBreak,
-  filesPerColumn,
-  columns = 2,
+  lineBreak = false,
+  listPerColumn,
   height,
   maxHeight,
-  canActive = true,
+  activeOnClick = true,
   externalClassName,
   noWrap,
   defaultFirst = false,
@@ -55,7 +55,7 @@ const ListGroup = ({
 
   const handleItemClick = (item: any) => {
     let data: any;
-    if (Array.isArray(activeList)) {
+    if (multiple && Array.isArray(activeList)) {
       const hasSelected = activeList.some(
         (selectedItem: any) => selectedItem[valueKey!] === item[valueKey!]
       );
@@ -81,9 +81,9 @@ const ListGroup = ({
   };
 
   const judgeIsActive = (item: any) => {
-    if (!canActive) return "";
+    if (!activeOnClick) return "";
     let flag: boolean = false;
-    if (Array.isArray(activeList)) {
+    if (multiple && Array.isArray(activeList)) {
       if (
         activeList.map((item: any) => item[valueKey!]).includes(item[valueKey!])
       )
@@ -110,13 +110,13 @@ const ListGroup = ({
         setParentMaxHeight(parentElement.clientHeight);
       }
     }
-  }, [selectList, data, columnMaxHeight]);
+  }, [selectList, data, columnMaxHeight, listGroupRef.current]);
 
   useEffect(() => {
     // 如果需要换行，则根据 判断 filesPerColunm 是否有值，有值则直接分割，没有值则根据 parentMaxHeight 和 itemHeight 计算每列的文件数量
-    if (lineBreak) {
-      if (filesPerColumn) {
-        setList(splitFilesIntoColumns(data || [], filesPerColumn));
+    if (lineBreak && (columnMaxHeight || maxHeight || parentMaxHeight)) {
+      if (listPerColumn) {
+        setList(splitListIntoColumns(data || [], listPerColumn));
       } else {
         // 存放列表的数据，二维数组：[["1", "2", "3"], ["4", "5", "6"]]
         const columnsData: any[][] = [];
@@ -154,7 +154,7 @@ const ListGroup = ({
       className={`list-group-wrapper ${externalClassName || ""}`}
       ref={listGroupRef}
     >
-      {lineBreak ? (
+      {lineBreak && (columnMaxHeight || maxHeight || parentMaxHeight) ? (
         <div className="row g-0">
           {list.map((columnItems, columnIndex) => (
             <div className={`col`} key={columnIndex}>
@@ -183,7 +183,11 @@ const ListGroup = ({
                         item
                       )}`}
                     >
-                      {render ? render(item) : item[labelKey!]}
+                      {item.render
+                        ? item.render(item, labelKey, valueKey)
+                        : render
+                        ? render(item, labelKey, valueKey)
+                        : item[labelKey!]}
                     </button>
                   ))}
               </ul>
@@ -191,6 +195,7 @@ const ListGroup = ({
           ))}
         </div>
       ) : (
+        // 好像不会执行这边的渲染
         <div
           className="list-group"
           style={{
@@ -214,7 +219,11 @@ const ListGroup = ({
                 item
               )}`}
             >
-              {render ? render(item) : item[labelKey!]}
+              {item.render
+                ? item.render(item, labelKey, valueKey)
+                : render
+                ? render(item, labelKey, valueKey)
+                : item[labelKey!]}
             </button>
           ))}
         </div>
@@ -222,6 +231,5 @@ const ListGroup = ({
     </div>
   );
 };
-
 
 export default ListGroup;

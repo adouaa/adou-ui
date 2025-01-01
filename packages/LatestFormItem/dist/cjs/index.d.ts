@@ -3,9 +3,10 @@ import React from "react";
 import "./index.scss";
 interface FormItemProps {
     labelColor?: string;
-    formItemWrapperMinWidth?: any;
-    formItemWrapperWidth?: any;
-    formItemWrapperMaxWidth?: any;
+    contentBackgroundColor?: string;
+    wrapperMinWidth?: any;
+    wrapperWidth?: any;
+    wrapperMaxWidth?: any;
     contentWrapperWidth?: any;
     wrapperStyle?: React.CSSProperties;
     contentWrap?: boolean;
@@ -14,7 +15,6 @@ interface FormItemProps {
     formItemRef?: any;
     rules?: any;
     setFieldValue?: any;
-    wrapperWidth?: any;
     data?: any;
     clearable?: boolean;
     addonAfter?: ReactNode | string | number;
@@ -27,7 +27,7 @@ interface FormItemProps {
     children?: ReactNode;
 }
 declare const FormItem: {
-    ({ labelColor, formItemWrapperMinWidth, formItemWrapperWidth, formItemWrapperMaxWidth, contentWrapperWidth, wrapperStyle, contentWrap, oneLine, labelWrap, formItemRef, rules, setFieldValue, wrapperWidth, data, clearable, addonAfter, size, labelWidth, layout, addonBefore, label, name, children, }: FormItemProps): React.JSX.Element;
+    ({ labelColor, contentBackgroundColor, wrapperMinWidth, wrapperWidth, wrapperMaxWidth, contentWrapperWidth, wrapperStyle, contentWrap, oneLine, labelWrap, formItemRef, rules, setFieldValue, data, clearable, addonAfter, size, labelWidth, layout, addonBefore, label, name, children, }: FormItemProps): React.JSX.Element;
     displayName: string;
 };
 export default FormItem;

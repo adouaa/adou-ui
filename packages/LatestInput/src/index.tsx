@@ -2,6 +2,10 @@ import React, { forwardRef, useEffect, useRef, useState, useImperativeHandle, Re
 import './index.scss';
 
 export interface InputProps {
+    title?: string;
+    wrap?: boolean;
+    wrapperClassName?: string;
+    backgroundColor?: string;
     inputStyle?: React.CSSProperties;
     prefix?: any; // 前缀
     suffix?: any; // 后缀
@@ -58,6 +62,10 @@ export interface InputRef {
 
 const Input: React.ForwardRefRenderFunction<InputRef, InputProps> = (
     {
+        title,
+        wrap,
+        wrapperClassName,
+        backgroundColor,
         inputStyle,
         prefix,
         suffix,
@@ -78,7 +86,7 @@ const Input: React.ForwardRefRenderFunction<InputRef, InputProps> = (
         errMsg,
         labelWidth,
         commonSuffixIcon,
-        width,
+        width = '100%',
         label,
         layout = 'horizontal',
         labelColor,
@@ -215,7 +223,7 @@ const Input: React.ForwardRefRenderFunction<InputRef, InputProps> = (
     const commonElement = (
         <>
             <input
-                className={`border-0 flex-fill ${textEnd || type === 'number' ? 'text-end' : ''} ${
+                className={`input border-0 flex-fill ${textEnd || type === 'number' ? 'text-end' : ''} ${
                     suffixContent && suffixContentType === 'button' ? 'suffix-content-btn' : ''
                 } ${inputExternalClassName || ''} `}
                 ref={inputRef}
@@ -234,8 +242,9 @@ const Input: React.ForwardRefRenderFunction<InputRef, InputProps> = (
                         borderBottomRightRadius: 0,
                     }),
                     height: size === 'lg' ? '48px' : size === 'sm' ? '32px' : '40px',
-                    backgroundColor: 'transparent',
+                    backgroundColor: backgroundColor ? backgroundColor : 'transparent',
                     cursor: readOnly ? 'not-allowed' : 'auto',
+                    borderRadius: '0.375rem', // 和父组件的 borderRadius 保持一致
                     ...inputStyle,
                 }}
                 step={1}
@@ -303,24 +312,24 @@ const Input: React.ForwardRefRenderFunction<InputRef, InputProps> = (
 
     return (
         <div
+            title={title || label}
             onMouseEnter={handleMouseEnter}
             onMouseLeave={handleMouseLeave}
-            className={`adou-input-wrapper position-relative`}
+            className={`adou-input-wrapper position-relative ${wrapperClassName ? wrapperClassName : ''}`}
             style={{
                 ...wrapperStyle,
                 ...(wrapperWidth ? { width: wrapperWidth } : { flex: 1 }),
                 cursor: readOnly ? 'not-allowed' : 'auto',
             }}
         >
-            {!label ? (
+            {!label && (addonAfter || addonBefore) ? (
                 <div className={`adou-input`}>
                     <div
                         className="input-group"
-                        style={
-                            {
-                                // height: size === 'lg' ? '48px' : size === 'sm' ? '32px' : '40px',
-                            }
-                        }
+                        style={{
+                            flexWrap: wrap ? 'wrap' : 'nowrap',
+                            // height: size === 'lg' ? '48px' : size === 'sm' ? '32px' : '40px',
+                        }}
                     >
                         {addonBefore && (
                             <span className="input-group-text py-0" style={{ fontSize: '14px' }}>
@@ -329,17 +338,19 @@ const Input: React.ForwardRefRenderFunction<InputRef, InputProps> = (
                         )}
                         <div
                             style={{
-                                ...(varient === 'filled' && { border: addonBefore || addonAfter ? '' : 'none' }),
+                                ...(varient === 'filled' && {
+                                    border: addonBefore || addonAfter ? '' : 'none',
+                                }),
                                 ...formStyle,
-                                backgroundColor: judgeBgColor(),
+                                backgroundColor: backgroundColor ? backgroundColor : judgeBgColor(),
                                 border: varient === 'outlined' ? '1px solid #ced4da' : '',
                             }}
                             ref={inputFormContentRef}
                             tabIndex={1}
-                            className={`adou-input-form-content px-2 d-flex flex-fill align-items-center ${isFocus ? 'adou-form-control-focus' : ''}`}
+                            className={`adou-input-form-content d-flex flex-fill align-items-center ${isFocus ? 'adou-form-control-focus' : ''} ${type !== 'number' ? 'px-2' : ''}`}
                         >
                             {prefix && <div className="prefix-box">{prefix}</div>}
-                            <div className="input-box flex-fill d-flex px-2 align-items-center">{commonElement}</div>
+                            <div className={`input-box flex-fill d-flex  align-items-center ${type !== 'number' ? 'px-2' : ''}`}>{commonElement}</div>
                         </div>
                         {addonAfter && (
                             <span className="input-group-text py-0" style={{ fontSize: '14px' }}>
@@ -360,15 +371,21 @@ const Input: React.ForwardRefRenderFunction<InputRef, InputProps> = (
                         tabIndex={1}
                         style={{
                             width: '100%',
-                            ...(varient === 'filled' && { backgroundColor: '#f0f0f0', border: 'none' }),
+                            ...(varient === 'filled' && {
+                                backgroundColor: '#f0f0f0',
+                                border: 'none',
+                            }),
                             border: varient === 'outlined' ? '1px solid #ced4da' : '',
+                            backgroundColor: backgroundColor ? backgroundColor : 'transparent',
                             ...formStyle,
                         }}
                         ref={inputFormContentRef}
-                        className={`adou-input-form-content flex-fill d-flex px-2 align-items-center ${isFocus ? 'adou-form-control-focus' : ''} ${judgeBorder()}`}
+                        className={`adou-input-form-content flex-fill d-flex align-items-center ${
+                            isFocus ? 'adou-form-control-focus' : ''
+                        } ${judgeBorder()} ${type !== 'number' ? 'px-2' : ''}`}
                     >
                         {prefix && <div className="prefix-box">{prefix}</div>}
-                        <div className="input-box flex-fill d-flex px-2 align-items-center">{commonElement}</div>
+                        <div className={`input-box flex-fill d-flex align-items-center ${type !== 'number' ? 'px-2' : ''}`}>{commonElement}</div>
                     </div>
                 </div>
             )}

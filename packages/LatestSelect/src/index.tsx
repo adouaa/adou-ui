@@ -10,6 +10,8 @@ import useThrottle from "./useThrottle";
 import IconClose from "./icon_close";
 
 export interface SelectProps {
+  title?: string;
+  backgroundColor?: string;
   mode?: "common" | "liveSearch" | "tags";
   multiple?: boolean;
   showSearch?: boolean;
@@ -76,6 +78,8 @@ export interface SelectProps {
 
 const Select = React.forwardRef((props: SelectProps, ref) => {
   const {
+    title,
+    backgroundColor,
     mode = "common",
     multiple,
     showSearch,
@@ -144,7 +148,7 @@ const Select = React.forwardRef((props: SelectProps, ref) => {
   // const { isShow, selectWrapperRef, handleClose } = useClickOutside();
   const [newOptions, setNewOptions] = useState(options || []);
   const [originalOptions, setOriginalOptions] = useState<any>(options || []);
-  const [selectValue, setSelectValue] = useState({});
+  const [selectValue, setSelectValue] = useState<any>({});
   const [selectValueList, setSelectValueList] = useState<any[]>([]);
   // 暂存上一次选中的数据，防止更换 options 的时候，无法展示上次的数据
   const [tempSelectValue, setTempSelectValue] = useState<any>(
@@ -167,17 +171,38 @@ const Select = React.forwardRef((props: SelectProps, ref) => {
   const inputRef = useRef<any>();
 
   const handleClose = () => {
+    console.log("contentRef.current: ", contentRef.current);
     if (disabled) return;
     // RetrieveSelect 新增逻辑 失焦后，展示 select-value
-    if (mode !== "liveSearch") {
+    if (mode !== "liveSearch" && !showSearch) {
       setIsInputFocusing(false);
     }
-    if (mode === "common") {
-      if (inputRef.current) {
+    if (mode === "common" && inputRef.current) {
+      if (showSearch) {
+        // 如果是 需要搜索框，则 input 的值不变，仍然是 选中的值
+        inputRef.current.value = selectValue?.[labelKey] || "";
+      } else {
         inputRef.current.value = "";
       }
     } else if (mode === "liveSearch") {
       setSelectValue(inputRef.current?.value); // 搜索框失去焦点时，将输入框的值赋给 selectValue
+    } else if (mode === "tags") {
+      // tags 模式就是只有 value，没有 label
+      const value = inputRef.current?.value;
+      const tempSelectValueList = [...(selectValueList || [])];
+      if (value) {
+        if (tempSelectValueList.find((item) => item === value)) {
+          return;
+        } else {
+          console.log("5: ", 5);
+          tempSelectValueList.push(value);
+          // tempSelectValueList.push(value);
+          setSelectValueList(tempSelectValueList);
+          inputRef.current.value = "";
+        }
+      }
+      handleValidate(tempSelectValueList);
+      onFieldChange && onFieldChange(name!, tempSelectValueList);
     }
     if (varient === "filled" && selectRef.current) {
       selectRef.current.style.backgroundColor = "#f0f0f0";
@@ -222,6 +247,7 @@ const Select = React.forwardRef((props: SelectProps, ref) => {
   const calcContentPosition = () => {
     const position = getAbsolutePosition(selectRef.current, 0, 0);
     const viewportHeight = window.innerHeight;
+    if (!selectRef.current) return;
     const rect = selectRef.current.getBoundingClientRect();
     const distanceToBottom = viewportHeight - rect.bottom;
     // 如果 距离底部小于内容高度，则向上弹出
@@ -238,53 +264,57 @@ const Select = React.forwardRef((props: SelectProps, ref) => {
       setNewOptions(originalOptions);
     }
     e.stopPropagation();
+    // 把下面的判断提炼出来
+    setTimeout(() => {
+      calcContentPosition(); // 不在这里计算，否则会出现抖动，在 列表变化 或者 focus 的时候计算
+    }, 10);
     if (disabled) {
       return; // 如果是禁用状态，则不执行下面的逻辑
-    } else if (!showSearch && mode !== "tags") {
+    } else if (!showSearch) {
       // 如果是普通的单选模式，那要直接打开--新增如果是 tags 模式，则不打开下拉框来选择(因为会把输入框输入的值也添加到数组里面去)
       setIsShow(true);
     } else if (isInputFocusing) {
-      if (mode === "common") {
-        if (!selectValue?.[valueKey]) {
-          setIsShow(true);
-          // 要给的 定时器，这样才能正确取到 contentRef的高度，否则为0
-          setTimeout(() => {
-            calcContentPosition();
-          }, 10);
-        }
-      } else if (mode === "liveSearch") {
-        debugger;
-        // isEmptyO(selectValue) 这个判断是为了防止 defaultValue 判断为空导致 selectValue是空对象的情况
-        if (!selectValue || isEmptyO(selectValue)) {
-          setIsShow(true);
-          // 要给的 定时器，这样才能正确取到 contentRef的高度，否则为0
-          setTimeout(() => {
-            calcContentPosition();
-          }, 10);
-        }
-      } else if (mode === "tags") {
-        if (!selectValue || isEmptyO(selectValue)) {
-          // setIsShow(true); --新增如果是 tags 模式，则不打开下拉框来选择(因为会把输入框输入的值也添加到数组里面去)
-          // 要给的 定时器，这样才能正确取到 contentRef的高度，否则为0
-          setTimeout(() => {
-            calcContentPosition();
-          }, 10);
-        }
-        // setIsShow(false); // 新增如果是 tags 模式，则不打开下拉框来选择(因为会把输入框输入的值也添加到数组里面去)
-      } else if (multiple) {
-        if (!selectValue || isEmptyO(selectValue)) {
-          setIsShow(true);
-          // 要给的 定时器，这样才能正确取到 contentRef的高度，否则为0
-          setTimeout(() => {
-            calcContentPosition();
-          }, 10);
-        }
-      }
+      // 这边的判断好像都可以不要了？
+      /*  if (mode === 'common') {
+              if (!selectValue?.[valueKey]) {
+                  setIsShow(true);
+                  // 要给的 定时器，这样才能正确取到 contentRef的高度，否则为0
+                  setTimeout(() => {
+                      calcContentPosition();
+                  }, 10);
+              }
+          } else if (mode === 'liveSearch') {
+              debugger;
+              // isEmptyO(selectValue) 这个判断是为了防止 defaultValue 判断为空导致 selectValue是空对象的情况
+              if (!selectValue || isEmptyO(selectValue)) {
+                  setIsShow(true);
+                  // 要给的 定时器，这样才能正确取到 contentRef的高度，否则为0
+                  setTimeout(() => {
+                      calcContentPosition();
+                  }, 10);
+              }
+          } else if (mode === 'tags') {
+              if (!selectValue || isEmptyO(selectValue)) {
+                  // setIsShow(true); --新增如果是 tags 模式，则不打开下拉框来选择(因为会把输入框输入的值也添加到数组里面去)
+                  // 要给的 定时器，这样才能正确取到 contentRef的高度，否则为0
+                  setTimeout(() => {
+                      calcContentPosition();
+                  }, 10);
+              }
+              // setIsShow(false); // 新增如果是 tags 模式，则不打开下拉框来选择(因为会把输入框输入的值也添加到数组里面去)
+          } else if (multiple) {
+              if (!selectValue || isEmptyO(selectValue)) {
+                  setIsShow(true);
+                  // 要给的 定时器，这样才能正确取到 contentRef的高度，否则为0
+                  setTimeout(() => {
+                      calcContentPosition();
+                  }, 10);
+              }
+          } */
     }
   };
 
   const handleSelect = (item: any, e?: React.MouseEvent) => {
-    console.log("item: ", item);
     e?.stopPropagation();
     // 要做个中间量，不然给 form 的的数据会慢一拍
     let newSelectValueList = [...selectValueList];
@@ -292,7 +322,6 @@ const Select = React.forwardRef((props: SelectProps, ref) => {
       const index = selectValueList.findIndex(
         (option: any) => option[valueKey] === item[valueKey]
       );
-      console.log("index: ", index);
       if (index > -1) {
         newSelectValueList = newSelectValueList.filter(
           (option: any) => option[valueKey] !== item[valueKey]
@@ -302,8 +331,11 @@ const Select = React.forwardRef((props: SelectProps, ref) => {
         newSelectValueList.push(item);
         setSelectValueList(newSelectValueList);
       }
+      // 选择完之后，将 input 的值清空
+      if (inputRef.current) {
+        inputRef.current.value = "";
+      }
     } else {
-      console.log("item: ", item);
       setSelectValue(item);
       setTempSelectValue(item);
       if (mode === "liveSearch") {
@@ -311,12 +343,13 @@ const Select = React.forwardRef((props: SelectProps, ref) => {
       }
       handleClose();
     }
-
-    const returnValue = multiple
-      ? newSelectValueList
-      : returnType === "obj" || showDefaultValue
-      ? item
-      : item[valueKey];
+    // 多选和单选，返回的结果要分开
+    const returnValue =
+      multiple || mode === "tags"
+        ? newSelectValueList
+        : returnType === "obj" || showDefaultValue
+        ? item
+        : item[valueKey];
     onChange && onChange(returnValue);
     setError(false);
     // 新增onFormDataChange来修改外部传入的数据
@@ -330,8 +363,8 @@ const Select = React.forwardRef((props: SelectProps, ref) => {
   const getValue = () => {
     // 不能加这个逻辑，这样会导致手动选择另外的选项，返回的还是 defaultValue
     /* if (showDefaultValue) {
-              return defaultValue;
-            } */
+            return defaultValue;
+          } */
 
     if (
       selectValue?.[valueKey] ||
@@ -418,8 +451,8 @@ const Select = React.forwardRef((props: SelectProps, ref) => {
     const newSelectValueList = [...selectValueList];
     newSelectValueList.splice(index, 1);
     /* if (selectValueList.length === 1) {
-            handleValidate([]); // 清除最后一项的时候，也要触发校验
-        } */
+          handleValidate([]); // 清除最后一项的时候，也要触发校验
+      } */
     handleFieldChange(newSelectValueList);
     handleValidate(newSelectValueList);
     setSelectValueList(newSelectValueList);
@@ -488,6 +521,7 @@ const Select = React.forwardRef((props: SelectProps, ref) => {
   // 计算所取到的值能展示的最大宽度
   const getMaxSelectValueWidth = () => {
     const selectWidth = getContentWidth(selectRef.current);
+
     if (!selectWidth) return;
     const cliearIconBoxWidth = document.querySelector(
       ".adou-select-clear-icon-box"
@@ -496,68 +530,56 @@ const Select = React.forwardRef((props: SelectProps, ref) => {
       ".adou-select-icon-box"
     )?.clientWidth;
 
+    // 这里多减去 8px 防止凸出来
     setSelectValueMaxWidth(
       selectWidth -
         (cliearIconBoxWidth || 0) -
-        (adouSelectIconBoxWidth || 0) +
+        (adouSelectIconBoxWidth || 0) -
+        8 +
         "px"
     );
   };
 
   const handleInputFocus = (e: any) => {
-    // 新增 RetrieveSelect 逻辑
+    // 如果是 带输入框(过滤) 并且不是多选 逻辑
     if (showSearch && inputRef.current && !multiple) {
       setIsInputFocusing(true);
       inputRef.current?.focus();
+      // 如果有值
       if (!isEmptyO(selectValue)) {
         if (mode === "common") {
-          inputRef.current.value = selectValue[labelKey] || selectValue;
+          if (typeof selectValue === "object") {
+            inputRef.current.value = selectValue[labelKey];
+          } else {
+            inputRef.current.value = selectValue;
+          }
         }
         inputRef.current?.select();
+      } else {
+        // 没值，则展示下拉列表
+        setIsShow(true);
       }
     } else if (multiple || mode === "tags") {
       setIsInputFocusing(true);
     } else if (mode === "liveSearch") {
       setIsInputFocusing(true);
-      inputRef.current.value = selectValue[labelKey] || selectValue;
+      if (selectValue && !isEmptyO(selectValue)) {
+        inputRef.current.value = selectValue?.[labelKey] || selectValue;
+      }
       // inputRef.current?.focus();
     }
   };
 
   const handleInputBlur = (e: React.FocusEvent<HTMLInputElement>) => {
     e.stopPropagation();
-    // 检查是否是因为点击其他元素（比如选项元素）导致失去焦点
-    if (
-      e.relatedTarget &&
-      (e.relatedTarget as HTMLElement).tagName === "YOUR_OPTION_TAG_NAME"
-    ) {
-      return; // 如果是点击选项导致的失去焦点，直接返回，不执行后续逻辑
-    }
-    if (mode === "tags") {
-      // tags 模式就是只有 value，没有 label
-      const value = e.target.value;
-      const tempSelectValueList = [...(selectValueList || [])];
-      if (value) {
-        if (tempSelectValueList.find((item) => item === value)) {
-          return;
-        } else {
-          console.log("5: ", 5);
-          tempSelectValueList.push(value);
-          // tempSelectValueList.push(value);
-          setSelectValueList(tempSelectValueList);
-          inputRef.current.value = "";
-        }
-      }
-      handleValidate(tempSelectValueList);
-      onFieldChange && onFieldChange(name!, tempSelectValueList);
-    }
   };
 
   const _onInputChange = useThrottle((value: string) => {
     onInputChange && onInputChange(value);
-  }, 1000);
+  }, 300);
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    // debugger;
     e.stopPropagation();
     const value = e.target.value;
     if (mode !== "tags") {
@@ -576,95 +598,122 @@ const Select = React.forwardRef((props: SelectProps, ref) => {
       });
       setNewOptions(filteredOptions);
     } else {
-      _onInputChange(value);
+      // _onInputChange(value); // 不知道为什么使用节流会导致 form 的数据被清空。。。
+      onInputChange && onInputChange(value);
     }
   };
 
   useEffect(() => {
+    console.log("defaultValue: ", defaultValue);
+    /* if (name === "store") {
+      console.log("defaultValue: ", defaultValue);
+      // debugger;
+    } */
     // 新增：如果使用过 defaultValue，就不再执行下面的逻辑
     // if (hasUseDefaultValue) return;
     if (defaultValue) {
+      // 如果有值，则自动做校验，防止一开始没值出现空提示，后面切换了有值还是出现空提示的错误
+      setError(false);
       sethasUseDefaultValue(true);
-    }
-    // 如果是必须展示默认值，不通过列表匹配的话，进入这个判断
-    if (showDefaultValue) {
-      if (multiple) {
-        setSelectValueList(defaultValue);
+
+      // 如果是必须展示默认值，不通过列表匹配的话，进入这个判断
+      if (showDefaultValue) {
+        if (multiple) {
+          setSelectValueList(defaultValue);
+        } else {
+          if (typeof defaultValue !== "object") {
+            const selectOption = {
+              [valueKey]: defaultValue,
+              [labelKey]: defaultValue,
+            };
+            setSelectValue(selectOption);
+            setTempSelectValue(selectOption);
+          } else if (typeof defaultValue === "object") {
+            setSelectValue(defaultValue);
+            setTempSelectValue(defaultValue);
+          }
+        }
       } else {
-        if (typeof defaultValue !== "object") {
-          const selectOption = {
-            [valueKey]: defaultValue,
-            [labelKey]: defaultValue,
-          };
-          setSelectValue(selectOption);
-          setTempSelectValue(selectOption);
-        } else if (typeof defaultValue === "object") {
-          setSelectValue(defaultValue);
-          setTempSelectValue(defaultValue);
+        if (multiple) {
+          const selectOption = options.filter((option: any) => {
+            if (Array.isArray(defaultValue)) {
+              return defaultValue.some((value: any) => {
+                const matchValue =
+                  typeof value === "object" ? value[valueKey] : value;
+                return option[valueKey] === matchValue;
+              });
+            } else {
+              return option[valueKey] === defaultValue;
+            }
+          });
+          setSelectValueList(selectOption);
+        } else if (mode === "tags") {
+          // 如果是 tags 模式，单独处理
+          if (defaultValue) {
+            console.log("defaultValue: ", defaultValue);
+            setSelectValueList(
+              Array.isArray(defaultValue)
+                ? defaultValue.map((item: any) => {
+                    if (typeof item === "object") {
+                      return item;
+                    } else {
+                      return { [valueKey]: item, [labelKey]: item };
+                    }
+                  })
+                : typeof defaultValue === "object"
+                ? [defaultValue]
+                : [{ [valueKey]: defaultValue, [labelKey]: defaultValue }]
+            );
+          } else {
+            setSelectValueList([]);
+          }
+        } else {
+          if (typeof defaultValue === "object") {
+            const selectOption = options.find(
+              (option) => option?.[valueKey] === defaultValue?.[valueKey]
+            );
+            // 如果找到匹配项，则设置选中项
+            if (selectOption) {
+              setSelectValue(selectOption);
+              setTempSelectValue(selectOption);
+            } else {
+              // 如果没有找到匹配项，则不设置选中项
+              setSelectValue({});
+              // setTempSelectValue({});
+            }
+          } else {
+            if (defaultValue || defaultValue === 0 || defaultValue === false) {
+              const selectOption = options.find(
+                (option) => option[valueKey] === defaultValue
+              );
+              if (selectOption) {
+                setSelectValue(selectOption);
+              } else if (mode !== "liveSearch") {
+                setSelectValue(selectOption);
+              }
+            } else {
+              setSelectValue(tempSelectValue);
+            }
+          }
         }
       }
     } else {
-      if (multiple) {
-        const selectOption = options.filter((option: any) => {
-          if (Array.isArray(defaultValue)) {
-            return defaultValue.some((value: any) => {
-              const matchValue =
-                typeof value === "object" ? value[valueKey] : value;
-              return option[valueKey] === matchValue;
-            });
-          } else {
-            return option[valueKey] === defaultValue;
-          }
-        });
-        setSelectValueList(selectOption);
-      } else if (mode === "tags") {
-        // 如果是 tags 模式，单独处理
-        if (defaultValue) {
-          setSelectValueList(
-            Array.isArray(defaultValue)
-              ? defaultValue
-              : [{ [valueKey]: defaultValue, [labelKey]: defaultValue }]
-          );
-        } else {
-          setSelectValueList([]);
-        }
-      } else {
-        if (typeof defaultValue === "object") {
-          const selectOption = options.find(
-            (option) => option?.[valueKey] === defaultValue?.[valueKey]
-          );
-          // 如果找到匹配项，则设置选中项
-          if (selectOption) {
-            setSelectValue(selectOption);
-            setTempSelectValue(selectOption);
-          } else {
-            // 如果没有找到匹配项，则不设置选中项
-            setSelectValue({});
-            // setTempSelectValue({});
-          }
-        } else {
-          if (defaultValue || defaultValue === 0 || defaultValue === false) {
-            const selectOption = options.find(
-              (option) => option[valueKey] === defaultValue
-            );
-            setSelectValue(selectOption);
-          } else {
-            setSelectValue(tempSelectValue);
-          }
-        }
-      }
+      setSelectValue("");
+      setTempSelectValue("");
+      setSelectValueList([]);
     }
-    // 如果有值，则自动做校验，防止一开始没值出现空提示，后面切换了有值还是出现空提示的错误
-    if (defaultValue) {
-      setError(false);
-    }
+    setTimeout(() => {
+      getMaxSelectValueWidth();
+    }, 100);
   }, [defaultValue, options]);
 
   useEffect(() => {
     if (showEmpty) {
-      const enhancedOptions = [...options];
-      setNewOptions(enhancedOptions);
-      setOriginalOptions(enhancedOptions);
+      if (options) {
+        const enhancedOptions = [...options];
+        setNewOptions(enhancedOptions);
+        setOriginalOptions(enhancedOptions);
+      }
     } else {
       setNewOptions(options);
       setOriginalOptions(options);
@@ -685,17 +734,42 @@ const Select = React.forwardRef((props: SelectProps, ref) => {
     }
   }, [isShow]);
 
+  // 因为现在只有在 第一次 的时候展示 select-value的div，后面都是展示 input，所以这边做了赋值处理，保证 input的值能够实时更新
   useEffect(() => {
-    setTimeout(() => {
-      getMaxSelectValueWidth();
-    }, 100);
-  }, []);
+    // debugger;
+    console.log("selectValue: ", selectValue);
+    if (
+      // 下面这些情况不用在意 input 的值
+      !inputRef.current ||
+      (!isInputFocusing && !showSearch && mode !== "liveSearch") ||
+      !selectValue
+    ) {
+      if (inputRef.current) {
+        inputRef.current.value = ""; // 如果 selectValue 没值，则 有input 的话， input 的值也要清空
+      }
+      return;
+    }
+    if (typeof selectValue === "object") {
+      if (!selectValue?.[valueKey]) {
+        inputRef.current.value = "";
+      } else {
+        inputRef.current.value = selectValue[labelKey];
+      }
+    } else {
+      inputRef.current.value = selectValue;
+    }
+  }, [selectValue]);
 
   // 为了做 聚焦高亮，只能把第三个参数写为 true，本来是 contentRef.current && isShow
-  useClickOutside([selectRef, contentRef, inputRef], handleClose, true);
+  useClickOutside(
+    [selectRef, contentRef, inputRef],
+    handleClose,
+    contentRef.current && selectRef.current && isShow
+  );
 
   return (
     <div
+      title={title || label}
       onFocus={handleFocus}
       onKeyDown={handleKeyDown}
       tabIndex={0}
@@ -706,10 +780,7 @@ const Select = React.forwardRef((props: SelectProps, ref) => {
         ...(wrapperWidth ? { width: wrapperWidth } : { flex: 1 }),
       }}
     >
-      {/*   <select style={{ display: 'none' }} name={name}>
-                  <option value={value?.[valueKey]}>{value?.[labelKey]}</option>
-              </select> */}
-      {/* inputGroup风格 */}
+      {/* {name === "dosage_quantity" && JSON.stringify(selectValue[valueKey])} */}
       <div className="adou-select-form-content">
         <div
           ref={selectRef}
@@ -721,7 +792,9 @@ const Select = React.forwardRef((props: SelectProps, ref) => {
           } ${isFocus ? "adou-form-control-focus" : ""}`}
           style={{
             textAlign: "left",
-            background: transparent
+            background: backgroundColor
+              ? backgroundColor
+              : transparent
               ? "transparent"
               : disabled
               ? "#eee"
@@ -730,13 +803,14 @@ const Select = React.forwardRef((props: SelectProps, ref) => {
               : "",
             flex: 1,
             /* ...(suffixContentType === 'button'
-                            ? {
-                                  borderTopRightRadius: 0,
-                                  borderBottomRightRadius: 0,
-                                  // borderRight: "none",
-                              }
-                            : {}), */
-            minHeight: size === "lg" ? "48px" : size === "sm" ? "32px" : "40px",
+                          ? {
+                                borderTopRightRadius: 0,
+                                borderBottomRightRadius: 0,
+                                // borderRight: "none",
+                            }
+                          : {}), */
+            minHeight:
+              size === "lg" ? "48px" : size === "sm" ? "32px" : "41.6px",
             border: varient === "borderless" ? "none" : "",
             cursor: disabled ? "not-allowed" : "pointer",
             ...formStyle,
@@ -753,7 +827,7 @@ const Select = React.forwardRef((props: SelectProps, ref) => {
                   key={index}
                 >
                   <span className="adou-select-value-list-item-text me-1">
-                    {typeof item === "object" ? item[valueKey] : item}
+                    {typeof item === "object" ? item[labelKey] : item}
                   </span>
                   {!disabled && (
                     <span
@@ -768,7 +842,7 @@ const Select = React.forwardRef((props: SelectProps, ref) => {
                 </div>
               ))}
               {/* 需要输入或者模式为 tags 的时候，就要展示 输入框 */}
-              {(showSearch || mode === "tags") && (
+              {(showSearch || filterOption || mode === "tags") && (
                 <div className={`adou-select-input-box flex-fill`}>
                   <input
                     onBlur={handleInputBlur}
@@ -785,10 +859,12 @@ const Select = React.forwardRef((props: SelectProps, ref) => {
                     aria-label="Username"
                     aria-describedby="basic-addon1"
                     style={{
-                      backgroundColor:
-                        varient === "filled" || transparent
-                          ? "transparent"
-                          : "",
+                      backgroundColor: backgroundColor
+                        ? backgroundColor
+                        : varient === "filled" || transparent
+                        ? "transparent"
+                        : "",
+                      width: "100%",
                       cursor: disabled ? "not-allowed" : "",
                     }}
                   />
@@ -799,16 +875,17 @@ const Select = React.forwardRef((props: SelectProps, ref) => {
             selectValue?.[valueKey] === 0 ||
             selectValue?.[valueKey] === false ? (
             ellipsis ? (
-              !isInputFocusing || multiple ? (
+              (!isInputFocusing || multiple) &&
+              !showSearch &&
+              mode !== "liveSearch" ? (
                 <div
                   title={selectValue[labelKey]}
                   className={`adou-select-value ${
                     contentWrap ? "ellipsis-1" : ""
                   }`} // ellipsis-1 加上这个，选择框会自动变大或者变小
                   style={{
-                    ...(!showSearch && mode !== "liveSearch"
-                      ? { flex: 1 }
-                      : {}),
+                    maxWidth: selectValueMaxWidth, // 设置最大宽度来支持 ellipsis
+                    ...(!showSearch && !filterOption ? { flex: 1 } : {}),
                   }}
                 >
                   {selectValue[labelKey]}
@@ -827,9 +904,13 @@ const Select = React.forwardRef((props: SelectProps, ref) => {
               </div>
             )
           ) : (
-            <div className="select-value-empty-placeholder flex-fill"></div>
+            mode !== "liveSearch" &&
+            !showSearch &&
+            !filterOption && (
+              <div className="select-value-empty-placeholder flex-fill"></div>
+            )
           )}
-          {(showSearch || mode === "liveSearch") &&
+          {(showSearch || filterOption || mode === "liveSearch") &&
             !multiple &&
             mode !== "tags" && (
               <div className="adou-select-input-box flex-fill">
@@ -847,8 +928,13 @@ const Select = React.forwardRef((props: SelectProps, ref) => {
                   aria-label="Username"
                   aria-describedby="basic-addon1"
                   style={{
-                    backgroundColor:
-                      varient === "filled" || transparent ? "transparent" : "",
+                    backgroundColor: backgroundColor
+                      ? backgroundColor
+                      : varient === "filled" || transparent
+                      ? "transparent"
+                      : "",
+                    width: "100%",
+
                     cursor: disabled ? "not-allowed" : "",
                   }}
                 />
@@ -884,7 +970,7 @@ const Select = React.forwardRef((props: SelectProps, ref) => {
           <div
             className={`adou-select-icon-box ms-2 ${
               !showSearch && !selectValue?.[valueKey] && !commonSuffixContent
-                ? "flex-fill text-end"
+                ? "text-end" // 去掉 flex-fill
                 : ""
             }`}
           >
@@ -897,10 +983,10 @@ const Select = React.forwardRef((props: SelectProps, ref) => {
           </div>
         </div>
         {/* {suffixContent && (
-                      <div className={`${suffixContentType === 'button' ? 'suffix-content-btn-wrapper px-2' : 'suffix-content-text-wrapper ms-2'} ${suffixContentExternalCls || ''}`}>
-                          {suffixContent}
-                      </div>
-                  )} */}
+                    <div className={`${suffixContentType === 'button' ? 'suffix-content-btn-wrapper px-2' : 'suffix-content-text-wrapper ms-2'} ${suffixContentExternalCls || ''}`}>
+                        {suffixContent}
+                    </div>
+                )} */}
       </div>
       {ReactDOM.createPortal(
         <div
@@ -945,6 +1031,8 @@ const Select = React.forwardRef((props: SelectProps, ref) => {
                   >
                     {optionRender
                       ? optionRender(item, labelKey, valueKey)
+                      : item.render
+                      ? item.render(item, labelKey, valueKey)
                       : item[labelKey]}
                   </div>
                 ))
@@ -959,6 +1047,7 @@ const Select = React.forwardRef((props: SelectProps, ref) => {
     </div>
   );
 });
+
 Select.displayName = "Select";
 
 export default Select;

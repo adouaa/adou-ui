@@ -1,6 +1,8 @@
 import "./index.scss";
 import React from "react";
 export interface SelectProps {
+    title?: string;
+    backgroundColor?: string;
     mode?: "common" | "liveSearch" | "tags";
     multiple?: boolean;
     showSearch?: boolean;

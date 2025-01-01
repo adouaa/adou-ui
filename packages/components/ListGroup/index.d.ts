@@ -1,13 +1,14 @@
 import React from "react";
+import "./index.scss";
 interface ListGroupProps {
-    itemHeight?: any;
-    columnMaxHeight?: any;
+    multiple?: boolean;
+    itemHeight?: number;
+    columnMaxHeight?: number;
     lineBreak?: boolean;
-    filesPerColumn?: number;
-    columns?: number;
+    listPerColumn?: number;
     height?: any;
     maxHeight?: any;
-    canActive?: boolean;
+    activeOnClick?: boolean;
     externalClassName?: string;
     noWrap?: boolean;
     defaultFirst?: boolean;
@@ -18,7 +19,7 @@ interface ListGroupProps {
     type?: string;
     onItemClick?: (item?: any) => void;
     onItemDoubleClick?: (item?: any) => void;
-    render?: any;
+    render?: (item: any, labelKey: string, valueKey: string) => void;
 }
-declare const ListGroup: ({ itemHeight, columnMaxHeight, lineBreak, filesPerColumn, columns, height, maxHeight, canActive, externalClassName, noWrap, defaultFirst, data, activeList: selectList, labelKey, valueKey, type, render, onItemClick, onItemDoubleClick, }: ListGroupProps) => React.JSX.Element;
+declare const ListGroup: ({ multiple, itemHeight, columnMaxHeight, lineBreak, listPerColumn, height, maxHeight, activeOnClick, externalClassName, noWrap, defaultFirst, data, activeList: selectList, labelKey, valueKey, type, render, onItemClick, onItemDoubleClick, }: ListGroupProps) => React.JSX.Element;
 export default ListGroup;

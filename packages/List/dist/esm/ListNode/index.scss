@@ -18,8 +18,6 @@
             z-index: 0;
         }
 
-
-
         &.show-line:not(.each-last):after {
             content: '';
             position: absolute;
@@ -36,59 +34,29 @@
         }
 
         &.show-line.first::after {
-            // border-left-width: 5px;  
+            left: -0px !important; // 由于 overflow 的原因，所以让 都是第一层的节点，左边框线的 left 为0
+            // border-left-width: 5px;
         }
 
         &.show-line.first::before {
             border-left-width: 0px;
         }
 
-        .list-node-wrapper {
-            /* &::after {
-                content: '';
-                position: absolute;
-                top: -13px;
-                left: -6px;
-                bottom: 12px;
-                // border-inline-end: 1px solid #d9d9d9;
-                width: 18px;
-                border-left: 1px solid #d9d9d9;
-                z-index: -1;
-            } */
-        }
-
         .node-item-content {
-
-
-            /* &::after {
-                content: '';
-                position: absolute;
-                top: -13px;
-                left: 0px;
-                bottom: 12px;
-                border-left: 1px solid #d9d9d9;
-                border-bottom: 1px solid #d9d9d9;
-            } */
-
             // 使用 display 会出现 hover背景色和 active高亮色宽度比较短，但是没事。。
             display: flex;
             align-items: center;
             /* display: inline-block; // 这个加上就会把这个盒子的宽度变成跟内容的宽度一样，而不会是根据父容器的宽度 */
-            padding: 3px 20px 3px 14px;
+            padding: 3px 0px 3px 14px;
             // white-space: wrap;
             position: relative;
             /* 添加相对定位--好像没用 */
             min-width: 120px;
             cursor: pointer;
 
-            // &:hover {
-            //     background-color: #f6f6f6;
-            // }
-
-            /*  &.active {
-                color: #fff;
-                background-color: #2783d8;
-            } */
+            /*  &:hover {
+      background-color: #f6f6f6;
+    } */
 
             .tag1 {
                 font-size: 12px;
@@ -106,6 +74,23 @@
                 background-color: #fef0f0;
                 color: #f67878;
                 white-space: nowrap;
+            }
+
+            .item-name {
+                flex: 1;
+                padding: 2px 8px;
+                border-radius: 6px;
+                word-break: break-all; // 树节点 的名字太长让它换行
+                transition: all .3s ease;
+
+                &:hover {
+                    background-color: #cce1fc;
+                }
+
+                /* &.active {
+                    background-color: red;
+                } */
+
 
             }
 
@@ -118,53 +103,49 @@
                 color: #606266;
                 background-color: #fff;
                 z-index: 999;
-
+                transition: all 0.3s ease;
 
                 i {
                     margin: 0 4px;
                 }
+
+                &.show-opt-icons {
+                    transform: scale(1);
+                    opacity: 1;
+                }
+
+                &.hide-opt-icons {
+                    transform: scale(0.8);
+                    opacity: 0;
+                }
             }
 
-            .toggle-icon.has-children-toggle-icon.not-root-toggle-icon {
-                position: relative;
-
-                /* &::after {
-                    content: '';
-                    position: absolute;
-                    top: 18px;
-                    left: 5px;
-                    height: 10px;
-                    width: 10px;
-                    border: solid #d9d9d9;
-                    border-width: 1px 0 0 0;
-                } */
-
-
+            .toggle-icon {
+                transition: all 0.3s ease;
             }
-
-
         }
 
         .has-children {}
 
         .no-children {
-            // padding-left: 10px;
+            /* padding-left: 10px; */
         }
     }
 
     .children {
+        /* padding-left: 10px; */
         max-height: 0;
         /* 初始状态下高度为0 */
-        // overflow-y: hidden;
+        overflow-y: hidden;
 
         /* 隐藏溢出内容 */
         &.not-expand {
-            transition: max-height .25s ease; //这个加上过度效果会出现点击的节点的内部闪现x轴滚动条
+            transition: max-height 0.25s ease; //这个加上过度效果会出现点击的节点的内部闪现x轴滚动条
         }
 
         &.expanded {
-            // overflow-y: clip; // 这句话加上就不会出现很多歌滚动条。。。
-            transition: max-height .3s ease;
+            overflow-y: clip; // 这句话加上就不会出现很多歌滚动条。。。
+            transition: max-height 0.3s ease;
             /* 添加过渡效果 */
             max-height: 1000px;
             /* 展开时高度自动适应内容 */

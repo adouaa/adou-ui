@@ -9,8 +9,10 @@ function getAbsolutePositionOfStage(domElement, left = 0, top = 0) {
   } else {
     top = parseInt(top);
   }
-
-  const box = domElement.getBoundingClientRect();
+  if (!domElement) {
+    return { x: 0, y: 0, width: 0, height: 0 };
+  }
+  const box = domElement?.getBoundingClientRect();
   const body = document.body;
   const docElem = document.documentElement;
   const scrollTop = window.pageYOffset || docElem.scrollTop || body.scrollTop;

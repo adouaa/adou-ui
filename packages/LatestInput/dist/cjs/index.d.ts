@@ -1,6 +1,10 @@
 import React, { ReactNode } from 'react';
 import './index.scss';
 export interface InputProps {
+    title?: string;
+    wrap?: boolean;
+    wrapperClassName?: string;
+    backgroundColor?: string;
     inputStyle?: React.CSSProperties;
     prefix?: any;
     suffix?: any;

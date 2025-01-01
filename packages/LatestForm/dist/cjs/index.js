@@ -103,6 +103,8 @@ __webpack_require__.r(__webpack_exports__);
 
 const Form = /*#__PURE__*/(0,react__WEBPACK_IMPORTED_MODULE_0__.forwardRef)((_ref, AdouFormRef) => {
   let {
+    showNotFormItem,
+    commonContentBackgroundColor,
     wrpa = true,
     externalWrapperClassName,
     externalWrapperStyle,
@@ -111,43 +113,30 @@ const Form = /*#__PURE__*/(0,react__WEBPACK_IMPORTED_MODULE_0__.forwardRef)((_re
     commonFormItemWrapperWidth,
     commonFormItemWrapperMinWidth,
     commonFormItemWrapperMaxWidth,
-    commonWrapperWidth,
-    clearable = true,
+    clearable = false,
     size,
     labelWidth,
     layout,
     oneLine = false,
-    data,
     labelPosition,
-    labelColor = 'rgb(63 109 184)',
+    labelColor = "rgb(63 109 184)",
     inline,
     required,
     children,
     eachWordWidth = 22,
-    commonSuffixIcon = '',
+    commonSuffixIcon = "",
     onSubmit
   } = _ref;
-  const [formData, setFormData] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(data || {});
   const formRef = (0,react__WEBPACK_IMPORTED_MODULE_0__.useRef)(null);
 
   // 存放 FormItem 的 refs
   const formItemRefs = (0,react__WEBPACK_IMPORTED_MODULE_0__.useRef)({});
-
-  /* const handleChangeData = (key: string, value: any) => {
-        setFormData((prevData: any) => ({
-            ...prevData,
-            [key]: value,
-        }));
-        onFormDataChange && onFormDataChange(key, value);
-    }; */
-
   const validateForm = () => {
     let isValid = true;
     for (const key in formItemRefs.current) {
       const formItemRef = formItemRefs.current[key];
-      console.log('formItemRef: ', formItemRef);
       if (formItemRef.current) {
-        const result = formItemRef.current.validateField('', '', true);
+        const result = formItemRef.current.validateField("", "", true);
         if (!result) {
           isValid = false;
         }
@@ -155,106 +144,6 @@ const Form = /*#__PURE__*/(0,react__WEBPACK_IMPORTED_MODULE_0__.forwardRef)((_re
     }
     return isValid;
   };
-
-  // 增强 form 对象，添加 validate 方法
-  form.validate = validateForm;
-  const getFormData = function () {
-    let needCheck = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : true;
-    if (needCheck) {
-      const isValid = validateForm();
-      if (!isValid) return false;
-    }
-    return formData;
-  };
-  const clearFormData = () => {
-    setFormData({});
-  };
-
-  /* const getFormData = (needCheck: boolean = true) => {
-        const formWrapper = formRef.current; // 获取 search-wrapper 的 DOM 元素
-        if (!formWrapper) return;
-            if (needCheck) {
-            const isValid = validateForm();
-            if (!isValid) return false;
-        }
-            // 遍历所有表单元素
-        const formValues: any = {};
-        const formElements = formWrapper.querySelectorAll('input, select, textarea');
-            formElements.forEach((element: any) => {
-            const { name, value, tagName, type } = element;
-            if (!name) return;
-            const child = childRefs.current[name]?.current;
-            // 处理 input 元素
-            if (tagName === 'INPUT') {
-                if (type === 'checkbox') {
-                    // 如果是复选框，更新 formValues[name] 为选中的复选框的值的数组
-                    if (!formValues[name]) {
-                        formValues[name] = [];
-                    }
-                    if (element.checked) {
-                        // 如果是 checkbox的话，会造出多个 input type="checkbox"的表单
-                        formValues[name].push(value);
-                    }
-                } else {
-                    if (child?.getValue) {
-                        formValues[name] = child.getValue();
-                    } else {
-                        formValues[name] = type === 'number' ? Number(value) : value;
-                    }
-                }
-            }
-            // 处理 select 元素
-            else if (tagName === 'SELECT') {
-                if (child?.getValue) {
-                    formValues[name] = child.getValue();
-                } else {
-                    formValues[name] = element.value;
-                }
-            }
-            // 处理 textarea 元素
-            else if (tagName === 'TEXTAREA') {
-                formValues[name] = value;
-            }
-        });
-            // 输出收集到的表单值
-            // 这里可以根据需要，将 formValues 传递给其他处理函数或者组件
-        return formValues;
-    }; */
-
-  const clearForm = () => {
-    const formWrapper = formRef.current; // 获取 search-wrapper 的 DOM 元素
-    if (!formWrapper) return;
-
-    // 遍历所有child
-    for (let key in childRefs.current) {
-      let child = childRefs.current[key];
-      child.current && child.current.clear && child.current.clear();
-    }
-  };
-
-  /* const validateForm = () => {
-        const formWrapper = formRef.current; // 获取 search-wrapper 的 DOM 元素
-        if (!formWrapper) return false;
-            let isValid = true; // 默认表单验证通过
-            // 遍历所有child
-        for (let key in childRefs.current) {
-            let child = childRefs.current[key];
-            // 如果该表单组件没有validate方法，代表不做校验
-            if (child.current?.validate) {
-                const valid = child.current && child.current.validate && child.current.validate();
-                    if (!valid) {
-                    console.log('存在校验不通过的表单：', key);
-                        isValid = false;
-                }
-            }
-        }
-            if (!isValid) {
-            console.log('表单校验失败，请填写所有必填项！');
-        }
-            return isValid;
-    }; */
-
-  const childRefs = (0,react__WEBPACK_IMPORTED_MODULE_0__.useRef)({});
   let maxLengthLabelWidth = 0;
   const calcMaxLabelWidth = () => {
     var _sortedLabelWidthList;
@@ -274,12 +163,13 @@ const Form = /*#__PURE__*/(0,react__WEBPACK_IMPORTED_MODULE_0__.forwardRef)((_re
     calcMaxLabelWidth();
     // 这个方法可行
     react__WEBPACK_IMPORTED_MODULE_0___default().Children.map(children, child => {
+      if (!child) return;
       const props = child.props;
-      if (child.type.displayName !== 'FormItem') return; // 过滤掉不是 FormItem
+      if (!showNotFormItem && child.type.displayName !== "FormItem") return; // 过滤掉不是 FormItem
       const formItemRef = /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createRef(); // 创建一个 ref
       // child.type 子元素自身（FormItem），检查其静态属性 displayName 是否满足条件
       const enhancedChildren = /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().cloneElement(child, {
-        labelWidth: labelWidth || maxLengthLabelWidth + 'px',
+        labelWidth: labelWidth || maxLengthLabelWidth + "px",
         key: props.name,
         // ref 稍后哦再做，可能子组件要用 React.ForwdRef() 来包裹
         ...(child.formItemRef ? {
@@ -287,7 +177,7 @@ const Form = /*#__PURE__*/(0,react__WEBPACK_IMPORTED_MODULE_0__.forwardRef)((_re
         } : {
           formItemRef
         }),
-        4: maxLengthLabelWidth + 'px',
+        4: maxLengthLabelWidth + "px",
         commonSuffixIcon,
         isFormItem: !oneLine,
         ...(labelPosition ? {
@@ -315,10 +205,10 @@ const Form = /*#__PURE__*/(0,react__WEBPACK_IMPORTED_MODULE_0__.forwardRef)((_re
         size,
         clearable,
         layout,
-        wrapperWidth: commonWrapperWidth,
-        formItemWrapperWidth: commonFormItemWrapperWidth,
-        formItemWrapperMaxWidth: commonFormItemWrapperMaxWidth,
-        formItemWrapperMinWidth: commonFormItemWrapperMinWidth,
+        wrapperWidth: commonFormItemWrapperWidth,
+        wrapperMaxWidth: commonFormItemWrapperMaxWidth,
+        wrapperMinWidth: commonFormItemWrapperMinWidth,
+        contentBackgroundColor: commonContentBackgroundColor,
         rules: commonRules,
         oneLine,
         ...props // 为了不覆盖 FormItem 本来的 属性
@@ -342,22 +232,20 @@ const Form = /*#__PURE__*/(0,react__WEBPACK_IMPORTED_MODULE_0__.forwardRef)((_re
     // clearFormData,
     // validate,
   }));
-  (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(() => {
-    setFormData(data);
-  }, [data]);
   const handleKeyDown = event => {
     // 检查是否按下了 Ctrl + Enter
-    if (event.ctrlKey && event.key === 'q') {
-      console.log('// 检查是否按下了 Ctrl + Enter: ');
+    if (event.ctrlKey && event.key === "q") {
+      console.log("// 检查是否按下了 Ctrl + Enter: ");
       event.preventDefault(); // 阻止默认行为
       onSubmit && onSubmit(); // 触发提交事件
     }
   };
   return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", {
     style: {
-      flex: 1
+      flex: 1,
+      ...externalWrapperStyle
     },
-    className: "adou-new-form-wrapper ".concat(externalWrapperClassName, " ").concat(wrpa ? 'flex-wrap' : 'flex-nowrap', " ").concat(layout === 'inline' ? 'd-flex' : ''),
+    className: "adou-new-form-wrapper ".concat(externalWrapperClassName, " ").concat(wrpa ? "flex-wrap" : "flex-nowrap", " ").concat(layout === "inline" ? "d-flex" : ""),
     ref: formRef,
     onKeyDown: handleKeyDown
   }, renderChildren());

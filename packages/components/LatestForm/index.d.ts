@@ -1,6 +1,8 @@
-import React from 'react';
+import React from "react";
 interface FormProps {
-    commonWrapperWidth?: any;
+    showNotFormItem?: boolean;
+    commonContentBackgroundColor?: any;
+    commonFormItemWrapperWidth?: any;
     commonFormItemWrapperMinWidth?: any;
     commonFormItemWrapperMaxWidth?: any;
     wrpa?: boolean;
@@ -8,12 +10,10 @@ interface FormProps {
     externalWrapperStyle?: React.CSSProperties;
     commonRules?: any;
     form: any;
-    commonFormItemWrapperWidth?: any;
-    commonContentWrapperWidth?: any;
     clearable?: boolean;
-    size?: 'lg' | 'default' | 'sm';
+    size?: "lg" | "default" | "sm";
     labelWidth?: any;
-    layout?: 'horizontal' | 'horizontal-top' | 'vertical' | 'inline';
+    layout?: "horizontal" | "horizontal-top" | "vertical" | "inline";
     oneLine?: boolean;
     data?: any;
     children?: any;
@@ -22,7 +22,7 @@ interface FormProps {
     commonSuffixIcon?: any;
     required?: boolean;
     inline?: boolean;
-    labelPosition?: 'center' | 'top' | 'left-top';
+    labelPosition?: "center" | "top" | "left-top";
     onFormDataChange?: (key: string, value: any) => void;
     onSubmit?: () => void;
 }

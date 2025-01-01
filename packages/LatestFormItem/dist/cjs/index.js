@@ -244,12 +244,14 @@ module.exports = function (item) {
         convertToTag: () => ( /* reexport */libs_convertToTag),
         flattenDataWithoutNesting: () => ( /* reexport */libs_flattenDataWithoutNesting),
         getAbsolutePosition: () => ( /* reexport */libs_getAbsolutePositionOfStage),
+        getContentWidth: () => ( /* reexport */libs_getContentWidth),
         isEmptyO: () => ( /* reexport */libs_isEmptyO),
         splitFilesIntoColumns: () => ( /* reexport */libs_splitFilesIntoColumns),
         timeFormatter: () => ( /* reexport */time_formatter_namespaceObject),
         useClickOutside: () => ( /* reexport */hooks_useClickOutside),
         useDrag: () => ( /* reexport */hooks_useDrag),
-        useNavigateTo: () => ( /* reexport */hooks_useNavigateTo)
+        useNavigateTo: () => ( /* reexport */hooks_useNavigateTo),
+        useThrottle: () => ( /* reexport */hooks_useThrottle)
       });
 
       // NAMESPACE OBJECT: ./src/libs/time-formatter.js
@@ -434,6 +436,16 @@ module.exports = function (item) {
       };
       /* harmony default export */
       const libs_splitFilesIntoColumns = splitFilesIntoColumns;
+      ; // CONCATENATED MODULE: ./src/libs/getContentWidth.ts
+      function getContentWidth(element) {
+        const computedStyle = window.getComputedStyle(element);
+        const offsetWidth = element.offsetWidth;
+        const borderWidthLeftRight = parseInt(computedStyle.borderLeftWidth) + parseInt(computedStyle.borderRightWidth);
+        const paddingWidthLeftRight = parseInt(computedStyle.paddingLeft) + parseInt(computedStyle.paddingRight);
+        return offsetWidth - borderWidthLeftRight - paddingWidthLeftRight;
+      }
+      /* harmony default export */
+      const libs_getContentWidth = getContentWidth;
       ; // CONCATENATED MODULE: ../../node_modules/@remix-run/router/dist/router.js
       /**
        * @remix-run/router v1.5.0
@@ -5502,6 +5514,22 @@ module.exports = function (item) {
       };
       /* harmony default export */
       const hooks_useDrag = useDrag;
+      ; // CONCATENATED MODULE: ./src/hooks/useThrottle.ts
+
+      const useThrottle = function (fn, delay) {
+        let dependency = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : [];
+        const time = (0, external_root_React_commonjs2_react_commonjs_react_amd_react_.useRef)(0);
+        // react中必须要用useCallback和useRef，不然状态改变就会一直变化
+        return (0, external_root_React_commonjs2_react_commonjs_react_amd_react_.useCallback)(function () {
+          const now = Date.now();
+          if (!time.current || now - time.current >= delay) {
+            fn(...arguments);
+            time.current = now;
+          }
+        }, dependency);
+      };
+      /* harmony default export */
+      const hooks_useThrottle = useThrottle;
       ; // CONCATENATED MODULE: ./src/index.tsx
     })();
 
@@ -5965,9 +5993,10 @@ var update = injectStylesIntoStyleTag_default()(cjs_ruleSet_1_rules_1_use_2_src/
 const FormItem = _ref => {
   let {
     labelColor,
-    formItemWrapperMinWidth = "120px",
-    formItemWrapperWidth,
-    formItemWrapperMaxWidth,
+    contentBackgroundColor,
+    wrapperMinWidth = "120px",
+    wrapperWidth = "100%",
+    wrapperMaxWidth,
     contentWrapperWidth,
     wrapperStyle,
     contentWrap = false,
@@ -5976,9 +6005,8 @@ const FormItem = _ref => {
     formItemRef,
     rules,
     setFieldValue,
-    wrapperWidth,
     data,
-    clearable = true,
+    clearable = false,
     addonAfter,
     size = "default",
     labelWidth,
@@ -5992,7 +6020,6 @@ const FormItem = _ref => {
   const [isError, setIsError] = (0,external_root_React_commonjs2_react_commonjs_react_amd_react_.useState)(false);
   const adouFormRef = (0,external_root_React_commonjs2_react_commonjs_react_amd_react_.useRef)(null);
   const [customSelectContentPosition, setCustomSelectContentPosition] = (0,external_root_React_commonjs2_react_commonjs_react_amd_react_.useState)({});
-  const [isCheckbox, setIsCheckbox] = (0,external_root_React_commonjs2_react_commonjs_react_amd_react_.useState)(false);
   const judgeFormItemContentCls = () => {
     if (layout === "horizontal") {
       return "adou-form-item-content-horizontal d-flex align-items-center";
@@ -6008,17 +6035,17 @@ const FormItem = _ref => {
   // 统一处理 addonBefore
   let processedAddonBefore = addonBefore;
   /* if (React.isValidElement(addonBefore)) {
-          const props = addonBefore.props;
-          // 如果是 ReactNode（通过 isValidElement 判断是否为有效的 React 元素），添加 isaddon 属性
-          processedAddonBefore = React.cloneElement(addonBefore as any, { isaddon: 'true', formStyle: { background: 'transparent', border: 0 }, size, clearable, ...props });
-      }
-   */
+        const props = addonBefore.props;
+        // 如果是 ReactNode（通过 isValidElement 判断是否为有效的 React 元素），添加 isaddon 属性
+        processedAddonBefore = React.cloneElement(addonBefore as any, { isaddon: 'true', formStyle: { background: 'transparent', border: 0 }, size, clearable, ...props });
+    }
+  */
   let processedAddonAfter = addonAfter;
   /* if (React.isValidElement(addonAfter)) {
-          const props = addonAfter.props;
-          // 如果是 ReactNode（通过 isValidElement 判断是否为有效的 React 元素），添加 isaddon 属性
-          processedAddonAfter = React.cloneElement(addonAfter as any, { isaddon: 'true', formStyle: { background: 'transparent', border: 0 }, size, clearable, ...props });
-      } */
+        const props = addonAfter.props;
+        // 如果是 ReactNode（通过 isValidElement 判断是否为有效的 React 元素），添加 isaddon 属性
+        processedAddonAfter = React.cloneElement(addonAfter as any, { isaddon: 'true', formStyle: { background: 'transparent', border: 0 }, size, clearable, ...props });
+    } */
 
   const handleFieldChange = (name, value) => {
     setFieldValue && setFieldValue({
@@ -6027,71 +6054,34 @@ const FormItem = _ref => {
   };
 
   // 由于使用 value = data[name]的话，会滞后一节拍，所以索性直接在调用 validateField 的时候，把 data 传入
-  const validateField = function (fieldName, value) {
+  const validateField = function (formName, value) {
     let isForm = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : false;
-    let isValid = true;
-    let message = "";
-    if (!rules) return isValid;
-    // 规则：如果不是 整体，则是某个表单项，则可以取到 fieldName 和 value，正常走逻辑
-    // 如果是整体，则没有 fieldName 和 value，则取 data 中的值。
-    // 先取 传递过来的值，最后用 data 的值给整体表单校验进行兜底
-    if (children && Array.isArray(children) && children.length > 1) {
-      for (const rule of rules) {
-        if (rule.required) {
-          for (const child of children) {
-            const childProps = child.props;
-            const childName = childProps.name || name;
-            // 注意：如果当前调用该校验函数 validateField 所传递过来的字段名 fieldName 和子组件的 name(在这边是childName) 一致(代表当前校验的是 正在修改的表单)，则取传递过来的值(这个值才是实时的，如果对当前正在修改的表单取 data 中的值作为校验值，会慢一节拍)，否则取data中的值
-            const childValue = childName === fieldName ? value : data === null || data === void 0 ? void 0 : data[childName];
-            if (!childValue) {
-              isValid = false;
-              setIsError(true);
-              setErrorMessage(message || "This field is invalid");
-              return isValid;
-            } else {
-              isValid = true;
-              setIsError(false);
-              setErrorMessage("");
-            }
-          }
-        }
+    if (!rules) return true;
+    const validateValue = !isForm ? value : value || data[formName || name];
+    for (const rule of rules) {
+      if (rule.required && (validateValue === undefined || validateValue === null || validateValue === "" || validateValue === 0 || typeof validateValue === "object" && (0,Utils.isEmptyO)(validateValue))) {
+        setIsError(true);
+        setErrorMessage(rule.message || "This field is required");
+        return false;
+      } else {
+        setIsError(false);
+        setErrorMessage("");
       }
-    } else {
-      const validateValue = !isForm ? value : value || data[fieldName] || data[name];
-      for (const rule of rules) {
-        console.log("fieldName: ", fieldName);
-        console.log("validateValue: ", validateValue);
-        if (rule.required && (validateValue === undefined || validateValue === null || validateValue === "" || (0,Utils.isEmptyO)(validateValue))) {
-          isValid = false;
+      if (rule.validator) {
+        const error = rule.validator(validateValue);
+        if (error) {
+          setIsError(true);
+          setErrorMessage(error.message || "This field is invalid");
+          return false;
         } else {
-          isValid = true;
-        }
-        if (rule.validator) {
-          const error = rule.validator(validateValue);
-          if (error) {
-            isValid = false;
-            message = error.message || "This field is invalid";
-          } else {
-            isValid = true;
-          }
+          setIsError(false);
+          setErrorMessage("");
         }
       }
     }
-    if (!isValid) {
-      setIsError(true);
-      setErrorMessage(message || "This field is invalid");
-    } else {
-      setIsError(false);
-      setErrorMessage("");
-    }
-    return isValid;
+    return true;
   };
   const enhancedChildren = external_root_React_commonjs2_react_commonjs_react_amd_react_default().Children.map(children, (child, index) => {
-    // 检查 child.type 是否存在
-    if (!child.type) {
-      console.warn("Child does not have a type:", child);
-      return child;
-    }
     const props = child.props;
     const isChildrenArray = Array.isArray(children);
     const {
@@ -6128,6 +6118,8 @@ const FormItem = _ref => {
       formStyle: mergedFormStyle,
       defaultValue: data === null || data === void 0 ? void 0 : data[props.name || name],
       wrapperWidth: contentWrapperWidth,
+      backgroundColor: contentBackgroundColor,
+      // 传递背景色
       labelColor,
       onFieldChange: handleFieldChange,
       onValidateField: validateField,
@@ -6154,27 +6146,19 @@ const FormItem = _ref => {
   (0,external_root_React_commonjs2_react_commonjs_react_amd_react_.useEffect)(() => {
     getAbsolutePositionFn();
   }, [isError, errorMessage]);
-  (0,external_root_React_commonjs2_react_commonjs_react_amd_react_.useEffect)(() => {
-    // 检查子组件中是否有 Checkbox
-    const hasCheckbox = external_root_React_commonjs2_react_commonjs_react_amd_react_default().Children.toArray(children).some(child => {
-      const displayName = child.type.displayName || child.type.name || "Unknown";
-      return displayName === "Checkbox";
-    });
-    setIsCheckbox(hasCheckbox);
-  }, [children]);
   return /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("div", {
     className: "adou-form-item-wrapper ".concat(generateWrapperCls()),
     style: {
-      width: formItemWrapperWidth,
-      minWidth: formItemWrapperMinWidth,
-      maxWidth: formItemWrapperMaxWidth,
+      width: wrapperWidth,
+      minWidth: wrapperMinWidth,
+      maxWidth: wrapperMaxWidth,
       ...wrapperStyle,
-      ...(layout === "inline" && !formItemWrapperWidth && !formItemWrapperMaxWidth && {
+      ...(layout === "inline" && !wrapperWidth && !wrapperMaxWidth && {
         flex: 1
       })
     }
   }, /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("div", {
-    className: "adou-form-item-content ".concat(judgeFormItemContentCls(), " ").concat(isError ? "border-danger" : "", " ").concat(isError && layout !== "horizontal-top" && !isCheckbox ? " align-items-baseline" : "")
+    className: "adou-form-item-content ".concat(judgeFormItemContentCls(), " ").concat(isError ? "border-danger" : "", " ").concat(isError && layout !== "horizontal-top" ? " align-items-baseline" : "")
   }, label && /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("div", {
     className: "adou-form-item-label-box text-end pe-3 position-relative ".concat(rules && rules.length && rules.some(item => item.required) ? "required" : "", " ").concat(layout === "vertical" ? "mb-1" : layout === "horizontal" ? "text-end pe-3" : ""),
     style: {
@@ -6184,8 +6168,7 @@ const FormItem = _ref => {
     className: "form-item-label-text",
     style: {
       fontSize: "14px",
-      whiteSpace: labelWrap ? "wrap" : "nowrap",
-      color: labelColor
+      whiteSpace: labelWrap ? "wrap" : "nowrap"
     }
   }, label), rules && rules.length && rules.some(item => item.required) && /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("span", {
     className: "form-item-label-text-required"
@@ -6205,8 +6188,7 @@ const FormItem = _ref => {
   }, /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("span", {
     className: "input-group-text py-0",
     style: {
-      fontSize: "14px",
-      color: labelColor
+      fontSize: "14px"
     }
   }, processedAddonBefore), /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("div", {
     className: "adou-form d-flex",
@@ -6216,8 +6198,7 @@ const FormItem = _ref => {
   }, enhancedChildren), processedAddonAfter && /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("span", {
     className: "input-group-text py-0",
     style: {
-      fontSize: "14px",
-      color: labelColor
+      fontSize: "14px"
     }
   }, processedAddonAfter && processedAddonAfter)) : processedAddonAfter ? /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("div", {
     className: "input-group"
