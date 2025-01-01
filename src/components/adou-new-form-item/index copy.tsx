@@ -2,7 +2,6 @@ import { forwardRef, useEffect, useImperativeHandle, useRef, useState } from 're
 import React from 'react';
 
 interface FormProps {
-    showNotFormItem?: boolean;
     commonContentBackgroundColor?: any;
     commonFormItemWrapperWidth?: any;
     commonFormItemWrapperMinWidth?: any;
@@ -38,7 +37,6 @@ interface ExtendedForm extends React.ForwardRefExoticComponent<FormProps & React
 const Form = forwardRef(
     (
         {
-            showNotFormItem,
             commonContentBackgroundColor,
             wrpa = true,
             externalWrapperClassName,
@@ -48,7 +46,7 @@ const Form = forwardRef(
             commonFormItemWrapperWidth,
             commonFormItemWrapperMinWidth,
             commonFormItemWrapperMaxWidth,
-            clearable = false,
+            clearable = true,
             size,
             labelWidth,
             layout,
@@ -100,9 +98,8 @@ const Form = forwardRef(
             calcMaxLabelWidth();
             // 这个方法可行
             React.Children.map(children, (child) => {
-                if (!child) return;
                 const props = child.props;
-                if (!showNotFormItem && child.type.displayName !== 'FormItem') return; // 过滤掉不是 FormItem
+                if (child.type.displayName !== 'FormItem') return; // 过滤掉不是 FormItem
                 const formItemRef = React.createRef<any>(); // 创建一个 ref
                 // child.type 子元素自身（FormItem），检查其静态属性 displayName 是否满足条件
                 const enhancedChildren = React.cloneElement(child, {

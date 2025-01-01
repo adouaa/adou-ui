@@ -93,11 +93,18 @@ const FormItem = ({
     };
 
     // 由于使用 value = data[name]的话，会滞后一节拍，所以索性直接在调用 validateField 的时候，把 data 传入
-    const validateField = (value?: any, isForm: boolean = false) => {
+    const validateField = (formName?: string, value?: any, isForm: boolean = false) => {
         if (!rules) return true;
-        const validateValue = !isForm ? value : value || data[name!];
+        const validateValue = !isForm ? value : value || data[formName! || name!];
         for (const rule of rules) {
-            if (rule.required && (validateValue === undefined || validateValue === null || validateValue === '' || isEmptyO(validateValue))) {
+            if (
+                rule.required &&
+                (validateValue === undefined ||
+                    validateValue === null ||
+                    validateValue === '' ||
+                    validateValue === 0 ||
+                    (typeof validateValue === 'object' && isEmptyO(validateValue)))
+            ) {
                 setIsError(true);
                 setErrorMessage(rule.message || 'This field is required');
                 return false;

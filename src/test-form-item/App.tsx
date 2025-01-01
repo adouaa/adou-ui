@@ -83,7 +83,7 @@ const App = ({}: AppProps) => {
                 cs1: '测试测试草率四',
                 position1: 'xm',
                 cs2: 'cs21',
-                area: [{ value: '你好44', label: '你好44' }, '你好5555'],
+                area: '你好5555',
                 position2: '人民万岁',
                 position3: ['你好呀', '同志们'],
                 liveSearch2: '米粉',
@@ -117,13 +117,13 @@ const App = ({}: AppProps) => {
             <Form commonFormItemWrapperWidth={'50%'} commonRules={rules} form={form} ref={formRef} layout={layout}>
                 {/* Input */}
                 <FormItem rules={rules} addonBefore={'问候'} /* addonBefore={'测试'} */ /* addonAfter={'测试'} */ name="cs12" label="你好">
-                    <AdouInput varient="filled"></AdouInput>
+                    <AdouInput type="number" varient="filled"></AdouInput>
                 </FormItem>
                 <FormItem addonBefore={'问候'} addonAfter={'问候'} rules={rules} label="频次" name="cs2">
                     <AdouInput commonSuffixContent="次"></AdouInput>
                 </FormItem>
                 <FormItem rules={rules} addonBefore={'问候'} label="选择" name="area">
-                    <Select mode="tags" placeholder="请选择" commonSuffixContent="市区" options={options}></Select>
+                    <Select mode="liveSearch" placeholder="请选择" commonSuffixContent="市区" options={options}></Select>
                 </FormItem>
                 <FormItem label="搜索" /* addonBefore={'关键'} */ /* addonAfter={'结尾'} */ name="remote" /* layout="horizontal" */>
                     <RetrievrSelect single={false} returnType="obj" commonSuffixContent="地区32" options={options}></RetrievrSelect>

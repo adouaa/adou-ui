@@ -5,9 +5,11 @@ import './index.scss';
 import isEmptyO from '../isEmptyO';
 
 interface FormItemProps {
-    formItemWrapperMinWidth?: any;
-    formItemWrapperWidth?: any;
-    formItemWrapperMaxWidth?: any;
+    labelColor?: string;
+    contentBackgroundColor?: string;
+    wrapperMinWidth?: any;
+    wrapperWidth?: any;
+    wrapperMaxWidth?: any;
     contentWrapperWidth?: any;
     wrapperStyle?: React.CSSProperties;
     contentWrap?: boolean;
@@ -16,7 +18,6 @@ interface FormItemProps {
     formItemRef?: any;
     rules?: any;
     setFieldValue?: any;
-    wrapperWidth?: any;
     data?: any;
     clearable?: boolean;
     addonAfter?: ReactNode | string | number;
@@ -30,9 +31,11 @@ interface FormItemProps {
 }
 
 const FormItem = ({
-    formItemWrapperMinWidth = '120px',
-    formItemWrapperWidth,
-    formItemWrapperMaxWidth,
+    labelColor,
+    contentBackgroundColor,
+    wrapperMinWidth = '120px',
+    wrapperWidth = '100%',
+    wrapperMaxWidth,
     contentWrapperWidth,
     wrapperStyle,
     contentWrap = false,
@@ -41,9 +44,8 @@ const FormItem = ({
     formItemRef,
     rules,
     setFieldValue,
-    wrapperWidth,
     data,
-    clearable = true,
+    clearable = false,
     addonAfter,
     size = 'default',
     labelWidth,
@@ -91,12 +93,10 @@ const FormItem = ({
     };
 
     // 由于使用 value = data[name]的话，会滞后一节拍，所以索性直接在调用 validateField 的时候，把 data 传入
-    const validateField = (fieldName?: string, value?: any, isForm: boolean = false) => {
+    const validateField = (name?: string, value?: any, isForm: boolean = false) => {
+        debugger;
         if (!rules) return true;
-        // 规则：如果不是 整体，则是某个表单项，则可以取到 fieldName 和 value，正常走逻辑
-        // 如果是整体，则没有 fieldName 和 value，则取 data 中的值。
-        // 先取 传递过来的值，最后用 data 的值给整体表单校验进行兜底
-        const validateValue = !isForm ? value : value || data[fieldName!] || data[name!];
+        const validateValue = !isForm ? value : value || data[name!];
         for (const rule of rules) {
             if (rule.required && (validateValue === undefined || validateValue === null || validateValue === '' || isEmptyO(validateValue))) {
                 setIsError(true);
@@ -152,6 +152,8 @@ const FormItem = ({
             formStyle: mergedFormStyle,
             defaultValue: data?.[props.name || name],
             wrapperWidth: contentWrapperWidth,
+            backgroundColor: contentBackgroundColor, // 传递背景色
+            labelColor,
             onFieldChange: handleFieldChange,
             onValidateField: validateField,
             ...props,
@@ -186,11 +188,11 @@ const FormItem = ({
         <div
             className={`adou-form-item-wrapper ${generateWrapperCls()}`}
             style={{
-                width: formItemWrapperWidth,
-                minWidth: formItemWrapperMinWidth,
-                maxWidth: formItemWrapperMaxWidth,
+                width: wrapperWidth,
+                minWidth: wrapperMinWidth,
+                maxWidth: wrapperMaxWidth,
                 ...wrapperStyle,
-                ...(layout === 'inline' && !formItemWrapperWidth && !formItemWrapperMaxWidth && { flex: 1 }),
+                ...(layout === 'inline' && !wrapperWidth && !wrapperMaxWidth && { flex: 1 }),
             }}
         >
             {/*  ${
