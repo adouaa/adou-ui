@@ -18,6 +18,7 @@
     bottom: 1rem;
     right: -15px;
     bottom: 50%;
+    transform: translateY(50%);
     box-shadow: var(--app-shadow);
     line-height: 30px;
     text-align: center;
@@ -33,22 +34,23 @@
 
   /* 整体滚动条样式 */
   ::-webkit-scrollbar {
-    height: 3px;
-    width: 5px;
+    height: 4px;
+    width: 4px;
     /* 设置滚动条的高度 */
   }
 
   /* 滚动条轨道 */
   ::-webkit-scrollbar-track {
     background: #f1f1f1;
+    border-radius: 2px;
     /* 滚动条轨道的背景 */
   }
 
   /* 滚动条滑块 */
   ::-webkit-scrollbar-thumb {
-    background: #888;
+    background: #ccc;
     /* 滚动条滑块的颜色 */
-    border-radius: 8px;
+    border-radius: 2px;
     /* 滚动条滑块的圆角 */
   }
 

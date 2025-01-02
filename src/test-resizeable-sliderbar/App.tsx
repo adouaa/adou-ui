@@ -4,10 +4,15 @@ import React from 'react';
 import ResizableSidebar from 'components/adou-resizeable-sliderbar';
 import './index.scss';
 import Button from 'components/adou-button';
+import RandomArrange from 'components/adou-random-arrange';
+import Card from 'components/adou-card';
+import List from '../test-list/App';
 
 interface AppProps {}
 
 const App = ({}: AppProps) => {
+    const fyRef = useRef<any>(null);
+
     const itemRefs = useRef<Map<number, HTMLElement>>(new Map()); // 每个列表项的ref
     const itemListRef = useRef<HTMLDivElement>(null); // 列表容器ref
 
@@ -84,7 +89,7 @@ const App = ({}: AppProps) => {
 
     return (
         <div className="app-wrapper">
-            <Button onClickOK={handleShuffle}>随机排序</Button>
+            {/* <Button onClickOK={handleShuffle}>随机排序</Button>
             <div ref={itemListRef} className="item-list">
                 {[...Array(5)].map((_, index) => (
                     <div
@@ -97,7 +102,14 @@ const App = ({}: AppProps) => {
                         <h1>{index + 1}</h1>
                     </div>
                 ))}
-            </div>
+            </div> */}
+            <button onClick={() => fyRef.current?.shuffle()}>打乱</button>
+            <RandomArrange actRef={fyRef} showButton={false}>
+                <Card>1</Card>
+                <Card>3</Card>
+                <Card>4</Card>
+                <Card>5</Card>
+            </RandomArrange>
         </div>
     );
 };

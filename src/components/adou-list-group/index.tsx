@@ -4,6 +4,7 @@ import splitListIntoColumns from 'utils/splitListIntoColumns';
 import './index.scss';
 
 interface ListGroupProps {
+    canCancel?: boolean;
     multiple?: boolean;
     itemHeight?: number;
     columnMaxHeight?: number;
@@ -27,6 +28,7 @@ interface ListGroupProps {
 }
 
 const ListGroup = ({
+    canCancel,
     multiple,
     itemHeight = 40,
     columnMaxHeight,
@@ -62,7 +64,7 @@ const ListGroup = ({
             onItemClick && onItemClick(item);
         } else {
             const hasSelected = activeList[valueKey] === item[valueKey];
-            data = hasSelected ? {} : item;
+            data = hasSelected && canCancel ? {} : item;
             setActiveList(data);
             onItemClick && onItemClick(data);
         }
@@ -101,6 +103,7 @@ const ListGroup = ({
                 setParentMaxHeight(parentElement.clientHeight);
             }
         }
+        console.log('selectList: ', selectList);
     }, [selectList, data, columnMaxHeight, listGroupRef.current]);
 
     useEffect(() => {
@@ -158,15 +161,33 @@ const ListGroup = ({
                             >
                                 {Array.isArray(columnItems) &&
                                     columnItems?.map((item: any, itemIndex: number) => (
-                                        <button
-                                            onClick={() => handleItemClick(item)}
-                                            onDoubleClick={(e) => handleItemDoubleClick(e, item)}
-                                            key={itemIndex}
-                                            type="button"
-                                            className={`list-group-item list-group-item-action border-0 ${judgeIsActive(item)}`}
-                                        >
-                                            {item.render ? item.render(item, labelKey, valueKey) : render ? render(item, labelKey, valueKey) : item[labelKey!]}
-                                        </button>
+                                        <div className="list-group-item-wrapper" key={itemIndex}>
+                                            <button
+                                                onClick={() => handleItemClick(item)}
+                                                onDoubleClick={(e) => handleItemDoubleClick(e, item)}
+                                                key={itemIndex}
+                                                type="button"
+                                                className={`list-group-item list-group-item-action border-0 ${judgeIsActive(item)}`}
+                                            >
+                                                {item.render ? (
+                                                    item.render(item, labelKey, valueKey)
+                                                ) : render ? (
+                                                    render(item, labelKey, valueKey)
+                                                ) : multiple ? (
+                                                    <div className="list-group-item-wrapper d-flex align-items-center">
+                                                        <div className="item-check d-flex align-items-center me-1">
+                                                            <input
+                                                                checked={activeList.map((item: any) => item[valueKey] && item[valueKey]).includes(item[valueKey])}
+                                                                type="checkbox"
+                                                            />
+                                                        </div>
+                                                        <div className="text">{item[labelKey!]}</div>
+                                                    </div>
+                                                ) : (
+                                                    item[labelKey!]
+                                                )}
+                                            </button>
+                                        </div>
                                     ))}
                             </ul>
                         </div>
@@ -184,19 +205,34 @@ const ListGroup = ({
                     }}
                 >
                     {list!?.map((item: any, index: number) => (
-                        <button
-                            style={{
-                                whiteSpace: noWrap ? 'nowrap' : 'normal',
-                                border: 'none',
-                            }}
-                            onClick={() => handleItemClick(item)}
-                            onDoubleClick={(e) => handleItemDoubleClick(e, item)}
-                            key={item[valueKey!]}
-                            type="button"
-                            className={`list-group-item list-group-item-action ${judgeIsActive(item)}`}
-                        >
-                            {item.render ? item.render(item, labelKey, valueKey) : render ? render(item, labelKey, valueKey) : item[labelKey!]}
-                        </button>
+                        <div className="list-group-item-wrapper d-flex align-items-center" key={item[valueKey!]}>
+                            <button
+                                style={{
+                                    whiteSpace: noWrap ? 'nowrap' : 'normal',
+                                    border: 'none',
+                                }}
+                                onClick={() => handleItemClick(item)}
+                                onDoubleClick={(e) => handleItemDoubleClick(e, item)}
+                                key={item[valueKey!]}
+                                type="button"
+                                className={`list-group-item list-group-item-action ${judgeIsActive(item)}`}
+                            >
+                                {item.render ? (
+                                    item.render(item, labelKey, valueKey)
+                                ) : render ? (
+                                    render(item, labelKey, valueKey)
+                                ) : multiple ? (
+                                    <div className="list-group-item-wrapper d-flex align-items-center">
+                                        <div className="item-check d-flex align-items-center me-1">
+                                            <input checked={activeList.map((item: any) => item[valueKey] && item[valueKey]).includes(item[valueKey])} type="checkbox" />
+                                        </div>
+                                        <div className="text">{item[labelKey!]}</div>
+                                    </div>
+                                ) : (
+                                    item[labelKey!]
+                                )}
+                            </button>
+                        </div>
                     ))}
                 </div>
             )}

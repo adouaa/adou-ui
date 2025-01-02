@@ -1,9 +1,11 @@
-import { useRef, Children, cloneElement, isValidElement } from 'react';
+import { useRef, Children, cloneElement, useImperativeHandle } from 'react';
 import React from 'react';
 import Button from 'components/adou-button';
 import './index.scss';
+import useThrottle from 'hooks/useThrottle';
 
-interface FisherYatesProps {
+interface RandomArrangeProps {
+    actRef?: any;
     children?: React.ReactNode;
     buttonText?: string;
     onShuffle?: () => void;
@@ -14,7 +16,8 @@ interface FisherYatesProps {
     animationTiming?: string;
 }
 
-const FisherYates = ({
+const RandomArrange = ({
+    actRef,
     children,
     buttonText = '随机排序',
     onShuffle,
@@ -23,7 +26,7 @@ const FisherYates = ({
     showButton = true,
     animationDuration = 300,
     animationTiming = 'ease-in-out',
-}: FisherYatesProps) => {
+}: RandomArrangeProps) => {
     const itemRefs = useRef<Map<number, HTMLElement>>(new Map());
     const itemListRef = useRef<HTMLDivElement>(null);
 
@@ -47,7 +50,7 @@ const FisherYates = ({
         return array;
     };
 
-    const handleShuffle = () => {
+    const handleShuffle = useThrottle(() => {
         if (!itemListRef.current) return;
 
         const oldPositions = recordPositions();
@@ -87,46 +90,56 @@ const FisherYates = ({
         });
 
         onShuffle?.();
-    };
+    }, 300);
 
     // 简化后的包装子元素逻辑
 
     const wrappedChildren = Children.map(children, (child: any, index) => {
-        return cloneElement(child, {
-            ref: (element: HTMLElement | null) => {
-                // 处理原始组件的 ref
-
-                if (typeof child.ref === 'function') {
-                    child.ref(element);
-                } else if (child.ref) {
-                    (child.ref as any).current = element;
-                }
-
-                // 存储到我们的 ref map 中
-
-                if (element) {
-                    itemRefs.current.set(index, element);
-                }
-            },
-
+        const enhancedChild = cloneElement(child, {
             key: index,
 
-            className: `fisher-yates-item ${child.props.className || ''}`,
+            className: `random-arrange-item ${child.props.className || ''}`,
         });
+        return (
+            <div
+                className="random-arrange-item-wrapper"
+                ref={(element: HTMLElement | null) => {
+                    // 处理原始组件的 ref
+
+                    if (typeof child.ref === 'function') {
+                        child.ref(element);
+                    } else if (child.ref) {
+                        (child.ref as any).current = element;
+                    }
+
+                    // 存储到我们的 ref map 中
+
+                    if (element) {
+                        itemRefs.current.set(index, element);
+                    }
+                }}
+            >
+                {enhancedChild}
+            </div>
+        );
     });
 
+    useImperativeHandle(actRef, () => ({
+        shuffle: handleShuffle,
+    }));
+
     return (
-        <div className={`fisher-yates-wrapper ${className}`}>
+        <div className={`random-arrange-wrapper ${className}`}>
             {showButton && (
                 <Button externalClassName={buttonClassName} onClickOK={handleShuffle}>
                     {buttonText}
                 </Button>
             )}
-            <div ref={itemListRef} className="fisher-yates-list">
+            <div ref={itemListRef} className="random-arrange-list">
                 {wrappedChildren}
             </div>
         </div>
     );
 };
 
-export default FisherYates;
+export default RandomArrange;

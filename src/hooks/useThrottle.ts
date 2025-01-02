@@ -8,10 +8,10 @@ const useThrottle = (fn: any, delay: number, dependency = []) => {
         console.log('1: ', 1);
         // 这个是肯定要写的，因为每次触发事件的时候，都要重新计算时间
         const now = Date.now();
-        // 第一次触发事件的时候，time.current是 0，所以需要设置一个初始值，不能为0，不然第一次会秒执行
-        if (!time.current) {
+        // 第一次触发事件的时候，time.current是 0，所以需要设置一个初始值，不能为0，不然第一次会秒执行--第一次要立马执行！
+        /* if (!time.current) {
             time.current = now;
-        }
+        } */
         // 定时器清除的逻辑与 防抖相似，都是在 有定时器的时候清除定时器
         // 特殊的点：
         // 节流是在 没有定时器的时候设置定时器
