@@ -48,7 +48,7 @@ const Form = forwardRef(
   (
     {
       showNotFormItem,
-      commonContentBackgroundColor,
+      commonContentBackgroundColor = "white",
       wrpa = true,
       externalWrapperClassName,
       externalWrapperStyle,

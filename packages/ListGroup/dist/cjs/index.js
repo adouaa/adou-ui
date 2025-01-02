@@ -568,6 +568,7 @@ var update = injectStylesIntoStyleTag_default()(cjs_ruleSet_1_rules_1_use_2_src/
 
 const ListGroup = _ref => {
   let {
+    canCancel,
     multiple,
     itemHeight = 40,
     columnMaxHeight,
@@ -581,9 +582,9 @@ const ListGroup = _ref => {
     defaultFirst = false,
     data,
     activeList: selectList,
-    labelKey = "label",
-    valueKey = "value",
-    type = "primary",
+    labelKey = 'label',
+    valueKey = 'value',
+    type = 'primary',
     render,
     onItemClick,
     onItemDoubleClick
@@ -601,7 +602,7 @@ const ListGroup = _ref => {
       onItemClick && onItemClick(item);
     } else {
       const hasSelected = activeList[valueKey] === item[valueKey];
-      data = hasSelected ? {} : item;
+      data = hasSelected && canCancel ? {} : item;
       setActiveList(data);
       onItemClick && onItemClick(data);
     }
@@ -612,7 +613,7 @@ const ListGroup = _ref => {
     onItemDoubleClick && onItemDoubleClick(item);
   };
   const judgeIsActive = item => {
-    if (!activeOnClick) return "";
+    if (!activeOnClick) return '';
     let flag = false;
     if (multiple && Array.isArray(activeList)) {
       if (activeList.map(item => item[valueKey]).includes(item[valueKey])) flag = true;
@@ -622,7 +623,7 @@ const ListGroup = _ref => {
     if (flag) {
       return "active bg-".concat(type, " border-").concat(type);
     } else {
-      return "";
+      return '';
     }
   };
   (0,external_root_React_commonjs2_react_commonjs_react_amd_react_.useEffect)(() => {
@@ -637,6 +638,7 @@ const ListGroup = _ref => {
         setParentMaxHeight(parentElement.clientHeight);
       }
     }
+    console.log('selectList: ', selectList);
   }, [selectList, data, columnMaxHeight, listGroupRef.current]);
   (0,external_root_React_commonjs2_react_commonjs_react_amd_react_.useEffect)(() => {
     // 如果需要换行，则根据 判断 filesPerColunm 是否有值，有值则直接分割，没有值则根据 parentMaxHeight 和 itemHeight 计算每列的文件数量
@@ -669,7 +671,7 @@ const ListGroup = _ref => {
     }
   }, [data, lineBreak, columnMaxHeight, maxHeight, parentMaxHeight]);
   return /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("div", {
-    className: "list-group-wrapper ".concat(externalClassName || ""),
+    className: "list-group-wrapper ".concat(externalClassName || ''),
     ref: listGroupRef
   }, lineBreak && (columnMaxHeight || maxHeight || parentMaxHeight) ? /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("div", {
     className: "row g-0"
@@ -683,18 +685,30 @@ const ListGroup = _ref => {
       // maxHeight:
       //   maxHeight || height || lineBreak ? parentMaxHeight : "",
       maxHeight: columnMaxHeight || maxHeight || height || parentMaxHeight,
-      overflowY: "auto",
-      border: "1px solid #ccc",
-      borderRadius: "5px",
-      boxSizing: "border-box"
+      overflowY: 'auto',
+      border: '1px solid #ccc',
+      borderRadius: '5px',
+      boxSizing: 'border-box'
     }
-  }, Array.isArray(columnItems) && (columnItems === null || columnItems === void 0 ? void 0 : columnItems.map((item, itemIndex) => /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("button", {
+  }, Array.isArray(columnItems) && (columnItems === null || columnItems === void 0 ? void 0 : columnItems.map((item, itemIndex) => /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("div", {
+    className: "list-group-item-wrapper",
+    key: itemIndex
+  }, /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("button", {
     onClick: () => handleItemClick(item),
     onDoubleClick: e => handleItemDoubleClick(e, item),
     key: itemIndex,
     type: "button",
     className: "list-group-item list-group-item-action border-0 ".concat(judgeIsActive(item))
-  }, item.render ? item.render(item, labelKey, valueKey) : render ? render(item, labelKey, valueKey) : item[labelKey]))))))) :
+  }, item.render ? item.render(item, labelKey, valueKey) : render ? render(item, labelKey, valueKey) : multiple ? /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("div", {
+    className: "list-group-item-wrapper d-flex align-items-center"
+  }, /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("div", {
+    className: "item-check d-flex align-items-center me-1"
+  }, /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("input", {
+    checked: activeList.map(item => item[valueKey] && item[valueKey]).includes(item[valueKey]),
+    type: "checkbox"
+  })), /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("div", {
+    className: "text"
+  }, item[labelKey])) : item[labelKey])))))))) :
   /*#__PURE__*/
   // 好像不会执行这边的渲染
   external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("div", {
@@ -702,20 +716,32 @@ const ListGroup = _ref => {
     style: {
       height,
       maxHeight: maxHeight || height,
-      overflowY: "auto",
-      border: list.length ? "1px solid #ccc" : "none"
+      overflowY: 'auto',
+      border: list.length ? '1px solid #ccc' : 'none'
     }
-  }, list === null || list === void 0 ? void 0 : list.map((item, index) => /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("button", {
+  }, list === null || list === void 0 ? void 0 : list.map((item, index) => /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("div", {
+    className: "list-group-item-wrapper d-flex align-items-center",
+    key: item[valueKey]
+  }, /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("button", {
     style: {
-      whiteSpace: noWrap ? "nowrap" : "normal",
-      border: "none"
+      whiteSpace: noWrap ? 'nowrap' : 'normal',
+      border: 'none'
     },
     onClick: () => handleItemClick(item),
     onDoubleClick: e => handleItemDoubleClick(e, item),
     key: item[valueKey],
     type: "button",
     className: "list-group-item list-group-item-action ".concat(judgeIsActive(item))
-  }, item.render ? item.render(item, labelKey, valueKey) : render ? render(item, labelKey, valueKey) : item[labelKey]))));
+  }, item.render ? item.render(item, labelKey, valueKey) : render ? render(item, labelKey, valueKey) : multiple ? /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("div", {
+    className: "list-group-item-wrapper d-flex align-items-center"
+  }, /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("div", {
+    className: "item-check d-flex align-items-center me-1"
+  }, /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("input", {
+    checked: activeList.map(item => item[valueKey] && item[valueKey]).includes(item[valueKey]),
+    type: "checkbox"
+  })), /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("div", {
+    className: "text"
+  }, item[labelKey])) : item[labelKey])))));
 };
 /* harmony default export */ const src_0 = (ListGroup);
 })();
