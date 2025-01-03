@@ -274,7 +274,15 @@ module.exports = function (item) {
         } else {
           top = parseInt(top);
         }
-        const box = domElement.getBoundingClientRect();
+        if (!domElement) {
+          return {
+            x: 0,
+            y: 0,
+            width: 0,
+            height: 0
+          };
+        }
+        const box = domElement === null || domElement === void 0 ? void 0 : domElement.getBoundingClientRect();
         const body = document.body;
         const docElem = document.documentElement;
         const scrollTop = window.pageYOffset || docElem.scrollTop || body.scrollTop;
@@ -5617,6 +5625,7 @@ ___CSS_LOADER_EXPORT___.push([module.id, `@charset "UTF-8";
   visibility: hidden;
   transform: scaleY(0);
   transform-origin: top;
+  /* 滚动条滑块在悬停时的样式 */
 }
 .adou-select-option-content-open {
   opacity: 1;
@@ -5665,7 +5674,11 @@ ___CSS_LOADER_EXPORT___.push([module.id, `@charset "UTF-8";
 .adou-select-option-content::-webkit-scrollbar-track {
   background-color: #f1f1f1;
   border-radius: 2px;
-}`, "",{"version":3,"sources":["webpack://./src/index.scss"],"names":[],"mappings":"AAAA,gBAAgB;AAGR;EACI,YAAA;EACA,yBAAA;EACA,uBAAA;EAEA,oFAAA;EACA,eAAA;EACA,eAAA;AAFZ;AAIY;EACI,+BAAA;EACA,WAAA;AAFhB;AAKY;EAEI,0BAAA;AAJhB;AAMgB;EACI,kCAAA;AAJpB;AAOgB;EACI,mCAAA;AALpB;AAQgB;EACI,wBAAA;AANpB;AASgB;EACI,uBAAA;AAPpB;AAYY;EAEI,eAAA;EACA,oBAAA;EACA,cAAA;AAXhB;AAagB;EACI,qBAAA;EACA,qBAAA;AAXpB;AAmBY;EAEI,WAAA;EACA,aAAA;EACA,YAAA;AAlBhB;AAsBgB;EACI,SAAA;AApBpB;;AAgCA;EACI,gBAAA;EACA,qBAAA;EACA,sBAAA;EACA,gBAAA;EACA,WAAA;EACA,kBAAA;EACA,iBAAA;EACA,kBAAA;EACA,4CAAA;EACA,wEAAA;EACA,kBAAA;EACA,oBAAA;EACA,qBAAA;AA7BJ;AA+BI;EACI,UAAA;EACA,mBAAA;EACA,oBAAA;AA7BR;AAgCI;EACI,iBAAA;AA9BR;AAgCQ;EACI,yBAAA;EACA,eAAA;AA9BZ;AAiCQ;EACI,WAAA;EACA,yBAAA;AA/BZ;AAkCQ;EACI,yBAAA;EACA,cAAA;AAhCZ;AAoCI;EACI,iBAAA;AAlCR;AAqCI;EACI,UAAA;EACA,mBAAA;EACA,oBAAA;EACA,gBAAA;EACA,WAAA;AAnCR;AAsCI;EACI,eAAA;EACA,aAAA;EACA,kBAAA;EACA,cAAA;AApCR;AAwCI;EACI,UAAA;EACA,WAAA;AAtCR;AAyCI;EACI,sBAAA;EACA,kBAAA;AAvCR;AA0CI;EACI,yBAAA;EACA,kBAAA;AAxCR","sourcesContent":[".adou-select-wrapper {\r\n\r\n    .adou-select-form-content {\r\n        .adou-select {\r\n            height: 100%;\r\n            border: 1px solid #ced4da;\r\n            border-radius: 0.475rem;\r\n            // box-shadow: 0 1px 1px rgba(0, 0, 0, 0.075); 加上这个在 borderless 情况下底部会有条线\r\n            transition: background-color 0.5s ease, border-color 0.5s ease, box-shadow 0.5s ease;\r\n            cursor: pointer;\r\n            padding: 0 12px;\r\n\r\n            i {\r\n                transition: transform 0.3s ease;\r\n                /* 添加过渡效果 */\r\n            }\r\n\r\n            &-icon {\r\n\r\n                transition: transform 0.2s;\r\n\r\n                &.rotate-down:hover {\r\n                    transform: scale(1.3) rotate(0deg);\r\n                }\r\n\r\n                &.rotate-up:hover {\r\n                    transform: scale(1.3) rotate(90deg);\r\n                }\r\n\r\n                &.rotate-up {\r\n                    transform: rotate(90deg);\r\n                }\r\n\r\n                .rotate-down {\r\n                    transform: rotate(0deg);\r\n                }\r\n            }\r\n\r\n\r\n            &-clear-icon {\r\n\r\n                cursor: pointer;\r\n                transition: all 0.3s;\r\n                color: #c6c6cd;\r\n\r\n                &:hover {\r\n                    transform: scale(1.2);\r\n                    color: red !important;\r\n                }\r\n            }\r\n\r\n            &-input-box {\r\n                // background-color: red;\r\n            }\r\n\r\n            &-input {\r\n                // min-width: 120px;\r\n                width: 100%;\r\n                outline: none;\r\n                border: none;\r\n            }\r\n\r\n            .adou-select-value-list-item-close {\r\n                svg {\r\n                    fill: red;\r\n                }\r\n            }\r\n        }\r\n    }\r\n\r\n\r\n\r\n\r\n\r\n}\r\n\r\n.adou-select-option-content {\r\n    min-width: 200px;\r\n    text-align-last: left;\r\n    background-color: #fff;\r\n    overflow: hidden;\r\n    /* 隐藏溢出内容 */\r\n    position: absolute;\r\n    z-index: 66666666;\r\n    border-radius: 4px;\r\n    box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;\r\n    transition: opacity 0.3s ease, visibility 0.3s ease, transform 0.3s ease;\r\n    visibility: hidden;\r\n    transform: scaleY(0);\r\n    transform-origin: top;\r\n\r\n    &-open {\r\n        opacity: 1;\r\n        visibility: visible;\r\n        transform: scaleY(1);\r\n    }\r\n\r\n    .adou-select-option {\r\n        padding: 5px 10px;\r\n\r\n        &:hover {\r\n            background-color: #f6f6f6;\r\n            cursor: pointer;\r\n        }\r\n\r\n        &:active {\r\n            color: #fff;\r\n            background-color: #2783d8;\r\n        }\r\n\r\n        &.focused {\r\n            background-color: #e0e0e0;\r\n            /* 高亮当前聚焦的选项 */\r\n        }\r\n    }\r\n\r\n    .adou-select-option-active {\r\n        font-weight: bold;\r\n    }\r\n\r\n    &-open {\r\n        opacity: 1;\r\n        visibility: visible;\r\n        transform: scaleY(1);\r\n        overflow-y: auto;\r\n        /* 允许垂直滚动 */\r\n    }\r\n\r\n    .none-match {\r\n        padding: 10px 0;\r\n        height: 100px;\r\n        font-style: italic;\r\n        color: #a4a3a3;\r\n    }\r\n\r\n    // 滚动条变细\r\n    &::-webkit-scrollbar {\r\n        width: 4px;\r\n        height: 4px;\r\n    }\r\n\r\n    &::-webkit-scrollbar-thumb {\r\n        background-color: #ccc;\r\n        border-radius: 2px;\r\n    }\r\n\r\n    &::-webkit-scrollbar-track {\r\n        background-color: #f1f1f1;\r\n        border-radius: 2px;\r\n    }\r\n}"],"sourceRoot":""}]);
+}
+.adou-select-option-content::-webkit-scrollbar-thumb:hover {
+  background: #555;
+  /* 滚动条滑块悬停时的颜色 */
+}`, "",{"version":3,"sources":["webpack://./src/index.scss"],"names":[],"mappings":"AAAA,gBAAgB;AAGR;EACI,YAAA;EACA,yBAAA;EACA,uBAAA;EAEA,oFAAA;EACA,eAAA;EACA,eAAA;AAFZ;AAIY;EACI,+BAAA;EACA,WAAA;AAFhB;AAKY;EAEI,0BAAA;AAJhB;AAMgB;EACI,kCAAA;AAJpB;AAOgB;EACI,mCAAA;AALpB;AAQgB;EACI,wBAAA;AANpB;AASgB;EACI,uBAAA;AAPpB;AAYY;EAEI,eAAA;EACA,oBAAA;EACA,cAAA;AAXhB;AAagB;EACI,qBAAA;EACA,qBAAA;AAXpB;AAmBY;EAEI,WAAA;EACA,aAAA;EACA,YAAA;AAlBhB;AAsBgB;EACI,SAAA;AApBpB;;AAgCA;EACI,gBAAA;EACA,qBAAA;EACA,sBAAA;EACA,gBAAA;EACA,WAAA;EACA,kBAAA;EACA,iBAAA;EACA,kBAAA;EACA,4CAAA;EACA,wEAAA;EACA,kBAAA;EACA,oBAAA;EACA,qBAAA;EA8DA,iBAAA;AA1FJ;AA8BI;EACI,UAAA;EACA,mBAAA;EACA,oBAAA;AA5BR;AA+BI;EACI,iBAAA;AA7BR;AA+BQ;EACI,yBAAA;EACA,eAAA;AA7BZ;AAgCQ;EACI,WAAA;EACA,yBAAA;AA9BZ;AAiCQ;EACI,yBAAA;EACA,cAAA;AA/BZ;AAmCI;EACI,iBAAA;AAjCR;AAoCI;EACI,UAAA;EACA,mBAAA;EACA,oBAAA;EACA,gBAAA;EACA,WAAA;AAlCR;AAqCI;EACI,eAAA;EACA,aAAA;EACA,kBAAA;EACA,cAAA;AAnCR;AAuCI;EACI,UAAA;EACA,WAAA;AArCR;AAwCI;EACI,sBAAA;EACA,kBAAA;AAtCR;AAyCI;EACI,yBAAA;EACA,kBAAA;AAvCR;AA2CI;EACI,gBAAA;EACA,gBAAA;AAzCR","sourcesContent":[".adou-select-wrapper {\r\n\r\n    .adou-select-form-content {\r\n        .adou-select {\r\n            height: 100%;\r\n            border: 1px solid #ced4da;\r\n            border-radius: 0.475rem;\r\n            // box-shadow: 0 1px 1px rgba(0, 0, 0, 0.075); 加上这个在 borderless 情况下底部会有条线\r\n            transition: background-color 0.5s ease, border-color 0.5s ease, box-shadow 0.5s ease;\r\n            cursor: pointer;\r\n            padding: 0 12px;\r\n\r\n            i {\r\n                transition: transform 0.3s ease;\r\n                /* 添加过渡效果 */\r\n            }\r\n\r\n            &-icon {\r\n\r\n                transition: transform 0.2s;\r\n\r\n                &.rotate-down:hover {\r\n                    transform: scale(1.3) rotate(0deg);\r\n                }\r\n\r\n                &.rotate-up:hover {\r\n                    transform: scale(1.3) rotate(90deg);\r\n                }\r\n\r\n                &.rotate-up {\r\n                    transform: rotate(90deg);\r\n                }\r\n\r\n                .rotate-down {\r\n                    transform: rotate(0deg);\r\n                }\r\n            }\r\n\r\n\r\n            &-clear-icon {\r\n\r\n                cursor: pointer;\r\n                transition: all 0.3s;\r\n                color: #c6c6cd;\r\n\r\n                &:hover {\r\n                    transform: scale(1.2);\r\n                    color: red !important;\r\n                }\r\n            }\r\n\r\n            &-input-box {\r\n                // background-color: red;\r\n            }\r\n\r\n            &-input {\r\n                // min-width: 120px;\r\n                width: 100%;\r\n                outline: none;\r\n                border: none;\r\n            }\r\n\r\n            .adou-select-value-list-item-close {\r\n                svg {\r\n                    fill: red;\r\n                }\r\n            }\r\n        }\r\n    }\r\n\r\n\r\n\r\n\r\n\r\n}\r\n\r\n.adou-select-option-content {\r\n    min-width: 200px;\r\n    text-align-last: left;\r\n    background-color: #fff;\r\n    overflow: hidden;\r\n    /* 隐藏溢出内容 */\r\n    position: absolute;\r\n    z-index: 66666666;\r\n    border-radius: 4px;\r\n    box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;\r\n    transition: opacity 0.3s ease, visibility 0.3s ease, transform 0.3s ease;\r\n    visibility: hidden;\r\n    transform: scaleY(0);\r\n    transform-origin: top;\r\n\r\n    &-open {\r\n        opacity: 1;\r\n        visibility: visible;\r\n        transform: scaleY(1);\r\n    }\r\n\r\n    .adou-select-option {\r\n        padding: 5px 10px;\r\n\r\n        &:hover {\r\n            background-color: #f6f6f6;\r\n            cursor: pointer;\r\n        }\r\n\r\n        &:active {\r\n            color: #fff;\r\n            background-color: #2783d8;\r\n        }\r\n\r\n        &.focused {\r\n            background-color: #e0e0e0;\r\n            /* 高亮当前聚焦的选项 */\r\n        }\r\n    }\r\n\r\n    .adou-select-option-active {\r\n        font-weight: bold;\r\n    }\r\n\r\n    &-open {\r\n        opacity: 1;\r\n        visibility: visible;\r\n        transform: scaleY(1);\r\n        overflow-y: auto;\r\n        /* 允许垂直滚动 */\r\n    }\r\n\r\n    .none-match {\r\n        padding: 10px 0;\r\n        height: 100px;\r\n        font-style: italic;\r\n        color: #a4a3a3;\r\n    }\r\n\r\n    // 滚动条变细\r\n    &::-webkit-scrollbar {\r\n        width: 4px;\r\n        height: 4px;\r\n    }\r\n\r\n    &::-webkit-scrollbar-thumb {\r\n        background-color: #ccc;\r\n        border-radius: 2px;\r\n    }\r\n\r\n    &::-webkit-scrollbar-track {\r\n        background-color: #f1f1f1;\r\n        border-radius: 2px;\r\n    }\r\n\r\n    /* 滚动条滑块在悬停时的样式 */\r\n    &::-webkit-scrollbar-thumb:hover {\r\n        background: #555;\r\n        /* 滚动条滑块悬停时的颜色 */\r\n    }\r\n}"],"sourceRoot":""}]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 
@@ -6275,7 +6288,6 @@ const Select = /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_a
   const [isInputFocusing, setIsInputFocusing] = (0,external_root_React_commonjs2_react_commonjs_react_amd_react_.useState)(false);
   const inputRef = (0,external_root_React_commonjs2_react_commonjs_react_amd_react_.useRef)();
   const handleClose = () => {
-    console.log("contentRef.current: ", contentRef.current);
     if (disabled) return;
     // RetrieveSelect 新增逻辑 失焦后，展示 select-value
     if (mode !== "liveSearch" && !showSearch) {
@@ -6495,6 +6507,19 @@ const Select = /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_a
     handleValidate("");
   };
 
+  // 判断 input 的背景色
+  const judgeInputBgColor = () => {
+    if (disabled) {
+      return "#eee";
+    } else if (varient === "filled" || transparent) {
+      return "transparent";
+    } else if (backgroundColor) {
+      return backgroundColor;
+    } else {
+      return "transparent";
+    }
+  };
+
   // 判断是否是选中状态来决定选项的字体颜色
   const judgeColor = (item, type) => {
     if (multiple || mode === "tags") {
@@ -6628,7 +6653,7 @@ const Select = /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_a
     if (!onInputChange) {
       // 如果不需要检索，则直接做过滤
       const filteredOptions = originalOptions.filter(item => {
-        return filterOption ? filterOption(value, item, labelKey, valueKey) : item[labelKey].toLowerCase().includes(value.toLowerCase());
+        return filterOption ? filterOption(value, item, labelKey, valueKey) : String(item[labelKey]).toLowerCase().includes(value.toLowerCase());
       });
       setNewOptions(filteredOptions);
     } else {
@@ -6637,10 +6662,10 @@ const Select = /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_a
     }
   };
   (0,external_root_React_commonjs2_react_commonjs_react_amd_react_.useEffect)(() => {
-    console.log("defaultValue: ", defaultValue);
-    /* if (name === "store") {
-      console.log("defaultValue: ", defaultValue);
-      // debugger;
+    /* if (name === "tcm_usage_id") {
+      console.log("defaultValue: ", name, defaultValue);
+      console.log("---------------------------------: ", options);
+      debugger;
     } */
     // 新增：如果使用过 defaultValue，就不再执行下面的逻辑
     // if (hasUseDefaultValue) return;
@@ -6650,18 +6675,27 @@ const Select = /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_a
       sethasUseDefaultValue(true);
 
       // 如果是必须展示默认值，不通过列表匹配的话，进入这个判断
-      if (showDefaultValue) {
+      // 如果是 LiveSearch 的话，也要把传进来的 defaultValue 赋值给 selectValue
+      // 为了防止 showSearch 的时候 input框 的值被清空，这边要加上 showSearch 的判断
+      if (showDefaultValue || showSearch || mode === "liveSearch") {
         if (multiple) {
           setSelectValueList(defaultValue);
         } else {
+          // 如果是字符串，则通过 options 匹配
           if (typeof defaultValue !== "object") {
-            const selectOption = {
-              [valueKey]: defaultValue,
-              [labelKey]: defaultValue
-            };
+            // 为了兼容 showSearch 的逻辑，这里需要单独处理，如果找到 selectOption，则赋值给 selectValue
+            let selectOption = options.find(option => (option === null || option === void 0 ? void 0 : option[valueKey]) === defaultValue);
+            if (!selectOption) {
+              // 没找到，则直接赋值
+              selectOption = {
+                [valueKey]: defaultValue,
+                [labelKey]: defaultValue
+              };
+            }
             setSelectValue(selectOption);
             setTempSelectValue(selectOption);
           } else if (typeof defaultValue === "object") {
+            // console.log("-------------------------------: ", defaultValue);
             setSelectValue(defaultValue);
             setTempSelectValue(defaultValue);
           }
@@ -6682,7 +6716,6 @@ const Select = /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_a
         } else if (mode === "tags") {
           // 如果是 tags 模式，单独处理
           if (defaultValue) {
-            console.log("defaultValue: ", defaultValue);
             setSelectValueList(Array.isArray(defaultValue) ? defaultValue.map(item => {
               if (typeof item === "object") {
                 return item;
@@ -6712,13 +6745,13 @@ const Select = /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_a
               // setTempSelectValue({});
             }
           } else {
+            /* if (name === "pharmacy_id") {
+              console.log("defaultValue: ", name, defaultValue);
+              // debugger;
+            } */
             if (defaultValue || defaultValue === 0 || defaultValue === false) {
               const selectOption = options.find(option => option[valueKey] === defaultValue);
-              if (selectOption) {
-                setSelectValue(selectOption);
-              } else if (mode !== "liveSearch") {
-                setSelectValue(selectOption);
-              }
+              setSelectValue(selectOption);
             } else {
               setSelectValue(tempSelectValue);
             }
@@ -6761,8 +6794,10 @@ const Select = /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_a
 
   // 因为现在只有在 第一次 的时候展示 select-value的div，后面都是展示 input，所以这边做了赋值处理，保证 input的值能够实时更新
   (0,external_root_React_commonjs2_react_commonjs_react_amd_react_.useEffect)(() => {
-    // debugger;
-    console.log("selectValue: ", selectValue);
+    /* if (valueKey === "item_id") {
+      debugger;
+      console.log("selectValue: ", selectValue);
+    } */
     if (
     // 下面这些情况不用在意 input 的值
     !inputRef.current || !isInputFocusing && !showSearch && mode !== "liveSearch" || !selectValue) {
@@ -6809,7 +6844,7 @@ const Select = /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_a
     className: "adou-select d-flex align-items-center ".concat(selectContentExternalCls || "", " ").concat(isFocus ? "adou-form-control-focus" : ""),
     style: {
       textAlign: "left",
-      background: backgroundColor ? backgroundColor : transparent ? "transparent" : disabled ? "#eee" : varient === "filled" ? "#f0f0f0" : "",
+      background: disabled ? "#eee" : transparent ? "transparent" : backgroundColor ? backgroundColor : varient === "filled" ? "#f0f0f0" : "",
       flex: 1,
       /* ...(suffixContentType === 'button'
                     ? {
@@ -6857,7 +6892,7 @@ const Select = /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_a
     "aria-label": "Username",
     "aria-describedby": "basic-addon1",
     style: {
-      backgroundColor: backgroundColor ? backgroundColor : varient === "filled" || transparent ? "transparent" : "",
+      backgroundColor: judgeInputBgColor(),
       width: "100%",
       cursor: disabled ? "not-allowed" : ""
     }
@@ -6899,7 +6934,7 @@ const Select = /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_a
     "aria-label": "Username",
     "aria-describedby": "basic-addon1",
     style: {
-      backgroundColor: backgroundColor ? backgroundColor : varient === "filled" || transparent ? "transparent" : "",
+      backgroundColor: judgeInputBgColor(),
       width: "100%",
       cursor: disabled ? "not-allowed" : ""
     }

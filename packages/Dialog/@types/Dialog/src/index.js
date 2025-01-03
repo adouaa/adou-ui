@@ -32,14 +32,15 @@ const useDrag_1 = __importDefault(require("../../Utils/src/hooks/useDrag"));
 const useClickOutside_1 = __importDefault(require("../../Utils/src/hooks/useClickOutside"));
 const Button_1 = __importDefault(require("adou-ui/Button"));
 require("./index.scss");
-const Dialog = ({ draggable, confirmLoading, needDestroy = false, maxY, maxX, max, showConfirm = true, showCancel = true, showClose = true, canConfirm = true, clickOutside = false, confirmText = "确定", cancelText = "取消", confirmBtnClass = "primary", cancelBtnClass = "secondary", show: isOpen = false, title = "提示", children = null, type = "", maxHeight = "400px", width = type === "tip" ? "420px" : "600px", height, maxWidth, onCancel, onClose = () => { }, onConfirm = () => { }, }) => {
+const Dialog = ({ draggble, confirmBtnLoading, needDestroy = false, maxY, maxX, max, showConfirm = true, showCancel = true, showClose = true, canConfirm = true, clickOutside = false, confirmText = "确定", cancelText = "取消", confirmBtnClass = "primary", cancelBtnClass = "secondary", show: isOpen = false, title = "提示", children = null, type = "", maxHeight = "400px", width = "600px", height, maxWidth, onCancel, onClose = () => { }, onConfirm = () => { }, }) => {
     const dialogRef = (0, react_1.useRef)(null);
+    const triggerRef = (0, react_1.useRef)(null);
     const [show, setShow] = (0, react_1.useState)(false);
     const [destroied, setDestroied] = (0, react_1.useState)(false);
     const [isAnimating, setIsAnimating] = (0, react_1.useState)(false);
     const [initialPosition, setInitialPosition] = (0, react_1.useState)({ x: 0, y: 0 });
     const [firstOpen, setFirstOpen] = (0, react_1.useState)(false);
-    const { position, handleMouseDown } = (0, useDrag_1.default)(dialogRef, true, false);
+    const { position, handleMouseDown } = (0, useDrag_1.default)(triggerRef, dialogRef, draggble && !max, false);
     const handleKeyDown = (event) => {
         if (event.key === "Enter") {
             onConfirm && onConfirm();
@@ -47,10 +48,6 @@ const Dialog = ({ draggable, confirmLoading, needDestroy = false, maxY, maxX, ma
         else if (event.key === "Escape") {
             onClose && onClose();
         }
-    };
-    const handleClose = (e) => {
-        e.stopPropagation();
-        onClose && onClose();
     };
     (0, react_1.useEffect)(() => {
         if (show) {
@@ -101,7 +98,7 @@ const Dialog = ({ draggable, confirmLoading, needDestroy = false, maxY, maxX, ma
             }
         }
     }, [isOpen, type]);
-    (0, useClickOutside_1.default)([dialogRef], clickOutside && onClose);
+    (0, useClickOutside_1.default)(dialogRef, clickOutside && onClose);
     return (react_1.default.createElement(react_1.default.Fragment, null, (isOpen || isAnimating) &&
         react_dom_1.default.createPortal(react_1.default.createElement("div", { className: `dialog-overlay ${show ? "open" : ""}` }, !destroied && (react_1.default.createElement("div", { onKeyDown: handleKeyDown, tabIndex: 0, ref: dialogRef, className: `dialog ${show ? "open" : ""}`, style: {
                 top: `${position.y - 20}px`,
@@ -110,18 +107,20 @@ const Dialog = ({ draggable, confirmLoading, needDestroy = false, maxY, maxX, ma
                 maxWidth: max || maxX ? "100vw" : width || maxWidth,
                 width: max || maxX ? "100vw" : width || maxWidth,
             } },
-            react_1.default.createElement("div", { className: "dialog-header p-2 ps-3", ...(draggable && {
-                    onMouseDown: handleMouseDown,
-                }), style: { cursor: draggable ? "move" : "default" } },
-                react_1.default.createElement("span", { className: "fs-5" }, title),
-                showClose && (react_1.default.createElement("button", { className: "dialog-close hover-scale", onClick: handleClose }, "\u00D7"))),
+            react_1.default.createElement("div", { className: "dialog-header px-2 ps-3" },
+                react_1.default.createElement("span", { className: "dialog-header-title fs-5" }, title),
+                react_1.default.createElement("div", { ref: triggerRef, className: "header-placeholder flex-fill", onMouseDown: draggble && !max ? handleMouseDown : undefined, style: {
+                        cursor: draggble && !max ? "move" : "default",
+                        height: "56.8px",
+                    } }),
+                showClose && (react_1.default.createElement("button", { className: "dialog-close hover-scale", onClick: onClose }, "\u00D7"))),
             react_1.default.createElement("div", { className: "dialog-content", style: {
-                    maxHeight: max || maxY ? "79.5vh" : height || maxHeight,
-                    height: max || maxY ? "79.5vh" : height,
-                } }, children || "默认对话框内容"),
-            react_1.default.createElement("div", { className: `dialog-footer d-flex justify-content-end ${type === "tip" ? "p-2" : "p-3"}` },
-                showCancel && (react_1.default.createElement(Button_1.default, { type: "secondary", externalClassName: `me-2 btn-${cancelBtnClass}`, size: `${type === "tip" ? "sm" : "md"}`, onClick: onCancel ?? onClose }, cancelText)),
-                showConfirm && (react_1.default.createElement(Button_1.default, { type: "primary", loading: confirmLoading, disabled: !canConfirm, externalClassName: `btn-${confirmBtnClass}`, size: `${type === "tip" ? "sm" : "md"}`, onClick: onConfirm }, confirmText)))))), document.body)));
+                    maxHeight: max || maxY ? "calc(100vh - 8rem)" : height || maxHeight,
+                    height: max || maxY ? "calc(100vh - 8rem)" : height,
+                } }, children),
+            react_1.default.createElement("div", { className: "dialog-footer d-flex justify-content-end p-3" },
+                showCancel && (react_1.default.createElement(Button_1.default, { externalClassName: `me-2 btn-${cancelBtnClass}`, size: "md", onClickOK: onCancel ?? onClose }, cancelText)),
+                showConfirm && (react_1.default.createElement(Button_1.default, { loading: confirmBtnLoading, disabled: !canConfirm, externalClassName: `btn-${confirmBtnClass}`, size: "md", onClickOK: onConfirm }, confirmText)))))), document.body)));
 };
 exports.default = Dialog;
 //# sourceMappingURL=index.js.map

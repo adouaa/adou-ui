@@ -5275,10 +5275,10 @@ const useClickOutside = function (refs, callback) {
 /* harmony default export */ const hooks_useClickOutside = (useClickOutside);
 ;// CONCATENATED MODULE: ./src/hooks/useDrag.js
 
-const useDrag = function (elementRef) {
-  let isDialog = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : false;
-  let autoStyle = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : true;
-  let initialPosition = arguments.length > 3 && arguments[3] !== undefined ? arguments[3] : {
+const useDrag = function (triggerRef, elementRef) {
+  let isDialog = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : false;
+  let autoStyle = arguments.length > 3 && arguments[3] !== undefined ? arguments[3] : true;
+  let initialPosition = arguments.length > 4 && arguments[4] !== undefined ? arguments[4] : {
     x: 0,
     y: 0
   };
@@ -5300,6 +5300,7 @@ const useDrag = function (elementRef) {
           y: e.clientY - dragOffset.y - ((_elementFirstPosition2 = elementFirstPositionRef.current) === null || _elementFirstPosition2 === void 0 ? void 0 : _elementFirstPosition2.top)
         });
       } else {
+        console.log('666: ', 666);
         // 如果是弹窗，则不用减
         setPosition({
           x: e.clientX - dragOffset.x,
@@ -5315,29 +5316,29 @@ const useDrag = function (elementRef) {
   // 绑定事件
   (0,external_root_React_commonjs2_react_commonjs_react_amd_react_.useEffect)(() => {
     if (isDragging) {
-      document.addEventListener("mousemove", handleMouseMove);
-      document.addEventListener("mouseup", handleMouseUp);
+      document.addEventListener('mousemove', handleMouseMove);
+      document.addEventListener('mouseup', handleMouseUp);
     } else {
-      document.removeEventListener("mousemove", handleMouseMove);
-      document.removeEventListener("mouseup", handleMouseUp);
+      document.removeEventListener('mousemove', handleMouseMove);
+      document.removeEventListener('mouseup', handleMouseUp);
     }
     return () => {
-      document.removeEventListener("mousemove", handleMouseMove);
-      document.removeEventListener("mouseup", handleMouseUp);
+      document.removeEventListener('mousemove', handleMouseMove);
+      document.removeEventListener('mouseup', handleMouseUp);
     };
   }, [isDragging]);
 
-  // 如果需要自动设置样式的话，在这边处理
+  // 如果需要自动设置样式的话，在这边处理，处理的是 triggerRef触发元素
   (0,external_root_React_commonjs2_react_commonjs_react_amd_react_.useEffect)(() => {
-    if (autoStyle && elementRef.current) {
-      elementRef.current.style.position = "relative";
-      elementRef.current.style.top = position.y + "px";
-      elementRef.current.style.left = position.x + "px";
-      elementRef.current.style.cursor = "move";
+    if (autoStyle && triggerRef.current) {
+      triggerRef.current.style.position = 'relative';
+      triggerRef.current.style.top = position.y + 'px';
+      triggerRef.current.style.left = position.x + 'px';
+      triggerRef.current.style.cursor = 'move';
     }
   }, [position]);
   const handleMouseDown = e => {
-    // 点击的时候获取当前元素距离浏览器的位置
+    // 点击的时候获取当前元素距离浏览器的位置，获取的是 要拖拽的整体元素
     const dialogRect = elementRef.current.getBoundingClientRect();
     setIsDragging(true);
     // 因为弹窗一开始有 left和top，所以要减去 当前元素位置的left 和 top

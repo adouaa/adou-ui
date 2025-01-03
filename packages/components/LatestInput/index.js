@@ -145,6 +145,9 @@ ___CSS_LOADER_EXPORT___.push([module.id, `.adou-input-wrapper .adou-input-form-c
   border-radius: 0.375rem;
   transition: background-color 0.5s ease, border-color 0.5s ease, box-shadow 0.5s ease;
 }
+.adou-input-wrapper .adou-input-form-content .input-box {
+  width: 100%;
+}
 .adou-input-wrapper .adou-input-label-vertical {
   display: flex;
   align-items: self-start;
@@ -182,7 +185,7 @@ ___CSS_LOADER_EXPORT___.push([module.id, `.adou-input-wrapper .adou-input-form-c
 .adou-input-wrapper .adou-input-clear-icon:hover {
   transform: scale(1.2);
   color: red !important;
-}`, "",{"version":3,"sources":["webpack://./src/index.scss"],"names":[],"mappings":"AAIQ;EACI,YAAA;EACA,uBAAA;EAEA,oFAAA;AAJZ;AAOQ;EACI,aAAA;EACA,uBAAA;EACA,uBAAA;EACA,sBAAA;AALZ;AAQQ;EACI,aAAA;EACA,uBAAA;EACA,mBAAA;EACA,mBAAA;AANZ;AAQY;EACI,aAAA;EACA,mBAAA;EACA,uBAAA;AANhB;AAUQ;EACI,aAAA;EACA,uBAAA;EACA,uBAAA;EACA,mBAAA;AARZ;AAWQ;EACI,WAAA;EACA,iBAAA;EACA,aAAA;EACA,mBAAA;AATZ;AAYQ;EAEI,eAAA;EACA,oBAAA;EACA,cAAA;AAXZ;AAaY;EACI,qBAAA;EACA,qBAAA;AAXhB","sourcesContent":[".adou-input-wrapper {\r\n\r\n    .adou-input {\r\n\r\n        &-form-content {\r\n            height: 100%;\r\n            border-radius: 0.375rem;\r\n            // box-shadow: 0 1px 1px rgba(0, 0, 0, 0.075); 加上这个在 borderless 情况下底部会有条线\r\n            transition: background-color 0.5s ease, border-color 0.5s ease, box-shadow 0.5s ease;\r\n        }\r\n\r\n        &-label-vertical {\r\n            display: flex;\r\n            align-items: self-start;\r\n            justify-content: center;\r\n            flex-direction: column;\r\n        }\r\n\r\n        &-label-horizontal {\r\n            display: flex;\r\n            justify-content: center;\r\n            align-items: center;\r\n            flex-direction: row;\r\n\r\n            .adou-input-label-box {\r\n                display: flex;\r\n                align-items: center;\r\n                justify-content: center;\r\n            }\r\n        }\r\n\r\n        &-label-horizontal-top {\r\n            display: flex;\r\n            justify-content: center;\r\n            align-items: self-start;\r\n            flex-direction: row;\r\n        }\r\n\r\n        &-clear-icon-box {\r\n            width: 24px;\r\n            text-align: right;\r\n            display: flex;\r\n            align-items: center;\r\n        }\r\n\r\n        &-clear-icon {\r\n\r\n            cursor: pointer;\r\n            transition: all 0.3s;\r\n            color: #c6c6cd;\r\n\r\n            &:hover {\r\n                transform: scale(1.2);\r\n                color: red !important;\r\n            }\r\n        }\r\n    }\r\n}"],"sourceRoot":""}]);
+}`, "",{"version":3,"sources":["webpack://./src/index.scss"],"names":[],"mappings":"AAIQ;EACI,YAAA;EACA,uBAAA;EAEA,oFAAA;AAJZ;AAMY;EACI,WAAA;AAJhB;AAQQ;EACI,aAAA;EACA,uBAAA;EACA,uBAAA;EACA,sBAAA;AANZ;AASQ;EACI,aAAA;EACA,uBAAA;EACA,mBAAA;EACA,mBAAA;AAPZ;AASY;EACI,aAAA;EACA,mBAAA;EACA,uBAAA;AAPhB;AAWQ;EACI,aAAA;EACA,uBAAA;EACA,uBAAA;EACA,mBAAA;AATZ;AAYQ;EACI,WAAA;EACA,iBAAA;EACA,aAAA;EACA,mBAAA;AAVZ;AAaQ;EAEI,eAAA;EACA,oBAAA;EACA,cAAA;AAZZ;AAcY;EACI,qBAAA;EACA,qBAAA;AAZhB","sourcesContent":[".adou-input-wrapper {\r\n\r\n    .adou-input {\r\n\r\n        &-form-content {\r\n            height: 100%;\r\n            border-radius: 0.375rem;\r\n            // box-shadow: 0 1px 1px rgba(0, 0, 0, 0.075); 加上这个在 borderless 情况下底部会有条线\r\n            transition: background-color 0.5s ease, border-color 0.5s ease, box-shadow 0.5s ease;\r\n\r\n            .input-box {\r\n                width: 100%;\r\n            }\r\n        }\r\n\r\n        &-label-vertical {\r\n            display: flex;\r\n            align-items: self-start;\r\n            justify-content: center;\r\n            flex-direction: column;\r\n        }\r\n\r\n        &-label-horizontal {\r\n            display: flex;\r\n            justify-content: center;\r\n            align-items: center;\r\n            flex-direction: row;\r\n\r\n            .adou-input-label-box {\r\n                display: flex;\r\n                align-items: center;\r\n                justify-content: center;\r\n            }\r\n        }\r\n\r\n        &-label-horizontal-top {\r\n            display: flex;\r\n            justify-content: center;\r\n            align-items: self-start;\r\n            flex-direction: row;\r\n        }\r\n\r\n        &-clear-icon-box {\r\n            width: 24px;\r\n            text-align: right;\r\n            display: flex;\r\n            align-items: center;\r\n        }\r\n\r\n        &-clear-icon {\r\n\r\n            cursor: pointer;\r\n            transition: all 0.3s;\r\n            color: #c6c6cd;\r\n\r\n            &:hover {\r\n                transform: scale(1.2);\r\n                color: red !important;\r\n            }\r\n        }\r\n    }\r\n}"],"sourceRoot":""}]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 
@@ -595,7 +598,7 @@ const Input = (_ref, ref) => {
     suffix,
     addonBefore,
     addonAfter,
-    varient = 'outlined',
+    varient = "outlined",
     valueKey,
     labelKey,
     wrapperWidth,
@@ -610,21 +613,21 @@ const Input = (_ref, ref) => {
     errMsg,
     labelWidth,
     commonSuffixIcon,
-    width = '100%',
+    width = "100%",
     label,
-    layout = 'horizontal',
+    layout = "horizontal",
     labelColor,
     required = false,
-    type = 'text',
+    type = "text",
     defaultValue,
     size,
     externalClassName,
     prefixContent,
     suffixContent,
-    suffixContentType = 'button',
+    suffixContentType = "button",
     placeholder,
     style,
-    readOnly,
+    disabled,
     transparent,
     children,
     onClick,
@@ -636,7 +639,7 @@ const Input = (_ref, ref) => {
     onFieldChange,
     onValidateField
   } = _ref;
-  const [value, setValue] = (0,external_root_React_commonjs2_react_commonjs_react_amd_react_.useState)(defaultValue !== null && defaultValue !== void 0 ? defaultValue : '');
+  const [value, setValue] = (0,external_root_React_commonjs2_react_commonjs_react_amd_react_.useState)(defaultValue !== null && defaultValue !== void 0 ? defaultValue : "");
   const [isEnter, setIsEnter] = (0,external_root_React_commonjs2_react_commonjs_react_amd_react_.useState)(false);
   const [isFocus, setIsFocus] = (0,external_root_React_commonjs2_react_commonjs_react_amd_react_.useState)(false);
   const inputRef = (0,external_root_React_commonjs2_react_commonjs_react_amd_react_.useRef)(null);
@@ -647,8 +650,8 @@ const Input = (_ref, ref) => {
   };
   const handleFocus = function (e) {
     e.stopPropagation();
-    if (varient === 'filled' && inputFormContentRef.current && !readOnly) {
-      inputFormContentRef.current.style.backgroundColor = '';
+    if (varient === "filled" && inputFormContentRef.current && !disabled) {
+      inputFormContentRef.current.style.backgroundColor = "";
       setIsFocus(true);
     }
     onFocus && onFocus(e);
@@ -656,14 +659,14 @@ const Input = (_ref, ref) => {
   const handleBlur = function (e) {
     onBlur && onBlur(e);
     handleValidate(value);
-    if (varient === 'filled' && inputFormContentRef.current) {
-      inputFormContentRef.current.style.backgroundColor = '#f0f0f0';
+    if (varient === "filled" && inputFormContentRef.current) {
+      inputFormContentRef.current.style.backgroundColor = "#f0f0f0";
     }
     setIsFocus(false);
   };
   const handleChange = function (e) {
     const value = e.target.value;
-    const returnValue = type === 'number' ? Number(value) : value;
+    const returnValue = type === "number" ? Number(value) : value;
     setValue(value);
     onChange && onChange(returnValue);
     onFormDataChange && onFormDataChange(name, returnValue);
@@ -682,7 +685,7 @@ const Input = (_ref, ref) => {
   };
   const validate = () => {};
   const clear = () => {
-    setValue('');
+    setValue("");
   };
   const handleMouseEnter = () => {
     setIsEnter(true);
@@ -692,47 +695,51 @@ const Input = (_ref, ref) => {
   };
   const handleClearIconClick = () => {
     clear();
-    handleFieldChange('');
-    handleFieldChange('');
-    console.log('5: ', 5);
-    handleValidate('');
+    handleFieldChange("");
+    handleFieldChange("");
+    console.log("5: ", 5);
+    handleValidate("");
   };
   const generateClsWhenHasLabel = () => {
     switch (layout) {
-      case 'horizontal':
-        return 'adou-input-label-horizontal';
-      case 'horizontal-top':
-        return 'adou-input-label-horizontal-top';
-      case 'vertical':
-        return 'adou-input-label-vertical';
+      case "horizontal":
+        return "adou-input-label-horizontal";
+      case "horizontal-top":
+        return "adou-input-label-horizontal-top";
+      case "vertical":
+        return "adou-input-label-vertical";
     }
   };
   const judgeBgColor = () => {
-    if (readOnly) {
-      return '#eee';
-    } else if (varient === 'filled') {
-      return '#f0f0f0';
+    if (disabled) {
+      return "#eee";
+    } else if (varient === "filled") {
+      return "#f0f0f0";
+    } else if (backgroundColor) {
+      return backgroundColor;
+    } else {
+      return "transparent";
     }
   };
   const judgeBorder = () => {
-    if (varient === 'borderless') {
-      return 'border-0';
-    } else if (varient === 'filled' && !addonAfter && !addonBefore) {
-      return 'border-0';
+    if (varient === "borderless") {
+      return "border-0";
+    } else if (varient === "filled" && !addonAfter && !addonBefore) {
+      return "border-0";
     } else {
-      return '';
+      return "";
     }
   };
   const commonElement = /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement((external_root_React_commonjs2_react_commonjs_react_amd_react_default()).Fragment, null, /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("input", {
-    className: "input border-0 flex-fill ".concat(textEnd || type === 'number' ? 'text-end' : '', " ").concat(suffixContent && suffixContentType === 'button' ? 'suffix-content-btn' : '', " ").concat(inputExternalClassName || '', " "),
+    className: "input border-0 flex-fill ".concat(textEnd || type === "number" ? "text-end" : "", " ").concat(suffixContent && suffixContentType === "button" ? "suffix-content-btn" : "", " ").concat(inputExternalClassName || "", " "),
     ref: inputRef,
     required: required,
     style: {
       flex: 1,
       width,
-      outline: 'none',
-      ...(varient === 'filled' && {
-        backgroundColor: 'transparent'
+      outline: "none",
+      ...(varient === "filled" && {
+        backgroundColor: "transparent"
       }),
       ...(addonBefore && {
         borderTopLeftRadius: 0,
@@ -742,17 +749,17 @@ const Input = (_ref, ref) => {
         borderTopRightRadius: 0,
         borderBottomRightRadius: 0
       }),
-      height: size === 'lg' ? '48px' : size === 'sm' ? '32px' : '40px',
-      backgroundColor: backgroundColor ? backgroundColor : 'transparent',
-      cursor: readOnly ? 'not-allowed' : 'auto',
-      borderRadius: '0.375rem',
+      height: size === "lg" ? "48px" : size === "sm" ? "32px" : "40px",
+      backgroundColor: judgeBgColor(),
+      cursor: disabled ? "not-allowed" : "auto",
+      borderRadius: "0.375rem",
       // 和父组件的 borderRadius 保持一致
       ...inputStyle
     },
     step: 1,
     name: name,
     value: value,
-    readOnly: readOnly,
+    readOnly: disabled,
     placeholder: placeholder,
     onChange: handleChange,
     onBlur: e => handleBlur(e),
@@ -764,20 +771,20 @@ const Input = (_ref, ref) => {
   }, suffix), clearable && true && value ? /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("span", {
     className: "adou-input-clear-icon-box fade-enter me-1",
     style: {
-      top: size === 'sm' ? '2px' : size === 'lg' ? ' 10px' : '6px'
+      top: size === "sm" ? "2px" : size === "lg" ? " 10px" : "6px"
     }
   }, /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("i", {
     className: "adou-input-clear-icon fa-regular fa-circle-xmark text-secondary flex-fill",
     style: {
-      fontSize: '12px',
-      cursor: 'pointer'
+      fontSize: "12px",
+      cursor: "pointer"
     },
     onClick: handleClearIconClick
   })) : /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("div", {
     className: "adou-input-common-sufiix-content position-absolute text-secondary",
     style: {
-      right: '14px',
-      top: size === 'sm' ? '14%' : size === 'lg' ? ' 26%' : '18%'
+      right: "14px",
+      top: size === "sm" ? "14%" : size === "lg" ? " 26%" : "18%"
     }
   }, commonSuffixContent));
 
@@ -790,7 +797,7 @@ const Input = (_ref, ref) => {
     if (defaultValue || defaultValue === 0) {
       setValue(defaultValue);
     } else {
-      setValue('');
+      setValue("");
     }
     if (defaultValue) {
       setError(false);
@@ -806,7 +813,7 @@ const Input = (_ref, ref) => {
     title: title || label,
     onMouseEnter: handleMouseEnter,
     onMouseLeave: handleMouseLeave,
-    className: "adou-input-wrapper position-relative ".concat(wrapperClassName ? wrapperClassName : ''),
+    className: "adou-input-wrapper position-relative ".concat(wrapperClassName ? wrapperClassName : ""),
     style: {
       ...wrapperStyle,
       ...(wrapperWidth ? {
@@ -814,41 +821,41 @@ const Input = (_ref, ref) => {
       } : {
         flex: 1
       }),
-      cursor: readOnly ? 'not-allowed' : 'auto'
+      cursor: disabled ? "not-allowed" : "auto"
     }
   }, !label && (addonAfter || addonBefore) ? /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("div", {
     className: "adou-input"
   }, /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("div", {
     className: "input-group",
     style: {
-      flexWrap: wrap ? 'wrap' : 'nowrap'
+      flexWrap: wrap ? "wrap" : "nowrap"
       // height: size === 'lg' ? '48px' : size === 'sm' ? '32px' : '40px',
     }
   }, addonBefore && /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("span", {
     className: "input-group-text py-0",
     style: {
-      fontSize: '14px'
+      fontSize: "14px"
     }
   }, addonBefore), /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("div", {
     style: {
-      ...(varient === 'filled' && {
-        border: addonBefore || addonAfter ? '' : 'none'
+      ...(varient === "filled" && {
+        border: addonBefore || addonAfter ? "" : "none"
       }),
       ...formStyle,
-      backgroundColor: backgroundColor ? backgroundColor : judgeBgColor(),
-      border: varient === 'outlined' ? '1px solid #ced4da' : ''
+      backgroundColor: judgeBgColor(),
+      border: varient === "outlined" ? "1px solid #ced4da" : ""
     },
     ref: inputFormContentRef,
     tabIndex: 1,
-    className: "adou-input-form-content d-flex flex-fill align-items-center ".concat(isFocus ? 'adou-form-control-focus' : '', " ").concat(type !== 'number' ? 'px-2' : '')
+    className: "adou-input-form-content d-flex flex-fill align-items-center ".concat(isFocus ? "adou-form-control-focus" : "", " ").concat(type !== "number" ? "px-2" : "")
   }, prefix && /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("div", {
     className: "prefix-box"
   }, prefix), /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("div", {
-    className: "input-box flex-fill d-flex  align-items-center ".concat(type !== 'number' ? 'px-2' : '')
+    className: "input-box flex-fill d-flex  align-items-center ".concat(type !== "number" ? "px-2" : "")
   }, commonElement)), addonAfter && /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("span", {
     className: "input-group-text py-0",
     style: {
-      fontSize: '14px'
+      fontSize: "14px"
     }
   }, addonAfter && addonAfter))) :
   /*#__PURE__*/
@@ -856,28 +863,28 @@ const Input = (_ref, ref) => {
   external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("div", {
     className: "adou-input flex-fill ".concat(generateClsWhenHasLabel())
   }, label && /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("span", {
-    className: "pe-3 ".concat(layout === 'vertical' ? 'pb-1' : ''),
+    className: "pe-3 ".concat(layout === "vertical" ? "pb-1" : ""),
     style: {
       width: labelWidth
     }
   }, label), /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("div", {
     tabIndex: 1,
     style: {
-      width: '100%',
-      ...(varient === 'filled' && {
-        backgroundColor: '#f0f0f0',
-        border: 'none'
+      width: "100%",
+      ...(varient === "filled" && {
+        backgroundColor: "#f0f0f0",
+        border: "none"
       }),
-      border: varient === 'outlined' ? '1px solid #ced4da' : '',
-      backgroundColor: backgroundColor ? backgroundColor : 'transparent',
+      border: varient === "outlined" ? "1px solid #ced4da" : "",
+      backgroundColor: judgeBgColor(),
       ...formStyle
     },
     ref: inputFormContentRef,
-    className: "adou-input-form-content flex-fill d-flex align-items-center ".concat(isFocus ? 'adou-form-control-focus' : '', " ").concat(judgeBorder(), " ").concat(type !== 'number' ? 'px-2' : '')
+    className: "adou-input-form-content flex-fill d-flex align-items-center ".concat(isFocus ? "adou-form-control-focus" : "", " ").concat(judgeBorder(), " ").concat(type !== "number" ? "px-2" : "")
   }, prefix && /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("div", {
     className: "prefix-box"
   }, prefix), /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("div", {
-    className: "input-box flex-fill d-flex align-items-center ".concat(type !== 'number' ? 'px-2' : '')
+    className: "input-box flex-fill d-flex align-items-center ".concat(type !== "number" ? "px-2" : "")
   }, commonElement))));
 };
 
@@ -885,7 +892,7 @@ const Input = (_ref, ref) => {
 // 上述代码中，Input 组件是通过 forwardRef 包装的，因此需要在 forwardRef 调用之后设置 displayName
 
 const ForwardedInput = /*#__PURE__*/(0,external_root_React_commonjs2_react_commonjs_react_amd_react_.forwardRef)(Input);
-ForwardedInput.displayName = 'Input';
+ForwardedInput.displayName = "Input";
 /* harmony default export */ const src_0 = (ForwardedInput);
 })();
 

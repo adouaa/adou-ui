@@ -1,13 +1,8 @@
-import {
-  forwardRef,
-  useEffect,
-  useImperativeHandle,
-  useRef,
-  useState,
-} from "react";
+import { forwardRef, useImperativeHandle, useRef } from "react";
 import React from "react";
 
 interface FormProps {
+  commonDisabled?: boolean;
   showNotFormItem?: boolean;
   commonContentBackgroundColor?: any;
   commonFormItemWrapperWidth?: any;
@@ -47,6 +42,7 @@ interface ExtendedForm
 const Form = forwardRef(
   (
     {
+      commonDisabled,
       showNotFormItem,
       commonContentBackgroundColor = "white",
       wrpa = true,
@@ -149,8 +145,13 @@ const Form = forwardRef(
           wrapperMaxWidth: commonFormItemWrapperMaxWidth,
           wrapperMinWidth: commonFormItemWrapperMinWidth,
           contentBackgroundColor: commonContentBackgroundColor,
-          rules: commonRules,
+          rules: commonRules
+            ? commonRules
+            : required
+            ? [{ required: true }]
+            : [],
           oneLine,
+          disabled: commonDisabled,
           ...props, // 为了不覆盖 FormItem 本来的 属性
         });
         renderChildren.push(enhancedChildren);

@@ -1,5 +1,5 @@
-import React from 'react';
-import './index.scss';
+import React from "react";
+import "./index.scss";
 interface TextreaProps {
     wrapperStyle?: React.CSSProperties;
     wrapperWidth?: any;
@@ -19,7 +19,7 @@ interface TextreaProps {
     externalClassName?: string;
     width?: any;
     inputGroup?: boolean;
-    labelPosition?: 'left-top' | 'center' | 'top' | 'input-group';
+    labelPosition?: "left-top" | "center" | "top" | "input-group";
     labelColor?: string;
     required?: boolean;
     ref?: any;

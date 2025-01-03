@@ -103,6 +103,7 @@ __webpack_require__.r(__webpack_exports__);
 
 const Form = /*#__PURE__*/(0,react__WEBPACK_IMPORTED_MODULE_0__.forwardRef)((_ref, AdouFormRef) => {
   let {
+    commonDisabled,
     showNotFormItem,
     commonContentBackgroundColor = "white",
     wrpa = true,
@@ -209,8 +210,11 @@ const Form = /*#__PURE__*/(0,react__WEBPACK_IMPORTED_MODULE_0__.forwardRef)((_re
         wrapperMaxWidth: commonFormItemWrapperMaxWidth,
         wrapperMinWidth: commonFormItemWrapperMinWidth,
         contentBackgroundColor: commonContentBackgroundColor,
-        rules: commonRules,
+        rules: commonRules ? commonRules : required ? [{
+          required: true
+        }] : [],
         oneLine,
+        disabled: commonDisabled,
         ...props // 为了不覆盖 FormItem 本来的 属性
       });
       renderChildren.push(enhancedChildren);

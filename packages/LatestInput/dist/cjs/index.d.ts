@@ -1,5 +1,5 @@
-import React, { ReactNode } from 'react';
-import './index.scss';
+import React, { ReactNode } from "react";
+import "./index.scss";
 export interface InputProps {
     title?: string;
     wrap?: boolean;
@@ -10,7 +10,7 @@ export interface InputProps {
     suffix?: any;
     addonBefore?: ReactNode | string | number;
     addonAfter?: ReactNode | string | number;
-    varient?: 'outlined' | 'filled' | 'borderless';
+    varient?: "outlined" | "filled" | "borderless";
     valueKey?: string;
     labelKey?: string;
     wrapperWidth?: any;
@@ -29,20 +29,20 @@ export interface InputProps {
     commonSuffixIcon?: string;
     width?: any;
     label?: string;
-    layout?: 'horizontal' | 'horizontal-top' | 'vertical' | 'inline';
+    layout?: "horizontal" | "horizontal-top" | "vertical" | "inline";
     inputGroup?: boolean;
     labelColor?: string;
     required?: boolean;
-    type?: 'text' | 'datetime-local' | 'date' | 'time' | 'number';
+    type?: "text" | "datetime-local" | "date" | "time" | "number";
     defaultValue?: any;
-    size?: 'lg' | 'default' | 'sm';
+    size?: "lg" | "default" | "sm";
     externalClassName?: string;
     prefixContent?: any;
     suffixContent?: any;
     suffixContentType?: string;
     placeholder?: string;
     style?: React.CSSProperties;
-    readOnly?: boolean;
+    disabled?: boolean;
     transparent?: boolean;
     children?: any;
     onClick?: (e: React.MouseEvent<HTMLInputElement, MouseEvent>) => void;

@@ -274,7 +274,15 @@ module.exports = function (item) {
         } else {
           top = parseInt(top);
         }
-        const box = domElement.getBoundingClientRect();
+        if (!domElement) {
+          return {
+            x: 0,
+            y: 0,
+            width: 0,
+            height: 0
+          };
+        }
+        const box = domElement === null || domElement === void 0 ? void 0 : domElement.getBoundingClientRect();
         const body = document.body;
         const docElem = document.documentElement;
         const scrollTop = window.pageYOffset || docElem.scrollTop || body.scrollTop;
@@ -5992,10 +6000,11 @@ var update = injectStylesIntoStyleTag_default()(cjs_ruleSet_1_rules_1_use_2_src/
 
 const FormItem = _ref => {
   let {
+    disabled,
     labelColor,
     contentBackgroundColor,
-    wrapperMinWidth = "120px",
-    wrapperWidth = "100%",
+    wrapperMinWidth = '120px',
+    wrapperWidth = '100%',
     wrapperMaxWidth,
     contentWrapperWidth,
     wrapperStyle,
@@ -6008,27 +6017,27 @@ const FormItem = _ref => {
     data,
     clearable = false,
     addonAfter,
-    size = "default",
+    size = 'default',
     labelWidth,
-    layout = "horizontal",
+    layout = 'horizontal',
     addonBefore,
     label,
     name,
     children
   } = _ref;
-  const [errorMessage, setErrorMessage] = (0,external_root_React_commonjs2_react_commonjs_react_amd_react_.useState)("");
+  const [errorMessage, setErrorMessage] = (0,external_root_React_commonjs2_react_commonjs_react_amd_react_.useState)('');
   const [isError, setIsError] = (0,external_root_React_commonjs2_react_commonjs_react_amd_react_.useState)(false);
   const adouFormRef = (0,external_root_React_commonjs2_react_commonjs_react_amd_react_.useRef)(null);
   const [customSelectContentPosition, setCustomSelectContentPosition] = (0,external_root_React_commonjs2_react_commonjs_react_amd_react_.useState)({});
   const judgeFormItemContentCls = () => {
-    if (layout === "horizontal") {
-      return "adou-form-item-content-horizontal d-flex align-items-center";
-    } else if (layout === "horizontal-top") {
-      return "adou-form-item-content-horizontal-top d-flex align-items-start";
-    } else if (layout === "vertical") {
-      return "adou-form-item-content-vertical flex-column";
-    } else if (layout === "inline") {
-      return "adou-form-item-content-inline d-flex align-items-center me-3";
+    if (layout === 'horizontal') {
+      return 'adou-form-item-content-horizontal d-flex align-items-center';
+    } else if (layout === 'horizontal-top') {
+      return 'adou-form-item-content-horizontal-top d-flex align-items-start';
+    } else if (layout === 'vertical') {
+      return 'adou-form-item-content-vertical flex-column';
+    } else if (layout === 'inline') {
+      return 'adou-form-item-content-inline d-flex align-items-center me-3';
     }
   };
 
@@ -6059,23 +6068,23 @@ const FormItem = _ref => {
     if (!rules) return true;
     const validateValue = !isForm ? value : value || data[formName || name];
     for (const rule of rules) {
-      if (rule.required && (validateValue === undefined || validateValue === null || validateValue === "" || validateValue === 0 || typeof validateValue === "object" && (0,Utils.isEmptyO)(validateValue))) {
+      if (rule.required && (validateValue === undefined || validateValue === null || validateValue === '' || validateValue === 0 || typeof validateValue === 'object' && (0,Utils.isEmptyO)(validateValue))) {
         setIsError(true);
-        setErrorMessage(rule.message || "This field is required");
+        setErrorMessage(rule.message || "".concat(label || addonBefore || addonAfter, " \u4E0D\u80FD\u4E3A\u7A7A"));
         return false;
       } else {
         setIsError(false);
-        setErrorMessage("");
+        setErrorMessage('');
       }
       if (rule.validator) {
         const error = rule.validator(validateValue);
         if (error) {
           setIsError(true);
-          setErrorMessage(error.message || "This field is invalid");
+          setErrorMessage(error.message || 'This field is invalid');
           return false;
         } else {
           setIsError(false);
-          setErrorMessage("");
+          setErrorMessage('');
         }
       }
     }
@@ -6121,6 +6130,7 @@ const FormItem = _ref => {
       backgroundColor: contentBackgroundColor,
       // 传递背景色
       labelColor,
+      disabled,
       onFieldChange: handleFieldChange,
       onValidateField: validateField,
       ...props
@@ -6132,12 +6142,12 @@ const FormItem = _ref => {
     setCustomSelectContentPosition(position);
   };
   const generateWrapperCls = () => {
-    if (layout === "horizontal" && !isError) {
-      return "mb-3";
-    } else if (layout === "inline" && oneLine) {
-      return "mb-0";
+    if (layout === 'horizontal' && !isError) {
+      return 'mb-3';
+    } else if (layout === 'inline' && oneLine) {
+      return 'mb-0';
     } else {
-      return "mb-3";
+      return 'mb-3';
     }
   };
   (0,external_root_React_commonjs2_react_commonjs_react_amd_react_.useImperativeHandle)(formItemRef, () => ({
@@ -6146,6 +6156,14 @@ const FormItem = _ref => {
   (0,external_root_React_commonjs2_react_commonjs_react_amd_react_.useEffect)(() => {
     getAbsolutePositionFn();
   }, [isError, errorMessage]);
+
+  // rules 改变的话要重新做校验
+  (0,external_root_React_commonjs2_react_commonjs_react_amd_react_.useEffect)(() => {
+    if (!(rules !== null && rules !== void 0 && rules.length)) {
+      setIsError(false);
+      setErrorMessage('');
+    }
+  }, [rules]);
   return /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("div", {
     className: "adou-form-item-wrapper ".concat(generateWrapperCls()),
     style: {
@@ -6153,22 +6171,22 @@ const FormItem = _ref => {
       minWidth: wrapperMinWidth,
       maxWidth: wrapperMaxWidth,
       ...wrapperStyle,
-      ...(layout === "inline" && !wrapperWidth && !wrapperMaxWidth && {
+      ...(layout === 'inline' && !wrapperWidth && !wrapperMaxWidth && {
         flex: 1
       })
     }
   }, /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("div", {
-    className: "adou-form-item-content ".concat(judgeFormItemContentCls(), " ").concat(isError ? "border-danger" : "", " ").concat(isError && layout !== "horizontal-top" ? " align-items-baseline" : "")
+    className: "adou-form-item-content ".concat(judgeFormItemContentCls(), " ").concat(isError ? 'border-danger' : '', " ").concat(isError && layout !== 'horizontal-top' ? ' align-items-baseline' : '')
   }, label && /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("div", {
-    className: "adou-form-item-label-box text-end pe-3 position-relative ".concat(rules && rules.length && rules.some(item => item.required) ? "required" : "", " ").concat(layout === "vertical" ? "mb-1" : layout === "horizontal" ? "text-end pe-3" : ""),
+    className: "adou-form-item-label-box text-end pe-3 position-relative ".concat(rules && rules.length && rules.some(item => item.required) ? 'required' : '', " ").concat(layout === 'vertical' ? 'mb-1' : layout === 'horizontal' ? 'text-end pe-3' : ''),
     style: {
       width: labelWidth
     }
   }, /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("span", {
     className: "form-item-label-text",
     style: {
-      fontSize: "14px",
-      whiteSpace: labelWrap ? "wrap" : "nowrap"
+      fontSize: '14px',
+      whiteSpace: labelWrap ? 'wrap' : 'nowrap'
     }
   }, label), rules && rules.length && rules.some(item => item.required) && /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("span", {
     className: "form-item-label-text-required"
@@ -6183,12 +6201,12 @@ const FormItem = _ref => {
   }, processedAddonBefore ? /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("div", {
     className: "input-group",
     style: {
-      flexWrap: contentWrap ? "wrap" : "nowrap"
+      flexWrap: contentWrap ? 'wrap' : 'nowrap'
     }
   }, /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("span", {
     className: "input-group-text py-0",
     style: {
-      fontSize: "14px"
+      fontSize: '14px'
     }
   }, processedAddonBefore), /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("div", {
     className: "adou-form d-flex",
@@ -6198,7 +6216,7 @@ const FormItem = _ref => {
   }, enhancedChildren), processedAddonAfter && /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("span", {
     className: "input-group-text py-0",
     style: {
-      fontSize: "14px"
+      fontSize: '14px'
     }
   }, processedAddonAfter && processedAddonAfter)) : processedAddonAfter ? /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("div", {
     className: "input-group"
@@ -6210,7 +6228,7 @@ const FormItem = _ref => {
   }, enhancedChildren), /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("span", {
     className: "input-group-text py-0",
     style: {
-      fontSize: "14px"
+      fontSize: '14px'
     }
   }, processedAddonAfter && processedAddonAfter)) : /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("div", {
     className: "adou-form d-flex",
@@ -6222,9 +6240,9 @@ const FormItem = _ref => {
   }), isError && /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("div", {
     className: "error-box fadeInDown ",
     style: {
-      color: "red",
-      fontSize: "14px",
-      marginTop: "4px"
+      color: 'red',
+      fontSize: '14px',
+      marginTop: '4px'
     }
   }, errorMessage))));
 };

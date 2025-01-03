@@ -1,5 +1,5 @@
 export default useDrag;
-declare function useDrag(elementRef: any, isDialog?: boolean, autoStyle?: boolean, initialPosition?: {
+declare function useDrag(triggerRef: any, elementRef: any, isDialog?: boolean, autoStyle?: boolean, initialPosition?: {
     x: number;
     y: number;
 }): {

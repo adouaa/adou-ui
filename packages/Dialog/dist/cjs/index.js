@@ -420,21 +420,9 @@ ___CSS_LOADER_EXPORT___.push([module.id, `.dialog-overlay {
 .dialog:focus {
   outline: none;
 }
-.dialog ::-webkit-scrollbar {
-  width: 6px;
-  height: 6px;
-}
-.dialog ::-webkit-scrollbar-thumb {
-  border-radius: 2px;
-  background-color: #ccc;
-}
-.dialog ::-webkit-scrollbar-track {
-  background-color: #f1f1f1;
-}
 
 .dialog-header {
   border-bottom: 1px solid #e0e0e0;
-  cursor: move;
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -444,7 +432,7 @@ ___CSS_LOADER_EXPORT___.push([module.id, `.dialog-overlay {
   color: #b0aaaa;
   background: none;
   border: none;
-  font-size: 28px;
+  font-size: 36px;
   cursor: pointer;
   outline: none;
 }
@@ -464,7 +452,7 @@ ___CSS_LOADER_EXPORT___.push([module.id, `.dialog-overlay {
 .hover-scale:hover {
   color: red;
   transform: scale(1.2);
-}`, "",{"version":3,"sources":["webpack://./src/index.scss"],"names":[],"mappings":"AAAA;EACI,eAAA;EACA,aAAA;EACA,MAAA;EACA,OAAA;EACA,WAAA;EACA,YAAA;EACA,oCAAA;EACA,aAAA;EACA,uBAAA;EACA,mBAAA;EACA,UAAA;EACA,kBAAA;EACA,iEAAA;AACJ;AACI;EACI,UAAA;EACA,mBAAA;AACR;;AAGA;EACI,uBAAA;EACA,kBAAA;EACA,yCAAA;EACA,YAAA;EACA,cAAA;EACA,kBAAA;EAEA,qBAAA;EACA,UAAA;EACA,gEAAA;AADJ;AAGI;EACI,mBAAA;EACA,UAAA;AADR;AAII;EACI,aAAA;AAFR;AAMI;EACI,UAAA;EACA,WAAA;AAJR;AAOI;EACI,kBAAA;EACA,sBAAA;AALR;AAQI;EACI,yBAAA;AANR;;AAUA;EACI,gCAAA;EACA,YAAA;EACA,aAAA;EACA,8BAAA;EACA,mBAAA;AAPJ;;AAWA;EACI,cAAA;EACA,gBAAA;EACA,YAAA;EACA,eAAA;EACA,eAAA;EACA,aAAA;AARJ;;AAWA;EACI,aAAA;EACA,cAAA;AARJ;;AAYA;EACI,6BAAA;AATJ;;AAYA;EACI,yBAAA;AATJ;AAWI;EACI,UAAA;EACA,qBAAA;AATR","sourcesContent":[".dialog-overlay {\r\n    position: fixed;\r\n    z-index: 1002; // z-index应该加在最外层的父级才有作用\r\n    top: 0;\r\n    left: 0;\r\n    width: 100%;\r\n    height: 100%;\r\n    background-color: rgba(0, 0, 0, 0.5);\r\n    display: flex;\r\n    justify-content: center;\r\n    align-items: center;\r\n    opacity: 0;\r\n    visibility: hidden;\r\n    transition: opacity 0.3s ease-in-out, visibility 0.3s ease-in-out;\r\n\r\n    &.open {\r\n        opacity: 1;\r\n        visibility: visible;\r\n    }\r\n}\r\n\r\n.dialog {\r\n    background-color: white;\r\n    border-radius: 4px;\r\n    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);\r\n    width: 400px;\r\n    max-width: 90%;\r\n    position: absolute;\r\n    // z-index: 999;\r\n    transform: scale(0.9);\r\n    opacity: 0;\r\n    transition: transform 0.3s ease-in-out, opacity 0.3s ease-in-out;\r\n\r\n    &.open {\r\n        transform: scale(1);\r\n        opacity: 1;\r\n    }\r\n\r\n    &:focus {\r\n        outline: none;\r\n    }\r\n\r\n    // 滚动条变细\r\n    ::-webkit-scrollbar {\r\n        width: 6px;\r\n        height: 6px;\r\n    }\r\n\r\n    ::-webkit-scrollbar-thumb {\r\n        border-radius: 2px;\r\n        background-color: #ccc;\r\n    }\r\n\r\n    ::-webkit-scrollbar-track {\r\n        background-color: #f1f1f1;\r\n    }\r\n}\r\n\r\n.dialog-header {\r\n    border-bottom: 1px solid #e0e0e0;\r\n    cursor: move;\r\n    display: flex;\r\n    justify-content: space-between;\r\n    align-items: center;\r\n\r\n}\r\n\r\n.dialog-close {\r\n    color: #b0aaaa;\r\n    background: none;\r\n    border: none;\r\n    font-size: 28px;\r\n    cursor: pointer;\r\n    outline: none;\r\n}\r\n\r\n.dialog-content {\r\n    padding: 16px;\r\n    overflow: auto;\r\n\r\n}\r\n\r\n.dialog-footer {\r\n    border-top: 1px solid #e0e0e0;\r\n}\r\n\r\n.hover-scale {\r\n    transition: all 0.3s ease;\r\n\r\n    &:hover {\r\n        color: red;\r\n        transform: scale(1.2);\r\n    }\r\n}"],"sourceRoot":""}]);
+}`, "",{"version":3,"sources":["webpack://./src/index.scss"],"names":[],"mappings":"AAAA;EACI,eAAA;EACA,aAAA;EACA,MAAA;EACA,OAAA;EACA,WAAA;EACA,YAAA;EACA,oCAAA;EACA,aAAA;EACA,uBAAA;EACA,mBAAA;EACA,UAAA;EACA,kBAAA;EACA,iEAAA;AACJ;AACI;EACI,UAAA;EACA,mBAAA;AACR;;AAGA;EACI,uBAAA;EACA,kBAAA;EACA,yCAAA;EACA,YAAA;EACA,cAAA;EACA,kBAAA;EAEA,qBAAA;EACA,UAAA;EACA,gEAAA;AADJ;AAGI;EACI,mBAAA;EACA,UAAA;AADR;AAII;EACI,aAAA;AAFR;;AAMA;EACI,gCAAA;EACA,aAAA;EACA,8BAAA;EACA,mBAAA;AAHJ;;AAOA;EACI,cAAA;EACA,gBAAA;EACA,YAAA;EACA,eAAA;EACA,eAAA;EACA,aAAA;AAJJ;;AAOA;EACI,aAAA;EACA,cAAA;AAJJ;;AAQA;EACI,6BAAA;AALJ;;AAQA;EACI,yBAAA;AALJ;AAOI;EACI,UAAA;EACA,qBAAA;AALR","sourcesContent":[".dialog-overlay {\r\n    position: fixed;\r\n    z-index: 1002; // z-index应该加在最外层的父级才有作用\r\n    top: 0;\r\n    left: 0;\r\n    width: 100%;\r\n    height: 100%;\r\n    background-color: rgba(0, 0, 0, 0.5);\r\n    display: flex;\r\n    justify-content: center;\r\n    align-items: center;\r\n    opacity: 0;\r\n    visibility: hidden;\r\n    transition: opacity 0.3s ease-in-out, visibility 0.3s ease-in-out;\r\n\r\n    &.open {\r\n        opacity: 1;\r\n        visibility: visible;\r\n    }\r\n}\r\n\r\n.dialog {\r\n    background-color: white;\r\n    border-radius: 4px;\r\n    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);\r\n    width: 400px;\r\n    max-width: 90%;\r\n    position: absolute;\r\n    // z-index: 999;\r\n    transform: scale(0.9);\r\n    opacity: 0;\r\n    transition: transform 0.3s ease-in-out, opacity 0.3s ease-in-out;\r\n\r\n    &.open {\r\n        transform: scale(1);\r\n        opacity: 1;\r\n    }\r\n\r\n    &:focus {\r\n        outline: none;\r\n    }\r\n}\r\n\r\n.dialog-header {\r\n    border-bottom: 1px solid #e0e0e0;\r\n    display: flex;\r\n    justify-content: space-between;\r\n    align-items: center;\r\n\r\n}\r\n\r\n.dialog-close {\r\n    color: #b0aaaa;\r\n    background: none;\r\n    border: none;\r\n    font-size: 36px;\r\n    cursor: pointer;\r\n    outline: none;\r\n}\r\n\r\n.dialog-content {\r\n    padding: 16px;\r\n    overflow: auto;\r\n\r\n}\r\n\r\n.dialog-footer {\r\n    border-top: 1px solid #e0e0e0;\r\n}\r\n\r\n.hover-scale {\r\n    transition: all 0.3s ease;\r\n\r\n    &:hover {\r\n        color: red;\r\n        transform: scale(1.2);\r\n    }\r\n}"],"sourceRoot":""}]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 
@@ -835,10 +823,10 @@ var external_root_ReactDOM_commonjs2_react_dom_commonjs_react_dom_amd_react_dom_
 var external_root_ReactDOM_commonjs2_react_dom_commonjs_react_dom_amd_react_dom_default = /*#__PURE__*/__webpack_require__.n(external_root_ReactDOM_commonjs2_react_dom_commonjs_react_dom_amd_react_dom_);
 ;// CONCATENATED MODULE: ../Utils/src/hooks/useDrag.js
 
-const useDrag = function (elementRef) {
-  let isDialog = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : false;
-  let autoStyle = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : true;
-  let initialPosition = arguments.length > 3 && arguments[3] !== undefined ? arguments[3] : {
+const useDrag = function (triggerRef, elementRef) {
+  let isDialog = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : false;
+  let autoStyle = arguments.length > 3 && arguments[3] !== undefined ? arguments[3] : true;
+  let initialPosition = arguments.length > 4 && arguments[4] !== undefined ? arguments[4] : {
     x: 0,
     y: 0
   };
@@ -860,6 +848,7 @@ const useDrag = function (elementRef) {
           y: e.clientY - dragOffset.y - ((_elementFirstPosition2 = elementFirstPositionRef.current) === null || _elementFirstPosition2 === void 0 ? void 0 : _elementFirstPosition2.top)
         });
       } else {
+        console.log('666: ', 666);
         // 如果是弹窗，则不用减
         setPosition({
           x: e.clientX - dragOffset.x,
@@ -875,29 +864,29 @@ const useDrag = function (elementRef) {
   // 绑定事件
   (0,external_root_React_commonjs2_react_commonjs_react_amd_react_.useEffect)(() => {
     if (isDragging) {
-      document.addEventListener("mousemove", handleMouseMove);
-      document.addEventListener("mouseup", handleMouseUp);
+      document.addEventListener('mousemove', handleMouseMove);
+      document.addEventListener('mouseup', handleMouseUp);
     } else {
-      document.removeEventListener("mousemove", handleMouseMove);
-      document.removeEventListener("mouseup", handleMouseUp);
+      document.removeEventListener('mousemove', handleMouseMove);
+      document.removeEventListener('mouseup', handleMouseUp);
     }
     return () => {
-      document.removeEventListener("mousemove", handleMouseMove);
-      document.removeEventListener("mouseup", handleMouseUp);
+      document.removeEventListener('mousemove', handleMouseMove);
+      document.removeEventListener('mouseup', handleMouseUp);
     };
   }, [isDragging]);
 
-  // 如果需要自动设置样式的话，在这边处理
+  // 如果需要自动设置样式的话，在这边处理，处理的是 triggerRef触发元素
   (0,external_root_React_commonjs2_react_commonjs_react_amd_react_.useEffect)(() => {
-    if (autoStyle && elementRef.current) {
-      elementRef.current.style.position = "relative";
-      elementRef.current.style.top = position.y + "px";
-      elementRef.current.style.left = position.x + "px";
-      elementRef.current.style.cursor = "move";
+    if (autoStyle && triggerRef.current) {
+      triggerRef.current.style.position = 'relative';
+      triggerRef.current.style.top = position.y + 'px';
+      triggerRef.current.style.left = position.x + 'px';
+      triggerRef.current.style.cursor = 'move';
     }
   }, [position]);
   const handleMouseDown = e => {
-    // 点击的时候获取当前元素距离浏览器的位置
+    // 点击的时候获取当前元素距离浏览器的位置，获取的是 要拖拽的整体元素
     const dialogRect = elementRef.current.getBoundingClientRect();
     setIsDragging(true);
     // 因为弹窗一开始有 left和top，所以要减去 当前元素位置的left 和 top
@@ -996,7 +985,6 @@ var update = injectStylesIntoStyleTag_default()(cjs_ruleSet_1_rules_1_use_2_src/
        /* harmony default export */ const src = (cjs_ruleSet_1_rules_1_use_2_src/* default */.A && cjs_ruleSet_1_rules_1_use_2_src/* default */.A.locals ? cjs_ruleSet_1_rules_1_use_2_src/* default */.A.locals : undefined);
 
 ;// CONCATENATED MODULE: ./src/index.tsx
-function _extends() { _extends = Object.assign ? Object.assign.bind() : function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; }; return _extends.apply(this, arguments); }
 
 
 
@@ -1005,8 +993,8 @@ function _extends() { _extends = Object.assign ? Object.assign.bind() : function
 
 const Dialog = _ref => {
   let {
-    draggable,
-    confirmLoading,
+    draggble,
+    confirmBtnLoading,
     needDestroy = false,
     maxY,
     maxX,
@@ -1025,7 +1013,7 @@ const Dialog = _ref => {
     children = null,
     type = "",
     maxHeight = "400px",
-    width = type === "tip" ? "420px" : "600px",
+    width = "600px",
     height,
     maxWidth,
     onCancel,
@@ -1033,6 +1021,7 @@ const Dialog = _ref => {
     onConfirm = () => {}
   } = _ref;
   const dialogRef = (0,external_root_React_commonjs2_react_commonjs_react_amd_react_.useRef)(null);
+  const triggerRef = (0,external_root_React_commonjs2_react_commonjs_react_amd_react_.useRef)(null);
   const [show, setShow] = (0,external_root_React_commonjs2_react_commonjs_react_amd_react_.useState)(false);
   const [destroied, setDestroied] = (0,external_root_React_commonjs2_react_commonjs_react_amd_react_.useState)(false);
   const [isAnimating, setIsAnimating] = (0,external_root_React_commonjs2_react_commonjs_react_amd_react_.useState)(false);
@@ -1044,17 +1033,13 @@ const Dialog = _ref => {
   const {
     position,
     handleMouseDown
-  } = hooks_useDrag(dialogRef, true, false);
+  } = hooks_useDrag(triggerRef, dialogRef, draggble && !max, false);
   const handleKeyDown = event => {
     if (event.key === "Enter") {
       onConfirm && onConfirm();
     } else if (event.key === "Escape") {
       onClose && onClose();
     }
-  };
-  const handleClose = e => {
-    e.stopPropagation();
-    onClose && onClose();
   };
   (0,external_root_React_commonjs2_react_commonjs_react_amd_react_.useEffect)(() => {
     if (show) {
@@ -1105,7 +1090,7 @@ const Dialog = _ref => {
       }
     }
   }, [isOpen, type]);
-  hooks_useClickOutside([dialogRef], clickOutside && onClose);
+  hooks_useClickOutside(dialogRef, clickOutside && onClose);
   return /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement((external_root_React_commonjs2_react_commonjs_react_amd_react_default()).Fragment, null, (isOpen || isAnimating) && /*#__PURE__*/external_root_ReactDOM_commonjs2_react_dom_commonjs_react_dom_amd_react_dom_default().createPortal( /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("div", {
     className: "dialog-overlay ".concat(show ? "open" : "")
   }, !destroied && /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("div", {
@@ -1120,39 +1105,39 @@ const Dialog = _ref => {
       maxWidth: max || maxX ? "100vw" : width || maxWidth,
       width: max || maxX ? "100vw" : width || maxWidth
     }
-  }, /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("div", _extends({
-    className: "dialog-header p-2 ps-3"
-  }, draggable && {
-    onMouseDown: handleMouseDown
-  }, {
+  }, /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("div", {
+    className: "dialog-header px-2 ps-3"
+  }, /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("span", {
+    className: "dialog-header-title fs-5"
+  }, title), /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("div", {
+    ref: triggerRef,
+    className: "header-placeholder flex-fill",
+    onMouseDown: draggble && !max ? handleMouseDown : undefined,
     style: {
-      cursor: draggable ? "move" : "default"
+      cursor: draggble && !max ? "move" : "default",
+      height: "56.8px"
     }
-  }), /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("span", {
-    className: "fs-5"
-  }, title), showClose && /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("button", {
+  }), showClose && /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("button", {
     className: "dialog-close hover-scale",
-    onClick: handleClose
+    onClick: onClose
   }, "\xD7")), /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("div", {
     className: "dialog-content",
     style: {
-      maxHeight: max || maxY ? "79.5vh" : height || maxHeight,
-      height: max || maxY ? "79.5vh" : height
+      maxHeight: max || maxY ? "calc(100vh - 8rem)" : height || maxHeight,
+      height: max || maxY ? "calc(100vh - 8rem)" : height
     }
-  }, children || "默认对话框内容"), /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("div", {
-    className: "dialog-footer d-flex justify-content-end ".concat(type === "tip" ? "p-2" : "p-3")
+  }, children), /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("div", {
+    className: "dialog-footer d-flex justify-content-end p-3"
   }, showCancel && /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement((Button_default()), {
-    type: "secondary",
     externalClassName: "me-2 btn-".concat(cancelBtnClass),
-    size: "".concat(type === "tip" ? "sm" : "md"),
-    onClick: onCancel !== null && onCancel !== void 0 ? onCancel : onClose
+    size: "md",
+    onClickOK: onCancel !== null && onCancel !== void 0 ? onCancel : onClose
   }, cancelText), showConfirm && /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement((Button_default()), {
-    type: "primary",
-    loading: confirmLoading,
+    loading: confirmBtnLoading,
     disabled: !canConfirm,
     externalClassName: "btn-".concat(confirmBtnClass),
-    size: "".concat(type === "tip" ? "sm" : "md"),
-    onClick: onConfirm
+    size: "md",
+    onClickOK: onConfirm
   }, confirmText)))), document.body));
 };
 /* harmony default export */ const src_0 = (Dialog);

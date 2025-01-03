@@ -1,7 +1,7 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 const react_1 = require("react");
-const useDrag = (elementRef, isDialog = false, autoStyle = true, initialPosition = { x: 0, y: 0 }) => {
+const useDrag = (triggerRef, elementRef, isDialog = false, autoStyle = true, initialPosition = { x: 0, y: 0 }) => {
     const [isDragging, setIsDragging] = (0, react_1.useState)(false);
     const [dragOffset, setDragOffset] = (0, react_1.useState)({ x: 0, y: 0 });
     const [position, setPosition] = (0, react_1.useState)(initialPosition);
@@ -17,6 +17,7 @@ const useDrag = (elementRef, isDialog = false, autoStyle = true, initialPosition
                 });
             }
             else {
+                console.log('666: ', 666);
                 // 如果是弹窗，则不用减
                 setPosition({
                     x: e.clientX - dragOffset.x,
@@ -31,29 +32,29 @@ const useDrag = (elementRef, isDialog = false, autoStyle = true, initialPosition
     // 绑定事件
     (0, react_1.useEffect)(() => {
         if (isDragging) {
-            document.addEventListener("mousemove", handleMouseMove);
-            document.addEventListener("mouseup", handleMouseUp);
+            document.addEventListener('mousemove', handleMouseMove);
+            document.addEventListener('mouseup', handleMouseUp);
         }
         else {
-            document.removeEventListener("mousemove", handleMouseMove);
-            document.removeEventListener("mouseup", handleMouseUp);
+            document.removeEventListener('mousemove', handleMouseMove);
+            document.removeEventListener('mouseup', handleMouseUp);
         }
         return () => {
-            document.removeEventListener("mousemove", handleMouseMove);
-            document.removeEventListener("mouseup", handleMouseUp);
+            document.removeEventListener('mousemove', handleMouseMove);
+            document.removeEventListener('mouseup', handleMouseUp);
         };
     }, [isDragging]);
-    // 如果需要自动设置样式的话，在这边处理
+    // 如果需要自动设置样式的话，在这边处理，处理的是 triggerRef触发元素
     (0, react_1.useEffect)(() => {
-        if (autoStyle && elementRef.current) {
-            elementRef.current.style.position = "relative";
-            elementRef.current.style.top = position.y + "px";
-            elementRef.current.style.left = position.x + "px";
-            elementRef.current.style.cursor = "move";
+        if (autoStyle && triggerRef.current) {
+            triggerRef.current.style.position = 'relative';
+            triggerRef.current.style.top = position.y + 'px';
+            triggerRef.current.style.left = position.x + 'px';
+            triggerRef.current.style.cursor = 'move';
         }
     }, [position]);
     const handleMouseDown = (e) => {
-        // 点击的时候获取当前元素距离浏览器的位置
+        // 点击的时候获取当前元素距离浏览器的位置，获取的是 要拖拽的整体元素
         const dialogRect = elementRef.current.getBoundingClientRect();
         setIsDragging(true);
         // 因为弹窗一开始有 left和top，所以要减去 当前元素位置的left 和 top
@@ -67,8 +68,7 @@ const useDrag = (elementRef, isDialog = false, autoStyle = true, initialPosition
     (0, react_1.useEffect)(() => {
         // 如果元素的定位是 relative的话，需要再元素挂载完之后，去记录一开始距离浏览器的位置
         if (elementRef.current) {
-            elementFirstPositionRef.current =
-                elementRef.current.getBoundingClientRect();
+            elementFirstPositionRef.current = elementRef.current.getBoundingClientRect();
         }
     }, [elementRef]);
     return {

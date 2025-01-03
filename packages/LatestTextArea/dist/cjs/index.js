@@ -573,8 +573,8 @@ const Textarea = /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react
     clearable = false,
     commonSuffixContent,
     formStyle,
-    rows,
-    suffixContentType = 'button',
+    rows = 1,
+    suffixContentType = "button",
     suffixContent,
     errMsg,
     inline,
@@ -586,7 +586,7 @@ const Textarea = /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react
     externalClassName,
     width,
     inputGroup = false,
-    labelPosition = 'center',
+    labelPosition = "center",
     required = false,
     name,
     label,
@@ -601,7 +601,7 @@ const Textarea = /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react
 
   // 获取 `FormContext.Provider` 提供提供的 `value` 值
 
-  const [value, setValue] = (0,external_root_React_commonjs2_react_commonjs_react_amd_react_.useState)(defaultValue !== null && defaultValue !== void 0 ? defaultValue : '');
+  const [value, setValue] = (0,external_root_React_commonjs2_react_commonjs_react_amd_react_.useState)(defaultValue !== null && defaultValue !== void 0 ? defaultValue : "");
   const [isEnter, setIsEnter] = (0,external_root_React_commonjs2_react_commonjs_react_amd_react_.useState)(false);
   const handleFieldChange = value => {
     onFieldChange && onFieldChange(name, value);
@@ -628,14 +628,14 @@ const Textarea = /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react
     handleValidate(value);
   };
   const handleBlur = e => {
-    validate();
+    handleValidate(value);
   };
   const handleClickCommonSuffixIcon = () => {};
   const handleClearIconClick = () => {
-    setValue('');
+    setValue("");
     setError(true);
-    handleFieldChange && handleFieldChange('');
-    handleValidate('');
+    handleFieldChange && handleFieldChange("");
+    handleValidate("");
   };
   const [error, setError] = (0,external_root_React_commonjs2_react_commonjs_react_amd_react_.useState)(false);
   const validate = () => {
@@ -649,7 +649,7 @@ const Textarea = /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react
     }
   };
   const clear = () => {
-    setValue('');
+    setValue("");
   };
   // Expose validateInput method via ref
   (0,external_root_React_commonjs2_react_commonjs_react_amd_react_.useImperativeHandle)(ref, () => ({
@@ -660,11 +660,11 @@ const Textarea = /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react
     if (defaultValue) {
       setValue(defaultValue);
     } else {
-      setValue('');
+      setValue("");
     }
   }, [defaultValue]);
   return /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("div", {
-    className: "adou-textarea-warpper ".concat(externalClassName, " ").concat(!error && isFormItem && 'mb-3'),
+    className: "adou-textarea-warpper ".concat(externalClassName, " ").concat(!error && isFormItem && "mb-3"),
     style: {
       ...wrapperStyle,
       ...(wrapperWidth ? {
@@ -676,15 +676,15 @@ const Textarea = /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react
   }, /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("div", {
     onMouseEnter: handleMouseEnter,
     onMouseLeave: handleMouseLeave,
-    className: "adou-textarea-form-content ".concat(labelPosition === 'top' && inline ? 'me-2' : '')
+    className: "adou-textarea-form-content ".concat(labelPosition === "top" && inline ? "me-2" : "")
   }, /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("textarea", {
     className: "adou-textarea form-control pe-3",
     style: {
       ...(inline && !width ? {
         flex: 1,
-        marginRight: '15px'
+        marginRight: "15px"
       } : {}),
-      ...(suffixContent && suffixContentType === 'button' ? {
+      ...(suffixContent && suffixContentType === "button" ? {
         borderTopRightRadius: 0,
         borderBottomRightRadius: 0
         // borderRight: "none",
@@ -707,25 +707,19 @@ const Textarea = /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react
     onClick: handleClearIconClick,
     className: "adou-textarea-clear-icon fa-regular fa-circle-xmark text-secondary",
     style: {
-      fontSize: '12px',
-      cursor: 'pointer'
+      fontSize: "12px",
+      cursor: "pointer"
     }
   })), /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("div", {
     className: "adou-textarea-common-sufiix-content text-secondary"
   }, commonSuffixContent), suffixContent && /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("div", {
-    className: "".concat(suffixContentType === 'button' ? 'suffix-content-btn-wrapper px-2' : 'ms-2')
+    className: "".concat(suffixContentType === "button" ? "suffix-content-btn-wrapper px-2" : "ms-2")
   }, suffixContent)), commonSuffixIcon && /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("i", {
     onClick: handleClickCommonSuffixIcon,
     className: "".concat(commonSuffixIcon, " common-suffix-icon ms-2")
-  }), error && required && /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("div", {
-    className: "animate__animated animate__fadeIn",
-    style: {
-      color: '#DC3545',
-      paddingLeft: parseInt(labelWidth) > 120 ? '120px' : parseFloat(labelWidth) + 20 + 'px'
-    }
-  }, "".concat(errMsg || "".concat(label || name, "\u4E0D\u80FD\u4E3A\u7A7A"))));
+  }));
 });
-Textarea.displayName = 'Textarea';
+Textarea.displayName = "Textarea";
 /* harmony default export */ const src_0 = (Textarea);
 })();
 

@@ -1,8 +1,8 @@
 import React from "react";
 import "./index.scss";
 interface DialogProps {
-    draggable?: boolean;
-    confirmLoading?: boolean;
+    draggble?: boolean;
+    confirmBtnLoading?: boolean;
     needDestroy?: boolean;
     maxY?: boolean;
     maxX?: boolean;
