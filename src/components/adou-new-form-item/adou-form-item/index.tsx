@@ -5,6 +5,7 @@ import './index.scss';
 import isEmptyO from '../isEmptyO';
 
 interface FormItemProps {
+    disabled?: boolean;
     labelColor?: string;
     contentBackgroundColor?: string;
     wrapperMinWidth?: any;
@@ -31,6 +32,7 @@ interface FormItemProps {
 }
 
 const FormItem = ({
+    disabled,
     labelColor,
     contentBackgroundColor,
     wrapperMinWidth = '120px',
@@ -106,7 +108,7 @@ const FormItem = ({
                     (typeof validateValue === 'object' && isEmptyO(validateValue)))
             ) {
                 setIsError(true);
-                setErrorMessage(rule.message || 'This field is required');
+                setErrorMessage(rule.message || `${label || addonBefore || addonAfter} 不能为空`);
                 return false;
             } else {
                 setIsError(false);
@@ -160,6 +162,7 @@ const FormItem = ({
             wrapperWidth: contentWrapperWidth,
             backgroundColor: contentBackgroundColor, // 传递背景色
             labelColor,
+            disabled,
             onFieldChange: handleFieldChange,
             onValidateField: validateField,
             ...props,
@@ -189,6 +192,14 @@ const FormItem = ({
     useEffect(() => {
         getAbsolutePositionFn();
     }, [isError, errorMessage]);
+
+    // rules 改变的话要重新做校验
+    useEffect(() => {
+        if (!rules?.length) {
+            setIsError(false);
+            setErrorMessage('');
+        }
+    }, [rules]);
 
     return (
         <div

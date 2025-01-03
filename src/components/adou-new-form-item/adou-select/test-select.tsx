@@ -163,7 +163,6 @@ const Select = React.forwardRef((props: SelectProps, ref) => {
     const inputRef = useRef<any>();
 
     const handleClose = () => {
-        console.log('contentRef.current: ', contentRef.current);
         if (disabled) return;
         // RetrieveSelect 新增逻辑 失焦后，展示 select-value
         if (mode !== 'liveSearch' && !showSearch) {
@@ -391,6 +390,19 @@ const Select = React.forwardRef((props: SelectProps, ref) => {
         handleValidate('');
     };
 
+    // 判断 input 的背景色
+    const judgeInputBgColor = () => {
+        if (disabled) {
+            return '#eee';
+        } else if (varient === 'filled' || transparent) {
+            return 'transparent';
+        } else if (backgroundColor) {
+            return backgroundColor;
+        } else {
+            return 'transparent';
+        }
+    };
+
     // 判断是否是选中状态来决定选项的字体颜色
     const judgeColor = (item: any, type: 'font' | 'bgc') => {
         if (multiple || mode === 'tags') {
@@ -531,7 +543,7 @@ const Select = React.forwardRef((props: SelectProps, ref) => {
         if (!onInputChange) {
             // 如果不需要检索，则直接做过滤
             const filteredOptions = originalOptions.filter((item: any) => {
-                return filterOption ? filterOption(value, item, labelKey, valueKey) : item[labelKey].toLowerCase().includes(value.toLowerCase());
+                return filterOption ? filterOption(value, item, labelKey, valueKey) : String(item[labelKey]).toLowerCase().includes(value.toLowerCase());
             });
             setNewOptions(filteredOptions);
         } else {
@@ -541,10 +553,10 @@ const Select = React.forwardRef((props: SelectProps, ref) => {
     };
 
     useEffect(() => {
-        console.log('defaultValue: ', defaultValue);
-        /* if (name === "store") {
-        console.log("defaultValue: ", defaultValue);
-        // debugger;
+        /* if (name === "tcm_usage_id") {
+        console.log("defaultValue: ", name, defaultValue);
+        console.log("---------------------------------: ", options);
+        debugger;
       } */
         // 新增：如果使用过 defaultValue，就不再执行下面的逻辑
         // if (hasUseDefaultValue) return;
@@ -554,18 +566,27 @@ const Select = React.forwardRef((props: SelectProps, ref) => {
             sethasUseDefaultValue(true);
 
             // 如果是必须展示默认值，不通过列表匹配的话，进入这个判断
-            if (showDefaultValue) {
+            // 如果是 LiveSearch 的话，也要把传进来的 defaultValue 赋值给 selectValue
+            // 为了防止 showSearch 的时候 input框 的值被清空，这边要加上 showSearch 的判断
+            if (showDefaultValue || showSearch || mode === 'liveSearch') {
                 if (multiple) {
                     setSelectValueList(defaultValue);
                 } else {
+                    // 如果是字符串，则通过 options 匹配
                     if (typeof defaultValue !== 'object') {
-                        const selectOption = {
-                            [valueKey]: defaultValue,
-                            [labelKey]: defaultValue,
-                        };
+                        // 为了兼容 showSearch 的逻辑，这里需要单独处理，如果找到 selectOption，则赋值给 selectValue
+                        let selectOption = options.find((option) => option?.[valueKey] === defaultValue);
+                        if (!selectOption) {
+                            // 没找到，则直接赋值
+                            selectOption = {
+                                [valueKey]: defaultValue,
+                                [labelKey]: defaultValue,
+                            };
+                        }
                         setSelectValue(selectOption);
                         setTempSelectValue(selectOption);
                     } else if (typeof defaultValue === 'object') {
+                        // console.log("-------------------------------: ", defaultValue);
                         setSelectValue(defaultValue);
                         setTempSelectValue(defaultValue);
                     }
@@ -586,7 +607,6 @@ const Select = React.forwardRef((props: SelectProps, ref) => {
                 } else if (mode === 'tags') {
                     // 如果是 tags 模式，单独处理
                     if (defaultValue) {
-                        console.log('defaultValue: ', defaultValue);
                         setSelectValueList(
                             Array.isArray(defaultValue)
                                 ? defaultValue.map((item: any) => {
@@ -616,13 +636,13 @@ const Select = React.forwardRef((props: SelectProps, ref) => {
                             // setTempSelectValue({});
                         }
                     } else {
+                        /* if (name === "pharmacy_id") {
+                console.log("defaultValue: ", name, defaultValue);
+                // debugger;
+              } */
                         if (defaultValue || defaultValue === 0 || defaultValue === false) {
                             const selectOption = options.find((option) => option[valueKey] === defaultValue);
-                            if (selectOption) {
-                                setSelectValue(selectOption);
-                            } else if (mode !== 'liveSearch') {
-                                setSelectValue(selectOption);
-                            }
+                            setSelectValue(selectOption);
                         } else {
                             setSelectValue(tempSelectValue);
                         }
@@ -668,8 +688,10 @@ const Select = React.forwardRef((props: SelectProps, ref) => {
 
     // 因为现在只有在 第一次 的时候展示 select-value的div，后面都是展示 input，所以这边做了赋值处理，保证 input的值能够实时更新
     useEffect(() => {
-        // debugger;
-        console.log('selectValue: ', selectValue);
+        /* if (valueKey === "item_id") {
+        debugger;
+        console.log("selectValue: ", selectValue);
+      } */
         if (
             // 下面这些情况不用在意 input 的值
             !inputRef.current ||
@@ -718,7 +740,7 @@ const Select = React.forwardRef((props: SelectProps, ref) => {
                     className={`adou-select d-flex align-items-center ${selectContentExternalCls || ''} ${isFocus ? 'adou-form-control-focus' : ''}`}
                     style={{
                         textAlign: 'left',
-                        background: backgroundColor ? backgroundColor : transparent ? 'transparent' : disabled ? '#eee' : varient === 'filled' ? '#f0f0f0' : '',
+                        background: disabled ? '#eee' : transparent ? 'transparent' : backgroundColor ? backgroundColor : varient === 'filled' ? '#f0f0f0' : '',
                         flex: 1,
                         /* ...(suffixContentType === 'button'
                             ? {
@@ -768,7 +790,7 @@ const Select = React.forwardRef((props: SelectProps, ref) => {
                                         aria-label="Username"
                                         aria-describedby="basic-addon1"
                                         style={{
-                                            backgroundColor: backgroundColor ? backgroundColor : varient === 'filled' || transparent ? 'transparent' : '',
+                                            backgroundColor: judgeInputBgColor(),
                                             width: '100%',
                                             cursor: disabled ? 'not-allowed' : '',
                                         }}
@@ -816,7 +838,7 @@ const Select = React.forwardRef((props: SelectProps, ref) => {
                                 aria-label="Username"
                                 aria-describedby="basic-addon1"
                                 style={{
-                                    backgroundColor: backgroundColor ? backgroundColor : varient === 'filled' || transparent ? 'transparent' : '',
+                                    backgroundColor: judgeInputBgColor(),
                                     width: '100%',
 
                                     cursor: disabled ? 'not-allowed' : '',

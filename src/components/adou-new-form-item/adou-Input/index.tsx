@@ -43,7 +43,7 @@ export interface InputProps {
     suffixContentType?: string;
     placeholder?: string;
     style?: React.CSSProperties;
-    readOnly?: boolean;
+    disabled?: boolean;
     transparent?: boolean;
     children?: any;
     onClick?: (e: React.MouseEvent<HTMLInputElement, MouseEvent>) => void;
@@ -100,7 +100,7 @@ const Input: React.ForwardRefRenderFunction<InputRef, InputProps> = (
         suffixContentType = 'button',
         placeholder,
         style,
-        readOnly,
+        disabled,
         transparent,
         children,
         onClick,
@@ -128,7 +128,7 @@ const Input: React.ForwardRefRenderFunction<InputRef, InputProps> = (
 
     const handleFocus = (e: React.FocusEvent<HTMLInputElement, Element>, ...args: any) => {
         e.stopPropagation();
-        if (varient === 'filled' && inputFormContentRef.current && !readOnly) {
+        if (varient === 'filled' && inputFormContentRef.current && !disabled) {
             inputFormContentRef.current.style.backgroundColor = '';
             setIsFocus(true);
         }
@@ -203,10 +203,14 @@ const Input: React.ForwardRefRenderFunction<InputRef, InputProps> = (
     };
 
     const judgeBgColor = () => {
-        if (readOnly) {
+        if (disabled) {
             return '#eee';
         } else if (varient === 'filled') {
             return '#f0f0f0';
+        } else if (backgroundColor) {
+            return backgroundColor;
+        } else {
+            return 'transparent';
         }
     };
 
@@ -242,15 +246,15 @@ const Input: React.ForwardRefRenderFunction<InputRef, InputProps> = (
                         borderBottomRightRadius: 0,
                     }),
                     height: size === 'lg' ? '48px' : size === 'sm' ? '32px' : '40px',
-                    backgroundColor: backgroundColor ? backgroundColor : 'transparent',
-                    cursor: readOnly ? 'not-allowed' : 'auto',
+                    backgroundColor: judgeBgColor(),
+                    cursor: disabled ? 'not-allowed' : 'auto',
                     borderRadius: '0.375rem', // 和父组件的 borderRadius 保持一致
                     ...inputStyle,
                 }}
                 step={1}
                 name={name}
                 value={value}
-                readOnly={readOnly}
+                readOnly={disabled}
                 placeholder={placeholder}
                 onChange={handleChange}
                 onBlur={(e) => handleBlur(e)}
@@ -319,7 +323,7 @@ const Input: React.ForwardRefRenderFunction<InputRef, InputProps> = (
             style={{
                 ...wrapperStyle,
                 ...(wrapperWidth ? { width: wrapperWidth } : { flex: 1 }),
-                cursor: readOnly ? 'not-allowed' : 'auto',
+                cursor: disabled ? 'not-allowed' : 'auto',
             }}
         >
             {!label && (addonAfter || addonBefore) ? (
@@ -342,7 +346,7 @@ const Input: React.ForwardRefRenderFunction<InputRef, InputProps> = (
                                     border: addonBefore || addonAfter ? '' : 'none',
                                 }),
                                 ...formStyle,
-                                backgroundColor: backgroundColor ? backgroundColor : judgeBgColor(),
+                                backgroundColor: judgeBgColor(),
                                 border: varient === 'outlined' ? '1px solid #ced4da' : '',
                             }}
                             ref={inputFormContentRef}
@@ -376,7 +380,7 @@ const Input: React.ForwardRefRenderFunction<InputRef, InputProps> = (
                                 border: 'none',
                             }),
                             border: varient === 'outlined' ? '1px solid #ced4da' : '',
-                            backgroundColor: backgroundColor ? backgroundColor : 'transparent',
+                            backgroundColor: judgeBgColor(),
                             ...formStyle,
                         }}
                         ref={inputFormContentRef}
@@ -392,7 +396,6 @@ const Input: React.ForwardRefRenderFunction<InputRef, InputProps> = (
         </div>
     );
 };
-
 // 对于使用 forwardRef 包装的组件，displayName 需要在 forwardRef 调用之后设置
 // 上述代码中，Input 组件是通过 forwardRef 包装的，因此需要在 forwardRef 调用之后设置 displayName
 

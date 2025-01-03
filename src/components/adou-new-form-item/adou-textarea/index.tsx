@@ -42,7 +42,7 @@ const Textarea: React.FC<TextreaProps> = React.forwardRef((props: TextreaProps, 
         clearable = false,
         commonSuffixContent,
         formStyle,
-        rows,
+        rows = 1,
         suffixContentType = 'button',
         suffixContent,
         errMsg,
@@ -100,7 +100,7 @@ const Textarea: React.FC<TextreaProps> = React.forwardRef((props: TextreaProps, 
     };
 
     const handleBlur = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
-        validate();
+        handleValidate(value);
     };
 
     const handleClickCommonSuffixIcon = () => {};
@@ -143,7 +143,10 @@ const Textarea: React.FC<TextreaProps> = React.forwardRef((props: TextreaProps, 
     return (
         <div
             className={`adou-textarea-warpper ${externalClassName} ${!error && isFormItem && 'mb-3'}`}
-            style={{ ...wrapperStyle, ...(wrapperWidth ? { width: wrapperWidth } : { flex: 1 }) }}
+            style={{
+                ...wrapperStyle,
+                ...(wrapperWidth ? { width: wrapperWidth } : { flex: 1 }),
+            }}
         >
             <div onMouseEnter={handleMouseEnter} onMouseLeave={handleMouseLeave} className={`adou-textarea-form-content ${labelPosition === 'top' && inline ? 'me-2' : ''}`}>
                 <textarea
@@ -186,15 +189,18 @@ const Textarea: React.FC<TextreaProps> = React.forwardRef((props: TextreaProps, 
             </div>
 
             {commonSuffixIcon && <i onClick={handleClickCommonSuffixIcon} className={`${commonSuffixIcon} common-suffix-icon ms-2`}></i>}
-            {error && required && (
-                <div
-                    className="animate__animated animate__fadeIn"
-                    style={{
-                        color: '#DC3545',
-                        paddingLeft: parseInt(labelWidth) > 120 ? '120px' : parseFloat(labelWidth) + 20 + 'px',
-                    }}
-                >{`${errMsg || `${label || name}不能为空`}`}</div>
-            )}
+            {/* {error && required && (
+          <div
+            className="animate__animated animate__fadeIn"
+            style={{
+              color: "#DC3545",
+              paddingLeft:
+                parseInt(labelWidth) > 120
+                  ? "120px"
+                  : parseFloat(labelWidth) + 20 + "px",
+            }}
+          >{`${errMsg || `${label || name}不能为空`}`}</div>
+        )} */}
         </div>
     );
 });

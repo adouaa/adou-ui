@@ -1,6 +1,5 @@
 import React, { useState, useRef, useEffect } from 'react';
 import './index.scss';
-import Button from 'components/adou-button';
 
 interface CollapseProps {
     header?: any;
@@ -42,15 +41,11 @@ const Collapse = ({ header, children, firstShow = false }: CollapseProps) => {
         <div className="collapse-container">
             <div className="collapse-header">
                 <div className="collapse-header-content" onClick={toggleCollapse}>
-                    {header || (
-                        <Button type="primary" size="sm">
-                            展开
-                        </Button>
-                    )}
+                    {header}
                 </div>
             </div>
             <div
-                className="collapse-content mt-2"
+                className="collapse-content mt-1"
                 style={{
                     maxWidth: isOpen ? `${maxWidth}px` : '0px',
                     // maxHeight: isOpen ? `${maxHeight}px` : '0px',
@@ -58,7 +53,7 @@ const Collapse = ({ header, children, firstShow = false }: CollapseProps) => {
                 }}
                 ref={contentRef}
             >
-                {children || '被折叠的内容'}
+                {children}
             </div>
         </div>
     );

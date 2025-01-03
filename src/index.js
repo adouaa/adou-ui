@@ -40,7 +40,7 @@ import ReactDOM from 'react-dom/client';
 
 // import App from './test-tooltip/App.tsx';
 
-// import App from './test-according/App.tsx';
+import App from './test-according/App.tsx';
 
 // import App from "./test-collapse-y/App.tsx";
 
@@ -80,7 +80,7 @@ import ReactDOM from 'react-dom/client';
 
 // import App from './test-popover/App.tsx';
 
-import App from './test-resizeable-sliderbar/App.tsx';
+// import App from './test-resizeable-sliderbar/App.tsx';
 
 import 'bootstrap/dist/css/bootstrap.min.css';
 
