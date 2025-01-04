@@ -1,27 +1,29 @@
 import { useState, useEffect, useRef, useContext } from 'react';
 import { useParams } from 'react-router-dom';
 import React from 'react';
-import { NotificationContext } from 'context/NotificationContext/NotificationContext';
+import { useNotification } from 'hooks/useNotification';
+// import { NotificationContext } from 'context/NotificationContext/NotificationContext';
 
 interface TestProps {}
 
 const Test = ({}: TestProps) => {
-    const context = useContext(NotificationContext);
-    console.log("Test-context: ", context);
+    const notification = useNotification();
+    console.log('Test-notification: ', notification);
 
     const handleOpen1 = () => {
-        context?.open({
+        notification?.open({
             title: (
                 <div>
                     <span>Hello</span>
                     <div>你好1</div>
                 </div>
             ),
+            duration: 1000,
             message: 'World',
         });
     };
     const handleOpen2 = () => {
-        context?.open({
+        notification?.open({
             title: (
                 <div>
                     <div>你好2</div>
@@ -33,7 +35,7 @@ const Test = ({}: TestProps) => {
         });
     };
     const handleOpen3 = () => {
-        context?.open({
+        notification?.open({
             title: (
                 <div>
                     <span>Hello3</span>
@@ -44,7 +46,7 @@ const Test = ({}: TestProps) => {
         });
     };
     const handleOpen4 = () => {
-        context?.open({
+        notification?.open({
             title: (
                 <div>
                     <span>Hello4</span>

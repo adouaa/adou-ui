@@ -1,11 +1,10 @@
 // YourComponent.js
 import React, { useEffect } from 'react';
-import { useLoading } from '../context/LoadingContext/LoadingContext';
 import './index.scss';
+import { useLoading } from 'hooks/useLoading';
 
 const YourComponent = () => {
     const { showLoading, hideLoading } = useLoading();
-
     const fetchData = async () => {
         showLoading();
         try {
@@ -15,22 +14,21 @@ const YourComponent = () => {
         } catch (error) {
             console.error('Fetching error: ', error);
         } finally {
+            setTimeout(() => {
+                hideLoading();
+            }, 1000);
+        }
+    };
+    const handleClick = async () => {
+        showLoading();
+        try {
+            await fetchData();
+        } finally {
             hideLoading();
         }
     };
 
-    useEffect(() => {
-        fetchData();
-    }, []);
-
-    return (
-        <div>
-            Your content here
-            <h2 className="title">
-                <div className=" underline-text">十年后，我真的选择对了路吗？..十年后，我真的选择对了路吗十年后，我真的选择对了路吗十年后，我真的选择对了路吗.</div>
-            </h2>
-        </div>
-    );
+    return <button onClick={handleClick}>Click Me</button>;
 };
 
 export default YourComponent;

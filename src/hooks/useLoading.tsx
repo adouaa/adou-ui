@@ -2,7 +2,16 @@
 import { useState, useEffect } from 'react';
 import React from 'react';
 import { createRoot, Root } from 'react-dom/client';
-import Loading from './Loading';
+import './loading.scss';
+
+const Loading = () => {
+    return (
+        <div className="loading-overlay">
+            <div className="loading-spinner me-2"></div>
+            <span>Loading...</span>
+        </div>
+    );
+};
 
 interface LoadingInstance {
     show: () => void;
@@ -33,10 +42,6 @@ const createLoadingInstance = (): LoadingInstance => {
         },
         hide: () => {
             render(false);
-            // 可选：在隐藏后移除DOM节点
-            // setTimeout(() => {
-            //   document.body.removeChild(container);
-            // }, 300);
         },
     };
 };
@@ -72,3 +77,5 @@ export const useLoading = () => {
         hideLoading,
     };
 };
+
+export default Loading;

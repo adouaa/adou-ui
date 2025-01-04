@@ -4,10 +4,10 @@ import SomeComponent from './some';
 
 const App: React.FC = () => {
     return (
-        <ToastProvider>
+        <div>
             {/* 你的其他组件 */}
             <SomeComponent></SomeComponent>
-        </ToastProvider>
+        </div>
     );
 };
 

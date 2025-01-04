@@ -1,8 +1,7 @@
-// useNotification.tsx
 import { useState, useEffect } from 'react';
 import { createRoot, Root } from 'react-dom/client';
 import React from 'react';
-import './index.scss';
+import './notification.scss';
 
 interface NotificationProps {
     id?: number;
@@ -32,7 +31,7 @@ const NotificationContainer = () => {
 
     useEffect(() => {
         setNotificationList(notifications);
-    }, [notifications]);
+    }, [notifications]); // useEffect 可以监听到 非state的变量 notifications 的变化
 
     const close = (id?: number) => {
         notifications = notifications.map((item) => {
@@ -98,7 +97,7 @@ const NotificationContainer = () => {
             case 'info':
                 return <i className="text-info fa-solid fa-circle-info"></i>;
             case 'danger':
-                return <i className="text-danger fa-regular fa-circle-xmark"></i>;
+                return <i className="text-danger fa-solid fa-circle-exclamation"></i>;
             default:
                 break;
         }
@@ -144,10 +143,10 @@ const createNotificationInstance = (): NotificationInstance => {
             const data: NotificationProps = {
                 id,
                 duration: 3000,
-                remainTime: 3000,
                 type: 'info',
                 ...message,
             };
+            data.remainTime = data.duration;
 
             notifications.push(data);
             root?.render(<NotificationContainer />);
