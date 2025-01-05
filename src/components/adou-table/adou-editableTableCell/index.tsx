@@ -18,7 +18,7 @@ interface TableCellProps {
     eidtable?: boolean;
     render?: any;
     width?: string;
-    textPosition?: 'center' | 'start' | 'end' | 'justify';
+    textPosition?: any;
     verticalAlign?: 'middle' | 'top' | 'bottom' | 'baseline';
     onChange?: (rowIndex: number, colIndex: number, value: string) => void;
     onEditCancel?: () => void;
@@ -68,7 +68,6 @@ const TableCell = (props: TableCellProps) => {
 
     const handleExpandIconClick = (e: React.MouseEvent) => {
         e.stopPropagation();
-        console.log('999: ', 999);
         onExpand && onExpand();
     };
 
@@ -95,11 +94,13 @@ const TableCell = (props: TableCellProps) => {
                     ) : (
                         <div className="ps-1">
                             <div className="value d-flex align-items-center">
-                                {isParent && (
+                                {isParent ? (
                                     <i
                                         onClick={handleExpandIconClick}
                                         className={`fa-solid fa-chevron-right me-2 ${collapse ? 'table-cell-folder-rotate-down' : ''} collapse-icon`}
                                     ></i>
+                                ) : (
+                                    <span className="ps-3"></span>
                                 )}
                                 <div style={{ maxWidth }} className="ellipsis-1 ">
                                     {editedValue}

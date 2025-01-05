@@ -3,7 +3,6 @@ import { withTranslation } from 'react-i18next';
 import EditableTableCell from './adou-editableTableCell';
 import './index.scss';
 import Tooltip from 'components/adou-tooltip';
-import isEmptyO from 'components/adou-new-form-item/isEmptyO';
 
 export { EditableTableCell };
 
@@ -224,7 +223,7 @@ const Table = (props: TableProps) => {
             data.children.map((childData: any, index: number) => (
                 <Fragment key={childData[id]}>
                     <tr
-                        onClick={() => handleRowClick(childData, true, childData)}
+                        onClick={() => handleRowClick(data, true, childData)}
                         className="collapse-table-tr animate__animated animate__fadeIn"
                         key={childData[id]}
                         /* style={{
@@ -246,7 +245,7 @@ const Table = (props: TableProps) => {
                                     className="px-2 py-3"
                                     name={childData[id] + uniqId} // 加上 uniqId 防止多个表格的相同复选框冲突
                                     id={childData[id] + uniqId}
-                                    checked={childData.checked === true}
+                                    checked={childData.checked}
                                     onChange={(e: any) => handleCheckboxChange(e, childData)}
                                     type={!multiple ? 'radio' : 'checkbox'}
                                 />
@@ -436,7 +435,6 @@ const Table = (props: TableProps) => {
                         </tr>
                     </thead>
                 )}
-                {/* --------------------------渲染表格内容 */}
                 <tbody className={`${divider ? 'table-group-divider' : ''}`}>
                     {tableData.length > 0 &&
                         tableData.map((data: any, rowIndex: number) => {
@@ -465,7 +463,7 @@ const Table = (props: TableProps) => {
                                                     className="px-2 py-3"
                                                     name={data[id] + uniqId} // 加上 uniqId 防止多个表格的相同复选框冲突
                                                     id={data[id] + uniqId}
-                                                    checked={data.checked === true}
+                                                    checked={data.checked}
                                                     onChange={(e) => handleCheckboxChange(e, data)}
                                                     type={!multiple ? 'radio' : 'checkbox'}
                                                 />
@@ -594,38 +592,62 @@ const Table = (props: TableProps) => {
         }
     };
 
-    const recursiveUpdateParentChecked = (child, parentData, id) => {
-        const parent = parentData.find((item) => {
-            if (item[id] === child.parentId) {
-                return item;
-            } else {
-                if (item.children?.length) {
-                    return recursiveUpdateParentChecked(child, item.children, id);
-                }
-            }
-        });
-        if (!isEmptyO(parent)) {
-            const allChildrenChecked = parent.children.every((child) => child.checked === true);
-            const someChildrenChecked = parent.children.some((child) => child.checked === true);
-            if (allChildrenChecked) {
-                parent.checked = true;
-            } else if (someChildrenChecked) {
-                parent.checked = 'partial'; // 表示部分选中，你可以根据需求自定义状态
-            } else {
-                parent.checked = false;
-            }
-            if (parent.parentId) {
-                recursiveUpdateParentChecked(parent, tableData, id);
-            }
-        } else {
-        }
-    };
-
     /**
      *
      * 单击tr
      */
     const handleRowClick = (row: any, isChildren?: boolean, childData?: any) => {
+        setUpdateKey(updateKey + 1);
+        const recursiveUpdateChildrenCheckState = (children: any[]) => {
+            return children.map((child: any) => {
+                child.checked = !child.checked;
+                if (child.children?.length) {
+                    recursiveUpdateChildrenCheckState(child.children);
+                }
+                return child;
+            });
+        };
+        // handleCollapseClick(row, rowIndex!);
+        if (clickChecked || collection) {
+            const data: any = tableData.map((item: any) => {
+                if (isChildren) {
+                    if (item[id] === row[id]) {
+                        const rowChildren = row.children;
+                        const updatedChildren = rowChildren.map((child: any) => {
+                            if (child[id] === childData[id]) {
+                                child.checked = !child.checked;
+                            } else if (!multiple) {
+                                child.checked = false;
+                            }
+                            return child;
+                        });
+                        item.children = updatedChildren;
+                        const isChildrenAllChecked = areAllChecked(updatedChildren);
+                        item.checked = isChildrenAllChecked;
+                    }
+                } else {
+                    if (item[id] === row[id]) {
+                        item.checked = !item.checked;
+                        if (row.children?.length) {
+                            // 将它的子级的所有数据都选中
+                            row.children = row.children.map((child: any) => {
+                                child.checked = item.checked;
+                                return child;
+                            });
+                        }
+                    } else {
+                        if (!multiple) {
+                            item.checked = false;
+                        }
+                    }
+                }
+                return item;
+            });
+            setTableData(data);
+        }
+        if (collection) {
+            setCheckedAll(areAllChecked(data));
+        }
         onRowClick && onRowClick(row);
 
         onRowDoubleClick && onRowDoubleClick(row);
@@ -650,44 +672,16 @@ const Table = (props: TableProps) => {
     };
 
     const handleCheckboxChange = (e: any, row: any) => {
-        setUpdateKey(updateKey + 1);
-
-        // 父节点直接更新它的子节点的 checked 状态
-        const directlyUpdateChildrenCheckState = (data: any[], checked?: boolean) => {
-            return data.map((item: any) => {
-                item.checked = checked;
-                if (item.children?.length) {
-                    directlyUpdateChildrenCheckState(item.children, checked);
-                }
-                return item;
-            });
-        };
-        // 更新 tableData 中的 checked 状态
-        const updateTableDataCheckState = (data: any[]) => {
-            return data.map((item: any) => {
-                // 如果刚好点击的是第一级的节点，则进入到这个if，选中它的所有子节点
+        const checked = e.target.checked;
+        row.checked = checked;
+        setTableData((preArr: any) => {
+            return preArr.map((item: any) => {
                 if (item[id] === row[id]) {
-                    item.checked = !(item.checked === true ? true : false); // 为了做 partial 判断
-                    if (item.children?.length) {
-                        item.children = directlyUpdateChildrenCheckState(item.children, item.checked === true ? true : false);
-                    }
-                    // 如果点击的不是第一级的节点，有可能是二级节点，也要递归执行
-                    // 如果去掉这个，只会在点击 一级节点 的时候会把它的子节点全部选中
-                } else if (item.children?.length) {
-                    item.children = updateTableDataCheckState(item.children);
+                    item.checked = checked;
                 }
                 return item;
             });
-        };
-        if (clickChecked || collection) {
-            // 1. 如果可以选中，则去更新选中状态
-            updateTableDataCheckState(tableData);
-        }
-        // 2. 如果有父节点，则去更新父节点的选中状态
-        if (row.parentId) {
-            recursiveUpdateParentChecked(row, tableData, id);
-        }
-        // 3. 判断是不是全选
+        });
         setCheckedAll(areAllChecked(tableData));
     };
 
@@ -739,19 +733,8 @@ const Table = (props: TableProps) => {
         return tableData.filter((item: any) => item.checked);
     };
 
-    const recursiveSetParentId = (data: any[], parentId: any) => {
-        return data.map((item: any) => {
-            item.parentId = parentId;
-            if (item.children) {
-                recursiveSetParentId(item.children, item[id]);
-            }
-            return item;
-        });
-    };
-
     useEffect(() => {
-        let tempData = JSON.parse(JSON.stringify(data));
-        tempData = recursiveSetParentId(tempData, 0);
+        const tempData = JSON.parse(JSON.stringify(data));
         const checkedAll = areAllChecked(tempData);
         setCheckedAll(checkedAll);
         if (collapse) {

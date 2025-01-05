@@ -46,7 +46,7 @@ import ReactDOM from 'react-dom/client';
 
 // import App from './test-cascader-select/App.tsx';
 
-import App from './test-toast/App.tsx';
+// import App from './test-toast/App.tsx';
 
 // import App from './test-horizon-scroll-view/App.tsx';
 
@@ -58,7 +58,7 @@ import App from './test-toast/App.tsx';
 
 // import App from './test-slider/App.tsx';
 
-// import App from './test-table/App.tsx';
+import App from './test-table/App.tsx';
 
 // import App from './test-rate/App.tsx';
 
