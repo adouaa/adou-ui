@@ -25,7 +25,45 @@ const App = ({}: AppProps) => {
                 { id: 'member001', teamName: 'Alice', email: 'alice.software@company.com', age: 29, count: 6, checked: false },
                 { id: 'member002', teamName: 'Bob', email: 'bob.software@company.com', age: 31, count: 5, checked: false },
                 { id: 'member003', teamName: 'Charlie', email: 'charlie.software@company.com', age: 34, count: 8, checked: false },
-            ], */
+            ], */ children: [
+                {
+                    id: 'member0062',
+                    teamName: 'Frank222',
+                    email: 'frank.supp@company.com',
+                    age: 36,
+                    count: 51,
+                    checked: false,
+                    children: [
+                        {
+                            id: 'member0083',
+                            teamName: 'Frank333',
+                            email: 'frank.sup@company.com',
+                            age: 36,
+                            count: 51,
+                            checked: false,
+                            children: [
+                                {
+                                    id: 'member0094',
+                                    teamName: 'Frank444',
+                                    email: 'frank.sup@company.com',
+                                    age: 36,
+                                    count: 51,
+                                    checked: false,
+                                },
+                                {
+                                    id: 'member0123',
+                                    teamName: 'Frank123',
+                                    email: 'frank.sup@company.com',
+                                    age: 36,
+                                    count: 51,
+                                    checked: false,
+                                },
+                            ],
+                        },
+                    ],
+                },
+                { id: 'member0071', teamName: 'Grace1', email: 'grace.support@company.com', age: 35, count: 5, checked: false },
+            ],
         },
         {
             id: 'team002',
@@ -108,7 +146,7 @@ const App = ({}: AppProps) => {
         },
     ]);
 
-    const headerLabels = [
+    const columns = [
         { label: 'Team', prop: 'teamName', width: '180px', tooltip: true, textPosition: 'start' }, // 团队名称
         { label: 'Mem', prop: 'id', width: '150px', tooltip: true }, // 成员ID
         { label: '人数', prop: 'count', width: '150px', sortable: true, textPosition: 'start' }, // 成员姓名
@@ -126,6 +164,7 @@ const App = ({}: AppProps) => {
 
     const handleClose = () => {
         tableRef.current.clearChecked();
+        tableRef.current.foldAll();
     };
 
     const testRef = useRef<any>(null);
@@ -135,8 +174,21 @@ const App = ({}: AppProps) => {
 
     return (
         <div className="expandAll={false} app-wrapper p-3">
-            <AdouTable tableRef={tableRef} multiple collection tableBorderd headers={headerLabels} expandAll textPosition="center" collapse data={data}>
-                {headerLabels.map((label) => (
+            <AdouTable
+                clickChecked
+                tableStriped
+                // tdPadding="p-2"
+                expandAll
+                multiple
+                defaultChecked={['team001', 'member007', 'member010', 'member011', 'member003']}
+                tableRef={tableRef}
+                collection
+                columns={columns}
+                textPosition="center"
+                collapse
+                data={data}
+            >
+                {columns.map((label) => (
                     <EditableTableCell sortable={label.sortable} key={label.prop} {...label} />
                 ))}
             </AdouTable>
@@ -170,7 +222,7 @@ const App = ({}: AppProps) => {
                     ]}
                     name="test"
                 ></Select>
-                <Select options={[]}></Select>
+                <Select options={['member007', 'member010', 'member011', 'member003']}></Select>
             </Form>
             <button onClick={handleTest}>测试</button>
         </div>

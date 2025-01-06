@@ -8,6 +8,7 @@ import isEmptyO from 'components/adou-new-form-item/isEmptyO';
 export { EditableTableCell };
 
 interface TableProps {
+    tdPadding?: string;
     clickChecked?: boolean;
     showHeader?: boolean;
     defaultChecked?: any;
@@ -29,7 +30,7 @@ interface TableProps {
     eidtable?: boolean;
     size?: 'lg' | 'sm';
     data: any;
-    headers?: any;
+    columns?: any;
     propsData?: any;
     tableHover?: boolean;
     tableStriped?: boolean;
@@ -55,6 +56,7 @@ interface TableProps {
 
 const Table = (props: TableProps) => {
     const {
+        tdPadding = 'px-2 py-3',
         clickChecked,
         showHeader = true,
         defaultChecked,
@@ -67,14 +69,14 @@ const Table = (props: TableProps) => {
         showIndex = false,
         multiple = false,
         id = 'id',
-        trPointer = true,
+        trPointer = false,
         textPosition,
         collection,
         collapse,
-        expandAll = true,
+        expandAll = false,
         size = 'lg',
         data,
-        headers,
+        columns,
         propsData,
         tableHover = true,
         tableStriped = false,
@@ -224,8 +226,9 @@ const Table = (props: TableProps) => {
             data.children.map((childData: any, index: number) => (
                 <Fragment key={childData[id]}>
                     <tr
-                        onClick={() => handleRowClick(childData, true, childData)}
-                        className="collapse-table-tr animate__animated animate__fadeIn"
+                        onClick={(e: any) => handleRowClick(childData, e)}
+                        className={`tr-content tr-content ${childData.checked === true ? 'tr-checked' : ''} collapse-table-tr animate__animated animate__fadeIn`}
+                        style={{ ...(clickChecked || trPointer ? { cursor: 'pointer' } : ''), ...(!tableBorderd ? { borderBottom: '1px solid #f0f0f0' } : {}) }}
                         key={childData[id]}
                         /* style={{
                         ...(data.collapse ? { display: '' } : { display: 'none' }),
@@ -239,15 +242,16 @@ const Table = (props: TableProps) => {
                                     minWidth: '50px',
                                     width: '50px',
                                     maxWidth: '50px',
+                                    verticalAlign: 'middle',
                                 }}
-                                className="text-center px-2 py-3"
+                                className={`text-center ${tdPadding}`}
                             >
                                 <input
-                                    className="px-2 py-3"
+                                    className={tdPadding}
                                     name={childData[id] + uniqId} // 加上 uniqId 防止多个表格的相同复选框冲突
                                     id={childData[id] + uniqId}
                                     checked={childData.checked === true}
-                                    onChange={(e: any) => handleCheckboxChange(e, childData)}
+                                    onChange={(e: any) => handleCheckboxChange(childData, e)}
                                     type={!multiple ? 'radio' : 'checkbox'}
                                 />
                             </td>
@@ -255,7 +259,7 @@ const Table = (props: TableProps) => {
                         {/* 索引框 */}
                         {showIndex && (
                             <th
-                                className={`text-center px-2 py-3`}
+                                className={`text-center ${tdPadding}`}
                                 style={{
                                     minWidth: '50px',
                                     width: '50px',
@@ -272,6 +276,7 @@ const Table = (props: TableProps) => {
                             let prop = (child as React.ReactElement).props.prop;
                             if (React.isValidElement(child)) {
                                 const enhancedChild = React.cloneElement(child, {
+                                    parentId: childData.parentId, // 父级id
                                     collapse: childData.collapse,
                                     onExpand: () => handleCollapseClick(childData),
                                     isParent: !colIndex && childData.children,
@@ -287,7 +292,7 @@ const Table = (props: TableProps) => {
                                     <td
                                         // 这边也不用在子级的第一列在最左侧了
                                         // colIndex === 0 ? 'text-start' :
-                                        className={`text-${textPositionObject[prop]} px-2 py-3`}
+                                        className={`text-${textPositionObject[prop]} ${tdPadding}`}
                                         style={{
                                             verticalAlign: verticalAlignObject[prop],
                                             width: widthObject[(child as React.ReactElement).props.prop],
@@ -444,11 +449,11 @@ const Table = (props: TableProps) => {
                                 // 加上 uniqId 防止多个表格的相同复选框冲突
                                 <Fragment key={data[id] + uniqId}>
                                     <tr
-                                        onClick={() => handleRowClick(data)}
+                                        onClick={(e: any) => handleRowClick(data, e)}
                                         // onDoubleClick={() => handleRowDoubleClick(data)}
                                         key={rowIndex}
-                                        className={`tr-content ${data.checked ? 'tr-checked' : ''}`}
-                                        style={{ ...(trPointer ? { cursor: 'pointer' } : ''), ...(!tableBorderd ? { borderBottom: '1px solid #f0f0f0' } : {}) }}
+                                        className={`tr-content ${data.checked === true ? 'tr-checked' : ''}`}
+                                        style={{ ...(clickChecked || trPointer ? { cursor: 'pointer' } : ''), ...(!tableBorderd ? { borderBottom: '1px solid #f0f0f0' } : {}) }}
                                     >
                                         {collection && (
                                             // 复选框
@@ -458,15 +463,16 @@ const Table = (props: TableProps) => {
                                                     minWidth: '50px',
                                                     width: '50px',
                                                     maxWidth: '50px',
+                                                    verticalAlign: 'middle',
                                                 }}
-                                                className="text-center px-2 py-3"
+                                                className={`text-center ${tdPadding}`}
                                             >
                                                 <input
-                                                    className="px-2 py-3"
+                                                    className={tdPadding}
                                                     name={data[id] + uniqId} // 加上 uniqId 防止多个表格的相同复选框冲突
                                                     id={data[id] + uniqId}
                                                     checked={data.checked === true}
-                                                    onChange={(e) => handleCheckboxChange(e, data)}
+                                                    onChange={(e) => handleCheckboxChange(data, e)}
                                                     type={!multiple ? 'radio' : 'checkbox'}
                                                 />
                                             </td>
@@ -474,7 +480,7 @@ const Table = (props: TableProps) => {
                                         {showIndex && (
                                             // 索引框
                                             <td
-                                                className="text-center px-2 py-3"
+                                                className={`text-center ${tdPadding}`}
                                                 scope="col"
                                                 style={{
                                                     alignContent: 'center',
@@ -512,7 +518,7 @@ const Table = (props: TableProps) => {
                                                     <td
                                                         // 父级第一列不需要在 最左侧了
                                                         // !colIndex && collapse && data.children ? 'text-start' : `text-${textPositionObject[prop]}`
-                                                        className={`text-${textPositionObject[prop]} px-2 py-3`}
+                                                        className={`text-${textPositionObject[prop]} ${tdPadding}`}
                                                         style={{
                                                             verticalAlign: verticalAlignObject[prop],
                                                             width: widthObject[childProps.prop],
@@ -547,9 +553,9 @@ const Table = (props: TableProps) => {
         );
     };
 
-    const calculateHeaderWidth = (headerLabels: any[]) => {
+    const calculateHeaderWidth = (columns: any[]) => {
         const labelLengthObj: any = {};
-        const newHeaderLabels = headerLabels.map((item: any) => {
+        const newHeaderLabels = columns.map((item: any) => {
             return {
                 label: item.props.label,
                 prop: item.props.prop,
@@ -604,6 +610,7 @@ const Table = (props: TableProps) => {
                 }
             }
         });
+        // 如果找到该节点的 父节点
         if (!isEmptyO(parent)) {
             const allChildrenChecked = parent.children.every((child) => child.checked === true);
             const someChildrenChecked = parent.children.some((child) => child.checked === true);
@@ -615,6 +622,7 @@ const Table = (props: TableProps) => {
                 parent.checked = false;
             }
             if (parent.parentId) {
+                // 如果父节点还有父节点，递归招它的父节点然后更新
                 recursiveUpdateParentChecked(parent, tableData, id);
             }
         } else {
@@ -625,14 +633,38 @@ const Table = (props: TableProps) => {
      *
      * 单击tr
      */
-    const handleRowClick = (row: any, isChildren?: boolean, childData?: any) => {
+    const handleRowClick = (row: any, e: any) => {
         onRowClick && onRowClick(row);
 
         onRowDoubleClick && onRowDoubleClick(row);
+        if (clickChecked || trPointer) {
+            // 新增标志位，用于判断是否是由复选框触发的点击
+            const isCheckboxClick = e.target.type === 'checkbox' || e.target.type === 'radio';
+            if (!isCheckboxClick) {
+                handleCheckboxChange(row, e);
+            }
+        }
+    };
+
+    // 递归选中 默认选中的节点，子节点也要
+    const recursiveCheckDefaultTableData = (data: any[], defaultCheckedList: any[]) => {
+        return data.map((item: any) => {
+            if (defaultCheckedList.includes(item[id])) {
+                item.checked = true;
+                if (item.children) {
+                    // 父节点被选中，如果它有子节点，则递归选中子节点
+                    directlyUpdateChildrenCheckState(item.children, true);
+                }
+            }
+            if (item.children?.length) {
+                item.children = recursiveCheckDefaultTableData(item.children, defaultCheckedList);
+            }
+            return item;
+        });
     };
 
     // 新增 默认选中 / 全选
-    const handleDefaultChecked = () => {
+    const handleDefaultChecked = (tempData?: any) => {
         if (defaultChecked === 'all') {
             setTableData((preData: any) =>
                 preData.map((item: any) => {
@@ -646,24 +678,31 @@ const Table = (props: TableProps) => {
                 })
             );
             setCheckedAll(true); // 头部也要勾选上
+        } else if (Array.isArray(defaultChecked) && defaultChecked.length > 0) {
+            // 如果传入的是数组，则去 递归选中这些节点，子节点也要
+            const newTableData = recursiveCheckDefaultTableData(JSON.parse(JSON.stringify(tempData)), defaultChecked);
+            setTableData(newTableData);
         }
     };
 
-    const handleCheckboxChange = (e: any, row: any) => {
+    // 父节点直接更新它的子节点的 checked 状态
+    const directlyUpdateChildrenCheckState = (data: any[], checked?: boolean) => {
+        return data.map((item: any) => {
+            item.checked = checked;
+            if (item.children?.length) {
+                directlyUpdateChildrenCheckState(item.children, checked);
+            }
+            return item;
+        });
+    };
+
+    // 点击 单/复选框
+    const handleCheckboxChange = (row: any, e: any) => {
+        e.stopPropagation();
         setUpdateKey(updateKey + 1);
 
-        // 父节点直接更新它的子节点的 checked 状态
-        const directlyUpdateChildrenCheckState = (data: any[], checked?: boolean) => {
-            return data.map((item: any) => {
-                item.checked = checked;
-                if (item.children?.length) {
-                    directlyUpdateChildrenCheckState(item.children, checked);
-                }
-                return item;
-            });
-        };
         // 更新 tableData 中的 checked 状态
-        const updateTableDataCheckState = (data: any[]) => {
+        const recursiveUpdateTableDataCheckState = (data: any[]) => {
             return data.map((item: any) => {
                 // 如果刚好点击的是第一级的节点，则进入到这个if，选中它的所有子节点
                 if (item[id] === row[id]) {
@@ -674,20 +713,40 @@ const Table = (props: TableProps) => {
                     // 如果点击的不是第一级的节点，有可能是二级节点，也要递归执行
                     // 如果去掉这个，只会在点击 一级节点 的时候会把它的子节点全部选中
                 } else if (item.children?.length) {
-                    item.children = updateTableDataCheckState(item.children);
+                    item.children = recursiveUpdateTableDataCheckState(item.children); // 这步要先执行，不然下面的 else if 判断不会进入 不符合的父节点的子级节点
+                } /* else if (!multiple) {
+                    item.checked = false;
+                } */
+                return item;
+            });
+        };
+
+        // 如果是单选，则在选择完一个节点后，要把其他节点的 check 状态都置为 false
+        const recursiveUpdateOtherTableDataCheck = (data: any, row: any) => {
+            return data.map((item: any) => {
+                if (item[id] !== row[id]) {
+                    item.checked = false;
+                    if (item.children?.length) {
+                        item.children = recursiveUpdateOtherTableDataCheck(item.children, row);
+                    }
                 }
                 return item;
             });
         };
+
         if (clickChecked || collection) {
             // 1. 如果可以选中，则去更新选中状态
-            updateTableDataCheckState(tableData);
+            recursiveUpdateTableDataCheckState(tableData);
+            // 2. 如果是单选，则在选择完一个节点后，要把其他节点的 check 状态都置为 false
+            if (!multiple) {
+                recursiveUpdateOtherTableDataCheck(tableData, row);
+            }
         }
-        // 2. 如果有父节点，则去更新父节点的选中状态
+        // 3. 如果有父节点，则去更新父节点的选中状态
         if (row.parentId) {
             recursiveUpdateParentChecked(row, tableData, id);
         }
-        // 3. 判断是不是全选
+        // 4. 判断是不是全选
         setCheckedAll(areAllChecked(tableData));
     };
 
@@ -706,6 +765,7 @@ const Table = (props: TableProps) => {
         });
     }
 
+    // 点击 全选 / 全不选
     const handleCheckedAllChange = (e: any) => {
         const checkedAll = e.target.checked;
         setCheckedAll(checkedAll);
@@ -726,19 +786,41 @@ const Table = (props: TableProps) => {
         setTableData(updateCheckedState(tableData) as any);
     };
 
+    // 清空选中
     const handleClearChecked = () => {
-        setTableData((preData: any) =>
-            preData.map((item: any) => {
-                item.checked = false;
-                return item;
-            })
-        );
+        // 递归调用清空选中
+        directlyUpdateChildrenCheckState(tableData, false);
+    };
+
+    // 递归获取所有选中项
+    const recursiveGetCheckedList = (data: any[], checkedList: any[] = []) => {
+        data.forEach((item: any) => {
+            if (item.checked === true) {
+                checkedList.push(item);
+            }
+            if (item.children) {
+                recursiveGetCheckedList(item.children, checkedList);
+            }
+        });
+        return checkedList;
     };
 
     const handleGetCheckedList = () => {
-        return tableData.filter((item: any) => item.checked);
+        const checkedList: any[] = [];
+        return recursiveGetCheckedList(JSON.parse(JSON.stringify(tableData)), checkedList);
     };
 
+    const handleExpandAll = () => {
+        const data = recursiveExpandTable(JSON.parse(JSON.stringify(tableData)), true);
+        setTableData(data);
+    };
+
+    const handleFoldAll = () => {
+        const data = recursiveExpandTable(JSON.parse(JSON.stringify(tableData)), false);
+        setTableData(data);
+    };
+
+    // 递归设置 pid
     const recursiveSetParentId = (data: any[], parentId: any) => {
         return data.map((item: any) => {
             item.parentId = parentId;
@@ -749,18 +831,30 @@ const Table = (props: TableProps) => {
         });
     };
 
+    // 递归展开表格
+    const recursiveExpandTable = (tempData: any[], state: boolean = expandAll) => {
+        return tempData.map((item: any) => {
+            item.collapse = state;
+            if (item.children) {
+                recursiveExpandTable(item.children);
+            }
+            return item;
+        });
+    };
+
     useEffect(() => {
+        // 这个 useEffect 这边操作 tableData的地方 都要用同一个数据 tempData，不然数据会不对
+        if (!data.length) return;
         let tempData = JSON.parse(JSON.stringify(data));
         tempData = recursiveSetParentId(tempData, 0);
         const checkedAll = areAllChecked(tempData);
         setCheckedAll(checkedAll);
         if (collapse) {
-            const tableData = tempData.map((item: any) => {
-                item.collapse = expandAll;
-                return item;
-            });
-            setTableData(tableData);
-            setOriginalTableData(tableData);
+            setTimeout(() => {
+                const tableData = recursiveExpandTable(tempData);
+                setTableData(tableData);
+                setOriginalTableData(tableData);
+            }, 10);
         } else {
             setTableData(tempData);
             setOriginalTableData(tempData);
@@ -769,7 +863,7 @@ const Table = (props: TableProps) => {
         if (tempData.length) {
             // 必须给个 10ms 的延迟，不然默认选中会出现问题
             setTimeout(() => {
-                handleDefaultChecked();
+                handleDefaultChecked(tempData);
             }, 10);
         }
     }, [data]);
@@ -803,8 +897,8 @@ const Table = (props: TableProps) => {
     }, [activeId]);
 
     useEffect(() => {
-        setTableHeaders(headers);
-    }, [headers]);
+        setTableHeaders(columns);
+    }, [columns]);
 
     /*     useEffect(() => {
         
@@ -813,6 +907,8 @@ const Table = (props: TableProps) => {
     useImperativeHandle(tableRef, () => ({
         clearChecked: handleClearChecked,
         getCheckedList: handleGetCheckedList,
+        expandAll: handleExpandAll,
+        foldAll: handleFoldAll,
     }));
 
     return (
@@ -830,10 +926,11 @@ const Table = (props: TableProps) => {
                     style={{ background: tableBgc, width }}
                     className={`table ${tableStriped ? 'table-striped' : ''} ${tableBorderd ? 'table-bordered' : 'table-borderless'} table-${size} ${
                         headColor ? `table-${headColor}` : ''
-                    } overflow-auto`}
+                    } overflow-auto ${data.length === 0 ? 'mb-0' : ''}`}
                 >
                     {renderTableBody()}
                 </table>
+                {data.length === 0 && <div className="text-center p-1">暂无数据~</div>}
             </div>
         </>
     );
