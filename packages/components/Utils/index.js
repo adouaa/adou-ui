@@ -1,21 +1,621 @@
 (function webpackUniversalModuleDefinition(root, factory) {
 	if(typeof exports === 'object' && typeof module === 'object')
-		module.exports = factory(require("react"));
+		module.exports = factory(require("react"), require("react-dom"));
 	else if(typeof define === 'function' && define.amd)
-		define(["react"], factory);
+		define(["react", "react-dom"], factory);
 	else if(typeof exports === 'object')
-		exports["RPB"] = factory(require("react"));
+		exports["RPB"] = factory(require("react"), require("react-dom"));
 	else
-		root["RPB"] = factory(root["React"]);
-})(this, (__WEBPACK_EXTERNAL_MODULE__442__) => {
+		root["RPB"] = factory(root["React"], root["ReactDOM"]);
+})(this, (__WEBPACK_EXTERNAL_MODULE__442__, __WEBPACK_EXTERNAL_MODULE__3__) => {
 return /******/ (() => { // webpackBootstrap
 /******/ 	"use strict";
 /******/ 	var __webpack_modules__ = ({
+
+/***/ 191:
+/***/ ((module) => {
+
+
+
+/*
+  MIT License http://www.opensource.org/licenses/mit-license.php
+  Author Tobias Koppers @sokra
+*/
+module.exports = function (cssWithMappingToString) {
+  var list = [];
+
+  // return the list of modules as css string
+  list.toString = function toString() {
+    return this.map(function (item) {
+      var content = "";
+      var needLayer = typeof item[5] !== "undefined";
+      if (item[4]) {
+        content += "@supports (".concat(item[4], ") {");
+      }
+      if (item[2]) {
+        content += "@media ".concat(item[2], " {");
+      }
+      if (needLayer) {
+        content += "@layer".concat(item[5].length > 0 ? " ".concat(item[5]) : "", " {");
+      }
+      content += cssWithMappingToString(item);
+      if (needLayer) {
+        content += "}";
+      }
+      if (item[2]) {
+        content += "}";
+      }
+      if (item[4]) {
+        content += "}";
+      }
+      return content;
+    }).join("");
+  };
+
+  // import a list of modules into the list
+  list.i = function i(modules, media, dedupe, supports, layer) {
+    if (typeof modules === "string") {
+      modules = [[null, modules, undefined]];
+    }
+    var alreadyImportedModules = {};
+    if (dedupe) {
+      for (var k = 0; k < this.length; k++) {
+        var id = this[k][0];
+        if (id != null) {
+          alreadyImportedModules[id] = true;
+        }
+      }
+    }
+    for (var _k = 0; _k < modules.length; _k++) {
+      var item = [].concat(modules[_k]);
+      if (dedupe && alreadyImportedModules[item[0]]) {
+        continue;
+      }
+      if (typeof layer !== "undefined") {
+        if (typeof item[5] === "undefined") {
+          item[5] = layer;
+        } else {
+          item[1] = "@layer".concat(item[5].length > 0 ? " ".concat(item[5]) : "", " {").concat(item[1], "}");
+          item[5] = layer;
+        }
+      }
+      if (media) {
+        if (!item[2]) {
+          item[2] = media;
+        } else {
+          item[1] = "@media ".concat(item[2], " {").concat(item[1], "}");
+          item[2] = media;
+        }
+      }
+      if (supports) {
+        if (!item[4]) {
+          item[4] = "".concat(supports);
+        } else {
+          item[1] = "@supports (".concat(item[4], ") {").concat(item[1], "}");
+          item[4] = supports;
+        }
+      }
+      list.push(item);
+    }
+  };
+  return list;
+};
+
+/***/ }),
+
+/***/ 73:
+/***/ ((module) => {
+
+
+
+module.exports = function (item) {
+  var content = item[1];
+  var cssMapping = item[3];
+  if (!cssMapping) {
+    return content;
+  }
+  if (typeof btoa === "function") {
+    var base64 = btoa(unescape(encodeURIComponent(JSON.stringify(cssMapping))));
+    var data = "sourceMappingURL=data:application/json;charset=utf-8;base64,".concat(base64);
+    var sourceMapping = "/*# ".concat(data, " */");
+    return [content].concat([sourceMapping]).join("\n");
+  }
+  return [content].join("\n");
+};
+
+/***/ }),
+
+/***/ 137:
+/***/ ((__unused_webpack_module, exports, __webpack_require__) => {
+
+var __webpack_unused_export__;
+
+
+var m = __webpack_require__(3);
+if (true) {
+  exports.H = m.createRoot;
+  __webpack_unused_export__ = m.hydrateRoot;
+} else { var i; }
+
+/***/ }),
+
+/***/ 736:
+/***/ ((module, __webpack_exports__, __webpack_require__) => {
+
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   A: () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _node_modules_css_loader_dist_runtime_sourceMaps_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(73);
+/* harmony import */ var _node_modules_css_loader_dist_runtime_sourceMaps_js__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_css_loader_dist_runtime_sourceMaps_js__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(191);
+/* harmony import */ var _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_1__);
+// Imports
+
+
+var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_1___default()((_node_modules_css_loader_dist_runtime_sourceMaps_js__WEBPACK_IMPORTED_MODULE_0___default()));
+// Module
+___CSS_LOADER_EXPORT___.push([module.id, `/* Loading.css */
+.loading-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(255, 255, 255, 0.8);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 9999;
+}
+
+.loading-spinner {
+  border: 8px solid #f3f3f3;
+  /* Light grey */
+  border-top: 8px solid #3498db;
+  /* Blue */
+  border-radius: 50%;
+  width: 60px;
+  height: 60px;
+  animation: spin 2s linear infinite;
+}
+
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}`, "",{"version":3,"sources":["webpack://./src/hooks/loading.scss"],"names":[],"mappings":"AAAA,gBAAA;AACA;EACI,eAAA;EACA,MAAA;EACA,OAAA;EACA,WAAA;EACA,YAAA;EACA,0CAAA;EACA,aAAA;EACA,mBAAA;EACA,uBAAA;EACA,aAAA;AACJ;;AAEA;EACI,yBAAA;EACA,eAAA;EACA,6BAAA;EACA,SAAA;EACA,kBAAA;EACA,WAAA;EACA,YAAA;EACA,kCAAA;AACJ;;AAEA;EACI;IACI,uBAAA;EACN;EAEE;IACI,yBAAA;EAAN;AACF","sourcesContent":["/* Loading.css */\r\n.loading-overlay {\r\n    position: fixed;\r\n    top: 0;\r\n    left: 0;\r\n    width: 100%;\r\n    height: 100%;\r\n    background-color: rgba(255, 255, 255, 0.8);\r\n    display: flex;\r\n    align-items: center;\r\n    justify-content: center;\r\n    z-index: 9999;\r\n}\r\n\r\n.loading-spinner {\r\n    border: 8px solid #f3f3f3;\r\n    /* Light grey */\r\n    border-top: 8px solid #3498db;\r\n    /* Blue */\r\n    border-radius: 50%;\r\n    width: 60px;\r\n    height: 60px;\r\n    animation: spin 2s linear infinite;\r\n}\r\n\r\n@keyframes spin {\r\n    0% {\r\n        transform: rotate(0deg);\r\n    }\r\n\r\n    100% {\r\n        transform: rotate(360deg);\r\n    }\r\n}"],"sourceRoot":""}]);
+// Exports
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
+
+
+/***/ }),
+
+/***/ 151:
+/***/ ((module, __webpack_exports__, __webpack_require__) => {
+
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   A: () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _node_modules_css_loader_dist_runtime_sourceMaps_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(73);
+/* harmony import */ var _node_modules_css_loader_dist_runtime_sourceMaps_js__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_css_loader_dist_runtime_sourceMaps_js__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(191);
+/* harmony import */ var _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_1__);
+// Imports
+
+
+var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_1___default()((_node_modules_css_loader_dist_runtime_sourceMaps_js__WEBPACK_IMPORTED_MODULE_0___default()));
+// Module
+___CSS_LOADER_EXPORT___.push([module.id, `.adou-notification-container {
+  position: fixed;
+  top: 20px;
+  right: 0px;
+  z-index: 1000;
+}
+.adou-notification-container .adou-notification {
+  width: 320px;
+  position: relative;
+  padding: 15px;
+  margin-bottom: 15px;
+  border-radius: 8px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  background-color: #fff;
+  transition: all 0.3s ease;
+  transform: translateX(100%);
+}
+.adou-notification-container .adou-notification-appearing {
+  transform: translateX(-20px);
+}
+.adou-notification-container .adou-notification-disappearing {
+  opacity: 0;
+  transform: translateX(100%) !important;
+}
+.adou-notification-container .adou-notification:hover {
+  cursor: pointer;
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.15);
+}
+.adou-notification-container .adou-notification-header {
+  display: flex;
+  align-items: start;
+  justify-content: space-between;
+  margin-bottom: 10px;
+}
+.adou-notification-container .adou-notification-header-title {
+  font-size: 18px;
+  font-weight: 600;
+  color: #333;
+  display: flex;
+}
+.adou-notification-container .adou-notification-header-title-icon {
+  margin-right: 8px;
+}
+.adou-notification-container .adou-notification-header-close {
+  cursor: pointer;
+  font-size: 16px;
+  color: #999;
+  transition: all 0.3s ease;
+}
+.adou-notification-container .adou-notification-header-close:hover {
+  color: #ff4d4f;
+  transform: scale(1.2);
+}
+.adou-notification-container .adou-notification-content {
+  font-size: 14px;
+  color: #666;
+  line-height: 1.5;
+}`, "",{"version":3,"sources":["webpack://./src/hooks/notification.scss"],"names":[],"mappings":"AAAA;EACI,eAAA;EACA,SAAA;EACA,UAAA;EACA,aAAA;AACJ;AACI;EACI,YAAA;EACA,kBAAA;EACA,aAAA;EACA,mBAAA;EACA,kBAAA;EACA,yCAAA;EACA,sBAAA;EACA,yBAAA;EAEA,2BAAA;AAAR;AAEQ;EAEI,4BAAA;AADZ;AAIQ;EACI,UAAA;EACA,sCAAA;AAFZ;AAKQ;EACI,eAAA;EACA,0CAAA;AAHZ;AAOQ;EACI,aAAA;EACA,kBAAA;EACA,8BAAA;EACA,mBAAA;AALZ;AAOY;EACI,eAAA;EACA,gBAAA;EACA,WAAA;EACA,aAAA;AALhB;AAOgB;EACI,iBAAA;AALpB;AASY;EACI,eAAA;EACA,eAAA;EACA,WAAA;EACA,yBAAA;AAPhB;AASgB;EACI,cAAA;EACA,qBAAA;AAPpB;AAYQ;EACI,eAAA;EACA,WAAA;EACA,gBAAA;AAVZ","sourcesContent":[".adou-notification-container {\r\n    position: fixed;\r\n    top: 20px;\r\n    right: 0px;\r\n    z-index: 1000;\r\n\r\n    .adou-notification {\r\n        width: 320px;\r\n        position: relative;\r\n        padding: 15px;\r\n        margin-bottom: 15px;\r\n        border-radius: 8px;\r\n        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);\r\n        background-color: #fff;\r\n        transition: all 0.3s ease;\r\n        // opacity: 0;\r\n        transform: translateX(100%);\r\n\r\n        &-appearing {\r\n            // opacity: 1;\r\n            transform: translateX(-20px);\r\n        }\r\n\r\n        &-disappearing {\r\n            opacity: 0;\r\n            transform: translateX(100%) !important;\r\n        }\r\n\r\n        &:hover {\r\n            cursor: pointer;\r\n            box-shadow: 0 6px 16px rgba(0, 0, 0, 0.15);\r\n            // transform: translate(-20px, -2px);\r\n        }\r\n\r\n        &-header {\r\n            display: flex;\r\n            align-items: start;\r\n            justify-content: space-between;\r\n            margin-bottom: 10px;\r\n\r\n            &-title {\r\n                font-size: 18px;\r\n                font-weight: 600;\r\n                color: #333;\r\n                display: flex;\r\n\r\n                &-icon {\r\n                    margin-right: 8px;\r\n                }\r\n            }\r\n\r\n            &-close {\r\n                cursor: pointer;\r\n                font-size: 16px;\r\n                color: #999;\r\n                transition: all 0.3s ease;\r\n\r\n                &:hover {\r\n                    color: #ff4d4f;\r\n                    transform: scale(1.2);\r\n                }\r\n            }\r\n        }\r\n\r\n        &-content {\r\n            font-size: 14px;\r\n            color: #666;\r\n            line-height: 1.5;\r\n        }\r\n    }\r\n}"],"sourceRoot":""}]);
+// Exports
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
+
+
+/***/ }),
+
+/***/ 323:
+/***/ ((module, __webpack_exports__, __webpack_require__) => {
+
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   A: () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _node_modules_css_loader_dist_runtime_sourceMaps_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(73);
+/* harmony import */ var _node_modules_css_loader_dist_runtime_sourceMaps_js__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_css_loader_dist_runtime_sourceMaps_js__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(191);
+/* harmony import */ var _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_1__);
+// Imports
+
+
+var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_1___default()((_node_modules_css_loader_dist_runtime_sourceMaps_js__WEBPACK_IMPORTED_MODULE_0___default()));
+// Module
+___CSS_LOADER_EXPORT___.push([module.id, `.adou-toast-container {
+  position: absolute;
+  top: 20px;
+  left: 50%;
+  transform: translate(-50%, 0%);
+  z-index: 1000;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+.adou-toast-container .adou-toast {
+  width: 300px;
+  position: relative;
+  padding: 15px;
+  padding-right: 20px;
+  margin: 10px 0;
+  border-radius: 5px;
+  color: white;
+  opacity: 0;
+  transform: translateY(-20px);
+  transition: transform 0.5s ease, opacity 0.5s ease;
+}
+.adou-toast-container .adou-toast-success {
+  background-color: #4caf50;
+}
+.adou-toast-container .adou-toast-error {
+  background-color: #f44336;
+}
+.adou-toast-container .adou-toast-warning {
+  background-color: #ff9800;
+}
+.adou-toast-container .adou-toast.appearing {
+  opacity: 1;
+  transform: translateY(0);
+}
+.adou-toast-container .adou-toast.disappearing {
+  opacity: 0;
+  transform: translateY(-20px) scaleX(0.9);
+}
+.adou-toast-container .adou-toast-timer {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  height: 4px;
+  background-color: rgba(255, 255, 255, 0.7);
+  transition: width 0.1s linear;
+}
+.adou-toast-container .adou-toast-close {
+  position: absolute;
+  top: -5px;
+  right: 1px;
+  background: none;
+  border: none;
+  color: #fff;
+  font-size: 20px;
+  cursor: pointer;
+  margin-left: 10px;
+  transition: color 0.3s;
+}
+.adou-toast-container .adou-toast-close:hover {
+  color: #ccc;
+}`, "",{"version":3,"sources":["webpack://./src/hooks/toast.scss"],"names":[],"mappings":"AAIA;EACI,kBAAA;EACA,SAAA;EACA,SAAA;EACA,8BAAA;EACA,aAAA;EACA,aAAA;EACA,sBAAA;EACA,mBAAA;EACA,uBAAA;AAHJ;AAKI;EACI,YAAA;EACA,kBAAA;EACA,aAAA;EACA,mBAAA;EACA,cAAA;EACA,kBAAA;EACA,YAAA;EACA,UAAA;EAEA,4BAAA;EACA,kDAAA;AAJR;AAMQ;EACI,yBA7BU;AAyBtB;AAOQ;EACI,yBAhCQ;AA2BpB;AAQQ;EACI,yBAnCU;AA6BtB;AASQ;EACI,UAAA;EAEA,wBAAA;AARZ;AAWQ;EACI,UAAA;EACA,wCAAA;AATZ;AAYQ;EACI,kBAAA;EACA,SAAA;EACA,OAAA;EACA,WAAA;EACA,0CAAA;EACA,6BAAA;AAVZ;AAaQ;EACI,kBAAA;EACA,SAAA;EACA,UAAA;EACA,gBAAA;EACA,YAAA;EACA,WAAA;EACA,eAAA;EACA,eAAA;EACA,iBAAA;EACA,sBAAA;AAXZ;AAaY;EACI,WAAA;AAXhB","sourcesContent":["$toast-success-color: #4caf50;\r\n$toast-error-color: #f44336;\r\n$toast-warning-color: #ff9800;\r\n\r\n.adou-toast-container {\r\n    position: absolute;\r\n    top: 20px;\r\n    left: 50%; // 水平中心\r\n    transform: translate(-50%, 0%); // 将容器移动到中心\r\n    z-index: 1000;\r\n    display: flex;\r\n    flex-direction: column;\r\n    align-items: center;\r\n    justify-content: center;\r\n\r\n    .adou-toast {\r\n        width: 300px;\r\n        position: relative;\r\n        padding: 15px;\r\n        padding-right: 20px;\r\n        margin: 10px 0;\r\n        border-radius: 5px;\r\n        color: white;\r\n        opacity: 0;\r\n        // 仅向下移动，不缩小 -- 配合 &.appearing的transform: translateY(0);不能删除哦\r\n        transform: translateY(-20px);\r\n        transition: transform 0.5s ease, opacity 0.5s ease;\r\n\r\n        &-success {\r\n            background-color: $toast-success-color;\r\n        }\r\n\r\n        &-error {\r\n            background-color: $toast-error-color;\r\n        }\r\n\r\n        &-warning {\r\n            background-color: $toast-warning-color;\r\n        }\r\n\r\n        &.appearing {\r\n            opacity: 1;\r\n            // 仅向下移动，不缩小 -- 配合 .adou-toast的transform: translateY(-20px); 不能删除哦\r\n            transform: translateY(0);\r\n        }\r\n\r\n        &.disappearing {\r\n            opacity: 0;\r\n            transform: translateY(-20px) scaleX(0.9); // 向上移动并缩小宽度\r\n        }\r\n\r\n        &-timer {\r\n            position: absolute;\r\n            bottom: 0;\r\n            left: 0;\r\n            height: 4px;\r\n            background-color: rgba(255, 255, 255, 0.7);\r\n            transition: width 0.1s linear; // 平滑缩短动画\r\n        }\r\n\r\n        &-close {\r\n            position: absolute;\r\n            top: -5px;\r\n            right: 1px;\r\n            background: none;\r\n            border: none;\r\n            color: #fff;\r\n            font-size: 20px;\r\n            cursor: pointer;\r\n            margin-left: 10px;\r\n            transition: color 0.3s;\r\n\r\n            &:hover {\r\n                color: #ccc;\r\n            }\r\n        }\r\n    }\r\n}"],"sourceRoot":""}]);
+// Exports
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
+
+
+/***/ }),
+
+/***/ 591:
+/***/ ((module) => {
+
+
+
+var stylesInDOM = [];
+function getIndexByIdentifier(identifier) {
+  var result = -1;
+  for (var i = 0; i < stylesInDOM.length; i++) {
+    if (stylesInDOM[i].identifier === identifier) {
+      result = i;
+      break;
+    }
+  }
+  return result;
+}
+function modulesToDom(list, options) {
+  var idCountMap = {};
+  var identifiers = [];
+  for (var i = 0; i < list.length; i++) {
+    var item = list[i];
+    var id = options.base ? item[0] + options.base : item[0];
+    var count = idCountMap[id] || 0;
+    var identifier = "".concat(id, " ").concat(count);
+    idCountMap[id] = count + 1;
+    var indexByIdentifier = getIndexByIdentifier(identifier);
+    var obj = {
+      css: item[1],
+      media: item[2],
+      sourceMap: item[3],
+      supports: item[4],
+      layer: item[5]
+    };
+    if (indexByIdentifier !== -1) {
+      stylesInDOM[indexByIdentifier].references++;
+      stylesInDOM[indexByIdentifier].updater(obj);
+    } else {
+      var updater = addElementStyle(obj, options);
+      options.byIndex = i;
+      stylesInDOM.splice(i, 0, {
+        identifier: identifier,
+        updater: updater,
+        references: 1
+      });
+    }
+    identifiers.push(identifier);
+  }
+  return identifiers;
+}
+function addElementStyle(obj, options) {
+  var api = options.domAPI(options);
+  api.update(obj);
+  var updater = function updater(newObj) {
+    if (newObj) {
+      if (newObj.css === obj.css && newObj.media === obj.media && newObj.sourceMap === obj.sourceMap && newObj.supports === obj.supports && newObj.layer === obj.layer) {
+        return;
+      }
+      api.update(obj = newObj);
+    } else {
+      api.remove();
+    }
+  };
+  return updater;
+}
+module.exports = function (list, options) {
+  options = options || {};
+  list = list || [];
+  var lastIdentifiers = modulesToDom(list, options);
+  return function update(newList) {
+    newList = newList || [];
+    for (var i = 0; i < lastIdentifiers.length; i++) {
+      var identifier = lastIdentifiers[i];
+      var index = getIndexByIdentifier(identifier);
+      stylesInDOM[index].references--;
+    }
+    var newLastIdentifiers = modulesToDom(newList, options);
+    for (var _i = 0; _i < lastIdentifiers.length; _i++) {
+      var _identifier = lastIdentifiers[_i];
+      var _index = getIndexByIdentifier(_identifier);
+      if (stylesInDOM[_index].references === 0) {
+        stylesInDOM[_index].updater();
+        stylesInDOM.splice(_index, 1);
+      }
+    }
+    lastIdentifiers = newLastIdentifiers;
+  };
+};
+
+/***/ }),
+
+/***/ 128:
+/***/ ((module) => {
+
+
+
+var memo = {};
+
+/* istanbul ignore next  */
+function getTarget(target) {
+  if (typeof memo[target] === "undefined") {
+    var styleTarget = document.querySelector(target);
+
+    // Special case to return head of iframe instead of iframe itself
+    if (window.HTMLIFrameElement && styleTarget instanceof window.HTMLIFrameElement) {
+      try {
+        // This will throw an exception if access to iframe is blocked
+        // due to cross-origin restrictions
+        styleTarget = styleTarget.contentDocument.head;
+      } catch (e) {
+        // istanbul ignore next
+        styleTarget = null;
+      }
+    }
+    memo[target] = styleTarget;
+  }
+  return memo[target];
+}
+
+/* istanbul ignore next  */
+function insertBySelector(insert, style) {
+  var target = getTarget(insert);
+  if (!target) {
+    throw new Error("Couldn't find a style target. This probably means that the value for the 'insert' parameter is invalid.");
+  }
+  target.appendChild(style);
+}
+module.exports = insertBySelector;
+
+/***/ }),
+
+/***/ 51:
+/***/ ((module) => {
+
+
+
+/* istanbul ignore next  */
+function insertStyleElement(options) {
+  var element = document.createElement("style");
+  options.setAttributes(element, options.attributes);
+  options.insert(element, options.options);
+  return element;
+}
+module.exports = insertStyleElement;
+
+/***/ }),
+
+/***/ 855:
+/***/ ((module, __unused_webpack_exports, __webpack_require__) => {
+
+
+
+/* istanbul ignore next  */
+function setAttributesWithoutAttributes(styleElement) {
+  var nonce =  true ? __webpack_require__.nc : 0;
+  if (nonce) {
+    styleElement.setAttribute("nonce", nonce);
+  }
+}
+module.exports = setAttributesWithoutAttributes;
+
+/***/ }),
+
+/***/ 740:
+/***/ ((module) => {
+
+
+
+/* istanbul ignore next  */
+function apply(styleElement, options, obj) {
+  var css = "";
+  if (obj.supports) {
+    css += "@supports (".concat(obj.supports, ") {");
+  }
+  if (obj.media) {
+    css += "@media ".concat(obj.media, " {");
+  }
+  var needLayer = typeof obj.layer !== "undefined";
+  if (needLayer) {
+    css += "@layer".concat(obj.layer.length > 0 ? " ".concat(obj.layer) : "", " {");
+  }
+  css += obj.css;
+  if (needLayer) {
+    css += "}";
+  }
+  if (obj.media) {
+    css += "}";
+  }
+  if (obj.supports) {
+    css += "}";
+  }
+  var sourceMap = obj.sourceMap;
+  if (sourceMap && typeof btoa !== "undefined") {
+    css += "\n/*# sourceMappingURL=data:application/json;base64,".concat(btoa(unescape(encodeURIComponent(JSON.stringify(sourceMap)))), " */");
+  }
+
+  // For old IE
+  /* istanbul ignore if  */
+  options.styleTagTransform(css, styleElement, options.options);
+}
+function removeStyleElement(styleElement) {
+  // istanbul ignore if
+  if (styleElement.parentNode === null) {
+    return false;
+  }
+  styleElement.parentNode.removeChild(styleElement);
+}
+
+/* istanbul ignore next  */
+function domAPI(options) {
+  if (typeof document === "undefined") {
+    return {
+      update: function update() {},
+      remove: function remove() {}
+    };
+  }
+  var styleElement = options.insertStyleElement(options);
+  return {
+    update: function update(obj) {
+      apply(styleElement, options, obj);
+    },
+    remove: function remove() {
+      removeStyleElement(styleElement);
+    }
+  };
+}
+module.exports = domAPI;
+
+/***/ }),
+
+/***/ 656:
+/***/ ((module) => {
+
+
+
+/* istanbul ignore next  */
+function styleTagTransform(css, styleElement) {
+  if (styleElement.styleSheet) {
+    styleElement.styleSheet.cssText = css;
+  } else {
+    while (styleElement.firstChild) {
+      styleElement.removeChild(styleElement.firstChild);
+    }
+    styleElement.appendChild(document.createTextNode(css));
+  }
+}
+module.exports = styleTagTransform;
+
+/***/ }),
 
 /***/ 442:
 /***/ ((module) => {
 
 module.exports = __WEBPACK_EXTERNAL_MODULE__442__;
+
+/***/ }),
+
+/***/ 3:
+/***/ ((module) => {
+
+module.exports = __WEBPACK_EXTERNAL_MODULE__3__;
 
 /***/ })
 
@@ -33,7 +633,7 @@ module.exports = __WEBPACK_EXTERNAL_MODULE__442__;
 /******/ 		}
 /******/ 		// Create a new module (and put it into the cache)
 /******/ 		var module = __webpack_module_cache__[moduleId] = {
-/******/ 			// no module.id needed
+/******/ 			id: moduleId,
 /******/ 			// no module.loaded needed
 /******/ 			exports: {}
 /******/ 		};
@@ -46,6 +646,18 @@ module.exports = __WEBPACK_EXTERNAL_MODULE__442__;
 /******/ 	}
 /******/ 	
 /************************************************************************/
+/******/ 	/* webpack/runtime/compat get default export */
+/******/ 	(() => {
+/******/ 		// getDefaultExport function for compatibility with non-harmony modules
+/******/ 		__webpack_require__.n = (module) => {
+/******/ 			var getter = module && module.__esModule ?
+/******/ 				() => (module['default']) :
+/******/ 				() => (module);
+/******/ 			__webpack_require__.d(getter, { a: getter });
+/******/ 			return getter;
+/******/ 		};
+/******/ 	})();
+/******/ 	
 /******/ 	/* webpack/runtime/define property getters */
 /******/ 	(() => {
 /******/ 		// define getter functions for harmony exports
@@ -74,6 +686,11 @@ module.exports = __WEBPACK_EXTERNAL_MODULE__442__;
 /******/ 		};
 /******/ 	})();
 /******/ 	
+/******/ 	/* webpack/runtime/nonce */
+/******/ 	(() => {
+/******/ 		__webpack_require__.nc = undefined;
+/******/ 	})();
+/******/ 	
 /************************************************************************/
 var __webpack_exports__ = {};
 // This entry need to be wrapped in an IIFE because it need to be isolated against other modules in the chunk.
@@ -95,8 +712,12 @@ __webpack_require__.d(__webpack_exports__, {
   timeFormatter: () => (/* reexport */ time_formatter_namespaceObject),
   useClickOutside: () => (/* reexport */ hooks_useClickOutside),
   useDrag: () => (/* reexport */ hooks_useDrag),
+  useForm: () => (/* reexport */ hooks_useForm),
+  useLoading: () => (/* reexport */ hooks_useLoading),
   useNavigateTo: () => (/* reexport */ hooks_useNavigateTo),
-  useThrottle: () => (/* reexport */ hooks_useThrottle)
+  useNotification: () => (/* reexport */ hooks_useNotification),
+  useThrottle: () => (/* reexport */ hooks_useThrottle),
+  useToast: () => (/* reexport */ hooks_useToast)
 });
 
 // NAMESPACE OBJECT: ./src/libs/time-formatter.js
@@ -4002,6 +4623,7 @@ function getTargetMatch(matches, location) {
 
 // EXTERNAL MODULE: external {"root":"React","commonjs2":"react","commonjs":"react","amd":"react"}
 var external_root_React_commonjs2_react_commonjs_react_amd_react_ = __webpack_require__(442);
+var external_root_React_commonjs2_react_commonjs_react_amd_react_default = /*#__PURE__*/__webpack_require__.n(external_root_React_commonjs2_react_commonjs_react_amd_react_);
 ;// CONCATENATED MODULE: ../../node_modules/react-router/dist/index.js
 /**
  * React Router v6.10.0
@@ -5376,7 +5998,578 @@ const useThrottle = function (fn, delay) {
   }, dependency);
 };
 /* harmony default export */ const hooks_useThrottle = (useThrottle);
+;// CONCATENATED MODULE: ./src/hooks/useForm.ts
+
+const useForm = data => {
+  const [formData, setFormData] = (0,external_root_React_commonjs2_react_commonjs_react_amd_react_.useState)(data);
+
+  // form.setFieldsValue({ note: 'Hello world!', gender: 'male' });
+
+  const getData = () => {
+    return formData;
+  };
+  const setFieldValue = data => {
+    setFormData(preData => ({
+      ...preData,
+      ...data
+    }));
+  };
+  const getFieldValue = key => {
+    return formData[key];
+  };
+  let validate; // 也可以在这边实现，把 rules都传过来，然后返回的时候多传一个 errors，给 FormIten使用
+
+  const reset = () => {
+    setFormData(data);
+    // 重置
+  };
+  const clear = () => {
+    setFormData({});
+  };
+  (0,external_root_React_commonjs2_react_commonjs_react_amd_react_.useEffect)(() => {
+    setFormData(data);
+  }, []);
+  return {
+    getData,
+    validate,
+    reset,
+    clear,
+    setFieldValue,
+    getFieldValue,
+    setFormData,
+    formData
+  };
+};
+/* harmony default export */ const hooks_useForm = (useForm);
+// EXTERNAL MODULE: ../../node_modules/react-dom/client.js
+var client = __webpack_require__(137);
+// EXTERNAL MODULE: ../../node_modules/style-loader/dist/runtime/injectStylesIntoStyleTag.js
+var injectStylesIntoStyleTag = __webpack_require__(591);
+var injectStylesIntoStyleTag_default = /*#__PURE__*/__webpack_require__.n(injectStylesIntoStyleTag);
+// EXTERNAL MODULE: ../../node_modules/style-loader/dist/runtime/styleDomAPI.js
+var styleDomAPI = __webpack_require__(740);
+var styleDomAPI_default = /*#__PURE__*/__webpack_require__.n(styleDomAPI);
+// EXTERNAL MODULE: ../../node_modules/style-loader/dist/runtime/insertBySelector.js
+var insertBySelector = __webpack_require__(128);
+var insertBySelector_default = /*#__PURE__*/__webpack_require__.n(insertBySelector);
+// EXTERNAL MODULE: ../../node_modules/style-loader/dist/runtime/setAttributesWithoutAttributes.js
+var setAttributesWithoutAttributes = __webpack_require__(855);
+var setAttributesWithoutAttributes_default = /*#__PURE__*/__webpack_require__.n(setAttributesWithoutAttributes);
+// EXTERNAL MODULE: ../../node_modules/style-loader/dist/runtime/insertStyleElement.js
+var insertStyleElement = __webpack_require__(51);
+var insertStyleElement_default = /*#__PURE__*/__webpack_require__.n(insertStyleElement);
+// EXTERNAL MODULE: ../../node_modules/style-loader/dist/runtime/styleTagTransform.js
+var styleTagTransform = __webpack_require__(656);
+var styleTagTransform_default = /*#__PURE__*/__webpack_require__.n(styleTagTransform);
+// EXTERNAL MODULE: ../../node_modules/css-loader/dist/cjs.js??ruleSet[1].rules[1].use[1]!../../node_modules/sass-loader/dist/cjs.js??ruleSet[1].rules[1].use[2]!./src/hooks/notification.scss
+var notification = __webpack_require__(151);
+;// CONCATENATED MODULE: ./src/hooks/notification.scss
+
+      
+      
+      
+      
+      
+      
+      
+      
+      
+
+var options = {};
+
+options.styleTagTransform = (styleTagTransform_default());
+options.setAttributes = (setAttributesWithoutAttributes_default());
+
+      options.insert = insertBySelector_default().bind(null, "head");
+    
+options.domAPI = (styleDomAPI_default());
+options.insertStyleElement = (insertStyleElement_default());
+
+var update = injectStylesIntoStyleTag_default()(notification/* default */.A, options);
+
+
+
+
+       /* harmony default export */ const hooks_notification = (notification/* default */.A && notification/* default */.A.locals ? notification/* default */.A.locals : undefined);
+
+;// CONCATENATED MODULE: ./src/hooks/useNotification.tsx
+
+
+
+
+let notificationInstance = null;
+let root = null;
+let notificationIdRef = 0;
+let notifications = [];
+let timersMap = new Map();
+let intervalsMap = new Map();
+const NotificationContainer = () => {
+  const [notificationList, setNotificationList] = (0,external_root_React_commonjs2_react_commonjs_react_amd_react_.useState)([]);
+  (0,external_root_React_commonjs2_react_commonjs_react_amd_react_.useEffect)(() => {
+    setNotificationList(notifications);
+  }, [notifications]); // useEffect 可以监听到 非state的变量 notifications 的变化
+
+  const close = id => {
+    notifications = notifications.map(item => {
+      if (id !== undefined && item.id === id) {
+        return {
+          ...item,
+          disappearing: true
+        };
+      }
+      return item;
+    });
+    setNotificationList([...notifications]);
+    setTimeout(() => {
+      notifications = notifications.filter(item => item.id !== id);
+      setNotificationList([...notifications]);
+
+      // 清理定时器
+      const timer = timersMap.get(id);
+      const interval = intervalsMap.get(id);
+      if (timer) {
+        clearTimeout(timer);
+        timersMap.delete(id);
+      }
+      if (interval) {
+        clearInterval(interval);
+        intervalsMap.delete(id);
+      }
+    }, 300);
+  };
+  const handleMouseEnter = item => {
+    // 暂停定时器
+    const timer = timersMap.get(item.id);
+    const interval = intervalsMap.get(item.id);
+    if (timer) {
+      clearTimeout(timer);
+    }
+    if (interval) {
+      clearInterval(interval);
+    }
+  };
+  const handleMouseLeave = item => {
+    // 重新设置定时器
+    const timer = setTimeout(() => {
+      close(item.id);
+    }, item.remainTime);
+    timersMap.set(item.id, timer);
+    const interval = setInterval(() => {
+      const notification = notifications.find(n => n.id === item.id);
+      if (notification) {
+        notification.remainTime -= 100;
+        setNotificationList([...notifications]);
+      }
+    }, 100);
+    intervalsMap.set(item.id, interval);
+  };
+  const generateTitleIcon = item => {
+    switch (item.type) {
+      case "success":
+        return /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("i", {
+          className: "text-success fa-regular fa-circle-check"
+        });
+      case "warning":
+        return /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("i", {
+          className: "text-warning fa-solid fa-circle-exclamation"
+        });
+      case "info":
+        return /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("i", {
+          className: "text-info fa-solid fa-circle-info"
+        });
+      case "danger":
+        return /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("i", {
+          className: "text-danger fa-solid fa-circle-exclamation"
+        });
+      default:
+        break;
+    }
+  };
+  return /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("div", {
+    className: "adou-notification-container"
+  }, notificationList.map(item => /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("div", {
+    onMouseEnter: () => handleMouseEnter(item),
+    onMouseLeave: () => handleMouseLeave(item),
+    key: item.id,
+    className: "adou-notification ".concat(item.appearing ? "adou-notification-appearing" : "", " ").concat(item.disappearing ? "adou-notification-disappearing" : "")
+  }, /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("div", {
+    className: "adou-notification-header"
+  }, /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("div", {
+    className: "adou-notification-header-title"
+  }, /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("div", {
+    className: "adou-notification-header-title-icon"
+  }, item.customTitleIcon ? item.customTitleIcon : generateTitleIcon(item)), /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("span", {
+    className: "text-".concat(item.title, " adou-notification-header-title-text")
+  }, item.title)), /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("div", {
+    className: "adou-notification-header-close",
+    onClick: () => close(item.id)
+  }, /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("i", {
+    className: "fa-solid fa-xmark"
+  }))), /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("div", {
+    className: "adou-notification-content text-".concat(item.type)
+  }, item.message))));
+};
+const createNotificationInstance = () => {
+  // 创建容器
+  const container = document.createElement("div");
+  document.body.appendChild(container);
+
+  // 创建 root
+  root = (0,client/* createRoot */.H)(container);
+  root.render( /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement(NotificationContainer, null));
+  return {
+    open: message => {
+      var _root;
+      const id = ++notificationIdRef;
+      const data = {
+        id,
+        duration: 3000,
+        type: "info",
+        ...message
+      };
+      data.remainTime = data.duration;
+      notifications.push(data);
+      (_root = root) === null || _root === void 0 || _root.render( /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement(NotificationContainer, null));
+
+      // 设置appearing状态
+      setTimeout(() => {
+        const notification = notifications.find(n => n.id === id);
+        if (notification) {
+          var _root2;
+          notification.appearing = true;
+          (_root2 = root) === null || _root2 === void 0 || _root2.render( /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement(NotificationContainer, null));
+        }
+      }, 50);
+
+      // 设置自动关闭定时器
+      const timer = setTimeout(() => {
+        const index = notifications.findIndex(n => n.id === id);
+        if (index !== -1) {
+          var _root3;
+          notifications[index].disappearing = true;
+          (_root3 = root) === null || _root3 === void 0 || _root3.render( /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement(NotificationContainer, null));
+          setTimeout(() => {
+            var _root4;
+            notifications = notifications.filter(n => n.id !== id);
+            (_root4 = root) === null || _root4 === void 0 || _root4.render( /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement(NotificationContainer, null));
+          }, 300);
+        }
+      }, message.duration || 3000);
+      timersMap.set(id, timer);
+
+      // 设置倒计时定时器
+      const interval = setInterval(() => {
+        const notification = notifications.find(n => n.id === id);
+        if (notification) {
+          var _root5;
+          notification.remainTime -= 100;
+          (_root5 = root) === null || _root5 === void 0 || _root5.render( /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement(NotificationContainer, null));
+        }
+      }, 100);
+      intervalsMap.set(id, interval);
+    }
+  };
+};
+const useNotification = () => {
+  (0,external_root_React_commonjs2_react_commonjs_react_amd_react_.useEffect)(() => {
+    if (!notificationInstance) {
+      notificationInstance = createNotificationInstance();
+    }
+  }, []);
+  return {
+    open: message => {
+      var _notificationInstance;
+      (_notificationInstance = notificationInstance) === null || _notificationInstance === void 0 || _notificationInstance.open(message);
+    }
+  };
+};
+/* harmony default export */ const hooks_useNotification = (useNotification);
+// EXTERNAL MODULE: ../../node_modules/css-loader/dist/cjs.js??ruleSet[1].rules[1].use[1]!../../node_modules/sass-loader/dist/cjs.js??ruleSet[1].rules[1].use[2]!./src/hooks/loading.scss
+var loading = __webpack_require__(736);
+;// CONCATENATED MODULE: ./src/hooks/loading.scss
+
+      
+      
+      
+      
+      
+      
+      
+      
+      
+
+var loading_options = {};
+
+loading_options.styleTagTransform = (styleTagTransform_default());
+loading_options.setAttributes = (setAttributesWithoutAttributes_default());
+
+      loading_options.insert = insertBySelector_default().bind(null, "head");
+    
+loading_options.domAPI = (styleDomAPI_default());
+loading_options.insertStyleElement = (insertStyleElement_default());
+
+var loading_update = injectStylesIntoStyleTag_default()(loading/* default */.A, loading_options);
+
+
+
+
+       /* harmony default export */ const hooks_loading = (loading/* default */.A && loading/* default */.A.locals ? loading/* default */.A.locals : undefined);
+
+;// CONCATENATED MODULE: ./src/hooks/useLoading.tsx
+// useLoading.ts
+
+
+
+
+const Loading = () => {
+  return /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("div", {
+    className: "loading-overlay"
+  }, /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("div", {
+    className: "loading-spinner me-2"
+  }), /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("span", null, "Loading..."));
+};
+let loadingCount = 0;
+let loadingInstance = null;
+let useLoading_root = null;
+const createLoadingInstance = () => {
+  // 创建容器
+  const container = document.createElement("div");
+  container.className = "loading-wrapper";
+  document.body.appendChild(container);
+
+  // 创建 root
+  useLoading_root = (0,client/* createRoot */.H)(container);
+
+  // 渲染组件
+  const render = visible => {
+    var _root;
+    (_root = useLoading_root) === null || _root === void 0 || _root.render(visible ? /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement(Loading, null) : null);
+  };
+  return {
+    show: () => {
+      render(true);
+    },
+    hide: () => {
+      render(false);
+    }
+  };
+};
+const useLoading = () => {
+  const [isLoading, setIsLoading] = (0,external_root_React_commonjs2_react_commonjs_react_amd_react_.useState)(false);
+  (0,external_root_React_commonjs2_react_commonjs_react_amd_react_.useEffect)(() => {
+    // 确保只创建一个实例
+    if (!loadingInstance) {
+      loadingInstance = createLoadingInstance();
+    }
+  }, []);
+  const showLoading = () => {
+    var _loadingInstance;
+    loadingCount++;
+    setIsLoading(true);
+    (_loadingInstance = loadingInstance) === null || _loadingInstance === void 0 || _loadingInstance.show();
+  };
+  const hideLoading = () => {
+    loadingCount--;
+    if (loadingCount <= 0) {
+      var _loadingInstance2;
+      loadingCount = 0;
+      setIsLoading(false);
+      (_loadingInstance2 = loadingInstance) === null || _loadingInstance2 === void 0 || _loadingInstance2.hide();
+    }
+  };
+  return {
+    loading: isLoading,
+    showLoading,
+    hideLoading
+  };
+};
+/* harmony default export */ const hooks_useLoading = (useLoading);
+// EXTERNAL MODULE: ../../node_modules/css-loader/dist/cjs.js??ruleSet[1].rules[1].use[1]!../../node_modules/sass-loader/dist/cjs.js??ruleSet[1].rules[1].use[2]!./src/hooks/toast.scss
+var toast = __webpack_require__(323);
+;// CONCATENATED MODULE: ./src/hooks/toast.scss
+
+      
+      
+      
+      
+      
+      
+      
+      
+      
+
+var toast_options = {};
+
+toast_options.styleTagTransform = (styleTagTransform_default());
+toast_options.setAttributes = (setAttributesWithoutAttributes_default());
+
+      toast_options.insert = insertBySelector_default().bind(null, "head");
+    
+toast_options.domAPI = (styleDomAPI_default());
+toast_options.insertStyleElement = (insertStyleElement_default());
+
+var toast_update = injectStylesIntoStyleTag_default()(toast/* default */.A, toast_options);
+
+
+
+
+       /* harmony default export */ const hooks_toast = (toast/* default */.A && toast/* default */.A.locals ? toast/* default */.A.locals : undefined);
+
+;// CONCATENATED MODULE: ./src/hooks/useToast.tsx
+// useToast.tsx
+
+
+
+let toastInstance = null;
+let useToast_root = null;
+let toastId = 0;
+let toasts = [];
+let useToast_timersMap = new Map();
+let useToast_intervalsMap = new Map();
+const ToastContainer = () => {
+  const [toastList, setToastList] = (0,external_root_React_commonjs2_react_commonjs_react_amd_react_.useState)([]);
+  (0,external_root_React_commonjs2_react_commonjs_react_amd_react_.useEffect)(() => {
+    setToastList(toasts);
+  }, [toasts]);
+  const handleMouseEnter = id => {
+    const timer = useToast_timersMap.get(id);
+    const interval = useToast_intervalsMap.get(id);
+    if (timer) clearTimeout(timer);
+    if (interval) clearInterval(interval);
+  };
+  const handleMouseLeave = id => {
+    const toast = toasts.find(t => t.id === id);
+    if (!toast) return;
+    const remainingTime = toast.remainingTime;
+    const timer = setTimeout(() => {
+      toasts = toasts.map(t => t.id === id ? {
+        ...t,
+        disappearing: true
+      } : t);
+      setToastList([...toasts]);
+      setTimeout(() => {
+        toasts = toasts.filter(t => t.id !== id);
+        setToastList([...toasts]);
+      }, 500);
+    }, remainingTime);
+    useToast_timersMap.set(id, timer);
+    const interval = setInterval(() => {
+      const toastIndex = toasts.findIndex(t => t.id === id);
+      if (toastIndex !== -1 && toasts[toastIndex].remainingTime) {
+        toasts[toastIndex].remainingTime -= 100;
+        setToastList([...toasts]);
+      }
+    }, 100);
+    useToast_intervalsMap.set(id, interval);
+  };
+  const handleClose = toast => {
+    const timer = useToast_timersMap.get(toast.id);
+    const interval = useToast_intervalsMap.get(toast.id);
+    if (timer) clearTimeout(timer);
+    if (interval) clearInterval(interval);
+    toasts = toasts.map(t => t.id === toast.id ? {
+      ...t,
+      disappearing: true
+    } : t);
+    setToastList([...toasts]);
+    setTimeout(() => {
+      toasts = toasts.filter(t => t.id !== toast.id);
+      setToastList([...toasts]);
+    }, 500);
+  };
+  return /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("div", {
+    className: "adou-toast-container"
+  }, toastList.map(toast => /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("div", {
+    style: {
+      width: toast.width
+    },
+    key: toast.id,
+    className: "adou-toast adou-toast-".concat(toast.type, " ").concat(toast.appearing ? "appearing" : "", " ").concat(toast.disappearing ? "disappearing" : ""),
+    onMouseEnter: () => handleMouseEnter(toast.id),
+    onMouseLeave: () => handleMouseLeave(toast.id)
+  }, /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("div", {
+    className: "adou-toast-content"
+  }, toast.content, /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("button", {
+    className: "adou-toast-close",
+    onClick: () => handleClose(toast)
+  }, "\xD7")), /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("div", {
+    className: "adou-toast-timer",
+    style: {
+      width: "".concat((toast.remainingTime || 0) / (toast.duration / 100), "%")
+    }
+  }))));
+};
+const createToastInstance = () => {
+  const container = document.createElement("div");
+  document.body.appendChild(container);
+  useToast_root = (0,client/* createRoot */.H)(container);
+  useToast_root.render( /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement(ToastContainer, null));
+  return {
+    open: message => {
+      var _root;
+      const id = toastId++;
+      const newToast = {
+        id,
+        duration: 3000,
+        remainingTime: 3000,
+        ...message
+      };
+      newToast.remainingTime = newToast.duration;
+      toasts.push(newToast);
+      (_root = useToast_root) === null || _root === void 0 || _root.render( /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement(ToastContainer, null));
+      setTimeout(() => {
+        const index = toasts.findIndex(t => t.id === id);
+        if (index !== -1) {
+          var _root2;
+          toasts[index].appearing = true;
+          (_root2 = useToast_root) === null || _root2 === void 0 || _root2.render( /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement(ToastContainer, null));
+        }
+      }, 10);
+      const timer = setTimeout(() => {
+        var _root3;
+        toasts = toasts.map(t => t.id === id ? {
+          ...t,
+          disappearing: true
+        } : t);
+        (_root3 = useToast_root) === null || _root3 === void 0 || _root3.render( /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement(ToastContainer, null));
+        setTimeout(() => {
+          var _root4;
+          toasts = toasts.filter(t => t.id !== id);
+          (_root4 = useToast_root) === null || _root4 === void 0 || _root4.render( /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement(ToastContainer, null));
+        }, 500);
+      }, newToast.remainingTime);
+      useToast_timersMap.set(id, timer);
+      const interval = setInterval(() => {
+        const toastIndex = toasts.findIndex(t => t.id === id);
+        if (toastIndex !== -1 && toasts[toastIndex].remainingTime) {
+          var _root5;
+          toasts[toastIndex].remainingTime -= 100;
+          (_root5 = useToast_root) === null || _root5 === void 0 || _root5.render( /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement(ToastContainer, null));
+        }
+      }, 100);
+      useToast_intervalsMap.set(id, interval);
+    }
+  };
+};
+const useToast = () => {
+  (0,external_root_React_commonjs2_react_commonjs_react_amd_react_.useEffect)(() => {
+    if (!toastInstance) {
+      toastInstance = createToastInstance();
+    }
+  }, []);
+  return {
+    open: message => {
+      var _toastInstance;
+      (_toastInstance = toastInstance) === null || _toastInstance === void 0 || _toastInstance.open(message);
+    }
+  };
+};
+/* harmony default export */ const hooks_useToast = (useToast);
 ;// CONCATENATED MODULE: ./src/index.tsx
+
+
+
+
 
 
 

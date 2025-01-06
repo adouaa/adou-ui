@@ -71,10 +71,10 @@
 
 
     .collapse-table-td {
-        display: inline-block;
+        // display: inline-block; // 不控制，不然会影响上下居中
         // display: flex;
-        justify-content: center;
-        align-items: center;
+        // justify-content: center;
+        // align-items: center;
         // line-height: 0.8;
     }
 
@@ -102,7 +102,7 @@
     }
 
     .tr-checked {
-        background-color: #cce2fa !important;
+        background-color: #e6f4ff !important;
     }
 
     .tr-content {

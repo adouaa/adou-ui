@@ -11,6 +11,7 @@ declare const _default: React.ComponentType<Omit<{
     width?: any;
     textPosition?: "center" | "start" | "end" | "justify" | undefined;
     onEditOK?: ((data: any) => void) | undefined;
+    tdPadding?: string | undefined;
     clickChecked?: boolean | undefined;
     showHeader?: boolean | undefined;
     defaultChecked?: any;
@@ -25,7 +26,7 @@ declare const _default: React.ComponentType<Omit<{
     collection?: boolean | undefined;
     expandAll?: boolean | undefined;
     size?: "lg" | "sm" | undefined;
-    headers?: any;
+    columns?: any;
     propsData?: any;
     tableHover?: boolean | undefined;
     tableStriped?: boolean | undefined;
