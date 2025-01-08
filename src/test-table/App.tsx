@@ -147,10 +147,16 @@ const App = ({}: AppProps) => {
     ]);
 
     const columns = [
-        { label: 'Team', prop: 'teamName', width: '180px', tooltip: true, textPosition: 'start' }, // 团队名称
-        { label: 'Mem', prop: 'id', width: '150px', tooltip: true }, // 成员ID
-        { label: '人数', prop: 'count', width: '150px', sortable: true, textPosition: 'start' }, // 成员姓名
-        { label: 'YourEmail', prop: 'email', width: '150px', sortable: true }, // 成员邮箱
+        {
+            label: 'EM',
+            prop: 'teamName',
+            width: '180px',
+            tooltip: true,
+            align: 'center',
+        }, // 团队名称
+        { label: 'Mem', prop: 'id', width: '150px', tooltip: true, align: 'center' }, // 成员ID
+        { label: '人数', prop: 'count', width: '150px', sortable: true, align: 'center' }, // 成员姓名
+        { label: 'YourEmail', prop: 'email', width: '150px', sortable: true, align: 'start' }, // 成员邮箱
         { label: 'Age', prop: 'age', width: '150px' }, // 成员年龄
     ];
 
@@ -175,16 +181,18 @@ const App = ({}: AppProps) => {
     return (
         <div className="expandAll={false} app-wrapper p-3">
             <AdouTable
-                clickChecked
+                tableBorderd
+                // tableBGC={'beige'}
+                // clickChecked
+                trPointer
                 tableStriped
                 // tdPadding="p-2"
-                expandAll
-                multiple
-                defaultChecked={['team001', 'member007', 'member010', 'member011', 'member003']}
+                // expandAll
+                // multiple
+                defaultCheckedList={['team001', 'member007', 'member010', 'member011', 'member003']}
                 tableRef={tableRef}
-                collection
+                // collection
                 columns={columns}
-                textPosition="center"
                 collapse
                 data={data}
             >

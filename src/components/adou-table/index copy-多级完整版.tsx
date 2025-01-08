@@ -367,7 +367,6 @@ const Table = (props: TableProps) => {
     } else {
         array = props.children;
     }
-    // array = columns;
     let widthObject: any = {};
     const textPositionObject: any = {}; // 优先使用 每一列的 align，table 的 align 次之，都没的话默认居中
     const verticalAlignObject: any = {};
@@ -384,70 +383,6 @@ const Table = (props: TableProps) => {
     }
     console.log('columns: ', columns);
     // 渲染表头
-    const generateTheadRows = (columns) => {
-        const maxDepth = findMaxDepth(columns);
-        const rows: any = Array.from({ length: maxDepth }, () => []);
-
-        const processColumns = (cols, depth) => {
-            cols.forEach((col) => {
-                const cell = {
-                    title: col.title,
-                    colSpan: getColSpan(col, depth),
-                    rowSpan: col.children?.length ? 1 : maxDepth - depth,
-                    ...col,
-                };
-                if (!rows[depth]) {
-                    rows[depth] = [];
-                }
-                rows[depth].push(cell);
-                if (col.children) {
-                    processColumns(col.children, depth + 1);
-                }
-            });
-        };
-
-        processColumns(columns, 0);
-        return rows;
-    };
-
-    const findMaxDepth = (columns) => {
-        let maxDepth = 0;
-        columns.forEach((column) => {
-            const depth = getColumnDepth(column);
-            if (depth > maxDepth) {
-                maxDepth = depth;
-            }
-        });
-        return maxDepth;
-    };
-
-    const getColumnDepth = (column) => {
-        if (!column.children) {
-            return 1;
-        }
-        let maxChildDepth = 0;
-        column.children.forEach((child) => {
-            const childDepth = getColumnDepth(child);
-            if (childDepth > maxChildDepth) {
-                maxChildDepth = childDepth;
-            }
-        });
-        return maxChildDepth + 1;
-    };
-
-    const getColSpan = (column, depth) => {
-        if (!column.children) {
-            return 1;
-        }
-        let totalColSpan = 0;
-        column.children.forEach((child) => {
-            totalColSpan += getColSpan(child, depth + 1);
-        });
-        return totalColSpan;
-    };
-
-    const TheadRows = generateTheadRows(columns);
-    console.log('TheadRows: ', TheadRows);
     const renderTableHeader = () => {
         return (
             <thead
@@ -459,60 +394,86 @@ const Table = (props: TableProps) => {
                 }}
                 className={`text-${headTextColor}`}
             >
-                {TheadRows.map((child: any, rowIndex: number) => {
-                    if (child?.length) {
-                        return (
-                            <tr>
-                                {child.map((item: any) => {
-                                    return (
-                                        <th
-                                            rowSpan={item.rowSpan}
-                                            colSpan={item.colSpan}
+                <tr>
+                    {/* 头部 */}
+                    {collection && (
+                        <>
+                            {/* 复选框 */}
+                            <th
+                                scope="col th-collection"
+                                style={{
+                                    minWidth: '50px',
+                                    width: '50px',
+                                    maxWidth: '50px',
+                                    textAlign: 'center',
+                                }}
+                            >
+                                {multiple && <input checked={checkedAll} onChange={handleCheckedAllChange} type={!multiple ? 'radio' : 'checkbox'} />}
+                            </th>
+                        </>
+                    )}
+                    {/* 索引 */}
+                    {showIndex && (
+                        <>
+                            {/* 索引框 */}
+                            <th
+                                scope="col th-index"
+                                style={{
+                                    minWidth: '50px',
+                                    width: '50px',
+                                    maxWidth: '50px',
+                                }}
+                            ></th>
+                        </>
+                    )}
+                    {array &&
+                        array.map((child: any, rowIndex: number) => {
+                            if (child?.props) {
+                                return (
+                                    <th
+                                        style={{
+                                            whiteSpace: 'nowrap',
+                                            width: widthObject[(child as React.ReactElement).props.prop],
+                                            fontWeight: headerFontWeight,
+                                        }}
+                                        className={`text-${textPositionObject[child.props.prop]}`}
+                                        scope="col"
+                                        key={child.props.label}
+                                    >
+                                        <div
+                                            className="header-content"
                                             style={{
-                                                whiteSpace: 'nowrap',
-                                                width: widthObject[item.prop],
-                                                fontWeight: headerFontWeight,
+                                                display: 'flex',
+                                                alignItems: 'center',
+                                                justifyContent: generateHeaderStyle(textPositionObject[child.props.prop]),
                                             }}
-                                            className={`text-${textPositionObject[item.prop]} text-center align-middle`}
-                                            scope="col"
-                                            key={item.label}
                                         >
-                                            <div
-                                                className="header-content"
-                                                style={{
-                                                    display: 'flex',
-                                                    alignItems: 'center',
-                                                    justifyContent: generateHeaderStyle(textPositionObject[item.prop]),
-                                                }}
-                                            >
-                                                {/* header-text 去掉 me-2 属性 */}
-                                                <span className="header-text">{item.label}</span>
-                                                {item.sortable && (
-                                                    <div className="header-icon">
-                                                        <i
-                                                            style={{
-                                                                borderBottom: judgeSortIconBGC(item.prop) || '7px solid #000',
-                                                            }}
-                                                            onClick={() => handleSortable(item.prop)}
-                                                            className="icon sort-up"
-                                                        ></i>
-                                                        <i
-                                                            style={{
-                                                                borderTop: judgeSortIconBGC(item.prop, true) || '7px solid #000',
-                                                            }}
-                                                            onClick={() => handleSortable(item.prop, true)}
-                                                            className="icon sort-down"
-                                                        ></i>
-                                                    </div>
-                                                )}
-                                            </div>
-                                        </th>
-                                    );
-                                })}
-                            </tr>
-                        );
-                    }
-                })}
+                                            {/* header-text 去掉 me-2 属性 */}
+                                            <span className="header-text">{child.props.label}</span>
+                                            {child.props.sortable && (
+                                                <div className="header-icon">
+                                                    <i
+                                                        style={{
+                                                            borderBottom: judgeSortIconBGC(child.props.prop) || '7px solid #000',
+                                                        }}
+                                                        onClick={() => handleSortable(child.props.prop)}
+                                                        className="icon sort-up"
+                                                    ></i>
+                                                    <i
+                                                        style={{
+                                                            borderTop: judgeSortIconBGC(child.props.prop, true) || '7px solid #000',
+                                                        }}
+                                                        onClick={() => handleSortable(child.props.prop, true)}
+                                                        className="icon sort-down"
+                                                    ></i>
+                                                </div>
+                                            )}
+                                        </div>
+                                    </th>
+                                );
+                            }
+                        })}
+                </tr>
             </thead>
         );
     };

@@ -459,60 +459,88 @@ const Table = (props: TableProps) => {
                 }}
                 className={`text-${headTextColor}`}
             >
-                {TheadRows.map((child: any, rowIndex: number) => {
-                    if (child?.length) {
-                        return (
-                            <tr>
-                                {child.map((item: any) => {
-                                    return (
+                <tr>
+                    {/* 头部 */}
+                    {collection && (
+                        <>
+                            {/* 复选框 */}
+                            <th
+                                scope="col th-collection"
+                                style={{
+                                    minWidth: '50px',
+                                    width: '50px',
+                                    maxWidth: '50px',
+                                    textAlign: 'center',
+                                }}
+                            >
+                                {multiple && <input checked={checkedAll} onChange={handleCheckedAllChange} type={!multiple ? 'radio' : 'checkbox'} />}
+                            </th>
+                        </>
+                    )}
+                    {/* 索引 */}
+                    {showIndex && (
+                        <>
+                            {/* 索引框 */}
+                            <th
+                                scope="col th-index"
+                                style={{
+                                    minWidth: '50px',
+                                    width: '50px',
+                                    maxWidth: '50px',
+                                }}
+                            ></th>
+                        </>
+                    )}
+                    {array &&
+                        columns.map((child: any, rowIndex: number) => {
+                            if (child) {
+                                return (
+                                    <Fragment key={child.label}>
                                         <th
-                                            rowSpan={item.rowSpan}
-                                            colSpan={item.colSpan}
                                             style={{
                                                 whiteSpace: 'nowrap',
-                                                width: widthObject[item.prop],
+                                                width: widthObject[child.prop],
                                                 fontWeight: headerFontWeight,
                                             }}
-                                            className={`text-${textPositionObject[item.prop]} text-center align-middle`}
+                                            className={`text-${textPositionObject[child.prop]}`}
                                             scope="col"
-                                            key={item.label}
+                                            key={child.label}
                                         >
                                             <div
                                                 className="header-content"
                                                 style={{
                                                     display: 'flex',
                                                     alignItems: 'center',
-                                                    justifyContent: generateHeaderStyle(textPositionObject[item.prop]),
+                                                    justifyContent: generateHeaderStyle(textPositionObject[child.prop]),
                                                 }}
                                             >
                                                 {/* header-text 去掉 me-2 属性 */}
-                                                <span className="header-text">{item.label}</span>
-                                                {item.sortable && (
+                                                <span className="header-text">{child.label}</span>
+                                                {child.sortable && (
                                                     <div className="header-icon">
                                                         <i
                                                             style={{
-                                                                borderBottom: judgeSortIconBGC(item.prop) || '7px solid #000',
+                                                                borderBottom: judgeSortIconBGC(child.prop) || '7px solid #000',
                                                             }}
-                                                            onClick={() => handleSortable(item.prop)}
+                                                            onClick={() => handleSortable(child.prop)}
                                                             className="icon sort-up"
                                                         ></i>
                                                         <i
                                                             style={{
-                                                                borderTop: judgeSortIconBGC(item.prop, true) || '7px solid #000',
+                                                                borderTop: judgeSortIconBGC(child.prop, true) || '7px solid #000',
                                                             }}
-                                                            onClick={() => handleSortable(item.prop, true)}
+                                                            onClick={() => handleSortable(child.prop, true)}
                                                             className="icon sort-down"
                                                         ></i>
                                                     </div>
                                                 )}
                                             </div>
                                         </th>
-                                    );
-                                })}
-                            </tr>
-                        );
-                    }
-                })}
+                                    </Fragment>
+                                );
+                            }
+                        })}
+                </tr>
             </thead>
         );
     };

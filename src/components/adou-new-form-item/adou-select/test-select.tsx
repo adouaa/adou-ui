@@ -185,7 +185,6 @@ const Select = React.forwardRef((props: SelectProps, ref) => {
                 if (tempSelectValueList.find((item) => item === value)) {
                     return;
                 } else {
-                    console.log('5: ', 5);
                     tempSelectValueList.push(value);
                     // tempSelectValueList.push(value);
                     setSelectValueList(tempSelectValueList);
@@ -250,53 +249,55 @@ const Select = React.forwardRef((props: SelectProps, ref) => {
             setNewOptions(originalOptions);
         }
         e.stopPropagation();
-        // 把下面的判断提炼出来
-        setTimeout(() => {
-            calcContentPosition(); // 不在这里计算，否则会出现抖动，在 列表变化 或者 focus 的时候计算
-        }, 10);
+        if (!showSearch && mode !== 'liveSearch') {
+            setTimeout(() => {
+                calcContentPosition(); // 不在这里计算，否则会出现抖动，在 列表变化 或者 focus 的时候计算
+            }, 10);
+        }
         if (disabled) {
             return; // 如果是禁用状态，则不执行下面的逻辑
         } else if (!showSearch) {
             // 如果是普通的单选模式，那要直接打开--新增如果是 tags 模式，则不打开下拉框来选择(因为会把输入框输入的值也添加到数组里面去)
             setIsShow(true);
+            // 把下面的判断提炼出来
         } else if (isInputFocusing) {
             // 这边的判断好像都可以不要了？
             /*  if (mode === 'common') {
-                if (!selectValue?.[valueKey]) {
-                    setIsShow(true);
-                    // 要给的 定时器，这样才能正确取到 contentRef的高度，否则为0
-                    setTimeout(() => {
-                        calcContentPosition();
-                    }, 10);
-                }
-            } else if (mode === 'liveSearch') {
-                debugger;
-                // isEmptyO(selectValue) 这个判断是为了防止 defaultValue 判断为空导致 selectValue是空对象的情况
-                if (!selectValue || isEmptyO(selectValue)) {
-                    setIsShow(true);
-                    // 要给的 定时器，这样才能正确取到 contentRef的高度，否则为0
-                    setTimeout(() => {
-                        calcContentPosition();
-                    }, 10);
-                }
-            } else if (mode === 'tags') {
-                if (!selectValue || isEmptyO(selectValue)) {
-                    // setIsShow(true); --新增如果是 tags 模式，则不打开下拉框来选择(因为会把输入框输入的值也添加到数组里面去)
-                    // 要给的 定时器，这样才能正确取到 contentRef的高度，否则为0
-                    setTimeout(() => {
-                        calcContentPosition();
-                    }, 10);
-                }
-                // setIsShow(false); // 新增如果是 tags 模式，则不打开下拉框来选择(因为会把输入框输入的值也添加到数组里面去)
-            } else if (multiple) {
-                if (!selectValue || isEmptyO(selectValue)) {
-                    setIsShow(true);
-                    // 要给的 定时器，这样才能正确取到 contentRef的高度，否则为0
-                    setTimeout(() => {
-                        calcContentPosition();
-                    }, 10);
-                }
-            } */
+                  if (!selectValue?.[valueKey]) {
+                      setIsShow(true);
+                      // 要给的 定时器，这样才能正确取到 contentRef的高度，否则为0
+                      setTimeout(() => {
+                          calcContentPosition();
+                      }, 10);
+                  }
+              } else if (mode === 'liveSearch') {
+                  debugger;
+                  // isEmptyO(selectValue) 这个判断是为了防止 defaultValue 判断为空导致 selectValue是空对象的情况
+                  if (!selectValue || isEmptyO(selectValue)) {
+                      setIsShow(true);
+                      // 要给的 定时器，这样才能正确取到 contentRef的高度，否则为0
+                      setTimeout(() => {
+                          calcContentPosition();
+                      }, 10);
+                  }
+              } else if (mode === 'tags') {
+                  if (!selectValue || isEmptyO(selectValue)) {
+                      // setIsShow(true); --新增如果是 tags 模式，则不打开下拉框来选择(因为会把输入框输入的值也添加到数组里面去)
+                      // 要给的 定时器，这样才能正确取到 contentRef的高度，否则为0
+                      setTimeout(() => {
+                          calcContentPosition();
+                      }, 10);
+                  }
+                  // setIsShow(false); // 新增如果是 tags 模式，则不打开下拉框来选择(因为会把输入框输入的值也添加到数组里面去)
+              } else if (multiple) {
+                  if (!selectValue || isEmptyO(selectValue)) {
+                      setIsShow(true);
+                      // 要给的 定时器，这样才能正确取到 contentRef的高度，否则为0
+                      setTimeout(() => {
+                          calcContentPosition();
+                      }, 10);
+                  }
+              } */
         }
     };
 
@@ -340,8 +341,8 @@ const Select = React.forwardRef((props: SelectProps, ref) => {
     const getValue = () => {
         // 不能加这个逻辑，这样会导致手动选择另外的选项，返回的还是 defaultValue
         /* if (showDefaultValue) {
-              return defaultValue;
-            } */
+                return defaultValue;
+              } */
 
         if (selectValue?.[valueKey] || selectValue?.[valueKey] === 0 || selectValue?.[valueKey] === false) {
             // 感觉可有可无
@@ -418,8 +419,8 @@ const Select = React.forwardRef((props: SelectProps, ref) => {
         const newSelectValueList = [...selectValueList];
         newSelectValueList.splice(index, 1);
         /* if (selectValueList.length === 1) {
-            handleValidate([]); // 清除最后一项的时候，也要触发校验
-        } */
+              handleValidate([]); // 清除最后一项的时候，也要触发校验
+          } */
         handleFieldChange(newSelectValueList);
         handleValidate(newSelectValueList);
         setSelectValueList(newSelectValueList);
@@ -519,6 +520,9 @@ const Select = React.forwardRef((props: SelectProps, ref) => {
             }
             // inputRef.current?.focus();
         }
+        setTimeout(() => {
+            calcContentPosition();
+        }, 10);
     };
 
     const handleInputBlur = (e: React.FocusEvent<HTMLInputElement>) => {
@@ -554,10 +558,10 @@ const Select = React.forwardRef((props: SelectProps, ref) => {
 
     useEffect(() => {
         /* if (name === "tcm_usage_id") {
-        console.log("defaultValue: ", name, defaultValue);
-        console.log("---------------------------------: ", options);
-        debugger;
-      } */
+          console.log("defaultValue: ", name, defaultValue);
+          console.log("---------------------------------: ", options);
+          debugger;
+        } */
         // 新增：如果使用过 defaultValue，就不再执行下面的逻辑
         // if (hasUseDefaultValue) return;
         if (defaultValue) {
@@ -637,9 +641,9 @@ const Select = React.forwardRef((props: SelectProps, ref) => {
                         }
                     } else {
                         /* if (name === "pharmacy_id") {
-                console.log("defaultValue: ", name, defaultValue);
-                // debugger;
-              } */
+                  console.log("defaultValue: ", name, defaultValue);
+                  // debugger;
+                } */
                         if (defaultValue || defaultValue === 0 || defaultValue === false) {
                             const selectOption = options.find((option) => option[valueKey] === defaultValue);
                             setSelectValue(selectOption);
@@ -689,9 +693,9 @@ const Select = React.forwardRef((props: SelectProps, ref) => {
     // 因为现在只有在 第一次 的时候展示 select-value的div，后面都是展示 input，所以这边做了赋值处理，保证 input的值能够实时更新
     useEffect(() => {
         /* if (valueKey === "item_id") {
-        debugger;
-        console.log("selectValue: ", selectValue);
-      } */
+          debugger;
+          console.log("selectValue: ", selectValue);
+        } */
         if (
             // 下面这些情况不用在意 input 的值
             !inputRef.current ||
@@ -743,12 +747,12 @@ const Select = React.forwardRef((props: SelectProps, ref) => {
                         background: disabled ? '#eee' : transparent ? 'transparent' : backgroundColor ? backgroundColor : varient === 'filled' ? '#f0f0f0' : '',
                         flex: 1,
                         /* ...(suffixContentType === 'button'
-                            ? {
-                                  borderTopRightRadius: 0,
-                                  borderBottomRightRadius: 0,
-                                  // borderRight: "none",
-                              }
-                            : {}), */
+                              ? {
+                                    borderTopRightRadius: 0,
+                                    borderBottomRightRadius: 0,
+                                    // borderRight: "none",
+                                }
+                              : {}), */
                         minHeight: size === 'lg' ? '48px' : size === 'sm' ? '32px' : '41.6px',
                         border: varient === 'borderless' ? 'none' : '',
                         cursor: disabled ? 'not-allowed' : 'pointer',
@@ -875,10 +879,10 @@ const Select = React.forwardRef((props: SelectProps, ref) => {
                     </div>
                 </div>
                 {/* {suffixContent && (
-                      <div className={`${suffixContentType === 'button' ? 'suffix-content-btn-wrapper px-2' : 'suffix-content-text-wrapper ms-2'} ${suffixContentExternalCls || ''}`}>
-                          {suffixContent}
-                      </div>
-                  )} */}
+                        <div className={`${suffixContentType === 'button' ? 'suffix-content-btn-wrapper px-2' : 'suffix-content-text-wrapper ms-2'} ${suffixContentExternalCls || ''}`}>
+                            {suffixContent}
+                        </div>
+                    )} */}
             </div>
             {ReactDOM.createPortal(
                 <div

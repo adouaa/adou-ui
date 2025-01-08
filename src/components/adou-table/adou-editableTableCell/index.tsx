@@ -1,8 +1,8 @@
 import React, { useEffect, useRef, useState } from 'react';
-import { withTranslation } from 'react-i18next';
 import './index.scss';
 
 interface TableCellProps {
+    parentId?: any;
     tooltip?: boolean;
     sortable?: boolean;
     collapse?: boolean;
@@ -18,7 +18,7 @@ interface TableCellProps {
     eidtable?: boolean;
     render?: any;
     width?: string;
-    textPosition?: any;
+    align?: any;
     verticalAlign?: 'middle' | 'top' | 'bottom' | 'baseline';
     onChange?: (rowIndex: number, colIndex: number, value: string) => void;
     onEditCancel?: () => void;
@@ -28,6 +28,7 @@ interface TableCellProps {
 
 const TableCell = (props: TableCellProps) => {
     const {
+        parentId,
         tooltip,
         sortable,
         collapse,
@@ -41,7 +42,7 @@ const TableCell = (props: TableCellProps) => {
         colIndex,
         value,
         eidtable,
-        textPosition = 'center',
+        align = 'center',
         width,
         onChange,
         onEditCancel,
@@ -71,6 +72,19 @@ const TableCell = (props: TableCellProps) => {
         onExpand && onExpand();
     };
 
+    // 判断每一列的 对齐方式
+    const judgeTdAlign = () => {
+        switch (align) {
+            case 'start':
+                return 'justify-content-start';
+
+            case 'end':
+                return 'justify-content-end';
+            default:
+                return 'justify-content-center';
+        }
+    };
+
     // 这边必须要写一个监听传递过来的value的钩子函数，因为cell展示的值是 editValue
     // 当传递过来的value发生变化时，将它重新赋值给cell要展示的值
     // 如果cell要展示的值是 value，就可以不用写
@@ -92,16 +106,17 @@ const TableCell = (props: TableCellProps) => {
                             }}
                         ></div>
                     ) : (
-                        <div className="ps-1">
-                            <div className="value d-flex align-items-center">
+                        <div className="table-cell-content">
+                            {/* 如果该列没有 toolTip 的话，就需要到这边来控制对齐方式 */}
+                            <div className={`value d-flex align-items-center ${judgeTdAlign()}`}>
                                 {isParent ? (
                                     <i
                                         onClick={handleExpandIconClick}
                                         className={`fa-solid fa-chevron-right me-2 ${collapse ? 'table-cell-folder-rotate-down' : ''} collapse-icon`}
                                     ></i>
-                                ) : (
+                                ) : parentId && colIndex === 0 ? (
                                     <span className="ps-3"></span>
-                                )}
+                                ) : null}
                                 <div style={{ maxWidth }} className="ellipsis-1 ">
                                     {editedValue}
                                 </div>
@@ -114,4 +129,4 @@ const TableCell = (props: TableCellProps) => {
     );
 };
 
-export default withTranslation()(TableCell);
+export default TableCell;

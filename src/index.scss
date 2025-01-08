@@ -80,3 +80,9 @@
     box-shadow: 0 0 0 .25rem rgba(13, 110, 253, .25) !important;
     outline: 0 !important;
 }
+
+.center-all {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
