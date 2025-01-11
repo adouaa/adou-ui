@@ -10,6 +10,7 @@ import useThrottle from 'hooks/useThrottle';
 import IconClose from 'assets/svg/icon_close';
 
 export interface SelectProps {
+    showIcon?: boolean;
     title?: string;
     backgroundColor?: string;
     mode?: 'common' | 'liveSearch' | 'tags';
@@ -73,6 +74,7 @@ export interface SelectProps {
 
 const Select = React.forwardRef((props: SelectProps, ref) => {
     const {
+        showIcon = true,
         title,
         backgroundColor,
         mode = 'common',
@@ -753,7 +755,7 @@ const Select = React.forwardRef((props: SelectProps, ref) => {
                                     // borderRight: "none",
                                 }
                               : {}), */
-                        minHeight: size === 'lg' ? '48px' : size === 'sm' ? '32px' : '41.6px',
+                        minHeight: size === 'lg' ? '48px' : size === 'sm' ? '33.6px' : '41.6px',
                         border: varient === 'borderless' ? 'none' : '',
                         cursor: disabled ? 'not-allowed' : 'pointer',
                         ...formStyle,
@@ -806,7 +808,7 @@ const Select = React.forwardRef((props: SelectProps, ref) => {
                         ellipsis ? (
                             (!isInputFocusing || multiple) && !showSearch && mode !== 'liveSearch' ? (
                                 <div
-                                    title={selectValue[labelKey]}
+                                    title={selectValue[labelKey] || selectValue}
                                     className={`adou-select-value ${contentWrap ? 'ellipsis-1' : ''}`} // ellipsis-1 加上这个，选择框会自动变大或者变小
                                     style={{
                                         maxWidth: selectValueMaxWidth, // 设置最大宽度来支持 ellipsis
@@ -827,7 +829,7 @@ const Select = React.forwardRef((props: SelectProps, ref) => {
                         mode !== 'liveSearch' && !showSearch && !filterOption && <div className="select-value-empty-placeholder flex-fill"></div>
                     )}
                     {(showSearch || filterOption || mode === 'liveSearch') && !multiple && mode !== 'tags' && (
-                        <div className="adou-select-input-box flex-fill">
+                        <div className="adou-select-input-box flex-fill" title={selectValue?.[labelKey] || selectValue}>
                             <input
                                 placeholder={selectValue?.[valueKey] ? '' : placeholder}
                                 onFocus={handleInputFocus}
@@ -838,7 +840,7 @@ const Select = React.forwardRef((props: SelectProps, ref) => {
                                 // onClick={handleInputClick}
                                 disabled={disabled}
                                 type="text"
-                                className="adou-select-input"
+                                className="adou-select-input ellipsis-1"
                                 aria-label="Username"
                                 aria-describedby="basic-addon1"
                                 style={{
@@ -872,10 +874,12 @@ const Select = React.forwardRef((props: SelectProps, ref) => {
                                 : ''
                         }`}
                     >
-                        <i
-                            style={{ color: labelColor, right: isAddon ? '0px' : '14px' }}
-                            className={`adou-select-icon fa-solid fa-caret-right ${isShow ? 'rotate-up' : 'rotate-down'}`}
-                        ></i>
+                        {showIcon && (
+                            <i
+                                style={{ color: labelColor, right: isAddon ? '0px' : '14px' }}
+                                className={`adou-select-icon fa-solid fa-caret-right ${isShow ? 'rotate-up' : 'rotate-down'}`}
+                            ></i>
+                        )}
                     </div>
                 </div>
                 {/* {suffixContent && (

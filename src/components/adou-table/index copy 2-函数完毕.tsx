@@ -1,6 +1,6 @@
 import React, { Fragment, ReactElement, useEffect, useId, useImperativeHandle, useState } from 'react';
 import { withTranslation } from 'react-i18next';
-import EditableTableCell from './adou-editableTableCell';
+import EditableTableCell from './adou-table-cell';
 import './index.scss';
 import Tooltip from 'components/adou-tooltip';
 import isEmptyO from 'components/adou-new-form-item/isEmptyO';

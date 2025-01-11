@@ -7,6 +7,17 @@ import isEmptyO from 'components/adou-new-form-item/isEmptyO';
 
 export { EditableTableCell };
 
+export const recursiveGenerateTableHeaderRows = (columns: any[], newRows: any[] = []) => {
+    columns.forEach((column) => {
+        if (column.children) {
+            recursiveGenerateTableHeaderRows(column.children, newRows);
+        } else {
+            newRows.push(column);
+        }
+    });
+    return newRows;
+};
+
 interface TableProps {
     checkAll?: boolean;
     tdPadding?: string;
@@ -102,6 +113,10 @@ const Table = (props: TableProps) => {
 
     // 更新的数据
     const [updateKey, setUpdateKey] = useState<number>(0);
+
+    // 组合表头所需深度
+    const [theadRows, setTheadRows] = useState<any[]>([]);
+    const [maxDepth, setMaxDepth] = useState<number>(1);
 
     // 唯一 id 加上 uniqId 防止多个表格的相同复选框冲突
     const uniqId = useId();
@@ -367,6 +382,7 @@ const Table = (props: TableProps) => {
     } else {
         array = props.children;
     }
+    // array = columns;
     let widthObject: any = {};
     const textPositionObject: any = {}; // 优先使用 每一列的 align，table 的 align 次之，都没的话默认居中
     const verticalAlignObject: any = {};
@@ -381,8 +397,77 @@ const Table = (props: TableProps) => {
     if (Object.values(widthObject).every((item: any) => !item)) {
         widthObject = calculateHeaderWidth(array);
     }
-    console.log('columns: ', columns);
-    // 渲染表头
+
+    /**
+     * 表头渲染逻辑
+     */
+    const generateTheadRows = (columns: any) => {
+        const maxDepth = findMaxDepth(columns);
+        setMaxDepth(maxDepth);
+        const rows: any = Array.from({ length: maxDepth }, () => []);
+
+        const processColumns = (cols: any, depth: number) => {
+            cols.forEach((col: any) => {
+                const cell = {
+                    title: col.title,
+                    colSpan: getColSpan(col, depth),
+                    rowSpan: col.children?.length ? 1 : maxDepth - depth,
+                    ...col,
+                };
+                if (!rows[depth]) {
+                    rows[depth] = [];
+                }
+                rows[depth].push(cell);
+                if (col.children) {
+                    processColumns(col.children, depth + 1);
+                }
+            });
+        };
+
+        processColumns(columns, 0);
+        return rows;
+    };
+    const findMaxDepth = (columns: any) => {
+        let maxDepth = 0;
+        columns.forEach((column: any) => {
+            const depth = getColumnDepth(column);
+            if (depth > maxDepth) {
+                maxDepth = depth;
+            }
+        });
+        return maxDepth;
+    };
+    const getColumnDepth = (column: any) => {
+        if (!column.children) {
+            return 1;
+        }
+        let maxChildDepth = 0;
+        column.children.forEach((child: any) => {
+            const childDepth = getColumnDepth(child);
+            if (childDepth > maxChildDepth) {
+                maxChildDepth = childDepth;
+            }
+        });
+        return maxChildDepth + 1;
+    };
+    const getColSpan = (column: any, depth: number) => {
+        if (!column.children) {
+            return 1;
+        }
+        let totalColSpan = 0;
+        column.children.forEach((child: any) => {
+            totalColSpan += getColSpan(child, depth + 1);
+        });
+        return totalColSpan;
+    };
+
+    useEffect(() => {
+        const TheadRows = generateTheadRows(columns);
+        setTheadRows(TheadRows);
+    }, [columns]);
+
+    useEffect(() => {}, []);
+
     const renderTableHeader = () => {
         return (
             <thead
@@ -394,86 +479,88 @@ const Table = (props: TableProps) => {
                 }}
                 className={`text-${headTextColor}`}
             >
-                <tr>
-                    {/* 选择框 */}
-                    {collection && (
-                        <>
-                            {/* 复选框 */}
-                            <th
-                                scope="col th-collection"
-                                style={{
-                                    minWidth: '50px',
-                                    width: '50px',
-                                    maxWidth: '50px',
-                                    textAlign: 'center',
-                                }}
-                            >
-                                {multiple && <input checked={checkedAll} onChange={handleCheckedAllChange} type={!multiple ? 'radio' : 'checkbox'} />}
-                            </th>
-                        </>
-                    )}
-                    {/* 索引 */}
-                    {showIndex && (
-                        <>
-                            {/* 索引框 */}
-                            <th
-                                scope="col th-index"
-                                style={{
-                                    minWidth: '50px',
-                                    width: '50px',
-                                    maxWidth: '50px',
-                                }}
-                            ></th>
-                        </>
-                    )}
-                    {array &&
-                        array.map((child: any, rowIndex: number) => {
-                            if (child?.props) {
-                                return (
+                {/* 选择框 */}
+
+                {theadRows.map((child: any, index: number) => {
+                    if (child?.length) {
+                        return (
+                            <tr key={index}>
+                                {index === 0 && collection && (
                                     <th
+                                        rowSpan={maxDepth}
+                                        scope="col th-collection"
                                         style={{
-                                            whiteSpace: 'nowrap',
-                                            width: widthObject[(child as React.ReactElement).props.prop],
-                                            fontWeight: headerFontWeight,
+                                            minWidth: '50px',
+                                            width: '50px',
+                                            maxWidth: '50px',
+                                            textAlign: 'center',
                                         }}
-                                        className={`text-${textPositionObject[child.props.prop]}`}
-                                        scope="col"
-                                        key={child.props.label}
                                     >
-                                        <div
-                                            className="header-content"
-                                            style={{
-                                                display: 'flex',
-                                                alignItems: 'center',
-                                                justifyContent: generateHeaderStyle(textPositionObject[child.props.prop]),
-                                            }}
-                                        >
-                                            {/* header-text 去掉 me-2 属性 */}
-                                            <span className="header-text">{child.props.label}</span>
-                                            {child.props.sortable && (
-                                                <div className="header-icon">
-                                                    <i
-                                                        style={{
-                                                            borderBottom: judgeSortIconBGC(child.props.prop) || '7px solid #000',
-                                                        }}
-                                                        onClick={() => handleSortable(child.props.prop)}
-                                                        className="icon sort-up"
-                                                    ></i>
-                                                    <i
-                                                        style={{
-                                                            borderTop: judgeSortIconBGC(child.props.prop, true) || '7px solid #000',
-                                                        }}
-                                                        onClick={() => handleSortable(child.props.prop, true)}
-                                                        className="icon sort-down"
-                                                    ></i>
-                                                </div>
-                                            )}
-                                        </div>
+                                        {multiple && <input checked={checkedAll} onChange={handleCheckedAllChange} type={!multiple ? 'radio' : 'checkbox'} />}
                                     </th>
-                                );
-                            }
-                        })}
-                </tr>
+                                )}
+                                {/* 索引 */}
+                                {index === 0 && showIndex && (
+                                    <th
+                                        rowSpan={maxDepth}
+                                        scope="col th-index"
+                                        style={{
+                                            minWidth: '50px',
+                                            width: '50px',
+                                            maxWidth: '50px',
+                                        }}
+                                    ></th>
+                                )}
+                                {child.map((item: any) => {
+                                    return (
+                                        <th
+                                            rowSpan={item.rowSpan}
+                                            colSpan={item.colSpan}
+                                            style={{
+                                                whiteSpace: 'nowrap',
+                                                width: widthObject[item.prop],
+                                                fontWeight: headerFontWeight,
+                                            }}
+                                            className={`text-${textPositionObject[item.prop]} text-center align-middle`}
+                                            scope="col"
+                                            key={item.label}
+                                        >
+                                            <div
+                                                className="header-content"
+                                                style={{
+                                                    display: 'flex',
+                                                    alignItems: 'center',
+                                                    justifyContent: generateHeaderStyle(textPositionObject[item.prop]),
+                                                }}
+                                            >
+                                                {/* header-text 去掉 me-2 属性 */}
+                                                <span className="header-text">{item.label}</span>
+                                                {item.sortable && (
+                                                    <div className="header-icon">
+                                                        <i
+                                                            style={{
+                                                                borderBottom: judgeSortIconBGC(item.prop) || '7px solid #000',
+                                                            }}
+                                                            onClick={() => handleSortable(item.prop)}
+                                                            className="icon sort-up"
+                                                        ></i>
+                                                        <i
+                                                            style={{
+                                                                borderTop: judgeSortIconBGC(item.prop, true) || '7px solid #000',
+                                                            }}
+                                                            onClick={() => handleSortable(item.prop, true)}
+                                                            className="icon sort-down"
+                                                        ></i>
+                                                    </div>
+                                                )}
+                                            </div>
+                                        </th>
+                                    );
+                                })}
+                            </tr>
+                        );
+                    }
+                })}
             </thead>
         );
     };

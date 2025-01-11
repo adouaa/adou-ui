@@ -1,5 +1,4 @@
 import React from 'react';
-import { withTranslation } from 'react-i18next';
 
 interface TabItemProps {
     exsternalClsaaName?: string;
@@ -50,4 +49,4 @@ const TabItem = (props: TabItemProps) => {
     );
 };
 
-export default withTranslation()(TabItem);
+export default TabItem;

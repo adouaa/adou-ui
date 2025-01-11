@@ -28,14 +28,14 @@ const Tabs = (props: TabsProps) => {
         extraContentCls,
         contentHeight,
         showExtraContent,
-        lineaGradient = '#dafbff, #fff',
+        lineaGradient = '',
         children,
-        onLabelClick,
         activeIndex = 0,
         activeLabelColor = '#409eff',
         tabStyle = 'bootstrap',
         contentPadding,
         clearOnChange = true,
+        onLabelClick,
     } = props;
 
     const [updateKey, setupdateKey] = useState<number>(0);
@@ -84,11 +84,11 @@ const Tabs = (props: TabsProps) => {
                     </div>
                 ) : (
                     <div className="header-wrapper">
-                        <div className="bootstrap-tabs-header d-flex">
+                        <div className="bootstrap-tabs-header d-flex align-items-center">
                             <ul className="nav nav-tabs mb-2" style={{ flex: 1 }}>
                                 {tabItems.map((child: any, index: number) => {
                                     return (
-                                        <li key={index} className="nav-item d-flex" onClick={() => handleLabelClickFn(index, child)}>
+                                        <li key={index} className="nav-item d-flex mt-0" onClick={() => handleLabelClickFn(index, child)}>
                                             <a
                                                 style={{
                                                     // marginLeft: index === 0 ? "10px" : "", // 展示头部小尾巴

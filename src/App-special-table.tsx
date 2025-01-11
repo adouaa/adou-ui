@@ -1,4 +1,4 @@
-import Table, { EditableTableCell } from 'components/adou-table';
+import Table, { TableCell } from 'components/adou-table';
 import TabItem from 'components/adou-tabs/tab-item';
 import { useState } from 'react';
 import React from 'react';
@@ -95,7 +95,7 @@ const App = ({ counter }: AppProps) => {
             <hr />
             <Table collection expandAll={false} collapse data={testData} tableStriped>
                 {headerLabels.map((label) => (
-                    <EditableTableCell key={label.prop} prop={label.prop} label={label.label} />
+                    <TableCell key={label.prop} prop={label.prop} label={label.label} />
                 ))}
             </Table>
         </>

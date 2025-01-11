@@ -34,10 +34,10 @@ const TimeLine = ({ children, events, vertical = true }: TimeLineProps) => {
         });
         {
             /* events.map((event: any, index: number, self: any[]) => (
-                <div ref={timeLineContentBoxRef} className='time-line-content-box' key={event.id}>
-                    {render && render(event, timeLineWidth, timeLineHeight, index === self.length - 1)}
-                </div>
-            )) */
+                  <div ref={timeLineContentBoxRef} className='time-line-content-box' key={event.id}>
+                      {render && render(event, timeLineWidth, timeLineHeight, index === self.length - 1)}
+                  </div>
+              )) */
         }
         return enhancedChildren.map((item: any, index: number) => (
             <div className="time-line-item" key={index}>

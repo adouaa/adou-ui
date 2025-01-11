@@ -58,7 +58,7 @@ import ReactDOM from 'react-dom/client';
 
 // import App from './test-slider/App.tsx';
 
-import App from './test-table/App.tsx';
+// import App from './test-table/App.tsx';
 
 // import App from './test-rate/App.tsx';
 
@@ -83,6 +83,7 @@ import App from './test-table/App.tsx';
 // import App from './test-resizeable-sliderbar/App.tsx';
 
 // import App from './App-file-upload.tsx';
+import App from './App.tsx';
 
 import 'bootstrap/dist/css/bootstrap.min.css';
 

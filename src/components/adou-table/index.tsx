@@ -1,13 +1,25 @@
 import React, { Fragment, ReactElement, useEffect, useId, useImperativeHandle, useState } from 'react';
 import { withTranslation } from 'react-i18next';
-import EditableTableCell from './adou-editableTableCell';
+import TableCell from './adou-table-cell';
 import './index.scss';
 import Tooltip from 'components/adou-tooltip';
 import isEmptyO from 'components/adou-new-form-item/isEmptyO';
 
-export { EditableTableCell };
+export { TableCell };
+
+export const recursiveGenerateTableHeaderRows = (columns: any[], newRows: any[] = []) => {
+    columns.forEach((column) => {
+        if (column.children) {
+            recursiveGenerateTableHeaderRows(column.children, newRows);
+        } else {
+            newRows.push(column);
+        }
+    });
+    return newRows;
+};
 
 interface TableProps {
+    showTip?: boolean;
     checkAll?: boolean;
     tdPadding?: string;
     clickChecked?: boolean;
@@ -54,6 +66,7 @@ interface TableProps {
 
 const Table = (props: TableProps) => {
     const {
+        showTip,
         checkAll,
         tdPadding = 'px-2 py-3',
         clickChecked,
@@ -71,7 +84,7 @@ const Table = (props: TableProps) => {
         trPointer = false,
         align,
         collection,
-        collapse,
+        collapse = true,
         expandAll = false,
         size = 'lg',
         data,
@@ -102,6 +115,10 @@ const Table = (props: TableProps) => {
 
     // 更新的数据
     const [updateKey, setUpdateKey] = useState<number>(0);
+
+    // 组合表头所需深度
+    const [theadRows, setTheadRows] = useState<any[]>([]);
+    const [maxDepth, setMaxDepth] = useState<number>(1);
 
     // 唯一 id 加上 uniqId 防止多个表格的相同复选框冲突
     const uniqId = useId();
@@ -152,7 +169,7 @@ const Table = (props: TableProps) => {
 
     // 判断每一列的 对齐方式
     const judgeTdAlign = (data: any) => {
-        switch (data.align) {
+        switch (data.align || align) {
             case 'start':
                 return 'justify-content-start';
 
@@ -161,6 +178,19 @@ const Table = (props: TableProps) => {
             default:
                 return 'justify-content-center';
         }
+    };
+
+    /**
+     *
+     * @param data 父级的那一行数据
+     * @param colProps 当前列的属性
+     * @param colIndex 当前列的索引
+     * @returns
+     */
+    const judgeChildCellAlign = (data: any, colProps: any, colIndex: number) => {
+        return !colIndex && data.children?.length
+            ? 'start' // 父级存在子级时，第一列左对齐
+            : colProps.align || align;
     };
 
     // 排序的逻辑--坑：一定要使用 [...preArr].sort，不能直接preArr.sort，这样会影响原来的数据，有Bug！！！
@@ -225,15 +255,27 @@ const Table = (props: TableProps) => {
 
         // setTableData((preArr: any) => preArr.sort((a: any, b: any) => (a[prop] > b[prop] ? 1 : -1)));
         /* if (isDown) {
-          const findItem = tableHeaders.find((item: any) => item.prop === prop);
-    
-          } */
+      const findItem = tableHeaders.find((item: any) => item.prop === prop);
+
+      } */
     };
+    /**
+     *
+     * @param array 列数组
+     * @param data 父级的那一行数据，巧妙化解了第一列左对齐的问题，可以通过父级是否有子数据来判断是否需要左对齐
+     * @param rowIndex 行索引
+     * @param verticalAlignObject 垂直对齐方式对象
+     * @param widthObject 宽度对象
+     * @param textPositionObject 文字位置对象
+     * @param level 层级
+     * @returns
+     */
 
     const renderChildren = (array: any, data: any, rowIndex: number, verticalAlignObject: any, widthObject: any, textPositionObject: any, level: number = 0) => {
         level++;
+        console.log('data: ', data);
         return (
-            data.collapse &&
+            data.collapse && // 可以折叠并且有子级才去展示子数据
             data.children &&
             data.children.map((childData: any, index: number) => (
                 <Fragment key={childData[id]}>
@@ -246,8 +288,8 @@ const Table = (props: TableProps) => {
                         }}
                         key={childData[id]}
                         /* style={{
-                          ...(data.collapse ? { display: '' } : { display: 'none' }),
-                      }} */
+                      ...(data.collapse ? { display: '' } : { display: 'none' }),
+                  }} */
                     >
                         {/* 复选框框 */}
                         {collection && (
@@ -287,52 +329,116 @@ const Table = (props: TableProps) => {
                                 {`${rowIndex + 1}.${index + 1}`}
                             </th>
                         )}
-                        {React.Children.map(array, (child, colIndex) => {
-                            let childProps = (child as React.ReactElement).props;
-                            let prop = (child as React.ReactElement).props.prop;
-                            if (React.isValidElement(child)) {
-                                const enhancedChild = React.cloneElement(child, {
-                                    parentId: childData.parentId, // 父级id
-                                    collapse: childData.collapse,
-                                    onExpand: () => handleCollapseClick(childData),
-                                    isParent: !colIndex && childData.children,
-                                    value: childData[prop],
-                                    rowData: childData,
-                                    eidtable,
-                                    prop: prop,
-                                    rowIndex: rowIndex,
-                                    colIndex: colIndex,
-                                    align: childProps.align || align,
-                                } as React.Attributes);
-                                return (
-                                    <td
-                                        // 这边也不用在子级的第一列在最左侧了
-                                        // colIndex === 0 ? 'text-start' :
-                                        className={`text-${childProps.align} ${tdPadding}`}
-                                        style={{
-                                            verticalAlign: verticalAlignObject[prop],
-                                            width: widthObject[(child as React.ReactElement).props.prop],
-                                            overflowWrap: 'break-word',
-                                            wordWrap: 'break-word',
-                                            wordBreak: 'break-word',
-                                            [`${!colIndex ? 'paddingLeft' : ''}`]: '40px',
-                                        }}
-                                        key={colIndex}
-                                    >
-                                        <div className={`collapse-table-td d-flex ${judgeTdAlign(childProps)}`} style={{ paddingLeft: !colIndex ? level * 15 + 'px' : 0 }}>
-                                            {/* {!colIndex && collapse && data.children ? '>' : ''} */}
-                                            {(child as ReactElement).props.tooltip ? (
-                                                <Tooltip position="right" text={childData[prop]}>
-                                                    {enhancedChild}
-                                                </Tooltip>
-                                            ) : (
-                                                enhancedChild
-                                            )}
-                                        </div>
-                                    </td>
-                                );
-                            }
-                        })}
+                        {props.children
+                            ? React.Children.map(array, (col, colIndex) => {
+                                  let colProps = col.props; // 有 children 就肯定有 props
+                                  let prop = colProps.prop;
+                                  if (React.isValidElement(col)) {
+                                      const enhancedChild = React.cloneElement(col, {
+                                          parentId: childData.parentId, // 父级id
+                                          collapse: childData.collapse,
+                                          onExpand: () => handleCollapseClick(childData),
+                                          isParent: !colIndex && childData.children, // 是否是父级的条件：第一列且存在 children
+                                          value: childData[prop],
+                                          rowData: childData,
+                                          eidtable,
+                                          prop: prop,
+                                          rowIndex: rowIndex,
+                                          colIndex: colIndex,
+                                          align: judgeChildCellAlign(data, colProps, colIndex),
+
+                                          maxWidth: colProps.maxWidth || maxWidth,
+                                          showTip: colProps.showTip || showTip,
+                                      } as React.Attributes);
+                                      return (
+                                          <td
+                                              // 这边也不用在子级的第一列在最左侧了
+                                              // colIndex === 0 ? 'text-start' :
+                                              className={`text-${colProps.align} ${tdPadding}`}
+                                              style={{
+                                                  verticalAlign: verticalAlignObject[prop],
+                                                  width: widthObject[prop],
+                                                  overflowWrap: 'break-word',
+                                                  wordWrap: 'break-word',
+                                                  wordBreak: 'break-word',
+                                                  maxWidth: colProps.maxWidth || maxWidth,
+                                                  [`${!colIndex ? 'paddingLeft' : ''}`]: '40px',
+                                              }}
+                                              key={colIndex}
+                                          >
+                                              <div
+                                                  className={`collapse-table-td d-flex ${judgeTdAlign(colProps)}`}
+                                                  style={{
+                                                      paddingLeft: !colIndex ? level * 15 + 'px' : 0,
+                                                  }}
+                                              >
+                                                  {/* {!colIndex && collapse && data.children ? '>' : ''} */}
+                                                  {colProps.showTip ? (
+                                                      <Tooltip position="right" text={childData[prop]}>
+                                                          {enhancedChild}
+                                                      </Tooltip>
+                                                  ) : (
+                                                      enhancedChild
+                                                  )}
+                                              </div>
+                                          </td>
+                                      );
+                                  }
+                              })
+                            : recursiveGenerateTableHeaderRows(columns).map((col: any, colIndex: number) => {
+                                  console.log(': ', recursiveGenerateTableHeaderRows(columns));
+
+                                  let colProps = col.props ? col.props : col; // 有 children 就肯定有 props，没有 children 就没有 props，直接取 col
+                                  let prop = colProps.prop;
+                                  const childTableCellProps = {
+                                      parentId: childData.parentId, // 父级id
+                                      collapse: childData.collapse,
+                                      onExpand: () => handleCollapseClick(childData),
+                                      isParent: !colIndex && childData.children,
+                                      value: childData[prop],
+                                      rowData: childData,
+                                      eidtable,
+                                      prop: prop,
+                                      rowIndex: rowIndex,
+                                      colIndex: colIndex,
+                                      align: judgeChildCellAlign(data, colProps, colIndex),
+                                      maxWidth: colProps.maxWidth || maxWidth,
+                                      showTip: colProps.showTip || showTip,
+                                  };
+                                  return (
+                                      <td
+                                          // 这边也不用在子级的第一列在最左侧了
+                                          // colIndex === 0 ? 'text-start' :
+                                          className={`text-${colProps.align} ${tdPadding}`}
+                                          style={{
+                                              verticalAlign: verticalAlignObject[prop],
+                                              width: widthObject[colProps.prop],
+                                              overflowWrap: 'break-word',
+                                              wordWrap: 'break-word',
+                                              wordBreak: 'break-word',
+                                              maxWidth: colProps.maxWidth || maxWidth,
+                                              [`${!colIndex ? 'paddingLeft' : ''}`]: '40px',
+                                          }}
+                                          key={colIndex}
+                                      >
+                                          <div
+                                              className={`collapse-table-td d-flex ${judgeTdAlign(colProps)}`}
+                                              style={{
+                                                  paddingLeft: !colIndex ? level * 15 + 'px' : 0,
+                                              }}
+                                          >
+                                              {/* {!colIndex && collapse && data.children ? '>' : ''} */}
+                                              {colProps.showTip ? (
+                                                  <Tooltip position="right" text={childData[prop]}>
+                                                      {<TableCell {...childTableCellProps}></TableCell>}
+                                                  </Tooltip>
+                                              ) : (
+                                                  <TableCell {...childTableCellProps}></TableCell>
+                                              )}
+                                          </div>
+                                      </td>
+                                  );
+                              })}
                     </tr>
                     {/* {childData.children?.lentg > 0 ? '有孩子' : null} */}
                     {childData.children?.length > 0 ? renderChildren(array, childData, rowIndex, verticalAlignObject, widthObject, textPositionObject, level) : null}
@@ -343,31 +449,38 @@ const Table = (props: TableProps) => {
 
     // 计算每一列的宽度
     const calculateHeaderWidth = (columns: any[]) => {
-        const labelLengthObj: any = {};
+        console.log('calculateHeaderWidth-------------: ');
+        const titleLengthObj: any = {};
         const newHeaderLabels = columns.map((item: any) => {
             return {
-                label: item.props.label,
+                title: item.props.title,
                 prop: item.props.prop,
             };
         });
 
-        const totalLabelLength = newHeaderLabels.reduce((acc, curr) => acc + curr.label.length, 0);
+        const totalLabelLength = newHeaderLabels.reduce((acc, curr) => acc + curr.title.length, 0);
 
         newHeaderLabels.forEach((item: any) => {
-            labelLengthObj[item.prop] = Number((item.label?.length / totalLabelLength).toFixed(2)) * 100 + '%';
+            titleLengthObj[item.prop] = Number((item.title?.length / totalLabelLength).toFixed(2)) * 100 + '%';
         });
 
-        return labelLengthObj;
+        return titleLengthObj;
     };
 
     //   渲染表头宽度和对齐方式所需数据
     let array: any = [];
-    if (!props.children?.length) {
-        array.push(props.children);
+    if (props.children) {
+        if (!props.children?.length) {
+            array.push(props.children);
+        } else {
+            array = props.children;
+        }
     } else {
-        array = props.children;
+        array = recursiveGenerateTableHeaderRows(columns).map((item: any) => {
+            item.props = item;
+            return item;
+        });
     }
-    // array = columns;
     let widthObject: any = {};
     const textPositionObject: any = {}; // 优先使用 每一列的 align，table 的 align 次之，都没的话默认居中
     const verticalAlignObject: any = {};
@@ -379,17 +492,19 @@ const Table = (props: TableProps) => {
             verticalAlignObject[item.props.prop] = item.props.verticalAlign || 'middle';
         }
     });
-    if (Object.values(widthObject).every((item: any) => !item)) {
+    if (!isEmptyO(widthObject) && Object.values(widthObject).every((item: any) => !item)) {
         widthObject = calculateHeaderWidth(array);
     }
-    console.log('columns: ', columns);
-    // 渲染表头
-    const generateTheadRows = (columns) => {
+    /**
+     * 表头渲染逻辑
+     */
+    const generateTheadRows = (columns: any) => {
         const maxDepth = findMaxDepth(columns);
+        setMaxDepth(maxDepth);
         const rows: any = Array.from({ length: maxDepth }, () => []);
 
-        const processColumns = (cols, depth) => {
-            cols.forEach((col) => {
+        const processColumns = (cols: any, depth: number) => {
+            cols.forEach((col: any) => {
                 const cell = {
                     title: col.title,
                     colSpan: getColSpan(col, depth),
@@ -409,10 +524,9 @@ const Table = (props: TableProps) => {
         processColumns(columns, 0);
         return rows;
     };
-
-    const findMaxDepth = (columns) => {
+    const findMaxDepth = (columns: any) => {
         let maxDepth = 0;
-        columns.forEach((column) => {
+        columns.forEach((column: any) => {
             const depth = getColumnDepth(column);
             if (depth > maxDepth) {
                 maxDepth = depth;
@@ -420,13 +534,12 @@ const Table = (props: TableProps) => {
         });
         return maxDepth;
     };
-
-    const getColumnDepth = (column) => {
+    const getColumnDepth = (column: any) => {
         if (!column.children) {
             return 1;
         }
         let maxChildDepth = 0;
-        column.children.forEach((child) => {
+        column.children.forEach((child: any) => {
             const childDepth = getColumnDepth(child);
             if (childDepth > maxChildDepth) {
                 maxChildDepth = childDepth;
@@ -434,20 +547,24 @@ const Table = (props: TableProps) => {
         });
         return maxChildDepth + 1;
     };
-
-    const getColSpan = (column, depth) => {
+    const getColSpan = (column: any, depth: number) => {
         if (!column.children) {
             return 1;
         }
         let totalColSpan = 0;
-        column.children.forEach((child) => {
+        column.children.forEach((child: any) => {
             totalColSpan += getColSpan(child, depth + 1);
         });
         return totalColSpan;
     };
 
-    const TheadRows = generateTheadRows(columns);
-    console.log('TheadRows: ', TheadRows);
+    useEffect(() => {
+        const TheadRows = generateTheadRows(columns);
+        setTheadRows(TheadRows);
+    }, [columns]);
+
+    useEffect(() => {}, []);
+
     const renderTableHeader = () => {
         return (
             <thead
@@ -459,10 +576,38 @@ const Table = (props: TableProps) => {
                 }}
                 className={`text-${headTextColor}`}
             >
-                {TheadRows.map((child: any, rowIndex: number) => {
+                {/* 选择框 */}
+
+                {theadRows.map((child: any, index: number) => {
                     if (child?.length) {
                         return (
-                            <tr>
+                            <tr key={index}>
+                                {index === 0 && collection && (
+                                    <th
+                                        rowSpan={maxDepth}
+                                        scope="col th-collection"
+                                        style={{
+                                            minWidth: '50px',
+                                            width: '50px',
+                                            maxWidth: '50px',
+                                            textAlign: 'center',
+                                        }}
+                                    >
+                                        {multiple && <input checked={checkedAll} onChange={handleCheckedAllChange} type={!multiple ? 'radio' : 'checkbox'} />}
+                                    </th>
+                                )}
+                                {/* 索引 */}
+                                {index === 0 && showIndex && (
+                                    <th
+                                        rowSpan={maxDepth}
+                                        scope="col th-index"
+                                        style={{
+                                            minWidth: '50px',
+                                            width: '50px',
+                                            maxWidth: '50px',
+                                        }}
+                                    ></th>
+                                )}
                                 {child.map((item: any) => {
                                     return (
                                         <th
@@ -473,9 +618,9 @@ const Table = (props: TableProps) => {
                                                 width: widthObject[item.prop],
                                                 fontWeight: headerFontWeight,
                                             }}
-                                            className={`text-${textPositionObject[item.prop]} text-center align-middle`}
+                                            className={`text-${textPositionObject[item.prop]} align-middle`}
                                             scope="col"
-                                            key={item.label}
+                                            key={item.title}
                                         >
                                             <div
                                                 className="header-content"
@@ -486,9 +631,9 @@ const Table = (props: TableProps) => {
                                                 }}
                                             >
                                                 {/* header-text 去掉 me-2 属性 */}
-                                                <span className="header-text">{item.label}</span>
+                                                <span className="header-text">{item.title}</span>
                                                 {item.sortable && (
-                                                    <div className="header-icon">
+                                                    <div className="header-icon ms-1">
                                                         <i
                                                             style={{
                                                                 borderBottom: judgeSortIconBGC(item.prop) || '7px solid #000',
@@ -519,6 +664,8 @@ const Table = (props: TableProps) => {
 
     // 渲染折叠的子组件
     const renderTableBody = () => {
+        console.log('columns: ', columns);
+        console.log('columns: ', recursiveGenerateTableHeaderRows(columns, []));
         return (
             <tbody className={`table-body ${divider ? 'table-group-divider' : ''}`}>
                 {tableData.length > 0 &&
@@ -575,55 +722,110 @@ const Table = (props: TableProps) => {
                                             {rowIndex + 1}
                                         </td>
                                     )}
-                                    {React.Children.map(array, (child, colIndex) => {
-                                        let prop = (child as React.ReactElement).props.prop;
-                                        const childProps = (child as React.ReactElement).props;
+                                    {props.children
+                                        ? React.Children.map(array, (col, colIndex) => {
+                                              const colProps = col.props; // 有 children 就肯定有 props
+                                              let prop = colProps.prop;
 
-                                        if (React.isValidElement(child)) {
-                                            const enhancedChild = React.cloneElement(child, {
-                                                onExpand: () => handleCollapseClick(data),
-                                                isParent: !colIndex && collapse && data.children,
-                                                value: data[`${prop}`],
-                                                rowData: data,
-                                                eidtable,
-                                                prop: prop,
-                                                rowIndex: rowIndex,
-                                                colIndex: colIndex,
-                                                canCollapse: data.children,
-                                                collapse: data.collapse,
-                                                // 防止 Table 的 align 不生效的bug
-                                                align: childProps.align || align,
-                                                width: widthObject[childProps.prop],
-                                                // maxWidth: childProps.maxWidth,
-                                            } as React.Attributes);
-                                            return (
-                                                <td
-                                                    // 父级第一列不需要在 最左侧了
-                                                    // !colIndex && collapse && data.children ? 'text-start' : `text-${textPositionObject[prop]}`
-                                                    className={`text-${childProps.align} ${tdPadding} 111`}
-                                                    style={{
-                                                        verticalAlign: verticalAlignObject[prop],
-                                                        width: widthObject[childProps.prop],
-                                                        // maxWidth: maxWidth || childProps.maxWidth,
-                                                        overflowWrap: 'break-word',
-                                                        wordWrap: 'break-word',
-                                                        wordBreak: 'break-word',
-                                                        // 如果要默认展示一行，并且x轴太长可以滚动的话，则设置为nowrap
-                                                        // 注意：此时，外部设置的 width就没作用了，表格会自己根据内容来设置宽度
-                                                        whiteSpace: 'nowrap',
-                                                        /*  [`${!colIndex && data.children ? 'paddingLeft' : ''}`]: '35px', */
-                                                    }}
-                                                    key={colIndex}
-                                                >
-                                                    {/* 整个子组件展示的位置 */}
-                                                    <div className={`collapse-table-td d-flex ${judgeTdAlign(childProps)}`}>
-                                                        {/* {!colIndex && collapse && data.children ? '>' : ''} */}
-                                                        {childProps.tooltip ? <Tooltip text={data[prop]}>{enhancedChild}</Tooltip> : enhancedChild}
-                                                    </div>
-                                                </td>
-                                            );
-                                        }
-                                    })}
+                                              if (React.isValidElement(col)) {
+                                                  const enhancedChild = React.cloneElement(col, {
+                                                      onExpand: () => handleCollapseClick(data),
+                                                      isParent: !colIndex && collapse && data.children,
+                                                      value: data[`${prop}`],
+                                                      rowData: data,
+                                                      eidtable,
+                                                      prop: prop,
+                                                      rowIndex: rowIndex,
+                                                      colIndex: colIndex,
+                                                      canCollapse: data.children,
+                                                      collapse: data.collapse,
+                                                      // 防止 Table 的 align 不生效的bug
+                                                      align: !colIndex && collapse && data.children ? 'start' : colProps.align || align,
+                                                      width: widthObject[colProps.prop],
+                                                      maxWidth: colProps.maxWidth || maxWidth,
+                                                      showTip: colProps.showTip || showTip,
+                                                  } as React.Attributes);
+                                                  return (
+                                                      <td
+                                                          // 父级第一列不需要在 最左侧了
+                                                          // !colIndex && collapse && data.children ? 'text-start' : `text-${textPositionObject[prop]}`
+                                                          className={`text-${colProps.align || align} ${tdPadding}`}
+                                                          style={{
+                                                              verticalAlign: verticalAlignObject[prop],
+                                                              width: widthObject[colProps.prop],
+                                                              maxWidth: colProps.maxWidth || maxWidth,
+                                                              overflowWrap: 'break-word',
+                                                              wordWrap: 'break-word',
+                                                              wordBreak: 'break-word',
+                                                              // 如果要默认展示一行，并且x轴太长可以滚动的话，则设置为nowrap
+                                                              // 注意：此时，外部设置的 width就没作用了，表格会自己根据内容来设置宽度
+                                                              whiteSpace: 'nowrap',
+                                                              /*  [`${!colIndex && data.children ? 'paddingLeft' : ''}`]: '35px', */
+                                                          }}
+                                                          key={colIndex}
+                                                      >
+                                                          {/* 整个子组件展示的位置 */}
+                                                          <div className={`collapse-table-td d-flex ${judgeTdAlign(colProps)}`}>
+                                                              {/* {!colIndex && collapse && data.children ? '>' : ''} */}
+                                                              {colProps.showTip ? <Tooltip text={data[prop]}>{enhancedChild}</Tooltip> : enhancedChild}
+                                                          </div>
+                                                      </td>
+                                                  );
+                                              }
+                                          })
+                                        : recursiveGenerateTableHeaderRows(columns).map((col: any, colIndex: number) => {
+                                              const colProps = col.props ? col.props : col; // 有 children 就肯定有 props，没有 children 的话，props 就是 col 本身
+                                              let prop = colProps.prop;
+                                              const tableCellProps = {
+                                                  onExpand: () => handleCollapseClick(data),
+                                                  isParent: !colIndex && collapse && data.children,
+                                                  value: data[`${prop}`],
+                                                  rowData: data,
+                                                  eidtable,
+                                                  prop: prop,
+                                                  rowIndex: rowIndex,
+                                                  colIndex: colIndex,
+                                                  canCollapse: data.children,
+                                                  collapse: data.collapse,
+                                                  // 防止 Table 的 align 不生效的bug
+                                                  align: !colIndex && collapse && data.children ? 'start' : colProps.align || align,
+                                                  width: widthObject[colProps.prop],
+                                                  maxWidth: colProps.maxWidth || maxWidth,
+                                                  showTip: colProps.showTip || showTip,
+                                              };
+                                              return (
+                                                  <td
+                                                      // 父级第一列不需要在 最左侧了
+                                                      // !colIndex && collapse && data.children ? 'text-start' : `text-${textPositionObject[prop]}`
+                                                      className={`text-${colProps.align || align} ${tdPadding}`}
+                                                      style={{
+                                                          verticalAlign: verticalAlignObject[prop],
+                                                          width: widthObject[colProps.prop],
+                                                          maxWidth: colProps.maxWidth || maxWidth,
+                                                          overflowWrap: 'break-word',
+                                                          wordWrap: 'break-word',
+                                                          wordBreak: 'break-word',
+                                                          // 如果要默认展示一行，并且x轴太长可以滚动的话，则设置为nowrap
+                                                          // 注意：此时，外部设置的 width就没作用了，表格会自己根据内容来设置宽度
+                                                          whiteSpace: 'nowrap',
+                                                          /*  [`${!colIndex && data.children ? 'paddingLeft' : ''}`]: '35px', */
+                                                      }}
+                                                      key={colIndex}
+                                                  >
+                                                      {/* 整个子组件展示的位置 */}
+                                                      <div className={`collapse-table-td d-flex ${judgeTdAlign(colProps)}`}>
+                                                          {/* {!colIndex && collapse && data.children ? '>' : ''} */}
+                                                          {colProps.showTip ? (
+                                                              <Tooltip text={data[prop]}>
+                                                                  <TableCell {...tableCellProps}></TableCell>
+                                                              </Tooltip>
+                                                          ) : (
+                                                              <TableCell {...tableCellProps}></TableCell>
+                                                          )}
+                                                      </div>
+                                                  </td>
+                                              );
+                                          })}
                                 </tr>
                                 {/* ***************************************展开行********************************** */}
                                 {renderChildren(array, data, rowIndex, verticalAlignObject, widthObject, textPositionObject)}
@@ -727,19 +929,19 @@ const Table = (props: TableProps) => {
     };
 
     // 新增 默认选中 / 全选
+    const recursiveCheckAll = (data: any[]) => {
+        return data.map((item: any) => {
+            item.checked = true;
+            if (item.children?.length) {
+                recursiveCheckAll(item.children);
+            }
+            return item;
+        });
+    };
     const handleDefaultChecked = (tempData?: any) => {
         if (checkAll) {
-            setTableData((preData: any) =>
-                preData.map((item: any) => {
-                    item.checked = true;
-                    item.children = item.children?.map((item: any) => {
-                        item.checked = true;
-                        return item;
-                    });
-
-                    return item;
-                })
-            );
+            const newTableData = recursiveCheckAll(tempData);
+            setTableData(newTableData);
             setCheckedAll(true); // 头部也要勾选上
         } else if (Array.isArray(defaultCheckedList) && defaultCheckedList.length > 0) {
             // 如果传入的是数组，则去 递归选中这些节点，子节点也要
@@ -778,8 +980,8 @@ const Table = (props: TableProps) => {
                 } else if (item.children?.length) {
                     item.children = recursiveUpdateTableDataCheckState(item.children); // 这步要先执行，不然下面的 else if 判断不会进入 不符合的父节点的子级节点
                 } /* else if (!multiple) {
-                      item.checked = false;
-                  } */
+                  item.checked = false;
+              } */
                 return item;
             });
         };
@@ -924,7 +1126,7 @@ const Table = (props: TableProps) => {
         return tempData.map((item: any) => {
             item.collapse = state;
             if (item.children) {
-                recursiveExpandTable(item.children);
+                recursiveExpandTable(item.children, state); // 记得把 state 传到子级去去，不然子节点都会默认展开
             }
             return item;
         });
@@ -962,14 +1164,14 @@ const Table = (props: TableProps) => {
 
     useEffect(() => {
         /* setTableData((preData: any) =>
-                preData.map((item: any) => {
-                    const isChildrenAllChecked = areAllChecked(item.children);
-                    if (isChildrenAllChecked) {
-                        item.checked = true;
-                    }
-                    return item;
-                })
-            ); */
+            preData.map((item: any) => {
+                const isChildrenAllChecked = areAllChecked(item.children);
+                if (isChildrenAllChecked) {
+                    item.checked = true;
+                }
+                return item;
+            })
+        ); */
     }, [tableData]);
 
     useEffect(() => {
@@ -995,8 +1197,8 @@ const Table = (props: TableProps) => {
     }, [columns]);
 
     /*     useEffect(() => {
-          
-      }, [tableHeaders]); */
+      
+  }, [tableHeaders]); */
 
     useImperativeHandle(tableRef, () => ({
         clearChecked: handleClearChecked,
@@ -1033,6 +1235,6 @@ const Table = (props: TableProps) => {
     );
 };
 
-Table.EditableTableCell = EditableTableCell;
+Table.TableCell = TableCell;
 
 export default withTranslation()(Table);
