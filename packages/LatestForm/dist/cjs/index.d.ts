@@ -1,5 +1,6 @@
 import React from "react";
 interface FormProps {
+    commonForItemClsssName?: string;
     commonDisabled?: boolean;
     showNotFormItem?: boolean;
     commonContentBackgroundColor?: any;

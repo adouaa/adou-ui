@@ -103,6 +103,7 @@ __webpack_require__.r(__webpack_exports__);
 
 const Form = /*#__PURE__*/(0,react__WEBPACK_IMPORTED_MODULE_0__.forwardRef)((_ref, AdouFormRef) => {
   let {
+    commonForItemClsssName,
     commonDisabled,
     showNotFormItem,
     commonContentBackgroundColor = "white",
@@ -209,6 +210,7 @@ const Form = /*#__PURE__*/(0,react__WEBPACK_IMPORTED_MODULE_0__.forwardRef)((_re
         wrapperWidth: commonFormItemWrapperWidth,
         wrapperMaxWidth: commonFormItemWrapperMaxWidth,
         wrapperMinWidth: commonFormItemWrapperMinWidth,
+        wrapperClassName: commonForItemClsssName,
         contentBackgroundColor: commonContentBackgroundColor,
         rules: commonRules ? commonRules : required ? [{
           required: true

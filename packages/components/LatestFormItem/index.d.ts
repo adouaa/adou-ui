@@ -2,6 +2,8 @@ import { ReactNode } from "react";
 import React from "react";
 import "./index.scss";
 interface FormItemProps {
+    wrapperClassName?: string;
+    suffix?: any;
     disabled?: boolean;
     labelColor?: string;
     contentBackgroundColor?: string;
@@ -19,16 +21,16 @@ interface FormItemProps {
     data?: any;
     clearable?: boolean;
     addonAfter?: ReactNode | string | number;
-    size?: 'lg' | 'default' | 'sm';
+    size?: "lg" | "default" | "sm";
     labelWidth?: any;
-    layout?: 'horizontal' | 'horizontal-top' | 'vertical' | 'inline';
+    layout?: "horizontal" | "horizontal-top" | "vertical" | "inline";
     addonBefore?: ReactNode | string | number;
     label?: string;
     name?: string;
     children?: ReactNode;
 }
 declare const FormItem: {
-    ({ disabled, labelColor, contentBackgroundColor, wrapperMinWidth, wrapperWidth, wrapperMaxWidth, contentWrapperWidth, wrapperStyle, contentWrap, oneLine, labelWrap, formItemRef, rules, setFieldValue, data, clearable, addonAfter, size, labelWidth, layout, addonBefore, label, name, children, }: FormItemProps): React.JSX.Element;
+    ({ wrapperClassName, suffix, disabled, labelColor, contentBackgroundColor, wrapperMinWidth, wrapperWidth, wrapperMaxWidth, contentWrapperWidth, wrapperStyle, contentWrap, oneLine, labelWrap, formItemRef, rules, setFieldValue, data, clearable, addonAfter, size, labelWidth, layout, addonBefore, label, name, children, }: FormItemProps): React.JSX.Element;
     displayName: string;
 };
 export default FormItem;

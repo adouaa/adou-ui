@@ -163,14 +163,14 @@ ___CSS_LOADER_EXPORT___.push([module.id, `@charset "UTF-8";
 .time-line-wrapper-y .content .icon .finished {
   color: #198754;
 }
-.time-line-wrapper-y .timeline-content {
+.time-line-wrapper-y .time-line-content {
   display: inline-block;
   background-color: #f9f9f9;
-  padding: 10px;
+  padding: 6px;
   border-radius: 5px;
   box-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
 }
-.time-line-wrapper-y .timeline-line {
+.time-line-wrapper-y .time-line-line {
   position: absolute;
   left: -3px;
   /* 使连接线与主线对齐 */
@@ -181,20 +181,21 @@ ___CSS_LOADER_EXPORT___.push([module.id, `@charset "UTF-8";
   background-color: #ccc;
   /* 线条颜色 */
 }
-.time-line-wrapper-y .timeline-line.finished {
+.time-line-wrapper-y .time-line-line.finished {
   background-color: #198754;
 }
-.time-line-wrapper-y .timeline-line.un-finish {
+.time-line-wrapper-y .time-line-line.un-finish {
   background-color: #6c757d;
 }
-.time-line-wrapper-y .timeline-date {
+.time-line-wrapper-y .time-line-date {
+  margin: 4px 0;
   font-size: 12px;
   color: #999;
+  min-height: 18px;
 }
 
 .time-line-wrapper-x {
   position: relative;
-  border-left: 2px solid #ccc;
   display: flex;
 }
 .time-line-wrapper-x .content {
@@ -217,13 +218,13 @@ ___CSS_LOADER_EXPORT___.push([module.id, `@charset "UTF-8";
 .time-line-wrapper-x .content .icon .finished {
   color: #198754;
 }
-.time-line-wrapper-x .timeline-content {
+.time-line-wrapper-x .time-line-content {
   background-color: #f9f9f9;
-  padding: 10px;
+  padding: 6px;
   border-radius: 5px;
   box-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
 }
-.time-line-wrapper-x .timeline-line {
+.time-line-wrapper-x .time-line-line {
   position: absolute;
   left: 8px;
   /* 使连接线与主线对齐 */
@@ -234,16 +235,16 @@ ___CSS_LOADER_EXPORT___.push([module.id, `@charset "UTF-8";
   background-color: #ccc;
   /* 线条颜色 */
 }
-.time-line-wrapper-x .timeline-line.finished {
+.time-line-wrapper-x .time-line-line.finished {
   background-color: #198754;
 }
-.time-line-wrapper-x .timeline-line.un-finish {
+.time-line-wrapper-x .time-line-line.un-finish {
   background-color: #6c757d;
 }
-.time-line-wrapper-x .timeline-date {
+.time-line-wrapper-x .time-line-date {
   font-size: 12px;
   color: #999;
-}`, "",{"version":3,"sources":["webpack://./src/index.scss"],"names":[],"mappings":"AAAA,gBAAgB;AAAhB;EACI,kBAAA;AAEJ;AAAI;EACI,kBAAA;EACA,kBAAA;AAER;AAAQ;EACI,kBAAA;EACA,WAAA;EACA,SAAA;EACA,YAAA;EACA,WAAA;EACA,UAAA;EACA,kBAAA;AAEZ;AAAY;EACI,cAAA;AAEhB;AACY;EACI,cAAA;AAChB;AAKI;EACI,qBAAA;EACA,yBAAA;EACA,aAAA;EACA,kBAAA;EACA,wCAAA;AAHR;AAOI;EACI,kBAAA;EACA,UAAA;EACA,cAAA;EACA,SAAA;EACA,eAAA;EACA,SAAA;EACA,aAAA;EACA,sBAAA;EACA,SAAA;AALR;AAQI;EACI,yBAAA;AANR;AASI;EACI,yBAAA;AAPR;AAUI;EACI,eAAA;EACA,WAAA;AARR;;AAYA;EACI,kBAAA;EACA,2BAAA;EACA,aAAA;AATJ;AAWI;EACI,kBAAA;EACA,iBAAA;EACA,kBAAA;AATR;AAWQ;EACI,kBAAA;EACA,WAAA;EACA,SAAA;EACA,YAAA;EACA,WAAA;EACA,UAAA;EACA,kBAAA;AATZ;AAWY;EACI,cAAA;AAThB;AAYY;EACI,cAAA;AAVhB;AAgBI;EACI,yBAAA;EACA,aAAA;EACA,kBAAA;EACA,wCAAA;AAdR;AAkBI;EACI,kBAAA;EACA,SAAA;EACA,cAAA;EACA,QAAA;EACA,eAAA;EACA,SAAA;EACA,WAAA;EACA,sBAAA;EACA,SAAA;AAhBR;AAmBI;EACI,yBAAA;AAjBR;AAoBI;EACI,yBAAA;AAlBR;AAqBI;EACI,eAAA;EACA,WAAA;AAnBR","sourcesContent":[".time-line-wrapper-y {\r\n    position: relative;\r\n\r\n    .content {\r\n        position: relative;\r\n        padding-left: 20px;\r\n\r\n        .icon {\r\n            position: absolute;\r\n            left: -12px;\r\n            top: -6px;\r\n            height: 20px;\r\n            width: 20px;\r\n            /* 事件点颜色 */\r\n            border-radius: 50%;\r\n\r\n            .un-finish {\r\n                color: #6c757d;\r\n            }\r\n\r\n            .finished {\r\n                color: #198754;\r\n            }\r\n        }\r\n    }\r\n\r\n\r\n    .timeline-content {\r\n        display: inline-block;\r\n        background-color: #f9f9f9;\r\n        padding: 10px;\r\n        border-radius: 5px;\r\n        box-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);\r\n    }\r\n\r\n\r\n    .timeline-line {\r\n        position: absolute;\r\n        left: -3px;\r\n        /* 使连接线与主线对齐 */\r\n        top: 14px;\r\n        /* 根据需要调整线的位置 */\r\n        /* 线条宽度 */\r\n        height: 120px;\r\n        background-color: #ccc;\r\n        /* 线条颜色 */\r\n    }\r\n\r\n    .timeline-line.finished {\r\n        background-color: #198754;\r\n    }\r\n\r\n    .timeline-line.un-finish {\r\n        background-color: #6c757d;\r\n    }\r\n\r\n    .timeline-date {\r\n        font-size: 12px;\r\n        color: #999;\r\n    }\r\n}\r\n\r\n.time-line-wrapper-x {\r\n    position: relative;\r\n    border-left: 2px solid #ccc;\r\n    display: flex;\r\n\r\n    .content {\r\n        position: relative;\r\n        padding-top: 15px;\r\n        margin-right: 15px;\r\n\r\n        .icon {\r\n            position: absolute;\r\n            left: -12px;\r\n            top: -6px;\r\n            height: 20px;\r\n            width: 20px;\r\n            /* 事件点颜色 */\r\n            border-radius: 50%;\r\n\r\n            .un-finish {\r\n                color: #6c757d;\r\n            }\r\n\r\n            .finished {\r\n                color: #198754;\r\n            }\r\n        }\r\n    }\r\n\r\n\r\n    .timeline-content {\r\n        background-color: #f9f9f9;\r\n        padding: 10px;\r\n        border-radius: 5px;\r\n        box-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);\r\n    }\r\n\r\n\r\n    .timeline-line {\r\n        position: absolute;\r\n        left: 8px;\r\n        /* 使连接线与主线对齐 */\r\n        top: 4px;\r\n        /* 根据需要调整线的位置 */\r\n        /* 线条宽度 */\r\n        height: 2px;\r\n        background-color: #ccc;\r\n        /* 线条颜色 */\r\n    }\r\n\r\n    .timeline-line.finished {\r\n        background-color: #198754;\r\n    }\r\n\r\n    .timeline-line.un-finish {\r\n        background-color: #6c757d;\r\n    }\r\n\r\n    .timeline-date {\r\n        font-size: 12px;\r\n        color: #999;\r\n    }\r\n}"],"sourceRoot":""}]);
+}`, "",{"version":3,"sources":["webpack://./src/index.scss"],"names":[],"mappings":"AAAA,gBAAgB;AAAhB;EACI,kBAAA;AAEJ;AAAI;EACI,kBAAA;EACA,kBAAA;AAER;AAAQ;EACI,kBAAA;EACA,WAAA;EACA,SAAA;EACA,YAAA;EACA,WAAA;EACA,UAAA;EACA,kBAAA;AAEZ;AAAY;EACI,cAAA;AAEhB;AACY;EACI,cAAA;AAChB;AAKI;EACI,qBAAA;EACA,yBAAA;EACA,YAAA;EACA,kBAAA;EACA,wCAAA;AAHR;AAOI;EACI,kBAAA;EACA,UAAA;EACA,cAAA;EACA,SAAA;EACA,eAAA;EACA,SAAA;EACA,aAAA;EACA,sBAAA;EACA,SAAA;AALR;AAQI;EACI,yBAAA;AANR;AASI;EACI,yBAAA;AAPR;AAUI;EACI,aAAA;EACA,eAAA;EACA,WAAA;EACA,gBAAA;AARR;;AAYA;EACI,kBAAA;EAEA,aAAA;AAVJ;AAYI;EACI,kBAAA;EACA,iBAAA;EACA,kBAAA;AAVR;AAYQ;EACI,kBAAA;EACA,WAAA;EACA,SAAA;EACA,YAAA;EACA,WAAA;EACA,UAAA;EACA,kBAAA;AAVZ;AAYY;EACI,cAAA;AAVhB;AAaY;EACI,cAAA;AAXhB;AAiBI;EACI,yBAAA;EACA,YAAA;EACA,kBAAA;EACA,wCAAA;AAfR;AAmBI;EACI,kBAAA;EACA,SAAA;EACA,cAAA;EACA,QAAA;EACA,eAAA;EACA,SAAA;EACA,WAAA;EACA,sBAAA;EACA,SAAA;AAjBR;AAoBI;EACI,yBAAA;AAlBR;AAqBI;EACI,yBAAA;AAnBR;AAsBI;EACI,eAAA;EACA,WAAA;AApBR","sourcesContent":[".time-line-wrapper-y {\r\n    position: relative;\r\n\r\n    .content {\r\n        position: relative;\r\n        padding-left: 20px;\r\n\r\n        .icon {\r\n            position: absolute;\r\n            left: -12px;\r\n            top: -6px;\r\n            height: 20px;\r\n            width: 20px;\r\n            /* 事件点颜色 */\r\n            border-radius: 50%;\r\n\r\n            .un-finish {\r\n                color: #6c757d;\r\n            }\r\n\r\n            .finished {\r\n                color: #198754;\r\n            }\r\n        }\r\n    }\r\n\r\n\r\n    .time-line-content {\r\n        display: inline-block;\r\n        background-color: #f9f9f9;\r\n        padding: 6px;\r\n        border-radius: 5px;\r\n        box-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);\r\n    }\r\n\r\n\r\n    .time-line-line {\r\n        position: absolute;\r\n        left: -3px;\r\n        /* 使连接线与主线对齐 */\r\n        top: 14px;\r\n        /* 根据需要调整线的位置 */\r\n        /* 线条宽度 */\r\n        height: 120px;\r\n        background-color: #ccc;\r\n        /* 线条颜色 */\r\n    }\r\n\r\n    .time-line-line.finished {\r\n        background-color: #198754;\r\n    }\r\n\r\n    .time-line-line.un-finish {\r\n        background-color: #6c757d;\r\n    }\r\n\r\n    .time-line-date {\r\n        margin: 4px 0;\r\n        font-size: 12px;\r\n        color: #999;\r\n        min-height: 18px;\r\n    }\r\n}\r\n\r\n.time-line-wrapper-x {\r\n    position: relative;\r\n    // border-left: 2px solid #ccc;\r\n    display: flex;\r\n\r\n    .content {\r\n        position: relative;\r\n        padding-top: 15px;\r\n        margin-right: 15px;\r\n\r\n        .icon {\r\n            position: absolute;\r\n            left: -12px;\r\n            top: -6px;\r\n            height: 20px;\r\n            width: 20px;\r\n            /* 事件点颜色 */\r\n            border-radius: 50%;\r\n\r\n            .un-finish {\r\n                color: #6c757d;\r\n            }\r\n\r\n            .finished {\r\n                color: #198754;\r\n            }\r\n        }\r\n    }\r\n\r\n\r\n    .time-line-content {\r\n        background-color: #f9f9f9;\r\n        padding: 6px;\r\n        border-radius: 5px;\r\n        box-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);\r\n    }\r\n\r\n\r\n    .time-line-line {\r\n        position: absolute;\r\n        left: 8px;\r\n        /* 使连接线与主线对齐 */\r\n        top: 4px;\r\n        /* 根据需要调整线的位置 */\r\n        /* 线条宽度 */\r\n        height: 2px;\r\n        background-color: #ccc;\r\n        /* 线条颜色 */\r\n    }\r\n\r\n    .time-line-line.finished {\r\n        background-color: #198754;\r\n    }\r\n\r\n    .time-line-line.un-finish {\r\n        background-color: #6c757d;\r\n    }\r\n\r\n    .time-line-date {\r\n        font-size: 12px;\r\n        color: #999;\r\n    }\r\n}"],"sourceRoot":""}]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 
@@ -610,18 +611,34 @@ const TimeLineItem = _ref => {
   (0,external_root_React_commonjs2_react_commonjs_react_amd_react_.useEffect)(() => {
     if (timeLineItemWrapperRef.current) {
       if (vertical) {
-        setTimeLineHeight(timeLineItemWrapperRef.current.getBoundingClientRect().height - 20);
+        setTimeLineHeight(timeLineItemWrapperRef.current.getBoundingClientRect().height - 14);
         setTimeLineWidth(2);
       } else {
         setTimeLineWidth(timeLineItemWrapperRef.current.getBoundingClientRect().width - 20);
         setTimeLineHeight(2);
       }
     }
-  }, [timeLineItemWrapperRef, data]);
+  }, [timeLineItemWrapperRef, data, render]);
   return /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("div", {
     ref: timeLineItemWrapperRef,
     className: "time-line-item-wrapper"
-  }, render && render(data, timeLineWidth, timeLineHeight, isLasted));
+  }, /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("div", {
+    className: "content"
+  }, /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("div", {
+    className: "icon d-flex justify-content-center align-items-center"
+  }, /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("i", {
+    className: "fs-5 fa-solid  ".concat(data.isFinish ? data.checkedIcon || "fa-circle-check finished" : data.unCheckedIcon || "fa-solid fa-circle-xmark un-finish")
+  })), data.date && /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("div", {
+    className: "time-line-date"
+  }, data.date), data.render ? data.render(data) : render ? render(data) : /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("div", {
+    className: "time-line-content"
+  }, /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("div", null, data.title), /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("div", null, data.description)), !isLasted && /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("div", {
+    style: {
+      width: timeLineWidth,
+      height: timeLineHeight
+    },
+    className: "time-line-line ".concat(data.isFinish ? "finished" : "un-finish")
+  }), " "));
 };
 /* harmony default export */ const TimelineItem = (TimeLineItem);
 // EXTERNAL MODULE: ../../node_modules/style-loader/dist/runtime/injectStylesIntoStyleTag.js
@@ -706,10 +723,10 @@ const TimeLine = _ref => {
     });
     {
       /* events.map((event: any, index: number, self: any[]) => (
-                <div ref={timeLineContentBoxRef} className='time-line-content-box' key={event.id}>
-                    {render && render(event, timeLineWidth, timeLineHeight, index === self.length - 1)}
-                </div>
-            )) */
+            <div ref={timeLineContentBoxRef} className='time-line-content-box' key={event.id}>
+                {render && render(event, timeLineWidth, timeLineHeight, index === self.length - 1)}
+            </div>
+        )) */
     }
     return enhancedChildren.map((item, index) => /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("div", {
       className: "time-line-item",
@@ -717,7 +734,7 @@ const TimeLine = _ref => {
     }, item));
   };
   return /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("div", {
-    className: "time-line-wrapper-".concat(vertical ? "y" : "x", " pt-2")
+    className: "time-line-wrapper-".concat(vertical ? 'y' : 'x', " pt-2")
   }, renderChildren());
 };
 /* harmony default export */ const src_0 = (TimeLine);

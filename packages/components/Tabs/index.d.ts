@@ -1,20 +1,23 @@
 import React from "react";
+import TabItem from "./TabItem";
 import "./index.scss";
-declare const _default: React.ComponentType<Omit<{
-    commonTabItemHeaderExternalCls?: string | undefined;
+interface TabsProps {
+    commonTabItemHeaderExternalCls?: string;
     tabRef?: any;
-    extraContentCls?: string | undefined;
+    extraContentCls?: string;
     contentHeight?: any;
     extraData?: any;
-    showExtraContent?: boolean | undefined;
+    showExtraContent?: boolean;
     commonExtraContent?: any;
     children?: any;
-    activeIndex?: number | undefined;
-    activeLabelColor?: string | undefined;
-    tabStyle?: "common" | "bootstrap" | undefined;
-    contentPadding?: string | undefined;
-    clearOnChange?: boolean | undefined;
-    lineaGradient?: string | undefined;
-    onLabelClick?: ((index: number, itemInfo: any) => void) | undefined;
-}, keyof import("react-i18next").WithTranslation<N, undefined>> & import("react-i18next").WithTranslationProps>;
-export default _default;
+    activeIndex?: number;
+    activeLabelColor?: string;
+    tabStyle?: 'common' | 'bootstrap';
+    contentPadding?: string;
+    clearOnChange?: boolean;
+    lineaGradient?: string;
+    onLabelClick?: (index: number, itemInfo: any) => void;
+}
+declare const Tabs: (props: TabsProps) => React.JSX.Element;
+export { TabItem };
+export default Tabs;

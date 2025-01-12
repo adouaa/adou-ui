@@ -25,16 +25,16 @@
     }
 
 
-    .timeline-content {
+    .time-line-content {
         display: inline-block;
         background-color: #f9f9f9;
-        padding: 10px;
+        padding: 6px;
         border-radius: 5px;
         box-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
     }
 
 
-    .timeline-line {
+    .time-line-line {
         position: absolute;
         left: -3px;
         /* 使连接线与主线对齐 */
@@ -46,23 +46,25 @@
         /* 线条颜色 */
     }
 
-    .timeline-line.finished {
+    .time-line-line.finished {
         background-color: #198754;
     }
 
-    .timeline-line.un-finish {
+    .time-line-line.un-finish {
         background-color: #6c757d;
     }
 
-    .timeline-date {
+    .time-line-date {
+        margin: 4px 0;
         font-size: 12px;
         color: #999;
+        min-height: 18px;
     }
 }
 
 .time-line-wrapper-x {
     position: relative;
-    border-left: 2px solid #ccc;
+    // border-left: 2px solid #ccc;
     display: flex;
 
     .content {
@@ -90,15 +92,15 @@
     }
 
 
-    .timeline-content {
+    .time-line-content {
         background-color: #f9f9f9;
-        padding: 10px;
+        padding: 6px;
         border-radius: 5px;
         box-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
     }
 
 
-    .timeline-line {
+    .time-line-line {
         position: absolute;
         left: 8px;
         /* 使连接线与主线对齐 */
@@ -110,15 +112,15 @@
         /* 线条颜色 */
     }
 
-    .timeline-line.finished {
+    .time-line-line.finished {
         background-color: #198754;
     }
 
-    .timeline-line.un-finish {
+    .time-line-line.un-finish {
         background-color: #6c757d;
     }
 
-    .timeline-date {
+    .time-line-date {
         font-size: 12px;
         color: #999;
     }

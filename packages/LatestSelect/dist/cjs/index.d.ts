@@ -1,6 +1,7 @@
 import "./index.scss";
 import React from "react";
 export interface SelectProps {
+    showIcon?: boolean;
     title?: string;
     backgroundColor?: string;
     mode?: "common" | "liveSearch" | "tags";

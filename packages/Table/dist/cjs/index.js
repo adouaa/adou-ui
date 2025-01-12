@@ -1049,8 +1049,8 @@ module.exports = {
 /***/ (function(module, __unused_webpack_exports, __webpack_require__) {
 
 (function webpackUniversalModuleDefinition(root, factory) {
-  if (true) module.exports = factory(__webpack_require__(442));else {}
-})(this, __WEBPACK_EXTERNAL_MODULE__442__ => {
+  if (true) module.exports = factory(__webpack_require__(442), __webpack_require__(3));else {}
+})(this, (__WEBPACK_EXTERNAL_MODULE__442__, __WEBPACK_EXTERNAL_MODULE__3__) => {
   return /******/(() => {
     // webpackBootstrap
     /******/
@@ -1058,8 +1058,446 @@ module.exports = {
 
     /******/
     var __webpack_modules__ = {
+      /***/191: ( /***/module => {
+        /*
+          MIT License http://www.opensource.org/licenses/mit-license.php
+          Author Tobias Koppers @sokra
+        */
+        module.exports = function (cssWithMappingToString) {
+          var list = [];
+
+          // return the list of modules as css string
+          list.toString = function toString() {
+            return this.map(function (item) {
+              var content = "";
+              var needLayer = typeof item[5] !== "undefined";
+              if (item[4]) {
+                content += "@supports (".concat(item[4], ") {");
+              }
+              if (item[2]) {
+                content += "@media ".concat(item[2], " {");
+              }
+              if (needLayer) {
+                content += "@layer".concat(item[5].length > 0 ? " ".concat(item[5]) : "", " {");
+              }
+              content += cssWithMappingToString(item);
+              if (needLayer) {
+                content += "}";
+              }
+              if (item[2]) {
+                content += "}";
+              }
+              if (item[4]) {
+                content += "}";
+              }
+              return content;
+            }).join("");
+          };
+
+          // import a list of modules into the list
+          list.i = function i(modules, media, dedupe, supports, layer) {
+            if (typeof modules === "string") {
+              modules = [[null, modules, undefined]];
+            }
+            var alreadyImportedModules = {};
+            if (dedupe) {
+              for (var k = 0; k < this.length; k++) {
+                var id = this[k][0];
+                if (id != null) {
+                  alreadyImportedModules[id] = true;
+                }
+              }
+            }
+            for (var _k = 0; _k < modules.length; _k++) {
+              var item = [].concat(modules[_k]);
+              if (dedupe && alreadyImportedModules[item[0]]) {
+                continue;
+              }
+              if (typeof layer !== "undefined") {
+                if (typeof item[5] === "undefined") {
+                  item[5] = layer;
+                } else {
+                  item[1] = "@layer".concat(item[5].length > 0 ? " ".concat(item[5]) : "", " {").concat(item[1], "}");
+                  item[5] = layer;
+                }
+              }
+              if (media) {
+                if (!item[2]) {
+                  item[2] = media;
+                } else {
+                  item[1] = "@media ".concat(item[2], " {").concat(item[1], "}");
+                  item[2] = media;
+                }
+              }
+              if (supports) {
+                if (!item[4]) {
+                  item[4] = "".concat(supports);
+                } else {
+                  item[1] = "@supports (".concat(item[4], ") {").concat(item[1], "}");
+                  item[4] = supports;
+                }
+              }
+              list.push(item);
+            }
+          };
+          return list;
+        };
+
+        /***/
+      }),
+      /***/73: ( /***/module => {
+        module.exports = function (item) {
+          var content = item[1];
+          var cssMapping = item[3];
+          if (!cssMapping) {
+            return content;
+          }
+          if (typeof btoa === "function") {
+            var base64 = btoa(unescape(encodeURIComponent(JSON.stringify(cssMapping))));
+            var data = "sourceMappingURL=data:application/json;charset=utf-8;base64,".concat(base64);
+            var sourceMapping = "/*# ".concat(data, " */");
+            return [content].concat([sourceMapping]).join("\n");
+          }
+          return [content].join("\n");
+        };
+
+        /***/
+      }),
+      /***/137: ( /***/(__unused_webpack_module, exports, __nested_webpack_require_4372__) => {
+        var __webpack_unused_export__;
+        var m = __nested_webpack_require_4372__(3);
+        if (true) {
+          exports.H = m.createRoot;
+          __webpack_unused_export__ = m.hydrateRoot;
+        } else { var i; }
+
+        /***/
+      }),
+      /***/736: ( /***/(module, __nested_webpack_exports__, __nested_webpack_require_4708__) => {
+        /* harmony export */__nested_webpack_require_4708__.d(__nested_webpack_exports__, {
+          /* harmony export */A: () => __WEBPACK_DEFAULT_EXPORT__
+          /* harmony export */
+        });
+        /* harmony import */
+        var _node_modules_css_loader_dist_runtime_sourceMaps_js__WEBPACK_IMPORTED_MODULE_0__ = __nested_webpack_require_4708__(73);
+        /* harmony import */
+        var _node_modules_css_loader_dist_runtime_sourceMaps_js__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__nested_webpack_require_4708__.n(_node_modules_css_loader_dist_runtime_sourceMaps_js__WEBPACK_IMPORTED_MODULE_0__);
+        /* harmony import */
+        var _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_1__ = __nested_webpack_require_4708__(191);
+        /* harmony import */
+        var _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__nested_webpack_require_4708__.n(_node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_1__);
+        // Imports
+
+        var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_1___default()(_node_modules_css_loader_dist_runtime_sourceMaps_js__WEBPACK_IMPORTED_MODULE_0___default());
+        // Module
+        ___CSS_LOADER_EXPORT___.push([module.id, "/* Loading.css */\n.loading-overlay {\n  position: fixed;\n  top: 0;\n  left: 0;\n  width: 100%;\n  height: 100%;\n  background-color: rgba(255, 255, 255, 0.8);\n  display: flex;\n  align-items: center;\n  justify-content: center;\n  z-index: 9999;\n}\n\n.loading-spinner {\n  border: 8px solid #f3f3f3;\n  /* Light grey */\n  border-top: 8px solid #3498db;\n  /* Blue */\n  border-radius: 50%;\n  width: 60px;\n  height: 60px;\n  animation: spin 2s linear infinite;\n}\n\n@keyframes spin {\n  0% {\n    transform: rotate(0deg);\n  }\n  100% {\n    transform: rotate(360deg);\n  }\n}", "", {
+          "version": 3,
+          "sources": ["webpack://./src/hooks/loading.scss"],
+          "names": [],
+          "mappings": "AAAA,gBAAA;AACA;EACI,eAAA;EACA,MAAA;EACA,OAAA;EACA,WAAA;EACA,YAAA;EACA,0CAAA;EACA,aAAA;EACA,mBAAA;EACA,uBAAA;EACA,aAAA;AACJ;;AAEA;EACI,yBAAA;EACA,eAAA;EACA,6BAAA;EACA,SAAA;EACA,kBAAA;EACA,WAAA;EACA,YAAA;EACA,kCAAA;AACJ;;AAEA;EACI;IACI,uBAAA;EACN;EAEE;IACI,yBAAA;EAAN;AACF",
+          "sourcesContent": ["/* Loading.css */\r\n.loading-overlay {\r\n    position: fixed;\r\n    top: 0;\r\n    left: 0;\r\n    width: 100%;\r\n    height: 100%;\r\n    background-color: rgba(255, 255, 255, 0.8);\r\n    display: flex;\r\n    align-items: center;\r\n    justify-content: center;\r\n    z-index: 9999;\r\n}\r\n\r\n.loading-spinner {\r\n    border: 8px solid #f3f3f3;\r\n    /* Light grey */\r\n    border-top: 8px solid #3498db;\r\n    /* Blue */\r\n    border-radius: 50%;\r\n    width: 60px;\r\n    height: 60px;\r\n    animation: spin 2s linear infinite;\r\n}\r\n\r\n@keyframes spin {\r\n    0% {\r\n        transform: rotate(0deg);\r\n    }\r\n\r\n    100% {\r\n        transform: rotate(360deg);\r\n    }\r\n}"],
+          "sourceRoot": ""
+        }]);
+        // Exports
+        /* harmony default export */
+        const __WEBPACK_DEFAULT_EXPORT__ = ___CSS_LOADER_EXPORT___;
+
+        /***/
+      }),
+      /***/151: ( /***/(module, __nested_webpack_exports__, __nested_webpack_require_7973__) => {
+        /* harmony export */__nested_webpack_require_7973__.d(__nested_webpack_exports__, {
+          /* harmony export */A: () => __WEBPACK_DEFAULT_EXPORT__
+          /* harmony export */
+        });
+        /* harmony import */
+        var _node_modules_css_loader_dist_runtime_sourceMaps_js__WEBPACK_IMPORTED_MODULE_0__ = __nested_webpack_require_7973__(73);
+        /* harmony import */
+        var _node_modules_css_loader_dist_runtime_sourceMaps_js__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__nested_webpack_require_7973__.n(_node_modules_css_loader_dist_runtime_sourceMaps_js__WEBPACK_IMPORTED_MODULE_0__);
+        /* harmony import */
+        var _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_1__ = __nested_webpack_require_7973__(191);
+        /* harmony import */
+        var _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__nested_webpack_require_7973__.n(_node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_1__);
+        // Imports
+
+        var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_1___default()(_node_modules_css_loader_dist_runtime_sourceMaps_js__WEBPACK_IMPORTED_MODULE_0___default());
+        // Module
+        ___CSS_LOADER_EXPORT___.push([module.id, ".adou-notification-container {\n  position: fixed;\n  top: 20px;\n  right: 0px;\n  z-index: 1000;\n}\n.adou-notification-container .adou-notification {\n  width: 320px;\n  position: relative;\n  padding: 15px;\n  margin-bottom: 15px;\n  border-radius: 8px;\n  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);\n  background-color: #fff;\n  transition: all 0.3s ease;\n  transform: translateX(100%);\n}\n.adou-notification-container .adou-notification-appearing {\n  transform: translateX(-20px);\n}\n.adou-notification-container .adou-notification-disappearing {\n  opacity: 0;\n  transform: translateX(100%) !important;\n}\n.adou-notification-container .adou-notification:hover {\n  cursor: pointer;\n  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.15);\n}\n.adou-notification-container .adou-notification-header {\n  display: flex;\n  align-items: start;\n  justify-content: space-between;\n  margin-bottom: 10px;\n}\n.adou-notification-container .adou-notification-header-title {\n  font-size: 18px;\n  font-weight: 600;\n  color: #333;\n  display: flex;\n}\n.adou-notification-container .adou-notification-header-title-icon {\n  margin-right: 8px;\n}\n.adou-notification-container .adou-notification-header-close {\n  cursor: pointer;\n  font-size: 16px;\n  color: #999;\n  transition: all 0.3s ease;\n}\n.adou-notification-container .adou-notification-header-close:hover {\n  color: #ff4d4f;\n  transform: scale(1.2);\n}\n.adou-notification-container .adou-notification-content {\n  font-size: 14px;\n  color: #666;\n  line-height: 1.5;\n}", "", {
+          "version": 3,
+          "sources": ["webpack://./src/hooks/notification.scss"],
+          "names": [],
+          "mappings": "AAAA;EACI,eAAA;EACA,SAAA;EACA,UAAA;EACA,aAAA;AACJ;AACI;EACI,YAAA;EACA,kBAAA;EACA,aAAA;EACA,mBAAA;EACA,kBAAA;EACA,yCAAA;EACA,sBAAA;EACA,yBAAA;EAEA,2BAAA;AAAR;AAEQ;EAEI,4BAAA;AADZ;AAIQ;EACI,UAAA;EACA,sCAAA;AAFZ;AAKQ;EACI,eAAA;EACA,0CAAA;AAHZ;AAOQ;EACI,aAAA;EACA,kBAAA;EACA,8BAAA;EACA,mBAAA;AALZ;AAOY;EACI,eAAA;EACA,gBAAA;EACA,WAAA;EACA,aAAA;AALhB;AAOgB;EACI,iBAAA;AALpB;AASY;EACI,eAAA;EACA,eAAA;EACA,WAAA;EACA,yBAAA;AAPhB;AASgB;EACI,cAAA;EACA,qBAAA;AAPpB;AAYQ;EACI,eAAA;EACA,WAAA;EACA,gBAAA;AAVZ",
+          "sourcesContent": [".adou-notification-container {\r\n    position: fixed;\r\n    top: 20px;\r\n    right: 0px;\r\n    z-index: 1000;\r\n\r\n    .adou-notification {\r\n        width: 320px;\r\n        position: relative;\r\n        padding: 15px;\r\n        margin-bottom: 15px;\r\n        border-radius: 8px;\r\n        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);\r\n        background-color: #fff;\r\n        transition: all 0.3s ease;\r\n        // opacity: 0;\r\n        transform: translateX(100%);\r\n\r\n        &-appearing {\r\n            // opacity: 1;\r\n            transform: translateX(-20px);\r\n        }\r\n\r\n        &-disappearing {\r\n            opacity: 0;\r\n            transform: translateX(100%) !important;\r\n        }\r\n\r\n        &:hover {\r\n            cursor: pointer;\r\n            box-shadow: 0 6px 16px rgba(0, 0, 0, 0.15);\r\n            // transform: translate(-20px, -2px);\r\n        }\r\n\r\n        &-header {\r\n            display: flex;\r\n            align-items: start;\r\n            justify-content: space-between;\r\n            margin-bottom: 10px;\r\n\r\n            &-title {\r\n                font-size: 18px;\r\n                font-weight: 600;\r\n                color: #333;\r\n                display: flex;\r\n\r\n                &-icon {\r\n                    margin-right: 8px;\r\n                }\r\n            }\r\n\r\n            &-close {\r\n                cursor: pointer;\r\n                font-size: 16px;\r\n                color: #999;\r\n                transition: all 0.3s ease;\r\n\r\n                &:hover {\r\n                    color: #ff4d4f;\r\n                    transform: scale(1.2);\r\n                }\r\n            }\r\n        }\r\n\r\n        &-content {\r\n            font-size: 14px;\r\n            color: #666;\r\n            line-height: 1.5;\r\n        }\r\n    }\r\n}"],
+          "sourceRoot": ""
+        }]);
+        // Exports
+        /* harmony default export */
+        const __WEBPACK_DEFAULT_EXPORT__ = ___CSS_LOADER_EXPORT___;
+
+        /***/
+      }),
+      /***/323: ( /***/(module, __nested_webpack_exports__, __nested_webpack_require_13567__) => {
+        /* harmony export */__nested_webpack_require_13567__.d(__nested_webpack_exports__, {
+          /* harmony export */A: () => __WEBPACK_DEFAULT_EXPORT__
+          /* harmony export */
+        });
+        /* harmony import */
+        var _node_modules_css_loader_dist_runtime_sourceMaps_js__WEBPACK_IMPORTED_MODULE_0__ = __nested_webpack_require_13567__(73);
+        /* harmony import */
+        var _node_modules_css_loader_dist_runtime_sourceMaps_js__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__nested_webpack_require_13567__.n(_node_modules_css_loader_dist_runtime_sourceMaps_js__WEBPACK_IMPORTED_MODULE_0__);
+        /* harmony import */
+        var _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_1__ = __nested_webpack_require_13567__(191);
+        /* harmony import */
+        var _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__nested_webpack_require_13567__.n(_node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_1__);
+        // Imports
+
+        var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_1___default()(_node_modules_css_loader_dist_runtime_sourceMaps_js__WEBPACK_IMPORTED_MODULE_0___default());
+        // Module
+        ___CSS_LOADER_EXPORT___.push([module.id, ".adou-toast-container {\n  position: absolute;\n  top: 20px;\n  left: 50%;\n  transform: translate(-50%, 0%);\n  z-index: 1000;\n  display: flex;\n  flex-direction: column;\n  align-items: center;\n  justify-content: center;\n}\n.adou-toast-container .adou-toast {\n  width: 300px;\n  position: relative;\n  padding: 15px;\n  padding-right: 20px;\n  margin: 10px 0;\n  border-radius: 5px;\n  color: white;\n  opacity: 0;\n  transform: translateY(-20px);\n  transition: transform 0.5s ease, opacity 0.5s ease;\n}\n.adou-toast-container .adou-toast-success {\n  background-color: #4caf50;\n}\n.adou-toast-container .adou-toast-error {\n  background-color: #f44336;\n}\n.adou-toast-container .adou-toast-warning {\n  background-color: #ff9800;\n}\n.adou-toast-container .adou-toast.appearing {\n  opacity: 1;\n  transform: translateY(0);\n}\n.adou-toast-container .adou-toast.disappearing {\n  opacity: 0;\n  transform: translateY(-20px) scaleX(0.9);\n}\n.adou-toast-container .adou-toast-timer {\n  position: absolute;\n  bottom: 0;\n  left: 0;\n  height: 4px;\n  background-color: rgba(255, 255, 255, 0.7);\n  transition: width 0.1s linear;\n}\n.adou-toast-container .adou-toast-close {\n  position: absolute;\n  top: -5px;\n  right: 1px;\n  background: none;\n  border: none;\n  color: #fff;\n  font-size: 20px;\n  cursor: pointer;\n  margin-left: 10px;\n  transition: color 0.3s;\n}\n.adou-toast-container .adou-toast-close:hover {\n  color: #ccc;\n}", "", {
+          "version": 3,
+          "sources": ["webpack://./src/hooks/toast.scss"],
+          "names": [],
+          "mappings": "AAIA;EACI,kBAAA;EACA,SAAA;EACA,SAAA;EACA,8BAAA;EACA,aAAA;EACA,aAAA;EACA,sBAAA;EACA,mBAAA;EACA,uBAAA;AAHJ;AAKI;EACI,YAAA;EACA,kBAAA;EACA,aAAA;EACA,mBAAA;EACA,cAAA;EACA,kBAAA;EACA,YAAA;EACA,UAAA;EAEA,4BAAA;EACA,kDAAA;AAJR;AAMQ;EACI,yBA7BU;AAyBtB;AAOQ;EACI,yBAhCQ;AA2BpB;AAQQ;EACI,yBAnCU;AA6BtB;AASQ;EACI,UAAA;EAEA,wBAAA;AARZ;AAWQ;EACI,UAAA;EACA,wCAAA;AATZ;AAYQ;EACI,kBAAA;EACA,SAAA;EACA,OAAA;EACA,WAAA;EACA,0CAAA;EACA,6BAAA;AAVZ;AAaQ;EACI,kBAAA;EACA,SAAA;EACA,UAAA;EACA,gBAAA;EACA,YAAA;EACA,WAAA;EACA,eAAA;EACA,eAAA;EACA,iBAAA;EACA,sBAAA;AAXZ;AAaY;EACI,WAAA;AAXhB",
+          "sourcesContent": ["$toast-success-color: #4caf50;\r\n$toast-error-color: #f44336;\r\n$toast-warning-color: #ff9800;\r\n\r\n.adou-toast-container {\r\n    position: absolute;\r\n    top: 20px;\r\n    left: 50%; // 水平中心\r\n    transform: translate(-50%, 0%); // 将容器移动到中心\r\n    z-index: 1000;\r\n    display: flex;\r\n    flex-direction: column;\r\n    align-items: center;\r\n    justify-content: center;\r\n\r\n    .adou-toast {\r\n        width: 300px;\r\n        position: relative;\r\n        padding: 15px;\r\n        padding-right: 20px;\r\n        margin: 10px 0;\r\n        border-radius: 5px;\r\n        color: white;\r\n        opacity: 0;\r\n        // 仅向下移动，不缩小 -- 配合 &.appearing的transform: translateY(0);不能删除哦\r\n        transform: translateY(-20px);\r\n        transition: transform 0.5s ease, opacity 0.5s ease;\r\n\r\n        &-success {\r\n            background-color: $toast-success-color;\r\n        }\r\n\r\n        &-error {\r\n            background-color: $toast-error-color;\r\n        }\r\n\r\n        &-warning {\r\n            background-color: $toast-warning-color;\r\n        }\r\n\r\n        &.appearing {\r\n            opacity: 1;\r\n            // 仅向下移动，不缩小 -- 配合 .adou-toast的transform: translateY(-20px); 不能删除哦\r\n            transform: translateY(0);\r\n        }\r\n\r\n        &.disappearing {\r\n            opacity: 0;\r\n            transform: translateY(-20px) scaleX(0.9); // 向上移动并缩小宽度\r\n        }\r\n\r\n        &-timer {\r\n            position: absolute;\r\n            bottom: 0;\r\n            left: 0;\r\n            height: 4px;\r\n            background-color: rgba(255, 255, 255, 0.7);\r\n            transition: width 0.1s linear; // 平滑缩短动画\r\n        }\r\n\r\n        &-close {\r\n            position: absolute;\r\n            top: -5px;\r\n            right: 1px;\r\n            background: none;\r\n            border: none;\r\n            color: #fff;\r\n            font-size: 20px;\r\n            cursor: pointer;\r\n            margin-left: 10px;\r\n            transition: color 0.3s;\r\n\r\n            &:hover {\r\n                color: #ccc;\r\n            }\r\n        }\r\n    }\r\n}"],
+          "sourceRoot": ""
+        }]);
+        // Exports
+        /* harmony default export */
+        const __WEBPACK_DEFAULT_EXPORT__ = ___CSS_LOADER_EXPORT___;
+
+        /***/
+      }),
+      /***/591: ( /***/module => {
+        var stylesInDOM = [];
+        function getIndexByIdentifier(identifier) {
+          var result = -1;
+          for (var i = 0; i < stylesInDOM.length; i++) {
+            if (stylesInDOM[i].identifier === identifier) {
+              result = i;
+              break;
+            }
+          }
+          return result;
+        }
+        function modulesToDom(list, options) {
+          var idCountMap = {};
+          var identifiers = [];
+          for (var i = 0; i < list.length; i++) {
+            var item = list[i];
+            var id = options.base ? item[0] + options.base : item[0];
+            var count = idCountMap[id] || 0;
+            var identifier = "".concat(id, " ").concat(count);
+            idCountMap[id] = count + 1;
+            var indexByIdentifier = getIndexByIdentifier(identifier);
+            var obj = {
+              css: item[1],
+              media: item[2],
+              sourceMap: item[3],
+              supports: item[4],
+              layer: item[5]
+            };
+            if (indexByIdentifier !== -1) {
+              stylesInDOM[indexByIdentifier].references++;
+              stylesInDOM[indexByIdentifier].updater(obj);
+            } else {
+              var updater = addElementStyle(obj, options);
+              options.byIndex = i;
+              stylesInDOM.splice(i, 0, {
+                identifier: identifier,
+                updater: updater,
+                references: 1
+              });
+            }
+            identifiers.push(identifier);
+          }
+          return identifiers;
+        }
+        function addElementStyle(obj, options) {
+          var api = options.domAPI(options);
+          api.update(obj);
+          var updater = function updater(newObj) {
+            if (newObj) {
+              if (newObj.css === obj.css && newObj.media === obj.media && newObj.sourceMap === obj.sourceMap && newObj.supports === obj.supports && newObj.layer === obj.layer) {
+                return;
+              }
+              api.update(obj = newObj);
+            } else {
+              api.remove();
+            }
+          };
+          return updater;
+        }
+        module.exports = function (list, options) {
+          options = options || {};
+          list = list || [];
+          var lastIdentifiers = modulesToDom(list, options);
+          return function update(newList) {
+            newList = newList || [];
+            for (var i = 0; i < lastIdentifiers.length; i++) {
+              var identifier = lastIdentifiers[i];
+              var index = getIndexByIdentifier(identifier);
+              stylesInDOM[index].references--;
+            }
+            var newLastIdentifiers = modulesToDom(newList, options);
+            for (var _i = 0; _i < lastIdentifiers.length; _i++) {
+              var _identifier = lastIdentifiers[_i];
+              var _index = getIndexByIdentifier(_identifier);
+              if (stylesInDOM[_index].references === 0) {
+                stylesInDOM[_index].updater();
+                stylesInDOM.splice(_index, 1);
+              }
+            }
+            lastIdentifiers = newLastIdentifiers;
+          };
+        };
+
+        /***/
+      }),
+      /***/128: ( /***/module => {
+        var memo = {};
+
+        /* istanbul ignore next  */
+        function getTarget(target) {
+          if (typeof memo[target] === "undefined") {
+            var styleTarget = document.querySelector(target);
+
+            // Special case to return head of iframe instead of iframe itself
+            if (window.HTMLIFrameElement && styleTarget instanceof window.HTMLIFrameElement) {
+              try {
+                // This will throw an exception if access to iframe is blocked
+                // due to cross-origin restrictions
+                styleTarget = styleTarget.contentDocument.head;
+              } catch (e) {
+                // istanbul ignore next
+                styleTarget = null;
+              }
+            }
+            memo[target] = styleTarget;
+          }
+          return memo[target];
+        }
+
+        /* istanbul ignore next  */
+        function insertBySelector(insert, style) {
+          var target = getTarget(insert);
+          if (!target) {
+            throw new Error("Couldn't find a style target. This probably means that the value for the 'insert' parameter is invalid.");
+          }
+          target.appendChild(style);
+        }
+        module.exports = insertBySelector;
+
+        /***/
+      }),
+      /***/51: ( /***/module => {
+        /* istanbul ignore next  */
+        function insertStyleElement(options) {
+          var element = document.createElement("style");
+          options.setAttributes(element, options.attributes);
+          options.insert(element, options.options);
+          return element;
+        }
+        module.exports = insertStyleElement;
+
+        /***/
+      }),
+      /***/855: ( /***/(module, __unused_webpack_exports, __nested_webpack_require_24279__) => {
+        /* istanbul ignore next  */
+        function setAttributesWithoutAttributes(styleElement) {
+          var nonce =  true ? __nested_webpack_require_24279__.nc : 0;
+          if (nonce) {
+            styleElement.setAttribute("nonce", nonce);
+          }
+        }
+        module.exports = setAttributesWithoutAttributes;
+
+        /***/
+      }),
+      /***/740: ( /***/module => {
+        /* istanbul ignore next  */
+        function apply(styleElement, options, obj) {
+          var css = "";
+          if (obj.supports) {
+            css += "@supports (".concat(obj.supports, ") {");
+          }
+          if (obj.media) {
+            css += "@media ".concat(obj.media, " {");
+          }
+          var needLayer = typeof obj.layer !== "undefined";
+          if (needLayer) {
+            css += "@layer".concat(obj.layer.length > 0 ? " ".concat(obj.layer) : "", " {");
+          }
+          css += obj.css;
+          if (needLayer) {
+            css += "}";
+          }
+          if (obj.media) {
+            css += "}";
+          }
+          if (obj.supports) {
+            css += "}";
+          }
+          var sourceMap = obj.sourceMap;
+          if (sourceMap && typeof btoa !== "undefined") {
+            css += "\n/*# sourceMappingURL=data:application/json;base64,".concat(btoa(unescape(encodeURIComponent(JSON.stringify(sourceMap)))), " */");
+          }
+
+          // For old IE
+          /* istanbul ignore if  */
+          options.styleTagTransform(css, styleElement, options.options);
+        }
+        function removeStyleElement(styleElement) {
+          // istanbul ignore if
+          if (styleElement.parentNode === null) {
+            return false;
+          }
+          styleElement.parentNode.removeChild(styleElement);
+        }
+
+        /* istanbul ignore next  */
+        function domAPI(options) {
+          if (typeof document === "undefined") {
+            return {
+              update: function update() {},
+              remove: function remove() {}
+            };
+          }
+          var styleElement = options.insertStyleElement(options);
+          return {
+            update: function update(obj) {
+              apply(styleElement, options, obj);
+            },
+            remove: function remove() {
+              removeStyleElement(styleElement);
+            }
+          };
+        }
+        module.exports = domAPI;
+
+        /***/
+      }),
+      /***/656: ( /***/module => {
+        /* istanbul ignore next  */
+        function styleTagTransform(css, styleElement) {
+          if (styleElement.styleSheet) {
+            styleElement.styleSheet.cssText = css;
+          } else {
+            while (styleElement.firstChild) {
+              styleElement.removeChild(styleElement.firstChild);
+            }
+            styleElement.appendChild(document.createTextNode(css));
+          }
+        }
+        module.exports = styleTagTransform;
+
+        /***/
+      }),
       /***/442: ( /***/module => {
         module.exports = __WEBPACK_EXTERNAL_MODULE__442__;
+
+        /***/
+      }),
+      /***/3: ( /***/module => {
+        module.exports = __WEBPACK_EXTERNAL_MODULE__3__;
 
         /***/
       })
@@ -1073,7 +1511,7 @@ module.exports = {
     /******/
     /******/ // The require function
     /******/
-    function __nested_webpack_require_918__(moduleId) {
+    function __nested_webpack_require_27689__(moduleId) {
       /******/ // Check if module is in cache
       /******/var cachedModule = __webpack_module_cache__[moduleId];
       /******/
@@ -1084,7 +1522,7 @@ module.exports = {
       /******/ // Create a new module (and put it into the cache)
       /******/
       var module = __webpack_module_cache__[moduleId] = {
-        /******/ // no module.id needed
+        /******/id: moduleId,
         /******/ // no module.loaded needed
         /******/exports: {}
         /******/
@@ -1092,7 +1530,7 @@ module.exports = {
       /******/
       /******/ // Execute the module function
       /******/
-      __webpack_modules__[moduleId](module, module.exports, __nested_webpack_require_918__);
+      __webpack_modules__[moduleId](module, module.exports, __nested_webpack_require_27689__);
       /******/
       /******/ // Return the exports of the module
       /******/
@@ -1101,13 +1539,30 @@ module.exports = {
     }
     /******/
     /************************************************************************/
+    /******/ /* webpack/runtime/compat get default export */
+    /******/
+    (() => {
+      /******/ // getDefaultExport function for compatibility with non-harmony modules
+      /******/__nested_webpack_require_27689__.n = module => {
+        /******/var getter = module && module.__esModule ? /******/() => module['default'] : /******/() => module;
+        /******/
+        __nested_webpack_require_27689__.d(getter, {
+          a: getter
+        });
+        /******/
+        return getter;
+        /******/
+      };
+      /******/
+    })();
+    /******/
     /******/ /* webpack/runtime/define property getters */
     /******/
     (() => {
       /******/ // define getter functions for harmony exports
-      /******/__nested_webpack_require_918__.d = (exports, definition) => {
+      /******/__nested_webpack_require_27689__.d = (exports, definition) => {
         /******/for (var key in definition) {
-          /******/if (__nested_webpack_require_918__.o(definition, key) && !__nested_webpack_require_918__.o(exports, key)) {
+          /******/if (__nested_webpack_require_27689__.o(definition, key) && !__nested_webpack_require_27689__.o(exports, key)) {
             /******/Object.defineProperty(exports, key, {
               enumerable: true,
               get: definition[key]
@@ -1124,7 +1579,7 @@ module.exports = {
     /******/ /* webpack/runtime/hasOwnProperty shorthand */
     /******/
     (() => {
-      /******/__nested_webpack_require_918__.o = (obj, prop) => Object.prototype.hasOwnProperty.call(obj, prop);
+      /******/__nested_webpack_require_27689__.o = (obj, prop) => Object.prototype.hasOwnProperty.call(obj, prop);
       /******/
     })();
     /******/
@@ -1132,7 +1587,7 @@ module.exports = {
     /******/
     (() => {
       /******/ // define __esModule on exports
-      /******/__nested_webpack_require_918__.r = exports => {
+      /******/__nested_webpack_require_27689__.r = exports => {
         /******/if (typeof Symbol !== 'undefined' && Symbol.toStringTag) {
           /******/Object.defineProperty(exports, Symbol.toStringTag, {
             value: 'Module'
@@ -1148,15 +1603,22 @@ module.exports = {
       /******/
     })();
     /******/
+    /******/ /* webpack/runtime/nonce */
+    /******/
+    (() => {
+      /******/__nested_webpack_require_27689__.nc = undefined;
+      /******/
+    })();
+    /******/
     /************************************************************************/
     var __nested_webpack_exports__ = {};
     // This entry need to be wrapped in an IIFE because it need to be isolated against other modules in the chunk.
     (() => {
       // ESM COMPAT FLAG
-      __nested_webpack_require_918__.r(__nested_webpack_exports__);
+      __nested_webpack_require_27689__.r(__nested_webpack_exports__);
 
       // EXPORTS
-      __nested_webpack_require_918__.d(__nested_webpack_exports__, {
+      __nested_webpack_require_27689__.d(__nested_webpack_exports__, {
         convertArrayKeysToCamelCase: () => ( /* reexport */libs_convertArrayKeysToCamelCase),
         convertArrayKeysToSnakeCase: () => ( /* reexport */libs_convertArrayKeysToSnakeCase),
         convertListToTree: () => ( /* reexport */libs_convertListToTree),
@@ -1169,14 +1631,18 @@ module.exports = {
         timeFormatter: () => ( /* reexport */time_formatter_namespaceObject),
         useClickOutside: () => ( /* reexport */hooks_useClickOutside),
         useDrag: () => ( /* reexport */hooks_useDrag),
+        useForm: () => ( /* reexport */hooks_useForm),
+        useLoading: () => ( /* reexport */hooks_useLoading),
         useNavigateTo: () => ( /* reexport */hooks_useNavigateTo),
-        useThrottle: () => ( /* reexport */hooks_useThrottle)
+        useNotification: () => ( /* reexport */hooks_useNotification),
+        useThrottle: () => ( /* reexport */hooks_useThrottle),
+        useToast: () => ( /* reexport */hooks_useToast)
       });
 
       // NAMESPACE OBJECT: ./src/libs/time-formatter.js
       var time_formatter_namespaceObject = {};
-      __nested_webpack_require_918__.r(time_formatter_namespaceObject);
-      __nested_webpack_require_918__.d(time_formatter_namespaceObject, {
+      __nested_webpack_require_27689__.r(time_formatter_namespaceObject);
+      __nested_webpack_require_27689__.d(time_formatter_namespaceObject, {
         "default": () => time_formatter
       });
       ; // CONCATENATED MODULE: ./src/libs/getAbsolutePositionOfStage.js
@@ -5083,7 +5549,8 @@ module.exports = {
       } //#endregion
 
       // EXTERNAL MODULE: external {"root":"React","commonjs2":"react","commonjs":"react","amd":"react"}
-      var external_root_React_commonjs2_react_commonjs_react_amd_react_ = __nested_webpack_require_918__(442);
+      var external_root_React_commonjs2_react_commonjs_react_amd_react_ = __nested_webpack_require_27689__(442);
+      var external_root_React_commonjs2_react_commonjs_react_amd_react_default = /*#__PURE__*/__nested_webpack_require_27689__.n(external_root_React_commonjs2_react_commonjs_react_amd_react_);
       ; // CONCATENATED MODULE: ../../node_modules/react-router/dist/index.js
       /**
        * React Router v6.10.0
@@ -6458,6 +6925,518 @@ module.exports = {
       };
       /* harmony default export */
       const hooks_useThrottle = useThrottle;
+      ; // CONCATENATED MODULE: ./src/hooks/useForm.ts
+
+      const useForm = data => {
+        const [formData, setFormData] = (0, external_root_React_commonjs2_react_commonjs_react_amd_react_.useState)(data);
+
+        // form.setFieldsValue({ note: 'Hello world!', gender: 'male' });
+
+        const getData = () => {
+          return formData;
+        };
+        const setFieldValue = data => {
+          setFormData(preData => ({
+            ...preData,
+            ...data
+          }));
+        };
+        const getFieldValue = key => {
+          return formData[key];
+        };
+        let validate; // 也可以在这边实现，把 rules都传过来，然后返回的时候多传一个 errors，给 FormIten使用
+
+        const reset = () => {
+          setFormData(data);
+          // 重置
+        };
+        const clear = () => {
+          setFormData({});
+        };
+        (0, external_root_React_commonjs2_react_commonjs_react_amd_react_.useEffect)(() => {
+          setFormData(data);
+        }, []);
+        return {
+          getData,
+          validate,
+          reset,
+          clear,
+          setFieldValue,
+          getFieldValue,
+          setFormData,
+          formData
+        };
+      };
+      /* harmony default export */
+      const hooks_useForm = useForm;
+      // EXTERNAL MODULE: ../../node_modules/react-dom/client.js
+      var client = __nested_webpack_require_27689__(137);
+      // EXTERNAL MODULE: ../../node_modules/style-loader/dist/runtime/injectStylesIntoStyleTag.js
+      var injectStylesIntoStyleTag = __nested_webpack_require_27689__(591);
+      var injectStylesIntoStyleTag_default = /*#__PURE__*/__nested_webpack_require_27689__.n(injectStylesIntoStyleTag);
+      // EXTERNAL MODULE: ../../node_modules/style-loader/dist/runtime/styleDomAPI.js
+      var styleDomAPI = __nested_webpack_require_27689__(740);
+      var styleDomAPI_default = /*#__PURE__*/__nested_webpack_require_27689__.n(styleDomAPI);
+      // EXTERNAL MODULE: ../../node_modules/style-loader/dist/runtime/insertBySelector.js
+      var insertBySelector = __nested_webpack_require_27689__(128);
+      var insertBySelector_default = /*#__PURE__*/__nested_webpack_require_27689__.n(insertBySelector);
+      // EXTERNAL MODULE: ../../node_modules/style-loader/dist/runtime/setAttributesWithoutAttributes.js
+      var setAttributesWithoutAttributes = __nested_webpack_require_27689__(855);
+      var setAttributesWithoutAttributes_default = /*#__PURE__*/__nested_webpack_require_27689__.n(setAttributesWithoutAttributes);
+      // EXTERNAL MODULE: ../../node_modules/style-loader/dist/runtime/insertStyleElement.js
+      var insertStyleElement = __nested_webpack_require_27689__(51);
+      var insertStyleElement_default = /*#__PURE__*/__nested_webpack_require_27689__.n(insertStyleElement);
+      // EXTERNAL MODULE: ../../node_modules/style-loader/dist/runtime/styleTagTransform.js
+      var styleTagTransform = __nested_webpack_require_27689__(656);
+      var styleTagTransform_default = /*#__PURE__*/__nested_webpack_require_27689__.n(styleTagTransform);
+      // EXTERNAL MODULE: ../../node_modules/css-loader/dist/cjs.js??ruleSet[1].rules[1].use[1]!../../node_modules/sass-loader/dist/cjs.js??ruleSet[1].rules[1].use[2]!./src/hooks/notification.scss
+      var notification = __nested_webpack_require_27689__(151);
+      ; // CONCATENATED MODULE: ./src/hooks/notification.scss
+
+      var options = {};
+      options.styleTagTransform = styleTagTransform_default();
+      options.setAttributes = setAttributesWithoutAttributes_default();
+      options.insert = insertBySelector_default().bind(null, "head");
+      options.domAPI = styleDomAPI_default();
+      options.insertStyleElement = insertStyleElement_default();
+      var update = injectStylesIntoStyleTag_default()(notification /* default */.A, options);
+
+      /* harmony default export */
+      const hooks_notification = notification /* default */.A && notification /* default */.A.locals ? notification /* default */.A.locals : undefined;
+      ; // CONCATENATED MODULE: ./src/hooks/useNotification.tsx
+
+      let notificationInstance = null;
+      let root = null;
+      let notificationIdRef = 0;
+      let notifications = [];
+      let timersMap = new Map();
+      let intervalsMap = new Map();
+      const NotificationContainer = () => {
+        const [notificationList, setNotificationList] = (0, external_root_React_commonjs2_react_commonjs_react_amd_react_.useState)([]);
+        (0, external_root_React_commonjs2_react_commonjs_react_amd_react_.useEffect)(() => {
+          setNotificationList(notifications);
+        }, [notifications]); // useEffect 可以监听到 非state的变量 notifications 的变化
+
+        const close = id => {
+          notifications = notifications.map(item => {
+            if (id !== undefined && item.id === id) {
+              return {
+                ...item,
+                disappearing: true
+              };
+            }
+            return item;
+          });
+          setNotificationList([...notifications]);
+          setTimeout(() => {
+            notifications = notifications.filter(item => item.id !== id);
+            setNotificationList([...notifications]);
+
+            // 清理定时器
+            const timer = timersMap.get(id);
+            const interval = intervalsMap.get(id);
+            if (timer) {
+              clearTimeout(timer);
+              timersMap.delete(id);
+            }
+            if (interval) {
+              clearInterval(interval);
+              intervalsMap.delete(id);
+            }
+          }, 300);
+        };
+        const handleMouseEnter = item => {
+          // 暂停定时器
+          const timer = timersMap.get(item.id);
+          const interval = intervalsMap.get(item.id);
+          if (timer) {
+            clearTimeout(timer);
+          }
+          if (interval) {
+            clearInterval(interval);
+          }
+        };
+        const handleMouseLeave = item => {
+          // 重新设置定时器
+          const timer = setTimeout(() => {
+            close(item.id);
+          }, item.remainTime);
+          timersMap.set(item.id, timer);
+          const interval = setInterval(() => {
+            const notification = notifications.find(n => n.id === item.id);
+            if (notification) {
+              notification.remainTime -= 100;
+              setNotificationList([...notifications]);
+            }
+          }, 100);
+          intervalsMap.set(item.id, interval);
+        };
+        const generateTitleIcon = item => {
+          switch (item.type) {
+            case "success":
+              return /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("i", {
+                className: "text-success fa-regular fa-circle-check"
+              });
+            case "warning":
+              return /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("i", {
+                className: "text-warning fa-solid fa-circle-exclamation"
+              });
+            case "info":
+              return /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("i", {
+                className: "text-info fa-solid fa-circle-info"
+              });
+            case "danger":
+              return /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("i", {
+                className: "text-danger fa-solid fa-circle-exclamation"
+              });
+            default:
+              break;
+          }
+        };
+        return /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("div", {
+          className: "adou-notification-container"
+        }, notificationList.map(item => /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("div", {
+          onMouseEnter: () => handleMouseEnter(item),
+          onMouseLeave: () => handleMouseLeave(item),
+          key: item.id,
+          className: "adou-notification ".concat(item.appearing ? "adou-notification-appearing" : "", " ").concat(item.disappearing ? "adou-notification-disappearing" : "")
+        }, /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("div", {
+          className: "adou-notification-header"
+        }, /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("div", {
+          className: "adou-notification-header-title"
+        }, /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("div", {
+          className: "adou-notification-header-title-icon"
+        }, item.customTitleIcon ? item.customTitleIcon : generateTitleIcon(item)), /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("span", {
+          className: "text-".concat(item.title, " adou-notification-header-title-text")
+        }, item.title)), /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("div", {
+          className: "adou-notification-header-close",
+          onClick: () => close(item.id)
+        }, /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("i", {
+          className: "fa-solid fa-xmark"
+        }))), /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("div", {
+          className: "adou-notification-content text-".concat(item.type)
+        }, item.message))));
+      };
+      const createNotificationInstance = () => {
+        // 创建容器
+        const container = document.createElement("div");
+        document.body.appendChild(container);
+
+        // 创建 root
+        root = (0, client /* createRoot */.H)(container);
+        root.render( /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement(NotificationContainer, null));
+        return {
+          open: message => {
+            var _root;
+            const id = ++notificationIdRef;
+            const data = {
+              id,
+              duration: 3000,
+              type: "info",
+              ...message
+            };
+            data.remainTime = data.duration;
+            notifications.push(data);
+            (_root = root) === null || _root === void 0 || _root.render( /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement(NotificationContainer, null));
+
+            // 设置appearing状态
+            setTimeout(() => {
+              const notification = notifications.find(n => n.id === id);
+              if (notification) {
+                var _root2;
+                notification.appearing = true;
+                (_root2 = root) === null || _root2 === void 0 || _root2.render( /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement(NotificationContainer, null));
+              }
+            }, 50);
+
+            // 设置自动关闭定时器
+            const timer = setTimeout(() => {
+              const index = notifications.findIndex(n => n.id === id);
+              if (index !== -1) {
+                var _root3;
+                notifications[index].disappearing = true;
+                (_root3 = root) === null || _root3 === void 0 || _root3.render( /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement(NotificationContainer, null));
+                setTimeout(() => {
+                  var _root4;
+                  notifications = notifications.filter(n => n.id !== id);
+                  (_root4 = root) === null || _root4 === void 0 || _root4.render( /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement(NotificationContainer, null));
+                }, 300);
+              }
+            }, message.duration || 3000);
+            timersMap.set(id, timer);
+
+            // 设置倒计时定时器
+            const interval = setInterval(() => {
+              const notification = notifications.find(n => n.id === id);
+              if (notification) {
+                var _root5;
+                notification.remainTime -= 100;
+                (_root5 = root) === null || _root5 === void 0 || _root5.render( /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement(NotificationContainer, null));
+              }
+            }, 100);
+            intervalsMap.set(id, interval);
+          }
+        };
+      };
+      const useNotification = () => {
+        (0, external_root_React_commonjs2_react_commonjs_react_amd_react_.useEffect)(() => {
+          if (!notificationInstance) {
+            notificationInstance = createNotificationInstance();
+          }
+        }, []);
+        return {
+          open: message => {
+            var _notificationInstance;
+            (_notificationInstance = notificationInstance) === null || _notificationInstance === void 0 || _notificationInstance.open(message);
+          }
+        };
+      };
+      /* harmony default export */
+      const hooks_useNotification = useNotification;
+      // EXTERNAL MODULE: ../../node_modules/css-loader/dist/cjs.js??ruleSet[1].rules[1].use[1]!../../node_modules/sass-loader/dist/cjs.js??ruleSet[1].rules[1].use[2]!./src/hooks/loading.scss
+      var loading = __nested_webpack_require_27689__(736);
+      ; // CONCATENATED MODULE: ./src/hooks/loading.scss
+
+      var loading_options = {};
+      loading_options.styleTagTransform = styleTagTransform_default();
+      loading_options.setAttributes = setAttributesWithoutAttributes_default();
+      loading_options.insert = insertBySelector_default().bind(null, "head");
+      loading_options.domAPI = styleDomAPI_default();
+      loading_options.insertStyleElement = insertStyleElement_default();
+      var loading_update = injectStylesIntoStyleTag_default()(loading /* default */.A, loading_options);
+
+      /* harmony default export */
+      const hooks_loading = loading /* default */.A && loading /* default */.A.locals ? loading /* default */.A.locals : undefined;
+      ; // CONCATENATED MODULE: ./src/hooks/useLoading.tsx
+      // useLoading.ts
+
+      const Loading = () => {
+        return /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("div", {
+          className: "loading-overlay"
+        }, /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("div", {
+          className: "loading-spinner me-2"
+        }), /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("span", null, "Loading..."));
+      };
+      let loadingCount = 0;
+      let loadingInstance = null;
+      let useLoading_root = null;
+      const createLoadingInstance = () => {
+        // 创建容器
+        const container = document.createElement("div");
+        container.className = "loading-wrapper";
+        document.body.appendChild(container);
+
+        // 创建 root
+        useLoading_root = (0, client /* createRoot */.H)(container);
+
+        // 渲染组件
+        const render = visible => {
+          var _root;
+          (_root = useLoading_root) === null || _root === void 0 || _root.render(visible ? /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement(Loading, null) : null);
+        };
+        return {
+          show: () => {
+            render(true);
+          },
+          hide: () => {
+            render(false);
+          }
+        };
+      };
+      const useLoading = () => {
+        const [isLoading, setIsLoading] = (0, external_root_React_commonjs2_react_commonjs_react_amd_react_.useState)(false);
+        (0, external_root_React_commonjs2_react_commonjs_react_amd_react_.useEffect)(() => {
+          // 确保只创建一个实例
+          if (!loadingInstance) {
+            loadingInstance = createLoadingInstance();
+          }
+        }, []);
+        const showLoading = () => {
+          var _loadingInstance;
+          loadingCount++;
+          setIsLoading(true);
+          (_loadingInstance = loadingInstance) === null || _loadingInstance === void 0 || _loadingInstance.show();
+        };
+        const hideLoading = () => {
+          loadingCount--;
+          if (loadingCount <= 0) {
+            var _loadingInstance2;
+            loadingCount = 0;
+            setIsLoading(false);
+            (_loadingInstance2 = loadingInstance) === null || _loadingInstance2 === void 0 || _loadingInstance2.hide();
+          }
+        };
+        return {
+          loading: isLoading,
+          showLoading,
+          hideLoading
+        };
+      };
+      /* harmony default export */
+      const hooks_useLoading = useLoading;
+      // EXTERNAL MODULE: ../../node_modules/css-loader/dist/cjs.js??ruleSet[1].rules[1].use[1]!../../node_modules/sass-loader/dist/cjs.js??ruleSet[1].rules[1].use[2]!./src/hooks/toast.scss
+      var toast = __nested_webpack_require_27689__(323);
+      ; // CONCATENATED MODULE: ./src/hooks/toast.scss
+
+      var toast_options = {};
+      toast_options.styleTagTransform = styleTagTransform_default();
+      toast_options.setAttributes = setAttributesWithoutAttributes_default();
+      toast_options.insert = insertBySelector_default().bind(null, "head");
+      toast_options.domAPI = styleDomAPI_default();
+      toast_options.insertStyleElement = insertStyleElement_default();
+      var toast_update = injectStylesIntoStyleTag_default()(toast /* default */.A, toast_options);
+
+      /* harmony default export */
+      const hooks_toast = toast /* default */.A && toast /* default */.A.locals ? toast /* default */.A.locals : undefined;
+      ; // CONCATENATED MODULE: ./src/hooks/useToast.tsx
+      // useToast.tsx
+
+      let toastInstance = null;
+      let useToast_root = null;
+      let toastId = 0;
+      let toasts = [];
+      let useToast_timersMap = new Map();
+      let useToast_intervalsMap = new Map();
+      const ToastContainer = () => {
+        const [toastList, setToastList] = (0, external_root_React_commonjs2_react_commonjs_react_amd_react_.useState)([]);
+        (0, external_root_React_commonjs2_react_commonjs_react_amd_react_.useEffect)(() => {
+          setToastList(toasts);
+        }, [toasts]);
+        const handleMouseEnter = id => {
+          const timer = useToast_timersMap.get(id);
+          const interval = useToast_intervalsMap.get(id);
+          if (timer) clearTimeout(timer);
+          if (interval) clearInterval(interval);
+        };
+        const handleMouseLeave = id => {
+          const toast = toasts.find(t => t.id === id);
+          if (!toast) return;
+          const remainingTime = toast.remainingTime;
+          const timer = setTimeout(() => {
+            toasts = toasts.map(t => t.id === id ? {
+              ...t,
+              disappearing: true
+            } : t);
+            setToastList([...toasts]);
+            setTimeout(() => {
+              toasts = toasts.filter(t => t.id !== id);
+              setToastList([...toasts]);
+            }, 500);
+          }, remainingTime);
+          useToast_timersMap.set(id, timer);
+          const interval = setInterval(() => {
+            const toastIndex = toasts.findIndex(t => t.id === id);
+            if (toastIndex !== -1 && toasts[toastIndex].remainingTime) {
+              toasts[toastIndex].remainingTime -= 100;
+              setToastList([...toasts]);
+            }
+          }, 100);
+          useToast_intervalsMap.set(id, interval);
+        };
+        const handleClose = toast => {
+          const timer = useToast_timersMap.get(toast.id);
+          const interval = useToast_intervalsMap.get(toast.id);
+          if (timer) clearTimeout(timer);
+          if (interval) clearInterval(interval);
+          toasts = toasts.map(t => t.id === toast.id ? {
+            ...t,
+            disappearing: true
+          } : t);
+          setToastList([...toasts]);
+          setTimeout(() => {
+            toasts = toasts.filter(t => t.id !== toast.id);
+            setToastList([...toasts]);
+          }, 500);
+        };
+        return /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("div", {
+          className: "adou-toast-container"
+        }, toastList.map(toast => /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("div", {
+          style: {
+            width: toast.width
+          },
+          key: toast.id,
+          className: "adou-toast adou-toast-".concat(toast.type, " ").concat(toast.appearing ? "appearing" : "", " ").concat(toast.disappearing ? "disappearing" : ""),
+          onMouseEnter: () => handleMouseEnter(toast.id),
+          onMouseLeave: () => handleMouseLeave(toast.id)
+        }, /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("div", {
+          className: "adou-toast-content"
+        }, toast.content, /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("button", {
+          className: "adou-toast-close",
+          onClick: () => handleClose(toast)
+        }, "\xD7")), /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("div", {
+          className: "adou-toast-timer",
+          style: {
+            width: "".concat((toast.remainingTime || 0) / (toast.duration / 100), "%")
+          }
+        }))));
+      };
+      const createToastInstance = () => {
+        const container = document.createElement("div");
+        document.body.appendChild(container);
+        useToast_root = (0, client /* createRoot */.H)(container);
+        useToast_root.render( /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement(ToastContainer, null));
+        return {
+          open: message => {
+            var _root;
+            const id = toastId++;
+            const newToast = {
+              id,
+              duration: 3000,
+              remainingTime: 3000,
+              ...message
+            };
+            newToast.remainingTime = newToast.duration;
+            toasts.push(newToast);
+            (_root = useToast_root) === null || _root === void 0 || _root.render( /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement(ToastContainer, null));
+            setTimeout(() => {
+              const index = toasts.findIndex(t => t.id === id);
+              if (index !== -1) {
+                var _root2;
+                toasts[index].appearing = true;
+                (_root2 = useToast_root) === null || _root2 === void 0 || _root2.render( /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement(ToastContainer, null));
+              }
+            }, 10);
+            const timer = setTimeout(() => {
+              var _root3;
+              toasts = toasts.map(t => t.id === id ? {
+                ...t,
+                disappearing: true
+              } : t);
+              (_root3 = useToast_root) === null || _root3 === void 0 || _root3.render( /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement(ToastContainer, null));
+              setTimeout(() => {
+                var _root4;
+                toasts = toasts.filter(t => t.id !== id);
+                (_root4 = useToast_root) === null || _root4 === void 0 || _root4.render( /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement(ToastContainer, null));
+              }, 500);
+            }, newToast.remainingTime);
+            useToast_timersMap.set(id, timer);
+            const interval = setInterval(() => {
+              const toastIndex = toasts.findIndex(t => t.id === id);
+              if (toastIndex !== -1 && toasts[toastIndex].remainingTime) {
+                var _root5;
+                toasts[toastIndex].remainingTime -= 100;
+                (_root5 = useToast_root) === null || _root5 === void 0 || _root5.render( /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement(ToastContainer, null));
+              }
+            }, 100);
+            useToast_intervalsMap.set(id, interval);
+          }
+        };
+      };
+      const useToast = () => {
+        (0, external_root_React_commonjs2_react_commonjs_react_amd_react_.useEffect)(() => {
+          if (!toastInstance) {
+            toastInstance = createToastInstance();
+          }
+        }, []);
+        return {
+          open: message => {
+            var _toastInstance;
+            (_toastInstance = toastInstance) === null || _toastInstance === void 0 || _toastInstance.open(message);
+          }
+        };
+      };
+      /* harmony default export */
+      const hooks_useToast = useToast;
       ; // CONCATENATED MODULE: ./src/index.tsx
     })();
 
@@ -6466,6 +7445,48 @@ module.exports = {
     /******/
   })();
 });
+
+/***/ }),
+
+/***/ 648:
+/***/ ((module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   A: () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _node_modules_css_loader_dist_runtime_sourceMaps_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(73);
+/* harmony import */ var _node_modules_css_loader_dist_runtime_sourceMaps_js__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_css_loader_dist_runtime_sourceMaps_js__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(191);
+/* harmony import */ var _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_1__);
+// Imports
+
+
+var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_1___default()((_node_modules_css_loader_dist_runtime_sourceMaps_js__WEBPACK_IMPORTED_MODULE_0___default()));
+// Module
+___CSS_LOADER_EXPORT___.push([module.id, `.table-cell-wrapper {
+  box-sizing: border-box;
+}
+.table-cell-wrapper .collapse-icon {
+  transition: transform 0.3s ease;
+  cursor: pointer;
+  z-index: 1;
+}
+.table-cell-wrapper .table-cell-folder-rotate-down {
+  transform: rotate(90deg);
+}
+.table-cell-wrapper .text-in-one-line {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.table-cell-wrapper .table-cell-value-left {
+  flex: 1;
+  text-align-last: left;
+}`, "",{"version":3,"sources":["webpack://./src/TableCell/index.scss"],"names":[],"mappings":"AAAA;EACI,sBAAA;AACJ;AACI;EACI,+BAAA;EACA,eAAA;EACA,UAAA;AACR;AAGI;EACI,wBAAA;AADR;AAMI;EACI,mBAAA;EACA,gBAAA;EACA,uBAAA;AAJR;AAOI;EACI,OAAA;EACA,qBAAA;AALR","sourcesContent":[".table-cell-wrapper {\r\n    box-sizing: border-box;\r\n\r\n    .collapse-icon {\r\n        transition: transform .3s ease; // 旋转动画\r\n        cursor: pointer;\r\n        z-index: 1;\r\n        // margin-bottom: 6px;\r\n    }\r\n\r\n    .table-cell-folder-rotate-down {\r\n        transform: rotate(90deg);\r\n    }\r\n\r\n    .collapse-icon:not(.rotate-down) {}\r\n\r\n    .text-in-one-line {\r\n        white-space: nowrap;\r\n        overflow: hidden;\r\n        text-overflow: ellipsis;\r\n    }\r\n\r\n    .table-cell-value-left {\r\n        flex: 1;\r\n        text-align-last: left;\r\n    }\r\n}"],"sourceRoot":""}]);
+// Exports
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
+
 
 /***/ }),
 
@@ -6931,8 +7952,9 @@ __webpack_require__.r(__webpack_exports__);
 
 // EXPORTS
 __webpack_require__.d(__webpack_exports__, {
-  TableCell: () => (/* reexport */ src_TableCell),
-  "default": () => (/* binding */ src_0)
+  TableCell: () => (/* reexport */ src_TableCell_0),
+  "default": () => (/* binding */ src_0),
+  recursiveGenerateTableHeaderRows: () => (/* binding */ recursiveGenerateTableHeaderRows)
 });
 
 // EXTERNAL MODULE: external {"root":"React","commonjs2":"react","commonjs":"react","amd":"react"}
@@ -8136,93 +9158,6 @@ var plural = function plural() {
 var selectOrdinal = function selectOrdinal() {
   return '';
 };
-;// CONCATENATED MODULE: ./src/TableCell/index.tsx
-
-
-const TableCell = props => {
-  const {
-    tooltip,
-    sortable,
-    collapse,
-    isParent,
-    maxWidth,
-    render,
-    rowData,
-    prop,
-    label,
-    rowIndex,
-    colIndex,
-    value,
-    eidtable,
-    textPosition = 'center',
-    width,
-    onChange,
-    onEditCancel,
-    onEditOK,
-    onExpand
-  } = props;
-  const [isEditing, setIsEditing] = (0,external_root_React_commonjs2_react_commonjs_react_amd_react_.useState)(false);
-  const [editedValue, setEditedValue] = (0,external_root_React_commonjs2_react_commonjs_react_amd_react_.useState)(value || ''); // 最终展示的值
-  const wrapperRef = (0,external_root_React_commonjs2_react_commonjs_react_amd_react_.useRef)(null);
-  const handleDoubleClick = () => {
-    eidtable && setIsEditing(true);
-  };
-  const handleBlur = e => {
-    const value = e.target.value;
-    setIsEditing(false);
-    if (true) {
-      setEditedValue(value);
-      onEditOK && onEditOK(value);
-    }
-  };
-  const handleChange = e => {};
-  const handleExpandIconClick = e => {
-    e.stopPropagation();
-    onExpand && onExpand();
-  };
-
-  // 这边必须要写一个监听传递过来的value的钩子函数，因为cell展示的值是 editValue
-  // 当传递过来的value发生变化时，将它重新赋值给cell要展示的值
-  // 如果cell要展示的值是 value，就可以不用写
-  (0,external_root_React_commonjs2_react_commonjs_react_amd_react_.useEffect)(() => {
-    setEditedValue(value);
-  }, [value]);
-  return /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("div", {
-    className: "table-cell d-flex",
-    style: {
-      width: '100%'
-    }
-  }, render ? render(editedValue, rowData, rowIndex, prop, colIndex) : /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("div", {
-    className: "table-cell-wrapper",
-    style: {
-      display: 'inline-block',
-      overflow: 'hidden',
-      width: '100%'
-    },
-    onDoubleClick: handleDoubleClick,
-    ref: wrapperRef
-  }, isEditing ? /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("div", {
-    style: {
-      width: wrapperRef.current ? "".concat(wrapperRef.current.clientWidth, "px") : '100%',
-      boxSizing: 'border-box'
-    }
-  }) : /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("div", {
-    className: "ps-1"
-  }, /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("div", {
-    className: "value d-flex align-items-center"
-  }, isParent ? /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("i", {
-    onClick: handleExpandIconClick,
-    className: "fa-solid fa-chevron-right me-2 ".concat(collapse ? 'table-cell-folder-rotate-down' : '', " collapse-icon")
-  }) : /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("span", {
-    className: "ps-3"
-  }), /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("div", {
-    style: {
-      maxWidth
-    },
-    className: "ellipsis-1 "
-  }, editedValue)))));
-};
-/* harmony default export */ const src_TableCell = (withTranslation()(TableCell));
 // EXTERNAL MODULE: ../../node_modules/style-loader/dist/runtime/injectStylesIntoStyleTag.js
 var injectStylesIntoStyleTag = __webpack_require__(591);
 var injectStylesIntoStyleTag_default = /*#__PURE__*/__webpack_require__.n(injectStylesIntoStyleTag);
@@ -8241,9 +9176,9 @@ var insertStyleElement_default = /*#__PURE__*/__webpack_require__.n(insertStyleE
 // EXTERNAL MODULE: ../../node_modules/style-loader/dist/runtime/styleTagTransform.js
 var styleTagTransform = __webpack_require__(656);
 var styleTagTransform_default = /*#__PURE__*/__webpack_require__.n(styleTagTransform);
-// EXTERNAL MODULE: ../../node_modules/css-loader/dist/cjs.js??ruleSet[1].rules[1].use[1]!../../node_modules/sass-loader/dist/cjs.js??ruleSet[1].rules[1].use[2]!./src/index.scss
-var cjs_ruleSet_1_rules_1_use_2_src = __webpack_require__(483);
-;// CONCATENATED MODULE: ./src/index.scss
+// EXTERNAL MODULE: ../../node_modules/css-loader/dist/cjs.js??ruleSet[1].rules[1].use[1]!../../node_modules/sass-loader/dist/cjs.js??ruleSet[1].rules[1].use[2]!./src/TableCell/index.scss
+var TableCell = __webpack_require__(648);
+;// CONCATENATED MODULE: ./src/TableCell/index.scss
 
       
       
@@ -8265,7 +9200,137 @@ options.setAttributes = (setAttributesWithoutAttributes_default());
 options.domAPI = (styleDomAPI_default());
 options.insertStyleElement = (insertStyleElement_default());
 
-var update = injectStylesIntoStyleTag_default()(cjs_ruleSet_1_rules_1_use_2_src/* default */.A, options);
+var update = injectStylesIntoStyleTag_default()(TableCell/* default */.A, options);
+
+
+
+
+       /* harmony default export */ const src_TableCell = (TableCell/* default */.A && TableCell/* default */.A.locals ? TableCell/* default */.A.locals : undefined);
+
+;// CONCATENATED MODULE: ./src/TableCell/index.tsx
+
+
+const TableCell_TableCell = props => {
+  const {
+    parentId,
+    showTip,
+    sortable,
+    collapse,
+    isParent,
+    maxWidth,
+    render,
+    rowData,
+    prop,
+    label,
+    rowIndex,
+    colIndex,
+    value,
+    eidtable,
+    align = "center",
+    width,
+    onChange,
+    onEditCancel,
+    onEditOK,
+    onExpand
+  } = props;
+  const [isEditing, setIsEditing] = (0,external_root_React_commonjs2_react_commonjs_react_amd_react_.useState)(false);
+  const [editedValue, setEditedValue] = (0,external_root_React_commonjs2_react_commonjs_react_amd_react_.useState)(value || ""); // 最终展示的值
+  const wrapperRef = (0,external_root_React_commonjs2_react_commonjs_react_amd_react_.useRef)(null);
+  const handleDoubleClick = () => {
+    eidtable && setIsEditing(true);
+  };
+  const handleBlur = e => {
+    const value = e.target.value;
+    setIsEditing(false);
+    if (true) {
+      setEditedValue(value);
+      onEditOK && onEditOK(value);
+    }
+  };
+  const handleChange = e => {};
+  const handleExpandIconClick = e => {
+    e.stopPropagation();
+    onExpand && onExpand();
+  };
+
+  // 判断每一列的 对齐方式
+  const judgeTdAlign = () => {
+    switch (align) {
+      case "start":
+        return "justify-content-start";
+      case "end":
+        return "justify-content-end";
+      default:
+        return "justify-content-center";
+    }
+  };
+
+  // 这边必须要写一个监听传递过来的value的钩子函数，因为cell展示的值是 editValue
+  // 当传递过来的value发生变化时，将它重新赋值给cell要展示的值
+  // 如果cell要展示的值是 value，就可以不用写
+  (0,external_root_React_commonjs2_react_commonjs_react_amd_react_.useEffect)(() => {
+    setEditedValue(value);
+  }, [value]);
+  return /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("div", {
+    className: "table-cell d-flex ".concat(judgeTdAlign()),
+    style: {
+      width: "100%"
+    }
+  }, render ? render(editedValue, rowData, rowIndex, prop, colIndex) : /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("div", {
+    className: "table-cell-wrapper",
+    style: {
+      display: "inline-block",
+      width: "100%"
+    },
+    onDoubleClick: handleDoubleClick,
+    ref: wrapperRef
+  }, isEditing ? /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("div", {
+    style: {
+      width: wrapperRef.current ? "".concat(wrapperRef.current.clientWidth, "px") : "100%",
+      boxSizing: "border-box"
+    }
+  }) : /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("div", {
+    className: "table-cell-content"
+  }, /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("div", {
+    className: "value d-flex align-items-center ".concat(judgeTdAlign())
+  }, isParent ? /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("i", {
+    onClick: handleExpandIconClick,
+    className: "fa-solid fa-chevron-right me-2 ".concat(collapse ? "table-cell-folder-rotate-down" : "", " collapse-icon")
+  }) : parentId && colIndex === 0 ? /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("span", {
+    className: "ps-3"
+  }) : null, /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("div", {
+    style: {
+      maxWidth: showTip && parseFloat(maxWidth) > parseFloat(width) - 20 ? parseFloat(width) - 20 + "px" : maxWidth
+    },
+    className: "ellipsis-1 "
+  }, editedValue)))));
+};
+/* harmony default export */ const src_TableCell_0 = (TableCell_TableCell);
+// EXTERNAL MODULE: ../../node_modules/css-loader/dist/cjs.js??ruleSet[1].rules[1].use[1]!../../node_modules/sass-loader/dist/cjs.js??ruleSet[1].rules[1].use[2]!./src/index.scss
+var cjs_ruleSet_1_rules_1_use_2_src = __webpack_require__(483);
+;// CONCATENATED MODULE: ./src/index.scss
+
+      
+      
+      
+      
+      
+      
+      
+      
+      
+
+var src_options = {};
+
+src_options.styleTagTransform = (styleTagTransform_default());
+src_options.setAttributes = (setAttributesWithoutAttributes_default());
+
+      src_options.insert = insertBySelector_default().bind(null, "head");
+    
+src_options.domAPI = (styleDomAPI_default());
+src_options.insertStyleElement = (insertStyleElement_default());
+
+var src_update = injectStylesIntoStyleTag_default()(cjs_ruleSet_1_rules_1_use_2_src/* default */.A, src_options);
 
 
 
@@ -8285,28 +9350,41 @@ var Utils = __webpack_require__(36);
 
 
 
+const recursiveGenerateTableHeaderRows = function (columns) {
+  let newRows = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : [];
+  columns.forEach(column => {
+    if (column.children) {
+      recursiveGenerateTableHeaderRows(column.children, newRows);
+    } else {
+      newRows.push(column);
+    }
+  });
+  return newRows;
+};
 const Table = props => {
   const {
-    tdPadding = "px-2 py-3",
+    showTip,
+    checkAll,
+    tdPadding = 'px-2 py-3',
     clickChecked,
     showHeader = true,
-    defaultChecked,
-    headerFontWeight = "normal",
-    width,
+    defaultCheckedList,
+    headerFontWeight = 'normal',
+    tableWidth,
     // 控制 table的宽度，太宽的话 可以形成滚动条
-    tableBgc,
+    tableBGC,
     tableRef,
     activeId,
     maxWidth,
     showIndex = false,
     multiple = false,
-    id = "id",
+    id = 'id',
     trPointer = false,
-    textPosition,
+    align,
     collection,
-    collapse,
+    collapse = true,
     expandAll = false,
-    size = "lg",
+    size = 'lg',
     data,
     columns,
     propsData,
@@ -8314,17 +9392,17 @@ const Table = props => {
     tableStriped = false,
     tableBorderd = false,
     tableBorderless = false,
-    headColor = "null",
+    headColor = 'null',
     captionContent,
-    captionPosition = "top",
-    tableResponsive = "xxl",
+    captionPosition = 'top',
+    tableResponsive = 'xxl',
     eidtable = false,
     headSticky = true,
-    headTextColor = "black",
-    headBGC = "",
+    headTextColor = 'black',
+    headBGC = '',
     divider,
-    maxHeight = "500px",
-    minHeight = "0px",
+    maxHeight = '500px',
+    minHeight = '0px',
     onRowDoubleClick,
     onRowClick
   } = props;
@@ -8334,6 +9412,10 @@ const Table = props => {
 
   // 更新的数据
   const [updateKey, setUpdateKey] = (0,external_root_React_commonjs2_react_commonjs_react_amd_react_.useState)(0);
+
+  // 组合表头所需深度
+  const [theadRows, setTheadRows] = (0,external_root_React_commonjs2_react_commonjs_react_amd_react_.useState)([]);
+  const [maxDepth, setMaxDepth] = (0,external_root_React_commonjs2_react_commonjs_react_amd_react_.useState)(1);
 
   // 唯一 id 加上 uniqId 防止多个表格的相同复选框冲突
   const uniqId = (0,external_root_React_commonjs2_react_commonjs_react_amd_react_.useId)();
@@ -8356,12 +9438,12 @@ const Table = props => {
   };
   const generateHeaderStyle = position => {
     switch (position) {
-      case "start":
-        return "flex-start";
-      case "end":
-        return "flex-end";
+      case 'start':
+        return 'flex-start';
+      case 'end':
+        return 'flex-end';
       default:
-        return "center";
+        return 'center';
     }
   };
   const judgeSortIconBGC = (prop, isDown) => {
@@ -8369,13 +9451,38 @@ const Table = props => {
     if (!findItem) return;
     if (isDown) {
       if (findItem.isDown) {
-        return "7px solid red";
+        return '7px solid red';
       }
     } else {
       if (findItem.isUp) {
-        return "7px solid red";
+        return '7px solid red';
       }
     }
+  };
+
+  // 判断每一列的 对齐方式
+  const judgeTdAlign = data => {
+    switch (data.align || align) {
+      case 'start':
+        return 'justify-content-start';
+      case 'end':
+        return 'justify-content-end';
+      default:
+        return 'justify-content-center';
+    }
+  };
+
+  /**
+   *
+   * @param data 父级的那一行数据
+   * @param colProps 当前列的属性
+   * @param colIndex 当前列的索引
+   * @returns
+   */
+  const judgeChildCellAlign = (data, colProps, colIndex) => {
+    var _data$children;
+    return !colIndex && (_data$children = data.children) !== null && _data$children !== void 0 && _data$children.length ? 'start' // 父级存在子级时，第一列左对齐
+    : colProps.align || align;
   };
 
   // 排序的逻辑--坑：一定要使用 [...preArr].sort，不能直接preArr.sort，这样会影响原来的数据，有Bug！！！
@@ -8434,38 +9541,53 @@ const Table = props => {
 
     // setTableData((preArr: any) => preArr.sort((a: any, b: any) => (a[prop] > b[prop] ? 1 : -1)));
     /* if (isDown) {
-      const findItem = tableHeaders.find((item: any) => item.prop === prop);
-       } */
+    const findItem = tableHeaders.find((item: any) => item.prop === prop);
+    } */
   };
+  /**
+   *
+   * @param array 列数组
+   * @param data 父级的那一行数据，巧妙化解了第一列左对齐的问题，可以通过父级是否有子数据来判断是否需要左对齐
+   * @param rowIndex 行索引
+   * @param verticalAlignObject 垂直对齐方式对象
+   * @param widthObject 宽度对象
+   * @param textPositionObject 文字位置对象
+   * @param level 层级
+   * @returns
+   */
+
   const renderChildren = function (array, data, rowIndex, verticalAlignObject, widthObject, textPositionObject) {
     let level = arguments.length > 6 && arguments[6] !== undefined ? arguments[6] : 0;
     level++;
-    return data.collapse && data.children && data.children.map((childData, index) => {
+    console.log('data: ', data);
+    return data.collapse &&
+    // 可以折叠并且有子级才去展示子数据
+    data.children && data.children.map((childData, index) => {
       var _childData$children;
       return /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement(external_root_React_commonjs2_react_commonjs_react_amd_react_.Fragment, {
         key: childData[id]
       }, /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("tr", {
         onClick: e => handleRowClick(childData, e),
-        className: "tr-content tr-content ".concat(childData.checked === true ? "tr-checked" : "", " collapse-table-tr animate__animated animate__fadeIn"),
+        className: "tr-content tr-content ".concat(childData.checked === true ? 'tr-checked' : '', " collapse-table-tr animate__animated animate__fadeIn"),
         style: {
           ...(clickChecked || trPointer ? {
-            cursor: "pointer"
-          } : ""),
+            cursor: 'pointer'
+          } : ''),
           ...(!tableBorderd ? {
-            borderBottom: "1px solid #f0f0f0"
+            borderBottom: '1px solid #f0f0f0'
           } : {})
         },
         key: childData[id]
         /* style={{
-                  ...(data.collapse ? { display: '' } : { display: 'none' }),
-              }} */
+        ...(data.collapse ? { display: '' } : { display: 'none' }),
+        }} */
       }, collection && /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("td", {
         scope: "row",
         style: {
-          minWidth: "50px",
-          width: "50px",
-          maxWidth: "50px",
-          verticalAlign: "middle"
+          minWidth: '50px',
+          width: '50px',
+          maxWidth: '50px',
+          verticalAlign: 'middle'
         },
         className: "text-center ".concat(tdPadding)
       }, /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("input", {
@@ -8475,148 +9597,305 @@ const Table = props => {
         id: childData[id] + uniqId,
         checked: childData.checked === true,
         onChange: e => handleCheckboxChange(childData, e),
-        type: !multiple ? "radio" : "checkbox"
+        type: !multiple ? 'radio' : 'checkbox'
       })), showIndex && /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("th", {
         className: "text-center ".concat(tdPadding),
         style: {
-          minWidth: "50px",
-          width: "50px",
-          maxWidth: "50px",
-          padding: "0px",
-          alignContent: "center",
+          minWidth: '50px',
+          width: '50px',
+          maxWidth: '50px',
+          padding: '0px',
+          alignContent: 'center',
           fontWeight: headerFontWeight
         }
-      }, "".concat(rowIndex + 1, ".").concat(index + 1)), external_root_React_commonjs2_react_commonjs_react_amd_react_default().Children.map(array, (child, colIndex) => {
-        let prop = child.props.prop;
-        if ( /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().isValidElement(child)) {
-          const enhancedChild = /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().cloneElement(child, {
+      }, "".concat(rowIndex + 1, ".").concat(index + 1)), props.children ? external_root_React_commonjs2_react_commonjs_react_amd_react_default().Children.map(array, (col, colIndex) => {
+        let colProps = col.props; // 有 children 就肯定有 props
+        let prop = colProps.prop;
+        if ( /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().isValidElement(col)) {
+          const enhancedChild = /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().cloneElement(col, {
             parentId: childData.parentId,
             // 父级id
             collapse: childData.collapse,
             onExpand: () => handleCollapseClick(childData),
             isParent: !colIndex && childData.children,
+            // 是否是父级的条件：第一列且存在 children
             value: childData[prop],
             rowData: childData,
             eidtable,
             prop: prop,
             rowIndex: rowIndex,
             colIndex: colIndex,
-            textPosition
+            align: judgeChildCellAlign(data, colProps, colIndex),
+            maxWidth: colProps.maxWidth || maxWidth,
+            showTip: colProps.showTip || showTip
           });
           return /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("td", {
             // 这边也不用在子级的第一列在最左侧了
             // colIndex === 0 ? 'text-start' :
-            className: "text-".concat(textPositionObject[prop], " ").concat(tdPadding),
+            className: "text-".concat(colProps.align, " ").concat(tdPadding),
             style: {
               verticalAlign: verticalAlignObject[prop],
-              width: widthObject[child.props.prop],
-              overflowWrap: "break-word",
-              wordWrap: "break-word",
-              wordBreak: "break-word",
-              ["".concat(!colIndex ? "paddingLeft" : "")]: "40px"
+              width: widthObject[prop],
+              overflowWrap: 'break-word',
+              wordWrap: 'break-word',
+              wordBreak: 'break-word',
+              maxWidth: colProps.maxWidth || maxWidth,
+              ["".concat(!colIndex ? 'paddingLeft' : '')]: '40px'
             },
             key: colIndex
           }, /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("div", {
-            className: "collapse-table-td",
+            className: "collapse-table-td d-flex ".concat(judgeTdAlign(colProps)),
             style: {
-              paddingLeft: !colIndex ? level * 15 + "px" : 0
+              paddingLeft: !colIndex ? level * 15 + 'px' : 0
             }
-          }, child.props.tooltip ? /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement((Tooltip_default()), {
+          }, colProps.showTip ? /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement((Tooltip_default()), {
             position: "right",
             text: childData[prop]
           }, enhancedChild) : enhancedChild));
         }
+      }) : recursiveGenerateTableHeaderRows(columns).map((col, colIndex) => {
+        console.log(': ', recursiveGenerateTableHeaderRows(columns));
+        let colProps = col.props ? col.props : col; // 有 children 就肯定有 props，没有 children 就没有 props，直接取 col
+        let prop = colProps.prop;
+        const childTableCellProps = {
+          parentId: childData.parentId,
+          // 父级id
+          collapse: childData.collapse,
+          onExpand: () => handleCollapseClick(childData),
+          isParent: !colIndex && childData.children,
+          value: childData[prop],
+          rowData: childData,
+          eidtable,
+          prop: prop,
+          rowIndex: rowIndex,
+          colIndex: colIndex,
+          align: judgeChildCellAlign(data, colProps, colIndex),
+          maxWidth: colProps.maxWidth || maxWidth,
+          showTip: colProps.showTip || showTip
+        };
+        return /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("td", {
+          // 这边也不用在子级的第一列在最左侧了
+          // colIndex === 0 ? 'text-start' :
+          className: "text-".concat(colProps.align, " ").concat(tdPadding),
+          style: {
+            verticalAlign: verticalAlignObject[prop],
+            width: widthObject[colProps.prop],
+            overflowWrap: 'break-word',
+            wordWrap: 'break-word',
+            wordBreak: 'break-word',
+            maxWidth: colProps.maxWidth || maxWidth,
+            ["".concat(!colIndex ? 'paddingLeft' : '')]: '40px'
+          },
+          key: colIndex
+        }, /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("div", {
+          className: "collapse-table-td d-flex ".concat(judgeTdAlign(colProps)),
+          style: {
+            paddingLeft: !colIndex ? level * 15 + 'px' : 0
+          }
+        }, colProps.showTip ? /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement((Tooltip_default()), {
+          position: "right",
+          text: childData[prop]
+        }, /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement(src_TableCell_0, childTableCellProps)) : /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement(src_TableCell_0, childTableCellProps)));
       })), ((_childData$children = childData.children) === null || _childData$children === void 0 ? void 0 : _childData$children.length) > 0 ? renderChildren(array, childData, rowIndex, verticalAlignObject, widthObject, textPositionObject, level) : null);
     });
   };
 
-  // 渲染折叠的子组件
-  const renderTableBody = () => {
+  // 计算每一列的宽度
+  const calculateHeaderWidth = columns => {
+    console.log('calculateHeaderWidth-------------: ');
+    const titleLengthObj = {};
+    const newHeaderLabels = columns.map(item => {
+      return {
+        title: item.props.title,
+        prop: item.props.prop
+      };
+    });
+    const totalLabelLength = newHeaderLabels.reduce((acc, curr) => acc + curr.title.length, 0);
+    newHeaderLabels.forEach(item => {
+      var _item$title;
+      titleLengthObj[item.prop] = Number((((_item$title = item.title) === null || _item$title === void 0 ? void 0 : _item$title.length) / totalLabelLength).toFixed(2)) * 100 + '%';
+    });
+    return titleLengthObj;
+  };
+
+  //   渲染表头宽度和对齐方式所需数据
+  let array = [];
+  if (props.children) {
     var _props$children;
-    let array = [];
     if (!((_props$children = props.children) !== null && _props$children !== void 0 && _props$children.length)) {
       array.push(props.children);
     } else {
       array = props.children;
     }
-    let widthObject = {};
-    const textPositionObject = {};
-    const verticalAlignObject = {};
-    array.forEach(item => {
-      if (item !== null && item !== void 0 && item.props) {
-        widthObject[item.props.prop] = item.props.width;
-        textPositionObject[item.props.prop] = item.props.textPosition || "center";
-        verticalAlignObject[item.props.prop] = item.props.verticalAlign || "middle";
+  } else {
+    array = recursiveGenerateTableHeaderRows(columns).map(item => {
+      item.props = item;
+      return item;
+    });
+  }
+  let widthObject = {};
+  const textPositionObject = {}; // 优先使用 每一列的 align，table 的 align 次之，都没的话默认居中
+  const verticalAlignObject = {};
+  array.forEach(item => {
+    if (item !== null && item !== void 0 && item.props) {
+      widthObject[item.props.prop] = item.props.width;
+      // 优先使用 每一列的 align，table 的 align 次之，都没的话默认居中(align默认等于 center)
+      textPositionObject[item.props.prop] = item.props.align || align;
+      verticalAlignObject[item.props.prop] = item.props.verticalAlign || 'middle';
+    }
+  });
+  if (!(0,Utils.isEmptyO)(widthObject) && Object.values(widthObject).every(item => !item)) {
+    widthObject = calculateHeaderWidth(array);
+  }
+  /**
+   * 表头渲染逻辑
+   */
+  const generateTheadRows = columns => {
+    const maxDepth = findMaxDepth(columns);
+    setMaxDepth(maxDepth);
+    const rows = Array.from({
+      length: maxDepth
+    }, () => []);
+    const processColumns = (cols, depth) => {
+      cols.forEach(col => {
+        var _col$children;
+        const cell = {
+          title: col.title,
+          colSpan: getColSpan(col, depth),
+          rowSpan: (_col$children = col.children) !== null && _col$children !== void 0 && _col$children.length ? 1 : maxDepth - depth,
+          ...col
+        };
+        if (!rows[depth]) {
+          rows[depth] = [];
+        }
+        rows[depth].push(cell);
+        if (col.children) {
+          processColumns(col.children, depth + 1);
+        }
+      });
+    };
+    processColumns(columns, 0);
+    return rows;
+  };
+  const findMaxDepth = columns => {
+    let maxDepth = 0;
+    columns.forEach(column => {
+      const depth = getColumnDepth(column);
+      if (depth > maxDepth) {
+        maxDepth = depth;
       }
     });
-    if (Object.values(widthObject).every(item => !item)) {
-      widthObject = calculateHeaderWidth(array);
-    } else {}
-    return /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement((external_root_React_commonjs2_react_commonjs_react_amd_react_default()).Fragment, null, showHeader && /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("thead", {
+    return maxDepth;
+  };
+  const getColumnDepth = column => {
+    if (!column.children) {
+      return 1;
+    }
+    let maxChildDepth = 0;
+    column.children.forEach(child => {
+      const childDepth = getColumnDepth(child);
+      if (childDepth > maxChildDepth) {
+        maxChildDepth = childDepth;
+      }
+    });
+    return maxChildDepth + 1;
+  };
+  const getColSpan = (column, depth) => {
+    if (!column.children) {
+      return 1;
+    }
+    let totalColSpan = 0;
+    column.children.forEach(child => {
+      totalColSpan += getColSpan(child, depth + 1);
+    });
+    return totalColSpan;
+  };
+  (0,external_root_React_commonjs2_react_commonjs_react_amd_react_.useEffect)(() => {
+    const TheadRows = generateTheadRows(columns);
+    setTheadRows(TheadRows);
+  }, [columns]);
+  (0,external_root_React_commonjs2_react_commonjs_react_amd_react_.useEffect)(() => {}, []);
+  const renderTableHeader = () => {
+    return /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("thead", {
       style: {
-        position: headSticky ? "sticky" : "unset",
+        position: headSticky ? 'sticky' : 'unset',
         top: 0,
         backgroundColor: "".concat(headBGC),
         zIndex: 999
       },
       className: "text-".concat(headTextColor)
-    }, /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("tr", null, collection && /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement((external_root_React_commonjs2_react_commonjs_react_amd_react_default()).Fragment, null, /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("th", {
-      scope: "col th-collection",
-      style: {
-        minWidth: "50px",
-        width: "50px",
-        maxWidth: "50px",
-        textAlign: "center"
-      }
-    }, multiple && /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("input", {
-      checked: checkedAll,
-      onChange: handleCheckedAllChange,
-      type: !multiple ? "radio" : "checkbox"
-    }))), showIndex && /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement((external_root_React_commonjs2_react_commonjs_react_amd_react_default()).Fragment, null, /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("th", {
-      scope: "col th-index",
-      style: {
-        minWidth: "50px",
-        width: "50px",
-        maxWidth: "50px"
-      }
-    })), array && array.map((child, rowIndex) => {
-      if (child !== null && child !== void 0 && child.props) {
-        return /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("th", {
+    }, theadRows.map((child, index) => {
+      if (child !== null && child !== void 0 && child.length) {
+        return /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("tr", {
+          key: index
+        }, index === 0 && collection && /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("th", {
+          rowSpan: maxDepth,
+          scope: "col th-collection",
           style: {
-            whiteSpace: "nowrap",
-            width: widthObject[child.props.prop],
-            fontWeight: headerFontWeight
-          },
-          className: "text-".concat(textPositionObject[child.props.prop]),
-          scope: "col",
-          key: child.props.label
-        }, /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("div", {
-          className: "header-content",
-          style: {
-            display: "flex",
-            alignItems: "center",
-            justifyContent: generateHeaderStyle(textPositionObject[child.props.prop])
+            minWidth: '50px',
+            width: '50px',
+            maxWidth: '50px',
+            textAlign: 'center'
           }
-        }, /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("span", {
-          className: "header-text me-2"
-        }, child.props.label), child.props.sortable && /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("div", {
-          className: "header-icon"
-        }, /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("i", {
+        }, multiple && /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("input", {
+          checked: checkedAll,
+          onChange: handleCheckedAllChange,
+          type: !multiple ? 'radio' : 'checkbox'
+        })), index === 0 && showIndex && /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("th", {
+          rowSpan: maxDepth,
+          scope: "col th-index",
           style: {
-            borderBottom: judgeSortIconBGC(child.props.prop) || "7px solid #000"
-          },
-          onClick: () => handleSortable(child.props.prop),
-          className: "icon sort-up"
-        }), /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("i", {
-          style: {
-            borderTop: judgeSortIconBGC(child.props.prop, true) || "7px solid #000"
-          },
-          onClick: () => handleSortable(child.props.prop, true),
-          className: "icon sort-down"
-        }))));
+            minWidth: '50px',
+            width: '50px',
+            maxWidth: '50px'
+          }
+        }), child.map(item => {
+          return /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("th", {
+            rowSpan: item.rowSpan,
+            colSpan: item.colSpan,
+            style: {
+              whiteSpace: 'nowrap',
+              width: widthObject[item.prop],
+              fontWeight: headerFontWeight
+            },
+            className: "text-".concat(textPositionObject[item.prop], " align-middle"),
+            scope: "col",
+            key: item.title
+          }, /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("div", {
+            className: "header-content",
+            style: {
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: generateHeaderStyle(textPositionObject[item.prop])
+            }
+          }, /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("span", {
+            className: "header-text"
+          }, item.title), item.sortable && /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("div", {
+            className: "header-icon ms-1"
+          }, /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("i", {
+            style: {
+              borderBottom: judgeSortIconBGC(item.prop) || '7px solid #000'
+            },
+            onClick: () => handleSortable(item.prop),
+            className: "icon sort-up"
+          }), /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("i", {
+            style: {
+              borderTop: judgeSortIconBGC(item.prop, true) || '7px solid #000'
+            },
+            onClick: () => handleSortable(item.prop, true),
+            className: "icon sort-down"
+          }))));
+        }));
       }
-    }))), /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("tbody", {
-      className: "".concat(divider ? "table-group-divider" : "")
+    }));
+  };
+
+  // 渲染折叠的子组件
+  const renderTableBody = () => {
+    console.log('columns: ', columns);
+    console.log('columns: ', recursiveGenerateTableHeaderRows(columns, []));
+    return /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("tbody", {
+      className: "table-body ".concat(divider ? 'table-group-divider' : '')
     }, tableData.length > 0 && tableData.map((data, rowIndex) => {
       return (
         /*#__PURE__*/
@@ -8628,13 +9907,13 @@ const Table = props => {
           // onDoubleClick={() => handleRowDoubleClick(data)}
           ,
           key: rowIndex,
-          className: "tr-content ".concat(data.checked === true ? "tr-checked" : ""),
+          className: "tr-content ".concat(data.checked === true ? 'tr-checked' : ''),
           style: {
             ...(clickChecked || trPointer ? {
-              cursor: "pointer"
-            } : ""),
+              cursor: 'pointer'
+            } : ''),
             ...(!tableBorderd ? {
-              borderBottom: "1px solid #f0f0f0"
+              borderBottom: '1px solid #f0f0f0'
             } : {})
           }
         }, collection &&
@@ -8643,10 +9922,10 @@ const Table = props => {
         external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("td", {
           scope: "row",
           style: {
-            minWidth: "50px",
-            width: "50px",
-            maxWidth: "50px",
-            verticalAlign: "middle"
+            minWidth: '50px',
+            width: '50px',
+            maxWidth: '50px',
+            verticalAlign: 'middle'
           },
           className: "text-center ".concat(tdPadding)
         }, /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("input", {
@@ -8656,7 +9935,7 @@ const Table = props => {
           id: data[id] + uniqId,
           checked: data.checked === true,
           onChange: e => handleCheckboxChange(data, e),
-          type: !multiple ? "radio" : "checkbox"
+          type: !multiple ? 'radio' : 'checkbox'
         })), showIndex &&
         /*#__PURE__*/
         // 索引框
@@ -8664,18 +9943,18 @@ const Table = props => {
           className: "text-center ".concat(tdPadding),
           scope: "col",
           style: {
-            alignContent: "center",
-            padding: "0px",
-            minWidth: "50px",
-            width: "50px",
-            maxWidth: "50px"
+            alignContent: 'center',
+            padding: '0px',
+            minWidth: '50px',
+            width: '50px',
+            maxWidth: '50px'
             /* ...(data.children ? { backgroundColor: '#fff', boxShadow: 'none' } : {}), */
           }
-        }, rowIndex + 1), external_root_React_commonjs2_react_commonjs_react_amd_react_default().Children.map(array, (child, colIndex) => {
-          let prop = child.props.prop;
-          const childProps = child.props;
-          if ( /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().isValidElement(child)) {
-            const enhancedChild = /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().cloneElement(child, {
+        }, rowIndex + 1), props.children ? external_root_React_commonjs2_react_commonjs_react_amd_react_default().Children.map(array, (col, colIndex) => {
+          const colProps = col.props; // 有 children 就肯定有 props
+          let prop = colProps.prop;
+          if ( /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().isValidElement(col)) {
+            const enhancedChild = /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().cloneElement(col, {
               onExpand: () => handleCollapseClick(data),
               isParent: !colIndex && collapse && data.children,
               value: data["".concat(prop)],
@@ -8686,52 +9965,80 @@ const Table = props => {
               colIndex: colIndex,
               canCollapse: data.children,
               collapse: data.collapse,
-              // 防止 Table 的 textPosition 不生效的bug
-              textPosition: textPositionObject[prop],
-              width: widthObject[childProps.prop]
-              // maxWidth: childProps.maxWidth,
+              // 防止 Table 的 align 不生效的bug
+              align: !colIndex && collapse && data.children ? 'start' : colProps.align || align,
+              width: widthObject[colProps.prop],
+              maxWidth: colProps.maxWidth || maxWidth,
+              showTip: colProps.showTip || showTip
             });
             return /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("td", {
               // 父级第一列不需要在 最左侧了
               // !colIndex && collapse && data.children ? 'text-start' : `text-${textPositionObject[prop]}`
-              className: "text-".concat(textPositionObject[prop], " ").concat(tdPadding),
+              className: "text-".concat(colProps.align || align, " ").concat(tdPadding),
               style: {
                 verticalAlign: verticalAlignObject[prop],
-                width: widthObject[childProps.prop],
-                // maxWidth: maxWidth || childProps.maxWidth,
-                overflowWrap: "break-word",
-                wordWrap: "break-word",
-                wordBreak: "break-word",
+                width: widthObject[colProps.prop],
+                maxWidth: colProps.maxWidth || maxWidth,
+                overflowWrap: 'break-word',
+                wordWrap: 'break-word',
+                wordBreak: 'break-word',
                 // 如果要默认展示一行，并且x轴太长可以滚动的话，则设置为nowrap
                 // 注意：此时，外部设置的 width就没作用了，表格会自己根据内容来设置宽度
-                whiteSpace: "nowrap"
+                whiteSpace: 'nowrap'
                 /*  [`${!colIndex && data.children ? 'paddingLeft' : ''}`]: '35px', */
               },
               key: colIndex
             }, /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("div", {
-              className: "collapse-table-td"
-            }, childProps.tooltip ? /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement((Tooltip_default()), {
+              className: "collapse-table-td d-flex ".concat(judgeTdAlign(colProps))
+            }, colProps.showTip ? /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement((Tooltip_default()), {
               text: data[prop]
             }, enhancedChild) : enhancedChild));
           }
+        }) : recursiveGenerateTableHeaderRows(columns).map((col, colIndex) => {
+          const colProps = col.props ? col.props : col; // 有 children 就肯定有 props，没有 children 的话，props 就是 col 本身
+          let prop = colProps.prop;
+          const tableCellProps = {
+            onExpand: () => handleCollapseClick(data),
+            isParent: !colIndex && collapse && data.children,
+            value: data["".concat(prop)],
+            rowData: data,
+            eidtable,
+            prop: prop,
+            rowIndex: rowIndex,
+            colIndex: colIndex,
+            canCollapse: data.children,
+            collapse: data.collapse,
+            // 防止 Table 的 align 不生效的bug
+            align: !colIndex && collapse && data.children ? 'start' : colProps.align || align,
+            width: widthObject[colProps.prop],
+            maxWidth: colProps.maxWidth || maxWidth,
+            showTip: colProps.showTip || showTip
+          };
+          return /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("td", {
+            // 父级第一列不需要在 最左侧了
+            // !colIndex && collapse && data.children ? 'text-start' : `text-${textPositionObject[prop]}`
+            className: "text-".concat(colProps.align || align, " ").concat(tdPadding),
+            style: {
+              verticalAlign: verticalAlignObject[prop],
+              width: widthObject[colProps.prop],
+              maxWidth: colProps.maxWidth || maxWidth,
+              overflowWrap: 'break-word',
+              wordWrap: 'break-word',
+              wordBreak: 'break-word',
+              // 如果要默认展示一行，并且x轴太长可以滚动的话，则设置为nowrap
+              // 注意：此时，外部设置的 width就没作用了，表格会自己根据内容来设置宽度
+              whiteSpace: 'nowrap'
+              /*  [`${!colIndex && data.children ? 'paddingLeft' : ''}`]: '35px', */
+            },
+            key: colIndex
+          }, /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("div", {
+            className: "collapse-table-td d-flex ".concat(judgeTdAlign(colProps))
+          }, colProps.showTip ? /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement((Tooltip_default()), {
+            text: data[prop]
+          }, /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement(src_TableCell_0, tableCellProps)) : /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement(src_TableCell_0, tableCellProps)));
         })), renderChildren(array, data, rowIndex, verticalAlignObject, widthObject, textPositionObject))
       );
-    })));
-  };
-  const calculateHeaderWidth = columns => {
-    const labelLengthObj = {};
-    const newHeaderLabels = columns.map(item => {
-      return {
-        label: item.props.label,
-        prop: item.props.prop
-      };
-    });
-    const totalLabelLength = newHeaderLabels.reduce((acc, curr) => acc + curr.label.length, 0);
-    newHeaderLabels.forEach(item => {
-      var _item$label;
-      labelLengthObj[item.prop] = Number((((_item$label = item.label) === null || _item$label === void 0 ? void 0 : _item$label.length) / totalLabelLength).toFixed(2)) * 100 + "%";
-    });
-    return labelLengthObj;
+    }));
   };
 
   // 选择逻辑
@@ -8779,7 +10086,7 @@ const Table = props => {
       if (allChildrenChecked) {
         parent.checked = true;
       } else if (someChildrenChecked) {
-        parent.checked = "partial"; // 表示部分选中，你可以根据需求自定义状态
+        parent.checked = 'partial'; // 表示部分选中，你可以根据需求自定义状态
       } else {
         parent.checked = false;
       }
@@ -8797,9 +10104,9 @@ const Table = props => {
   const handleRowClick = (row, e) => {
     onRowClick && onRowClick(row);
     onRowDoubleClick && onRowDoubleClick(row);
-    if (clickChecked || trPointer) {
+    if (clickChecked) {
       // 新增标志位，用于判断是否是由复选框触发的点击
-      const isCheckboxClick = e.target.type === "checkbox" || e.target.type === "radio";
+      const isCheckboxClick = e.target.type === 'checkbox' || e.target.type === 'radio';
       if (!isCheckboxClick) {
         handleCheckboxChange(row, e);
       }
@@ -8825,21 +10132,24 @@ const Table = props => {
   };
 
   // 新增 默认选中 / 全选
+  const recursiveCheckAll = data => {
+    return data.map(item => {
+      var _item$children3;
+      item.checked = true;
+      if ((_item$children3 = item.children) !== null && _item$children3 !== void 0 && _item$children3.length) {
+        recursiveCheckAll(item.children);
+      }
+      return item;
+    });
+  };
   const handleDefaultChecked = tempData => {
-    if (defaultChecked === "all") {
-      setTableData(preData => preData.map(item => {
-        var _item$children3;
-        item.checked = true;
-        item.children = (_item$children3 = item.children) === null || _item$children3 === void 0 ? void 0 : _item$children3.map(item => {
-          item.checked = true;
-          return item;
-        });
-        return item;
-      }));
+    if (checkAll) {
+      const newTableData = recursiveCheckAll(tempData);
+      setTableData(newTableData);
       setCheckedAll(true); // 头部也要勾选上
-    } else if (Array.isArray(defaultChecked) && defaultChecked.length > 0) {
+    } else if (Array.isArray(defaultCheckedList) && defaultCheckedList.length > 0) {
       // 如果传入的是数组，则去 递归选中这些节点，子节点也要
-      const newTableData = recursiveCheckDefaultTableData(JSON.parse(JSON.stringify(tempData)), defaultChecked);
+      const newTableData = recursiveCheckDefaultTableData(JSON.parse(JSON.stringify(tempData)), defaultCheckedList);
       setTableData(newTableData);
     }
   };
@@ -8877,8 +10187,8 @@ const Table = props => {
         } else if ((_item$children6 = item.children) !== null && _item$children6 !== void 0 && _item$children6.length) {
           item.children = recursiveUpdateTableDataCheckState(item.children); // 这步要先执行，不然下面的 else if 判断不会进入 不符合的父节点的子级节点
         } /* else if (!multiple) {
-                  item.checked = false;
-              } */
+          item.checked = false;
+          } */
         return item;
       });
     };
@@ -8976,6 +10286,31 @@ const Table = props => {
     setTableData(data);
   };
 
+  // 滚到底部
+  const handleScrollToEnd = () => {
+    // 表格滚动到底部
+    const table = document.querySelector('.table-wrapper');
+    const tableBody = document.querySelector('.table-body');
+    if (tableBody && table) {
+      table.scrollTo({
+        top: tableBody.clientHeight,
+        behavior: 'smooth'
+      });
+    }
+  };
+
+  // 滚到底部
+  const handleScrollToTop = () => {
+    // 表格滚动到底部
+    const table = document.querySelector('.table-wrapper');
+    if (table) {
+      table.scrollTo({
+        top: 0,
+        behavior: 'smooth'
+      });
+    }
+  };
+
   // 递归设置 pid
   const recursiveSetParentId = (data, parentId) => {
     return data.map(item => {
@@ -8993,14 +10328,18 @@ const Table = props => {
     return tempData.map(item => {
       item.collapse = state;
       if (item.children) {
-        recursiveExpandTable(item.children);
+        recursiveExpandTable(item.children, state); // 记得把 state 传到子级去去，不然子节点都会默认展开
       }
       return item;
     });
   };
   (0,external_root_React_commonjs2_react_commonjs_react_amd_react_.useEffect)(() => {
     // 这个 useEffect 这边操作 tableData的地方 都要用同一个数据 tempData，不然数据会不对
-    if (!data.length) return;
+    if (!data.length) {
+      setTableData([]);
+      setCheckedAll(false); // 数据为空的时候，也要把 表头全选置空
+      return;
+    }
     let tempData = JSON.parse(JSON.stringify(data));
     tempData = recursiveSetParentId(tempData, 0);
     const checkedAll = areAllChecked(tempData);
@@ -9024,61 +10363,67 @@ const Table = props => {
   }, [data]);
   (0,external_root_React_commonjs2_react_commonjs_react_amd_react_.useEffect)(() => {
     /* setTableData((preData: any) =>
-            preData.map((item: any) => {
-                const isChildrenAllChecked = areAllChecked(item.children);
-                if (isChildrenAllChecked) {
-                    item.checked = true;
-                }
-                return item;
-            })
-        ); */
+        preData.map((item: any) => {
+            const isChildrenAllChecked = areAllChecked(item.children);
+            if (isChildrenAllChecked) {
+                item.checked = true;
+            }
+            return item;
+        })
+    ); */
   }, [tableData]);
   (0,external_root_React_commonjs2_react_commonjs_react_amd_react_.useEffect)(() => {
-    setTableData(preData => preData.map(item => {
-      // 判断 id 是否存在，如果 id 不存在，并且 activeId 也不存在，那也是相等的，得排除
-      if (activeId) {
+    if (activeId) {
+      const tempData = JSON.parse(JSON.stringify(data));
+      const newTableData = tempData.map(item => {
+        // 判断 id 是否存在，如果 id 不存在，并且 activeId 也不存在，那也是相等的，得排除
         if (item[id] && item[id] === activeId) {
           item.checked = true;
         } else {
           item.checked = false;
         }
-      }
-      return item;
-    }));
-  }, [activeId]);
+        return item;
+      });
+      setTimeout(() => {
+        setTableData(newTableData); // 要给个 10ms 的定时器，因为上面其他的操作都给了 10ms 的定时器，不然数据会不对
+      }, 10);
+    }
+  }, [activeId, data]);
   (0,external_root_React_commonjs2_react_commonjs_react_amd_react_.useEffect)(() => {
     setTableHeaders(columns);
   }, [columns]);
 
   /*     useEffect(() => {
-      
+    
   }, [tableHeaders]); */
 
   (0,external_root_React_commonjs2_react_commonjs_react_amd_react_.useImperativeHandle)(tableRef, () => ({
     clearChecked: handleClearChecked,
     getCheckedList: handleGetCheckedList,
     expandAll: handleExpandAll,
-    foldAll: handleFoldAll
+    foldAll: handleFoldAll,
+    scrollToEnd: handleScrollToEnd,
+    scrollToTop: handleScrollToTop
   }));
   return /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement((external_root_React_commonjs2_react_commonjs_react_amd_react_default()).Fragment, null, /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("div", {
     style: {
       minHeight: minHeight,
       maxHeight: maxHeight,
-      overflow: "auto",
-      width
+      overflow: 'auto',
+      width: tableWidth
     },
-    className: "table-wrapper ".concat("table-responsive".concat("-" + tableResponsive))
+    className: "table-wrapper ".concat("table-responsive".concat('-' + tableResponsive))
   }, /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("table", {
     style: {
-      background: tableBgc,
-      width
+      background: tableBGC,
+      width: tableWidth
     },
-    className: "table ".concat(tableStriped ? "table-striped" : "", " ").concat(tableBorderd ? "table-bordered" : "table-borderless", " table-").concat(size, " ").concat(headColor ? "table-".concat(headColor) : "", " overflow-auto ").concat(data.length === 0 ? "mb-0" : "")
-  }, renderTableBody()), data.length === 0 && /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("div", {
+    className: "table ".concat(tableStriped ? 'table-striped' : '', " ").concat(tableBorderd ? 'table-bordered' : 'table-borderless', " table-").concat(size, " ").concat(headColor ? "table-".concat(headColor) : '', " overflow-auto ").concat(data.length === 0 ? 'mb-0' : '')
+  }, showHeader && renderTableHeader(), renderTableBody()), data.length === 0 && /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("div", {
     className: "text-center p-1"
   }, "\u6682\u65E0\u6570\u636E~")));
 };
-Table.TableCell = src_TableCell;
+Table.TableCell = src_TableCell_0;
 /* harmony default export */ const src_0 = (withTranslation()(Table));
 })();
 

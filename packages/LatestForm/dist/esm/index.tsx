@@ -2,6 +2,7 @@ import { forwardRef, useImperativeHandle, useRef } from "react";
 import React from "react";
 
 interface FormProps {
+  commonForItemClsssName?: string;
   commonDisabled?: boolean;
   showNotFormItem?: boolean;
   commonContentBackgroundColor?: any;
@@ -42,6 +43,7 @@ interface ExtendedForm
 const Form = forwardRef(
   (
     {
+      commonForItemClsssName,
       commonDisabled,
       showNotFormItem,
       commonContentBackgroundColor = "white",
@@ -144,6 +146,7 @@ const Form = forwardRef(
           wrapperWidth: commonFormItemWrapperWidth,
           wrapperMaxWidth: commonFormItemWrapperMaxWidth,
           wrapperMinWidth: commonFormItemWrapperMinWidth,
+          wrapperClassName: commonForItemClsssName,
           contentBackgroundColor: commonContentBackgroundColor,
           rules: commonRules
             ? commonRules

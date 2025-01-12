@@ -1,4 +1,4 @@
-function formatDateTime(dateString, format) {
+function formatDateTime(dateString, format = "YYYY-MM-DD") {
   const date = new Date(dateString);
   switch (format) {
     case "MM-DD HH:mm":
@@ -25,10 +25,22 @@ function formatDateTime(dateString, format) {
       return `${year2}-${month3}-${day3}`;
 
     case "HH:mm:ss":
-      const hours3 = String(date.getHours()).padStart(2, "0");
-      const minutes3 = String(date.getMinutes()).padStart(2, "0");
-      const seconds3 = String(date.getSeconds()).padStart(2, "0");
-      return `${hours3}:${minutes3}:${seconds3}`;
+      const hours4 = String(date.getHours()).padStart(2, "0");
+      const minutes4 = String(date.getMinutes()).padStart(2, "0");
+      const seconds4 = String(date.getSeconds()).padStart(2, "0");
+      console.log(
+        "`${hours4}:${minutes4}:${seconds4}`: ",
+        `${hours4}:${minutes4}:${seconds4}`
+      );
+      return `${hours4}:${minutes4}:${seconds4}`;
+
+    case "YYYY-MM-DD HH:mm":
+      const year5 = date.getFullYear();
+      const month5 = String(date.getMonth() + 1).padStart(2, "0");
+      const day5 = String(date.getDate()).padStart(2, "0");
+      const hours5 = String(date.getHours()).padStart(2, "0");
+      const minutes5 = String(date.getMinutes()).padStart(2, "0");
+      return `${year5}-${month5}-${day5} ${hours5}:${minutes5}`;
     default:
       break;
   }
