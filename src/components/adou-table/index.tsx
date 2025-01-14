@@ -19,6 +19,7 @@ export const recursiveGenerateTableHeaderRows = (columns: any[], newRows: any[] 
 };
 
 interface TableProps {
+    compact?: boolean;
     showTip?: boolean;
     checkAll?: boolean;
     tdPadding?: string;
@@ -66,6 +67,7 @@ interface TableProps {
 
 const Table = (props: TableProps) => {
     const {
+        compact,
         showTip,
         checkAll,
         tdPadding = 'px-2 py-3',
@@ -256,7 +258,7 @@ const Table = (props: TableProps) => {
         // setTableData((preArr: any) => preArr.sort((a: any, b: any) => (a[prop] > b[prop] ? 1 : -1)));
         /* if (isDown) {
       const findItem = tableHeaders.find((item: any) => item.prop === prop);
-
+  
       } */
     };
     /**
@@ -273,7 +275,6 @@ const Table = (props: TableProps) => {
 
     const renderChildren = (array: any, data: any, rowIndex: number, verticalAlignObject: any, widthObject: any, textPositionObject: any, level: number = 0) => {
         level++;
-        console.log('data: ', data);
         return (
             data.collapse && // 可以折叠并且有子级才去展示子数据
             data.children &&
@@ -296,12 +297,12 @@ const Table = (props: TableProps) => {
                             <td
                                 scope="row"
                                 style={{
-                                    minWidth: '50px',
-                                    width: '50px',
-                                    maxWidth: '50px',
+                                    minWidth: !compact ? '50px' : '30px',
+                                    width: !compact ? '50px' : '30px',
+                                    maxWidth: !compact ? '50px' : '30px',
                                     verticalAlign: 'middle',
                                 }}
-                                className={`text-center ${tdPadding}`}
+                                className={`text-center py-1 ${compact ? 'p-0' : tdPadding}`}
                             >
                                 <input
                                     className={tdPadding}
@@ -316,11 +317,11 @@ const Table = (props: TableProps) => {
                         {/* 索引框 */}
                         {showIndex && (
                             <th
-                                className={`text-center ${tdPadding}`}
+                                className={`text-center py-1 ${compact ? 'p-0' : tdPadding}`}
                                 style={{
-                                    minWidth: '50px',
-                                    width: '50px',
-                                    maxWidth: '50px',
+                                    minWidth: !compact ? '50px' : '30px',
+                                    width: !compact ? '50px' : '30px',
+                                    maxWidth: !compact ? '50px' : '30px',
                                     padding: '0px',
                                     alignContent: 'center',
                                     fontWeight: headerFontWeight,
@@ -354,7 +355,7 @@ const Table = (props: TableProps) => {
                                           <td
                                               // 这边也不用在子级的第一列在最左侧了
                                               // colIndex === 0 ? 'text-start' :
-                                              className={`text-${colProps.align} ${tdPadding}`}
+                                              className={`text-${colProps.align} py-1 ${compact ? 'p-0' : tdPadding}`}
                                               style={{
                                                   verticalAlign: verticalAlignObject[prop],
                                                   width: widthObject[prop],
@@ -386,8 +387,6 @@ const Table = (props: TableProps) => {
                                   }
                               })
                             : recursiveGenerateTableHeaderRows(columns).map((col: any, colIndex: number) => {
-                                  console.log(': ', recursiveGenerateTableHeaderRows(columns));
-
                                   let colProps = col.props ? col.props : col; // 有 children 就肯定有 props，没有 children 就没有 props，直接取 col
                                   let prop = colProps.prop;
                                   const childTableCellProps = {
@@ -409,7 +408,7 @@ const Table = (props: TableProps) => {
                                       <td
                                           // 这边也不用在子级的第一列在最左侧了
                                           // colIndex === 0 ? 'text-start' :
-                                          className={`text-${colProps.align} ${tdPadding}`}
+                                          className={`text-${colProps.align} py-1 ${compact ? 'p-0' : tdPadding}`}
                                           style={{
                                               verticalAlign: verticalAlignObject[prop],
                                               width: widthObject[colProps.prop],
@@ -458,7 +457,7 @@ const Table = (props: TableProps) => {
             };
         });
 
-        const totalLabelLength = newHeaderLabels.reduce((acc, curr) => acc + curr.title.length, 0);
+        const totalLabelLength = newHeaderLabels.reduce((acc, curr) => acc + curr.title?.length, 0);
 
         newHeaderLabels.forEach((item: any) => {
             titleLengthObj[item.prop] = Number((item.title?.length / totalLabelLength).toFixed(2)) * 100 + '%';
@@ -577,19 +576,19 @@ const Table = (props: TableProps) => {
                 className={`text-${headTextColor}`}
             >
                 {/* 选择框 */}
-
                 {theadRows.map((child: any, index: number) => {
                     if (child?.length) {
                         return (
                             <tr key={index}>
                                 {index === 0 && collection && (
                                     <th
+                                        className={`${compact ? 'p-0' : ''}`}
                                         rowSpan={maxDepth}
                                         scope="col th-collection"
                                         style={{
-                                            minWidth: '50px',
-                                            width: '50px',
-                                            maxWidth: '50px',
+                                            minWidth: !compact ? '50px' : '30px',
+                                            width: !compact ? '50px' : '30px',
+                                            maxWidth: !compact ? '50px' : '30px',
                                             textAlign: 'center',
                                         }}
                                     >
@@ -599,12 +598,13 @@ const Table = (props: TableProps) => {
                                 {/* 索引 */}
                                 {index === 0 && showIndex && (
                                     <th
+                                        className={`${compact ? 'p-0' : ''}`}
                                         rowSpan={maxDepth}
                                         scope="col th-index"
                                         style={{
-                                            minWidth: '50px',
-                                            width: '50px',
-                                            maxWidth: '50px',
+                                            minWidth: !compact ? '50px' : '30px',
+                                            width: !compact ? '50px' : '30px',
+                                            maxWidth: !compact ? '50px' : '30px',
                                         }}
                                     ></th>
                                 )}
@@ -618,7 +618,7 @@ const Table = (props: TableProps) => {
                                                 width: widthObject[item.prop],
                                                 fontWeight: headerFontWeight,
                                             }}
-                                            className={`text-${textPositionObject[item.prop]} align-middle`}
+                                            className={`${textPositionObject[item.prop] ? 'text-' + textPositionObject[item.prop] : ''} ${compact ? 'p-0' : ''} align-middle`}
                                             scope="col"
                                             key={item.title}
                                         >
@@ -664,8 +664,6 @@ const Table = (props: TableProps) => {
 
     // 渲染折叠的子组件
     const renderTableBody = () => {
-        console.log('columns: ', columns);
-        console.log('columns: ', recursiveGenerateTableHeaderRows(columns, []));
         return (
             <tbody className={`table-body ${divider ? 'table-group-divider' : ''}`}>
                 {tableData.length > 0 &&
@@ -688,12 +686,12 @@ const Table = (props: TableProps) => {
                                         <td
                                             scope="row"
                                             style={{
-                                                minWidth: '50px',
-                                                width: '50px',
-                                                maxWidth: '50px',
+                                                minWidth: !compact ? '50px' : '30px',
+                                                width: !compact ? '50px' : '30px',
+                                                maxWidth: !compact ? '50px' : '30px',
                                                 verticalAlign: 'middle',
                                             }}
-                                            className={`text-center ${tdPadding}`}
+                                            className={`text-center py-1 ${compact ? 'p-0' : tdPadding}`}
                                         >
                                             <input
                                                 className={tdPadding}
@@ -708,14 +706,14 @@ const Table = (props: TableProps) => {
                                     {showIndex && (
                                         // 索引框
                                         <td
-                                            className={`text-center ${tdPadding}`}
+                                            className={`text-center py-1 ${compact ? 'p-0' : tdPadding}`}
                                             scope="col"
                                             style={{
                                                 alignContent: 'center',
                                                 padding: '0px',
-                                                minWidth: '50px',
-                                                width: '50px',
-                                                maxWidth: '50px',
+                                                minWidth: !compact ? '50px' : '30px',
+                                                width: !compact ? '50px' : '30px',
+                                                maxWidth: !compact ? '50px' : '30px',
                                                 /* ...(data.children ? { backgroundColor: '#fff', boxShadow: 'none' } : {}), */
                                             }}
                                         >
@@ -749,7 +747,7 @@ const Table = (props: TableProps) => {
                                                       <td
                                                           // 父级第一列不需要在 最左侧了
                                                           // !colIndex && collapse && data.children ? 'text-start' : `text-${textPositionObject[prop]}`
-                                                          className={`text-${colProps.align || align} ${tdPadding}`}
+                                                          className={`text-${colProps.align || align} py-1 ${compact ? 'p-0' : tdPadding}`}
                                                           style={{
                                                               verticalAlign: verticalAlignObject[prop],
                                                               width: widthObject[colProps.prop],
@@ -797,7 +795,7 @@ const Table = (props: TableProps) => {
                                                   <td
                                                       // 父级第一列不需要在 最左侧了
                                                       // !colIndex && collapse && data.children ? 'text-start' : `text-${textPositionObject[prop]}`
-                                                      className={`text-${colProps.align || align} ${tdPadding}`}
+                                                      className={`text-${colProps.align || align} py-1 ${compact ? 'p-0' : tdPadding}`}
                                                       style={{
                                                           verticalAlign: verticalAlignObject[prop],
                                                           width: widthObject[colProps.prop],

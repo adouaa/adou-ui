@@ -18,7 +18,7 @@ interface buttonProps {
     spinerType?: 'border' | 'grow';
     spinerColor?: ThemeType;
     fontSize?: string;
-    onClickOK?: () => void;
+    onClickOK?: (e: React.MouseEvent<HTMLButtonElement>) => void;
 }
 const Button: React.FC<buttonProps> = (props: buttonProps) => {
     const {
@@ -39,8 +39,8 @@ const Button: React.FC<buttonProps> = (props: buttonProps) => {
         onClickOK,
     } = props;
 
-    const handleOnClick = () => {
-        onClickOK && onClickOK();
+    const handleOnClick = (e: React.MouseEvent<HTMLButtonElement>) => {
+        onClickOK && onClickOK(e);
     };
 
     const renderPrefixIcon = () => {
@@ -105,9 +105,9 @@ const Button: React.FC<buttonProps> = (props: buttonProps) => {
             <button
                 style={{ cursor: 'pointer', height: '100%' }}
                 onClick={handleOnClick}
-                className={`btn btn-${type} btn-${size} ${round ? 'rounded-pill' : ''} ${textColor ? `text-${textColor}` : ''} ${outlineColor ? `btn-outline-${outlineColor}` : ''} ${
-                    disabled ? 'disabled' : ''
-                } ${externalClassName}`}
+                className={`btn  btn-${size} ${round ? 'rounded-pill' : ''} ${
+                    textColor ? `text-${textColor}` : ''
+                } ${outlineColor ? `btn-outline-${outlineColor}` : `btn-${type}`} ${disabled ? 'disabled' : ''} ${externalClassName}`}
                 disabled={loading}
             >
                 {loading ? (

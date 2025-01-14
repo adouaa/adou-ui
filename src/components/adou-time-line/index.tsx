@@ -3,13 +3,15 @@ import TimeLineItem from './adou-time-line-item';
 
 import './index.scss'; // 引入样式文件
 
+export { TimeLineItem };
+
+
 interface TimeLineProps {
     events?: any;
     vertical?: boolean;
     children?: any;
 }
 
-export { TimeLineItem };
 
 const TimeLine = ({ children, events, vertical = true }: TimeLineProps) => {
     const timeLineContentBoxRef = useRef<any>();

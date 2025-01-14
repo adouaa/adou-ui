@@ -163,6 +163,7 @@ const Select = React.forwardRef((props: SelectProps, ref) => {
     // RetrieveSelect 逻辑
     const [isInputFocusing, setIsInputFocusing] = useState<boolean>(false);
     const inputRef = useRef<any>();
+    const tagInputTemValueRef = useRef<string>('');
 
     const handleClose = () => {
         if (disabled) return;
@@ -180,21 +181,7 @@ const Select = React.forwardRef((props: SelectProps, ref) => {
         } else if (mode === 'liveSearch') {
             setSelectValue(inputRef.current?.value); // 搜索框失去焦点时，将输入框的值赋给 selectValue
         } else if (mode === 'tags') {
-            // tags 模式就是只有 value，没有 label
-            const value = inputRef.current?.value;
-            const tempSelectValueList = [...(selectValueList || [])];
-            if (value) {
-                if (tempSelectValueList.find((item) => item === value)) {
-                    return;
-                } else {
-                    tempSelectValueList.push(value);
-                    // tempSelectValueList.push(value);
-                    setSelectValueList(tempSelectValueList);
-                    inputRef.current.value = '';
-                }
-            }
-            handleValidate(tempSelectValueList);
-            onFieldChange && onFieldChange(name!, tempSelectValueList);
+            handleTagsChange(inputRef.current?.value);
         }
         if (varient === 'filled' && selectRef.current) {
             selectRef.current.style.backgroundColor = '#f0f0f0';
@@ -300,6 +287,44 @@ const Select = React.forwardRef((props: SelectProps, ref) => {
                       }, 10);
                   }
               } */
+        }
+    };
+
+    // 标签变化
+    const handleTagsChange = (value: any) => {
+        // tags 模式就是只有 value，没有 label
+        const tempSelectValueList = [...(selectValueList || [])];
+        if (value) {
+            if (
+                tempSelectValueList.find((item) => {
+                    if (typeof item === 'string') {
+                        return item === value;
+                    } else {
+                        return item[valueKey] === value;
+                    }
+                })
+            ) {
+                return;
+            } else {
+                tempSelectValueList.push(value);
+                // tempSelectValueList.push(value);
+                setSelectValueList(tempSelectValueList);
+                inputRef.current.value = '';
+            }
+        }
+        handleValidate(tempSelectValueList);
+        onFieldChange && onFieldChange(name!, tempSelectValueList);
+        tagInputTemValueRef.current = '';
+    };
+
+    // 标签输入框变化
+    const handleTagsInputKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
+        const value = e.currentTarget.value;
+        if (e.key === 'Enter' && !isShow) {
+            if (value) {
+                handleTagsChange(value);
+                e.preventDefault();
+            }
         }
     };
 
@@ -527,8 +552,10 @@ const Select = React.forwardRef((props: SelectProps, ref) => {
         }, 10);
     };
 
-    const handleInputBlur = (e: React.FocusEvent<HTMLInputElement>) => {
-        e.stopPropagation();
+    const handleTagsInputBlur = (e: React.FocusEvent<HTMLInputElement>) => {
+        if (!isShow) {
+            handleTagsChange(tagInputTemValueRef.current);
+        }
     };
 
     const _onInputChange = useThrottle((value: string) => {
@@ -555,6 +582,9 @@ const Select = React.forwardRef((props: SelectProps, ref) => {
         } else {
             // _onInputChange(value); // 不知道为什么使用节流会导致 form 的数据被清空。。。
             onInputChange && onInputChange(value);
+        }
+        if (mode === 'tags') {
+            tagInputTemValueRef.current = value;
         }
     };
 
@@ -782,7 +812,8 @@ const Select = React.forwardRef((props: SelectProps, ref) => {
                             {(showSearch || filterOption || mode === 'tags') && (
                                 <div className={`adou-select-input-box flex-fill`}>
                                     <input
-                                        onBlur={handleInputBlur}
+                                        onKeyDown={handleTagsInputKeyDown}
+                                        onBlur={handleTagsInputBlur}
                                         placeholder={selectValue?.[valueKey] ? '' : placeholder}
                                         onFocus={handleInputFocus}
                                         ref={inputRef}
@@ -862,7 +893,7 @@ const Select = React.forwardRef((props: SelectProps, ref) => {
                             ></i>
                         </div>
                     ) : (
-                        <div className="adou-select-common-sufiix-content text-secondary" style={{ textAlign: 'right' }}>
+                        <div className="adou-select-common-sufiix-content text-secondary" style={{ textAlign: 'right', whiteSpace: 'nowrap' }}>
                             {commonSuffixContent}
                         </div>
                     )}

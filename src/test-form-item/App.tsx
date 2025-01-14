@@ -123,8 +123,8 @@ const App = ({}: AppProps) => {
                     <AdouInput commonSuffixContent="次"></AdouInput>
                 </FormItem>
                 <FormItem rules={rules} addonBefore={'问候'} label="选择" name="area">
-                    <Select showSearch placeholder="请选择" commonSuffixContent="市区" options={options}></Select>
-                    <Select mode="liveSearch" placeholder="请选择" commonSuffixContent="市区" options={options}></Select>
+                    <Select mode="tags" placeholder="请选择" commonSuffixContent="市区" options={options}></Select>
+                    {/* <Select mode="liveSearch" placeholder="请选择" commonSuffixContent="市区" options={options}></Select> */}
                 </FormItem>
                 <FormItem label="搜索" /* addonBefore={'关键'} */ /* addonAfter={'结尾'} */ name="remote" /* layout="horizontal" */>
                     <RetrievrSelect single={false} returnType="obj" commonSuffixContent="地区32" options={options}></RetrievrSelect>
