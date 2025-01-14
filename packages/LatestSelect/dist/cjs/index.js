@@ -775,7 +775,8 @@ module.exports = function (item) {
       /* harmony default export */
       const libs_convertToTag = convertToTag;
       ; // CONCATENATED MODULE: ./src/libs/time-formatter.js
-      function formatDateTime(dateString, format) {
+      function formatDateTime(dateString) {
+        let format = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : "YYYY-MM-DD";
         const date = new Date(dateString);
         switch (format) {
           case "MM-DD HH:mm":
@@ -798,10 +799,18 @@ module.exports = function (item) {
             const day3 = String(date.getDate()).padStart(2, "0");
             return "".concat(year2, "-").concat(month3, "-").concat(day3);
           case "HH:mm:ss":
-            const hours3 = String(date.getHours()).padStart(2, "0");
-            const minutes3 = String(date.getMinutes()).padStart(2, "0");
-            const seconds3 = String(date.getSeconds()).padStart(2, "0");
-            return "".concat(hours3, ":").concat(minutes3, ":").concat(seconds3);
+            const hours4 = String(date.getHours()).padStart(2, "0");
+            const minutes4 = String(date.getMinutes()).padStart(2, "0");
+            const seconds4 = String(date.getSeconds()).padStart(2, "0");
+            console.log("`${hours4}:${minutes4}:${seconds4}`: ", "".concat(hours4, ":").concat(minutes4, ":").concat(seconds4));
+            return "".concat(hours4, ":").concat(minutes4, ":").concat(seconds4);
+          case "YYYY-MM-DD HH:mm":
+            const year5 = date.getFullYear();
+            const month5 = String(date.getMonth() + 1).padStart(2, "0");
+            const day5 = String(date.getDate()).padStart(2, "0");
+            const hours5 = String(date.getHours()).padStart(2, "0");
+            const minutes5 = String(date.getMinutes()).padStart(2, "0");
+            return "".concat(year5, "-").concat(month5, "-").concat(day5, " ").concat(hours5, ":").concat(minutes5);
           default:
             break;
         }
@@ -7268,6 +7277,7 @@ const Select = /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_a
   // RetrieveSelect 逻辑
   const [isInputFocusing, setIsInputFocusing] = (0,external_root_React_commonjs2_react_commonjs_react_amd_react_.useState)(false);
   const inputRef = (0,external_root_React_commonjs2_react_commonjs_react_amd_react_.useRef)();
+  const tagInputTemValueRef = (0,external_root_React_commonjs2_react_commonjs_react_amd_react_.useRef)("");
   const handleClose = () => {
     if (disabled) return;
     // RetrieveSelect 新增逻辑 失焦后，展示 select-value
@@ -7286,21 +7296,7 @@ const Select = /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_a
       setSelectValue((_inputRef$current = inputRef.current) === null || _inputRef$current === void 0 ? void 0 : _inputRef$current.value); // 搜索框失去焦点时，将输入框的值赋给 selectValue
     } else if (mode === "tags") {
       var _inputRef$current2;
-      // tags 模式就是只有 value，没有 label
-      const value = (_inputRef$current2 = inputRef.current) === null || _inputRef$current2 === void 0 ? void 0 : _inputRef$current2.value;
-      const tempSelectValueList = [...(selectValueList || [])];
-      if (value) {
-        if (tempSelectValueList.find(item => item === value)) {
-          return;
-        } else {
-          tempSelectValueList.push(value);
-          // tempSelectValueList.push(value);
-          setSelectValueList(tempSelectValueList);
-          inputRef.current.value = "";
-        }
-      }
-      handleValidate(tempSelectValueList);
-      onFieldChange && onFieldChange(name, tempSelectValueList);
+      handleTagsChange((_inputRef$current2 = inputRef.current) === null || _inputRef$current2 === void 0 ? void 0 : _inputRef$current2.value);
     }
     if (varient === "filled" && selectRef.current) {
       selectRef.current.style.backgroundColor = "#f0f0f0";
@@ -7404,6 +7400,42 @@ const Select = /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_a
                     }, 10);
                 }
             } */
+    }
+  };
+
+  // 标签变化
+  const handleTagsChange = value => {
+    // tags 模式就是只有 value，没有 label
+    const tempSelectValueList = [...(selectValueList || [])];
+    if (value) {
+      if (tempSelectValueList.find(item => {
+        if (typeof item === "string") {
+          return item === value;
+        } else {
+          return item[valueKey] === value;
+        }
+      })) {
+        return;
+      } else {
+        tempSelectValueList.push(value);
+        // tempSelectValueList.push(value);
+        setSelectValueList(tempSelectValueList);
+        inputRef.current.value = "";
+      }
+    }
+    handleValidate(tempSelectValueList);
+    onFieldChange && onFieldChange(name, tempSelectValueList);
+    tagInputTemValueRef.current = "";
+  };
+
+  // 标签输入框变化
+  const handleTagsInputKeyDown = e => {
+    const value = e.currentTarget.value;
+    if (e.key === "Enter" && !isShow) {
+      if (value) {
+        handleTagsChange(value);
+        e.preventDefault();
+      }
     }
   };
   const handleSelect = (item, e) => {
@@ -7618,8 +7650,10 @@ const Select = /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_a
       calcContentPosition();
     }, 10);
   };
-  const handleInputBlur = e => {
-    e.stopPropagation();
+  const handleTagsInputBlur = e => {
+    if (!isShow) {
+      handleTagsChange(tagInputTemValueRef.current);
+    }
   };
   const _onInputChange = src_useThrottle(value => {
     onInputChange && onInputChange(value);
@@ -7644,6 +7678,9 @@ const Select = /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_a
     } else {
       // _onInputChange(value); // 不知道为什么使用节流会导致 form 的数据被清空。。。
       onInputChange && onInputChange(value);
+    }
+    if (mode === "tags") {
+      tagInputTemValueRef.current = value;
     }
   };
   (0,external_root_React_commonjs2_react_commonjs_react_amd_react_.useEffect)(() => {
@@ -7861,7 +7898,8 @@ const Select = /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_a
   }, /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement(icon_close, null)))), (showSearch || filterOption || mode === "tags") && /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("div", {
     className: "adou-select-input-box flex-fill"
   }, /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("input", {
-    onBlur: handleInputBlur,
+    onKeyDown: handleTagsInputKeyDown,
+    onBlur: handleTagsInputBlur,
     placeholder: selectValue !== null && selectValue !== void 0 && selectValue[valueKey] ? "" : placeholder,
     onFocus: handleInputFocus,
     ref: inputRef
@@ -7938,7 +7976,8 @@ const Select = /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_a
   })) : /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("div", {
     className: "adou-select-common-sufiix-content text-secondary",
     style: {
-      textAlign: "right"
+      textAlign: "right",
+      whiteSpace: "nowrap"
     }
   }, commonSuffixContent), commonSuffixIcon && /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("i", {
     onClick: handleClickCommonSuffixIcon,

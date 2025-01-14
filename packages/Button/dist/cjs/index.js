@@ -100,23 +100,23 @@ __webpack_require__.r(__webpack_exports__);
 const Button = props => {
   const {
     fontSize,
-    spinerType = "border",
+    spinerType = 'border',
     spinerColor,
     loading,
     suffixIcon,
     prefixIcon,
     children,
-    type,
-    size = "md",
+    type = 'primary',
+    size = 'md',
     externalClassName,
     round,
     textColor,
     disabled,
     outlineColor,
-    onClickOK
+    onClick
   } = props;
-  const handleOnClick = () => {
-    onClickOK && onClickOK();
+  const handleOnClick = e => {
+    onClick && onClick(e);
   };
   const renderPrefixIcon = () => {
     return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("i", {
@@ -130,17 +130,17 @@ const Button = props => {
   };
 
   /* const renderLoading = () => {
-        return React.Children.map(children, (child: any) => {
-            if (!React.isValidElement(child)) {
-                child = <span className="m-1">{child}</span>
-                const enhancedChild = React.cloneElement(child!, {
-                    style: {
-                    }
-                } as React.Attributes);
-                return enhancedChild;
-            }
-        });
-    }; */
+      return React.Children.map(children, (child: any) => {
+          if (!React.isValidElement(child)) {
+              child = <span className="m-1">{child}</span>
+              const enhancedChild = React.cloneElement(child!, {
+                  style: {
+                  }
+              } as React.Attributes);
+              return enhancedChild;
+          }
+      });
+  }; */
 
   const renderLabel = () => {
     return react__WEBPACK_IMPORTED_MODULE_0___default().Children.map(children, child => {
@@ -159,14 +159,14 @@ const Button = props => {
     let hasLoader = false;
     react__WEBPACK_IMPORTED_MODULE_0___default().Children.map(children, child => {
       var _child$props;
-      if ((_child$props = child.props) !== null && _child$props !== void 0 && (_child$props = _child$props.className) !== null && _child$props !== void 0 && _child$props.includes("loader")) {
+      if ((_child$props = child.props) !== null && _child$props !== void 0 && (_child$props = _child$props.className) !== null && _child$props !== void 0 && _child$props.includes('loader')) {
         hasLoader = true;
       }
     });
     if (hasLoader) {
       return react__WEBPACK_IMPORTED_MODULE_0___default().Children.map(children, child => {
         var _child$props2;
-        if ((_child$props2 = child.props) !== null && _child$props2 !== void 0 && _child$props2.className.includes("loader")) {
+        if ((_child$props2 = child.props) !== null && _child$props2 !== void 0 && _child$props2.className.includes('loader')) {
           return child;
         }
       });
@@ -181,11 +181,11 @@ const Button = props => {
     className: "button-wrapper"
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("button", {
     style: {
-      cursor: "pointer",
-      height: "100%"
+      cursor: 'pointer',
+      height: '100%'
     },
     onClick: handleOnClick,
-    className: "btn btn-".concat(type, " btn-").concat(size, " ").concat(round ? "rounded-pill" : "", " ").concat(textColor ? "text-".concat(textColor) : "", " ").concat(outlineColor ? "btn-outline-".concat(outlineColor) : "", " ").concat(disabled ? "disabled" : "", " ").concat(externalClassName),
+    className: "btn  btn-".concat(size, " ").concat(round ? 'rounded-pill' : '', " ").concat(textColor ? "text-".concat(textColor) : '', " ").concat(outlineColor ? "btn-outline-".concat(outlineColor) : "btn-".concat(type), " ").concat(disabled ? 'disabled' : '', " ").concat(externalClassName),
     disabled: loading
   }, loading ? /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", {
     className: "loading-btn"

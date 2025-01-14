@@ -775,7 +775,8 @@ module.exports = function (item) {
       /* harmony default export */
       const libs_convertToTag = convertToTag;
       ; // CONCATENATED MODULE: ./src/libs/time-formatter.js
-      function formatDateTime(dateString, format) {
+      function formatDateTime(dateString) {
+        let format = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : "YYYY-MM-DD";
         const date = new Date(dateString);
         switch (format) {
           case "MM-DD HH:mm":
@@ -798,10 +799,18 @@ module.exports = function (item) {
             const day3 = String(date.getDate()).padStart(2, "0");
             return "".concat(year2, "-").concat(month3, "-").concat(day3);
           case "HH:mm:ss":
-            const hours3 = String(date.getHours()).padStart(2, "0");
-            const minutes3 = String(date.getMinutes()).padStart(2, "0");
-            const seconds3 = String(date.getSeconds()).padStart(2, "0");
-            return "".concat(hours3, ":").concat(minutes3, ":").concat(seconds3);
+            const hours4 = String(date.getHours()).padStart(2, "0");
+            const minutes4 = String(date.getMinutes()).padStart(2, "0");
+            const seconds4 = String(date.getSeconds()).padStart(2, "0");
+            console.log("`${hours4}:${minutes4}:${seconds4}`: ", "".concat(hours4, ":").concat(minutes4, ":").concat(seconds4));
+            return "".concat(hours4, ":").concat(minutes4, ":").concat(seconds4);
+          case "YYYY-MM-DD HH:mm":
+            const year5 = date.getFullYear();
+            const month5 = String(date.getMonth() + 1).padStart(2, "0");
+            const day5 = String(date.getDate()).padStart(2, "0");
+            const hours5 = String(date.getHours()).padStart(2, "0");
+            const minutes5 = String(date.getMinutes()).padStart(2, "0");
+            return "".concat(year5, "-").concat(month5, "-").concat(day5, " ").concat(hours5, ":").concat(minutes5);
           default:
             break;
         }
@@ -7034,17 +7043,17 @@ const FormItem = _ref => {
   // 统一处理 addonBefore
   let processedAddonBefore = addonBefore;
   /* if (React.isValidElement(addonBefore)) {
-            const props = addonBefore.props;
-            // 如果是 ReactNode（通过 isValidElement 判断是否为有效的 React 元素），添加 isaddon 属性
-            processedAddonBefore = React.cloneElement(addonBefore as any, { isaddon: 'true', formStyle: { background: 'transparent', border: 0 }, size, clearable, ...props });
-        }
-     */
+          const props = addonBefore.props;
+          // 如果是 ReactNode（通过 isValidElement 判断是否为有效的 React 元素），添加 isaddon 属性
+          processedAddonBefore = React.cloneElement(addonBefore as any, { isaddon: 'true', formStyle: { background: 'transparent', border: 0 }, size, clearable, ...props });
+      }
+   */
   let processedAddonAfter = addonAfter;
   /* if (React.isValidElement(addonAfter)) {
-            const props = addonAfter.props;
-            // 如果是 ReactNode（通过 isValidElement 判断是否为有效的 React 元素），添加 isaddon 属性
-            processedAddonAfter = React.cloneElement(addonAfter as any, { isaddon: 'true', formStyle: { background: 'transparent', border: 0 }, size, clearable, ...props });
-        } */
+          const props = addonAfter.props;
+          // 如果是 ReactNode（通过 isValidElement 判断是否为有效的 React 元素），添加 isaddon 属性
+          processedAddonAfter = React.cloneElement(addonAfter as any, { isaddon: 'true', formStyle: { background: 'transparent', border: 0 }, size, clearable, ...props });
+      } */
 
   const handleFieldChange = (name, value) => {
     setFieldValue && setFieldValue({
@@ -7156,7 +7165,7 @@ const FormItem = _ref => {
     }
   }, [rules]);
   return /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("div", {
-    className: "adou-form-item-wrapper d-flex align-items-center ".concat(wrapperClassName ? wrapperClassName : generateWrapperCls()),
+    className: "adou-form-item-wrapper ".concat(suffix ? "d-flex align-items-center" : "", " ").concat(wrapperClassName ? wrapperClassName : generateWrapperCls()),
     style: {
       width: wrapperWidth,
       minWidth: wrapperMinWidth,

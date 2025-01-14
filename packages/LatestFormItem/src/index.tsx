@@ -89,17 +89,17 @@ const FormItem = ({
   // 统一处理 addonBefore
   let processedAddonBefore = addonBefore;
   /* if (React.isValidElement(addonBefore)) {
-            const props = addonBefore.props;
-            // 如果是 ReactNode（通过 isValidElement 判断是否为有效的 React 元素），添加 isaddon 属性
-            processedAddonBefore = React.cloneElement(addonBefore as any, { isaddon: 'true', formStyle: { background: 'transparent', border: 0 }, size, clearable, ...props });
-        }
-     */
+          const props = addonBefore.props;
+          // 如果是 ReactNode（通过 isValidElement 判断是否为有效的 React 元素），添加 isaddon 属性
+          processedAddonBefore = React.cloneElement(addonBefore as any, { isaddon: 'true', formStyle: { background: 'transparent', border: 0 }, size, clearable, ...props });
+      }
+   */
   let processedAddonAfter = addonAfter;
   /* if (React.isValidElement(addonAfter)) {
-            const props = addonAfter.props;
-            // 如果是 ReactNode（通过 isValidElement 判断是否为有效的 React 元素），添加 isaddon 属性
-            processedAddonAfter = React.cloneElement(addonAfter as any, { isaddon: 'true', formStyle: { background: 'transparent', border: 0 }, size, clearable, ...props });
-        } */
+          const props = addonAfter.props;
+          // 如果是 ReactNode（通过 isValidElement 判断是否为有效的 React 元素），添加 isaddon 属性
+          processedAddonAfter = React.cloneElement(addonAfter as any, { isaddon: 'true', formStyle: { background: 'transparent', border: 0 }, size, clearable, ...props });
+      } */
 
   const handleFieldChange = (name: string, value: any) => {
     setFieldValue && setFieldValue({ [name!]: value });
@@ -227,9 +227,9 @@ const FormItem = ({
 
   return (
     <div
-      className={`adou-form-item-wrapper d-flex align-items-center ${
-        wrapperClassName ? wrapperClassName : generateWrapperCls()
-      }`}
+      className={`adou-form-item-wrapper ${
+        suffix ? "d-flex align-items-center" : ""
+      } ${wrapperClassName ? wrapperClassName : generateWrapperCls()}`}
       style={{
         width: wrapperWidth,
         minWidth: wrapperMinWidth,
@@ -241,8 +241,8 @@ const FormItem = ({
       }}
     >
       {/*  ${
-              layout === "vertical" ? "mb-1" : !isError ? "mb-3" : "mb-1"
-            } */}
+            layout === "vertical" ? "mb-1" : !isError ? "mb-3" : "mb-1"
+          } */}
       <div
         className={`adou-form-item-content flex-fill ${judgeFormItemContentCls()} ${
           isError ? "border-danger" : ""

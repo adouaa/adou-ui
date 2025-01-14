@@ -11,6 +11,7 @@ declare const _default: React.ComponentType<Omit<{
     align?: "center" | "start" | "end" | "justify" | undefined;
     children?: any;
     data: any;
+    compact?: boolean | undefined;
     checkAll?: boolean | undefined;
     tdPadding?: string | undefined;
     clickChecked?: boolean | undefined;
