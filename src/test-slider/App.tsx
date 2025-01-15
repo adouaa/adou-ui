@@ -6,10 +6,7 @@ const App = () => {
     const [singleValue, setSingleValue] = useState(50);
     const [rangeValues, setRangeValues] = useState([20, 80]);
 
-    const handleChange1 = (value: any, percent: any) => {
-        console.log('🚀 ~ handleChange ~ value:', value);
-        console.log('🚀 ~ handleChange ~ percent:', percent);
-    };
+    const handleChange1 = (value: any, percent: any) => {};
 
     return (
         <div className="p-3">

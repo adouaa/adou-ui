@@ -56,7 +56,7 @@ import ReactDOM from 'react-dom/client';
 
 // import App from './test-switch/App.tsx';
 
-// import App from './test-slider/App.tsx';
+import App from './test-slider/App.tsx';
 
 // import App from './test-table/App.tsx';
 
@@ -68,7 +68,7 @@ import ReactDOM from 'react-dom/client';
 
 // import App from './doc/doc-calendar';
 
-import App from './test-form-item/App.tsx';
+// import App from './test-form-item/App.tsx';
 
 // import App from './test-collapse-y/App.tsx';
 

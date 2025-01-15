@@ -852,7 +852,7 @@ const Select = React.forwardRef((props: SelectProps, ref) => {
                                 ''
                             )
                         ) : (
-                            <div className={`adou-select-value  ${contentWrap ? 'ellipsis-1' : ''}`} style={{ ...(showSearch ? { flex: 1 } : {}) }}>
+                            <div className={`adou-select-value  ${contentWrap ? 'ellipsis-1' : ''}`} style={{ ...(showSearch ? { flex: 1 } : { flex: 1 }) }}>
                                 {selectValue[labelKey]}
                             </div>
                         )

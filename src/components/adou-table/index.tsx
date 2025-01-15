@@ -1,4 +1,4 @@
-import React, { Fragment, ReactElement, useEffect, useId, useImperativeHandle, useState } from 'react';
+import React, { Fragment, ReactElement, useCallback, useEffect, useId, useImperativeHandle, useState } from 'react';
 import { withTranslation } from 'react-i18next';
 import TableCell from './adou-table-cell';
 import './index.scss';
@@ -19,6 +19,11 @@ export const recursiveGenerateTableHeaderRows = (columns: any[], newRows: any[] 
 };
 
 interface TableProps {
+    pageSizeOptions?: number[];
+    pagination?: boolean; // 是否显示分页
+    pageSize?: number; // 每页显示条数
+    currentPage?: number; // 当前页码
+    showTotal?: boolean; // 是否显示总条数
     compact?: boolean;
     showTip?: boolean;
     checkAll?: boolean;
@@ -63,10 +68,17 @@ interface TableProps {
     minHeight?: string;
     onRowDoubleClick?: (row: any) => void;
     onRowClick?: (row: any) => void;
+    onPageChange?: (page: number) => void; // 页码改变的回调
+    onPageSizeChange?: (size: number) => void; // 每页条数改变的回调
 }
 
 const Table = (props: TableProps) => {
     const {
+        pageSizeOptions = [5, 10, 15, 20],
+        pagination = false,
+        pageSize = 10,
+        currentPage = 1,
+        showTotal = false,
         compact,
         showTip,
         checkAll,
@@ -109,18 +121,22 @@ const Table = (props: TableProps) => {
         minHeight = '0px',
         onRowDoubleClick,
         onRowClick,
+        onPageChange,
+        onPageSizeChange,
     } = props;
 
     const [tableData, setTableData] = useState<any[]>([]);
     const [originalTableData, setOriginalTableData] = useState<any[]>([]);
     const [tableHeaders, setTableHeaders] = useState<any[]>([]);
-
-    // 更新的数据
     const [updateKey, setUpdateKey] = useState<number>(0);
-
-    // 组合表头所需深度
     const [theadRows, setTheadRows] = useState<any[]>([]);
     const [maxDepth, setMaxDepth] = useState<number>(1);
+
+    // 分页相关状态
+    const [currentPageState, setCurrentPageState] = useState<number>(currentPage);
+    const [pageSizeState, setPageSizeState] = useState<number>(pageSize);
+    const [totalPages, setTotalPages] = useState<number>(0);
+    const [paginatedData, setPaginatedData] = useState<any[]>([]);
 
     // 唯一 id 加上 uniqId 防止多个表格的相同复选框冲突
     const uniqId = useId();
@@ -667,7 +683,7 @@ const Table = (props: TableProps) => {
         return (
             <tbody className={`table-body ${divider ? 'table-group-divider' : ''}`}>
                 {tableData.length > 0 &&
-                    tableData.map((data: any, rowIndex: number) => {
+                    paginatedData.map((data: any, rowIndex: number) => {
                         return (
                             // 加上 uniqId 防止多个表格的相同复选框冲突
                             <Fragment key={data[id] + uniqId}>
@@ -1207,6 +1223,141 @@ const Table = (props: TableProps) => {
         scrollToTop: handleScrollToTop,
     }));
 
+    // 计算分页数据
+    const calculatePaginatedData = useCallback(() => {
+        if (!pagination) {
+            setPaginatedData(tableData);
+            return;
+        }
+        const startIndex = (currentPageState - 1) * pageSizeState;
+        const endIndex = startIndex + pageSizeState;
+        const newPaginatedData = tableData.slice(startIndex, endIndex);
+        setPaginatedData(newPaginatedData);
+        setTotalPages(Math.ceil(tableData.length / pageSizeState));
+    }, [tableData, currentPageState, pageSizeState, pagination]);
+
+    // 生成页码数组
+    // 生成页码数组
+    const generatePageNumbers = () => {
+        const result: any[] = [];
+        const maxPagesShow = 5; // 最多显示5个页码（不包括省略号和首尾页码）
+
+        if (totalPages <= maxPagesShow + 2) {
+            // 如果总页数较少，直接显示所有页码
+            for (let i = 1; i <= totalPages; i++) {
+                result.push({ page: i, type: 'page' });
+            }
+        } else {
+            // 始终显示第一页
+            result.push({ page: 1, type: 'page' });
+
+            if (currentPageState <= maxPagesShow - 2) {
+                // 当前页靠近开始
+                for (let i = 2; i <= maxPagesShow; i++) {
+                    result.push({ page: i, type: 'page' });
+                }
+                result.push({ page: 0, type: 'ellipsis' });
+                result.push({ page: totalPages, type: 'page' });
+            } else if (currentPageState >= totalPages - (maxPagesShow - 3)) {
+                // 当前页靠近结束
+                result.push({ page: 0, type: 'ellipsis' });
+                for (let i = totalPages - (maxPagesShow - 1); i <= totalPages; i++) {
+                    result.push({ page: i, type: 'page' });
+                }
+            } else {
+                // 当前页在中间
+                result.push({ page: 0, type: 'ellipsis' });
+                for (let i = currentPageState - 1; i <= currentPageState + 1; i++) {
+                    result.push({ page: i, type: 'page' });
+                }
+                result.push({ page: 0, type: 'ellipsis' });
+                result.push({ page: totalPages, type: 'page' });
+            }
+        }
+
+        return result;
+    };
+
+    // 处理页码改变
+    const handlePageChange = (page: number, type?: 'prev' | 'next') => {
+        if (type === 'prev') {
+            if (page <= 0) return;
+        } else if (type === 'next') {
+            if (page >= totalPages + 1) return;
+        }
+        setCurrentPageState(page);
+        onPageChange?.(page);
+    };
+
+    // 处理每页条数改变
+    const handlePageSizeChange = (size: number) => {
+        setPageSizeState(size);
+        setCurrentPageState(1); // 重置到第一页
+        onPageSizeChange?.(size);
+    };
+
+    useEffect(() => {
+        calculatePaginatedData();
+    }, [calculatePaginatedData]);
+
+    // 渲染分页组件
+    const renderPagination = () => {
+        if (!pagination) return null;
+
+        return (
+            <div className="d-flex justify-content-between align-items-center p-2">
+                <div className="d-flex align-items-center">
+                    {showTotal && <span className="me-3">共 {tableData.length} 条</span>}
+                    <select
+                        className="form-select form-select-sm me-2"
+                        style={{ width: '100px' }}
+                        value={pageSizeState}
+                        onChange={(e) => handlePageSizeChange(Number(e.target.value))}
+                    >
+                        {pageSizeOptions.map((size) => (
+                            <option key={size} value={size}>
+                                {size} 条/页
+                            </option>
+                        ))}
+                    </select>
+                </div>
+                <div className="pagination d-flex align-items-center">
+                    <i
+                        onClick={() => handlePageChange(currentPageState - 1, 'prev')}
+                        className={`prev-arrow rounded fa-solid fa-chevron-left ${currentPageState === 1 ? 'disabled' : ''}`}
+                    ></i>
+                    <div className="page-numbers d-flex align-items-center mx-2">
+                        {generatePageNumbers().map((item, index) => (
+                            <React.Fragment key={index}>
+                                {item.type === 'page' ? (
+                                    <button
+                                        className={`btn btn-sm page-number-item d-flex align-items-center justify-content-center mx-1 ${
+                                            item.page === currentPageState ? 'btn-primary' : 'btn-outline-secondary'
+                                        }`}
+                                        style={{
+                                            minWidth: '24px',
+                                            height: '26px',
+                                        }}
+                                        onClick={() => handlePageChange(item.page)}
+                                    >
+                                        {item.page}
+                                    </button>
+                                ) : (
+                                    <span className="mx-1 d-flex align-items-center">...</span>
+                                )}
+                            </React.Fragment>
+                        ))}
+                    </div>
+
+                    <i
+                        className={`next-arrow rounded fa-solid fa-chevron-right ${currentPageState === totalPages ? 'disabled' : ''}`}
+                        onClick={() => handlePageChange(currentPageState + 1, 'next')}
+                    ></i>
+                </div>
+            </div>
+        );
+    };
+
     return (
         <>
             <div
@@ -1222,12 +1373,13 @@ const Table = (props: TableProps) => {
                     style={{ background: tableBGC, width: tableWidth }}
                     className={`table ${tableStriped ? 'table-striped' : ''} ${tableBorderd ? 'table-bordered' : 'table-borderless'} table-${size} ${
                         headColor ? `table-${headColor}` : ''
-                    } overflow-auto ${data.length === 0 ? 'mb-0' : ''}`}
+                    } overflow-auto ${paginatedData.length === 0 ? 'mb-0' : ''}`}
                 >
                     {showHeader && renderTableHeader()}
                     {renderTableBody()}
                 </table>
-                {data.length === 0 && <div className="text-center p-1">暂无数据~</div>}
+                {paginatedData.length === 0 && <div className="text-center p-1">暂无数据~</div>}
+                {renderPagination()}
             </div>
         </>
     );

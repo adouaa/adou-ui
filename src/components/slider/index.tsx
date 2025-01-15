@@ -20,7 +20,7 @@ interface SliderProps {
     showInput?: boolean;
     onChange?: (value?: any, percent?: any) => void;
 }
-const Slider = ({ marks, range, sliderWidth, min = 0, max, step, value, showStops = true, showInput, onChange }: SliderProps) => {
+const Slider = ({ marks, range, sliderWidth, min = 0, max = 100, step, value, showStops = true, showInput, onChange }: SliderProps) => {
     const [sliderButton1Left, setSliderButton1Left] = useState<any>(0);
     const [sliderButton2Left, setSliderButton2Left] = useState<any>(0);
     const [sliderBarWidth, setSliderBarWidth] = useState<any>();
@@ -140,7 +140,6 @@ const Slider = ({ marks, range, sliderWidth, min = 0, max, step, value, showStop
         };
 
         const btnUpHandler = () => {
-            console.log('up2: ', Math.abs(parseFloat(sliderButton2Left) - parseFloat(sliderButton1Left)) * eachPercentValue);
             if (isButton2MoveRef.current) {
                 setisClickIngBtn2(false);
             } else {
@@ -205,10 +204,8 @@ const Slider = ({ marks, range, sliderWidth, min = 0, max, step, value, showStop
             setInputValue(isNaN(Math.round(diffAbs / eachPercentValue)) ? 0 : Math.round(diffAbs / eachPercentValue));
 
             // 计算值然后返回
-            console.log('up: ', Math.abs(parseFloat(sliderButton2Left) - parseFloat(sliderButton1Left)) / eachPercentValue);
         } else {
             // 计算值然后返回
-            console.log('up: ', Math.abs(parseFloat(sliderButton2Left) - parseFloat(sliderButton1Left)) / eachPercentValue);
         }
         const returnValue = Math.abs(parseFloat(sliderButton2Left) - parseFloat(sliderButton1Left)) / eachPercentValue;
         const returnPercent = Math.abs(parseFloat(sliderButton2Left) - parseFloat(sliderButton1Left));
