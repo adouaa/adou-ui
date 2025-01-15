@@ -11,6 +11,11 @@ declare const _default: React.ComponentType<Omit<{
     align?: "center" | "start" | "end" | "justify" | undefined;
     children?: any;
     data: any;
+    pageSizeOptions?: number[] | undefined;
+    pagination?: boolean | undefined;
+    pageSize?: number | undefined;
+    currentPage?: number | undefined;
+    showTotal?: boolean | undefined;
     compact?: boolean | undefined;
     checkAll?: boolean | undefined;
     tdPadding?: string | undefined;
@@ -47,5 +52,7 @@ declare const _default: React.ComponentType<Omit<{
     minHeight?: string | undefined;
     onRowDoubleClick?: ((row: any) => void) | undefined;
     onRowClick?: ((row: any) => void) | undefined;
+    onPageChange?: ((page: number) => void) | undefined;
+    onPageSizeChange?: ((size: number) => void) | undefined;
 }, keyof import("react-i18next").WithTranslation<N, undefined>> & import("react-i18next").WithTranslationProps>;
 export default _default;

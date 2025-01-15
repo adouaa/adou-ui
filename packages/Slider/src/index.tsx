@@ -18,14 +18,15 @@ interface SliderProps {
   range?: boolean;
   showStops?: boolean;
   showInput?: boolean;
-  onChange?: () => void;
+  onChange?: (value?: any, percent?: any) => void;
 }
+
 const Slider = ({
   marks,
   range,
   sliderWidth,
   min = 0,
-  max,
+  max = 100,
   step,
   value,
   showStops = true,
@@ -38,8 +39,14 @@ const Slider = ({
   const [stops, setStops] = useState<any[]>([]);
   const [inputValue, setInputValue] = useState<number>(0);
 
-  const sliderRunwayRef = useRef<any>(null);
+  // 用来记录每个按钮
   const [eachPercentValue, setEachPercentValue] = useState<number>(1);
+
+  // 用来支持Slider的鼠标不在RunWay上面的时候也会展示提示
+  const [isClickIngBtn1, setisClickIngBtn1] = useState<boolean>(false);
+  const [isClickIngBtn2, setisClickIngBtn2] = useState<boolean>(false);
+
+  const sliderRunwayRef = useRef<any>(null);
   const isButton2MoveRef = useRef<boolean>(false); // 记录是否点击的是第二个按钮
 
   // 按钮点击后，按钮移动的逻辑
@@ -118,11 +125,23 @@ const Slider = ({
       }
     }
 
+    if (isButton2MoveRef.current) {
+      setisClickIngBtn2(true);
+    } else {
+      setisClickIngBtn1(true);
+    }
+
     const bindMouseDownHandler = (mouseEvent: MouseEvent) => {
       btnMoveHandler(mouseEvent, sliderRect, isButton2MoveRef.current);
     };
 
     const btnUpHandler = () => {
+      if (isButton2MoveRef.current) {
+        setisClickIngBtn2(false);
+      } else {
+        setisClickIngBtn1(false);
+      }
+
       window.removeEventListener("mousemove", bindMouseDownHandler);
       window.removeEventListener("mouseup", btnUpHandler);
     };
@@ -135,6 +154,11 @@ const Slider = ({
     // 确保事件不冒泡。如果冒泡到 runway的mousedown事件，会导致 isTwo一个为true，一个为false(runway)
     e.stopPropagation();
     isButton2MoveRef.current = isButton2!;
+    if (isButton2MoveRef.current) {
+      setisClickIngBtn2(true);
+    } else {
+      setisClickIngBtn1(true);
+    }
     const sliderRect = sliderRunwayRef.current.getBoundingClientRect();
 
     const bindMouseDownHandler = (mouseEvent: MouseEvent) => {
@@ -142,6 +166,12 @@ const Slider = ({
     };
 
     const btnUpHandler = () => {
+      if (isButton2MoveRef.current) {
+        setisClickIngBtn2(false);
+      } else {
+        setisClickIngBtn1(false);
+      }
+
       // 在按钮抬起后，将 isButton2MoveRef设置为false
       // 防止本次点击的如果是第二个按钮，下一次点 runway的时候会触发第儿个按钮的移动
       isButton2MoveRef.current = false;
@@ -207,7 +237,18 @@ const Slider = ({
           ? 0
           : Math.round(diffAbs / eachPercentValue)
       );
+
+      // 计算值然后返回
+    } else {
+      // 计算值然后返回
     }
+    const returnValue =
+      Math.abs(parseFloat(sliderButton2Left) - parseFloat(sliderButton1Left)) /
+      eachPercentValue;
+    const returnPercent = Math.abs(
+      parseFloat(sliderButton2Left) - parseFloat(sliderButton1Left)
+    );
+    onChange && onChange(returnValue, returnPercent);
   }, [sliderButton1Left, sliderButton2Left]);
 
   return (
@@ -232,14 +273,15 @@ const Slider = ({
         ></div>
 
         {/* 因为要展示 Tooltip，所以让一开始的 slider-button移动改成他的父组件 wrapper移动，
-                    然后再把slider-button作为 Tooltip所挂载的内容
-                    注意：Tooltip所挂载的元素不能有 transformY的属性，不然位置不对
-                */}
+                  然后再把slider-button作为 Tooltip所挂载的内容
+                  注意：Tooltip所挂载的元素不能有 transformY的属性，不然位置不对
+              */}
         <div
           className="slider-button-wrapper1"
           style={{ left: sliderButton1Left }}
         >
           <Tooltip
+            mustShow={isClickIngBtn1}
             text={String(
               Math.round(parseFloat(sliderButton1Left) / eachPercentValue)
             )}
@@ -256,6 +298,7 @@ const Slider = ({
             style={{ left: sliderButton2Left, backgroundColor: "red" }}
           >
             <Tooltip
+              mustShow={isClickIngBtn2}
               text={String(
                 Math.round(parseFloat(sliderButton2Left) / eachPercentValue)
               )}

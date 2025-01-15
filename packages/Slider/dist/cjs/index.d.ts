@@ -15,7 +15,7 @@ interface SliderProps {
     range?: boolean;
     showStops?: boolean;
     showInput?: boolean;
-    onChange?: () => void;
+    onChange?: (value?: any, percent?: any) => void;
 }
 declare const Slider: ({ marks, range, sliderWidth, min, max, step, value, showStops, showInput, onChange, }: SliderProps) => React.JSX.Element;
 export default Slider;

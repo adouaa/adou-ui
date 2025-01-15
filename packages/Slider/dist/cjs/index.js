@@ -1,13 +1,13 @@
 (function webpackUniversalModuleDefinition(root, factory) {
 	if(typeof exports === 'object' && typeof module === 'object')
-		module.exports = factory(require("react"));
+		module.exports = factory(require("react"), require("react-dom"));
 	else if(typeof define === 'function' && define.amd)
-		define(["react"], factory);
+		define(["react", "react-dom"], factory);
 	else if(typeof exports === 'object')
-		exports["RPB"] = factory(require("react"));
+		exports["RPB"] = factory(require("react"), require("react-dom"));
 	else
-		root["RPB"] = factory(root["React"]);
-})(this, (__WEBPACK_EXTERNAL_MODULE__442__) => {
+		root["RPB"] = factory(root["React"], root["ReactDOM"]);
+})(this, (__WEBPACK_EXTERNAL_MODULE__442__, __WEBPACK_EXTERNAL_MODULE__3__) => {
 return /******/ (() => { // webpackBootstrap
 /******/ 	var __webpack_modules__ = ({
 
@@ -130,8 +130,8 @@ module.exports = function (item) {
 /***/ (function(module, __unused_webpack_exports, __webpack_require__) {
 
 (function webpackUniversalModuleDefinition(root, factory) {
-  if (true) module.exports = factory(__webpack_require__(442));else {}
-})(this, __WEBPACK_EXTERNAL_MODULE__442__ => {
+  if (true) module.exports = factory(__webpack_require__(442), __webpack_require__(3));else {}
+})(this, (__WEBPACK_EXTERNAL_MODULE__442__, __WEBPACK_EXTERNAL_MODULE__3__) => {
   return /******/(() => {
     // webpackBootstrap
     /******/
@@ -244,29 +244,29 @@ module.exports = function (item) {
 
         /***/
       }),
-      /***/483: ( /***/(module, __nested_webpack_exports__, __nested_webpack_require_4258__) => {
-        /* harmony export */__nested_webpack_require_4258__.d(__nested_webpack_exports__, {
+      /***/483: ( /***/(module, __nested_webpack_exports__, __nested_webpack_require_4367__) => {
+        /* harmony export */__nested_webpack_require_4367__.d(__nested_webpack_exports__, {
           /* harmony export */A: () => __WEBPACK_DEFAULT_EXPORT__
           /* harmony export */
         });
         /* harmony import */
-        var _node_modules_css_loader_dist_runtime_sourceMaps_js__WEBPACK_IMPORTED_MODULE_0__ = __nested_webpack_require_4258__(73);
+        var _node_modules_css_loader_dist_runtime_sourceMaps_js__WEBPACK_IMPORTED_MODULE_0__ = __nested_webpack_require_4367__(73);
         /* harmony import */
-        var _node_modules_css_loader_dist_runtime_sourceMaps_js__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__nested_webpack_require_4258__.n(_node_modules_css_loader_dist_runtime_sourceMaps_js__WEBPACK_IMPORTED_MODULE_0__);
+        var _node_modules_css_loader_dist_runtime_sourceMaps_js__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__nested_webpack_require_4367__.n(_node_modules_css_loader_dist_runtime_sourceMaps_js__WEBPACK_IMPORTED_MODULE_0__);
         /* harmony import */
-        var _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_1__ = __nested_webpack_require_4258__(191);
+        var _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_1__ = __nested_webpack_require_4367__(191);
         /* harmony import */
-        var _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__nested_webpack_require_4258__.n(_node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_1__);
+        var _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__nested_webpack_require_4367__.n(_node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_1__);
         // Imports
 
         var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_1___default()(_node_modules_css_loader_dist_runtime_sourceMaps_js__WEBPACK_IMPORTED_MODULE_0___default());
         // Module
-        ___CSS_LOADER_EXPORT___.push([module.id, "@charset \"UTF-8\";\n.adou-tooltip-wrapper {\n  position: relative;\n}\n\n.adou-tooltip {\n  position: absolute;\n  background-color: #333;\n  color: #fff;\n  padding: 5px 10px;\n  border-radius: 4px;\n  font-size: 14px;\n  white-space: nowrap;\n  opacity: 0;\n  transition: opacity 0.2s ease-in-out;\n  /* \u9632\u6B62\u9F20\u6807\u4E8B\u4EF6\u7A7F\u900F\u5230 Tooltip \u540E\u9762\u7684\u5143\u7D20 */\n}\n.adou-tooltip.show-tool-tip {\n  opacity: 1;\n  pointer-events: auto;\n  /* \u542F\u7528\u9F20\u6807\u4E8B\u4EF6 */\n}\n.adou-tooltip.adou-tooltip-top {\n  bottom: 100%;\n  left: 50%;\n  transform: translate(-50%, -10px);\n}\n.adou-tooltip.adou-tooltip-bottom {\n  top: 100%;\n  left: 50%;\n  transform: translate(-50%, 10px);\n}\n.adou-tooltip.adou-tooltip-left {\n  right: 100%;\n  top: 50%;\n  transform: translate(-10px, -50%);\n}\n.adou-tooltip.adou-tooltip-right {\n  left: 100%;\n  top: 50%;\n  transform: translate(10px, -50%);\n}\n\n.adou-tooltip-arrow {\n  position: absolute;\n  width: 0;\n  height: 0;\n  border-style: solid;\n}\n.adou-tooltip-arrow.adou-tooltip-arrow-top {\n  border-width: 5px 5px 0 5px;\n  border-color: #333 transparent transparent transparent;\n  bottom: -5px;\n  left: 50%;\n  transform: translateX(-50%);\n}\n.adou-tooltip-arrow.adou-tooltip-arrow-bottom {\n  border-width: 0 5px 5px 5px;\n  border-color: transparent transparent #333 transparent;\n  top: -5px;\n  left: 50%;\n  transform: translateX(-50%);\n}\n.adou-tooltip-arrow.adou-tooltip-arrow-left {\n  border-width: 5px 0 5px 5px;\n  border-color: transparent transparent transparent #333;\n  right: -5px;\n  top: 50%;\n  transform: translateY(-50%);\n}\n.adou-tooltip-arrow.adou-tooltip-arrow-right {\n  border-width: 5px 5px 5px 0;\n  border-color: transparent #333 transparent transparent;\n  left: -5px;\n  top: 50%;\n  transform: translateY(-50%);\n}", "", {
+        ___CSS_LOADER_EXPORT___.push([module.id, "@charset \"UTF-8\";\n.adou-tooltip-wrapper {\n  position: relative;\n  width: fit-content;\n}\n.adou-tooltip-wrapper .adou-tooltip-content {\n  width: fit-content;\n}\n\n.adou-tooltip {\n  height: fit-content;\n  position: absolute;\n  color: #fff;\n  padding: 5px 10px;\n  border-radius: 4px;\n  font-size: 14px;\n  opacity: 0;\n  transform: scale(0);\n  /* \u521D\u59CB\u72B6\u6001\u4E3A\u7F29\u5C0F */\n  transition: opacity 0.2s ease-in-out, transform 0.2s ease-in-out;\n  /* \u6DFB\u52A0 transform \u8FC7\u6E21\u6548\u679C */\n  /* \u9632\u6B62\u9F20\u6807\u4E8B\u4EF6\u7A7F\u900F\u5230 Tooltip \u540E\u9762\u7684\u5143\u7D20 */\n  z-index: 10000;\n}\n.adou-tooltip .adou-tooltip-arrow {\n  position: absolute;\n  width: 0;\n  height: 0;\n  border-style: solid;\n}\n\n.show-tool-tip {\n  opacity: 1;\n  /* \u663E\u793A\u65F6\u653E\u5927 */\n  pointer-events: auto;\n  /* \u542F\u7528\u9F20\u6807\u4E8B\u4EF6 */\n}\n\n.adou-tooltip-top,\n.adou-tooltip-top-left,\n.adou-tooltip-top-right {\n  bottom: 100%;\n  left: 50%;\n  transform: translate(-50%, -10px) scale(0);\n  /* \u521D\u59CB\u72B6\u6001\u4E3A\u7F29\u5C0F */\n}\n.adou-tooltip-top.show-tool-tip,\n.adou-tooltip-top-left.show-tool-tip,\n.adou-tooltip-top-right.show-tool-tip {\n  transform: translate(-50%, -10px) scale(1);\n  /* \u663E\u793A\u65F6\u653E\u5927 */\n}\n\n.adou-tooltip-bottom,\n.adou-tooltip-bottom-left,\n.adou-tooltip-bottom-right {\n  top: 100%;\n  left: 50%;\n  transform: translate(-50%, 10px) scale(0);\n  /* \u521D\u59CB\u72B6\u6001\u4E3A\u7F29\u5C0F */\n}\n.adou-tooltip-bottom.show-tool-tip,\n.adou-tooltip-bottom-left.show-tool-tip,\n.adou-tooltip-bottom-right.show-tool-tip {\n  transform: translate(-50%, 10px) scale(1);\n  /* \u663E\u793A\u65F6\u653E\u5927 */\n}\n\n.adou-tooltip-left,\n.adou-tooltip-left-top,\n.adou-tooltip-left-bottom {\n  right: 100%;\n  top: 50%;\n  transform: translate(-10px, -50%) scale(0);\n  width: fit-content;\n  /* \u521D\u59CB\u72B6\u6001\u4E3A\u7F29\u5C0F */\n}\n.adou-tooltip-left.show-tool-tip,\n.adou-tooltip-left-top.show-tool-tip,\n.adou-tooltip-left-bottom.show-tool-tip {\n  transform: translate(-10px, -50%) scale(1);\n  /* \u663E\u793A\u65F6\u653E\u5927 */\n}\n\n.adou-tooltip-right,\n.adou-tooltip-right-top,\n.adou-tooltip-right-bottom {\n  top: 50%;\n  transform: translate(10px, -50%) scale(0);\n  /* \u521D\u59CB\u72B6\u6001\u4E3A\u7F29\u5C0F */\n}\n.adou-tooltip-right.show-tool-tip,\n.adou-tooltip-right-top.show-tool-tip,\n.adou-tooltip-right-bottom.show-tool-tip {\n  transform: translate(10px, -50%) scale(1);\n  /* \u663E\u793A\u65F6\u653E\u5927 */\n}\n\n.adou-tooltip-arrow-top {\n  border-width: 9px 9px 0 9px;\n  border-color: green transparent transparent transparent;\n  bottom: -9px;\n  left: 50%;\n  transform: translateX(-50%);\n}\n\n.adou-tooltip-arrow-top-left,\n.adou-tooltip-arrow-top-right {\n  border-width: 9px 9px 0 9px;\n  border-color: green transparent transparent transparent;\n  bottom: -9px;\n  transform: translateX(-50%);\n}\n\n.adou-tooltip-arrow-bottom {\n  border-width: 0 9px 9px 9px;\n  border-color: transparent transparent green transparent;\n  top: -9px;\n  left: 50%;\n  transform: translateX(-50%);\n}\n\n.adou-tooltip-arrow-left,\n.adou-tooltip-arrow-left-bottom {\n  border-width: 9px 0 9px 9px;\n  border-color: transparent transparent transparent green;\n  right: -9px;\n  top: 50%;\n  transform: translateY(-50%);\n}\n\n.adou-tooltip-arrow-right {\n  border-width: 9px 9px 9px 0;\n  border-color: transparent green transparent transparent;\n  left: -9px;\n  top: 50%;\n  transform: translateY(-50%);\n}\n\n.adou-tooltip-arrow-right-top,\n.adou-tooltip-arrow-right-bottom {\n  border-width: 9px 9px 9px 0;\n  border-color: transparent green transparent transparent;\n  transform: translateY(-50%);\n}\n\n.adou-tooltip-arrow-bottom-left,\n.adou-tooltip-arrow-bottom-right {\n  border-width: 0 9px 9px 9px;\n  border-color: transparent transparent green transparent;\n  top: -9px;\n  transform: translateX(-50%);\n}\n\n.adou-tooltip-arrow-left-top {\n  border-width: 9px 0 9px 9px;\n  border-color: transparent transparent transparent green;\n  transform: translateY(-50%);\n}", "", {
           "version": 3,
           "sources": ["webpack://./src/index.scss"],
           "names": [],
-          "mappings": "AAAA,gBAAgB;AAAhB;EACE,kBAAA;AAEF;;AACA;EACE,kBAAA;EACA,sBAAA;EACA,WAAA;EACA,iBAAA;EACA,kBAAA;EACA,eAAA;EACA,mBAAA;EACA,UAAA;EACA,oCAAA;EAEA,4BAAA;AACF;AACE;EACE,UAAA;EACA,oBAAA;EACA,WAAA;AACJ;AAEE;EACE,YAAA;EACA,SAAA;EACA,iCAAA;AAAJ;AAGE;EACE,SAAA;EACA,SAAA;EACA,gCAAA;AADJ;AAIE;EACE,WAAA;EACA,QAAA;EACA,iCAAA;AAFJ;AAKE;EACE,UAAA;EACA,QAAA;EACA,gCAAA;AAHJ;;AAOA;EACE,kBAAA;EACA,QAAA;EACA,SAAA;EACA,mBAAA;AAJF;AAME;EACE,2BAAA;EACA,sDAAA;EACA,YAAA;EACA,SAAA;EACA,2BAAA;AAJJ;AAOE;EACE,2BAAA;EACA,sDAAA;EACA,SAAA;EACA,SAAA;EACA,2BAAA;AALJ;AAQE;EACE,2BAAA;EACA,sDAAA;EACA,WAAA;EACA,QAAA;EACA,2BAAA;AANJ;AASE;EACE,2BAAA;EACA,sDAAA;EACA,UAAA;EACA,QAAA;EACA,2BAAA;AAPJ",
-          "sourcesContent": [".adou-tooltip-wrapper {\r\n  position: relative;\r\n}\r\n\r\n.adou-tooltip {\r\n  position: absolute;\r\n  background-color: #333;\r\n  color: #fff;\r\n  padding: 5px 10px;\r\n  border-radius: 4px;\r\n  font-size: 14px;\r\n  white-space: nowrap;\r\n  opacity: 0;\r\n  transition: opacity 0.2s ease-in-out;\r\n  // pointer-events: none;\r\n  /* 防止鼠标事件穿透到 Tooltip 后面的元素 */\r\n\r\n  &.show-tool-tip {\r\n    opacity: 1;\r\n    pointer-events: auto;\r\n    /* 启用鼠标事件 */\r\n  }\r\n\r\n  &.adou-tooltip-top {\r\n    bottom: 100%;\r\n    left: 50%;\r\n    transform: translate(-50%, -10px);\r\n  }\r\n\r\n  &.adou-tooltip-bottom {\r\n    top: 100%;\r\n    left: 50%;\r\n    transform: translate(-50%, 10px);\r\n  }\r\n\r\n  &.adou-tooltip-left {\r\n    right: 100%;\r\n    top: 50%;\r\n    transform: translate(-10px, -50%);\r\n  }\r\n\r\n  &.adou-tooltip-right {\r\n    left: 100%;\r\n    top: 50%;\r\n    transform: translate(10px, -50%);\r\n  }\r\n}\r\n\r\n.adou-tooltip-arrow {\r\n  position: absolute;\r\n  width: 0;\r\n  height: 0;\r\n  border-style: solid;\r\n\r\n  &.adou-tooltip-arrow-top {\r\n    border-width: 5px 5px 0 5px;\r\n    border-color: #333 transparent transparent transparent;\r\n    bottom: -5px;\r\n    left: 50%;\r\n    transform: translateX(-50%);\r\n  }\r\n\r\n  &.adou-tooltip-arrow-bottom {\r\n    border-width: 0 5px 5px 5px;\r\n    border-color: transparent transparent #333 transparent;\r\n    top: -5px;\r\n    left: 50%;\r\n    transform: translateX(-50%);\r\n  }\r\n\r\n  &.adou-tooltip-arrow-left {\r\n    border-width: 5px 0 5px 5px;\r\n    border-color: transparent transparent transparent #333;\r\n    right: -5px;\r\n    top: 50%;\r\n    transform: translateY(-50%);\r\n  }\r\n\r\n  &.adou-tooltip-arrow-right {\r\n    border-width: 5px 5px 5px 0;\r\n    border-color: transparent #333 transparent transparent;\r\n    left: -5px;\r\n    top: 50%;\r\n    transform: translateY(-50%);\r\n  }\r\n}"],
+          "mappings": "AAAA,gBAAgB;AAAhB;EACI,kBAAA;EACA,kBAAA;AAEJ;AAAI;EACI,kBAAA;AAER;;AAEA;EACI,mBAAA;EACA,kBAAA;EACA,WAAA;EACA,iBAAA;EACA,kBAAA;EACA,eAAA;EACA,UAAA;EACA,mBAAA;EACA,YAAA;EACA,gEACI;EAEJ,sBAAA;EAEA,4BAAA;EACA,cAAA;AAFJ;AAII;EACI,kBAAA;EACA,QAAA;EACA,SAAA;EACA,mBAAA;AAFR;;AAMA;EACI,UAAA;EACA,UAAA;EACA,oBAAA;EACA,WAAA;AAHJ;;AAMA;;;EAGI,YAAA;EACA,SAAA;EACA,0CAAA;EACA,YAAA;AAHJ;AAKI;;;EACI,0CAAA;EACA,UAAA;AADR;;AAKA;;;EAGI,SAAA;EACA,SAAA;EACA,yCAAA;EACA,YAAA;AAFJ;AAII;;;EACI,yCAAA;EACA,UAAA;AAAR;;AAIA;;;EAGI,WAAA;EACA,QAAA;EACA,0CAAA;EACA,kBAAA;EACA,YAAA;AADJ;AAGI;;;EACI,0CAAA;EACA,UAAA;AACR;;AAGA;;;EAGI,QAAA;EACA,yCAAA;EACA,YAAA;AAAJ;AAEI;;;EACI,yCAAA;EACA,UAAA;AAER;;AAGA;EACI,2BAAA;EACA,uDAAA;EACA,YAAA;EACA,SAAA;EACA,2BAAA;AAAJ;;AAGA;;EAEI,2BAAA;EACA,uDAAA;EACA,YAAA;EACA,2BAAA;AAAJ;;AAGA;EACI,2BAAA;EACA,uDAAA;EACA,SAAA;EACA,SAAA;EACA,2BAAA;AAAJ;;AAGA;;EAEI,2BAAA;EACA,uDAAA;EACA,WAAA;EACA,QAAA;EACA,2BAAA;AAAJ;;AAGA;EACI,2BAAA;EACA,uDAAA;EACA,UAAA;EACA,QAAA;EACA,2BAAA;AAAJ;;AAIA;;EAEI,2BAAA;EACA,uDAAA;EACA,2BAAA;AADJ;;AAIA;;EAEI,2BAAA;EACA,uDAAA;EACA,SAAA;EACA,2BAAA;AADJ;;AAIA;EACI,2BAAA;EACA,uDAAA;EACA,2BAAA;AADJ",
+          "sourcesContent": [".adou-tooltip-wrapper {\r\n    position: relative;\r\n    width: fit-content;\r\n\r\n    .adou-tooltip-content {\r\n        width: fit-content;\r\n    }\r\n}\r\n\r\n.adou-tooltip {\r\n    height: fit-content;\r\n    position: absolute;\r\n    color: #fff;\r\n    padding: 5px 10px;\r\n    border-radius: 4px;\r\n    font-size: 14px;\r\n    opacity: 0;\r\n    transform: scale(0);\r\n    /* 初始状态为缩小 */\r\n    transition:\r\n        opacity 0.2s ease-in-out,\r\n        transform 0.2s ease-in-out;\r\n    /* 添加 transform 过渡效果 */\r\n    // pointer-events: none;\r\n    /* 防止鼠标事件穿透到 Tooltip 后面的元素 */\r\n    z-index: 10000;\r\n\r\n    .adou-tooltip-arrow {\r\n        position: absolute;\r\n        width: 0;\r\n        height: 0;\r\n        border-style: solid;\r\n    }\r\n}\r\n\r\n.show-tool-tip {\r\n    opacity: 1;\r\n    /* 显示时放大 */\r\n    pointer-events: auto;\r\n    /* 启用鼠标事件 */\r\n}\r\n\r\n.adou-tooltip-top,\r\n.adou-tooltip-top-left,\r\n.adou-tooltip-top-right {\r\n    bottom: 100%;\r\n    left: 50%;\r\n    transform: translate(-50%, -10px) scale(0);\r\n    /* 初始状态为缩小 */\r\n\r\n    &.show-tool-tip {\r\n        transform: translate(-50%, -10px) scale(1);\r\n        /* 显示时放大 */\r\n    }\r\n}\r\n\r\n.adou-tooltip-bottom,\r\n.adou-tooltip-bottom-left,\r\n.adou-tooltip-bottom-right {\r\n    top: 100%;\r\n    left: 50%;\r\n    transform: translate(-50%, 10px) scale(0);\r\n    /* 初始状态为缩小 */\r\n\r\n    &.show-tool-tip {\r\n        transform: translate(-50%, 10px) scale(1);\r\n        /* 显示时放大 */\r\n    }\r\n}\r\n\r\n.adou-tooltip-left,\r\n.adou-tooltip-left-top,\r\n.adou-tooltip-left-bottom {\r\n    right: 100%;\r\n    top: 50%;\r\n    transform: translate(-10px, -50%) scale(0);\r\n    width: fit-content;\r\n    /* 初始状态为缩小 */\r\n\r\n    &.show-tool-tip {\r\n        transform: translate(-10px, -50%) scale(1);\r\n        /* 显示时放大 */\r\n    }\r\n}\r\n\r\n.adou-tooltip-right,\r\n.adou-tooltip-right-top,\r\n.adou-tooltip-right-bottom {\r\n    top: 50%;\r\n    transform: translate(10px, -50%) scale(0);\r\n    /* 初始状态为缩小 */\r\n\r\n    &.show-tool-tip {\r\n        transform: translate(10px, -50%) scale(1);\r\n        /* 显示时放大 */\r\n    }\r\n}\r\n\r\n\r\n.adou-tooltip-arrow-top {\r\n    border-width: 9px 9px 0 9px;\r\n    border-color: green transparent transparent transparent;\r\n    bottom: -9px;\r\n    left: 50%;\r\n    transform: translateX(-50%);\r\n}\r\n\r\n.adou-tooltip-arrow-top-left,\r\n.adou-tooltip-arrow-top-right {\r\n    border-width: 9px 9px 0 9px;\r\n    border-color: green transparent transparent transparent;\r\n    bottom: -9px;\r\n    transform: translateX(-50%);\r\n}\r\n\r\n.adou-tooltip-arrow-bottom {\r\n    border-width: 0 9px 9px 9px;\r\n    border-color: transparent transparent green transparent;\r\n    top: -9px;\r\n    left: 50%;\r\n    transform: translateX(-50%);\r\n}\r\n\r\n.adou-tooltip-arrow-left,\r\n.adou-tooltip-arrow-left-bottom {\r\n    border-width: 9px 0 9px 9px;\r\n    border-color: transparent transparent transparent green;\r\n    right: -9px;\r\n    top: 50%;\r\n    transform: translateY(-50%);\r\n}\r\n\r\n.adou-tooltip-arrow-right {\r\n    border-width: 9px 9px 9px 0;\r\n    border-color: transparent green transparent transparent;\r\n    left: -9px;\r\n    top: 50%;\r\n    transform: translateY(-50%);\r\n}\r\n\r\n\r\n.adou-tooltip-arrow-right-top,\r\n.adou-tooltip-arrow-right-bottom {\r\n    border-width: 9px 9px 9px 0;\r\n    border-color: transparent green transparent transparent;\r\n    transform: translateY(-50%);\r\n}\r\n\r\n.adou-tooltip-arrow-bottom-left,\r\n.adou-tooltip-arrow-bottom-right {\r\n    border-width: 0 9px 9px 9px;\r\n    border-color: transparent transparent green transparent;\r\n    top: -9px;\r\n    transform: translateX(-50%);\r\n}\r\n\r\n.adou-tooltip-arrow-left-top {\r\n    border-width: 9px 0 9px 9px;\r\n    border-color: transparent transparent transparent green;\r\n    transform: translateY(-50%);\r\n}"],
           "sourceRoot": ""
         }]);
         // Exports
@@ -409,10 +409,10 @@ module.exports = function (item) {
 
         /***/
       }),
-      /***/855: ( /***/(module, __unused_webpack_exports, __nested_webpack_require_15266__) => {
+      /***/855: ( /***/(module, __unused_webpack_exports, __nested_webpack_require_20125__) => {
         /* istanbul ignore next  */
         function setAttributesWithoutAttributes(styleElement) {
-          var nonce =  true ? __nested_webpack_require_15266__.nc : 0;
+          var nonce =  true ? __nested_webpack_require_20125__.nc : 0;
           if (nonce) {
             styleElement.setAttribute("nonce", nonce);
           }
@@ -504,6 +504,11 @@ module.exports = function (item) {
         module.exports = __WEBPACK_EXTERNAL_MODULE__442__;
 
         /***/
+      }),
+      /***/3: ( /***/module => {
+        module.exports = __WEBPACK_EXTERNAL_MODULE__3__;
+
+        /***/
       })
 
       /******/
@@ -515,7 +520,7 @@ module.exports = function (item) {
     /******/
     /******/ // The require function
     /******/
-    function __nested_webpack_require_18561__(moduleId) {
+    function __nested_webpack_require_23535__(moduleId) {
       /******/ // Check if module is in cache
       /******/var cachedModule = __webpack_module_cache__[moduleId];
       /******/
@@ -534,7 +539,7 @@ module.exports = function (item) {
       /******/
       /******/ // Execute the module function
       /******/
-      __webpack_modules__[moduleId](module, module.exports, __nested_webpack_require_18561__);
+      __webpack_modules__[moduleId](module, module.exports, __nested_webpack_require_23535__);
       /******/
       /******/ // Return the exports of the module
       /******/
@@ -547,10 +552,10 @@ module.exports = function (item) {
     /******/
     (() => {
       /******/ // getDefaultExport function for compatibility with non-harmony modules
-      /******/__nested_webpack_require_18561__.n = module => {
+      /******/__nested_webpack_require_23535__.n = module => {
         /******/var getter = module && module.__esModule ? /******/() => module['default'] : /******/() => module;
         /******/
-        __nested_webpack_require_18561__.d(getter, {
+        __nested_webpack_require_23535__.d(getter, {
           a: getter
         });
         /******/
@@ -564,9 +569,9 @@ module.exports = function (item) {
     /******/
     (() => {
       /******/ // define getter functions for harmony exports
-      /******/__nested_webpack_require_18561__.d = (exports, definition) => {
+      /******/__nested_webpack_require_23535__.d = (exports, definition) => {
         /******/for (var key in definition) {
-          /******/if (__nested_webpack_require_18561__.o(definition, key) && !__nested_webpack_require_18561__.o(exports, key)) {
+          /******/if (__nested_webpack_require_23535__.o(definition, key) && !__nested_webpack_require_23535__.o(exports, key)) {
             /******/Object.defineProperty(exports, key, {
               enumerable: true,
               get: definition[key]
@@ -583,7 +588,7 @@ module.exports = function (item) {
     /******/ /* webpack/runtime/hasOwnProperty shorthand */
     /******/
     (() => {
-      /******/__nested_webpack_require_18561__.o = (obj, prop) => Object.prototype.hasOwnProperty.call(obj, prop);
+      /******/__nested_webpack_require_23535__.o = (obj, prop) => Object.prototype.hasOwnProperty.call(obj, prop);
       /******/
     })();
     /******/
@@ -591,7 +596,7 @@ module.exports = function (item) {
     /******/
     (() => {
       /******/ // define __esModule on exports
-      /******/__nested_webpack_require_18561__.r = exports => {
+      /******/__nested_webpack_require_23535__.r = exports => {
         /******/if (typeof Symbol !== 'undefined' && Symbol.toStringTag) {
           /******/Object.defineProperty(exports, Symbol.toStringTag, {
             value: 'Module'
@@ -610,7 +615,7 @@ module.exports = function (item) {
     /******/ /* webpack/runtime/nonce */
     /******/
     (() => {
-      /******/__nested_webpack_require_18561__.nc = undefined;
+      /******/__nested_webpack_require_23535__.nc = undefined;
       /******/
     })();
     /******/
@@ -619,36 +624,36 @@ module.exports = function (item) {
     // This entry need to be wrapped in an IIFE because it need to be isolated against other modules in the chunk.
     (() => {
       // ESM COMPAT FLAG
-      __nested_webpack_require_18561__.r(__nested_webpack_exports__);
+      __nested_webpack_require_23535__.r(__nested_webpack_exports__);
 
       // EXPORTS
-      __nested_webpack_require_18561__.d(__nested_webpack_exports__, {
+      __nested_webpack_require_23535__.d(__nested_webpack_exports__, {
         "default": () => ( /* binding */src_0)
       });
 
       // EXTERNAL MODULE: external {"root":"React","commonjs2":"react","commonjs":"react","amd":"react"}
-      var external_root_React_commonjs2_react_commonjs_react_amd_react_ = __nested_webpack_require_18561__(442);
-      var external_root_React_commonjs2_react_commonjs_react_amd_react_default = /*#__PURE__*/__nested_webpack_require_18561__.n(external_root_React_commonjs2_react_commonjs_react_amd_react_);
+      var external_root_React_commonjs2_react_commonjs_react_amd_react_ = __nested_webpack_require_23535__(442);
+      var external_root_React_commonjs2_react_commonjs_react_amd_react_default = /*#__PURE__*/__nested_webpack_require_23535__.n(external_root_React_commonjs2_react_commonjs_react_amd_react_);
       // EXTERNAL MODULE: ../../node_modules/style-loader/dist/runtime/injectStylesIntoStyleTag.js
-      var injectStylesIntoStyleTag = __nested_webpack_require_18561__(591);
-      var injectStylesIntoStyleTag_default = /*#__PURE__*/__nested_webpack_require_18561__.n(injectStylesIntoStyleTag);
+      var injectStylesIntoStyleTag = __nested_webpack_require_23535__(591);
+      var injectStylesIntoStyleTag_default = /*#__PURE__*/__nested_webpack_require_23535__.n(injectStylesIntoStyleTag);
       // EXTERNAL MODULE: ../../node_modules/style-loader/dist/runtime/styleDomAPI.js
-      var styleDomAPI = __nested_webpack_require_18561__(740);
-      var styleDomAPI_default = /*#__PURE__*/__nested_webpack_require_18561__.n(styleDomAPI);
+      var styleDomAPI = __nested_webpack_require_23535__(740);
+      var styleDomAPI_default = /*#__PURE__*/__nested_webpack_require_23535__.n(styleDomAPI);
       // EXTERNAL MODULE: ../../node_modules/style-loader/dist/runtime/insertBySelector.js
-      var insertBySelector = __nested_webpack_require_18561__(128);
-      var insertBySelector_default = /*#__PURE__*/__nested_webpack_require_18561__.n(insertBySelector);
+      var insertBySelector = __nested_webpack_require_23535__(128);
+      var insertBySelector_default = /*#__PURE__*/__nested_webpack_require_23535__.n(insertBySelector);
       // EXTERNAL MODULE: ../../node_modules/style-loader/dist/runtime/setAttributesWithoutAttributes.js
-      var setAttributesWithoutAttributes = __nested_webpack_require_18561__(855);
-      var setAttributesWithoutAttributes_default = /*#__PURE__*/__nested_webpack_require_18561__.n(setAttributesWithoutAttributes);
+      var setAttributesWithoutAttributes = __nested_webpack_require_23535__(855);
+      var setAttributesWithoutAttributes_default = /*#__PURE__*/__nested_webpack_require_23535__.n(setAttributesWithoutAttributes);
       // EXTERNAL MODULE: ../../node_modules/style-loader/dist/runtime/insertStyleElement.js
-      var insertStyleElement = __nested_webpack_require_18561__(51);
-      var insertStyleElement_default = /*#__PURE__*/__nested_webpack_require_18561__.n(insertStyleElement);
+      var insertStyleElement = __nested_webpack_require_23535__(51);
+      var insertStyleElement_default = /*#__PURE__*/__nested_webpack_require_23535__.n(insertStyleElement);
       // EXTERNAL MODULE: ../../node_modules/style-loader/dist/runtime/styleTagTransform.js
-      var styleTagTransform = __nested_webpack_require_18561__(656);
-      var styleTagTransform_default = /*#__PURE__*/__nested_webpack_require_18561__.n(styleTagTransform);
+      var styleTagTransform = __nested_webpack_require_23535__(656);
+      var styleTagTransform_default = /*#__PURE__*/__nested_webpack_require_23535__.n(styleTagTransform);
       // EXTERNAL MODULE: ../../node_modules/css-loader/dist/cjs.js??ruleSet[1].rules[1].use[1]!../../node_modules/sass-loader/dist/cjs.js??ruleSet[1].rules[1].use[2]!./src/index.scss
-      var cjs_ruleSet_1_rules_1_use_2_src = __nested_webpack_require_18561__(483);
+      var cjs_ruleSet_1_rules_1_use_2_src = __nested_webpack_require_23535__(483);
       ; // CONCATENATED MODULE: ./src/index.scss
 
       var options = {};
@@ -661,19 +666,62 @@ module.exports = function (item) {
 
       /* harmony default export */
       const src = cjs_ruleSet_1_rules_1_use_2_src /* default */.A && cjs_ruleSet_1_rules_1_use_2_src /* default */.A.locals ? cjs_ruleSet_1_rules_1_use_2_src /* default */.A.locals : undefined;
+      ; // CONCATENATED MODULE: ./src/utils/getAbsolutePosition.js
+      function getAbsolutePosition(domElement) {
+        let left = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 0;
+        let top = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : 0;
+        if (!parseInt(left)) {
+          left = 0;
+        } else {
+          left = parseInt(left);
+        }
+        if (!parseInt(top)) {
+          top = 0;
+        } else {
+          top = parseInt(top);
+        }
+        const box = domElement.getBoundingClientRect();
+        const body = document.body;
+        const docElem = document.documentElement;
+        const scrollTop = window.pageYOffset || docElem.scrollTop || body.scrollTop;
+        const scrollLeft = window.pageXOffset || docElem.scrollLeft || body.scrollLeft;
+        const clientTop = docElem.clientTop || body.clientTop || 0;
+        const clientLeft = docElem.clientLeft || body.clientLeft || 0;
+        const attr = {};
+        attr.y = box.top + scrollTop - clientTop + top;
+        attr.x = box.left + scrollLeft - clientLeft + left;
+        attr.width = box.width;
+        attr.height = box.height;
+        return attr;
+      }
+      /* harmony default export */
+      const utils_getAbsolutePosition = getAbsolutePosition;
+      // EXTERNAL MODULE: external {"root":"ReactDOM","commonjs2":"react-dom","commonjs":"react-dom","amd":"react-dom"}
+      var external_root_ReactDOM_commonjs2_react_dom_commonjs_react_dom_amd_react_dom_ = __nested_webpack_require_23535__(3);
+      var external_root_ReactDOM_commonjs2_react_dom_commonjs_react_dom_amd_react_dom_default = /*#__PURE__*/__nested_webpack_require_23535__.n(external_root_ReactDOM_commonjs2_react_dom_commonjs_react_dom_amd_react_dom_);
       ; // CONCATENATED MODULE: ./src/index.tsx
 
       // 引入样式文件
 
       const Tooltip = _ref => {
+        var _text$trim;
         let {
+          left,
+          right,
+          top,
+          bottom,
+          wrap = false,
+          width,
+          arrowOffsetPercent,
+          wrapperFlex,
+          mustShow,
           show = true,
           text,
           position = "top",
           children,
-          bgc,
-          color,
-          borderColor,
+          tooltipBgc = "#333",
+          tooltipFontColor,
+          arrowBorderColor = "#333",
           wrapperClassname
         } = _ref;
         const [isShow, setIsShow] = (0, external_root_React_commonjs2_react_commonjs_react_amd_react_.useState)(false);
@@ -683,6 +731,10 @@ module.exports = function (item) {
         //       当鼠标离开内容区域的时候，去判断是否进入了提示区域，如果进入，则不隐藏提示文字
         const isEnterTooltipRef = (0, external_root_React_commonjs2_react_commonjs_react_amd_react_.useRef)(false);
         const enterTimeoutRef = (0, external_root_React_commonjs2_react_commonjs_react_amd_react_.useRef)(null);
+        const [tooltipWidth, setTooltipWidth] = (0, external_root_React_commonjs2_react_commonjs_react_amd_react_.useState)(0);
+        const [tooltipHeight, setTooltipHeight] = (0, external_root_React_commonjs2_react_commonjs_react_amd_react_.useState)(0);
+        const contentRef = (0, external_root_React_commonjs2_react_commonjs_react_amd_react_.useRef)(null);
+        const [tooltipContentPosition, settooltipContentPosition] = (0, external_root_React_commonjs2_react_commonjs_react_amd_react_.useState)({});
         const handleMouseEnter = () => {
           // 进入的时候，如果存在定时器，也清除掉
           if (enterTimeoutRef.current) {
@@ -696,6 +748,7 @@ module.exports = function (item) {
           }, 200); // 延迟100毫秒
         };
         const handleMouseLeave = () => {
+          if (mustShow) return;
           if (enterTimeoutRef.current) {
             clearTimeout(enterTimeoutRef.current);
           }
@@ -726,6 +779,7 @@ module.exports = function (item) {
           }, 400);
         };
         const handleMouseLeaveTooltip = () => {
+          if (mustShow) return;
           isEnterTooltipRef.current = false;
           setTimeout(() => {
             setIsVisible(false);
@@ -734,28 +788,223 @@ module.exports = function (item) {
             setIsShow(false);
           }, 300);
         };
+
+        // 注意：定位完 tooltipContentPosition 和 contentRef 之后，内容是向两边撑开的
+        // 所以需要计算一下 tooltipRef 的位置(- 是left，+ 是 right)
+        const calcTooltipContentTopAndLeft = () => {
+          var _tooltipRef$current, _contentRef$current, _tooltipRef$current2, _contentRef$current2, _tooltipRef$current3, _contentRef$current3;
+          const verticalTop = tooltipContentPosition.y - ((_tooltipRef$current = tooltipRef.current) === null || _tooltipRef$current === void 0 ? void 0 : _tooltipRef$current.clientHeight) - 8 + "px";
+          const verticalBottom = tooltipContentPosition.y + ((_contentRef$current = contentRef.current) === null || _contentRef$current === void 0 ? void 0 : _contentRef$current.clientHeight) + 5 + "px";
+          const horizontalLeft = tooltipContentPosition.x - ((_tooltipRef$current2 = tooltipRef.current) === null || _tooltipRef$current2 === void 0 ? void 0 : _tooltipRef$current2.clientWidth) + "px";
+          const horizontalTop = tooltipContentPosition.y + ((_contentRef$current2 = contentRef.current) === null || _contentRef$current2 === void 0 ? void 0 : _contentRef$current2.clientHeight) / 2 - ((_tooltipRef$current3 = tooltipRef.current) === null || _tooltipRef$current3 === void 0 ? void 0 : _tooltipRef$current3.clientHeight) / 2 + "px";
+          const content = tooltipContentPosition.x + ((_contentRef$current3 = contentRef.current) === null || _contentRef$current3 === void 0 ? void 0 : _contentRef$current3.clientWidth) / 2 + "px";
+          if (position === "top") {
+            return {
+              top: verticalTop,
+              left: content
+            };
+          } else if (position === "top-right") {
+            var _contentRef$current4, _tooltipRef$current4;
+            return {
+              top: verticalTop,
+              left: tooltipContentPosition.x + ((_contentRef$current4 = contentRef.current) === null || _contentRef$current4 === void 0 ? void 0 : _contentRef$current4.clientWidth) / 2 + ((_tooltipRef$current4 = tooltipRef.current) === null || _tooltipRef$current4 === void 0 ? void 0 : _tooltipRef$current4.clientWidth) / 2 + "px"
+            };
+          } else if (position === "top-left") {
+            var _contentRef$current5, _tooltipRef$current5;
+            return {
+              top: verticalTop,
+              left: tooltipContentPosition.x + ((_contentRef$current5 = contentRef.current) === null || _contentRef$current5 === void 0 ? void 0 : _contentRef$current5.clientWidth) / 2 - ((_tooltipRef$current5 = tooltipRef.current) === null || _tooltipRef$current5 === void 0 ? void 0 : _tooltipRef$current5.clientWidth) / 2 + "px"
+            };
+          } else if (position === "bottom") {
+            return {
+              top: verticalBottom,
+              left: content
+            };
+          } else if (position === "bottom-right") {
+            var _tooltipRef$current6, _contentRef$current6;
+            return {
+              top: verticalBottom,
+              left: tooltipContentPosition.x + ((_tooltipRef$current6 = tooltipRef.current) === null || _tooltipRef$current6 === void 0 ? void 0 : _tooltipRef$current6.clientWidth) / 2 + ((_contentRef$current6 = contentRef.current) === null || _contentRef$current6 === void 0 ? void 0 : _contentRef$current6.clientWidth) / 2 + "px"
+            };
+          } else if (position === "bottom-left") {
+            var _contentRef$current7, _tooltipRef$current7;
+            return {
+              top: verticalBottom,
+              left: tooltipContentPosition.x + ((_contentRef$current7 = contentRef.current) === null || _contentRef$current7 === void 0 ? void 0 : _contentRef$current7.clientWidth) / 2 - ((_tooltipRef$current7 = tooltipRef.current) === null || _tooltipRef$current7 === void 0 ? void 0 : _tooltipRef$current7.clientWidth) / 2 + "px"
+            };
+          } else if (position === "left") {
+            var _contentRef$current8;
+            return {
+              top: tooltipContentPosition.y + ((_contentRef$current8 = contentRef.current) === null || _contentRef$current8 === void 0 ? void 0 : _contentRef$current8.clientHeight) / 2 + "px",
+              left: horizontalLeft
+            };
+          } else if (position === "left-top") {
+            return {
+              top: horizontalTop,
+              left: horizontalLeft
+            };
+          } else if (position === "left-bottom") {
+            var _contentRef$current9, _tooltipRef$current8;
+            return {
+              top: tooltipContentPosition.y + ((_contentRef$current9 = contentRef.current) === null || _contentRef$current9 === void 0 ? void 0 : _contentRef$current9.clientHeight) / 2 + ((_tooltipRef$current8 = tooltipRef.current) === null || _tooltipRef$current8 === void 0 ? void 0 : _tooltipRef$current8.clientHeight) / 2 + "px",
+              left: horizontalLeft
+            };
+          } else if (position === "right") {
+            var _contentRef$current10, _contentRef$current11;
+            return {
+              top: tooltipContentPosition.y + ((_contentRef$current10 = contentRef.current) === null || _contentRef$current10 === void 0 ? void 0 : _contentRef$current10.clientHeight) / 2 + "px",
+              left: tooltipContentPosition.x + ((_contentRef$current11 = contentRef.current) === null || _contentRef$current11 === void 0 ? void 0 : _contentRef$current11.clientWidth) + "px"
+            };
+          } else if (position === "right-top") {
+            var _contentRef$current12;
+            return {
+              top: horizontalTop,
+              left: tooltipContentPosition.x + ((_contentRef$current12 = contentRef.current) === null || _contentRef$current12 === void 0 ? void 0 : _contentRef$current12.clientWidth) + "px"
+            };
+          } else if (position === "right-bottom") {
+            var _contentRef$current13, _tooltipRef$current9, _contentRef$current14;
+            return {
+              top: tooltipContentPosition.y + ((_contentRef$current13 = contentRef.current) === null || _contentRef$current13 === void 0 ? void 0 : _contentRef$current13.clientHeight) / 2 + ((_tooltipRef$current9 = tooltipRef.current) === null || _tooltipRef$current9 === void 0 ? void 0 : _tooltipRef$current9.clientHeight) / 2 + "px",
+              left: tooltipContentPosition.x + ((_contentRef$current14 = contentRef.current) === null || _contentRef$current14 === void 0 ? void 0 : _contentRef$current14.clientWidth) + "px"
+            };
+          }
+        };
+        const calcTooltipArrowTopAndLeft = () => {
+          var _contentRef$current15, _contentRef$current16;
+          // top 和 bottom 的属性
+          const commonArrowOfsset = "-8px";
+          const horizontal = tooltipWidth * (arrowOffsetPercent || 0.2);
+          const minHorizontal = ((_contentRef$current15 = contentRef.current) === null || _contentRef$current15 === void 0 ? void 0 : _contentRef$current15.clientWidth) / 4;
+          const finalHorizontal = horizontal > minHorizontal ? minHorizontal : horizontal + "px";
+
+          // left 和 right 的属性
+          const vertival = tooltipHeight * (arrowOffsetPercent || 0.2);
+          const minVertival = ((_contentRef$current16 = contentRef.current) === null || _contentRef$current16 === void 0 ? void 0 : _contentRef$current16.clientHeight) / 4;
+          const finalVertival = vertival > minVertival ? minVertival : vertival + "px";
+          if (position === "top") {
+            return {
+              bottom: commonArrowOfsset,
+              left: "50%",
+              "border-color": "".concat(arrowBorderColor, " transparent transparent transparent")
+            };
+          } else if (position === "top-left") {
+            return {
+              bottom: commonArrowOfsset,
+              right: right || finalHorizontal,
+              "border-color": "".concat(arrowBorderColor, " transparent transparent transparent")
+            };
+          } else if (position === "top-right") {
+            return {
+              bottom: commonArrowOfsset,
+              left: left || finalHorizontal,
+              "border-color": "".concat(arrowBorderColor, " transparent transparent transparent")
+            };
+          } else if (position === "bottom") {
+            return {
+              top: commonArrowOfsset,
+              left: "50%",
+              "border-color": "transparent transparent ".concat(arrowBorderColor, " transparent")
+            };
+          } else if (position === "bottom-right") {
+            return {
+              top: commonArrowOfsset,
+              left: left || finalHorizontal,
+              "border-color": "transparent transparent ".concat(arrowBorderColor, " transparent")
+            };
+          } else if (position === "bottom-left") {
+            return {
+              top: commonArrowOfsset,
+              right: right || finalHorizontal,
+              "border-color": "transparent transparent ".concat(arrowBorderColor, " transparent")
+            };
+          } else if (position === "left-top") {
+            return {
+              bottom: bottom || finalVertival,
+              right: commonArrowOfsset,
+              "border-color": "transparent transparent transparent ".concat(arrowBorderColor)
+            };
+          } else if (position === "left-bottom") {
+            return {
+              top: top || finalVertival,
+              right: "-9px",
+              "border-color": "transparent transparent transparent ".concat(arrowBorderColor)
+            };
+          } else if (position === "right") {
+            return {
+              top: "50%",
+              left: commonArrowOfsset,
+              "border-color": "transparent ".concat(arrowBorderColor, " transparent transparent")
+            };
+          } else if (position === "right-top") {
+            return {
+              bottom: bottom || finalVertival,
+              left: commonArrowOfsset,
+              "border-color": "transparent ".concat(arrowBorderColor, " transparent transparent")
+            };
+          } else if (position === "right-bottom") {
+            return {
+              top: top || finalVertival,
+              left: commonArrowOfsset,
+              "border-color": "transparent ".concat(arrowBorderColor, " transparent transparent")
+            };
+          }
+        };
+        (0, external_root_React_commonjs2_react_commonjs_react_amd_react_.useEffect)(() => {
+          if (mustShow) {
+            handleMouseEnter();
+          } else {
+            handleMouseLeave();
+          }
+        }, [mustShow]);
+        (0, external_root_React_commonjs2_react_commonjs_react_amd_react_.useEffect)(() => {
+          if (tooltipRef.current) {
+            const tooltipElement = tooltipRef.current;
+            setTooltipWidth(tooltipElement.offsetWidth);
+            setTooltipHeight(tooltipElement.offsetHeight);
+          }
+          if (isShow) {
+            const position = utils_getAbsolutePosition(contentRef.current, 0, 0);
+            settooltipContentPosition(position);
+          }
+        }, [isShow, isVisible]);
         return /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("div", {
-          className: "adou-tooltip-wrapper ".concat(wrapperClassname || "")
+          className: "adou-tooltip-wrapper ".concat(wrapperClassname || ""),
+          style: {
+            ...(wrapperFlex ? {
+              flex: 1,
+              display: "flex"
+            } : {})
+          }
         }, /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("div", {
-          className: "content",
-          ref: tooltipRef,
+          ref: contentRef,
+          className: "adou-tooltip-content",
           onMouseEnter: handleMouseEnter,
-          onMouseLeave: handleMouseLeave
-        }, children), text && show && isShow && /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("div", {
+          onMouseLeave: handleMouseLeave,
+          style: {
+            ...(wrapperFlex ? {
+              flex: 1
+            } : {})
+          }
+        }, children), (typeof text === "string" ? (text === null || text === void 0 || (_text$trim = text.trim) === null || _text$trim === void 0 || (_text$trim = _text$trim.call(text)) === null || _text$trim === void 0 ? void 0 : _text$trim.length) > 0 : text) && show && isShow && /*#__PURE__*/external_root_ReactDOM_commonjs2_react_dom_commonjs_react_dom_amd_react_dom_default().createPortal( /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("div", {
+          ref: tooltipRef,
           onClick: handleClick,
           onMouseEnter: handleMouseEnterTooltip,
           onMouseLeave: handleMouseLeaveTooltip,
           className: "adou-tooltip ".concat(isVisible ? "show-tool-tip" : "", " adou-tooltip-").concat(position),
           style: {
-            backgroundColor: bgc,
-            color: color
+            backgroundColor: tooltipBgc,
+            color: tooltipFontColor,
+            width,
+            whiteSpace: wrap || width ? "normal" : "nowrap",
+            position: "absolute",
+            ...calcTooltipContentTopAndLeft()
           }
         }, /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("div", {
           style: {
-            borderColor: "transparent transparent ".concat(borderColor, " transparent")
+            ...calcTooltipArrowTopAndLeft()
           },
           className: "adou-tooltip-arrow adou-tooltip-arrow-".concat(position)
-        }), text));
+        }), text), document.body));
       };
       /* harmony default export */
       const src_0 = Tooltip;
@@ -1129,6 +1378,14 @@ module.exports = styleTagTransform;
 "use strict";
 module.exports = __WEBPACK_EXTERNAL_MODULE__442__;
 
+/***/ }),
+
+/***/ 3:
+/***/ ((module) => {
+
+"use strict";
+module.exports = __WEBPACK_EXTERNAL_MODULE__3__;
+
 /***/ })
 
 /******/ 	});
@@ -1281,7 +1538,7 @@ const Slider = _ref => {
     range,
     sliderWidth,
     min = 0,
-    max,
+    max = 100,
     step,
     value,
     showStops = true,
@@ -1293,8 +1550,14 @@ const Slider = _ref => {
   const [sliderBarWidth, setSliderBarWidth] = (0,external_root_React_commonjs2_react_commonjs_react_amd_react_.useState)();
   const [stops, setStops] = (0,external_root_React_commonjs2_react_commonjs_react_amd_react_.useState)([]);
   const [inputValue, setInputValue] = (0,external_root_React_commonjs2_react_commonjs_react_amd_react_.useState)(0);
-  const sliderRunwayRef = (0,external_root_React_commonjs2_react_commonjs_react_amd_react_.useRef)(null);
+
+  // 用来记录每个按钮
   const [eachPercentValue, setEachPercentValue] = (0,external_root_React_commonjs2_react_commonjs_react_amd_react_.useState)(1);
+
+  // 用来支持Slider的鼠标不在RunWay上面的时候也会展示提示
+  const [isClickIngBtn1, setisClickIngBtn1] = (0,external_root_React_commonjs2_react_commonjs_react_amd_react_.useState)(false);
+  const [isClickIngBtn2, setisClickIngBtn2] = (0,external_root_React_commonjs2_react_commonjs_react_amd_react_.useState)(false);
+  const sliderRunwayRef = (0,external_root_React_commonjs2_react_commonjs_react_amd_react_.useRef)(null);
   const isButton2MoveRef = (0,external_root_React_commonjs2_react_commonjs_react_amd_react_.useRef)(false); // 记录是否点击的是第二个按钮
 
   // 按钮点击后，按钮移动的逻辑
@@ -1358,10 +1621,20 @@ const Slider = _ref => {
         setInputValue(Math.round(parseFloat(newValue) / eachPercentValue));
       }
     }
+    if (isButton2MoveRef.current) {
+      setisClickIngBtn2(true);
+    } else {
+      setisClickIngBtn1(true);
+    }
     const bindMouseDownHandler = mouseEvent => {
       btnMoveHandler(mouseEvent, sliderRect, isButton2MoveRef.current);
     };
     const btnUpHandler = () => {
+      if (isButton2MoveRef.current) {
+        setisClickIngBtn2(false);
+      } else {
+        setisClickIngBtn1(false);
+      }
       window.removeEventListener("mousemove", bindMouseDownHandler);
       window.removeEventListener("mouseup", btnUpHandler);
     };
@@ -1372,11 +1645,22 @@ const Slider = _ref => {
     // 确保事件不冒泡。如果冒泡到 runway的mousedown事件，会导致 isTwo一个为true，一个为false(runway)
     e.stopPropagation();
     isButton2MoveRef.current = isButton2;
+    if (isButton2MoveRef.current) {
+      setisClickIngBtn2(true);
+    } else {
+      setisClickIngBtn1(true);
+    }
     const sliderRect = sliderRunwayRef.current.getBoundingClientRect();
     const bindMouseDownHandler = mouseEvent => {
       btnMoveHandler(mouseEvent, sliderRect, isButton2);
     };
     const btnUpHandler = () => {
+      if (isButton2MoveRef.current) {
+        setisClickIngBtn2(false);
+      } else {
+        setisClickIngBtn1(false);
+      }
+
       // 在按钮抬起后，将 isButton2MoveRef设置为false
       // 防止本次点击的如果是第二个按钮，下一次点 runway的时候会触发第儿个按钮的移动
       isButton2MoveRef.current = false;
@@ -1431,7 +1715,14 @@ const Slider = _ref => {
     if (range) {
       setSliderBarWidth(diffAbs + "%");
       setInputValue(isNaN(Math.round(diffAbs / eachPercentValue)) ? 0 : Math.round(diffAbs / eachPercentValue));
+
+      // 计算值然后返回
+    } else {
+      // 计算值然后返回
     }
+    const returnValue = Math.abs(parseFloat(sliderButton2Left) - parseFloat(sliderButton1Left)) / eachPercentValue;
+    const returnPercent = Math.abs(parseFloat(sliderButton2Left) - parseFloat(sliderButton1Left));
+    onChange && onChange(returnValue, returnPercent);
   }, [sliderButton1Left, sliderButton2Left]);
   return /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("div", {
     className: "slider"
@@ -1457,6 +1748,7 @@ const Slider = _ref => {
       left: sliderButton1Left
     }
   }, /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement((Tooltip_default()), {
+    mustShow: isClickIngBtn1,
     text: String(Math.round(parseFloat(sliderButton1Left) / eachPercentValue))
   }, /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("div", {
     onMouseDown: handleBtnMouseDown,
@@ -1468,6 +1760,7 @@ const Slider = _ref => {
       backgroundColor: "red"
     }
   }, /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement((Tooltip_default()), {
+    mustShow: isClickIngBtn2,
     text: String(Math.round(parseFloat(sliderButton2Left) / eachPercentValue))
   }, /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("div", {
     onMouseDown: e => handleBtnMouseDown(e, true),

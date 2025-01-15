@@ -6849,14 +6849,21 @@ module.exports = {
           // 处于拖动状态
           if (isDragging) {
             if (!isDialog) {
-              var _elementFirstPosition, _elementFirstPosition2;
+              var _elementFirstPosition, _elementFirstPosition2, _elementFirstPosition3;
+              console.log("e.clientX: ", e.clientX);
+              console.log("dragOffset.x: ", dragOffset.x);
+              console.log("window.scrollX: ", window.scrollX);
+              console.log("elementFirstPositionRef.current?.left: ", (_elementFirstPosition = elementFirstPositionRef.current) === null || _elementFirstPosition === void 0 ? void 0 : _elementFirstPosition.left);
               // 如果不是弹窗，要减去元素一开始在浏览器中的位置(因为顶部和左部都会有别的元素占着)
+
+              // 解读：拿当前的鼠标位置(e.clientX) 减去鼠标最开始点击下的位置 与 元素最左边到浏览器距离的差值(dragOffset.x，点击之后就不变了)，再减去元素一开始在浏览器中的位置(elementFirstPositionRef.current?.left，不变)，再加上浏览器滚动的距离(window.scrollX)，得到差值的就是元素拖拽移动的距离
+              // Y轴也一样
               setPosition({
-                x: e.clientX - dragOffset.x - ((_elementFirstPosition = elementFirstPositionRef.current) === null || _elementFirstPosition === void 0 ? void 0 : _elementFirstPosition.left),
-                y: e.clientY - dragOffset.y - ((_elementFirstPosition2 = elementFirstPositionRef.current) === null || _elementFirstPosition2 === void 0 ? void 0 : _elementFirstPosition2.top)
+                x: e.clientX - dragOffset.x - ((_elementFirstPosition2 = elementFirstPositionRef.current) === null || _elementFirstPosition2 === void 0 ? void 0 : _elementFirstPosition2.left) + window.scrollX,
+                // 还要 加上浏览器滚动的距离
+                y: e.clientY - dragOffset.y - ((_elementFirstPosition3 = elementFirstPositionRef.current) === null || _elementFirstPosition3 === void 0 ? void 0 : _elementFirstPosition3.top) + window.scrollY
               });
             } else {
-              console.log('666: ', 666);
               // 如果是弹窗，则不用减
               setPosition({
                 x: e.clientX - dragOffset.x,
@@ -6872,25 +6879,25 @@ module.exports = {
         // 绑定事件
         (0, external_root_React_commonjs2_react_commonjs_react_amd_react_.useEffect)(() => {
           if (isDragging) {
-            document.addEventListener('mousemove', handleMouseMove);
-            document.addEventListener('mouseup', handleMouseUp);
+            document.addEventListener("mousemove", handleMouseMove);
+            document.addEventListener("mouseup", handleMouseUp);
           } else {
-            document.removeEventListener('mousemove', handleMouseMove);
-            document.removeEventListener('mouseup', handleMouseUp);
+            document.removeEventListener("mousemove", handleMouseMove);
+            document.removeEventListener("mouseup", handleMouseUp);
           }
           return () => {
-            document.removeEventListener('mousemove', handleMouseMove);
-            document.removeEventListener('mouseup', handleMouseUp);
+            document.removeEventListener("mousemove", handleMouseMove);
+            document.removeEventListener("mouseup", handleMouseUp);
           };
         }, [isDragging]);
 
         // 如果需要自动设置样式的话，在这边处理，处理的是 triggerRef触发元素
         (0, external_root_React_commonjs2_react_commonjs_react_amd_react_.useEffect)(() => {
-          if (autoStyle && triggerRef.current) {
-            triggerRef.current.style.position = 'relative';
-            triggerRef.current.style.top = position.y + 'px';
-            triggerRef.current.style.left = position.x + 'px';
-            triggerRef.current.style.cursor = 'move';
+          if (autoStyle && elementRef.current) {
+            elementRef.current.style.position = "relative";
+            elementRef.current.style.top = position.y + "px";
+            elementRef.current.style.left = position.x + "px";
+            elementRef.current.style.cursor = "move";
           }
         }, [position]);
         const handleMouseDown = e => {
@@ -6902,6 +6909,7 @@ module.exports = {
           setDragOffset({
             // 减去当前元素距离浏览器的位置
             x: e.clientX - dialogRect.left,
+            // 鼠标最开始点击下的位置 与 元素最左边到浏览器距离的差值，点击之后就不变了
             y: e.clientY - dialogRect.top
           });
         };
@@ -7593,6 +7601,31 @@ ___CSS_LOADER_EXPORT___.push([module.id, `@charset "UTF-8";
 .table-wrapper .tr-content:hover {
   background-color: #e7ebee;
 }
+.table-wrapper .pagination .prev-arrow,
+.table-wrapper .pagination .next-arrow {
+  padding: 8px 12px;
+  transition: all 0.3s ease;
+  cursor: pointer;
+}
+.table-wrapper .pagination .prev-arrow:hover,
+.table-wrapper .pagination .next-arrow:hover {
+  background-color: #f0f0f0 !important;
+  color: #333;
+}
+.table-wrapper .pagination .prev-arrow.disabled,
+.table-wrapper .pagination .next-arrow.disabled {
+  color: #ccc !important;
+}
+.table-wrapper .pagination .prev-arrow.disabled:hover,
+.table-wrapper .pagination .next-arrow.disabled:hover {
+  background-color: transparent !important;
+  cursor: not-allowed;
+}
+.table-wrapper .pagination .page-numbers .page-number-item:hover {
+  background-color: #f0f0f0 !important;
+  border: 1px solid #f0f0f0;
+  color: #333;
+}
 
 .ellipsis-1 {
   white-space: nowrap;
@@ -7601,7 +7634,7 @@ ___CSS_LOADER_EXPORT___.push([module.id, `@charset "UTF-8";
   /* 隐藏超出部分 */
   text-overflow: ellipsis;
   /* 使用省略号表示超出部分 */
-}`, "",{"version":3,"sources":["webpack://./src/index.scss"],"names":[],"mappings":"AAAA,gBAAgB;AAAhB;EAEI,qBAAA;EACA,6BAAA;EAkFA,iBAAA;EAWA,YAAA;AA1FJ;AADI;EAEI,eAAA;EACA,gBAAA;AAER;AADQ;EACI,oBAAA;EACA,sBAAA;EACA,mBAAA;EACA,uBAAA;EACA,WAAA;EACA,UAAA;AAGZ;AADY;EACI,QAAA;EACA,UAAA;EACA,SAAA;EACA,UAAA;EACA,eAAA;EACA,WAAA;EACA,kCAAA;EACA,UAAA;EACA,mCAAA;EACA,UAAA;EACA,eAAA;EACA,yBAAA;EACA,WAAA;EACA,kBAAA;AAGhB;AAOgB;EAEI,qBAAA;AANpB;AAeI;EACI,UAAA;EACA,WAAA;AAbR;AAgBI;EACI,mBAAA;AAdR;AAiBI;EACI,gBAAA;EACA,kBAAA;AAfR;AAkBI;EACI,gBAAA;AAhBR;AA8BI;EACI,uCAAA;AA5BR;AAgCI;EACI,kDAAA;EACA,UAAA;EACA,oBAAA;EACA,kBAAA;EACA,qBAAA;EACA,aAAA;EACA,gBAAA;AA9BR;AAkCI;EACI,UAAA;EACA,oBAAA;EACA,YAAA;AAhCR;AAmCI;EACI,oCAAA;AAjCR;AAoCI;EACI,sCAAA;AAlCR;AAoCQ;EACI,yBAAA;AAlCZ;;AAuCA;EACI,mBAAA;EACA,QAAA;EACA,gBAAA;EACA,WAAA;EACA,uBAAA;EACA,gBAAA;AApCJ","sourcesContent":[".table-wrapper {\r\n    // Firefox 滚动条样式\r\n    scrollbar-width: thin; // 设置滚动条宽度为 thin\r\n    scrollbar-color: #ccc #f5f5f5; // 设置滚动条颜色\r\n\r\n    .header-content {\r\n\r\n        /* styles.css */\r\n        /* styles.scss */\r\n        .header-icon {\r\n            display: inline-flex;\r\n            flex-direction: column;\r\n            align-items: center;\r\n            justify-content: center;\r\n            width: auto;\r\n            /* 宽度自适应 */\r\n\r\n            .icon {\r\n                width: 0;\r\n                /* 箭头的宽度 */\r\n                height: 0;\r\n                /* 箭头的高度 */\r\n                margin: 1.6px 0;\r\n                /* 调整上下间距 */\r\n                border-left: 6px solid transparent;\r\n                /* 箭头的左边 */\r\n                border-right: 6px solid transparent;\r\n                /* 箭头的右边 */\r\n                cursor: pointer;\r\n                transition: all 0.3s ease;\r\n                /* 添加过渡效果 */\r\n                border-radius: 3px;\r\n\r\n                &.sort-up {\r\n                    // border-bottom: 7px solid #000; /* 向上的箭头 */\r\n                }\r\n\r\n                &.sort-down {\r\n                    // border-top: 7px solid #000; /* 向下的箭头 */\r\n                }\r\n\r\n                &.sort-up:hover,\r\n                &.sort-down:hover {\r\n                    transform: scale(1.2);\r\n                }\r\n            }\r\n        }\r\n\r\n\r\n    }\r\n\r\n    // Webkit 滚动条样式\r\n    &::-webkit-scrollbar {\r\n        width: 8px; // 设置垂直滚动条宽度\r\n        height: 8px; // 设置水平滚动条宽度\r\n    }\r\n\r\n    &::-webkit-scrollbar-track {\r\n        background: #f5f5f5; // 设置滚动条轨道颜色\r\n    }\r\n\r\n    &::-webkit-scrollbar-thumb {\r\n        background: #ccc; // 设置滚动条滑块颜色\r\n        border-radius: 4px; // 设置滚动条滑块圆角\r\n    }\r\n\r\n    &::-webkit-scrollbar-thumb:hover {\r\n        background: #aaa; // 设置滚动条滑块悬停颜色\r\n    }\r\n\r\n\r\n\r\n    .collapse-table-td {\r\n        // display: inline-block; // 不控制，不然会影响上下居中\r\n        // display: flex;\r\n        // justify-content: center;\r\n        // align-items: center;\r\n        // line-height: 0.8;\r\n    }\r\n\r\n    // 添加展开的动画\r\n    tbody>tr {\r\n        transition: max-height 0.3s ease-in-out;\r\n    }\r\n\r\n    /* 默认情况下，表格行被隐藏 */\r\n    .collapse-tr {\r\n        transition: opacity 0.5s ease, transform 0.5s ease;\r\n        opacity: 0;\r\n        transform: scaleY(0);\r\n        /* 使用 scaleY 来隐藏 */\r\n        transform-origin: top;\r\n        /* 让缩放从顶部开始 */\r\n        overflow: hidden;\r\n    }\r\n\r\n    /* 当表格行显示时 */\r\n    .collapse-tr.show {\r\n        opacity: 1;\r\n        transform: scaleY(1);\r\n        /* 还原到原始高度 */\r\n    }\r\n\r\n    .tr-checked {\r\n        background-color: #e6f4ff !important;\r\n    }\r\n\r\n    .tr-content {\r\n        transition: background-color 0.3s ease;\r\n\r\n        &:hover {\r\n            background-color: #e7ebee;\r\n        }\r\n    }\r\n}\r\n\r\n.ellipsis-1 {\r\n    white-space: nowrap;\r\n    /* 不换行 */\r\n    overflow: hidden;\r\n    /* 隐藏超出部分 */\r\n    text-overflow: ellipsis;\r\n    /* 使用省略号表示超出部分 */\r\n}"],"sourceRoot":""}]);
+}`, "",{"version":3,"sources":["webpack://./src/index.scss"],"names":[],"mappings":"AAAA,gBAAgB;AAAhB;EAEI,qBAAA;EACA,6BAAA;EAkFA,iBAAA;EAWA,YAAA;AA1FJ;AADI;EAEI,eAAA;EACA,gBAAA;AAER;AADQ;EACI,oBAAA;EACA,sBAAA;EACA,mBAAA;EACA,uBAAA;EACA,WAAA;EACA,UAAA;AAGZ;AADY;EACI,QAAA;EACA,UAAA;EACA,SAAA;EACA,UAAA;EACA,eAAA;EACA,WAAA;EACA,kCAAA;EACA,UAAA;EACA,mCAAA;EACA,UAAA;EACA,eAAA;EACA,yBAAA;EACA,WAAA;EACA,kBAAA;AAGhB;AAOgB;EAEI,qBAAA;AANpB;AAeI;EACI,UAAA;EACA,WAAA;AAbR;AAgBI;EACI,mBAAA;AAdR;AAiBI;EACI,gBAAA;EACA,kBAAA;AAfR;AAkBI;EACI,gBAAA;AAhBR;AA8BI;EACI,uCAAA;AA5BR;AAgCI;EACI,kDAAA;EACA,UAAA;EACA,oBAAA;EACA,kBAAA;EACA,qBAAA;EACA,aAAA;EACA,gBAAA;AA9BR;AAkCI;EACI,UAAA;EACA,oBAAA;EACA,YAAA;AAhCR;AAmCI;EACI,oCAAA;AAjCR;AAoCI;EACI,sCAAA;AAlCR;AAoCQ;EACI,yBAAA;AAlCZ;AAwCQ;;EAEI,iBAAA;EACA,yBAAA;EACA,eAAA;AAtCZ;AAwCY;;EACI,oCAAA;EACA,WAAA;AArChB;AAyCQ;;EAEI,sBAAA;AAvCZ;AAyCY;;EACI,wCAAA;EACA,mBAAA;AAtChB;AA2CY;EACI,oCAAA;EACA,yBAAA;EACA,WAAA;AAzChB;;AA+CA;EACI,mBAAA;EACA,QAAA;EACA,gBAAA;EACA,WAAA;EACA,uBAAA;EACA,gBAAA;AA5CJ","sourcesContent":[".table-wrapper {\r\n    // Firefox 滚动条样式\r\n    scrollbar-width: thin; // 设置滚动条宽度为 thin\r\n    scrollbar-color: #ccc #f5f5f5; // 设置滚动条颜色\r\n\r\n    .header-content {\r\n\r\n        /* styles.css */\r\n        /* styles.scss */\r\n        .header-icon {\r\n            display: inline-flex;\r\n            flex-direction: column;\r\n            align-items: center;\r\n            justify-content: center;\r\n            width: auto;\r\n            /* 宽度自适应 */\r\n\r\n            .icon {\r\n                width: 0;\r\n                /* 箭头的宽度 */\r\n                height: 0;\r\n                /* 箭头的高度 */\r\n                margin: 1.6px 0;\r\n                /* 调整上下间距 */\r\n                border-left: 6px solid transparent;\r\n                /* 箭头的左边 */\r\n                border-right: 6px solid transparent;\r\n                /* 箭头的右边 */\r\n                cursor: pointer;\r\n                transition: all 0.3s ease;\r\n                /* 添加过渡效果 */\r\n                border-radius: 3px;\r\n\r\n                &.sort-up {\r\n                    // border-bottom: 7px solid #000; /* 向上的箭头 */\r\n                }\r\n\r\n                &.sort-down {\r\n                    // border-top: 7px solid #000; /* 向下的箭头 */\r\n                }\r\n\r\n                &.sort-up:hover,\r\n                &.sort-down:hover {\r\n                    transform: scale(1.2);\r\n                }\r\n            }\r\n        }\r\n\r\n\r\n    }\r\n\r\n    // Webkit 滚动条样式\r\n    &::-webkit-scrollbar {\r\n        width: 8px; // 设置垂直滚动条宽度\r\n        height: 8px; // 设置水平滚动条宽度\r\n    }\r\n\r\n    &::-webkit-scrollbar-track {\r\n        background: #f5f5f5; // 设置滚动条轨道颜色\r\n    }\r\n\r\n    &::-webkit-scrollbar-thumb {\r\n        background: #ccc; // 设置滚动条滑块颜色\r\n        border-radius: 4px; // 设置滚动条滑块圆角\r\n    }\r\n\r\n    &::-webkit-scrollbar-thumb:hover {\r\n        background: #aaa; // 设置滚动条滑块悬停颜色\r\n    }\r\n\r\n\r\n\r\n    .collapse-table-td {\r\n        // display: inline-block; // 不控制，不然会影响上下居中\r\n        // display: flex;\r\n        // justify-content: center;\r\n        // align-items: center;\r\n        // line-height: 0.8;\r\n    }\r\n\r\n    // 添加展开的动画\r\n    tbody>tr {\r\n        transition: max-height 0.3s ease-in-out;\r\n    }\r\n\r\n    /* 默认情况下，表格行被隐藏 */\r\n    .collapse-tr {\r\n        transition: opacity 0.5s ease, transform 0.5s ease;\r\n        opacity: 0;\r\n        transform: scaleY(0);\r\n        /* 使用 scaleY 来隐藏 */\r\n        transform-origin: top;\r\n        /* 让缩放从顶部开始 */\r\n        overflow: hidden;\r\n    }\r\n\r\n    /* 当表格行显示时 */\r\n    .collapse-tr.show {\r\n        opacity: 1;\r\n        transform: scaleY(1);\r\n        /* 还原到原始高度 */\r\n    }\r\n\r\n    .tr-checked {\r\n        background-color: #e6f4ff !important;\r\n    }\r\n\r\n    .tr-content {\r\n        transition: background-color 0.3s ease;\r\n\r\n        &:hover {\r\n            background-color: #e7ebee;\r\n        }\r\n    }\r\n\r\n    .pagination {\r\n\r\n        .prev-arrow,\r\n        .next-arrow {\r\n            padding: 8px 12px;\r\n            transition: all 0.3s ease;\r\n            cursor: pointer;\r\n\r\n            &:hover {\r\n                background-color: #f0f0f0 !important;\r\n                color: #333;\r\n            }\r\n        }\r\n\r\n        .prev-arrow.disabled,\r\n        .next-arrow.disabled {\r\n            color: #ccc !important;\r\n\r\n            &:hover {\r\n                background-color: transparent !important;\r\n                cursor: not-allowed;\r\n            }\r\n        }\r\n\r\n        .page-numbers {\r\n            .page-number-item:hover {\r\n                background-color: #f0f0f0 !important;\r\n                border: 1px solid #f0f0f0;\r\n                color: #333;\r\n            }\r\n        }\r\n    }\r\n}\r\n\r\n.ellipsis-1 {\r\n    white-space: nowrap;\r\n    /* 不换行 */\r\n    overflow: hidden;\r\n    /* 隐藏超出部分 */\r\n    text-overflow: ellipsis;\r\n    /* 使用省略号表示超出部分 */\r\n}"],"sourceRoot":""}]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 
@@ -9372,6 +9405,11 @@ const recursiveGenerateTableHeaderRows = function (columns) {
 };
 const Table = props => {
   const {
+    pageSizeOptions = [5, 10, 15, 20],
+    pagination = false,
+    pageSize = 10,
+    currentPage = 1,
+    showTotal = false,
     compact,
     showTip,
     checkAll,
@@ -9414,18 +9452,22 @@ const Table = props => {
     maxHeight = "500px",
     minHeight = "0px",
     onRowDoubleClick,
-    onRowClick
+    onRowClick,
+    onPageChange,
+    onPageSizeChange
   } = props;
   const [tableData, setTableData] = (0,external_root_React_commonjs2_react_commonjs_react_amd_react_.useState)([]);
   const [originalTableData, setOriginalTableData] = (0,external_root_React_commonjs2_react_commonjs_react_amd_react_.useState)([]);
   const [tableHeaders, setTableHeaders] = (0,external_root_React_commonjs2_react_commonjs_react_amd_react_.useState)([]);
-
-  // 更新的数据
   const [updateKey, setUpdateKey] = (0,external_root_React_commonjs2_react_commonjs_react_amd_react_.useState)(0);
-
-  // 组合表头所需深度
   const [theadRows, setTheadRows] = (0,external_root_React_commonjs2_react_commonjs_react_amd_react_.useState)([]);
   const [maxDepth, setMaxDepth] = (0,external_root_React_commonjs2_react_commonjs_react_amd_react_.useState)(1);
+
+  // 分页相关状态
+  const [currentPageState, setCurrentPageState] = (0,external_root_React_commonjs2_react_commonjs_react_amd_react_.useState)(currentPage);
+  const [pageSizeState, setPageSizeState] = (0,external_root_React_commonjs2_react_commonjs_react_amd_react_.useState)(pageSize);
+  const [totalPages, setTotalPages] = (0,external_root_React_commonjs2_react_commonjs_react_amd_react_.useState)(0);
+  const [paginatedData, setPaginatedData] = (0,external_root_React_commonjs2_react_commonjs_react_amd_react_.useState)([]);
 
   // 唯一 id 加上 uniqId 防止多个表格的相同复选框冲突
   const uniqId = (0,external_root_React_commonjs2_react_commonjs_react_amd_react_.useId)();
@@ -9551,8 +9593,8 @@ const Table = props => {
 
     // setTableData((preArr: any) => preArr.sort((a: any, b: any) => (a[prop] > b[prop] ? 1 : -1)));
     /* if (isDown) {
-      const findItem = tableHeaders.find((item: any) => item.prop === prop);
-         } */
+    const findItem = tableHeaders.find((item: any) => item.prop === prop);
+     } */
   };
   /**
    *
@@ -9588,8 +9630,8 @@ const Table = props => {
         },
         key: childData[id]
         /* style={{
-                  ...(data.collapse ? { display: '' } : { display: 'none' }),
-              }} */
+                ...(data.collapse ? { display: '' } : { display: 'none' }),
+            }} */
       }, collection && /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("td", {
         scope: "row",
         style: {
@@ -9907,7 +9949,7 @@ const Table = props => {
   const renderTableBody = () => {
     return /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("tbody", {
       className: "table-body ".concat(divider ? "table-group-divider" : "")
-    }, tableData.length > 0 && tableData.map((data, rowIndex) => {
+    }, tableData.length > 0 && paginatedData.map((data, rowIndex) => {
       return (
         /*#__PURE__*/
         // 加上 uniqId 防止多个表格的相同复选框冲突
@@ -10198,8 +10240,8 @@ const Table = props => {
         } else if ((_item$children6 = item.children) !== null && _item$children6 !== void 0 && _item$children6.length) {
           item.children = recursiveUpdateTableDataCheckState(item.children); // 这步要先执行，不然下面的 else if 判断不会进入 不符合的父节点的子级节点
         } /* else if (!multiple) {
-                  item.checked = false;
-              } */
+                item.checked = false;
+            } */
         return item;
       });
     };
@@ -10374,14 +10416,14 @@ const Table = props => {
   }, [data]);
   (0,external_root_React_commonjs2_react_commonjs_react_amd_react_.useEffect)(() => {
     /* setTableData((preData: any) =>
-            preData.map((item: any) => {
-                const isChildrenAllChecked = areAllChecked(item.children);
-                if (isChildrenAllChecked) {
-                    item.checked = true;
-                }
-                return item;
-            })
-        ); */
+          preData.map((item: any) => {
+              const isChildrenAllChecked = areAllChecked(item.children);
+              if (isChildrenAllChecked) {
+                  item.checked = true;
+              }
+              return item;
+          })
+      ); */
   }, [tableData]);
   (0,external_root_React_commonjs2_react_commonjs_react_amd_react_.useEffect)(() => {
     if (activeId) {
@@ -10405,7 +10447,7 @@ const Table = props => {
   }, [columns]);
 
   /*     useEffect(() => {
-      
+    
   }, [tableHeaders]); */
 
   (0,external_root_React_commonjs2_react_commonjs_react_amd_react_.useImperativeHandle)(tableRef, () => ({
@@ -10416,6 +10458,156 @@ const Table = props => {
     scrollToEnd: handleScrollToEnd,
     scrollToTop: handleScrollToTop
   }));
+
+  // 计算分页数据
+  const calculatePaginatedData = (0,external_root_React_commonjs2_react_commonjs_react_amd_react_.useCallback)(() => {
+    if (!pagination) {
+      setPaginatedData(tableData);
+      return;
+    }
+    const startIndex = (currentPageState - 1) * pageSizeState;
+    const endIndex = startIndex + pageSizeState;
+    const newPaginatedData = tableData.slice(startIndex, endIndex);
+    setPaginatedData(newPaginatedData);
+    setTotalPages(Math.ceil(tableData.length / pageSizeState));
+  }, [tableData, currentPageState, pageSizeState, pagination]);
+
+  // 生成页码数组
+  // 生成页码数组
+  const generatePageNumbers = () => {
+    const result = [];
+    const maxPagesShow = 5; // 最多显示5个页码（不包括省略号和首尾页码）
+
+    if (totalPages <= maxPagesShow + 2) {
+      // 如果总页数较少，直接显示所有页码
+      for (let i = 1; i <= totalPages; i++) {
+        result.push({
+          page: i,
+          type: "page"
+        });
+      }
+    } else {
+      // 始终显示第一页
+      result.push({
+        page: 1,
+        type: "page"
+      });
+      if (currentPageState <= maxPagesShow - 2) {
+        // 当前页靠近开始
+        for (let i = 2; i <= maxPagesShow; i++) {
+          result.push({
+            page: i,
+            type: "page"
+          });
+        }
+        result.push({
+          page: 0,
+          type: "ellipsis"
+        });
+        result.push({
+          page: totalPages,
+          type: "page"
+        });
+      } else if (currentPageState >= totalPages - (maxPagesShow - 3)) {
+        // 当前页靠近结束
+        result.push({
+          page: 0,
+          type: "ellipsis"
+        });
+        for (let i = totalPages - (maxPagesShow - 1); i <= totalPages; i++) {
+          result.push({
+            page: i,
+            type: "page"
+          });
+        }
+      } else {
+        // 当前页在中间
+        result.push({
+          page: 0,
+          type: "ellipsis"
+        });
+        for (let i = currentPageState - 1; i <= currentPageState + 1; i++) {
+          result.push({
+            page: i,
+            type: "page"
+          });
+        }
+        result.push({
+          page: 0,
+          type: "ellipsis"
+        });
+        result.push({
+          page: totalPages,
+          type: "page"
+        });
+      }
+    }
+    return result;
+  };
+
+  // 处理页码改变
+  const handlePageChange = (page, type) => {
+    if (type === "prev") {
+      if (page <= 0) return;
+    } else if (type === "next") {
+      if (page >= totalPages + 1) return;
+    }
+    setCurrentPageState(page);
+    onPageChange === null || onPageChange === void 0 || onPageChange(page);
+  };
+
+  // 处理每页条数改变
+  const handlePageSizeChange = size => {
+    setPageSizeState(size);
+    setCurrentPageState(1); // 重置到第一页
+    onPageSizeChange === null || onPageSizeChange === void 0 || onPageSizeChange(size);
+  };
+  (0,external_root_React_commonjs2_react_commonjs_react_amd_react_.useEffect)(() => {
+    calculatePaginatedData();
+  }, [calculatePaginatedData]);
+
+  // 渲染分页组件
+  const renderPagination = () => {
+    if (!pagination) return null;
+    return /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("div", {
+      className: "d-flex justify-content-between align-items-center p-2"
+    }, /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("div", {
+      className: "d-flex align-items-center"
+    }, showTotal && /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("span", {
+      className: "me-3"
+    }, "\u5171 ", tableData.length, " \u6761"), /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("select", {
+      className: "form-select form-select-sm me-2",
+      style: {
+        width: "100px"
+      },
+      value: pageSizeState,
+      onChange: e => handlePageSizeChange(Number(e.target.value))
+    }, pageSizeOptions.map(size => /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("option", {
+      key: size,
+      value: size
+    }, size, " \u6761/\u9875")))), /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("div", {
+      className: "pagination d-flex align-items-center"
+    }, /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("i", {
+      onClick: () => handlePageChange(currentPageState - 1, "prev"),
+      className: "prev-arrow rounded fa-solid fa-chevron-left ".concat(currentPageState === 1 ? "disabled" : "")
+    }), /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("div", {
+      className: "page-numbers d-flex align-items-center mx-2"
+    }, generatePageNumbers().map((item, index) => /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement((external_root_React_commonjs2_react_commonjs_react_amd_react_default()).Fragment, {
+      key: index
+    }, item.type === "page" ? /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("button", {
+      className: "btn btn-sm page-number-item d-flex align-items-center justify-content-center mx-1 ".concat(item.page === currentPageState ? "btn-primary" : "btn-outline-secondary"),
+      style: {
+        minWidth: "24px",
+        height: "26px"
+      },
+      onClick: () => handlePageChange(item.page)
+    }, item.page) : /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("span", {
+      className: "mx-1 d-flex align-items-center"
+    }, "...")))), /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("i", {
+      className: "next-arrow rounded fa-solid fa-chevron-right ".concat(currentPageState === totalPages ? "disabled" : ""),
+      onClick: () => handlePageChange(currentPageState + 1, "next")
+    })));
+  };
   return /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement((external_root_React_commonjs2_react_commonjs_react_amd_react_default()).Fragment, null, /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("div", {
     style: {
       minHeight: minHeight,
@@ -10429,10 +10621,10 @@ const Table = props => {
       background: tableBGC,
       width: tableWidth
     },
-    className: "table ".concat(tableStriped ? "table-striped" : "", " ").concat(tableBorderd ? "table-bordered" : "table-borderless", " table-").concat(size, " ").concat(headColor ? "table-".concat(headColor) : "", " overflow-auto ").concat(data.length === 0 ? "mb-0" : "")
-  }, showHeader && renderTableHeader(), renderTableBody()), data.length === 0 && /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("div", {
+    className: "table ".concat(tableStriped ? "table-striped" : "", " ").concat(tableBorderd ? "table-bordered" : "table-borderless", " table-").concat(size, " ").concat(headColor ? "table-".concat(headColor) : "", " overflow-auto ").concat(paginatedData.length === 0 ? "mb-0" : "")
+  }, showHeader && renderTableHeader(), renderTableBody()), paginatedData.length === 0 && /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("div", {
     className: "text-center p-1"
-  }, "\u6682\u65E0\u6570\u636E~")));
+  }, "\u6682\u65E0\u6570\u636E~"), renderPagination()));
 };
 Table.TableCell = src_TableCell_0;
 /* harmony default export */ const src_0 = (withTranslation()(Table));

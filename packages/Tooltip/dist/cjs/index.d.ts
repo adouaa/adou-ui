@@ -1,4 +1,4 @@
-import React from "react";
+import React, { ReactNode } from "react";
 import "./index.scss";
 interface TooltipProps {
     left?: any;
@@ -11,7 +11,7 @@ interface TooltipProps {
     wrapperFlex?: boolean;
     mustShow?: boolean;
     show?: boolean;
-    text: any;
+    text: ReactNode;
     position?: "top" | "bottom" | "left" | "right" | "top-left" | "top-right" | "bottom-left" | "bottom-right" | "left-top" | "left-bottom" | "right-bottom" | "right-top";
     children: React.ReactNode;
     tooltipBgc?: string;

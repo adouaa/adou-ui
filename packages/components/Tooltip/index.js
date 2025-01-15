@@ -772,7 +772,7 @@ const Tooltip = _ref => {
   const [tooltipWidth, setTooltipWidth] = (0,external_root_React_commonjs2_react_commonjs_react_amd_react_.useState)(0);
   const [tooltipHeight, setTooltipHeight] = (0,external_root_React_commonjs2_react_commonjs_react_amd_react_.useState)(0);
   const contentRef = (0,external_root_React_commonjs2_react_commonjs_react_amd_react_.useRef)(null);
-  const [tooltipContentPosition, settooltipContentPosition] = (0,external_root_React_commonjs2_react_commonjs_react_amd_react_.useState)({});
+  const [tooltipContentPosition, setTooltipContentPosition] = (0,external_root_React_commonjs2_react_commonjs_react_amd_react_.useState)({});
   const handleMouseEnter = () => {
     // 进入的时候，如果存在定时器，也清除掉
     if (enterTimeoutRef.current) {
@@ -783,7 +783,7 @@ const Tooltip = _ref => {
       setTimeout(() => {
         setIsVisible(true);
       }, 50);
-    }, 200); // 延迟100毫秒
+    }, 150); // 延迟100毫秒
   };
   const handleMouseLeave = () => {
     if (mustShow) return;
@@ -923,67 +923,73 @@ const Tooltip = _ref => {
       return {
         bottom: commonArrowOfsset,
         left: "50%",
-        "border-color": "".concat(arrowBorderColor, " transparent transparent transparent")
+        borderColor: "".concat(arrowBorderColor, " transparent transparent transparent")
       };
     } else if (position === "top-left") {
       return {
         bottom: commonArrowOfsset,
         right: right || finalHorizontal,
-        "border-color": "".concat(arrowBorderColor, " transparent transparent transparent")
+        borderColor: "".concat(arrowBorderColor, " transparent transparent transparent")
       };
     } else if (position === "top-right") {
       return {
         bottom: commonArrowOfsset,
         left: left || finalHorizontal,
-        "border-color": "".concat(arrowBorderColor, " transparent transparent transparent")
+        borderColor: "".concat(arrowBorderColor, " transparent transparent transparent")
       };
     } else if (position === "bottom") {
       return {
         top: commonArrowOfsset,
         left: "50%",
-        "border-color": "transparent transparent ".concat(arrowBorderColor, " transparent")
+        borderColor: "transparent transparent ".concat(arrowBorderColor, " transparent")
       };
     } else if (position === "bottom-right") {
       return {
         top: commonArrowOfsset,
         left: left || finalHorizontal,
-        "border-color": "transparent transparent ".concat(arrowBorderColor, " transparent")
+        borderColor: "transparent transparent ".concat(arrowBorderColor, " transparent")
       };
     } else if (position === "bottom-left") {
       return {
         top: commonArrowOfsset,
         right: right || finalHorizontal,
-        "border-color": "transparent transparent ".concat(arrowBorderColor, " transparent")
+        borderColor: "transparent transparent ".concat(arrowBorderColor, " transparent")
+      };
+    } else if (position === "left") {
+      return {
+        top: "50%",
+        right: commonArrowOfsset,
+        borderColor: "transparent transparent transparent ".concat(arrowBorderColor)
       };
     } else if (position === "left-top") {
       return {
         bottom: bottom || finalVertival,
         right: commonArrowOfsset,
-        "border-color": "transparent transparent transparent ".concat(arrowBorderColor)
+        borderColor: "transparent transparent transparent ".concat(arrowBorderColor)
       };
     } else if (position === "left-bottom") {
       return {
         top: top || finalVertival,
         right: "-9px",
-        "border-color": "transparent transparent transparent ".concat(arrowBorderColor)
+        borderColor: "transparent transparent transparent ".concat(arrowBorderColor)
       };
     } else if (position === "right") {
       return {
         top: "50%",
         left: commonArrowOfsset,
-        "border-color": "transparent ".concat(arrowBorderColor, " transparent transparent")
+        borderColor: "transparent ".concat(arrowBorderColor, " transparent transparent")
       };
     } else if (position === "right-top") {
       return {
         bottom: bottom || finalVertival,
         left: commonArrowOfsset,
-        "border-color": "transparent ".concat(arrowBorderColor, " transparent transparent")
+        borderColor: "transparent ".concat(arrowBorderColor, " transparent transparent")
       };
     } else if (position === "right-bottom") {
       return {
         top: top || finalVertival,
         left: commonArrowOfsset,
-        "border-color": "transparent ".concat(arrowBorderColor, " transparent transparent")
+        borderColor: "transparent ".concat(arrowBorderColor, " transparent transparent")
       };
     }
   };
@@ -1002,9 +1008,10 @@ const Tooltip = _ref => {
     }
     if (isShow) {
       const position = utils_getAbsolutePosition(contentRef.current, 0, 0);
-      settooltipContentPosition(position);
+      setTooltipContentPosition(position);
     }
-  }, [isShow, isVisible]);
+  }, [isShow, isVisible, children]); // 这边需要加上 children 的依赖，不然 外边内容变化或者位置更新的时候，tooltip 不会重新计算位置
+
   return /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("div", {
     className: "adou-tooltip-wrapper ".concat(wrapperClassname || ""),
     style: {
