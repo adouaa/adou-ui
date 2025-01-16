@@ -19,6 +19,7 @@ export const recursiveGenerateTableHeaderRows = (columns: any[], newRows: any[] 
 };
 
 interface TableProps {
+    headerPadding?: string;
     pageSizeOptions?: number[];
     pagination?: boolean; // 是否显示分页
     pageSize?: number; // 每页显示条数
@@ -74,6 +75,7 @@ interface TableProps {
 
 const Table = (props: TableProps) => {
     const {
+        headerPadding = 'py-1',
         pageSizeOptions = [5, 10, 15, 20],
         pagination = false,
         pageSize = 10,
@@ -117,7 +119,7 @@ const Table = (props: TableProps) => {
         headTextColor = 'black',
         headBGC = '',
         divider,
-        maxHeight = '500px',
+        maxHeight,
         minHeight = '0px',
         onRowDoubleClick,
         onRowClick,
@@ -318,7 +320,7 @@ const Table = (props: TableProps) => {
                                     maxWidth: !compact ? '50px' : '30px',
                                     verticalAlign: 'middle',
                                 }}
-                                className={`text-center py-1 ${compact ? 'p-0' : tdPadding}`}
+                                className={`text-center py-1 ${compact ? 'py-0 px-1' : tdPadding}`}
                             >
                                 <input
                                     className={tdPadding}
@@ -333,7 +335,7 @@ const Table = (props: TableProps) => {
                         {/* 索引框 */}
                         {showIndex && (
                             <th
-                                className={`text-center py-1 ${compact ? 'p-0' : tdPadding}`}
+                                className={`text-center py-1 ${compact ? 'py-0 px-1' : tdPadding}`}
                                 style={{
                                     minWidth: !compact ? '50px' : '30px',
                                     width: !compact ? '50px' : '30px',
@@ -371,7 +373,7 @@ const Table = (props: TableProps) => {
                                           <td
                                               // 这边也不用在子级的第一列在最左侧了
                                               // colIndex === 0 ? 'text-start' :
-                                              className={`text-${colProps.align} py-1 ${compact ? 'p-0' : tdPadding}`}
+                                              className={`text-${colProps.align} py-1 ${compact ? 'py-0 px-1' : tdPadding}`}
                                               style={{
                                                   verticalAlign: verticalAlignObject[prop],
                                                   width: widthObject[prop],
@@ -424,7 +426,7 @@ const Table = (props: TableProps) => {
                                       <td
                                           // 这边也不用在子级的第一列在最左侧了
                                           // colIndex === 0 ? 'text-start' :
-                                          className={`text-${colProps.align} py-1 ${compact ? 'p-0' : tdPadding}`}
+                                          className={`text-${colProps.align} py-1 ${compact ? 'py-0 px-1' : tdPadding}`}
                                           style={{
                                               verticalAlign: verticalAlignObject[prop],
                                               width: widthObject[colProps.prop],
@@ -639,11 +641,11 @@ const Table = (props: TableProps) => {
                                             key={item.title}
                                         >
                                             <div
-                                                className="header-content"
+                                                className={`header-content ${headerPadding}`}
                                                 style={{
                                                     display: 'flex',
                                                     alignItems: 'center',
-                                                    justifyContent: generateHeaderStyle(textPositionObject[item.prop]),
+                                                    justifyContent: item.headerAlign || generateHeaderStyle(textPositionObject[item.prop]),
                                                 }}
                                             >
                                                 {/* header-text 去掉 me-2 属性 */}
@@ -707,7 +709,7 @@ const Table = (props: TableProps) => {
                                                 maxWidth: !compact ? '50px' : '30px',
                                                 verticalAlign: 'middle',
                                             }}
-                                            className={`text-center py-1 ${compact ? 'p-0' : tdPadding}`}
+                                            className={`text-center py-1 ${compact ? 'py-0 px-1' : tdPadding}`}
                                         >
                                             <input
                                                 className={tdPadding}
@@ -722,7 +724,7 @@ const Table = (props: TableProps) => {
                                     {showIndex && (
                                         // 索引框
                                         <td
-                                            className={`text-center py-1 ${compact ? 'p-0' : tdPadding}`}
+                                            className={`text-center py-1 ${compact ? 'py-0 px-1' : tdPadding}`}
                                             scope="col"
                                             style={{
                                                 alignContent: 'center',
@@ -763,7 +765,7 @@ const Table = (props: TableProps) => {
                                                       <td
                                                           // 父级第一列不需要在 最左侧了
                                                           // !colIndex && collapse && data.children ? 'text-start' : `text-${textPositionObject[prop]}`
-                                                          className={`text-${colProps.align || align} py-1 ${compact ? 'p-0' : tdPadding}`}
+                                                          className={`text-${colProps.align || align} py-1 ${compact ? 'py-0 px-1' : tdPadding}`}
                                                           style={{
                                                               verticalAlign: verticalAlignObject[prop],
                                                               width: widthObject[colProps.prop],
@@ -811,7 +813,7 @@ const Table = (props: TableProps) => {
                                                   <td
                                                       // 父级第一列不需要在 最左侧了
                                                       // !colIndex && collapse && data.children ? 'text-start' : `text-${textPositionObject[prop]}`
-                                                      className={`text-${colProps.align || align} py-1 ${compact ? 'p-0' : tdPadding}`}
+                                                      className={`text-${colProps.align || align} py-1 ${compact ? 'py-0 px-1' : tdPadding}`}
                                                       style={{
                                                           verticalAlign: verticalAlignObject[prop],
                                                           width: widthObject[colProps.prop],
@@ -1102,14 +1104,16 @@ const Table = (props: TableProps) => {
     // 滚到底部
     const handleScrollToEnd = () => {
         // 表格滚动到底部
-        const table = document.querySelector('.table-wrapper');
-        const tableBody = document.querySelector('.table-body');
-        if (tableBody && table) {
-            table.scrollTo({
-                top: tableBody.clientHeight,
-                behavior: 'smooth',
-            });
-        }
+        setTimeout(() => {
+            const table = document.querySelector('.table-wrapper');
+            const tableBody = document.querySelector('.table-body');
+            if (tableBody && table) {
+                table.scrollTo({
+                    top: tableBody.clientHeight,
+                    behavior: 'smooth',
+                });
+            }
+        }, 100);
     };
 
     // 滚到底部

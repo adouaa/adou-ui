@@ -3,6 +3,7 @@ import React from 'react';
 import './index.scss';
 
 interface FormProps {
+    commonForItemClsssName?: string;
     commonDisabled?: boolean;
     showNotFormItem?: boolean;
     commonContentBackgroundColor?: any;
@@ -40,6 +41,7 @@ interface ExtendedForm extends React.ForwardRefExoticComponent<FormProps & React
 const Form = forwardRef(
     (
         {
+            commonForItemClsssName,
             commonDisabled,
             showNotFormItem,
             commonContentBackgroundColor = 'white',
@@ -134,6 +136,7 @@ const Form = forwardRef(
                     wrapperWidth: commonFormItemWrapperWidth,
                     wrapperMaxWidth: commonFormItemWrapperMaxWidth,
                     wrapperMinWidth: commonFormItemWrapperMinWidth,
+                    wrapperClassName: commonForItemClsssName,
                     contentBackgroundColor: commonContentBackgroundColor,
                     rules: commonRules ? commonRules : required ? [{ required: true }] : [],
                     oneLine,
@@ -172,7 +175,9 @@ const Form = forwardRef(
         return (
             <div
                 style={{ flex: 1, ...externalWrapperStyle }}
-                className={`adou-new-form-wrapper ${externalWrapperClassName} ${wrpa ? 'flex-wrap' : 'flex-nowrap'} ${layout === 'inline' ? 'd-flex' : ''}`}
+                className={`adou-new-form-wrapper ${externalWrapperClassName ? externalWrapperClassName : ''} ${wrpa ? 'flex-wrap' : 'flex-nowrap'} ${
+                    layout === 'inline' ? 'd-flex' : ''
+                }`}
                 ref={formRef}
                 onKeyDown={handleKeyDown}
             >
