@@ -1,5 +1,6 @@
 import { forwardRef, useImperativeHandle, useRef } from "react";
 import React from "react";
+import "./index.scss";
 
 interface FormProps {
   commonForItemClsssName?: string;
@@ -191,9 +192,11 @@ const Form = forwardRef(
     return (
       <div
         style={{ flex: 1, ...externalWrapperStyle }}
-        className={`adou-new-form-wrapper ${externalWrapperClassName} ${
-          wrpa ? "flex-wrap" : "flex-nowrap"
-        } ${layout === "inline" ? "d-flex" : ""}`}
+        className={`adou-new-form-wrapper ${
+          externalWrapperClassName ? externalWrapperClassName : ""
+        } ${wrpa ? "flex-wrap" : "flex-nowrap"} ${
+          layout === "inline" ? "d-flex" : ""
+        }`}
         ref={formRef}
         onKeyDown={handleKeyDown}
       >

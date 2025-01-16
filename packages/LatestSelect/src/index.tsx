@@ -439,6 +439,11 @@ const Select = React.forwardRef((props: SelectProps, ref) => {
     }
   };
 
+  // 点击展开按钮，显示 / 隐藏 下拉框
+  const handleIconClick = () => {
+    setIsShow((prev: boolean) => !prev);
+  };
+
   const handleClickCommonSuffixIcon = () => {};
 
   const handleClearIconClick = (e: React.MouseEvent<HTMLDivElement>) => {
@@ -1032,6 +1037,7 @@ const Select = React.forwardRef((props: SelectProps, ref) => {
           >
             {showIcon && (
               <i
+                onClick={handleIconClick}
                 style={{ color: labelColor, right: isAddon ? "0px" : "14px" }}
                 className={`adou-select-icon fa-solid fa-caret-right ${
                   isShow ? "rotate-up" : "rotate-down"

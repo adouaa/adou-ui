@@ -761,7 +761,7 @@ module.exports = {
         const [tooltipWidth, setTooltipWidth] = (0, external_root_React_commonjs2_react_commonjs_react_amd_react_.useState)(0);
         const [tooltipHeight, setTooltipHeight] = (0, external_root_React_commonjs2_react_commonjs_react_amd_react_.useState)(0);
         const contentRef = (0, external_root_React_commonjs2_react_commonjs_react_amd_react_.useRef)(null);
-        const [tooltipContentPosition, settooltipContentPosition] = (0, external_root_React_commonjs2_react_commonjs_react_amd_react_.useState)({});
+        const [tooltipContentPosition, setTooltipContentPosition] = (0, external_root_React_commonjs2_react_commonjs_react_amd_react_.useState)({});
         const handleMouseEnter = () => {
           // 进入的时候，如果存在定时器，也清除掉
           if (enterTimeoutRef.current) {
@@ -772,7 +772,7 @@ module.exports = {
             setTimeout(() => {
               setIsVisible(true);
             }, 50);
-          }, 200); // 延迟100毫秒
+          }, 150); // 延迟100毫秒
         };
         const handleMouseLeave = () => {
           if (mustShow) return;
@@ -912,67 +912,73 @@ module.exports = {
             return {
               bottom: commonArrowOfsset,
               left: "50%",
-              "border-color": "".concat(arrowBorderColor, " transparent transparent transparent")
+              borderColor: "".concat(arrowBorderColor, " transparent transparent transparent")
             };
           } else if (position === "top-left") {
             return {
               bottom: commonArrowOfsset,
               right: right || finalHorizontal,
-              "border-color": "".concat(arrowBorderColor, " transparent transparent transparent")
+              borderColor: "".concat(arrowBorderColor, " transparent transparent transparent")
             };
           } else if (position === "top-right") {
             return {
               bottom: commonArrowOfsset,
               left: left || finalHorizontal,
-              "border-color": "".concat(arrowBorderColor, " transparent transparent transparent")
+              borderColor: "".concat(arrowBorderColor, " transparent transparent transparent")
             };
           } else if (position === "bottom") {
             return {
               top: commonArrowOfsset,
               left: "50%",
-              "border-color": "transparent transparent ".concat(arrowBorderColor, " transparent")
+              borderColor: "transparent transparent ".concat(arrowBorderColor, " transparent")
             };
           } else if (position === "bottom-right") {
             return {
               top: commonArrowOfsset,
               left: left || finalHorizontal,
-              "border-color": "transparent transparent ".concat(arrowBorderColor, " transparent")
+              borderColor: "transparent transparent ".concat(arrowBorderColor, " transparent")
             };
           } else if (position === "bottom-left") {
             return {
               top: commonArrowOfsset,
               right: right || finalHorizontal,
-              "border-color": "transparent transparent ".concat(arrowBorderColor, " transparent")
+              borderColor: "transparent transparent ".concat(arrowBorderColor, " transparent")
+            };
+          } else if (position === "left") {
+            return {
+              top: "50%",
+              right: commonArrowOfsset,
+              borderColor: "transparent transparent transparent ".concat(arrowBorderColor)
             };
           } else if (position === "left-top") {
             return {
               bottom: bottom || finalVertival,
               right: commonArrowOfsset,
-              "border-color": "transparent transparent transparent ".concat(arrowBorderColor)
+              borderColor: "transparent transparent transparent ".concat(arrowBorderColor)
             };
           } else if (position === "left-bottom") {
             return {
               top: top || finalVertival,
               right: "-9px",
-              "border-color": "transparent transparent transparent ".concat(arrowBorderColor)
+              borderColor: "transparent transparent transparent ".concat(arrowBorderColor)
             };
           } else if (position === "right") {
             return {
               top: "50%",
               left: commonArrowOfsset,
-              "border-color": "transparent ".concat(arrowBorderColor, " transparent transparent")
+              borderColor: "transparent ".concat(arrowBorderColor, " transparent transparent")
             };
           } else if (position === "right-top") {
             return {
               bottom: bottom || finalVertival,
               left: commonArrowOfsset,
-              "border-color": "transparent ".concat(arrowBorderColor, " transparent transparent")
+              borderColor: "transparent ".concat(arrowBorderColor, " transparent transparent")
             };
           } else if (position === "right-bottom") {
             return {
               top: top || finalVertival,
               left: commonArrowOfsset,
-              "border-color": "transparent ".concat(arrowBorderColor, " transparent transparent")
+              borderColor: "transparent ".concat(arrowBorderColor, " transparent transparent")
             };
           }
         };
@@ -991,9 +997,10 @@ module.exports = {
           }
           if (isShow) {
             const position = utils_getAbsolutePosition(contentRef.current, 0, 0);
-            settooltipContentPosition(position);
+            setTooltipContentPosition(position);
           }
-        }, [isShow, isVisible]);
+        }, [isShow, isVisible, children]); // 这边需要加上 children 的依赖，不然 外边内容变化或者位置更新的时候，tooltip 不会重新计算位置
+
         return /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("div", {
           className: "adou-tooltip-wrapper ".concat(wrapperClassname || ""),
           style: {
@@ -9405,6 +9412,7 @@ const recursiveGenerateTableHeaderRows = function (columns) {
 };
 const Table = props => {
   const {
+    headerPadding = "py-1",
     pageSizeOptions = [5, 10, 15, 20],
     pagination = false,
     pageSize = 10,
@@ -9449,7 +9457,7 @@ const Table = props => {
     headTextColor = "black",
     headBGC = "",
     divider,
-    maxHeight = "500px",
+    maxHeight,
     minHeight = "0px",
     onRowDoubleClick,
     onRowClick,
@@ -9640,7 +9648,7 @@ const Table = props => {
           maxWidth: !compact ? "50px" : "30px",
           verticalAlign: "middle"
         },
-        className: "text-center py-1 ".concat(compact ? "p-0" : tdPadding)
+        className: "text-center py-1 ".concat(compact ? "py-0 px-1" : tdPadding)
       }, /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("input", {
         className: tdPadding,
         name: childData[id] + uniqId // 加上 uniqId 防止多个表格的相同复选框冲突
@@ -9650,7 +9658,7 @@ const Table = props => {
         onChange: e => handleCheckboxChange(childData, e),
         type: !multiple ? "radio" : "checkbox"
       })), showIndex && /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("th", {
-        className: "text-center py-1 ".concat(compact ? "p-0" : tdPadding),
+        className: "text-center py-1 ".concat(compact ? "py-0 px-1" : tdPadding),
         style: {
           minWidth: !compact ? "50px" : "30px",
           width: !compact ? "50px" : "30px",
@@ -9683,7 +9691,7 @@ const Table = props => {
           return /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("td", {
             // 这边也不用在子级的第一列在最左侧了
             // colIndex === 0 ? 'text-start' :
-            className: "text-".concat(colProps.align, " py-1 ").concat(compact ? "p-0" : tdPadding),
+            className: "text-".concat(colProps.align, " py-1 ").concat(compact ? "py-0 px-1" : tdPadding),
             style: {
               verticalAlign: verticalAlignObject[prop],
               width: widthObject[prop],
@@ -9726,7 +9734,7 @@ const Table = props => {
         return /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("td", {
           // 这边也不用在子级的第一列在最左侧了
           // colIndex === 0 ? 'text-start' :
-          className: "text-".concat(colProps.align, " py-1 ").concat(compact ? "p-0" : tdPadding),
+          className: "text-".concat(colProps.align, " py-1 ").concat(compact ? "py-0 px-1" : tdPadding),
           style: {
             verticalAlign: verticalAlignObject[prop],
             width: widthObject[colProps.prop],
@@ -9917,11 +9925,11 @@ const Table = props => {
             scope: "col",
             key: item.title
           }, /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("div", {
-            className: "header-content",
+            className: "header-content ".concat(headerPadding),
             style: {
               display: "flex",
               alignItems: "center",
-              justifyContent: generateHeaderStyle(textPositionObject[item.prop])
+              justifyContent: item.headerAlign || generateHeaderStyle(textPositionObject[item.prop])
             }
           }, /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("span", {
             className: "header-text"
@@ -9980,7 +9988,7 @@ const Table = props => {
             maxWidth: !compact ? "50px" : "30px",
             verticalAlign: "middle"
           },
-          className: "text-center py-1 ".concat(compact ? "p-0" : tdPadding)
+          className: "text-center py-1 ".concat(compact ? "py-0 px-1" : tdPadding)
         }, /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("input", {
           className: tdPadding,
           name: data[id] + uniqId // 加上 uniqId 防止多个表格的相同复选框冲突
@@ -9993,7 +10001,7 @@ const Table = props => {
         /*#__PURE__*/
         // 索引框
         external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("td", {
-          className: "text-center py-1 ".concat(compact ? "p-0" : tdPadding),
+          className: "text-center py-1 ".concat(compact ? "py-0 px-1" : tdPadding),
           scope: "col",
           style: {
             alignContent: "center",
@@ -10027,7 +10035,7 @@ const Table = props => {
             return /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("td", {
               // 父级第一列不需要在 最左侧了
               // !colIndex && collapse && data.children ? 'text-start' : `text-${textPositionObject[prop]}`
-              className: "text-".concat(colProps.align || align, " py-1 ").concat(compact ? "p-0" : tdPadding),
+              className: "text-".concat(colProps.align || align, " py-1 ").concat(compact ? "py-0 px-1" : tdPadding),
               style: {
                 verticalAlign: verticalAlignObject[prop],
                 width: widthObject[colProps.prop],
@@ -10070,7 +10078,7 @@ const Table = props => {
           return /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("td", {
             // 父级第一列不需要在 最左侧了
             // !colIndex && collapse && data.children ? 'text-start' : `text-${textPositionObject[prop]}`
-            className: "text-".concat(colProps.align || align, " py-1 ").concat(compact ? "p-0" : tdPadding),
+            className: "text-".concat(colProps.align || align, " py-1 ").concat(compact ? "py-0 px-1" : tdPadding),
             style: {
               verticalAlign: verticalAlignObject[prop],
               width: widthObject[colProps.prop],
@@ -10342,14 +10350,16 @@ const Table = props => {
   // 滚到底部
   const handleScrollToEnd = () => {
     // 表格滚动到底部
-    const table = document.querySelector(".table-wrapper");
-    const tableBody = document.querySelector(".table-body");
-    if (tableBody && table) {
-      table.scrollTo({
-        top: tableBody.clientHeight,
-        behavior: "smooth"
-      });
-    }
+    setTimeout(() => {
+      const table = document.querySelector(".table-wrapper");
+      const tableBody = document.querySelector(".table-body");
+      if (tableBody && table) {
+        table.scrollTo({
+          top: tableBody.clientHeight,
+          behavior: "smooth"
+        });
+      }
+    }, 100);
   };
 
   // 滚到底部

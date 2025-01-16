@@ -7520,6 +7520,11 @@ const Select = /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_a
       setTempSelectValue("");
     }
   };
+
+  // 点击展开按钮，显示 / 隐藏 下拉框
+  const handleIconClick = () => {
+    setIsShow(prev => !prev);
+  };
   const handleClickCommonSuffixIcon = () => {};
   const handleClearIconClick = e => {
     e.stopPropagation();
@@ -7996,6 +8001,7 @@ const Select = /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_a
     className: "adou-select-icon-box ms-2 ".concat(!showSearch && !(selectValue !== null && selectValue !== void 0 && selectValue[valueKey]) && !commonSuffixContent ? "text-end" // 去掉 flex-fill
     : "")
   }, showIcon && /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("i", {
+    onClick: handleIconClick,
     style: {
       color: labelColor,
       right: isAddon ? "0px" : "14px"
