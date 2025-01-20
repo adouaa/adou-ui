@@ -56,7 +56,7 @@ import ReactDOM from 'react-dom/client';
 
 // import App from './test-switch/App.tsx';
 
-import App from './test-slider/App.tsx';
+// import App from './test-slider/App.tsx';
 
 // import App from './test-table/App.tsx';
 

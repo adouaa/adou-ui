@@ -3,6 +3,7 @@ import React, { ReactNode } from 'react';
 type ThemeType = 'primary' | 'secondary' | 'danger' | 'success' | 'warning' | 'info' | 'light' | 'dark';
 
 interface buttonProps {
+    labelWrap?: boolean;
     type?: ThemeType;
     size?: 'sm' | 'md' | 'lg';
     children?: ReactNode;
@@ -22,6 +23,7 @@ interface buttonProps {
 }
 const Button: React.FC<buttonProps> = (props: buttonProps) => {
     const {
+        labelWrap,
         fontSize,
         spinerType = 'border',
         spinerColor,
@@ -71,6 +73,7 @@ const Button: React.FC<buttonProps> = (props: buttonProps) => {
                 const enhancedChild = React.cloneElement(child, {
                     style: {
                         fontSize,
+                        whiteSpace: labelWrap ? 'normal' : 'nowrap',
                     },
                 } as React.Attributes);
                 return enhancedChild;

@@ -1,8 +1,8 @@
 import React, { useEffect, useImperativeHandle, useRef, useState } from 'react';
-import { withTranslation } from 'react-i18next';
 import './index.scss';
 
 interface TabsProps {
+    showContent?: boolean;
     commonTabItemHeaderExternalCls?: string;
     tabRef?: any;
     extraContentCls?: string;
@@ -22,6 +22,7 @@ interface TabsProps {
 
 const Tabs = (props: TabsProps) => {
     const {
+        showContent = true,
         commonTabItemHeaderExternalCls,
         tabRef,
         commonExtraContent,
@@ -166,10 +167,10 @@ const Tabs = (props: TabsProps) => {
                 {/* 先渲染头部 */}
                 {renderHeader()}
                 {/* 再渲染内容 */}
-                {renderContent()}
+                {showContent && renderContent()}
             </div>
         </>
     );
 };
 
-export default withTranslation()(Tabs);
+export default Tabs;

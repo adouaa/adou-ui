@@ -300,6 +300,7 @@ const Table = (props: TableProps) => {
                 <Fragment key={childData[id]}>
                     <tr
                         onClick={(e: any) => handleRowClick(childData, e)}
+                        onDoubleClick={(e: any) => handleRowDoubleClick(data, e)}
                         className={`tr-content tr-content ${childData.checked === true ? 'tr-checked' : ''} collapse-table-tr animate__animated animate__fadeIn`}
                         style={{
                             ...(clickChecked || trPointer ? { cursor: 'pointer' } : ''),
@@ -691,6 +692,7 @@ const Table = (props: TableProps) => {
                             <Fragment key={data[id] + uniqId}>
                                 <tr
                                     onClick={(e: any) => handleRowClick(data, e)}
+                                    onDoubleClick={(e: any) => handleRowDoubleClick(data, e)}
                                     // onDoubleClick={() => handleRowDoubleClick(data)}
                                     key={rowIndex}
                                     className={`tr-content ${data.checked === true ? 'tr-checked' : ''}`}
@@ -855,32 +857,6 @@ const Table = (props: TableProps) => {
     // 选择逻辑
     const [checkedAll, setCheckedAll] = useState<boolean>(false);
 
-    /**
-     *
-     * 双击选中这条tr
-     */
-    const handleRowDoubleClick = (row: any) => {
-        const finalChecked: boolean = !row.checked;
-        setTableData((preArr: any) => {
-            return preArr.map((item: any) => {
-                if (item[id] === row[id]) {
-                    item.checked = !item.checked;
-                } else {
-                    if (!multiple) {
-                        item.checked = false;
-                    }
-                }
-                return item;
-            });
-        });
-
-        if (finalChecked) {
-            onRowDoubleClick && onRowDoubleClick(row);
-        } else {
-            onRowDoubleClick && onRowDoubleClick({});
-        }
-    };
-
     const recursiveUpdateParentChecked = (child: any, parentData: any, id: any) => {
         const parent = parentData.find((item: any) => {
             if (item[id] === child.parentId) {
@@ -910,20 +886,65 @@ const Table = (props: TableProps) => {
         }
     };
 
+    let clickTimeout: any = null; // 用于存储定时器
+    const CLICK_DELAY = 300; // 单击延迟时间，单位：毫秒
+
     /**
-     *
      * 单击tr
      */
     const handleRowClick = (row: any, e: any) => {
-        onRowClick && onRowClick(row);
+        // 如果存在延时，说明是双击，取消单击事件
+        if (clickTimeout) {
+            clearTimeout(clickTimeout);
+            clickTimeout = null;
+            return; // 双击时不触发单击事件
+        }
 
-        onRowDoubleClick && onRowDoubleClick(row);
-        if (clickChecked) {
-            // 新增标志位，用于判断是否是由复选框触发的点击
-            const isCheckboxClick = e.target.type === 'checkbox' || e.target.type === 'radio';
-            if (!isCheckboxClick) {
-                handleCheckboxChange(row, e);
+        // 设置定时器，延时触发单击事件
+        clickTimeout = setTimeout(() => {
+            onRowClick && onRowClick(row);
+            if (clickChecked) {
+                const isCheckboxClick = e.target.type === 'checkbox' || e.target.type === 'radio';
+                if (!isCheckboxClick) {
+                    handleCheckboxChange(row, e);
+                }
             }
+        }, CLICK_DELAY);
+    };
+
+    /**
+     *
+     * 双击选中这条tr
+     */
+    const handleRowDoubleClick = (row: any, e: any) => {
+        e.stopPropagation(); // 阻止事件传播，防止双击时触发单击
+        const finalChecked: boolean = !row.checked;
+
+        setTableData((preArr: any) => {
+            return preArr.map((item: any) => {
+                if (item[id] === row[id]) {
+                    item.checked = !item.checked;
+                } else {
+                    if (!multiple) {
+                        item.checked = false;
+                    }
+                }
+                return item;
+            });
+        });
+
+        // 一开始是判断 是否已经选中，如果已经选中 再双击的话，则回调函数的参数是 空，现在不需要了，直接返回参数
+        /* if (finalChecked) {
+        onRowDoubleClick && onRowDoubleClick(row);
+      } else {
+        onRowDoubleClick && onRowDoubleClick({});
+      } */
+        onRowDoubleClick && onRowDoubleClick(row);
+
+        // 清除延时触发的单击事件，防止双击后单击事件被执行
+        if (clickTimeout) {
+            clearTimeout(clickTimeout);
+            clickTimeout = null;
         }
     };
 

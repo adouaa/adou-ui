@@ -20,6 +20,7 @@ interface SliderProps {
     showInput?: boolean;
     onChange?: (value?: any, percent?: any) => void;
 }
+
 const Slider = ({ marks, range, sliderWidth, min = 0, max = 100, step, value, showStops = true, showInput, onChange }: SliderProps) => {
     const [sliderButton1Left, setSliderButton1Left] = useState<any>(0);
     const [sliderButton2Left, setSliderButton2Left] = useState<any>(0);
@@ -62,7 +63,7 @@ const Slider = ({ marks, range, sliderWidth, min = 0, max = 100, step, value, sh
             setSliderBarWidth(newValue);
         }
     };
-    const handleRunwayClick = (e: any) => {
+    const handleRunwayMouseDown = (e: any) => {
         // 以一个作为主要研究对象，所以isButton2为false
         // 因为之前的判断都是针对 sliderButton2，所以这边的变量是 isButton2
         e.preventDefault();
@@ -157,7 +158,7 @@ const Slider = ({ marks, range, sliderWidth, min = 0, max = 100, step, value, sh
         window.addEventListener('mouseup', btnUpHandler);
     };
 
-    const handleMouseUp = () => {};
+    const handleRunawayMouseUp = () => {};
 
     const calcEachPercentValue = () => {
         const diffrence = max! - min!;
@@ -218,26 +219,29 @@ const Slider = ({ marks, range, sliderWidth, min = 0, max = 100, step, value, sh
                 style={{ width: sliderWidth }}
                 className="slider-runway me-3"
                 ref={sliderRunwayRef}
-                onMouseDown={handleRunwayClick}
-                // onClick={handleRunwayClick} // 注意：不能用onClick，会触发两次mousemove事件绑定
-                onMouseUp={handleMouseUp}
+                onMouseDown={handleRunwayMouseDown}
+                // onClick={handleRunwayMouseDown} // 注意：不能用onClick，会触发两次mousemove事件绑定
+                onMouseUp={handleRunawayMouseUp}
             >
                 <div
                     className="slider-bar bg-primary"
-                    style={{ width: sliderBarWidth, left: parseFloat(sliderButton2Left) > parseFloat(sliderButton1Left) ? sliderButton1Left : sliderButton2Left }}
+                    style={{
+                        width: sliderBarWidth,
+                        left: parseFloat(sliderButton2Left) > parseFloat(sliderButton1Left) ? sliderButton1Left : sliderButton2Left,
+                    }}
                 ></div>
 
                 {/* 因为要展示 Tooltip，所以让一开始的 slider-button移动改成他的父组件 wrapper移动，
-                    然后再把slider-button作为 Tooltip所挂载的内容
-                    注意：Tooltip所挂载的元素不能有 transformY的属性，不然位置不对
-                */}
+                      然后再把slider-button作为 Tooltip所挂载的内容
+                      注意：Tooltip所挂载的元素不能有 transformY的属性，不然位置不对
+                  */}
                 <div className="slider-button-wrapper1" style={{ left: sliderButton1Left }}>
                     <Tooltip mustShow={isClickIngBtn1} text={String(Math.round(parseFloat(sliderButton1Left) / eachPercentValue))}>
                         <div onMouseDown={handleBtnMouseDown} className="slider-button"></div>
                     </Tooltip>
                 </div>
                 {range && (
-                    <div className="slider-button-wrapper2" style={{ left: sliderButton2Left, backgroundColor: 'red' }}>
+                    <div className="slider-button-wrapper2" style={{ left: sliderButton2Left }}>
                         <Tooltip mustShow={isClickIngBtn2} text={String(Math.round(parseFloat(sliderButton2Left) / eachPercentValue))}>
                             <div onMouseDown={(e: React.MouseEvent) => handleBtnMouseDown(e, true)} className="slider-button"></div>
                         </Tooltip>
