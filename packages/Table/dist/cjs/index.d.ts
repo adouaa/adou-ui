@@ -4,7 +4,6 @@ import "./index.scss";
 export { TableCell };
 export declare const recursiveGenerateTableHeaderRows: (columns: any[], newRows?: any[]) => any[];
 declare const _default: React.ComponentType<Omit<{
-    showTip?: boolean | undefined;
     collapse?: boolean | undefined;
     maxWidth?: any;
     eidtable?: boolean | undefined;
@@ -18,6 +17,7 @@ declare const _default: React.ComponentType<Omit<{
     currentPage?: number | undefined;
     showTotal?: boolean | undefined;
     compact?: boolean | undefined;
+    showTip?: boolean | undefined;
     checkAll?: boolean | undefined;
     tdPadding?: string | undefined;
     clickChecked?: boolean | undefined;

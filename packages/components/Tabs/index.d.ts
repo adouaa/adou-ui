@@ -1,7 +1,7 @@
-import React from "react";
-import TabItem from "./TabItem";
-import "./index.scss";
+import React from 'react';
+import './index.scss';
 interface TabsProps {
+    showContent?: boolean;
     commonTabItemHeaderExternalCls?: string;
     tabRef?: any;
     extraContentCls?: string;
@@ -19,5 +19,4 @@ interface TabsProps {
     onLabelClick?: (index: number, itemInfo: any) => void;
 }
 declare const Tabs: (props: TabsProps) => React.JSX.Element;
-export { TabItem };
 export default Tabs;

@@ -11,6 +11,7 @@ import "./index.scss";
 import { isEmptyO } from "adou-ui/Utils";
 
 interface FormItemProps {
+  addonAfterStyle?: React.CSSProperties;
   wrapperClassName?: string;
   suffix?: any;
   disabled?: boolean;
@@ -40,6 +41,7 @@ interface FormItemProps {
 }
 
 const FormItem = ({
+  addonAfterStyle,
   wrapperClassName,
   suffix,
   disabled,
@@ -112,7 +114,7 @@ const FormItem = ({
     isForm: boolean = false
   ) => {
     if (!rules) return true;
-    const validateValue = !isForm ? value : value || data[formName! || name!];
+    const validateValue = !isForm ? value : value || data?.[formName! || name!];
     for (const rule of rules) {
       if (
         rule.required &&
@@ -300,7 +302,7 @@ const FormItem = ({
                 {processedAddonAfter && (
                   <span
                     className="input-group-text py-0"
-                    style={{ fontSize: "14px" }}
+                    style={{ fontSize: "14px", ...addonAfterStyle }}
                   >
                     {processedAddonAfter && processedAddonAfter}
                   </span>
@@ -313,7 +315,7 @@ const FormItem = ({
                 </div>
                 <span
                   className="input-group-text py-0"
-                  style={{ fontSize: "14px" }}
+                  style={{ fontSize: "14px", ...addonAfterStyle }}
                 >
                   {processedAddonAfter && processedAddonAfter}
                 </span>

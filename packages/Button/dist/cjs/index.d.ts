@@ -1,8 +1,9 @@
-import React, { ReactNode } from 'react';
-type ThemeType = 'primary' | 'secondary' | 'danger' | 'success' | 'warning' | 'info' | 'light' | 'dark';
+import React, { ReactNode } from "react";
+type ThemeType = "primary" | "secondary" | "danger" | "success" | "warning" | "info" | "light" | "dark";
 interface buttonProps {
+    labelWrap?: boolean;
     type?: ThemeType;
-    size?: 'sm' | 'md' | 'lg';
+    size?: "sm" | "md" | "lg";
     children?: ReactNode;
     externalClassName?: string;
     round?: boolean;
@@ -13,10 +14,10 @@ interface buttonProps {
     prefixIcon?: string;
     suffixIcon?: string;
     loading?: boolean;
-    spinerType?: 'border' | 'grow';
+    spinerType?: "border" | "grow";
     spinerColor?: ThemeType;
     fontSize?: string;
-    onClick?: (e: React.MouseEvent<HTMLButtonElement>) => void;
+    onClickOK?: (e: React.MouseEvent<HTMLButtonElement>) => void;
 }
 declare const Button: React.FC<buttonProps>;
 export default Button;

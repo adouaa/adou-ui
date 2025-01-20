@@ -9262,7 +9262,7 @@ var update = injectStylesIntoStyleTag_default()(TableCell/* default */.A, option
 const TableCell_TableCell = props => {
   const {
     parentId,
-    showTip,
+    tooltip,
     sortable,
     collapse,
     isParent,
@@ -9349,7 +9349,7 @@ const TableCell_TableCell = props => {
     className: "ps-3"
   }) : null, /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("div", {
     style: {
-      maxWidth: showTip && parseFloat(maxWidth) > parseFloat(width) - 20 ? parseFloat(width) - 20 + "px" : maxWidth
+      maxWidth
     },
     className: "ellipsis-1 "
   }, editedValue)))));
@@ -9412,7 +9412,7 @@ const recursiveGenerateTableHeaderRows = function (columns) {
 };
 const Table = props => {
   const {
-    headerPadding = "py-1",
+    headerPadding = 'py-1',
     pageSizeOptions = [5, 10, 15, 20],
     pagination = false,
     pageSize = 10,
@@ -9421,11 +9421,11 @@ const Table = props => {
     compact,
     showTip,
     checkAll,
-    tdPadding = "px-2 py-3",
+    tdPadding = 'px-2 py-3',
     clickChecked,
     showHeader = true,
     defaultCheckedList,
-    headerFontWeight = "normal",
+    headerFontWeight = 'normal',
     tableWidth,
     // 控制 table的宽度，太宽的话 可以形成滚动条
     tableBGC,
@@ -9434,13 +9434,13 @@ const Table = props => {
     maxWidth,
     showIndex = false,
     multiple = false,
-    id = "id",
+    id = 'id',
     trPointer = false,
     align,
     collection,
     collapse = true,
     expandAll = false,
-    size = "lg",
+    size = 'lg',
     data,
     columns,
     propsData,
@@ -9448,17 +9448,17 @@ const Table = props => {
     tableStriped = false,
     tableBorderd = false,
     tableBorderless = false,
-    headColor = "null",
+    headColor = 'null',
     captionContent,
-    captionPosition = "top",
-    tableResponsive = "xxl",
+    captionPosition = 'top',
+    tableResponsive = 'xxl',
     eidtable = false,
     headSticky = true,
-    headTextColor = "black",
-    headBGC = "",
+    headTextColor = 'black',
+    headBGC = '',
     divider,
     maxHeight,
-    minHeight = "0px",
+    minHeight = '0px',
     onRowDoubleClick,
     onRowClick,
     onPageChange,
@@ -9498,12 +9498,12 @@ const Table = props => {
   };
   const generateHeaderStyle = position => {
     switch (position) {
-      case "start":
-        return "flex-start";
-      case "end":
-        return "flex-end";
+      case 'start':
+        return 'flex-start';
+      case 'end':
+        return 'flex-end';
       default:
-        return "center";
+        return 'center';
     }
   };
   const judgeSortIconBGC = (prop, isDown) => {
@@ -9511,11 +9511,11 @@ const Table = props => {
     if (!findItem) return;
     if (isDown) {
       if (findItem.isDown) {
-        return "7px solid red";
+        return '7px solid red';
       }
     } else {
       if (findItem.isUp) {
-        return "7px solid red";
+        return '7px solid red';
       }
     }
   };
@@ -9523,12 +9523,12 @@ const Table = props => {
   // 判断每一列的 对齐方式
   const judgeTdAlign = data => {
     switch (data.align || align) {
-      case "start":
-        return "justify-content-start";
-      case "end":
-        return "justify-content-end";
+      case 'start':
+        return 'justify-content-start';
+      case 'end':
+        return 'justify-content-end';
       default:
-        return "justify-content-center";
+        return 'justify-content-center';
     }
   };
 
@@ -9541,7 +9541,7 @@ const Table = props => {
    */
   const judgeChildCellAlign = (data, colProps, colIndex) => {
     var _data$children;
-    return !colIndex && (_data$children = data.children) !== null && _data$children !== void 0 && _data$children.length ? "start" // 父级存在子级时，第一列左对齐
+    return !colIndex && (_data$children = data.children) !== null && _data$children !== void 0 && _data$children.length ? 'start' // 父级存在子级时，第一列左对齐
     : colProps.align || align;
   };
 
@@ -9602,7 +9602,7 @@ const Table = props => {
     // setTableData((preArr: any) => preArr.sort((a: any, b: any) => (a[prop] > b[prop] ? 1 : -1)));
     /* if (isDown) {
     const findItem = tableHeaders.find((item: any) => item.prop === prop);
-     } */
+    } */
   };
   /**
    *
@@ -9627,28 +9627,29 @@ const Table = props => {
         key: childData[id]
       }, /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("tr", {
         onClick: e => handleRowClick(childData, e),
-        className: "tr-content tr-content ".concat(childData.checked === true ? "tr-checked" : "", " collapse-table-tr animate__animated animate__fadeIn"),
+        onDoubleClick: e => handleRowDoubleClick(data, e),
+        className: "tr-content tr-content ".concat(childData.checked === true ? 'tr-checked' : '', " collapse-table-tr animate__animated animate__fadeIn"),
         style: {
           ...(clickChecked || trPointer ? {
-            cursor: "pointer"
-          } : ""),
+            cursor: 'pointer'
+          } : ''),
           ...(!tableBorderd ? {
-            borderBottom: "1px solid #f0f0f0"
+            borderBottom: '1px solid #f0f0f0'
           } : {})
         },
         key: childData[id]
         /* style={{
-                ...(data.collapse ? { display: '' } : { display: 'none' }),
-            }} */
+        ...(data.collapse ? { display: '' } : { display: 'none' }),
+        }} */
       }, collection && /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("td", {
         scope: "row",
         style: {
-          minWidth: !compact ? "50px" : "30px",
-          width: !compact ? "50px" : "30px",
-          maxWidth: !compact ? "50px" : "30px",
-          verticalAlign: "middle"
+          minWidth: !compact ? '50px' : '30px',
+          width: !compact ? '50px' : '30px',
+          maxWidth: !compact ? '50px' : '30px',
+          verticalAlign: 'middle'
         },
-        className: "text-center py-1 ".concat(compact ? "py-0 px-1" : tdPadding)
+        className: "text-center py-1 ".concat(compact ? 'py-0 px-1' : tdPadding)
       }, /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("input", {
         className: tdPadding,
         name: childData[id] + uniqId // 加上 uniqId 防止多个表格的相同复选框冲突
@@ -9656,15 +9657,15 @@ const Table = props => {
         id: childData[id] + uniqId,
         checked: childData.checked === true,
         onChange: e => handleCheckboxChange(childData, e),
-        type: !multiple ? "radio" : "checkbox"
+        type: !multiple ? 'radio' : 'checkbox'
       })), showIndex && /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("th", {
-        className: "text-center py-1 ".concat(compact ? "py-0 px-1" : tdPadding),
+        className: "text-center py-1 ".concat(compact ? 'py-0 px-1' : tdPadding),
         style: {
-          minWidth: !compact ? "50px" : "30px",
-          width: !compact ? "50px" : "30px",
-          maxWidth: !compact ? "50px" : "30px",
-          padding: "0px",
-          alignContent: "center",
+          minWidth: !compact ? '50px' : '30px',
+          width: !compact ? '50px' : '30px',
+          maxWidth: !compact ? '50px' : '30px',
+          padding: '0px',
+          alignContent: 'center',
           fontWeight: headerFontWeight
         }
       }, "".concat(rowIndex + 1, ".").concat(index + 1)), props.children ? external_root_React_commonjs2_react_commonjs_react_amd_react_default().Children.map(array, (col, colIndex) => {
@@ -9691,21 +9692,21 @@ const Table = props => {
           return /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("td", {
             // 这边也不用在子级的第一列在最左侧了
             // colIndex === 0 ? 'text-start' :
-            className: "text-".concat(colProps.align, " py-1 ").concat(compact ? "py-0 px-1" : tdPadding),
+            className: "text-".concat(colProps.align, " py-1 ").concat(compact ? 'py-0 px-1' : tdPadding),
             style: {
               verticalAlign: verticalAlignObject[prop],
               width: widthObject[prop],
-              overflowWrap: "break-word",
-              wordWrap: "break-word",
-              wordBreak: "break-word",
+              overflowWrap: 'break-word',
+              wordWrap: 'break-word',
+              wordBreak: 'break-word',
               maxWidth: colProps.maxWidth || maxWidth,
-              ["".concat(!colIndex ? "paddingLeft" : "")]: "40px"
+              ["".concat(!colIndex ? 'paddingLeft' : '')]: '40px'
             },
             key: colIndex
           }, /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("div", {
             className: "collapse-table-td d-flex ".concat(judgeTdAlign(colProps)),
             style: {
-              paddingLeft: !colIndex ? level * 15 + "px" : 0
+              paddingLeft: !colIndex ? level * 15 + 'px' : 0
             }
           }, colProps.showTip ? /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement((Tooltip_default()), {
             position: "right",
@@ -9734,21 +9735,21 @@ const Table = props => {
         return /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("td", {
           // 这边也不用在子级的第一列在最左侧了
           // colIndex === 0 ? 'text-start' :
-          className: "text-".concat(colProps.align, " py-1 ").concat(compact ? "py-0 px-1" : tdPadding),
+          className: "text-".concat(colProps.align, " py-1 ").concat(compact ? 'py-0 px-1' : tdPadding),
           style: {
             verticalAlign: verticalAlignObject[prop],
             width: widthObject[colProps.prop],
-            overflowWrap: "break-word",
-            wordWrap: "break-word",
-            wordBreak: "break-word",
+            overflowWrap: 'break-word',
+            wordWrap: 'break-word',
+            wordBreak: 'break-word',
             maxWidth: colProps.maxWidth || maxWidth,
-            ["".concat(!colIndex ? "paddingLeft" : "")]: "40px"
+            ["".concat(!colIndex ? 'paddingLeft' : '')]: '40px'
           },
           key: colIndex
         }, /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("div", {
           className: "collapse-table-td d-flex ".concat(judgeTdAlign(colProps)),
           style: {
-            paddingLeft: !colIndex ? level * 15 + "px" : 0
+            paddingLeft: !colIndex ? level * 15 + 'px' : 0
           }
         }, colProps.showTip ? /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement((Tooltip_default()), {
           position: "right",
@@ -9760,7 +9761,7 @@ const Table = props => {
 
   // 计算每一列的宽度
   const calculateHeaderWidth = columns => {
-    console.log("calculateHeaderWidth-------------: ");
+    console.log('calculateHeaderWidth-------------: ');
     const titleLengthObj = {};
     const newHeaderLabels = columns.map(item => {
       return {
@@ -9774,7 +9775,7 @@ const Table = props => {
     }, 0);
     newHeaderLabels.forEach(item => {
       var _item$title;
-      titleLengthObj[item.prop] = Number((((_item$title = item.title) === null || _item$title === void 0 ? void 0 : _item$title.length) / totalLabelLength).toFixed(2)) * 100 + "%";
+      titleLengthObj[item.prop] = Number((((_item$title = item.title) === null || _item$title === void 0 ? void 0 : _item$title.length) / totalLabelLength).toFixed(2)) * 100 + '%';
     });
     return titleLengthObj;
   };
@@ -9802,7 +9803,7 @@ const Table = props => {
       widthObject[item.props.prop] = item.props.width;
       // 优先使用 每一列的 align，table 的 align 次之，都没的话默认居中(align默认等于 center)
       textPositionObject[item.props.prop] = item.props.align || align;
-      verticalAlignObject[item.props.prop] = item.props.verticalAlign || "middle";
+      verticalAlignObject[item.props.prop] = item.props.verticalAlign || 'middle';
     }
   });
   if (!(0,Utils.isEmptyO)(widthObject) && Object.values(widthObject).every(item => !item)) {
@@ -9879,7 +9880,7 @@ const Table = props => {
   const renderTableHeader = () => {
     return /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("thead", {
       style: {
-        position: headSticky ? "sticky" : "unset",
+        position: headSticky ? 'sticky' : 'unset',
         top: 0,
         backgroundColor: "".concat(headBGC),
         zIndex: 999
@@ -9890,45 +9891,45 @@ const Table = props => {
         return /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("tr", {
           key: index
         }, index === 0 && collection && /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("th", {
-          className: "".concat(compact ? "p-0" : ""),
+          className: "".concat(compact ? 'p-0' : ''),
           rowSpan: maxDepth,
           scope: "col th-collection",
           style: {
-            minWidth: !compact ? "50px" : "30px",
-            width: !compact ? "50px" : "30px",
-            maxWidth: !compact ? "50px" : "30px",
-            textAlign: "center"
+            minWidth: !compact ? '50px' : '30px',
+            width: !compact ? '50px' : '30px',
+            maxWidth: !compact ? '50px' : '30px',
+            textAlign: 'center'
           }
         }, multiple && /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("input", {
           checked: checkedAll,
           onChange: handleCheckedAllChange,
-          type: !multiple ? "radio" : "checkbox"
+          type: !multiple ? 'radio' : 'checkbox'
         })), index === 0 && showIndex && /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("th", {
-          className: "".concat(compact ? "p-0" : ""),
+          className: "".concat(compact ? 'p-0' : ''),
           rowSpan: maxDepth,
           scope: "col th-index",
           style: {
-            minWidth: !compact ? "50px" : "30px",
-            width: !compact ? "50px" : "30px",
-            maxWidth: !compact ? "50px" : "30px"
+            minWidth: !compact ? '50px' : '30px',
+            width: !compact ? '50px' : '30px',
+            maxWidth: !compact ? '50px' : '30px'
           }
         }), child.map(item => {
           return /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("th", {
             rowSpan: item.rowSpan,
             colSpan: item.colSpan,
             style: {
-              whiteSpace: "nowrap",
+              whiteSpace: 'nowrap',
               width: widthObject[item.prop],
               fontWeight: headerFontWeight
             },
-            className: "".concat(textPositionObject[item.prop] ? "text-" + textPositionObject[item.prop] : "", " ").concat(compact ? "p-0" : "", " align-middle"),
+            className: "".concat(textPositionObject[item.prop] ? 'text-' + textPositionObject[item.prop] : '', " ").concat(compact ? 'p-0' : '', " align-middle"),
             scope: "col",
             key: item.title
           }, /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("div", {
             className: "header-content ".concat(headerPadding),
             style: {
-              display: "flex",
-              alignItems: "center",
+              display: 'flex',
+              alignItems: 'center',
               justifyContent: item.headerAlign || generateHeaderStyle(textPositionObject[item.prop])
             }
           }, /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("span", {
@@ -9937,13 +9938,13 @@ const Table = props => {
             className: "header-icon ms-1"
           }, /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("i", {
             style: {
-              borderBottom: judgeSortIconBGC(item.prop) || "7px solid #000"
+              borderBottom: judgeSortIconBGC(item.prop) || '7px solid #000'
             },
             onClick: () => handleSortable(item.prop),
             className: "icon sort-up"
           }), /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("i", {
             style: {
-              borderTop: judgeSortIconBGC(item.prop, true) || "7px solid #000"
+              borderTop: judgeSortIconBGC(item.prop, true) || '7px solid #000'
             },
             onClick: () => handleSortable(item.prop, true),
             className: "icon sort-down"
@@ -9956,7 +9957,7 @@ const Table = props => {
   // 渲染折叠的子组件
   const renderTableBody = () => {
     return /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("tbody", {
-      className: "table-body ".concat(divider ? "table-group-divider" : "")
+      className: "table-body ".concat(divider ? 'table-group-divider' : '')
     }, tableData.length > 0 && paginatedData.map((data, rowIndex) => {
       return (
         /*#__PURE__*/
@@ -9964,17 +9965,18 @@ const Table = props => {
         external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement(external_root_React_commonjs2_react_commonjs_react_amd_react_.Fragment, {
           key: data[id] + uniqId
         }, /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("tr", {
-          onClick: e => handleRowClick(data, e)
+          onClick: e => handleRowClick(data, e),
+          onDoubleClick: e => handleRowDoubleClick(data, e)
           // onDoubleClick={() => handleRowDoubleClick(data)}
           ,
           key: rowIndex,
-          className: "tr-content ".concat(data.checked === true ? "tr-checked" : ""),
+          className: "tr-content ".concat(data.checked === true ? 'tr-checked' : ''),
           style: {
             ...(clickChecked || trPointer ? {
-              cursor: "pointer"
-            } : ""),
+              cursor: 'pointer'
+            } : ''),
             ...(!tableBorderd ? {
-              borderBottom: "1px solid #f0f0f0"
+              borderBottom: '1px solid #f0f0f0'
             } : {})
           }
         }, collection &&
@@ -9983,12 +9985,12 @@ const Table = props => {
         external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("td", {
           scope: "row",
           style: {
-            minWidth: !compact ? "50px" : "30px",
-            width: !compact ? "50px" : "30px",
-            maxWidth: !compact ? "50px" : "30px",
-            verticalAlign: "middle"
+            minWidth: !compact ? '50px' : '30px',
+            width: !compact ? '50px' : '30px',
+            maxWidth: !compact ? '50px' : '30px',
+            verticalAlign: 'middle'
           },
-          className: "text-center py-1 ".concat(compact ? "py-0 px-1" : tdPadding)
+          className: "text-center py-1 ".concat(compact ? 'py-0 px-1' : tdPadding)
         }, /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("input", {
           className: tdPadding,
           name: data[id] + uniqId // 加上 uniqId 防止多个表格的相同复选框冲突
@@ -9996,19 +9998,19 @@ const Table = props => {
           id: data[id] + uniqId,
           checked: data.checked === true,
           onChange: e => handleCheckboxChange(data, e),
-          type: !multiple ? "radio" : "checkbox"
+          type: !multiple ? 'radio' : 'checkbox'
         })), showIndex &&
         /*#__PURE__*/
         // 索引框
         external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("td", {
-          className: "text-center py-1 ".concat(compact ? "py-0 px-1" : tdPadding),
+          className: "text-center py-1 ".concat(compact ? 'py-0 px-1' : tdPadding),
           scope: "col",
           style: {
-            alignContent: "center",
-            padding: "0px",
-            minWidth: !compact ? "50px" : "30px",
-            width: !compact ? "50px" : "30px",
-            maxWidth: !compact ? "50px" : "30px"
+            alignContent: 'center',
+            padding: '0px',
+            minWidth: !compact ? '50px' : '30px',
+            width: !compact ? '50px' : '30px',
+            maxWidth: !compact ? '50px' : '30px'
             /* ...(data.children ? { backgroundColor: '#fff', boxShadow: 'none' } : {}), */
           }
         }, rowIndex + 1), props.children ? external_root_React_commonjs2_react_commonjs_react_amd_react_default().Children.map(array, (col, colIndex) => {
@@ -10027,7 +10029,7 @@ const Table = props => {
               canCollapse: data.children,
               collapse: data.collapse,
               // 防止 Table 的 align 不生效的bug
-              align: !colIndex && collapse && data.children ? "start" : colProps.align || align,
+              align: !colIndex && collapse && data.children ? 'start' : colProps.align || align,
               width: widthObject[colProps.prop],
               maxWidth: colProps.maxWidth || maxWidth,
               showTip: colProps.showTip || showTip
@@ -10035,17 +10037,17 @@ const Table = props => {
             return /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("td", {
               // 父级第一列不需要在 最左侧了
               // !colIndex && collapse && data.children ? 'text-start' : `text-${textPositionObject[prop]}`
-              className: "text-".concat(colProps.align || align, " py-1 ").concat(compact ? "py-0 px-1" : tdPadding),
+              className: "text-".concat(colProps.align || align, " py-1 ").concat(compact ? 'py-0 px-1' : tdPadding),
               style: {
                 verticalAlign: verticalAlignObject[prop],
                 width: widthObject[colProps.prop],
                 maxWidth: colProps.maxWidth || maxWidth,
-                overflowWrap: "break-word",
-                wordWrap: "break-word",
-                wordBreak: "break-word",
+                overflowWrap: 'break-word',
+                wordWrap: 'break-word',
+                wordBreak: 'break-word',
                 // 如果要默认展示一行，并且x轴太长可以滚动的话，则设置为nowrap
                 // 注意：此时，外部设置的 width就没作用了，表格会自己根据内容来设置宽度
-                whiteSpace: "nowrap"
+                whiteSpace: 'nowrap'
                 /*  [`${!colIndex && data.children ? 'paddingLeft' : ''}`]: '35px', */
               },
               key: colIndex
@@ -10070,7 +10072,7 @@ const Table = props => {
             canCollapse: data.children,
             collapse: data.collapse,
             // 防止 Table 的 align 不生效的bug
-            align: !colIndex && collapse && data.children ? "start" : colProps.align || align,
+            align: !colIndex && collapse && data.children ? 'start' : colProps.align || align,
             width: widthObject[colProps.prop],
             maxWidth: colProps.maxWidth || maxWidth,
             showTip: colProps.showTip || showTip
@@ -10078,17 +10080,17 @@ const Table = props => {
           return /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("td", {
             // 父级第一列不需要在 最左侧了
             // !colIndex && collapse && data.children ? 'text-start' : `text-${textPositionObject[prop]}`
-            className: "text-".concat(colProps.align || align, " py-1 ").concat(compact ? "py-0 px-1" : tdPadding),
+            className: "text-".concat(colProps.align || align, " py-1 ").concat(compact ? 'py-0 px-1' : tdPadding),
             style: {
               verticalAlign: verticalAlignObject[prop],
               width: widthObject[colProps.prop],
               maxWidth: colProps.maxWidth || maxWidth,
-              overflowWrap: "break-word",
-              wordWrap: "break-word",
-              wordBreak: "break-word",
+              overflowWrap: 'break-word',
+              wordWrap: 'break-word',
+              wordBreak: 'break-word',
               // 如果要默认展示一行，并且x轴太长可以滚动的话，则设置为nowrap
               // 注意：此时，外部设置的 width就没作用了，表格会自己根据内容来设置宽度
-              whiteSpace: "nowrap"
+              whiteSpace: 'nowrap'
               /*  [`${!colIndex && data.children ? 'paddingLeft' : ''}`]: '35px', */
             },
             key: colIndex
@@ -10104,31 +10106,6 @@ const Table = props => {
 
   // 选择逻辑
   const [checkedAll, setCheckedAll] = (0,external_root_React_commonjs2_react_commonjs_react_amd_react_.useState)(false);
-
-  /**
-   *
-   * 双击选中这条tr
-   */
-  const handleRowDoubleClick = row => {
-    const finalChecked = !row.checked;
-    setTableData(preArr => {
-      return preArr.map(item => {
-        if (item[id] === row[id]) {
-          item.checked = !item.checked;
-        } else {
-          if (!multiple) {
-            item.checked = false;
-          }
-        }
-        return item;
-      });
-    });
-    if (finalChecked) {
-      onRowDoubleClick && onRowDoubleClick(row);
-    } else {
-      onRowDoubleClick && onRowDoubleClick({});
-    }
-  };
   const recursiveUpdateParentChecked = (child, parentData, id) => {
     const parent = parentData.find(item => {
       if (item[id] === child.parentId) {
@@ -10147,7 +10124,7 @@ const Table = props => {
       if (allChildrenChecked) {
         parent.checked = true;
       } else if (someChildrenChecked) {
-        parent.checked = "partial"; // 表示部分选中，你可以根据需求自定义状态
+        parent.checked = 'partial'; // 表示部分选中，你可以根据需求自定义状态
       } else {
         parent.checked = false;
       }
@@ -10157,20 +10134,64 @@ const Table = props => {
       }
     } else {}
   };
+  let clickTimeout = null; // 用于存储定时器
+  const CLICK_DELAY = 300; // 单击延迟时间，单位：毫秒
 
   /**
-   *
    * 单击tr
    */
   const handleRowClick = (row, e) => {
-    onRowClick && onRowClick(row);
-    onRowDoubleClick && onRowDoubleClick(row);
-    if (clickChecked) {
-      // 新增标志位，用于判断是否是由复选框触发的点击
-      const isCheckboxClick = e.target.type === "checkbox" || e.target.type === "radio";
-      if (!isCheckboxClick) {
-        handleCheckboxChange(row, e);
+    // 如果存在延时，说明是双击，取消单击事件
+    if (clickTimeout) {
+      clearTimeout(clickTimeout);
+      clickTimeout = null;
+      return; // 双击时不触发单击事件
+    }
+
+    // 设置定时器，延时触发单击事件
+    clickTimeout = setTimeout(() => {
+      onRowClick && onRowClick(row);
+      if (clickChecked) {
+        const isCheckboxClick = e.target.type === 'checkbox' || e.target.type === 'radio';
+        if (!isCheckboxClick) {
+          handleCheckboxChange(row, e);
+        }
       }
+    }, CLICK_DELAY);
+  };
+
+  /**
+   *
+   * 双击选中这条tr
+   */
+  const handleRowDoubleClick = (row, e) => {
+    e.stopPropagation(); // 阻止事件传播，防止双击时触发单击
+    const finalChecked = !row.checked;
+    setTableData(preArr => {
+      return preArr.map(item => {
+        if (item[id] === row[id]) {
+          item.checked = !item.checked;
+        } else {
+          if (!multiple) {
+            item.checked = false;
+          }
+        }
+        return item;
+      });
+    });
+
+    // 一开始是判断 是否已经选中，如果已经选中 再双击的话，则回调函数的参数是 空，现在不需要了，直接返回参数
+    /* if (finalChecked) {
+    onRowDoubleClick && onRowDoubleClick(row);
+    } else {
+    onRowDoubleClick && onRowDoubleClick({});
+    } */
+    onRowDoubleClick && onRowDoubleClick(row);
+
+    // 清除延时触发的单击事件，防止双击后单击事件被执行
+    if (clickTimeout) {
+      clearTimeout(clickTimeout);
+      clickTimeout = null;
     }
   };
 
@@ -10248,8 +10269,8 @@ const Table = props => {
         } else if ((_item$children6 = item.children) !== null && _item$children6 !== void 0 && _item$children6.length) {
           item.children = recursiveUpdateTableDataCheckState(item.children); // 这步要先执行，不然下面的 else if 判断不会进入 不符合的父节点的子级节点
         } /* else if (!multiple) {
-                item.checked = false;
-            } */
+          item.checked = false;
+          } */
         return item;
       });
     };
@@ -10351,12 +10372,12 @@ const Table = props => {
   const handleScrollToEnd = () => {
     // 表格滚动到底部
     setTimeout(() => {
-      const table = document.querySelector(".table-wrapper");
-      const tableBody = document.querySelector(".table-body");
+      const table = document.querySelector('.table-wrapper');
+      const tableBody = document.querySelector('.table-body');
       if (tableBody && table) {
         table.scrollTo({
           top: tableBody.clientHeight,
-          behavior: "smooth"
+          behavior: 'smooth'
         });
       }
     }, 100);
@@ -10365,11 +10386,11 @@ const Table = props => {
   // 滚到底部
   const handleScrollToTop = () => {
     // 表格滚动到底部
-    const table = document.querySelector(".table-wrapper");
+    const table = document.querySelector('.table-wrapper');
     if (table) {
       table.scrollTo({
         top: 0,
-        behavior: "smooth"
+        behavior: 'smooth'
       });
     }
   };
@@ -10426,14 +10447,14 @@ const Table = props => {
   }, [data]);
   (0,external_root_React_commonjs2_react_commonjs_react_amd_react_.useEffect)(() => {
     /* setTableData((preData: any) =>
-          preData.map((item: any) => {
-              const isChildrenAllChecked = areAllChecked(item.children);
-              if (isChildrenAllChecked) {
-                  item.checked = true;
-              }
-              return item;
-          })
-      ); */
+        preData.map((item: any) => {
+            const isChildrenAllChecked = areAllChecked(item.children);
+            if (isChildrenAllChecked) {
+                item.checked = true;
+            }
+            return item;
+        })
+    ); */
   }, [tableData]);
   (0,external_root_React_commonjs2_react_commonjs_react_amd_react_.useEffect)(() => {
     if (activeId) {
@@ -10493,62 +10514,62 @@ const Table = props => {
       for (let i = 1; i <= totalPages; i++) {
         result.push({
           page: i,
-          type: "page"
+          type: 'page'
         });
       }
     } else {
       // 始终显示第一页
       result.push({
         page: 1,
-        type: "page"
+        type: 'page'
       });
       if (currentPageState <= maxPagesShow - 2) {
         // 当前页靠近开始
         for (let i = 2; i <= maxPagesShow; i++) {
           result.push({
             page: i,
-            type: "page"
+            type: 'page'
           });
         }
         result.push({
           page: 0,
-          type: "ellipsis"
+          type: 'ellipsis'
         });
         result.push({
           page: totalPages,
-          type: "page"
+          type: 'page'
         });
       } else if (currentPageState >= totalPages - (maxPagesShow - 3)) {
         // 当前页靠近结束
         result.push({
           page: 0,
-          type: "ellipsis"
+          type: 'ellipsis'
         });
         for (let i = totalPages - (maxPagesShow - 1); i <= totalPages; i++) {
           result.push({
             page: i,
-            type: "page"
+            type: 'page'
           });
         }
       } else {
         // 当前页在中间
         result.push({
           page: 0,
-          type: "ellipsis"
+          type: 'ellipsis'
         });
         for (let i = currentPageState - 1; i <= currentPageState + 1; i++) {
           result.push({
             page: i,
-            type: "page"
+            type: 'page'
           });
         }
         result.push({
           page: 0,
-          type: "ellipsis"
+          type: 'ellipsis'
         });
         result.push({
           page: totalPages,
-          type: "page"
+          type: 'page'
         });
       }
     }
@@ -10557,9 +10578,9 @@ const Table = props => {
 
   // 处理页码改变
   const handlePageChange = (page, type) => {
-    if (type === "prev") {
+    if (type === 'prev') {
       if (page <= 0) return;
-    } else if (type === "next") {
+    } else if (type === 'next') {
       if (page >= totalPages + 1) return;
     }
     setCurrentPageState(page);
@@ -10588,7 +10609,7 @@ const Table = props => {
     }, "\u5171 ", tableData.length, " \u6761"), /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("select", {
       className: "form-select form-select-sm me-2",
       style: {
-        width: "100px"
+        width: '100px'
       },
       value: pageSizeState,
       onChange: e => handlePageSizeChange(Number(e.target.value))
@@ -10598,40 +10619,40 @@ const Table = props => {
     }, size, " \u6761/\u9875")))), /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("div", {
       className: "pagination d-flex align-items-center"
     }, /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("i", {
-      onClick: () => handlePageChange(currentPageState - 1, "prev"),
-      className: "prev-arrow rounded fa-solid fa-chevron-left ".concat(currentPageState === 1 ? "disabled" : "")
+      onClick: () => handlePageChange(currentPageState - 1, 'prev'),
+      className: "prev-arrow rounded fa-solid fa-chevron-left ".concat(currentPageState === 1 ? 'disabled' : '')
     }), /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("div", {
       className: "page-numbers d-flex align-items-center mx-2"
     }, generatePageNumbers().map((item, index) => /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement((external_root_React_commonjs2_react_commonjs_react_amd_react_default()).Fragment, {
       key: index
-    }, item.type === "page" ? /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("button", {
-      className: "btn btn-sm page-number-item d-flex align-items-center justify-content-center mx-1 ".concat(item.page === currentPageState ? "btn-primary" : "btn-outline-secondary"),
+    }, item.type === 'page' ? /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("button", {
+      className: "btn btn-sm page-number-item d-flex align-items-center justify-content-center mx-1 ".concat(item.page === currentPageState ? 'btn-primary' : 'btn-outline-secondary'),
       style: {
-        minWidth: "24px",
-        height: "26px"
+        minWidth: '24px',
+        height: '26px'
       },
       onClick: () => handlePageChange(item.page)
     }, item.page) : /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("span", {
       className: "mx-1 d-flex align-items-center"
     }, "...")))), /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("i", {
-      className: "next-arrow rounded fa-solid fa-chevron-right ".concat(currentPageState === totalPages ? "disabled" : ""),
-      onClick: () => handlePageChange(currentPageState + 1, "next")
+      className: "next-arrow rounded fa-solid fa-chevron-right ".concat(currentPageState === totalPages ? 'disabled' : ''),
+      onClick: () => handlePageChange(currentPageState + 1, 'next')
     })));
   };
   return /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement((external_root_React_commonjs2_react_commonjs_react_amd_react_default()).Fragment, null, /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("div", {
     style: {
       minHeight: minHeight,
       maxHeight: maxHeight,
-      overflow: "auto",
+      overflow: 'auto',
       width: tableWidth
     },
-    className: "table-wrapper ".concat("table-responsive".concat("-" + tableResponsive))
+    className: "table-wrapper ".concat("table-responsive".concat('-' + tableResponsive))
   }, /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("table", {
     style: {
       background: tableBGC,
       width: tableWidth
     },
-    className: "table ".concat(tableStriped ? "table-striped" : "", " ").concat(tableBorderd ? "table-bordered" : "table-borderless", " table-").concat(size, " ").concat(headColor ? "table-".concat(headColor) : "", " overflow-auto ").concat(paginatedData.length === 0 ? "mb-0" : "")
+    className: "table ".concat(tableStriped ? 'table-striped' : '', " ").concat(tableBorderd ? 'table-bordered' : 'table-borderless', " table-").concat(size, " ").concat(headColor ? "table-".concat(headColor) : '', " overflow-auto ").concat(paginatedData.length === 0 ? 'mb-0' : '')
   }, showHeader && renderTableHeader(), renderTableBody()), paginatedData.length === 0 && /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("div", {
     className: "text-center p-1"
   }, "\u6682\u65E0\u6570\u636E~"), renderPagination()));
