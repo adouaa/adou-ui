@@ -4,7 +4,7 @@ interface ResizableSidebarProps {
     wrapperClsassName?: string;
     wrapperStyle?: React.CSSProperties;
     showTggleBtnWhenNotExpanded?: boolean;
-    actRef?: any;
+    resizeableSliderbarRef?: any;
     showToggleBtn?: boolean;
     toggleBtnStyle?: React.CSSProperties;
     toggleBtnClassName?: string;
@@ -18,5 +18,5 @@ interface ResizableSidebarProps {
     children?: any;
     onToggle?: (isExpanded: boolean) => void;
 }
-declare const ResizableSidebar: ({ wrapperClsassName, wrapperStyle, showTggleBtnWhenNotExpanded, actRef, showToggleBtn, toggleBtnStyle, toggleBtnClassName, contentOverflow, contentFlex, initialWidth, initialHeight, minWidth, maxWidth, children, onToggle, }: ResizableSidebarProps) => React.JSX.Element;
+declare const ResizableSidebar: ({ wrapperClsassName, wrapperStyle, showTggleBtnWhenNotExpanded, resizeableSliderbarRef, showToggleBtn, toggleBtnStyle, toggleBtnClassName, contentOverflow, contentFlex, initialWidth, initialHeight, minDragWidth, minWidth, maxWidth, children, onToggle, }: ResizableSidebarProps) => React.JSX.Element;
 export default ResizableSidebar;

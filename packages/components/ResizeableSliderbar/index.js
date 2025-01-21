@@ -627,7 +627,7 @@ const ResizableSidebar = _ref => {
     wrapperClsassName,
     wrapperStyle,
     showTggleBtnWhenNotExpanded = true,
-    actRef,
+    resizeableSliderbarRef,
     showToggleBtn = true,
     toggleBtnStyle,
     toggleBtnClassName,
@@ -635,6 +635,7 @@ const ResizableSidebar = _ref => {
     contentFlex = false,
     initialWidth = "0px",
     initialHeight = "100%",
+    minDragWidth = 0,
     minWidth = 50,
     maxWidth = "300px",
     children,
@@ -647,7 +648,6 @@ const ResizableSidebar = _ref => {
   const [initialSiderBarHeight, setInitialSiderBarHeight] = (0,external_root_React_commonjs2_react_commonjs_react_amd_react_.useState)(initialHeight);
   const [isDragging, setIsDragging] = (0,external_root_React_commonjs2_react_commonjs_react_amd_react_.useState)(false);
   const [isExpanded, setIsExpanded] = (0,external_root_React_commonjs2_react_commonjs_react_amd_react_.useState)(false);
-  const [isShowToggleBtnWhenNotExpanded, setIsShowToggleBtnWhenNotExpanded] = (0,external_root_React_commonjs2_react_commonjs_react_amd_react_.useState)(showTggleBtnWhenNotExpanded);
   const resizeableContainerRef = (0,external_root_React_commonjs2_react_commonjs_react_amd_react_.useRef)();
   const siderBarRef = (0,external_root_React_commonjs2_react_commonjs_react_amd_react_.useRef)();
   const toggleBtnRef = (0,external_root_React_commonjs2_react_commonjs_react_amd_react_.useRef)(null);
@@ -666,17 +666,14 @@ const ResizableSidebar = _ref => {
       window.removeEventListener("mouseup", handleMouseUp);
     };
   }, [isResizing]);
+  const startResizing = () => {
+    setIsResizing(true);
+  };
   const toggleSidebar = () => {
-    setCurrentSidebarWidth(parseFloat(currentSidebarWidth) > minWidth ? minWidth + "px" : parseFloat(initialWidth) ? initialWidth : maxWidth); // 假设展开宽度为300
+    setCurrentSidebarWidth(parseFloat(currentSidebarWidth) > minWidth ? minWidth + "px" : initialWidth || maxWidth); // 假设展开宽度为300
+    const oldIsExpanded = isExpanded; // 记录当前展开状态
     onToggle && onToggle(!isExpanded);
-    setIsExpanded(prev => !prev);
-    setTimeout(() => {
-      // setIsShowToggleBtnWhenNotExpanded(!isShowToggleBtnWhenNotExpanded); 不能直接这样写，会出现状态错乱
-      // 如果在收起时 不需要显示 toggleBtn，才执行下面的逻辑
-      if (!showTggleBtnWhenNotExpanded) {
-        setIsShowToggleBtnWhenNotExpanded(prev => !prev);
-      }
-    }, 100);
+    setIsExpanded(!oldIsExpanded);
   };
   const handleSliderBarMouseDown = e => {
     setIsDragging(true);
@@ -706,21 +703,13 @@ const ResizableSidebar = _ref => {
       setCurrentSidebarWidth(calcWidth + "px");
     }
     setIsDragging(false);
-    console.log("currentSidebarWidth: ", currentSidebarWidth);
-    if (parseFloat(currentSidebarWidth) > minWidth) {
-      setIsShowToggleBtnWhenNotExpanded(true);
-      setIsExpanded(true); // 拖拽结束，如果宽度大于最小宽度，则认为展开
-    } else {
-      setIsShowToggleBtnWhenNotExpanded(false);
-      setIsExpanded(false); // 拖拽结束，如果宽度小于最小宽度，则认为收起
-    }
   };
   const getContentWidth = () => {
     const content = resizeableContainerRef.current.querySelector(".content");
     return content.offsetWidth;
   };
   (0,external_root_React_commonjs2_react_commonjs_react_amd_react_.useEffect)(() => {
-    if (parseFloat(initialWidth)) {
+    if (initialWidth) {
       setIsExpanded(true);
     }
   }, [initialWidth]);
@@ -735,10 +724,10 @@ const ResizableSidebar = _ref => {
   // 为第一次出现添加动画效果
   (0,external_root_React_commonjs2_react_commonjs_react_amd_react_.useEffect)(() => {
     setTimeout(() => {
-      setCurrentSidebarWidth(parseFloat(initialWidth) ? parseFloat(initialWidth) > parseFloat(maxWidth) ? maxWidth : initialWidth : 0);
+      setCurrentSidebarWidth(initialWidth ? parseFloat(initialWidth) > parseFloat(maxWidth) ? maxWidth : initialWidth : 0);
     }, 100);
   }, []);
-  (0,external_root_React_commonjs2_react_commonjs_react_amd_react_.useImperativeHandle)(actRef, () => ({
+  (0,external_root_React_commonjs2_react_commonjs_react_amd_react_.useImperativeHandle)(resizeableSliderbarRef, () => ({
     getExpandStatus: () => {
       return isExpanded;
     },
@@ -773,26 +762,22 @@ const ResizableSidebar = _ref => {
     onDrag: handleDrag,
     onDragEnd: handleDragEnd,
     onDragStart: handleDragStart
-  }), showToggleBtn ? (isExpanded ? initialHeight > 0 || initialSiderBarHeight > 0 // 如果是展开的情况下，要判断宽度
-  : isShowToggleBtnWhenNotExpanded) ?
-  /*#__PURE__*/
-  // 非展开的情况下(即收起状态)，判断是否要显示 toggle 按钮
-  external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("div", {
+  }), (isExpanded ? (initialHeight > 0 || initialSiderBarHeight > 0) && showToggleBtn : showTggleBtnWhenNotExpanded) ? /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("div", {
     ref: toggleBtnRef,
-    className: "toggle-btn ".concat(toggleBtnClassName),
+    className: "toggle-btn d-flex align-items-center justify-content-center hover-scale ".concat(toggleBtnClassName ? toggleBtnClassName : ""),
     onClick: toggleSidebar,
     style: {
       ...toggleBtnStyle
       /* ...(toggleBtnPosition?.right
-      ? {
-          right: isExpanded ? toggleBtnPosition.right : "12px",
-          top: toggleBtnPosition.top,
-        }
-      : {}), */
+        ? {
+            right: isExpanded ? toggleBtnPosition.right : "12px",
+            top: toggleBtnPosition.top,
+          }
+        : {}), */
     }
   }, /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("i", {
-    className: "fa-solid text-white ".concat(parseFloat(currentSidebarWidth) <= minWidth ? "fa-angles-right" : "fa-angles-left")
-  })) : "" : ""));
+    className: "fa-solid text-white small ".concat(parseFloat(currentSidebarWidth) <= minWidth ? "fa-angles-right" : "fa-angles-left")
+  })) : ""));
 };
 /* harmony default export */ const src_0 = (ResizableSidebar);
 })();
