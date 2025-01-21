@@ -4,10 +4,15 @@ import React from 'react';
 import { createRoot, Root } from 'react-dom/client';
 import './loading.scss';
 
-const Loading = () => {
+interface LoadingProps {
+    maskStyle?: React.CSSProperties;
+    loadingStyle?: React.CSSProperties;
+}
+
+const Loading = ({ maskStyle, loadingStyle }: LoadingProps) => {
     return (
-        <div className="loading-overlay">
-            <div className="loading-spinner me-2"></div>
+        <div className="loading-overlay" style={{ ...maskStyle }}>
+            <div className="loading-spinner me-2" style={{ ...loadingStyle }}></div>
             <span>Loading...</span>
         </div>
     );
@@ -22,7 +27,7 @@ let loadingCount = 0;
 let loadingInstance: LoadingInstance | null = null;
 let root: Root | null = null;
 
-const createLoadingInstance = (): LoadingInstance => {
+const createLoadingInstance = (maskStyle: React.CSSProperties = {}, loadingStyle: React.CSSProperties = {}): LoadingInstance => {
     // 创建容器
     const container = document.createElement('div');
     container.className = 'loading-wrapper';
@@ -33,7 +38,7 @@ const createLoadingInstance = (): LoadingInstance => {
 
     // 渲染组件
     const render = (visible: boolean) => {
-        root?.render(visible ? <Loading /> : null);
+        root?.render(visible ? <Loading maskStyle={maskStyle} loadingStyle={loadingStyle} /> : null);
     };
 
     return {
@@ -52,7 +57,7 @@ export const useLoading = () => {
     useEffect(() => {
         // 确保只创建一个实例
         if (!loadingInstance) {
-            loadingInstance = createLoadingInstance();
+            loadingInstance = createLoadingInstance({ backgroundColor: 'rgba(255, 255, 255, 0.8)' }, { width: '40px', height: '40px' });
         }
     }, []);
 

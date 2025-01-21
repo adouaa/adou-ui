@@ -52,7 +52,7 @@ import ReactDOM from 'react-dom/client';
 
 // import App from './test-notification/App.tsx';
 
-// import App from './test-loading/App.tsx';
+import App from './test-loading/App.tsx';
 
 // import App from './test-switch/App.tsx';
 

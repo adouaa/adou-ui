@@ -5,7 +5,7 @@ interface ResizableSidebarProps {
     wrapperClsassName?: string;
     wrapperStyle?: React.CSSProperties;
     showTggleBtnWhenNotExpanded?: boolean;
-    actRef?: any;
+    resizeableSliderbarRef?: any;
     showToggleBtn?: boolean;
     toggleBtnStyle?: React.CSSProperties;
     toggleBtnClassName?: string;
@@ -24,7 +24,7 @@ const ResizableSidebar = ({
     wrapperClsassName,
     wrapperStyle,
     showTggleBtnWhenNotExpanded = true,
-    actRef,
+    resizeableSliderbarRef,
     showToggleBtn = true,
     toggleBtnStyle,
     toggleBtnClassName,
@@ -32,6 +32,7 @@ const ResizableSidebar = ({
     contentFlex = false,
     initialWidth = '0px',
     initialHeight = '100%',
+    minDragWidth = 0,
     minWidth = 50,
     maxWidth = '300px',
     children,
@@ -44,7 +45,6 @@ const ResizableSidebar = ({
     const [initialSiderBarHeight, setInitialSiderBarHeight] = useState<any>(initialHeight);
     const [isDragging, setIsDragging] = useState<boolean>(false);
     const [isExpanded, setIsExpanded] = useState<boolean>(false);
-    const [isShowToggleBtnWhenNotExpanded, setIsShowToggleBtnWhenNotExpanded] = useState<boolean>(showTggleBtnWhenNotExpanded);
     const resizeableContainerRef = useRef<any>();
     const siderBarRef = useRef<any>();
     const toggleBtnRef = useRef<any>(null);
@@ -69,17 +69,15 @@ const ResizableSidebar = ({
         };
     }, [isResizing]);
 
+    const startResizing = () => {
+        setIsResizing(true);
+    };
+
     const toggleSidebar = () => {
-        setCurrentSidebarWidth(parseFloat(currentSidebarWidth) > minWidth ? minWidth + 'px' : parseFloat(initialWidth) ? initialWidth : maxWidth); // 假设展开宽度为300
+        setCurrentSidebarWidth(parseFloat(currentSidebarWidth) > minWidth ? minWidth + 'px' : initialWidth || maxWidth); // 假设展开宽度为300
+        const oldIsExpanded = isExpanded; // 记录当前展开状态
         onToggle && onToggle(!isExpanded);
-        setIsExpanded((prev: boolean) => !prev);
-        setTimeout(() => {
-            // setIsShowToggleBtnWhenNotExpanded(!isShowToggleBtnWhenNotExpanded); 不能直接这样写，会出现状态错乱
-            // 如果在收起时 不需要显示 toggleBtn，才执行下面的逻辑
-            if (!showTggleBtnWhenNotExpanded) {
-                setIsShowToggleBtnWhenNotExpanded((prev: boolean) => !prev);
-            }
-        }, 100);
+        setIsExpanded(!oldIsExpanded);
     };
 
     const handleSliderBarMouseDown = (e: React.MouseEvent) => {
@@ -114,14 +112,6 @@ const ResizableSidebar = ({
             setCurrentSidebarWidth(calcWidth + 'px');
         }
         setIsDragging(false);
-        console.log('currentSidebarWidth: ', currentSidebarWidth);
-        if (parseFloat(currentSidebarWidth) > minWidth) {
-            setIsShowToggleBtnWhenNotExpanded(true);
-            setIsExpanded(true); // 拖拽结束，如果宽度大于最小宽度，则认为展开
-        } else {
-            setIsShowToggleBtnWhenNotExpanded(false);
-            setIsExpanded(false); // 拖拽结束，如果宽度小于最小宽度，则认为收起
-        }
     };
 
     const getContentWidth = () => {
@@ -130,7 +120,7 @@ const ResizableSidebar = ({
     };
 
     useEffect(() => {
-        if (parseFloat(initialWidth)) {
+        if (initialWidth) {
             setIsExpanded(true);
         }
     }, [initialWidth]);
@@ -145,12 +135,12 @@ const ResizableSidebar = ({
     // 为第一次出现添加动画效果
     useEffect(() => {
         setTimeout(() => {
-            setCurrentSidebarWidth(parseFloat(initialWidth) ? (parseFloat(initialWidth!) > parseFloat(maxWidth) ? maxWidth : initialWidth) : 0);
+            setCurrentSidebarWidth(initialWidth ? (parseFloat(initialWidth!) > parseFloat(maxWidth) ? maxWidth : initialWidth) : 0);
         }, 100);
     }, []);
 
     useImperativeHandle(
-        actRef,
+        resizeableSliderbarRef,
         () => ({
             getExpandStatus: () => {
                 return isExpanded;
@@ -182,6 +172,7 @@ const ResizableSidebar = ({
                 >
                     {children}
                 </div>
+                {/* 滚动条 */}
                 <div
                     ref={siderBarRef}
                     draggable={true}
@@ -193,32 +184,23 @@ const ResizableSidebar = ({
                     onDragEnd={handleDragEnd}
                     onDragStart={handleDragStart}
                 ></div>
-                {showToggleBtn ? (
-                    (
-                        isExpanded
-                            ? initialHeight > 0 || initialSiderBarHeight > 0 // 如果是展开的情况下，要判断宽度
-                            : isShowToggleBtnWhenNotExpanded
-                    ) ? (
-                        // 非展开的情况下(即收起状态)，判断是否要显示 toggle 按钮
-                        <div
-                            ref={toggleBtnRef}
-                            className={`toggle-btn ${toggleBtnClassName}`}
-                            onClick={toggleSidebar}
-                            style={{
-                                ...toggleBtnStyle,
-                                /* ...(toggleBtnPosition?.right
+                {(isExpanded ? (initialHeight > 0 || initialSiderBarHeight > 0) && showToggleBtn : showTggleBtnWhenNotExpanded) ? (
+                    <div
+                        ref={toggleBtnRef}
+                        className={`toggle-btn d-flex align-items-center justify-content-center hover-scale ${toggleBtnClassName ? toggleBtnClassName : ''}`}
+                        onClick={toggleSidebar}
+                        style={{
+                            ...toggleBtnStyle,
+                            /* ...(toggleBtnPosition?.right
                 ? {
                     right: isExpanded ? toggleBtnPosition.right : "12px",
                     top: toggleBtnPosition.top,
                   }
                 : {}), */
-                            }}
-                        >
-                            <i className={`fa-solid text-white ${parseFloat(currentSidebarWidth) <= minWidth ? 'fa-angles-right' : 'fa-angles-left'}`}></i>
-                        </div>
-                    ) : (
-                        ''
-                    )
+                        }}
+                    >
+                        <i className={`fa-solid text-white small ${parseFloat(currentSidebarWidth) <= minWidth ? 'fa-angles-right' : 'fa-angles-left'}`}></i>
+                    </div>
                 ) : (
                     ''
                 )}
