@@ -10,7 +10,7 @@ interface ResizableSidebarProps {
     toggleBtnClassName?: string;
     contentOverflow?: boolean;
     contentFlex?: boolean;
-    initialWidth?: string;
+    initialWidth?: number | string;
     initialHeight?: any;
     minDragWidth?: number;
     minWidth?: number;

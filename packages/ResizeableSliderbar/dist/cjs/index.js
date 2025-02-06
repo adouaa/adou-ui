@@ -648,6 +648,7 @@ const ResizableSidebar = _ref => {
   const [initialSiderBarHeight, setInitialSiderBarHeight] = (0,external_root_React_commonjs2_react_commonjs_react_amd_react_.useState)(initialHeight);
   const [isDragging, setIsDragging] = (0,external_root_React_commonjs2_react_commonjs_react_amd_react_.useState)(false);
   const [isExpanded, setIsExpanded] = (0,external_root_React_commonjs2_react_commonjs_react_amd_react_.useState)(false);
+  const [calcMaxWidth, setCalcMaxWidth] = (0,external_root_React_commonjs2_react_commonjs_react_amd_react_.useState)(maxWidth);
   const resizeableContainerRef = (0,external_root_React_commonjs2_react_commonjs_react_amd_react_.useRef)();
   const siderBarRef = (0,external_root_React_commonjs2_react_commonjs_react_amd_react_.useRef)();
   const toggleBtnRef = (0,external_root_React_commonjs2_react_commonjs_react_amd_react_.useRef)(null);
@@ -666,11 +667,10 @@ const ResizableSidebar = _ref => {
       window.removeEventListener("mouseup", handleMouseUp);
     };
   }, [isResizing]);
-  const startResizing = () => {
-    setIsResizing(true);
-  };
   const toggleSidebar = () => {
-    setCurrentSidebarWidth(parseFloat(currentSidebarWidth) > minWidth ? minWidth + "px" : initialWidth || maxWidth); // 假设展开宽度为300
+    setCurrentSidebarWidth(
+    // 这边直接用 minWidth 和 maxWidth 就行
+    parseFloat(currentSidebarWidth) > minWidth ? minWidth + "px" : maxWidth); // 假设展开宽度为300
     const oldIsExpanded = isExpanded; // 记录当前展开状态
     onToggle && onToggle(!isExpanded);
     setIsExpanded(!oldIsExpanded);
@@ -687,8 +687,8 @@ const ResizableSidebar = _ref => {
     e.preventDefault();
     const rect = resizeableContainerRef.current.getBoundingClientRect();
     const calcWidth = e.clientX - rect.left; // 计算当前鼠标的位置和元素距离浏览器左边位置的差来做新宽度
-    if (calcWidth > parseFloat(maxWidth)) {
-      setCurrentSidebarWidth(maxWidth);
+    if (calcWidth > parseFloat(calcMaxWidth)) {
+      setCurrentSidebarWidth(calcMaxWidth);
     } else {
       setCurrentSidebarWidth(calcWidth + "px");
     }
@@ -696,20 +696,18 @@ const ResizableSidebar = _ref => {
   const handleDragEnd = e => {
     const rect = resizeableContainerRef.current.getBoundingClientRect();
     const calcWidth = e.clientX - rect.left; // 计算当前鼠标的位置和元素距离浏览器左边位置的差来做新宽度
+    console.log("calcWidth: ", calcWidth);
     e.preventDefault();
-    if (calcWidth > parseFloat(maxWidth)) {
-      setCurrentSidebarWidth(maxWidth);
+    if (calcWidth > parseFloat(calcMaxWidth)) {
+      setCurrentSidebarWidth(calcMaxWidth);
     } else {
       setCurrentSidebarWidth(calcWidth + "px");
     }
     setIsDragging(false);
-  };
-  const getContentWidth = () => {
-    const content = resizeableContainerRef.current.querySelector(".content");
-    return content.offsetWidth;
+    setIsExpanded(!(parseFloat(currentSidebarWidth) > calcMaxWidth));
   };
   (0,external_root_React_commonjs2_react_commonjs_react_amd_react_.useEffect)(() => {
-    if (initialWidth) {
+    if (typeof initialWidth === "string" ? parseFloat(initialWidth) : initialWidth) {
       setIsExpanded(true);
     }
   }, [initialWidth]);
@@ -724,7 +722,8 @@ const ResizableSidebar = _ref => {
   // 为第一次出现添加动画效果
   (0,external_root_React_commonjs2_react_commonjs_react_amd_react_.useEffect)(() => {
     setTimeout(() => {
-      setCurrentSidebarWidth(initialWidth ? parseFloat(initialWidth) > parseFloat(maxWidth) ? maxWidth : initialWidth : 0);
+      setCurrentSidebarWidth(initialWidth ? (typeof initialWidth === "string" ? parseFloat(initialWidth) // 将 initialWidth 转换为数字后 再比较
+      : initialWidth) > parseFloat(maxWidth) ? maxWidth : initialWidth : 0);
     }, 100);
   }, []);
   (0,external_root_React_commonjs2_react_commonjs_react_amd_react_.useImperativeHandle)(resizeableSliderbarRef, () => ({
@@ -733,9 +732,16 @@ const ResizableSidebar = _ref => {
     },
     toggleSidebar
   }), [isExpanded]);
+  (0,external_root_React_commonjs2_react_commonjs_react_amd_react_.useEffect)(() => {
+    setTimeout(() => {
+      if (isExpanded && maxWidth.endsWith("%")) {
+        setCalcMaxWidth(resizeableContainerRef.current.clientWidth);
+      }
+    }, 300);
+  }, [maxWidth, isExpanded]);
   return /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement((external_root_React_commonjs2_react_commonjs_react_amd_react_default()).Fragment, null, /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("div", {
     ref: resizeableContainerRef,
-    className: "pb-1 resizable-sidebar pe-1 ".concat(isDragging ? "draging" : "", " ").concat(wrapperClsassName ? wrapperClsassName : ""),
+    className: "resizable-sidebar ".concat(isDragging ? "draging" : "", " ").concat(wrapperClsassName ? wrapperClsassName : ""),
     style: {
       width: "".concat(currentSidebarWidth),
       height: initialHeight || initialSiderBarHeight + "px" || 0,
@@ -776,7 +782,8 @@ const ResizableSidebar = _ref => {
         : {}), */
     }
   }, /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("i", {
-    className: "fa-solid text-white small ".concat(parseFloat(currentSidebarWidth) <= minWidth ? "fa-angles-right" : "fa-angles-left")
+    className: "fa-solid text-white small ".concat(isExpanded ? "fa-angles-left" : "fa-angles-right" // 用 isExpanded 来判断按钮是展开还是收起
+    )
   })) : ""));
 };
 /* harmony default export */ const src_0 = (ResizableSidebar);

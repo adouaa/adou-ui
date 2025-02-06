@@ -5598,8 +5598,8 @@ module.exports = {
       // dispatch for CommonJS interop named imports.
 
       const {
-        useState,
-        useEffect,
+        useState: dist_useState,
+        useEffect: dist_useEffect,
         useLayoutEffect,
         useDebugValue
       } = external_root_React_commonjs2_react_commonjs_react_amd_react_;
@@ -5644,7 +5644,7 @@ module.exports = {
 
         const [{
           inst
-        }, forceUpdate] = useState({
+        }, forceUpdate] = dist_useState({
           inst: {
             value,
             getSnapshot
@@ -5667,7 +5667,7 @@ module.exports = {
             });
           } // eslint-disable-next-line react-hooks/exhaustive-deps
         }, [subscribe, value, getSnapshot]);
-        useEffect(() => {
+        dist_useEffect(() => {
           // Check for changes right before subscribing. Subsequent changes will be
           // detected in the subscription handler.
           if (checkIfSnapshotChanged(inst)) {
@@ -7234,29 +7234,44 @@ module.exports = {
       ; // CONCATENATED MODULE: ./src/hooks/useLoading.tsx
       // useLoading.ts
 
-      const Loading = () => {
+      const Loading = _ref => {
+        let {
+          maskStyle,
+          loadingStyle
+        } = _ref;
         return /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("div", {
-          className: "loading-overlay"
+          className: "loading-overlay",
+          style: {
+            ...maskStyle
+          }
         }, /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("div", {
-          className: "loading-spinner me-2"
+          className: "loading-spinner me-2",
+          style: {
+            ...loadingStyle
+          }
         }), /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("span", null, "Loading..."));
       };
       let loadingCount = 0;
       let loadingInstance = null;
       let useLoading_root = null;
-      const createLoadingInstance = () => {
+      const createLoadingInstance = function () {
+        let maskStyle = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
+        let loadingStyle = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {};
         // 创建容器
         const container = document.createElement("div");
         container.className = "loading-wrapper";
         document.body.appendChild(container);
 
         // 创建 root
-        useLoading_root = (0, client /* createRoot */.H)(container);
+        useLoading_root = createRoot(container);
 
         // 渲染组件
         const render = visible => {
           var _root;
-          (_root = useLoading_root) === null || _root === void 0 || _root.render(visible ? /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement(Loading, null) : null);
+          (_root = useLoading_root) === null || _root === void 0 || _root.render(visible ? /*#__PURE__*/React.createElement(Loading, {
+            maskStyle: maskStyle,
+            loadingStyle: loadingStyle
+          }) : null);
         };
         return {
           show: () => {
@@ -7268,11 +7283,16 @@ module.exports = {
         };
       };
       const useLoading = () => {
-        const [isLoading, setIsLoading] = (0, external_root_React_commonjs2_react_commonjs_react_amd_react_.useState)(false);
-        (0, external_root_React_commonjs2_react_commonjs_react_amd_react_.useEffect)(() => {
+        const [isLoading, setIsLoading] = useState(false);
+        useEffect(() => {
           // 确保只创建一个实例
           if (!loadingInstance) {
-            loadingInstance = createLoadingInstance();
+            loadingInstance = createLoadingInstance({
+              backgroundColor: "rgba(255, 255, 255, 0.8)"
+            }, {
+              width: "40px",
+              height: "40px"
+            });
           }
         }, []);
         const showLoading = () => {
@@ -7297,7 +7317,7 @@ module.exports = {
         };
       };
       /* harmony default export */
-      const hooks_useLoading = useLoading;
+      const hooks_useLoading = Loading;
       // EXTERNAL MODULE: ../../node_modules/css-loader/dist/cjs.js??ruleSet[1].rules[1].use[1]!../../node_modules/sass-loader/dist/cjs.js??ruleSet[1].rules[1].use[2]!./src/hooks/toast.scss
       var toast = __nested_webpack_require_27689__(323);
       ; // CONCATENATED MODULE: ./src/hooks/toast.scss
@@ -9412,6 +9432,7 @@ const recursiveGenerateTableHeaderRows = function (columns) {
 };
 const Table = props => {
   const {
+    checkedWhenDbClick = true,
     headerPadding = 'py-1',
     pageSizeOptions = [5, 10, 15, 20],
     pagination = false,
@@ -9602,7 +9623,7 @@ const Table = props => {
     // setTableData((preArr: any) => preArr.sort((a: any, b: any) => (a[prop] > b[prop] ? 1 : -1)));
     /* if (isDown) {
     const findItem = tableHeaders.find((item: any) => item.prop === prop);
-    } */
+     } */
   };
   /**
    *
@@ -9883,7 +9904,7 @@ const Table = props => {
         position: headSticky ? 'sticky' : 'unset',
         top: 0,
         backgroundColor: "".concat(headBGC),
-        zIndex: 999
+        zIndex: 1
       },
       className: "text-".concat(headTextColor)
     }, theadRows.map((child, index) => {
@@ -10167,7 +10188,7 @@ const Table = props => {
   const handleRowDoubleClick = (row, e) => {
     e.stopPropagation(); // 阻止事件传播，防止双击时触发单击
     const finalChecked = !row.checked;
-    setTableData(preArr => {
+    checkedWhenDbClick && setTableData(preArr => {
       return preArr.map(item => {
         if (item[id] === row[id]) {
           item.checked = !item.checked;

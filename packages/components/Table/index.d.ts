@@ -10,6 +10,7 @@ declare const _default: React.ComponentType<Omit<{
     align?: "center" | "start" | "end" | "justify" | undefined;
     children?: any;
     data: any;
+    checkedWhenDbClick?: boolean | undefined;
     headerPadding?: string | undefined;
     pageSizeOptions?: number[] | undefined;
     pagination?: boolean | undefined;
