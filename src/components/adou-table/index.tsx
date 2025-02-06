@@ -19,6 +19,7 @@ export const recursiveGenerateTableHeaderRows = (columns: any[], newRows: any[] 
 };
 
 interface TableProps {
+    checkedWhenDbClick?: boolean;
     headerPadding?: string;
     pageSizeOptions?: number[];
     pagination?: boolean; // 是否显示分页
@@ -75,6 +76,7 @@ interface TableProps {
 
 const Table = (props: TableProps) => {
     const {
+        checkedWhenDbClick = true,
         headerPadding = 'py-1',
         pageSizeOptions = [5, 10, 15, 20],
         pagination = false,
@@ -590,7 +592,7 @@ const Table = (props: TableProps) => {
                     position: headSticky ? 'sticky' : 'unset',
                     top: 0,
                     backgroundColor: `${headBGC}`,
-                    zIndex: 999,
+                    zIndex: 1,
                 }}
                 className={`text-${headTextColor}`}
             >
@@ -920,18 +922,19 @@ const Table = (props: TableProps) => {
         e.stopPropagation(); // 阻止事件传播，防止双击时触发单击
         const finalChecked: boolean = !row.checked;
 
-        setTableData((preArr: any) => {
-            return preArr.map((item: any) => {
-                if (item[id] === row[id]) {
-                    item.checked = !item.checked;
-                } else {
-                    if (!multiple) {
-                        item.checked = false;
+        checkedWhenDbClick &&
+            setTableData((preArr: any) => {
+                return preArr.map((item: any) => {
+                    if (item[id] === row[id]) {
+                        item.checked = !item.checked;
+                    } else {
+                        if (!multiple) {
+                            item.checked = false;
+                        }
                     }
-                }
-                return item;
+                    return item;
+                });
             });
-        });
 
         // 一开始是判断 是否已经选中，如果已经选中 再双击的话，则回调函数的参数是 空，现在不需要了，直接返回参数
         /* if (finalChecked) {

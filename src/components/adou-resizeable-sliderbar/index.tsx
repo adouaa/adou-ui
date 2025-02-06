@@ -11,7 +11,7 @@ interface ResizableSidebarProps {
     toggleBtnClassName?: string;
     contentOverflow?: boolean;
     contentFlex?: boolean;
-    initialWidth?: string;
+    initialWidth?: number | string;
     initialHeight?: any;
     minDragWidth?: number;
     minWidth?: number;
@@ -45,6 +45,9 @@ const ResizableSidebar = ({
     const [initialSiderBarHeight, setInitialSiderBarHeight] = useState<any>(initialHeight);
     const [isDragging, setIsDragging] = useState<boolean>(false);
     const [isExpanded, setIsExpanded] = useState<boolean>(false);
+
+    const [calcMaxWidth, setCalcMaxWidth] = useState<any>(maxWidth);
+
     const resizeableContainerRef = useRef<any>();
     const siderBarRef = useRef<any>();
     const toggleBtnRef = useRef<any>(null);
@@ -69,12 +72,11 @@ const ResizableSidebar = ({
         };
     }, [isResizing]);
 
-    const startResizing = () => {
-        setIsResizing(true);
-    };
-
     const toggleSidebar = () => {
-        setCurrentSidebarWidth(parseFloat(currentSidebarWidth) > minWidth ? minWidth + 'px' : initialWidth || maxWidth); // 假设展开宽度为300
+        setCurrentSidebarWidth(
+            // 这边直接用 minWidth 和 maxWidth 就行
+            parseFloat(currentSidebarWidth) > minWidth ? minWidth + 'px' : maxWidth
+        ); // 假设展开宽度为300
         const oldIsExpanded = isExpanded; // 记录当前展开状态
         onToggle && onToggle(!isExpanded);
         setIsExpanded(!oldIsExpanded);
@@ -95,8 +97,8 @@ const ResizableSidebar = ({
 
         const rect = resizeableContainerRef.current.getBoundingClientRect();
         const calcWidth = e.clientX - rect.left; // 计算当前鼠标的位置和元素距离浏览器左边位置的差来做新宽度
-        if (calcWidth > parseFloat(maxWidth)) {
-            setCurrentSidebarWidth(maxWidth);
+        if (calcWidth > parseFloat(calcMaxWidth)) {
+            setCurrentSidebarWidth(calcMaxWidth);
         } else {
             setCurrentSidebarWidth(calcWidth + 'px');
         }
@@ -105,22 +107,19 @@ const ResizableSidebar = ({
     const handleDragEnd = (e: React.DragEvent<HTMLDivElement>) => {
         const rect = resizeableContainerRef.current.getBoundingClientRect();
         const calcWidth = e.clientX - rect.left; // 计算当前鼠标的位置和元素距离浏览器左边位置的差来做新宽度
+        console.log('calcWidth: ', calcWidth);
         e.preventDefault();
-        if (calcWidth > parseFloat(maxWidth)) {
-            setCurrentSidebarWidth(maxWidth);
+        if (calcWidth > parseFloat(calcMaxWidth)) {
+            setCurrentSidebarWidth(calcMaxWidth);
         } else {
             setCurrentSidebarWidth(calcWidth + 'px');
         }
         setIsDragging(false);
-    };
-
-    const getContentWidth = () => {
-        const content = resizeableContainerRef.current.querySelector('.content');
-        return content.offsetWidth;
+        setIsExpanded(!(parseFloat(currentSidebarWidth) > calcMaxWidth));
     };
 
     useEffect(() => {
-        if (initialWidth) {
+        if (typeof initialWidth === 'string' ? parseFloat(initialWidth) : initialWidth) {
             setIsExpanded(true);
         }
     }, [initialWidth]);
@@ -135,7 +134,15 @@ const ResizableSidebar = ({
     // 为第一次出现添加动画效果
     useEffect(() => {
         setTimeout(() => {
-            setCurrentSidebarWidth(initialWidth ? (parseFloat(initialWidth!) > parseFloat(maxWidth) ? maxWidth : initialWidth) : 0);
+            setCurrentSidebarWidth(
+                initialWidth
+                    ? (typeof initialWidth === 'string'
+                          ? parseFloat(initialWidth!) // 将 initialWidth 转换为数字后 再比较
+                          : initialWidth) > parseFloat(maxWidth)
+                        ? maxWidth
+                        : initialWidth
+                    : 0
+            );
         }, 100);
     }, []);
 
@@ -150,11 +157,19 @@ const ResizableSidebar = ({
         [isExpanded]
     );
 
+    useEffect(() => {
+        setTimeout(() => {
+            if (isExpanded && maxWidth.endsWith('%')) {
+                setCalcMaxWidth(resizeableContainerRef.current.clientWidth);
+            }
+        }, 300);
+    }, [maxWidth, isExpanded]);
+
     return (
         <>
             <div
                 ref={resizeableContainerRef}
-                className={`pb-1 resizable-sidebar pe-1 ${isDragging ? 'draging' : ''} ${wrapperClsassName ? wrapperClsassName : ''}`}
+                className={`resizable-sidebar ${isDragging ? 'draging' : ''} ${wrapperClsassName ? wrapperClsassName : ''}`}
                 style={{
                     width: `${currentSidebarWidth}`,
                     height: initialHeight || initialSiderBarHeight + 'px' || 0,
@@ -199,7 +214,11 @@ const ResizableSidebar = ({
                 : {}), */
                         }}
                     >
-                        <i className={`fa-solid text-white small ${parseFloat(currentSidebarWidth) <= minWidth ? 'fa-angles-right' : 'fa-angles-left'}`}></i>
+                        <i
+                            className={`fa-solid text-white small ${
+                                isExpanded ? 'fa-angles-left' : 'fa-angles-right' // 用 isExpanded 来判断按钮是展开还是收起
+                            }`}
+                        ></i>
                     </div>
                 ) : (
                     ''

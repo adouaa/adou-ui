@@ -325,7 +325,9 @@
         }
 
         &.focused {
-            background-color: #e0e0e0;
+            background-color: #e0e0e0 !important;
+            color: #000 !important;
+            font-weight: normal !important;
             /* 高亮当前聚焦的选项 */
         }
     }
