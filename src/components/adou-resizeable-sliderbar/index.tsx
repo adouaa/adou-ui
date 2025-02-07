@@ -41,7 +41,7 @@ const ResizableSidebar = ({
     const sidebarRef = useRef<any>(null);
     const [isResizing, setIsResizing] = useState(false);
     const [currentSidebarWidth, setCurrentSidebarWidth] = useState<any>('0'); // 最新宽度
-    const [initialSideBarWidth, setInitialSideBarWidth] = useState<number>(0); // 记录初始宽度
+    // const [initialSideBarWidth, setInitialSideBarWidth] = useState<number>(0); // 记录初始宽度
     const [initialSiderBarHeight, setInitialSiderBarHeight] = useState<any>(initialHeight);
     const [isDragging, setIsDragging] = useState<boolean>(false);
     const [isExpanded, setIsExpanded] = useState<boolean>(false);
@@ -73,13 +73,13 @@ const ResizableSidebar = ({
     }, [isResizing]);
 
     const toggleSidebar = () => {
+        const currentIsExpanded = parseFloat(currentSidebarWidth) > minWidth; // 记录当前展开状态
         setCurrentSidebarWidth(
             // 这边直接用 minWidth 和 maxWidth 就行
-            parseFloat(currentSidebarWidth) > minWidth ? minWidth + 'px' : maxWidth
+            currentIsExpanded ? minWidth + 'px' : typeof calcMaxWidth === 'string' ? calcMaxWidth : calcMaxWidth + 'px'
         ); // 假设展开宽度为300
-        const oldIsExpanded = isExpanded; // 记录当前展开状态
         onToggle && onToggle(!isExpanded);
-        setIsExpanded(!oldIsExpanded);
+        setIsExpanded(!currentIsExpanded);
     };
 
     const handleSliderBarMouseDown = (e: React.MouseEvent) => {
@@ -88,8 +88,6 @@ const ResizableSidebar = ({
 
     const handleDragStart = () => {
         // [_initialSideBarWidth, setInitialSideBarWidth]好像目前没用。。
-        const _initialSideBarWidth = resizeableContainerRef.current.offsetWidth;
-        setInitialSideBarWidth(_initialSideBarWidth);
     };
 
     const handleDrag = (e: React.DragEvent<HTMLDivElement>) => {
@@ -97,6 +95,8 @@ const ResizableSidebar = ({
 
         const rect = resizeableContainerRef.current.getBoundingClientRect();
         const calcWidth = e.clientX - rect.left; // 计算当前鼠标的位置和元素距离浏览器左边位置的差来做新宽度
+        console.log('calcWidth: ', calcWidth);
+        console.log('calcMaxWidth: ', calcMaxWidth);
         if (calcWidth > parseFloat(calcMaxWidth)) {
             setCurrentSidebarWidth(calcMaxWidth);
         } else {
@@ -107,7 +107,6 @@ const ResizableSidebar = ({
     const handleDragEnd = (e: React.DragEvent<HTMLDivElement>) => {
         const rect = resizeableContainerRef.current.getBoundingClientRect();
         const calcWidth = e.clientX - rect.left; // 计算当前鼠标的位置和元素距离浏览器左边位置的差来做新宽度
-        console.log('calcWidth: ', calcWidth);
         e.preventDefault();
         if (calcWidth > parseFloat(calcMaxWidth)) {
             setCurrentSidebarWidth(calcMaxWidth);
@@ -119,7 +118,7 @@ const ResizableSidebar = ({
     };
 
     useEffect(() => {
-        if (typeof initialWidth === 'string' ? parseFloat(initialWidth) : initialWidth) {
+        if (typeof initialWidth === 'string' ? parseFloat(initialWidth) > minWidth : initialWidth > minWidth) {
             setIsExpanded(true);
         }
     }, [initialWidth]);
@@ -159,8 +158,12 @@ const ResizableSidebar = ({
 
     useEffect(() => {
         setTimeout(() => {
+            // 判断是否是百分比，如果是，则计算当前容器的宽度
             if (isExpanded && maxWidth.endsWith('%')) {
                 setCalcMaxWidth(resizeableContainerRef.current.clientWidth);
+            } else {
+                // 如果是像素，则直接使用
+                setCalcMaxWidth(maxWidth);
             }
         }, 300);
     }, [maxWidth, isExpanded]);

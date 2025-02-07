@@ -4,7 +4,7 @@ import './index.scss';
 import { useLoading } from 'hooks/useLoading';
 
 const YourComponent = () => {
-    const { showLoading, hideLoading } = useLoading();
+    const { showLoading, hideLoading } = useLoading({ backgroundColor: 'rgba(0, 0, 0, 0.8)' }, { width: '80px', height: '80px' });
     const fetchData = async () => {
         showLoading();
         try {
