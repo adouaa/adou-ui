@@ -2,6 +2,7 @@ import React, { useRef, useState, useEffect, useImperativeHandle } from 'react';
 import './index.scss'; // 自定义样式
 
 interface ResizableSidebarProps {
+    draggable?: boolean;
     wrapperClsassName?: string;
     wrapperStyle?: React.CSSProperties;
     showTggleBtnWhenNotExpanded?: boolean;
@@ -21,6 +22,7 @@ interface ResizableSidebarProps {
 }
 
 const ResizableSidebar = ({
+    draggable = true,
     wrapperClsassName,
     wrapperStyle,
     showTggleBtnWhenNotExpanded = true,
@@ -41,7 +43,7 @@ const ResizableSidebar = ({
     const sidebarRef = useRef<any>(null);
     const [isResizing, setIsResizing] = useState(false);
     const [currentSidebarWidth, setCurrentSidebarWidth] = useState<any>('0'); // 最新宽度
-    // const [initialSideBarWidth, setInitialSideBarWidth] = useState<number>(0); // 记录初始宽度
+    const [initialSideBarWidth, setInitialSideBarWidth] = useState<number>(0); // 记录初始宽度
     const [initialSiderBarHeight, setInitialSiderBarHeight] = useState<any>(initialHeight);
     const [isDragging, setIsDragging] = useState<boolean>(false);
     const [isExpanded, setIsExpanded] = useState<boolean>(false);
@@ -83,20 +85,23 @@ const ResizableSidebar = ({
     };
 
     const handleSliderBarMouseDown = (e: React.MouseEvent) => {
+        if (!draggable) return;
         setIsDragging(true);
     };
 
     const handleDragStart = () => {
+        if (!draggable) return;
         // [_initialSideBarWidth, setInitialSideBarWidth]好像目前没用。。
+        const _initialSideBarWidth = resizeableContainerRef.current.offsetWidth;
+        setInitialSideBarWidth(_initialSideBarWidth);
     };
 
     const handleDrag = (e: React.DragEvent<HTMLDivElement>) => {
         e.preventDefault();
+        if (!draggable) return;
 
         const rect = resizeableContainerRef.current.getBoundingClientRect();
         const calcWidth = e.clientX - rect.left; // 计算当前鼠标的位置和元素距离浏览器左边位置的差来做新宽度
-        console.log('calcWidth: ', calcWidth);
-        console.log('calcMaxWidth: ', calcMaxWidth);
         if (calcWidth > parseFloat(calcMaxWidth)) {
             setCurrentSidebarWidth(calcMaxWidth);
         } else {
@@ -105,6 +110,7 @@ const ResizableSidebar = ({
     };
 
     const handleDragEnd = (e: React.DragEvent<HTMLDivElement>) => {
+        if (!draggable) return;
         const rect = resizeableContainerRef.current.getBoundingClientRect();
         const calcWidth = e.clientX - rect.left; // 计算当前鼠标的位置和元素距离浏览器左边位置的差来做新宽度
         e.preventDefault();
@@ -158,12 +164,8 @@ const ResizableSidebar = ({
 
     useEffect(() => {
         setTimeout(() => {
-            // 判断是否是百分比，如果是，则计算当前容器的宽度
             if (isExpanded && maxWidth.endsWith('%')) {
                 setCalcMaxWidth(resizeableContainerRef.current.clientWidth);
-            } else {
-                // 如果是像素，则直接使用
-                setCalcMaxWidth(maxWidth);
             }
         }, 300);
     }, [maxWidth, isExpanded]);
@@ -194,7 +196,11 @@ const ResizableSidebar = ({
                 <div
                     ref={siderBarRef}
                     draggable={true}
-                    style={{ opacity: 0, right: isDragging ? '-5px' : '-2px' }}
+                    style={{
+                        opacity: 0,
+                        right: isDragging ? '-5px' : '-2px',
+                        cursor: draggable ? 'ew-resize col-resize' : 'default',
+                    }}
                     className={`resize-handle-bar`}
                     onMouseUp={handleDragEnd}
                     onMouseDown={handleSliderBarMouseDown}
