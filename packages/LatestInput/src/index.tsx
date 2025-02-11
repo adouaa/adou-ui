@@ -404,7 +404,10 @@ const Input: React.ForwardRefRenderFunction<InputRef, InputProps> = (
         </div>
       ) : (
         // 只有在是 label 的情况下才去对 生成对应的类名
-        <div className={`adou-input flex-fill ${generateClsWhenHasLabel()}`}>
+        <div
+          className={`adou-input flex-fill ${generateClsWhenHasLabel()}`}
+          style={{ height: "100%" }} // 高度和其他组件保持一致
+        >
           {label && (
             <span
               className={`pe-3 ${layout === "vertical" ? "pb-1" : ""}`}
@@ -444,7 +447,6 @@ const Input: React.ForwardRefRenderFunction<InputRef, InputProps> = (
     </div>
   );
 };
-
 // 对于使用 forwardRef 包装的组件，displayName 需要在 forwardRef 调用之后设置
 // 上述代码中，Input 组件是通过 forwardRef 包装的，因此需要在 forwardRef 调用之后设置 displayName
 

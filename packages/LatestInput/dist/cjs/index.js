@@ -861,7 +861,10 @@ const Input = (_ref, ref) => {
   /*#__PURE__*/
   // 只有在是 label 的情况下才去对 生成对应的类名
   external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("div", {
-    className: "adou-input flex-fill ".concat(generateClsWhenHasLabel())
+    className: "adou-input flex-fill ".concat(generateClsWhenHasLabel()),
+    style: {
+      height: "100%"
+    } // 高度和其他组件保持一致
   }, label && /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("span", {
     className: "pe-3 ".concat(layout === "vertical" ? "pb-1" : ""),
     style: {
@@ -887,7 +890,6 @@ const Input = (_ref, ref) => {
     className: "input-box flex-fill d-flex align-items-center ".concat(type !== "number" ? "px-2" : "")
   }, commonElement))));
 };
-
 // 对于使用 forwardRef 包装的组件，displayName 需要在 forwardRef 调用之后设置
 // 上述代码中，Input 组件是通过 forwardRef 包装的，因此需要在 forwardRef 调用之后设置 displayName
 

@@ -58,16 +58,18 @@ const createLoadingInstance = (
   };
 };
 
-export const useLoading = () => {
+export const useLoading = (
+  maskStyle: React.CSSProperties = {
+    backgroundColor: "rgba(255, 255, 255, 0.8)",
+  },
+  loadingStyle: React.CSSProperties = { width: "40px", height: "40px" }
+) => {
   const [isLoading, setIsLoading] = useState(false);
 
   useEffect(() => {
     // 确保只创建一个实例
     if (!loadingInstance) {
-      loadingInstance = createLoadingInstance(
-        { backgroundColor: "rgba(255, 255, 255, 0.8)" },
-        { width: "40px", height: "40px" }
-      );
+      loadingInstance = createLoadingInstance(maskStyle, loadingStyle);
     }
   }, []);
 

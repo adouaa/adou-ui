@@ -6386,17 +6386,19 @@ const createLoadingInstance = function () {
     }
   };
 };
-const useLoading = () => {
+const useLoading = function () {
+  let maskStyle = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {
+    backgroundColor: "rgba(255, 255, 255, 0.8)"
+  };
+  let loadingStyle = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {
+    width: "40px",
+    height: "40px"
+  };
   const [isLoading, setIsLoading] = useState(false);
   useEffect(() => {
     // 确保只创建一个实例
     if (!loadingInstance) {
-      loadingInstance = createLoadingInstance({
-        backgroundColor: "rgba(255, 255, 255, 0.8)"
-      }, {
-        width: "40px",
-        height: "40px"
-      });
+      loadingInstance = createLoadingInstance(maskStyle, loadingStyle);
     }
   }, []);
   const showLoading = () => {

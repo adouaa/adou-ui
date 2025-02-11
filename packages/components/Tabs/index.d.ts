@@ -1,5 +1,7 @@
-import React from 'react';
-import './index.scss';
+import React from "react";
+import "./index.scss";
+import TabItem from "./TabItem";
+export { TabItem };
 interface TabsProps {
     showContent?: boolean;
     commonTabItemHeaderExternalCls?: string;
@@ -12,7 +14,7 @@ interface TabsProps {
     children?: any;
     activeIndex?: number;
     activeLabelColor?: string;
-    tabStyle?: 'common' | 'bootstrap';
+    tabStyle?: "common" | "bootstrap";
     contentPadding?: string;
     clearOnChange?: boolean;
     lineaGradient?: string;
