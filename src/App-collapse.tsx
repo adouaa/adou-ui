@@ -1,6 +1,6 @@
 import Button from 'components/adou-button';
 import AdouCollapse from 'components/adou-collapseX';
-import OffCanvas from 'components/adou-offcanvas';
+import OffCanvas from 'components/adou-drawer';
 import React, { useState } from 'react';
 import { withTranslation } from 'react-i18next';
 

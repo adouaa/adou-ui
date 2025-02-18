@@ -1,5 +1,5 @@
 import Collapse from 'components/adou-collapseX';
-import OffCanvas from 'components/adou-offcanvas';
+import OffCanvas from 'components/adou-drawer';
 import React, { useRef } from 'react';
 
 const App = () => {

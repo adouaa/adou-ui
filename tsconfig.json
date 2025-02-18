@@ -30,7 +30,7 @@
   },
   "include": [
     "src/**/*.ts", "src/**/*.tsx"
-, "src/App.tsx", "src/components/adou-globalModal/GlobalModalProvider.js", "src/test-gpt/MultiSelectDropdown.tsx", "src/utils/hooks/useClickOutside.js", "src/components/adou-photo-wall/index.jsx"  ],
+, "src/App.tsx", "src/components/adou-globalModal/GlobalModalProvider.js", "src/test-gpt/MultiSelectDropdown.tsx", "src/utils/hooks/useClickOutside.js", "src/components/adou-photo-wall/index.jsx", "src/test-loading/Home.jsx", "src/test-loading/Detail.jsx"  ],
   "exclude": [
     "node_modules"
   ]
