@@ -6343,15 +6343,24 @@ const Loading = _ref => {
     maskStyle,
     loadingStyle
   } = _ref;
+  console.log("Loading-maskStyle:", maskStyle);
+  console.log("Loading-loadingStyle:", loadingStyle);
+  const enhancedMaskStyle = Object.keys(maskStyle || {}).length > 0 ? maskStyle : {
+    backgroundColor: "rgba(255, 255, 255, 0.8)"
+  };
+  const enhancedLoadingStyle = Object.keys(loadingStyle || {}).length > 0 ? loadingStyle : {
+    width: "40px",
+    height: "40px"
+  };
   return /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("div", {
     className: "loading-overlay",
     style: {
-      ...maskStyle
+      ...enhancedMaskStyle
     }
   }, /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("div", {
     className: "loading-spinner me-2",
     style: {
-      ...loadingStyle
+      ...enhancedLoadingStyle
     }
   }), /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("span", null, "Loading..."));
 };
@@ -6395,14 +6404,20 @@ const useLoading = function () {
     height: "40px"
   };
   const [isLoading, setIsLoading] = useState(false);
+  const maskStypeRef = useRef();
+  const loadingStyleRef = useRef();
   useEffect(() => {
-    // 确保只创建一个实例
-    if (!loadingInstance) {
-      loadingInstance = createLoadingInstance(maskStyle, loadingStyle);
-    }
-  }, []);
+    console.log("useLoading--maskStyle:", maskStyle);
+    console.log("useLoading--loadingStyle:", loadingStyle);
+    maskStypeRef.current = maskStyle;
+    loadingStyleRef.current = loadingStyle;
+  }, [maskStyle, loadingStyle]);
   const showLoading = () => {
     var _loadingInstance;
+    // 确保只创建一个实例
+    if (!loadingInstance) {
+      loadingInstance = createLoadingInstance(maskStypeRef.current || {}, loadingStyleRef.current || {});
+    }
     loadingCount++;
     setIsLoading(true);
     (_loadingInstance = loadingInstance) === null || _loadingInstance === void 0 || _loadingInstance.show();

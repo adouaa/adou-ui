@@ -85,7 +85,7 @@ const Drawer = forwardRef<any, DrawerProps>(
       setTimeout(() => {
         setShow(true);
         onOpen?.();
-      }, 100);
+      }, 0);
     };
 
     const handleMaskClick = () => {
@@ -139,7 +139,7 @@ const Drawer = forwardRef<any, DrawerProps>(
     }, [show, closeOnEsc]);
 
     return (
-      <div className="drawer-wrapper">
+      <div className={`drawer-wrapper`}>
         {trigger && (
           <div onClick={toggleOffcanvas} className="drawer-trigger">
             {trigger}
@@ -147,9 +147,9 @@ const Drawer = forwardRef<any, DrawerProps>(
         )}
         <div
           ref={offCanvasRef}
-          className={`offcanvas offcanvas-${placement} ${show ? "show" : ""} ${
-            hiding ? "hiding" : ""
-          } ${className}`}
+          className={`offcanvas offcanvas-${placement} drawer-${placement} ${
+            show ? "show" : ""
+          } ${hiding ? "hiding" : ""} ${className}`}
           style={getPlacementStyles()}
           tabIndex={-1}
           role="dialog"

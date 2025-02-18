@@ -7239,15 +7239,24 @@ module.exports = {
           maskStyle,
           loadingStyle
         } = _ref;
+        console.log("Loading-maskStyle:", maskStyle);
+        console.log("Loading-loadingStyle:", loadingStyle);
+        const enhancedMaskStyle = Object.keys(maskStyle || {}).length > 0 ? maskStyle : {
+          backgroundColor: "rgba(255, 255, 255, 0.8)"
+        };
+        const enhancedLoadingStyle = Object.keys(loadingStyle || {}).length > 0 ? loadingStyle : {
+          width: "40px",
+          height: "40px"
+        };
         return /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("div", {
           className: "loading-overlay",
           style: {
-            ...maskStyle
+            ...enhancedMaskStyle
           }
         }, /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("div", {
           className: "loading-spinner me-2",
           style: {
-            ...loadingStyle
+            ...enhancedLoadingStyle
           }
         }), /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("span", null, "Loading..."));
       };
@@ -7282,21 +7291,29 @@ module.exports = {
           }
         };
       };
-      const useLoading = () => {
+      const useLoading = function () {
+        let maskStyle = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {
+          backgroundColor: "rgba(255, 255, 255, 0.8)"
+        };
+        let loadingStyle = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {
+          width: "40px",
+          height: "40px"
+        };
         const [isLoading, setIsLoading] = useState(false);
+        const maskStypeRef = useRef();
+        const loadingStyleRef = useRef();
         useEffect(() => {
-          // 确保只创建一个实例
-          if (!loadingInstance) {
-            loadingInstance = createLoadingInstance({
-              backgroundColor: "rgba(255, 255, 255, 0.8)"
-            }, {
-              width: "40px",
-              height: "40px"
-            });
-          }
-        }, []);
+          console.log("useLoading--maskStyle:", maskStyle);
+          console.log("useLoading--loadingStyle:", loadingStyle);
+          maskStypeRef.current = maskStyle;
+          loadingStyleRef.current = loadingStyle;
+        }, [maskStyle, loadingStyle]);
         const showLoading = () => {
           var _loadingInstance;
+          // 确保只创建一个实例
+          if (!loadingInstance) {
+            loadingInstance = createLoadingInstance(maskStypeRef.current || {}, loadingStyleRef.current || {});
+          }
           loadingCount++;
           setIsLoading(true);
           (_loadingInstance = loadingInstance) === null || _loadingInstance === void 0 || _loadingInstance.show();
@@ -7619,6 +7636,9 @@ ___CSS_LOADER_EXPORT___.push([module.id, `@charset "UTF-8";
   transform: scaleY(1);
   /* 还原到原始高度 */
 }
+.table-wrapper .tr-highlight {
+  background-color: #cfcdcd !important;
+}
 .table-wrapper .tr-checked {
   background-color: #e6f4ff !important;
 }
@@ -7661,7 +7681,7 @@ ___CSS_LOADER_EXPORT___.push([module.id, `@charset "UTF-8";
   /* 隐藏超出部分 */
   text-overflow: ellipsis;
   /* 使用省略号表示超出部分 */
-}`, "",{"version":3,"sources":["webpack://./src/index.scss"],"names":[],"mappings":"AAAA,gBAAgB;AAAhB;EAEI,qBAAA;EACA,6BAAA;EAkFA,iBAAA;EAWA,YAAA;AA1FJ;AADI;EAEI,eAAA;EACA,gBAAA;AAER;AADQ;EACI,oBAAA;EACA,sBAAA;EACA,mBAAA;EACA,uBAAA;EACA,WAAA;EACA,UAAA;AAGZ;AADY;EACI,QAAA;EACA,UAAA;EACA,SAAA;EACA,UAAA;EACA,eAAA;EACA,WAAA;EACA,kCAAA;EACA,UAAA;EACA,mCAAA;EACA,UAAA;EACA,eAAA;EACA,yBAAA;EACA,WAAA;EACA,kBAAA;AAGhB;AAOgB;EAEI,qBAAA;AANpB;AAeI;EACI,UAAA;EACA,WAAA;AAbR;AAgBI;EACI,mBAAA;AAdR;AAiBI;EACI,gBAAA;EACA,kBAAA;AAfR;AAkBI;EACI,gBAAA;AAhBR;AA8BI;EACI,uCAAA;AA5BR;AAgCI;EACI,kDAAA;EACA,UAAA;EACA,oBAAA;EACA,kBAAA;EACA,qBAAA;EACA,aAAA;EACA,gBAAA;AA9BR;AAkCI;EACI,UAAA;EACA,oBAAA;EACA,YAAA;AAhCR;AAmCI;EACI,oCAAA;AAjCR;AAoCI;EACI,sCAAA;AAlCR;AAoCQ;EACI,yBAAA;AAlCZ;AAwCQ;;EAEI,iBAAA;EACA,yBAAA;EACA,eAAA;AAtCZ;AAwCY;;EACI,oCAAA;EACA,WAAA;AArChB;AAyCQ;;EAEI,sBAAA;AAvCZ;AAyCY;;EACI,wCAAA;EACA,mBAAA;AAtChB;AA2CY;EACI,oCAAA;EACA,yBAAA;EACA,WAAA;AAzChB;;AA+CA;EACI,mBAAA;EACA,QAAA;EACA,gBAAA;EACA,WAAA;EACA,uBAAA;EACA,gBAAA;AA5CJ","sourcesContent":[".table-wrapper {\r\n    // Firefox 滚动条样式\r\n    scrollbar-width: thin; // 设置滚动条宽度为 thin\r\n    scrollbar-color: #ccc #f5f5f5; // 设置滚动条颜色\r\n\r\n    .header-content {\r\n\r\n        /* styles.css */\r\n        /* styles.scss */\r\n        .header-icon {\r\n            display: inline-flex;\r\n            flex-direction: column;\r\n            align-items: center;\r\n            justify-content: center;\r\n            width: auto;\r\n            /* 宽度自适应 */\r\n\r\n            .icon {\r\n                width: 0;\r\n                /* 箭头的宽度 */\r\n                height: 0;\r\n                /* 箭头的高度 */\r\n                margin: 1.6px 0;\r\n                /* 调整上下间距 */\r\n                border-left: 6px solid transparent;\r\n                /* 箭头的左边 */\r\n                border-right: 6px solid transparent;\r\n                /* 箭头的右边 */\r\n                cursor: pointer;\r\n                transition: all 0.3s ease;\r\n                /* 添加过渡效果 */\r\n                border-radius: 3px;\r\n\r\n                &.sort-up {\r\n                    // border-bottom: 7px solid #000; /* 向上的箭头 */\r\n                }\r\n\r\n                &.sort-down {\r\n                    // border-top: 7px solid #000; /* 向下的箭头 */\r\n                }\r\n\r\n                &.sort-up:hover,\r\n                &.sort-down:hover {\r\n                    transform: scale(1.2);\r\n                }\r\n            }\r\n        }\r\n\r\n\r\n    }\r\n\r\n    // Webkit 滚动条样式\r\n    &::-webkit-scrollbar {\r\n        width: 8px; // 设置垂直滚动条宽度\r\n        height: 8px; // 设置水平滚动条宽度\r\n    }\r\n\r\n    &::-webkit-scrollbar-track {\r\n        background: #f5f5f5; // 设置滚动条轨道颜色\r\n    }\r\n\r\n    &::-webkit-scrollbar-thumb {\r\n        background: #ccc; // 设置滚动条滑块颜色\r\n        border-radius: 4px; // 设置滚动条滑块圆角\r\n    }\r\n\r\n    &::-webkit-scrollbar-thumb:hover {\r\n        background: #aaa; // 设置滚动条滑块悬停颜色\r\n    }\r\n\r\n\r\n\r\n    .collapse-table-td {\r\n        // display: inline-block; // 不控制，不然会影响上下居中\r\n        // display: flex;\r\n        // justify-content: center;\r\n        // align-items: center;\r\n        // line-height: 0.8;\r\n    }\r\n\r\n    // 添加展开的动画\r\n    tbody>tr {\r\n        transition: max-height 0.3s ease-in-out;\r\n    }\r\n\r\n    /* 默认情况下，表格行被隐藏 */\r\n    .collapse-tr {\r\n        transition: opacity 0.5s ease, transform 0.5s ease;\r\n        opacity: 0;\r\n        transform: scaleY(0);\r\n        /* 使用 scaleY 来隐藏 */\r\n        transform-origin: top;\r\n        /* 让缩放从顶部开始 */\r\n        overflow: hidden;\r\n    }\r\n\r\n    /* 当表格行显示时 */\r\n    .collapse-tr.show {\r\n        opacity: 1;\r\n        transform: scaleY(1);\r\n        /* 还原到原始高度 */\r\n    }\r\n\r\n    .tr-checked {\r\n        background-color: #e6f4ff !important;\r\n    }\r\n\r\n    .tr-content {\r\n        transition: background-color 0.3s ease;\r\n\r\n        &:hover {\r\n            background-color: #e7ebee;\r\n        }\r\n    }\r\n\r\n    .pagination {\r\n\r\n        .prev-arrow,\r\n        .next-arrow {\r\n            padding: 8px 12px;\r\n            transition: all 0.3s ease;\r\n            cursor: pointer;\r\n\r\n            &:hover {\r\n                background-color: #f0f0f0 !important;\r\n                color: #333;\r\n            }\r\n        }\r\n\r\n        .prev-arrow.disabled,\r\n        .next-arrow.disabled {\r\n            color: #ccc !important;\r\n\r\n            &:hover {\r\n                background-color: transparent !important;\r\n                cursor: not-allowed;\r\n            }\r\n        }\r\n\r\n        .page-numbers {\r\n            .page-number-item:hover {\r\n                background-color: #f0f0f0 !important;\r\n                border: 1px solid #f0f0f0;\r\n                color: #333;\r\n            }\r\n        }\r\n    }\r\n}\r\n\r\n.ellipsis-1 {\r\n    white-space: nowrap;\r\n    /* 不换行 */\r\n    overflow: hidden;\r\n    /* 隐藏超出部分 */\r\n    text-overflow: ellipsis;\r\n    /* 使用省略号表示超出部分 */\r\n}"],"sourceRoot":""}]);
+}`, "",{"version":3,"sources":["webpack://./src/index.scss"],"names":[],"mappings":"AAAA,gBAAgB;AAAhB;EAEI,qBAAA;EACA,6BAAA;EAkFA,iBAAA;EAWA,YAAA;AA1FJ;AADI;EAEI,eAAA;EACA,gBAAA;AAER;AADQ;EACI,oBAAA;EACA,sBAAA;EACA,mBAAA;EACA,uBAAA;EACA,WAAA;EACA,UAAA;AAGZ;AADY;EACI,QAAA;EACA,UAAA;EACA,SAAA;EACA,UAAA;EACA,eAAA;EACA,WAAA;EACA,kCAAA;EACA,UAAA;EACA,mCAAA;EACA,UAAA;EACA,eAAA;EACA,yBAAA;EACA,WAAA;EACA,kBAAA;AAGhB;AAOgB;EAEI,qBAAA;AANpB;AAeI;EACI,UAAA;EACA,WAAA;AAbR;AAgBI;EACI,mBAAA;AAdR;AAiBI;EACI,gBAAA;EACA,kBAAA;AAfR;AAkBI;EACI,gBAAA;AAhBR;AA8BI;EACI,uCAAA;AA5BR;AAgCI;EACI,kDAAA;EACA,UAAA;EACA,oBAAA;EACA,kBAAA;EACA,qBAAA;EACA,aAAA;EACA,gBAAA;AA9BR;AAkCI;EACI,UAAA;EACA,oBAAA;EACA,YAAA;AAhCR;AAmCI;EACI,oCAAA;AAjCR;AAqCI;EACI,oCAAA;AAnCR;AAuCI;EACI,sCAAA;AArCR;AAuCQ;EACI,yBAAA;AArCZ;AA2CQ;;EAEI,iBAAA;EACA,yBAAA;EACA,eAAA;AAzCZ;AA2CY;;EACI,oCAAA;EACA,WAAA;AAxChB;AA4CQ;;EAEI,sBAAA;AA1CZ;AA4CY;;EACI,wCAAA;EACA,mBAAA;AAzChB;AA8CY;EACI,oCAAA;EACA,yBAAA;EACA,WAAA;AA5ChB;;AAkDA;EACI,mBAAA;EACA,QAAA;EACA,gBAAA;EACA,WAAA;EACA,uBAAA;EACA,gBAAA;AA/CJ","sourcesContent":[".table-wrapper {\r\n    // Firefox 滚动条样式\r\n    scrollbar-width: thin; // 设置滚动条宽度为 thin\r\n    scrollbar-color: #ccc #f5f5f5; // 设置滚动条颜色\r\n\r\n    .header-content {\r\n\r\n        /* styles.css */\r\n        /* styles.scss */\r\n        .header-icon {\r\n            display: inline-flex;\r\n            flex-direction: column;\r\n            align-items: center;\r\n            justify-content: center;\r\n            width: auto;\r\n            /* 宽度自适应 */\r\n\r\n            .icon {\r\n                width: 0;\r\n                /* 箭头的宽度 */\r\n                height: 0;\r\n                /* 箭头的高度 */\r\n                margin: 1.6px 0;\r\n                /* 调整上下间距 */\r\n                border-left: 6px solid transparent;\r\n                /* 箭头的左边 */\r\n                border-right: 6px solid transparent;\r\n                /* 箭头的右边 */\r\n                cursor: pointer;\r\n                transition: all 0.3s ease;\r\n                /* 添加过渡效果 */\r\n                border-radius: 3px;\r\n\r\n                &.sort-up {\r\n                    // border-bottom: 7px solid #000; /* 向上的箭头 */\r\n                }\r\n\r\n                &.sort-down {\r\n                    // border-top: 7px solid #000; /* 向下的箭头 */\r\n                }\r\n\r\n                &.sort-up:hover,\r\n                &.sort-down:hover {\r\n                    transform: scale(1.2);\r\n                }\r\n            }\r\n        }\r\n\r\n\r\n    }\r\n\r\n    // Webkit 滚动条样式\r\n    &::-webkit-scrollbar {\r\n        width: 8px; // 设置垂直滚动条宽度\r\n        height: 8px; // 设置水平滚动条宽度\r\n    }\r\n\r\n    &::-webkit-scrollbar-track {\r\n        background: #f5f5f5; // 设置滚动条轨道颜色\r\n    }\r\n\r\n    &::-webkit-scrollbar-thumb {\r\n        background: #ccc; // 设置滚动条滑块颜色\r\n        border-radius: 4px; // 设置滚动条滑块圆角\r\n    }\r\n\r\n    &::-webkit-scrollbar-thumb:hover {\r\n        background: #aaa; // 设置滚动条滑块悬停颜色\r\n    }\r\n\r\n\r\n\r\n    .collapse-table-td {\r\n        // display: inline-block; // 不控制，不然会影响上下居中\r\n        // display: flex;\r\n        // justify-content: center;\r\n        // align-items: center;\r\n        // line-height: 0.8;\r\n    }\r\n\r\n    // 添加展开的动画\r\n    tbody>tr {\r\n        transition: max-height 0.3s ease-in-out;\r\n    }\r\n\r\n    /* 默认情况下，表格行被隐藏 */\r\n    .collapse-tr {\r\n        transition: opacity 0.5s ease, transform 0.5s ease;\r\n        opacity: 0;\r\n        transform: scaleY(0);\r\n        /* 使用 scaleY 来隐藏 */\r\n        transform-origin: top;\r\n        /* 让缩放从顶部开始 */\r\n        overflow: hidden;\r\n    }\r\n\r\n    /* 当表格行显示时 */\r\n    .collapse-tr.show {\r\n        opacity: 1;\r\n        transform: scaleY(1);\r\n        /* 还原到原始高度 */\r\n    }\r\n\r\n    .tr-highlight {\r\n        background-color: #cfcdcd !important;\r\n    }\r\n\r\n\r\n    .tr-checked {\r\n        background-color: #e6f4ff !important;\r\n    }\r\n\r\n\r\n    .tr-content {\r\n        transition: background-color 0.3s ease;\r\n\r\n        &:hover {\r\n            background-color: #e7ebee;\r\n        }\r\n    }\r\n\r\n    .pagination {\r\n\r\n        .prev-arrow,\r\n        .next-arrow {\r\n            padding: 8px 12px;\r\n            transition: all 0.3s ease;\r\n            cursor: pointer;\r\n\r\n            &:hover {\r\n                background-color: #f0f0f0 !important;\r\n                color: #333;\r\n            }\r\n        }\r\n\r\n        .prev-arrow.disabled,\r\n        .next-arrow.disabled {\r\n            color: #ccc !important;\r\n\r\n            &:hover {\r\n                background-color: transparent !important;\r\n                cursor: not-allowed;\r\n            }\r\n        }\r\n\r\n        .page-numbers {\r\n            .page-number-item:hover {\r\n                background-color: #f0f0f0 !important;\r\n                border: 1px solid #f0f0f0;\r\n                color: #333;\r\n            }\r\n        }\r\n    }\r\n}\r\n\r\n.ellipsis-1 {\r\n    white-space: nowrap;\r\n    /* 不换行 */\r\n    overflow: hidden;\r\n    /* 隐藏超出部分 */\r\n    text-overflow: ellipsis;\r\n    /* 使用省略号表示超出部分 */\r\n}"],"sourceRoot":""}]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 
@@ -9432,8 +9452,9 @@ const recursiveGenerateTableHeaderRows = function (columns) {
 };
 const Table = props => {
   const {
+    clickHighlight,
     checkedWhenDbClick = true,
-    headerPadding = 'py-1',
+    headerPadding = "py-1",
     pageSizeOptions = [5, 10, 15, 20],
     pagination = false,
     pageSize = 10,
@@ -9442,11 +9463,11 @@ const Table = props => {
     compact,
     showTip,
     checkAll,
-    tdPadding = 'px-2 py-3',
+    tdPadding = "px-2 py-3",
     clickChecked,
     showHeader = true,
     defaultCheckedList,
-    headerFontWeight = 'normal',
+    headerFontWeight = "normal",
     tableWidth,
     // 控制 table的宽度，太宽的话 可以形成滚动条
     tableBGC,
@@ -9455,13 +9476,13 @@ const Table = props => {
     maxWidth,
     showIndex = false,
     multiple = false,
-    id = 'id',
+    id = "id",
     trPointer = false,
     align,
     collection,
     collapse = true,
     expandAll = false,
-    size = 'lg',
+    size = "lg",
     data,
     columns,
     propsData,
@@ -9469,17 +9490,17 @@ const Table = props => {
     tableStriped = false,
     tableBorderd = false,
     tableBorderless = false,
-    headColor = 'null',
+    headColor = "null",
     captionContent,
-    captionPosition = 'top',
-    tableResponsive = 'xxl',
+    captionPosition = "top",
+    tableResponsive = "xxl",
     eidtable = false,
     headSticky = true,
-    headTextColor = 'black',
-    headBGC = '',
+    headTextColor = "black",
+    headBGC = "",
     divider,
     maxHeight,
-    minHeight = '0px',
+    minHeight = "0px",
     onRowDoubleClick,
     onRowClick,
     onPageChange,
@@ -9519,12 +9540,12 @@ const Table = props => {
   };
   const generateHeaderStyle = position => {
     switch (position) {
-      case 'start':
-        return 'flex-start';
-      case 'end':
-        return 'flex-end';
+      case "start":
+        return "flex-start";
+      case "end":
+        return "flex-end";
       default:
-        return 'center';
+        return "center";
     }
   };
   const judgeSortIconBGC = (prop, isDown) => {
@@ -9532,11 +9553,11 @@ const Table = props => {
     if (!findItem) return;
     if (isDown) {
       if (findItem.isDown) {
-        return '7px solid red';
+        return "7px solid red";
       }
     } else {
       if (findItem.isUp) {
-        return '7px solid red';
+        return "7px solid red";
       }
     }
   };
@@ -9544,12 +9565,12 @@ const Table = props => {
   // 判断每一列的 对齐方式
   const judgeTdAlign = data => {
     switch (data.align || align) {
-      case 'start':
-        return 'justify-content-start';
-      case 'end':
-        return 'justify-content-end';
+      case "start":
+        return "justify-content-start";
+      case "end":
+        return "justify-content-end";
       default:
-        return 'justify-content-center';
+        return "justify-content-center";
     }
   };
 
@@ -9562,7 +9583,7 @@ const Table = props => {
    */
   const judgeChildCellAlign = (data, colProps, colIndex) => {
     var _data$children;
-    return !colIndex && (_data$children = data.children) !== null && _data$children !== void 0 && _data$children.length ? 'start' // 父级存在子级时，第一列左对齐
+    return !colIndex && (_data$children = data.children) !== null && _data$children !== void 0 && _data$children.length ? "start" // 父级存在子级时，第一列左对齐
     : colProps.align || align;
   };
 
@@ -9623,7 +9644,7 @@ const Table = props => {
     // setTableData((preArr: any) => preArr.sort((a: any, b: any) => (a[prop] > b[prop] ? 1 : -1)));
     /* if (isDown) {
     const findItem = tableHeaders.find((item: any) => item.prop === prop);
-     } */
+       } */
   };
   /**
    *
@@ -9649,28 +9670,28 @@ const Table = props => {
       }, /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("tr", {
         onClick: e => handleRowClick(childData, e),
         onDoubleClick: e => handleRowDoubleClick(data, e),
-        className: "tr-content tr-content ".concat(childData.checked === true ? 'tr-checked' : '', " collapse-table-tr animate__animated animate__fadeIn"),
+        className: "tr-content tr-content ".concat(childData.checked === true ? "tr-checked" : "", " ").concat(childData.highlight === true ? "tr-highlight" : "", " collapse-table-tr animate__animated animate__fadeIn"),
         style: {
           ...(clickChecked || trPointer ? {
-            cursor: 'pointer'
-          } : ''),
+            cursor: "pointer"
+          } : ""),
           ...(!tableBorderd ? {
-            borderBottom: '1px solid #f0f0f0'
+            borderBottom: "1px solid #f0f0f0"
           } : {})
         },
         key: childData[id]
         /* style={{
-        ...(data.collapse ? { display: '' } : { display: 'none' }),
-        }} */
+                ...(data.collapse ? { display: '' } : { display: 'none' }),
+            }} */
       }, collection && /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("td", {
         scope: "row",
         style: {
-          minWidth: !compact ? '50px' : '30px',
-          width: !compact ? '50px' : '30px',
-          maxWidth: !compact ? '50px' : '30px',
-          verticalAlign: 'middle'
+          minWidth: !compact ? "50px" : "30px",
+          width: !compact ? "50px" : "30px",
+          maxWidth: !compact ? "50px" : "30px",
+          verticalAlign: "middle"
         },
-        className: "text-center py-1 ".concat(compact ? 'py-0 px-1' : tdPadding)
+        className: "text-center py-1 ".concat(compact ? "py-0 px-1" : tdPadding)
       }, /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("input", {
         className: tdPadding,
         name: childData[id] + uniqId // 加上 uniqId 防止多个表格的相同复选框冲突
@@ -9678,15 +9699,15 @@ const Table = props => {
         id: childData[id] + uniqId,
         checked: childData.checked === true,
         onChange: e => handleCheckboxChange(childData, e),
-        type: !multiple ? 'radio' : 'checkbox'
+        type: !multiple ? "radio" : "checkbox"
       })), showIndex && /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("th", {
-        className: "text-center py-1 ".concat(compact ? 'py-0 px-1' : tdPadding),
+        className: "text-center py-1 ".concat(compact ? "py-0 px-1" : tdPadding),
         style: {
-          minWidth: !compact ? '50px' : '30px',
-          width: !compact ? '50px' : '30px',
-          maxWidth: !compact ? '50px' : '30px',
-          padding: '0px',
-          alignContent: 'center',
+          minWidth: !compact ? "50px" : "30px",
+          width: !compact ? "50px" : "30px",
+          maxWidth: !compact ? "50px" : "30px",
+          padding: "0px",
+          alignContent: "center",
           fontWeight: headerFontWeight
         }
       }, "".concat(rowIndex + 1, ".").concat(index + 1)), props.children ? external_root_React_commonjs2_react_commonjs_react_amd_react_default().Children.map(array, (col, colIndex) => {
@@ -9713,21 +9734,21 @@ const Table = props => {
           return /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("td", {
             // 这边也不用在子级的第一列在最左侧了
             // colIndex === 0 ? 'text-start' :
-            className: "text-".concat(colProps.align, " py-1 ").concat(compact ? 'py-0 px-1' : tdPadding),
+            className: "text-".concat(colProps.align, " py-1 ").concat(compact ? "py-0 px-1" : tdPadding),
             style: {
               verticalAlign: verticalAlignObject[prop],
               width: widthObject[prop],
-              overflowWrap: 'break-word',
-              wordWrap: 'break-word',
-              wordBreak: 'break-word',
+              overflowWrap: "break-word",
+              wordWrap: "break-word",
+              wordBreak: "break-word",
               maxWidth: colProps.maxWidth || maxWidth,
-              ["".concat(!colIndex ? 'paddingLeft' : '')]: '40px'
+              ["".concat(!colIndex ? "paddingLeft" : "")]: "40px"
             },
             key: colIndex
           }, /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("div", {
             className: "collapse-table-td d-flex ".concat(judgeTdAlign(colProps)),
             style: {
-              paddingLeft: !colIndex ? level * 15 + 'px' : 0
+              paddingLeft: !colIndex ? level * 15 + "px" : 0
             }
           }, colProps.showTip ? /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement((Tooltip_default()), {
             position: "right",
@@ -9756,21 +9777,21 @@ const Table = props => {
         return /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("td", {
           // 这边也不用在子级的第一列在最左侧了
           // colIndex === 0 ? 'text-start' :
-          className: "text-".concat(colProps.align, " py-1 ").concat(compact ? 'py-0 px-1' : tdPadding),
+          className: "text-".concat(colProps.align, " py-1 ").concat(compact ? "py-0 px-1" : tdPadding),
           style: {
             verticalAlign: verticalAlignObject[prop],
             width: widthObject[colProps.prop],
-            overflowWrap: 'break-word',
-            wordWrap: 'break-word',
-            wordBreak: 'break-word',
+            overflowWrap: "break-word",
+            wordWrap: "break-word",
+            wordBreak: "break-word",
             maxWidth: colProps.maxWidth || maxWidth,
-            ["".concat(!colIndex ? 'paddingLeft' : '')]: '40px'
+            ["".concat(!colIndex ? "paddingLeft" : "")]: "40px"
           },
           key: colIndex
         }, /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("div", {
           className: "collapse-table-td d-flex ".concat(judgeTdAlign(colProps)),
           style: {
-            paddingLeft: !colIndex ? level * 15 + 'px' : 0
+            paddingLeft: !colIndex ? level * 15 + "px" : 0
           }
         }, colProps.showTip ? /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement((Tooltip_default()), {
           position: "right",
@@ -9782,7 +9803,7 @@ const Table = props => {
 
   // 计算每一列的宽度
   const calculateHeaderWidth = columns => {
-    console.log('calculateHeaderWidth-------------: ');
+    console.log("calculateHeaderWidth-------------: ");
     const titleLengthObj = {};
     const newHeaderLabels = columns.map(item => {
       return {
@@ -9796,7 +9817,7 @@ const Table = props => {
     }, 0);
     newHeaderLabels.forEach(item => {
       var _item$title;
-      titleLengthObj[item.prop] = Number((((_item$title = item.title) === null || _item$title === void 0 ? void 0 : _item$title.length) / totalLabelLength).toFixed(2)) * 100 + '%';
+      titleLengthObj[item.prop] = Number((((_item$title = item.title) === null || _item$title === void 0 ? void 0 : _item$title.length) / totalLabelLength).toFixed(2)) * 100 + "%";
     });
     return titleLengthObj;
   };
@@ -9824,7 +9845,7 @@ const Table = props => {
       widthObject[item.props.prop] = item.props.width;
       // 优先使用 每一列的 align，table 的 align 次之，都没的话默认居中(align默认等于 center)
       textPositionObject[item.props.prop] = item.props.align || align;
-      verticalAlignObject[item.props.prop] = item.props.verticalAlign || 'middle';
+      verticalAlignObject[item.props.prop] = item.props.verticalAlign || "middle";
     }
   });
   if (!(0,Utils.isEmptyO)(widthObject) && Object.values(widthObject).every(item => !item)) {
@@ -9901,10 +9922,10 @@ const Table = props => {
   const renderTableHeader = () => {
     return /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("thead", {
       style: {
-        position: headSticky ? 'sticky' : 'unset',
+        position: headSticky ? "sticky" : "unset",
         top: 0,
         backgroundColor: "".concat(headBGC),
-        zIndex: 1
+        zIndex: 999
       },
       className: "text-".concat(headTextColor)
     }, theadRows.map((child, index) => {
@@ -9912,45 +9933,45 @@ const Table = props => {
         return /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("tr", {
           key: index
         }, index === 0 && collection && /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("th", {
-          className: "".concat(compact ? 'p-0' : ''),
+          className: "".concat(compact ? "p-0" : ""),
           rowSpan: maxDepth,
           scope: "col th-collection",
           style: {
-            minWidth: !compact ? '50px' : '30px',
-            width: !compact ? '50px' : '30px',
-            maxWidth: !compact ? '50px' : '30px',
-            textAlign: 'center'
+            minWidth: !compact ? "50px" : "30px",
+            width: !compact ? "50px" : "30px",
+            maxWidth: !compact ? "50px" : "30px",
+            textAlign: "center"
           }
         }, multiple && /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("input", {
           checked: checkedAll,
           onChange: handleCheckedAllChange,
-          type: !multiple ? 'radio' : 'checkbox'
+          type: !multiple ? "radio" : "checkbox"
         })), index === 0 && showIndex && /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("th", {
-          className: "".concat(compact ? 'p-0' : ''),
+          className: "".concat(compact ? "p-0" : ""),
           rowSpan: maxDepth,
           scope: "col th-index",
           style: {
-            minWidth: !compact ? '50px' : '30px',
-            width: !compact ? '50px' : '30px',
-            maxWidth: !compact ? '50px' : '30px'
+            minWidth: !compact ? "50px" : "30px",
+            width: !compact ? "50px" : "30px",
+            maxWidth: !compact ? "50px" : "30px"
           }
         }), child.map(item => {
           return /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("th", {
             rowSpan: item.rowSpan,
             colSpan: item.colSpan,
             style: {
-              whiteSpace: 'nowrap',
+              whiteSpace: "nowrap",
               width: widthObject[item.prop],
               fontWeight: headerFontWeight
             },
-            className: "".concat(textPositionObject[item.prop] ? 'text-' + textPositionObject[item.prop] : '', " ").concat(compact ? 'p-0' : '', " align-middle"),
+            className: "".concat(textPositionObject[item.prop] ? "text-" + textPositionObject[item.prop] : "", " ").concat(compact ? "p-0" : "", " align-middle"),
             scope: "col",
             key: item.title
           }, /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("div", {
             className: "header-content ".concat(headerPadding),
             style: {
-              display: 'flex',
-              alignItems: 'center',
+              display: "flex",
+              alignItems: "center",
               justifyContent: item.headerAlign || generateHeaderStyle(textPositionObject[item.prop])
             }
           }, /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("span", {
@@ -9959,13 +9980,13 @@ const Table = props => {
             className: "header-icon ms-1"
           }, /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("i", {
             style: {
-              borderBottom: judgeSortIconBGC(item.prop) || '7px solid #000'
+              borderBottom: judgeSortIconBGC(item.prop) || "7px solid #000"
             },
             onClick: () => handleSortable(item.prop),
             className: "icon sort-up"
           }), /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("i", {
             style: {
-              borderTop: judgeSortIconBGC(item.prop, true) || '7px solid #000'
+              borderTop: judgeSortIconBGC(item.prop, true) || "7px solid #000"
             },
             onClick: () => handleSortable(item.prop, true),
             className: "icon sort-down"
@@ -9978,7 +9999,7 @@ const Table = props => {
   // 渲染折叠的子组件
   const renderTableBody = () => {
     return /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("tbody", {
-      className: "table-body ".concat(divider ? 'table-group-divider' : '')
+      className: "table-body ".concat(divider ? "table-group-divider" : "")
     }, tableData.length > 0 && paginatedData.map((data, rowIndex) => {
       return (
         /*#__PURE__*/
@@ -9991,13 +10012,13 @@ const Table = props => {
           // onDoubleClick={() => handleRowDoubleClick(data)}
           ,
           key: rowIndex,
-          className: "tr-content ".concat(data.checked === true ? 'tr-checked' : ''),
+          className: "tr-content ".concat(data.checked === true ? "tr-checked" : "", " ").concat(data.highlight === true ? "tr-highlight" : ""),
           style: {
             ...(clickChecked || trPointer ? {
-              cursor: 'pointer'
-            } : ''),
+              cursor: "pointer"
+            } : ""),
             ...(!tableBorderd ? {
-              borderBottom: '1px solid #f0f0f0'
+              borderBottom: "1px solid #f0f0f0"
             } : {})
           }
         }, collection &&
@@ -10006,12 +10027,12 @@ const Table = props => {
         external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("td", {
           scope: "row",
           style: {
-            minWidth: !compact ? '50px' : '30px',
-            width: !compact ? '50px' : '30px',
-            maxWidth: !compact ? '50px' : '30px',
-            verticalAlign: 'middle'
+            minWidth: !compact ? "50px" : "30px",
+            width: !compact ? "50px" : "30px",
+            maxWidth: !compact ? "50px" : "30px",
+            verticalAlign: "middle"
           },
-          className: "text-center py-1 ".concat(compact ? 'py-0 px-1' : tdPadding)
+          className: "text-center py-1 ".concat(compact ? "py-0 px-1" : tdPadding)
         }, /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("input", {
           className: tdPadding,
           name: data[id] + uniqId // 加上 uniqId 防止多个表格的相同复选框冲突
@@ -10019,19 +10040,19 @@ const Table = props => {
           id: data[id] + uniqId,
           checked: data.checked === true,
           onChange: e => handleCheckboxChange(data, e),
-          type: !multiple ? 'radio' : 'checkbox'
+          type: !multiple ? "radio" : "checkbox"
         })), showIndex &&
         /*#__PURE__*/
         // 索引框
         external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("td", {
-          className: "text-center py-1 ".concat(compact ? 'py-0 px-1' : tdPadding),
+          className: "text-center py-1 ".concat(compact ? "py-0 px-1" : tdPadding),
           scope: "col",
           style: {
-            alignContent: 'center',
-            padding: '0px',
-            minWidth: !compact ? '50px' : '30px',
-            width: !compact ? '50px' : '30px',
-            maxWidth: !compact ? '50px' : '30px'
+            alignContent: "center",
+            padding: "0px",
+            minWidth: !compact ? "50px" : "30px",
+            width: !compact ? "50px" : "30px",
+            maxWidth: !compact ? "50px" : "30px"
             /* ...(data.children ? { backgroundColor: '#fff', boxShadow: 'none' } : {}), */
           }
         }, rowIndex + 1), props.children ? external_root_React_commonjs2_react_commonjs_react_amd_react_default().Children.map(array, (col, colIndex) => {
@@ -10050,7 +10071,7 @@ const Table = props => {
               canCollapse: data.children,
               collapse: data.collapse,
               // 防止 Table 的 align 不生效的bug
-              align: !colIndex && collapse && data.children ? 'start' : colProps.align || align,
+              align: !colIndex && collapse && data.children ? "start" : colProps.align || align,
               width: widthObject[colProps.prop],
               maxWidth: colProps.maxWidth || maxWidth,
               showTip: colProps.showTip || showTip
@@ -10058,17 +10079,17 @@ const Table = props => {
             return /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("td", {
               // 父级第一列不需要在 最左侧了
               // !colIndex && collapse && data.children ? 'text-start' : `text-${textPositionObject[prop]}`
-              className: "text-".concat(colProps.align || align, " py-1 ").concat(compact ? 'py-0 px-1' : tdPadding),
+              className: "text-".concat(colProps.align || align, " py-1 ").concat(compact ? "py-0 px-1" : tdPadding),
               style: {
                 verticalAlign: verticalAlignObject[prop],
                 width: widthObject[colProps.prop],
                 maxWidth: colProps.maxWidth || maxWidth,
-                overflowWrap: 'break-word',
-                wordWrap: 'break-word',
-                wordBreak: 'break-word',
+                overflowWrap: "break-word",
+                wordWrap: "break-word",
+                wordBreak: "break-word",
                 // 如果要默认展示一行，并且x轴太长可以滚动的话，则设置为nowrap
                 // 注意：此时，外部设置的 width就没作用了，表格会自己根据内容来设置宽度
-                whiteSpace: 'nowrap'
+                whiteSpace: "nowrap"
                 /*  [`${!colIndex && data.children ? 'paddingLeft' : ''}`]: '35px', */
               },
               key: colIndex
@@ -10093,7 +10114,7 @@ const Table = props => {
             canCollapse: data.children,
             collapse: data.collapse,
             // 防止 Table 的 align 不生效的bug
-            align: !colIndex && collapse && data.children ? 'start' : colProps.align || align,
+            align: !colIndex && collapse && data.children ? "start" : colProps.align || align,
             width: widthObject[colProps.prop],
             maxWidth: colProps.maxWidth || maxWidth,
             showTip: colProps.showTip || showTip
@@ -10101,17 +10122,17 @@ const Table = props => {
           return /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("td", {
             // 父级第一列不需要在 最左侧了
             // !colIndex && collapse && data.children ? 'text-start' : `text-${textPositionObject[prop]}`
-            className: "text-".concat(colProps.align || align, " py-1 ").concat(compact ? 'py-0 px-1' : tdPadding),
+            className: "text-".concat(colProps.align || align, " py-1 ").concat(compact ? "py-0 px-1" : tdPadding),
             style: {
               verticalAlign: verticalAlignObject[prop],
               width: widthObject[colProps.prop],
               maxWidth: colProps.maxWidth || maxWidth,
-              overflowWrap: 'break-word',
-              wordWrap: 'break-word',
-              wordBreak: 'break-word',
+              overflowWrap: "break-word",
+              wordWrap: "break-word",
+              wordBreak: "break-word",
               // 如果要默认展示一行，并且x轴太长可以滚动的话，则设置为nowrap
               // 注意：此时，外部设置的 width就没作用了，表格会自己根据内容来设置宽度
-              whiteSpace: 'nowrap'
+              whiteSpace: "nowrap"
               /*  [`${!colIndex && data.children ? 'paddingLeft' : ''}`]: '35px', */
             },
             key: colIndex
@@ -10145,7 +10166,7 @@ const Table = props => {
       if (allChildrenChecked) {
         parent.checked = true;
       } else if (someChildrenChecked) {
-        parent.checked = 'partial'; // 表示部分选中，你可以根据需求自定义状态
+        parent.checked = "partial"; // 表示部分选中，你可以根据需求自定义状态
       } else {
         parent.checked = false;
       }
@@ -10172,10 +10193,15 @@ const Table = props => {
     // 设置定时器，延时触发单击事件
     clickTimeout = setTimeout(() => {
       onRowClick && onRowClick(row);
-      if (clickChecked) {
-        const isCheckboxClick = e.target.type === 'checkbox' || e.target.type === 'radio';
+      if (clickChecked || clickHighlight) {
+        // 做这个判断是防止两遍执行 handleCheckboxChange 而导致的 选中立马又取消
+        const isCheckboxClick = e.target.type === "checkbox" || e.target.type === "radio";
         if (!isCheckboxClick) {
-          handleCheckboxChange(row, e);
+          if (clickHighlight) {
+            handleCheckboxChange(row, e, "highlight");
+          } else {
+            handleCheckboxChange(row, e);
+          }
         }
       }
     }, CLICK_DELAY);
@@ -10187,7 +10213,7 @@ const Table = props => {
    */
   const handleRowDoubleClick = (row, e) => {
     e.stopPropagation(); // 阻止事件传播，防止双击时触发单击
-    const finalChecked = !row.checked;
+
     checkedWhenDbClick && setTableData(preArr => {
       return preArr.map(item => {
         if (item[id] === row[id]) {
@@ -10203,9 +10229,9 @@ const Table = props => {
 
     // 一开始是判断 是否已经选中，如果已经选中 再双击的话，则回调函数的参数是 空，现在不需要了，直接返回参数
     /* if (finalChecked) {
-    onRowDoubleClick && onRowDoubleClick(row);
+      onRowDoubleClick && onRowDoubleClick(row);
     } else {
-    onRowDoubleClick && onRowDoubleClick({});
+      onRowDoubleClick && onRowDoubleClick({});
     } */
     onRowDoubleClick && onRowDoubleClick(row);
 
@@ -10270,59 +10296,67 @@ const Table = props => {
   };
 
   // 点击 单/复选框
-  const handleCheckboxChange = (row, e) => {
+  const handleCheckboxChange = function (row, e) {
+    let key = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : "checked";
     e.stopPropagation();
     setUpdateKey(updateKey + 1);
+    let tempTableData = [...tableData]; // 做一个临时变量，避免直接修改 tableData 导致的 Cannot assign to read only property 'checked' of object '#<Object>' 错误
 
     // 更新 tableData 中的 checked 状态
     const recursiveUpdateTableDataCheckState = data => {
       return data.map(item => {
-        var _item$children6;
+        var _newItem$children2;
+        // 创建新的对象，避免直接修改原对象
+        const newItem = {
+          ...item
+        };
+
         // 如果刚好点击的是第一级的节点，则进入到这个if，选中它的所有子节点
-        if (item[id] === row[id]) {
-          var _item$children5;
-          item.checked = !(item.checked === true ? true : false); // 为了做 partial 判断
-          if ((_item$children5 = item.children) !== null && _item$children5 !== void 0 && _item$children5.length) {
-            item.children = directlyUpdateChildrenCheckState(item.children, item.checked === true ? true : false);
+        if (newItem[id] === row[id]) {
+          var _newItem$children;
+          newItem[key] = !(newItem[key] === true ? true : false); // 为了做 partial 判断
+          if ((_newItem$children = newItem.children) !== null && _newItem$children !== void 0 && _newItem$children.length) {
+            newItem.children = directlyUpdateChildrenCheckState(newItem.children, newItem[key] === true ? true : false);
           }
-          // 如果点击的不是第一级的节点，有可能是二级节点，也要递归执行
-          // 如果去掉这个，只会在点击 一级节点 的时候会把它的子节点全部选中
-        } else if ((_item$children6 = item.children) !== null && _item$children6 !== void 0 && _item$children6.length) {
-          item.children = recursiveUpdateTableDataCheckState(item.children); // 这步要先执行，不然下面的 else if 判断不会进入 不符合的父节点的子级节点
-        } /* else if (!multiple) {
-          item.checked = false;
-          } */
-        return item;
+        } else if ((_newItem$children2 = newItem.children) !== null && _newItem$children2 !== void 0 && _newItem$children2.length) {
+          newItem.children = recursiveUpdateTableDataCheckState(newItem.children); // 递归更新子节点
+        }
+        return newItem; // 返回更新后的对象
       });
     };
 
     // 如果是单选，则在选择完一个节点后，要把其他节点的 check 状态都置为 false
-    const recursiveUpdateOtherTableDataCheck = (data, row) => {
+    const recursiveUpdateOtherTableDataCheck = function (data, row) {
+      let key = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : "checked";
       return data.map(item => {
         if (item[id] !== row[id]) {
-          var _item$children7;
-          item.checked = false;
-          if ((_item$children7 = item.children) !== null && _item$children7 !== void 0 && _item$children7.length) {
+          var _item$children5;
+          item[key] = false;
+          if ((_item$children5 = item.children) !== null && _item$children5 !== void 0 && _item$children5.length) {
             item.children = recursiveUpdateOtherTableDataCheck(item.children, row);
           }
         }
         return item;
       });
     };
-    if (clickChecked || collection) {
+    if (clickChecked || clickHighlight || collection) {
       // 1. 如果可以选中，则去更新选中状态
-      recursiveUpdateTableDataCheckState(tableData);
+      tempTableData = recursiveUpdateTableDataCheckState(tempTableData);
+      setTableData(tempTableData);
       // 2. 如果是单选，则在选择完一个节点后，要把其他节点的 check 状态都置为 false
       if (!multiple) {
-        recursiveUpdateOtherTableDataCheck(tableData, row);
+        recursiveUpdateOtherTableDataCheck(tempTableData, row);
+      } else if (clickHighlight) {
+        // 3. 如果是点击高亮，则在高亮完一个节点后，要把其他节点的 highlight 状态都置为 false
+        recursiveUpdateOtherTableDataCheck(tempTableData, row, "highlight");
       }
     }
     // 3. 如果有父节点，则去更新父节点的选中状态
     if (row.parentId) {
-      recursiveUpdateParentChecked(row, tableData, id);
+      recursiveUpdateParentChecked(row, tempTableData, id);
     }
     // 4. 判断是不是全选
-    setCheckedAll(areAllChecked(tableData));
+    setCheckedAll(areAllChecked(tempTableData));
   };
   function areAllChecked(data) {
     // 遍历数组中的每个对象
@@ -10393,12 +10427,12 @@ const Table = props => {
   const handleScrollToEnd = () => {
     // 表格滚动到底部
     setTimeout(() => {
-      const table = document.querySelector('.table-wrapper');
-      const tableBody = document.querySelector('.table-body');
+      const table = document.querySelector(".table-wrapper");
+      const tableBody = document.querySelector(".table-body");
       if (tableBody && table) {
         table.scrollTo({
           top: tableBody.clientHeight,
-          behavior: 'smooth'
+          behavior: "smooth"
         });
       }
     }, 100);
@@ -10407,11 +10441,11 @@ const Table = props => {
   // 滚到底部
   const handleScrollToTop = () => {
     // 表格滚动到底部
-    const table = document.querySelector('.table-wrapper');
+    const table = document.querySelector(".table-wrapper");
     if (table) {
       table.scrollTo({
         top: 0,
-        behavior: 'smooth'
+        behavior: "smooth"
       });
     }
   };
@@ -10468,14 +10502,14 @@ const Table = props => {
   }, [data]);
   (0,external_root_React_commonjs2_react_commonjs_react_amd_react_.useEffect)(() => {
     /* setTableData((preData: any) =>
-        preData.map((item: any) => {
-            const isChildrenAllChecked = areAllChecked(item.children);
-            if (isChildrenAllChecked) {
-                item.checked = true;
-            }
-            return item;
-        })
-    ); */
+          preData.map((item: any) => {
+              const isChildrenAllChecked = areAllChecked(item.children);
+              if (isChildrenAllChecked) {
+                  item.checked = true;
+              }
+              return item;
+          })
+      ); */
   }, [tableData]);
   (0,external_root_React_commonjs2_react_commonjs_react_amd_react_.useEffect)(() => {
     if (activeId) {
@@ -10535,62 +10569,62 @@ const Table = props => {
       for (let i = 1; i <= totalPages; i++) {
         result.push({
           page: i,
-          type: 'page'
+          type: "page"
         });
       }
     } else {
       // 始终显示第一页
       result.push({
         page: 1,
-        type: 'page'
+        type: "page"
       });
       if (currentPageState <= maxPagesShow - 2) {
         // 当前页靠近开始
         for (let i = 2; i <= maxPagesShow; i++) {
           result.push({
             page: i,
-            type: 'page'
+            type: "page"
           });
         }
         result.push({
           page: 0,
-          type: 'ellipsis'
+          type: "ellipsis"
         });
         result.push({
           page: totalPages,
-          type: 'page'
+          type: "page"
         });
       } else if (currentPageState >= totalPages - (maxPagesShow - 3)) {
         // 当前页靠近结束
         result.push({
           page: 0,
-          type: 'ellipsis'
+          type: "ellipsis"
         });
         for (let i = totalPages - (maxPagesShow - 1); i <= totalPages; i++) {
           result.push({
             page: i,
-            type: 'page'
+            type: "page"
           });
         }
       } else {
         // 当前页在中间
         result.push({
           page: 0,
-          type: 'ellipsis'
+          type: "ellipsis"
         });
         for (let i = currentPageState - 1; i <= currentPageState + 1; i++) {
           result.push({
             page: i,
-            type: 'page'
+            type: "page"
           });
         }
         result.push({
           page: 0,
-          type: 'ellipsis'
+          type: "ellipsis"
         });
         result.push({
           page: totalPages,
-          type: 'page'
+          type: "page"
         });
       }
     }
@@ -10599,9 +10633,9 @@ const Table = props => {
 
   // 处理页码改变
   const handlePageChange = (page, type) => {
-    if (type === 'prev') {
+    if (type === "prev") {
       if (page <= 0) return;
-    } else if (type === 'next') {
+    } else if (type === "next") {
       if (page >= totalPages + 1) return;
     }
     setCurrentPageState(page);
@@ -10630,7 +10664,7 @@ const Table = props => {
     }, "\u5171 ", tableData.length, " \u6761"), /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("select", {
       className: "form-select form-select-sm me-2",
       style: {
-        width: '100px'
+        width: "100px"
       },
       value: pageSizeState,
       onChange: e => handlePageSizeChange(Number(e.target.value))
@@ -10640,40 +10674,40 @@ const Table = props => {
     }, size, " \u6761/\u9875")))), /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("div", {
       className: "pagination d-flex align-items-center"
     }, /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("i", {
-      onClick: () => handlePageChange(currentPageState - 1, 'prev'),
-      className: "prev-arrow rounded fa-solid fa-chevron-left ".concat(currentPageState === 1 ? 'disabled' : '')
+      onClick: () => handlePageChange(currentPageState - 1, "prev"),
+      className: "prev-arrow rounded fa-solid fa-chevron-left ".concat(currentPageState === 1 ? "disabled" : "")
     }), /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("div", {
       className: "page-numbers d-flex align-items-center mx-2"
     }, generatePageNumbers().map((item, index) => /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement((external_root_React_commonjs2_react_commonjs_react_amd_react_default()).Fragment, {
       key: index
-    }, item.type === 'page' ? /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("button", {
-      className: "btn btn-sm page-number-item d-flex align-items-center justify-content-center mx-1 ".concat(item.page === currentPageState ? 'btn-primary' : 'btn-outline-secondary'),
+    }, item.type === "page" ? /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("button", {
+      className: "btn btn-sm page-number-item d-flex align-items-center justify-content-center mx-1 ".concat(item.page === currentPageState ? "btn-primary" : "btn-outline-secondary"),
       style: {
-        minWidth: '24px',
-        height: '26px'
+        minWidth: "24px",
+        height: "26px"
       },
       onClick: () => handlePageChange(item.page)
     }, item.page) : /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("span", {
       className: "mx-1 d-flex align-items-center"
     }, "...")))), /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("i", {
-      className: "next-arrow rounded fa-solid fa-chevron-right ".concat(currentPageState === totalPages ? 'disabled' : ''),
-      onClick: () => handlePageChange(currentPageState + 1, 'next')
+      className: "next-arrow rounded fa-solid fa-chevron-right ".concat(currentPageState === totalPages ? "disabled" : ""),
+      onClick: () => handlePageChange(currentPageState + 1, "next")
     })));
   };
   return /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement((external_root_React_commonjs2_react_commonjs_react_amd_react_default()).Fragment, null, /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("div", {
     style: {
       minHeight: minHeight,
       maxHeight: maxHeight,
-      overflow: 'auto',
+      overflow: "auto",
       width: tableWidth
     },
-    className: "table-wrapper ".concat("table-responsive".concat('-' + tableResponsive))
+    className: "table-wrapper ".concat("table-responsive".concat("-" + tableResponsive))
   }, /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("table", {
     style: {
       background: tableBGC,
       width: tableWidth
     },
-    className: "table ".concat(tableStriped ? 'table-striped' : '', " ").concat(tableBorderd ? 'table-bordered' : 'table-borderless', " table-").concat(size, " ").concat(headColor ? "table-".concat(headColor) : '', " overflow-auto ").concat(paginatedData.length === 0 ? 'mb-0' : '')
+    className: "table ".concat(tableStriped ? "table-striped" : "", " ").concat(tableBorderd ? "table-bordered" : "table-borderless", " table-").concat(size, " ").concat(headColor ? "table-".concat(headColor) : "", " overflow-auto ").concat(paginatedData.length === 0 ? "mb-0" : "")
   }, showHeader && renderTableHeader(), renderTableBody()), paginatedData.length === 0 && /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("div", {
     className: "text-center p-1"
   }, "\u6682\u65E0\u6570\u636E~"), renderPagination()));

@@ -1,18 +1,31 @@
 // useLoading.ts
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import React from "react";
 import { createRoot, Root } from "react-dom/client";
 import "./loading.scss";
 
 interface LoadingProps {
-  maskStyle?: React.CSSProperties;
-  loadingStyle?: React.CSSProperties;
+  maskStyle?: any;
+  loadingStyle?: any;
 }
 
 const Loading = ({ maskStyle, loadingStyle }: LoadingProps) => {
+  console.log("Loading-maskStyle:", maskStyle);
+  console.log("Loading-loadingStyle:", loadingStyle);
+  const enhancedMaskStyle =
+    Object.keys(maskStyle || {}).length > 0
+      ? maskStyle
+      : { backgroundColor: "rgba(255, 255, 255, 0.8)" };
+  const enhancedLoadingStyle =
+    Object.keys(loadingStyle || {}).length > 0
+      ? loadingStyle
+      : { width: "40px", height: "40px" };
   return (
-    <div className="loading-overlay" style={{ ...maskStyle }}>
-      <div className="loading-spinner me-2" style={{ ...loadingStyle }}></div>
+    <div className="loading-overlay" style={{ ...enhancedMaskStyle }}>
+      <div
+        className="loading-spinner me-2"
+        style={{ ...enhancedLoadingStyle }}
+      ></div>
       <span>Loading...</span>
     </div>
   );
@@ -28,8 +41,8 @@ let loadingInstance: LoadingInstance | null = null;
 let root: Root | null = null;
 
 const createLoadingInstance = (
-  maskStyle: React.CSSProperties = {},
-  loadingStyle: React.CSSProperties = {}
+  maskStyle: any = {},
+  loadingStyle: any = {}
 ): LoadingInstance => {
   // 创建容器
   const container = document.createElement("div");
@@ -59,21 +72,30 @@ const createLoadingInstance = (
 };
 
 export const useLoading = (
-  maskStyle: React.CSSProperties = {
+  maskStyle: any = {
     backgroundColor: "rgba(255, 255, 255, 0.8)",
   },
-  loadingStyle: React.CSSProperties = { width: "40px", height: "40px" }
+  loadingStyle: any = { width: "40px", height: "40px" }
 ) => {
   const [isLoading, setIsLoading] = useState(false);
+  const maskStypeRef = useRef<any>();
+  const loadingStyleRef = useRef<any>();
 
   useEffect(() => {
-    // 确保只创建一个实例
-    if (!loadingInstance) {
-      loadingInstance = createLoadingInstance(maskStyle, loadingStyle);
-    }
-  }, []);
+    console.log("useLoading--maskStyle:", maskStyle);
+    console.log("useLoading--loadingStyle:", loadingStyle);
+    maskStypeRef.current = maskStyle;
+    loadingStyleRef.current = loadingStyle;
+  }, [maskStyle, loadingStyle]);
 
   const showLoading = () => {
+    // 确保只创建一个实例
+    if (!loadingInstance) {
+      loadingInstance = createLoadingInstance(
+        maskStypeRef.current || {},
+        loadingStyleRef.current || {}
+      );
+    }
     loadingCount++;
     setIsLoading(true);
     loadingInstance?.show();

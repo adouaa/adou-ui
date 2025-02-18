@@ -6313,15 +6313,24 @@ module.exports = function (item) {
           maskStyle,
           loadingStyle
         } = _ref;
+        console.log("Loading-maskStyle:", maskStyle);
+        console.log("Loading-loadingStyle:", loadingStyle);
+        const enhancedMaskStyle = Object.keys(maskStyle || {}).length > 0 ? maskStyle : {
+          backgroundColor: "rgba(255, 255, 255, 0.8)"
+        };
+        const enhancedLoadingStyle = Object.keys(loadingStyle || {}).length > 0 ? loadingStyle : {
+          width: "40px",
+          height: "40px"
+        };
         return /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("div", {
           className: "loading-overlay",
           style: {
-            ...maskStyle
+            ...enhancedMaskStyle
           }
         }, /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("div", {
           className: "loading-spinner me-2",
           style: {
-            ...loadingStyle
+            ...enhancedLoadingStyle
           }
         }), /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("span", null, "Loading..."));
       };
@@ -6356,21 +6365,29 @@ module.exports = function (item) {
           }
         };
       };
-      const useLoading = () => {
+      const useLoading = function () {
+        let maskStyle = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {
+          backgroundColor: "rgba(255, 255, 255, 0.8)"
+        };
+        let loadingStyle = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {
+          width: "40px",
+          height: "40px"
+        };
         const [isLoading, setIsLoading] = useState(false);
+        const maskStypeRef = useRef();
+        const loadingStyleRef = useRef();
         useEffect(() => {
-          // 确保只创建一个实例
-          if (!loadingInstance) {
-            loadingInstance = createLoadingInstance({
-              backgroundColor: "rgba(255, 255, 255, 0.8)"
-            }, {
-              width: "40px",
-              height: "40px"
-            });
-          }
-        }, []);
+          console.log("useLoading--maskStyle:", maskStyle);
+          console.log("useLoading--loadingStyle:", loadingStyle);
+          maskStypeRef.current = maskStyle;
+          loadingStyleRef.current = loadingStyle;
+        }, [maskStyle, loadingStyle]);
         const showLoading = () => {
           var _loadingInstance;
+          // 确保只创建一个实例
+          if (!loadingInstance) {
+            loadingInstance = createLoadingInstance(maskStypeRef.current || {}, loadingStyleRef.current || {});
+          }
           loadingCount++;
           setIsLoading(true);
           (_loadingInstance = loadingInstance) === null || _loadingInstance === void 0 || _loadingInstance.show();
@@ -7321,11 +7338,7 @@ const Select = /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_a
       }
     } else if (mode === "liveSearch") {
       var _inputRef$current;
-      const inputValue = (_inputRef$current = inputRef.current) === null || _inputRef$current === void 0 ? void 0 : _inputRef$current.value;
-      setSelectValue(typeof selectValue === "string" ? inputValue : {
-        [labelKey]: inputValue,
-        [valueKey]: inputValue
-      }); // 搜索框失去焦点时，将输入框的值赋给 selectValue
+      setSelectValue((_inputRef$current = inputRef.current) === null || _inputRef$current === void 0 ? void 0 : _inputRef$current.value); // 搜索框失去焦点时，将输入框的值赋给 selectValue
     } else if (mode === "tags") {
       var _inputRef$current2;
       handleTagsChange((_inputRef$current2 = inputRef.current) === null || _inputRef$current2 === void 0 ? void 0 : _inputRef$current2.value);
@@ -7347,7 +7360,7 @@ const Select = /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_a
       setClosing(true);
       setTimeout(() => {
         setClosing(false);
-        setIsShow(prev => false);
+        setIsShow(prev => !prev);
       }, 100);
       setIsEnter(false);
     } else {
@@ -7577,9 +7590,9 @@ const Select = /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_a
   // 判断是否是选中状态来决定选项的字体颜色
   const judgeColor = (item, type) => {
     if (multiple || mode === "tags") {
-      return selectValueList !== null && selectValueList !== void 0 && selectValueList.find(option => option[valueKey] == item[valueKey]) ? activeColor === null || activeColor === void 0 ? void 0 : activeColor[type] : type === "font" ? "#000" : "";
+      return selectValueList !== null && selectValueList !== void 0 && selectValueList.find(option => option[valueKey] === item[valueKey]) ? activeColor === null || activeColor === void 0 ? void 0 : activeColor[type] : type === "font" ? "#000" : "";
     } else {
-      return (selectValue === null || selectValue === void 0 ? void 0 : selectValue[valueKey]) == item[valueKey] ? activeColor === null || activeColor === void 0 ? void 0 : activeColor[type] : type === "font" ? "#000" : "";
+      return (selectValue === null || selectValue === void 0 ? void 0 : selectValue[valueKey]) === item[valueKey] ? activeColor === null || activeColor === void 0 ? void 0 : activeColor[type] : type === "font" ? "#000" : "";
     }
   };
 
@@ -7608,8 +7621,6 @@ const Select = /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_a
       // 当下拉项展开的时候进入这个回调，来关闭下拉项
       if (isShow) {
         handleClose();
-      } else if (isFocus) {
-        setIsShow(true);
       }
       return; // 让焦点移动到下一个表单元素
     } else if (isShow) {
@@ -7859,12 +7870,15 @@ const Select = /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_a
 
   // 因为现在只有在 第一次 的时候展示 select-value的div，后面都是展示 input，所以这边做了赋值处理，保证 input的值能够实时更新
   (0,external_root_React_commonjs2_react_commonjs_react_amd_react_.useEffect)(() => {
+    if (typeof selectValue === "object" ? !(0,Utils.isEmptyO)(selectValue) : selectValue) {
+      handleValidate(selectValue);
+    }
     /* if (valueKey === "item_id") {
         debugger;
         console.log("selectValue: ", selectValue);
       } */
     if (
-    // 下面这些情况不用在意 input 的值
+    // 下面这些情况不用在意 input 的值: 1. 没有输入框 2. 没有聚焦 / 没有展示搜索框 / 不是 LiveSearch 3. 没有选中值
     !inputRef.current || !isInputFocusing && !showSearch && mode !== "liveSearch" || !selectValue) {
       if (inputRef.current) {
         inputRef.current.value = ""; // 如果 selectValue 没值，则 有input 的话， input 的值也要清空
@@ -8044,15 +8058,7 @@ const Select = /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_a
       right: isAddon ? "0px" : "14px"
     },
     className: "adou-select-icon fa-solid fa-caret-right ".concat(isShow ? "rotate-up" : "rotate-down")
-  })), mode === "common" && !showSearch && /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("input", {
-    type: "text",
-    style: {
-      width: "1px",
-      height: "1px",
-      opacity: 0,
-      border: "none"
-    }
-  }))), /*#__PURE__*/external_root_ReactDOM_commonjs2_react_dom_commonjs_react_dom_amd_react_dom_default().createPortal( /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("div", {
+  })))), /*#__PURE__*/external_root_ReactDOM_commonjs2_react_dom_commonjs_react_dom_amd_react_dom_default().createPortal( /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("div", {
     style: {
       position: "absolute",
       top: customSelectContentPosition.y + customSelectContentPosition.height + "px",
@@ -8075,7 +8081,7 @@ const Select = /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_a
       color: judgeColor(item, "font"),
       backgroundColor: judgeColor(item, "bgc")
     },
-    className: "adou-select-option ".concat((selectValue === null || selectValue === void 0 ? void 0 : selectValue[valueKey]) == item[valueKey] ? "adou-select-option-active" : "", " ").concat(focusedIndex === index ? "focused" : ""),
+    className: "adou-select-option ".concat((selectValue === null || selectValue === void 0 ? void 0 : selectValue[valueKey]) === item[valueKey] ? "adou-select-option-active" : "", " ").concat(focusedIndex === index ? "focused" : ""),
     key: item[valueKey]
   }, optionRender ? optionRender(item, labelKey, valueKey) : item.render ? item.render(item, labelKey, valueKey) : item[labelKey])) : /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("div", {
     className: "none-match ps-2"
