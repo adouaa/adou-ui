@@ -1,7 +1,6 @@
-import React, { useContext, useEffect, useImperativeHandle, useRef, useState } from 'react';
+import React, { useEffect, useImperativeHandle, useRef, useState } from 'react';
 
 import './index.scss';
-import { withTranslation } from 'react-i18next';
 
 interface TagInputProps {
     wrapperStyle?: React.CSSProperties;
