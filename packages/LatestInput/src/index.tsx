@@ -321,21 +321,14 @@ const Input: React.ForwardRefRenderFunction<InputRef, InputProps> = (
   }));
 
   useEffect(() => {
-    if (defaultValue || defaultValue === 0) {
+    if (defaultValue || defaultValue === 0 || defaultValue === false) {
       setValue(defaultValue);
+      handleValidate(defaultValue);
+      setError(false);
     } else {
       setValue("");
     }
-    if (defaultValue) {
-      setError(false);
-    }
   }, [defaultValue]);
-
-  /**
-   * 获取组件的高度赋值给label
-   */
-  const wrapeerRef = useRef<any>();
-  useEffect(() => {}, []);
 
   return (
     <div
@@ -404,10 +397,7 @@ const Input: React.ForwardRefRenderFunction<InputRef, InputProps> = (
         </div>
       ) : (
         // 只有在是 label 的情况下才去对 生成对应的类名
-        <div
-          className={`adou-input flex-fill ${generateClsWhenHasLabel()}`}
-          style={{ height: "100%" }} // 高度和其他组件保持一致
-        >
+        <div className={`adou-input flex-fill ${generateClsWhenHasLabel()}`}>
           {label && (
             <span
               className={`pe-3 ${layout === "vertical" ? "pb-1" : ""}`}

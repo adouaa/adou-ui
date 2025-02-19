@@ -794,21 +794,14 @@ const Input = (_ref, ref) => {
     clear
   }));
   (0,external_root_React_commonjs2_react_commonjs_react_amd_react_.useEffect)(() => {
-    if (defaultValue || defaultValue === 0) {
+    if (defaultValue || defaultValue === 0 || defaultValue === false) {
       setValue(defaultValue);
+      handleValidate(defaultValue);
+      setError(false);
     } else {
       setValue("");
     }
-    if (defaultValue) {
-      setError(false);
-    }
   }, [defaultValue]);
-
-  /**
-   * 获取组件的高度赋值给label
-   */
-  const wrapeerRef = (0,external_root_React_commonjs2_react_commonjs_react_amd_react_.useRef)();
-  (0,external_root_React_commonjs2_react_commonjs_react_amd_react_.useEffect)(() => {}, []);
   return /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("div", {
     title: title || label,
     onMouseEnter: handleMouseEnter,
@@ -861,10 +854,7 @@ const Input = (_ref, ref) => {
   /*#__PURE__*/
   // 只有在是 label 的情况下才去对 生成对应的类名
   external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("div", {
-    className: "adou-input flex-fill ".concat(generateClsWhenHasLabel()),
-    style: {
-      height: "100%"
-    } // 高度和其他组件保持一致
+    className: "adou-input flex-fill ".concat(generateClsWhenHasLabel())
   }, label && /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("span", {
     className: "pe-3 ".concat(layout === "vertical" ? "pb-1" : ""),
     style: {

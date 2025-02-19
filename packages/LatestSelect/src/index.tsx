@@ -187,7 +187,15 @@ const Select = React.forwardRef((props: SelectProps, ref) => {
         inputRef.current.value = "";
       }
     } else if (mode === "liveSearch") {
-      setSelectValue(inputRef.current?.value); // 搜索框失去焦点时，将输入框的值赋给 selectValue
+      const inputValue = inputRef.current?.value;
+      setSelectValue(
+        typeof selectValue === "string"
+          ? inputValue
+          : {
+              [labelKey]: inputValue,
+              [valueKey]: inputValue,
+            }
+      ); // 搜索框失去焦点时，将输入框的值赋给 selectValue
     } else if (mode === "tags") {
       handleTagsChange(inputRef.current?.value);
     }
@@ -212,7 +220,7 @@ const Select = React.forwardRef((props: SelectProps, ref) => {
       setClosing(true);
       setTimeout(() => {
         setClosing(false);
-        setIsShow((prev: boolean) => !prev);
+        setIsShow((prev: boolean) => false);
       }, 100);
       setIsEnter(false);
     } else {
@@ -439,6 +447,8 @@ const Select = React.forwardRef((props: SelectProps, ref) => {
     }
   };
 
+  const handleClickCommonSuffixIcon = () => {};
+
   // 点击展开按钮，显示 / 隐藏 下拉框--这里也要计算位置，然后再打开选项框
   const handleIconClick = () => {
     setTimeout(() => {
@@ -446,8 +456,6 @@ const Select = React.forwardRef((props: SelectProps, ref) => {
       setIsShow((prev: boolean) => !prev);
     }, 10);
   };
-
-  const handleClickCommonSuffixIcon = () => {};
 
   const handleClearIconClick = (e: React.MouseEvent<HTMLDivElement>) => {
     e.stopPropagation();
@@ -474,14 +482,14 @@ const Select = React.forwardRef((props: SelectProps, ref) => {
   const judgeColor = (item: any, type: "font" | "bgc") => {
     if (multiple || mode === "tags") {
       return selectValueList?.find(
-        (option: any) => option[valueKey] === item[valueKey]
+        (option: any) => option[valueKey] == item[valueKey]
       )
         ? activeColor?.[type]
         : type === "font"
         ? "#000"
         : "";
     } else {
-      return selectValue?.[valueKey] === item[valueKey]
+      return selectValue?.[valueKey] == item[valueKey]
         ? activeColor?.[type]
         : type === "font"
         ? "#000"
@@ -506,10 +514,19 @@ const Select = React.forwardRef((props: SelectProps, ref) => {
     setSelectValueList(newSelectValueList);
   };
 
+  // 手动聚焦
+  const focus = () => {
+    if (selectWrapperRef.current) {
+      selectWrapperRef.current.focus();
+    }
+  };
+
   useImperativeHandle(ref, () => ({
     validate,
     clear,
     getValue,
+    focus,
+    getMaxSelectValueWidth,
   }));
 
   const wrapperClassName = `adou-select-wrapper ${
@@ -522,6 +539,8 @@ const Select = React.forwardRef((props: SelectProps, ref) => {
       // 当下拉项展开的时候进入这个回调，来关闭下拉项
       if (isShow) {
         handleClose();
+      } else if (isFocus) {
+        setIsShow(true);
       }
       return; // 让焦点移动到下一个表单元素
     } else if (isShow) {
@@ -569,7 +588,7 @@ const Select = React.forwardRef((props: SelectProps, ref) => {
   // 计算所取到的值能展示的最大宽度
   const getMaxSelectValueWidth = () => {
     const selectWidth = getContentWidth(selectRef.current);
-
+    // if (name === "room") debugger;
     if (!selectWidth) return;
     const cliearIconBoxWidth = document.querySelector(
       ".adou-select-clear-icon-box"
@@ -660,11 +679,11 @@ const Select = React.forwardRef((props: SelectProps, ref) => {
   };
 
   useEffect(() => {
-    /* if (name === "tcm_usage_id") {
-        console.log("defaultValue: ", name, defaultValue);
-        console.log("---------------------------------: ", options);
-        debugger;
-      } */
+    /* if (name === "freq") {
+      console.log("defaultValue: ", name, defaultValue);
+      console.log("---------------------------------: ", options);
+      debugger;
+    } */
     // 新增：如果使用过 defaultValue，就不再执行下面的逻辑
     // if (hasUseDefaultValue) return;
     if (defaultValue || defaultValue === 0 || defaultValue === false) {
@@ -754,7 +773,7 @@ const Select = React.forwardRef((props: SelectProps, ref) => {
               } */
             if (defaultValue || defaultValue === 0 || defaultValue === false) {
               const selectOption = options.find(
-                (option) => option[valueKey] == defaultValue // 用双等号，因为有可能传过来的是字符串
+                (option) => option[valueKey] == defaultValue
               );
               setSelectValue(selectOption);
             } else {
@@ -770,7 +789,7 @@ const Select = React.forwardRef((props: SelectProps, ref) => {
     }
     setTimeout(() => {
       getMaxSelectValueWidth();
-    }, 100);
+    }, 500);
   }, [defaultValue, options]);
 
   useEffect(() => {
@@ -802,17 +821,17 @@ const Select = React.forwardRef((props: SelectProps, ref) => {
 
   // 因为现在只有在 第一次 的时候展示 select-value的div，后面都是展示 input，所以这边做了赋值处理，保证 input的值能够实时更新
   useEffect(() => {
-    if (
-      typeof selectValue === "object" ? !isEmptyO(selectValue) : selectValue
-    ) {
-      handleValidate(selectValue);
-    }
     /* if (valueKey === "item_id") {
         debugger;
         console.log("selectValue: ", selectValue);
       } */
     if (
-      // 下面这些情况不用在意 input 的值: 1. 没有输入框 2. 没有聚焦 / 没有展示搜索框 / 不是 LiveSearch 3. 没有选中值
+      typeof selectValue === "object" ? !isEmptyO(selectValue) : selectValue
+    ) {
+      handleValidate(selectValue);
+    }
+    if (
+      // 下面这些情况不用在意 input 的值
       !inputRef.current ||
       (!isInputFocusing && !showSearch && mode !== "liveSearch") ||
       !selectValue
@@ -853,7 +872,7 @@ const Select = React.forwardRef((props: SelectProps, ref) => {
         ...(wrapperWidth ? { width: wrapperWidth } : { flex: 1 }),
       }}
     >
-      {/* {name === "dosage_quantity" && JSON.stringify(selectValue[valueKey])} */}
+      {/* aaa = {name === "usage" && JSON.stringify(defaultValue)} */}
       <div className="adou-select-form-content">
         <div
           ref={selectRef}
@@ -945,7 +964,7 @@ const Select = React.forwardRef((props: SelectProps, ref) => {
           ) : selectValue?.[valueKey] || // 情况三：如果 不是多选，并且 selectValue 有值，则展示 selectValue
             selectValue?.[valueKey] === 0 ||
             selectValue?.[valueKey] === false ? (
-            ellipsis ? (
+            ellipsis ? ( // 如果 ellipsis 为 true，则需要超出省略
               (!isInputFocusing || multiple) &&
               !showSearch &&
               mode !== "liveSearch" ? (
@@ -970,7 +989,7 @@ const Select = React.forwardRef((props: SelectProps, ref) => {
                 className={`adou-select-value  ${
                   contentWrap ? "ellipsis-1" : ""
                 }`}
-                style={{ ...(showSearch ? { flex: 1 } : { flex: 1 }) }}
+                style={{ ...(!showSearch && !filterOption ? { flex: 1 } : {}) }}
               >
                 {selectValue[labelKey]}
               </div>
@@ -1058,6 +1077,18 @@ const Select = React.forwardRef((props: SelectProps, ref) => {
               ></i>
             )}
           </div>
+          {/* 加这个输入框是为了 普通选择框 也能够用 键盘来快速选择 */}
+          {mode === "common" && !showSearch && (
+            <input
+              type="text"
+              style={{
+                width: "1px",
+                height: "1px",
+                opacity: 0,
+                border: "none",
+              }}
+            />
+          )}
         </div>
         {/* {suffixContent && (
                       <div className={`${suffixContentType === 'button' ? 'suffix-content-btn-wrapper px-2' : 'suffix-content-text-wrapper ms-2'} ${suffixContentExternalCls || ''}`}>
@@ -1100,7 +1131,7 @@ const Select = React.forwardRef((props: SelectProps, ref) => {
                       backgroundColor: judgeColor(item, "bgc"),
                     }}
                     className={`adou-select-option ${
-                      selectValue?.[valueKey] === item[valueKey]
+                      selectValue?.[valueKey] == item[valueKey]
                         ? "adou-select-option-active"
                         : ""
                     } ${focusedIndex === index ? "focused" : ""}`}
