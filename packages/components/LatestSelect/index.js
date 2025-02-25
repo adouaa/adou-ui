@@ -7232,6 +7232,7 @@ const IconClose = /*#__PURE__*/(0,external_root_React_commonjs2_react_commonjs_r
 
 const Select = /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().forwardRef((props, ref) => {
   const {
+    inputStyle,
     showIcon = true,
     title,
     backgroundColor,
@@ -7989,7 +7990,8 @@ const Select = /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_a
     style: {
       backgroundColor: judgeInputBgColor(),
       width: "100%",
-      cursor: disabled ? "not-allowed" : ""
+      cursor: disabled ? "not-allowed" : "",
+      ...inputStyle
     }
   }))) : selectValue !== null && selectValue !== void 0 && selectValue[valueKey] ||
   // 情况三：如果 不是多选，并且 selectValue 有值，则展示 selectValue
@@ -8041,7 +8043,8 @@ const Select = /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_a
     style: {
       backgroundColor: judgeInputBgColor(),
       width: "100%",
-      cursor: disabled ? "not-allowed" : ""
+      cursor: disabled ? "not-allowed" : "",
+      ...inputStyle
     }
   })), suffix && /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("div", {
     className: "suffix ms-2"

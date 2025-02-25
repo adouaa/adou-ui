@@ -1,6 +1,7 @@
 import "./index.scss";
 import React from "react";
 export interface SelectProps {
+    inputStyle?: React.CSSProperties;
     showIcon?: boolean;
     title?: string;
     backgroundColor?: string;

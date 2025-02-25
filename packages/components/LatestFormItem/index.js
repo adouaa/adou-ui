@@ -4672,8 +4672,8 @@ module.exports = function (item) {
       // dispatch for CommonJS interop named imports.
 
       const {
-        useState,
-        useEffect,
+        useState: dist_useState,
+        useEffect: dist_useEffect,
         useLayoutEffect,
         useDebugValue
       } = external_root_React_commonjs2_react_commonjs_react_amd_react_;
@@ -4718,7 +4718,7 @@ module.exports = function (item) {
 
         const [{
           inst
-        }, forceUpdate] = useState({
+        }, forceUpdate] = dist_useState({
           inst: {
             value,
             getSnapshot
@@ -4741,7 +4741,7 @@ module.exports = function (item) {
             });
           } // eslint-disable-next-line react-hooks/exhaustive-deps
         }, [subscribe, value, getSnapshot]);
-        useEffect(() => {
+        dist_useEffect(() => {
           // Check for changes right before subscribing. Subsequent changes will be
           // detected in the subscription handler.
           if (checkIfSnapshotChanged(inst)) {
@@ -6308,29 +6308,53 @@ module.exports = function (item) {
       ; // CONCATENATED MODULE: ./src/hooks/useLoading.tsx
       // useLoading.ts
 
-      const Loading = () => {
+      const Loading = _ref => {
+        let {
+          maskStyle,
+          loadingStyle
+        } = _ref;
+        console.log("Loading-maskStyle:", maskStyle);
+        console.log("Loading-loadingStyle:", loadingStyle);
+        const enhancedMaskStyle = Object.keys(maskStyle || {}).length > 0 ? maskStyle : {
+          backgroundColor: "rgba(255, 255, 255, 0.8)"
+        };
+        const enhancedLoadingStyle = Object.keys(loadingStyle || {}).length > 0 ? loadingStyle : {
+          width: "40px",
+          height: "40px"
+        };
         return /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("div", {
-          className: "loading-overlay"
+          className: "loading-overlay",
+          style: {
+            ...enhancedMaskStyle
+          }
         }, /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("div", {
-          className: "loading-spinner me-2"
+          className: "loading-spinner me-2",
+          style: {
+            ...enhancedLoadingStyle
+          }
         }), /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("span", null, "Loading..."));
       };
       let loadingCount = 0;
       let loadingInstance = null;
       let useLoading_root = null;
-      const createLoadingInstance = () => {
+      const createLoadingInstance = function () {
+        let maskStyle = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
+        let loadingStyle = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {};
         // 创建容器
         const container = document.createElement("div");
         container.className = "loading-wrapper";
         document.body.appendChild(container);
 
         // 创建 root
-        useLoading_root = (0, client /* createRoot */.H)(container);
+        useLoading_root = createRoot(container);
 
         // 渲染组件
         const render = visible => {
           var _root;
-          (_root = useLoading_root) === null || _root === void 0 || _root.render(visible ? /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement(Loading, null) : null);
+          (_root = useLoading_root) === null || _root === void 0 || _root.render(visible ? /*#__PURE__*/React.createElement(Loading, {
+            maskStyle: maskStyle,
+            loadingStyle: loadingStyle
+          }) : null);
         };
         return {
           show: () => {
@@ -6341,16 +6365,29 @@ module.exports = function (item) {
           }
         };
       };
-      const useLoading = () => {
-        const [isLoading, setIsLoading] = (0, external_root_React_commonjs2_react_commonjs_react_amd_react_.useState)(false);
-        (0, external_root_React_commonjs2_react_commonjs_react_amd_react_.useEffect)(() => {
-          // 确保只创建一个实例
-          if (!loadingInstance) {
-            loadingInstance = createLoadingInstance();
-          }
-        }, []);
+      const useLoading = function () {
+        let maskStyle = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {
+          backgroundColor: "rgba(255, 255, 255, 0.8)"
+        };
+        let loadingStyle = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {
+          width: "40px",
+          height: "40px"
+        };
+        const [isLoading, setIsLoading] = useState(false);
+        const maskStypeRef = useRef();
+        const loadingStyleRef = useRef();
+        useEffect(() => {
+          console.log("useLoading--maskStyle:", maskStyle);
+          console.log("useLoading--loadingStyle:", loadingStyle);
+          maskStypeRef.current = maskStyle;
+          loadingStyleRef.current = loadingStyle;
+        }, [maskStyle, loadingStyle]);
         const showLoading = () => {
           var _loadingInstance;
+          // 确保只创建一个实例
+          if (!loadingInstance) {
+            loadingInstance = createLoadingInstance(maskStypeRef.current || {}, loadingStyleRef.current || {});
+          }
           loadingCount++;
           setIsLoading(true);
           (_loadingInstance = loadingInstance) === null || _loadingInstance === void 0 || _loadingInstance.show();
@@ -6371,7 +6408,7 @@ module.exports = function (item) {
         };
       };
       /* harmony default export */
-      const hooks_useLoading = useLoading;
+      const hooks_useLoading = Loading;
       // EXTERNAL MODULE: ../../node_modules/css-loader/dist/cjs.js??ruleSet[1].rules[1].use[1]!../../node_modules/sass-loader/dist/cjs.js??ruleSet[1].rules[1].use[2]!./src/hooks/toast.scss
       var toast = __nested_webpack_require_27689__(323);
       ; // CONCATENATED MODULE: ./src/hooks/toast.scss
@@ -7005,6 +7042,8 @@ var update = injectStylesIntoStyleTag_default()(cjs_ruleSet_1_rules_1_use_2_src/
 
 const FormItem = _ref => {
   let {
+    errorType = "label",
+    // 错误类型
     addonAfterStyle,
     wrapperClassName,
     suffix,
@@ -7189,7 +7228,10 @@ const FormItem = _ref => {
   }, label && /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("div", {
     className: "adou-form-item-label-box text-end pe-3 position-relative ".concat(rules && rules.length && rules.some(item => item.required) ? "required" : "", " ").concat(layout === "vertical" ? "mb-1" : layout === "horizontal" ? "text-end pe-3" : ""),
     style: {
-      width: labelWidth
+      width: labelWidth,
+      ...(isError && errorType === "label" ? {
+        color: "red"
+      } : {})
     }
   }, /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("span", {
     className: "form-item-label-text",
@@ -7215,9 +7257,14 @@ const FormItem = _ref => {
   }, /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("span", {
     className: "input-group-text py-0",
     style: {
-      fontSize: "14px"
+      fontSize: "14px",
+      ...(isError && errorType === "label" ? {
+        color: "red"
+      } : {})
     }
-  }, processedAddonBefore), /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("div", {
+  }, processedAddonBefore, isError && errorType === "label" && /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("span", {
+    className: "form-item-label-text-required ms-1"
+  }, "*")), /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("div", {
     className: "adou-form d-flex",
     style: {
       flex: 1
@@ -7248,7 +7295,7 @@ const FormItem = _ref => {
     }
   }, enhancedChildren)), /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("div", {
     className: "suffix-content"
-  }), isError && /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("div", {
+  }), isError && errorType === "message" && /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("div", {
     className: "error-box fadeInDown ",
     style: {
       color: "red",

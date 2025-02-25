@@ -584,6 +584,7 @@ var update = injectStylesIntoStyleTag_default()(cjs_ruleSet_1_rules_1_use_2_src/
 
 const Form = /*#__PURE__*/(0,external_root_React_commonjs2_react_commonjs_react_amd_react_.forwardRef)((_ref, AdouFormRef) => {
   let {
+    commonErrorType = "label",
     commonForItemClsssName,
     commonDisabled,
     showNotFormItem,
@@ -698,6 +699,7 @@ const Form = /*#__PURE__*/(0,external_root_React_commonjs2_react_commonjs_react_
         }] : [],
         oneLine,
         disabled: commonDisabled,
+        errorType: commonErrorType,
         ...props // 为了不覆盖 FormItem 本来的 属性
       });
       renderChildren.push(enhancedChildren);

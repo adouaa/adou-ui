@@ -1,6 +1,7 @@
 import React from "react";
 import "./index.scss";
 interface FormProps {
+    commonErrorType?: "label" | "message";
     commonForItemClsssName?: string;
     commonDisabled?: boolean;
     showNotFormItem?: boolean;

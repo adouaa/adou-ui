@@ -3,6 +3,7 @@ import React from "react";
 import "./index.scss";
 
 interface FormProps {
+  commonErrorType?: "label" | "message";
   commonForItemClsssName?: string;
   commonDisabled?: boolean;
   showNotFormItem?: boolean;
@@ -44,6 +45,7 @@ interface ExtendedForm
 const Form = forwardRef(
   (
     {
+      commonErrorType = "label",
       commonForItemClsssName,
       commonDisabled,
       showNotFormItem,
@@ -156,6 +158,7 @@ const Form = forwardRef(
             : [],
           oneLine,
           disabled: commonDisabled,
+          errorType: commonErrorType,
           ...props, // 为了不覆盖 FormItem 本来的 属性
         });
         renderChildren.push(enhancedChildren);

@@ -11,6 +11,7 @@ import "./index.scss";
 import { isEmptyO } from "adou-ui/Utils";
 
 interface FormItemProps {
+  errorType?: "message" | "label";
   addonAfterStyle?: React.CSSProperties;
   wrapperClassName?: string;
   suffix?: any;
@@ -41,6 +42,7 @@ interface FormItemProps {
 }
 
 const FormItem = ({
+  errorType = "label", // 错误类型
   addonAfterStyle,
   wrapperClassName,
   suffix,
@@ -265,7 +267,10 @@ const FormItem = ({
                 ? "text-end pe-3"
                 : ""
             }`}
-            style={{ width: labelWidth }}
+            style={{
+              width: labelWidth,
+              ...(isError && errorType === "label" ? { color: "red" } : {}),
+            }}
           >
             <span
               className="form-item-label-text"
@@ -292,9 +297,19 @@ const FormItem = ({
               >
                 <span
                   className="input-group-text py-0"
-                  style={{ fontSize: "14px" }}
+                  style={{
+                    fontSize: "14px",
+                    ...(isError && errorType === "label"
+                      ? { color: "red" }
+                      : {}),
+                  }}
                 >
                   {processedAddonBefore}
+                  {isError && errorType === "label" && (
+                    <span className="form-item-label-text-required ms-1">
+                      *
+                    </span>
+                  )}
                 </span>
                 <div className="adou-form d-flex" style={{ flex: 1 }}>
                   {enhancedChildren}
@@ -327,7 +342,7 @@ const FormItem = ({
             )}
           </div>
           <div className="suffix-content"></div>
-          {isError && (
+          {isError && errorType === "message" && (
             <div
               className="error-box fadeInDown "
               style={{
