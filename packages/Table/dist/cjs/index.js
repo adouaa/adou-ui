@@ -9452,6 +9452,7 @@ const recursiveGenerateTableHeaderRows = function (columns) {
 };
 const Table = props => {
   const {
+    wrapperStyle,
     clickHighlight,
     checkedWhenDbClick = true,
     headerPadding = "py-1",
@@ -9644,7 +9645,7 @@ const Table = props => {
     // setTableData((preArr: any) => preArr.sort((a: any, b: any) => (a[prop] > b[prop] ? 1 : -1)));
     /* if (isDown) {
     const findItem = tableHeaders.find((item: any) => item.prop === prop);
-       } */
+     } */
   };
   /**
    *
@@ -10699,7 +10700,8 @@ const Table = props => {
       minHeight: minHeight,
       maxHeight: maxHeight,
       overflow: "auto",
-      width: tableWidth
+      width: tableWidth,
+      ...wrapperStyle
     },
     className: "table-wrapper ".concat("table-responsive".concat("-" + tableResponsive))
   }, /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("table", {
