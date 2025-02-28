@@ -10,6 +10,7 @@ import useThrottle from 'hooks/useThrottle';
 import IconClose from 'assets/svg/icon_close';
 
 export interface SelectProps {
+  inputStyle?: React.CSSProperties;
   showIcon?: boolean;
   title?: string;
   backgroundColor?: string;
@@ -79,6 +80,7 @@ export interface SelectProps {
 
 const Select = React.forwardRef((props: SelectProps, ref) => {
   const {
+    inputStyle,
     showIcon = true,
     title,
     backgroundColor,
@@ -956,6 +958,7 @@ const Select = React.forwardRef((props: SelectProps, ref) => {
                       backgroundColor: judgeInputBgColor(),
                       width: "100%",
                       cursor: disabled ? "not-allowed" : "",
+                      ...inputStyle,
                     }}
                   />
                 </div>
@@ -1027,8 +1030,8 @@ const Select = React.forwardRef((props: SelectProps, ref) => {
                   style={{
                     backgroundColor: judgeInputBgColor(),
                     width: "100%",
-
                     cursor: disabled ? "not-allowed" : "",
+                    ...inputStyle,
                   }}
                 />
               </div>
@@ -1155,7 +1158,6 @@ const Select = React.forwardRef((props: SelectProps, ref) => {
     </div>
   );
 });
-
 Select.displayName = 'Select';
 
 export default Select;
