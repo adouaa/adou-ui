@@ -10,6 +10,8 @@ import useThrottle from 'hooks/useThrottle';
 import IconClose from 'assets/svg/icon_close';
 
 export interface SelectProps {
+  addonStyle?: React.CSSProperties;
+  addonAfter?: any;
   inputStyle?: React.CSSProperties;
   showIcon?: boolean;
   title?: string;
@@ -80,6 +82,8 @@ export interface SelectProps {
 
 const Select = React.forwardRef((props: SelectProps, ref) => {
   const {
+    addonStyle,
+    addonAfter,
     inputStyle,
     showIcon = true,
     title,
@@ -270,46 +274,10 @@ const Select = React.forwardRef((props: SelectProps, ref) => {
       return; // 如果是禁用状态，则不执行下面的逻辑
     } else if (!showSearch) {
       // 如果是普通的单选模式，那要直接打开--新增如果是 tags 模式，则不打开下拉框来选择(因为会把输入框输入的值也添加到数组里面去)
-      setIsShow(true);
-      // 把下面的判断提炼出来
-    } else if (isInputFocusing) {
-      // 这边的判断好像都可以不要了？
-      /*  if (mode === 'common') {
-                if (!selectValue?.[valueKey]) {
-                    setIsShow(true);
-                    // 要给的 定时器，这样才能正确取到 contentRef的高度，否则为0
-                    setTimeout(() => {
-                        calcContentPosition();
-                    }, 10);
-                }
-            } else if (mode === 'liveSearch') {
-                debugger;
-                // isEmptyO(selectValue) 这个判断是为了防止 defaultValue 判断为空导致 selectValue是空对象的情况
-                if (!selectValue || isEmptyO(selectValue)) {
-                    setIsShow(true);
-                    // 要给的 定时器，这样才能正确取到 contentRef的高度，否则为0
-                    setTimeout(() => {
-                        calcContentPosition();
-                    }, 10);
-                }
-            } else if (mode === 'tags') {
-                if (!selectValue || isEmptyO(selectValue)) {
-                    // setIsShow(true); --新增如果是 tags 模式，则不打开下拉框来选择(因为会把输入框输入的值也添加到数组里面去)
-                    // 要给的 定时器，这样才能正确取到 contentRef的高度，否则为0
-                    setTimeout(() => {
-                        calcContentPosition();
-                    }, 10);
-                }
-                // setIsShow(false); // 新增如果是 tags 模式，则不打开下拉框来选择(因为会把输入框输入的值也添加到数组里面去)
-            } else if (multiple) {
-                if (!selectValue || isEmptyO(selectValue)) {
-                    setIsShow(true);
-                    // 要给的 定时器，这样才能正确取到 contentRef的高度，否则为0
-                    setTimeout(() => {
-                        calcContentPosition();
-                    }, 10);
-                }
-            } */
+      // 这边要加个定时器，因为上面计算位置是放在定时器里面的，不然会出现闪烁
+      setTimeout(() => {
+        setIsShow(true);
+      }, 10);
     }
   };
 
@@ -589,6 +557,7 @@ const Select = React.forwardRef((props: SelectProps, ref) => {
 
   // 计算所取到的值能展示的最大宽度
   const getMaxSelectValueWidth = () => {
+    if (selectValueMaxWidth) return; // 如果有值，则直接返回，就计算一次，不然宽度会一直变大
     const selectWidth = getContentWidth(selectRef.current);
     // if (name === "room") debugger;
     if (!selectWidth) return;
@@ -875,7 +844,7 @@ const Select = React.forwardRef((props: SelectProps, ref) => {
       }}
     >
       {/* aaa = {name === "usage" && JSON.stringify(defaultValue)} */}
-      <div className="adou-select-form-content">
+      <div className="adou-select-form-content input-group">
         <div
           ref={selectRef}
           onMouseEnter={handleMouseEnter}
@@ -972,7 +941,9 @@ const Select = React.forwardRef((props: SelectProps, ref) => {
               !showSearch &&
               mode !== "liveSearch" ? (
                 <div
-                  title={selectValue[labelKey] || selectValue}
+                  title={
+                    selectValue.title || selectValue[labelKey] || selectValue
+                  }
                   className={`adou-select-value ${
                     contentWrap ? "ellipsis-1" : ""
                   }`} // ellipsis-1 加上这个，选择框会自动变大或者变小
@@ -1012,7 +983,9 @@ const Select = React.forwardRef((props: SelectProps, ref) => {
             mode !== "tags" && (
               <div
                 className="adou-select-input-box flex-fill"
-                title={selectValue?.[labelKey] || selectValue}
+                title={
+                  selectValue.title || selectValue?.[labelKey] || selectValue
+                }
               >
                 <input
                   placeholder={selectValue?.[valueKey] ? "" : placeholder}
@@ -1093,11 +1066,14 @@ const Select = React.forwardRef((props: SelectProps, ref) => {
             />
           )}
         </div>
-        {/* {suffixContent && (
-                      <div className={`${suffixContentType === 'button' ? 'suffix-content-btn-wrapper px-2' : 'suffix-content-text-wrapper ms-2'} ${suffixContentExternalCls || ''}`}>
-                          {suffixContent}
-                      </div>
-                  )} */}
+        {addonAfter && (
+          <div
+            className="addon-after input-group-text"
+            style={{ ...addonStyle }}
+          >
+            {addonAfter}
+          </div>
+        )}
       </div>
       {ReactDOM.createPortal(
         <div
@@ -1158,6 +1134,7 @@ const Select = React.forwardRef((props: SelectProps, ref) => {
     </div>
   );
 });
+
 Select.displayName = 'Select';
 
 export default Select;
