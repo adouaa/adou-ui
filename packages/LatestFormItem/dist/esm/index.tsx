@@ -11,6 +11,9 @@ import "./index.scss";
 import { isEmptyO } from "adou-ui/Utils";
 
 interface FormItemProps {
+  addonBeforeStyle?: React.CSSProperties;
+  addonBeforeClssName?: string;
+  addonAfterClssName?: string;
   errorType?: "message" | "label";
   addonAfterStyle?: React.CSSProperties;
   wrapperClassName?: string;
@@ -42,6 +45,9 @@ interface FormItemProps {
 }
 
 const FormItem = ({
+  addonBeforeStyle,
+  addonBeforeClssName,
+  addonAfterClssName,
   errorType = "label", // 错误类型
   addonAfterStyle,
   wrapperClassName,
@@ -281,11 +287,11 @@ const FormItem = ({
             >
               {label}
             </span>
-            {rules &&
-              rules.length &&
-              rules.some((item: any) => item.required) && (
-                <span className="form-item-label-text-required">*</span>
-              )}
+            {rules?.length
+              ? rules.some((item: any) => item.required) && (
+                  <span className="form-item-label-text-required">*</span>
+                )
+              : ""}
           </div>
         )}
         <div ref={adouFormRef} className="adou-form-box" style={{ flex: 1 }}>
@@ -296,12 +302,14 @@ const FormItem = ({
                 style={{ flexWrap: contentWrap ? "wrap" : "nowrap" }}
               >
                 <span
-                  className="input-group-text py-0"
+                  className={`input-group-text py-0 ${addonBeforeClssName}`}
                   style={{
                     fontSize: "14px",
                     ...(isError && errorType === "label"
                       ? { color: "red" }
                       : {}),
+                    width: labelWidth,
+                    ...addonBeforeStyle,
                   }}
                 >
                   {processedAddonBefore}
@@ -316,7 +324,7 @@ const FormItem = ({
                 </div>
                 {processedAddonAfter && (
                   <span
-                    className="input-group-text py-0"
+                    className={`input-group-text py-0 ${addonAfterClssName}`}
                     style={{ fontSize: "14px", ...addonAfterStyle }}
                   >
                     {processedAddonAfter && processedAddonAfter}

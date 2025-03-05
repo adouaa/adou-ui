@@ -2,6 +2,9 @@ import { ReactNode } from "react";
 import React from "react";
 import "./index.scss";
 interface FormItemProps {
+    addonBeforeStyle?: React.CSSProperties;
+    addonBeforeClssName?: string;
+    addonAfterClssName?: string;
     errorType?: "message" | "label";
     addonAfterStyle?: React.CSSProperties;
     wrapperClassName?: string;
@@ -32,7 +35,7 @@ interface FormItemProps {
     children?: ReactNode;
 }
 declare const FormItem: {
-    ({ errorType, addonAfterStyle, wrapperClassName, suffix, disabled, labelColor, contentBackgroundColor, wrapperMinWidth, wrapperWidth, wrapperMaxWidth, contentWrapperWidth, wrapperStyle, contentWrap, oneLine, labelWrap, formItemRef, rules, setFieldValue, data, clearable, addonAfter, size, labelWidth, layout, addonBefore, label, name, children, }: FormItemProps): React.JSX.Element;
+    ({ addonBeforeStyle, addonBeforeClssName, addonAfterClssName, errorType, addonAfterStyle, wrapperClassName, suffix, disabled, labelColor, contentBackgroundColor, wrapperMinWidth, wrapperWidth, wrapperMaxWidth, contentWrapperWidth, wrapperStyle, contentWrap, oneLine, labelWrap, formItemRef, rules, setFieldValue, data, clearable, addonAfter, size, labelWidth, layout, addonBefore, label, name, children, }: FormItemProps): React.JSX.Element;
     displayName: string;
 };
 export default FormItem;

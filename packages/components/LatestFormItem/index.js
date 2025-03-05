@@ -7042,6 +7042,9 @@ var update = injectStylesIntoStyleTag_default()(cjs_ruleSet_1_rules_1_use_2_src/
 
 const FormItem = _ref => {
   let {
+    addonBeforeStyle,
+    addonBeforeClssName,
+    addonAfterClssName,
     errorType = "label",
     // 错误类型
     addonAfterStyle,
@@ -7239,9 +7242,9 @@ const FormItem = _ref => {
       fontSize: "14px",
       whiteSpace: labelWrap ? "pre-wrap" : "nowrap"
     }
-  }, label), rules && rules.length && rules.some(item => item.required) && /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("span", {
+  }, label), rules !== null && rules !== void 0 && rules.length ? rules.some(item => item.required) && /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("span", {
     className: "form-item-label-text-required"
-  }, "*")), /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("div", {
+  }, "*") : ""), /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("div", {
     ref: adouFormRef,
     className: "adou-form-box",
     style: {
@@ -7255,12 +7258,14 @@ const FormItem = _ref => {
       flexWrap: contentWrap ? "wrap" : "nowrap"
     }
   }, /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("span", {
-    className: "input-group-text py-0",
+    className: "input-group-text py-0 ".concat(addonBeforeClssName),
     style: {
       fontSize: "14px",
       ...(isError && errorType === "label" ? {
         color: "red"
-      } : {})
+      } : {}),
+      width: labelWidth,
+      ...addonBeforeStyle
     }
   }, processedAddonBefore, isError && errorType === "label" && /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("span", {
     className: "form-item-label-text-required ms-1"
@@ -7270,7 +7275,7 @@ const FormItem = _ref => {
       flex: 1
     }
   }, enhancedChildren), processedAddonAfter && /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("span", {
-    className: "input-group-text py-0",
+    className: "input-group-text py-0 ".concat(addonAfterClssName),
     style: {
       fontSize: "14px",
       ...addonAfterStyle
