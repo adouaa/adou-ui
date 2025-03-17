@@ -279,6 +279,14 @@ const Select = React.forwardRef((props: SelectProps, ref) => {
         setIsShow(true);
       }, 10);
     }
+    if (mode === "tags") {
+      inputRef.current?.focus();
+    }
+  };
+
+  const handleSelectBlur = () => {
+    if (mode === "tags") {
+    }
   };
 
   // 标签变化
@@ -310,8 +318,10 @@ const Select = React.forwardRef((props: SelectProps, ref) => {
 
   // 标签输入框变化
   const handleTagsInputKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
+    // e.stopPropagation();
     const value = e.currentTarget.value;
-    if (e.key === "Enter" && !isShow) {
+    if (e.key === "Enter" || e.key === " ") {
+      e.stopPropagation();
       if (value) {
         handleTagsChange(value);
         e.preventDefault();
@@ -925,8 +935,11 @@ const Select = React.forwardRef((props: SelectProps, ref) => {
                     aria-describedby="basic-addon1"
                     style={{
                       backgroundColor: judgeInputBgColor(),
-                      width: "100%",
+                      // width: "100%",
                       cursor: disabled ? "not-allowed" : "",
+                      ...(mode === "tags" && {
+                        maxWidth: "60px", // tags下最大宽度
+                      }),
                       ...inputStyle,
                     }}
                   />

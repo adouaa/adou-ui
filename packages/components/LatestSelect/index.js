@@ -7417,6 +7417,13 @@ const Select = /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_a
         setIsShow(true);
       }, 10);
     }
+    if (mode === "tags") {
+      var _inputRef$current3;
+      (_inputRef$current3 = inputRef.current) === null || _inputRef$current3 === void 0 || _inputRef$current3.focus();
+    }
+  };
+  const handleSelectBlur = () => {
+    if (mode === "tags") {}
   };
 
   // 标签变化
@@ -7446,8 +7453,10 @@ const Select = /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_a
 
   // 标签输入框变化
   const handleTagsInputKeyDown = e => {
+    // e.stopPropagation();
     const value = e.currentTarget.value;
-    if (e.key === "Enter" && !isShow) {
+    if (e.key === "Enter" || e.key === " ") {
+      e.stopPropagation();
       if (value) {
         handleTagsChange(value);
         e.preventDefault();
@@ -7656,12 +7665,12 @@ const Select = /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_a
   const handleInputFocus = e => {
     // 如果是 带输入框(过滤) 并且不是多选 逻辑
     if (showSearch && inputRef.current && !multiple) {
-      var _inputRef$current3;
+      var _inputRef$current4;
       setIsInputFocusing(true);
-      (_inputRef$current3 = inputRef.current) === null || _inputRef$current3 === void 0 || _inputRef$current3.focus();
+      (_inputRef$current4 = inputRef.current) === null || _inputRef$current4 === void 0 || _inputRef$current4.focus();
       // 如果有值
       if (!(0,Utils.isEmptyO)(selectValue)) {
-        var _inputRef$current4;
+        var _inputRef$current5;
         if (mode === "common") {
           if (typeof selectValue === "object") {
             inputRef.current.value = selectValue[labelKey];
@@ -7669,7 +7678,7 @@ const Select = /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_a
             inputRef.current.value = selectValue;
           }
         }
-        (_inputRef$current4 = inputRef.current) === null || _inputRef$current4 === void 0 || _inputRef$current4.select();
+        (_inputRef$current5 = inputRef.current) === null || _inputRef$current5 === void 0 || _inputRef$current5.select();
       } else {
         // 没值，则展示下拉列表
         setIsShow(true);
@@ -7956,8 +7965,11 @@ const Select = /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_a
     "aria-describedby": "basic-addon1",
     style: {
       backgroundColor: judgeInputBgColor(),
-      width: "100%",
+      // width: "100%",
       cursor: disabled ? "not-allowed" : "",
+      ...(mode === "tags" && {
+        maxWidth: "60px" // tags下最大宽度
+      }),
       ...inputStyle
     }
   }))) : selectValue !== null && selectValue !== void 0 && selectValue[valueKey] ||

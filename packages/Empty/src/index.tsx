@@ -4,7 +4,7 @@ import "./index.scss";
 interface EmptyProps {
   showSvg?: boolean;
   svg?: React.ReactNode;
-  text?: string;
+  text?: any;
   style?: any;
 }
 

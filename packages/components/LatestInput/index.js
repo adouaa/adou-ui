@@ -854,7 +854,10 @@ const Input = (_ref, ref) => {
   /*#__PURE__*/
   // 只有在是 label 的情况下才去对 生成对应的类名
   external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("div", {
-    className: "adou-input flex-fill ".concat(generateClsWhenHasLabel())
+    className: "adou-input flex-fill ".concat(generateClsWhenHasLabel()),
+    style: {
+      height: "100%"
+    }
   }, label && /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("span", {
     className: "pe-3 ".concat(layout === "vertical" ? "pb-1" : ""),
     style: {

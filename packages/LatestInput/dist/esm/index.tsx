@@ -397,7 +397,10 @@ const Input: React.ForwardRefRenderFunction<InputRef, InputProps> = (
         </div>
       ) : (
         // 只有在是 label 的情况下才去对 生成对应的类名
-        <div className={`adou-input flex-fill ${generateClsWhenHasLabel()}`}>
+        <div
+          className={`adou-input flex-fill ${generateClsWhenHasLabel()}`}
+          style={{ height: "100%" }}
+        >
           {label && (
             <span
               className={`pe-3 ${layout === "vertical" ? "pb-1" : ""}`}
