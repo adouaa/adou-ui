@@ -379,7 +379,7 @@ const Input: React.ForwardRefRenderFunction<InputRef, InputProps> = (
                         ref={inputFormContentRef}
                         className={`adou-input-form-content flex-fill d-flex align-items-center ${
                             isFocus ? 'adou-form-control-focus' : ''
-                        } ${judgeBorder()} ${type !== 'number' ? 'px-2' : ''}`}
+                        } ${judgeBorder()} ${type !== 'number' ? '' : ''}`}
                     >
                         {prefix && <div className="prefix-box">{prefix}</div>}
                         <div className={`input-box flex-fill d-flex align-items-center ${type !== 'number' ? 'px-2' : ''}`}>{commonElement}</div>

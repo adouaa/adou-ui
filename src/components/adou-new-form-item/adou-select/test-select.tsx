@@ -10,7 +10,8 @@ import useThrottle from 'hooks/useThrottle';
 import IconClose from 'assets/svg/icon_close';
 
 export interface SelectProps {
-  addonStyle?: React.CSSProperties;
+  optionContentStyle?: React.CSSProperties;
+  addonAfterStyle?: React.CSSProperties;
   addonAfter?: any;
   inputStyle?: React.CSSProperties;
   showIcon?: boolean;
@@ -82,7 +83,8 @@ export interface SelectProps {
 
 const Select = React.forwardRef((props: SelectProps, ref) => {
   const {
-    addonStyle,
+    optionContentStyle,
+    addonAfterStyle,
     addonAfter,
     inputStyle,
     showIcon = true,
@@ -133,7 +135,7 @@ const Select = React.forwardRef((props: SelectProps, ref) => {
     width,
     defaultValue,
     options,
-    placeholder,
+    placeholder = mode === "tags" ? "空格添加" : "",
     externalClassName,
     disabled,
     transparent,
@@ -860,7 +862,7 @@ const Select = React.forwardRef((props: SelectProps, ref) => {
           onMouseEnter={handleMouseEnter}
           onMouseLeave={handleMouseLeave}
           onClick={handleFormContentClick}
-          className={`adou-select d-flex align-items-center ${
+          className={`adou-select d-flex align-items-center px-2 ${
             selectContentExternalCls || ""
           } ${isFocus ? "adou-form-control-focus" : ""}`}
           style={{
@@ -938,7 +940,7 @@ const Select = React.forwardRef((props: SelectProps, ref) => {
                       // width: "100%",
                       cursor: disabled ? "not-allowed" : "",
                       ...(mode === "tags" && {
-                        maxWidth: "60px", // tags下最大宽度
+                        maxWidth: "80px", // tags下最大宽度
                       }),
                       ...inputStyle,
                     }}
@@ -1082,7 +1084,7 @@ const Select = React.forwardRef((props: SelectProps, ref) => {
         {addonAfter && (
           <div
             className="addon-after input-group-text"
-            style={{ ...addonStyle }}
+            style={{ ...addonAfterStyle }}
           >
             {addonAfter}
           </div>
@@ -1106,6 +1108,7 @@ const Select = React.forwardRef((props: SelectProps, ref) => {
                 }
               : {}),
             ...(closing ? { opacity: 0, transform: "scaleY(0)" } : {}),
+            ...optionContentStyle
           }}
           ref={contentRef}
           className={`adou-select-option-content ${
@@ -1147,6 +1150,7 @@ const Select = React.forwardRef((props: SelectProps, ref) => {
     </div>
   );
 });
+
 Select.displayName = 'Select';
 
 export default Select;
