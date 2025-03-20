@@ -1,7 +1,8 @@
 import "./index.scss";
 import React from "react";
 export interface SelectProps {
-    addonStyle?: React.CSSProperties;
+    optionContentStyle?: React.CSSProperties;
+    addonAfterStyle?: React.CSSProperties;
     addonAfter?: any;
     inputStyle?: React.CSSProperties;
     showIcon?: boolean;

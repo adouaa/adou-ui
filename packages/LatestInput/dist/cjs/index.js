@@ -876,7 +876,7 @@ const Input = (_ref, ref) => {
       ...formStyle
     },
     ref: inputFormContentRef,
-    className: "adou-input-form-content flex-fill d-flex align-items-center ".concat(isFocus ? "adou-form-control-focus" : "", " ").concat(judgeBorder(), " ").concat(type !== "number" ? "px-2" : "")
+    className: "adou-input-form-content flex-fill d-flex align-items-center ".concat(isFocus ? "adou-form-control-focus" : "", " ").concat(judgeBorder(), " ").concat(type !== "number" ? "" : "")
   }, prefix && /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("div", {
     className: "prefix-box"
   }, prefix), /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("div", {

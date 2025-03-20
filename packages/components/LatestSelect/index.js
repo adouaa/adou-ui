@@ -7232,7 +7232,8 @@ const IconClose = /*#__PURE__*/(0,external_root_React_commonjs2_react_commonjs_r
 
 const Select = /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().forwardRef((props, ref) => {
   const {
-    addonStyle,
+    optionContentStyle,
+    addonAfterStyle,
     addonAfter,
     inputStyle,
     showIcon = true,
@@ -7286,7 +7287,7 @@ const Select = /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_a
     width,
     defaultValue,
     options,
-    placeholder,
+    placeholder = mode === "tags" ? "空格添加" : "",
     externalClassName,
     disabled,
     transparent,
@@ -7912,7 +7913,7 @@ const Select = /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_a
     onMouseEnter: handleMouseEnter,
     onMouseLeave: handleMouseLeave,
     onClick: handleFormContentClick,
-    className: "adou-select d-flex align-items-center ".concat(selectContentExternalCls || "", " ").concat(isFocus ? "adou-form-control-focus" : ""),
+    className: "adou-select d-flex align-items-center px-2 ".concat(selectContentExternalCls || "", " ").concat(isFocus ? "adou-form-control-focus" : ""),
     style: {
       textAlign: "left",
       background: disabled ? "#eee" : transparent ? "transparent" : backgroundColor ? backgroundColor : varient === "filled" ? "#f0f0f0" : "",
@@ -7968,7 +7969,7 @@ const Select = /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_a
       // width: "100%",
       cursor: disabled ? "not-allowed" : "",
       ...(mode === "tags" && {
-        maxWidth: "60px" // tags下最大宽度
+        maxWidth: "80px" // tags下最大宽度
       }),
       ...inputStyle
     }
@@ -8066,7 +8067,7 @@ const Select = /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_a
   })), addonAfter && /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("div", {
     className: "addon-after input-group-text",
     style: {
-      ...addonStyle
+      ...addonAfterStyle
     }
   }, addonAfter)), /*#__PURE__*/external_root_ReactDOM_commonjs2_react_dom_commonjs_react_dom_amd_react_dom_default().createPortal( /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("div", {
     style: {
@@ -8079,7 +8080,8 @@ const Select = /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_a
       ...(closing ? {
         opacity: 0,
         transform: "scaleY(0)"
-      } : {})
+      } : {}),
+      ...optionContentStyle
     },
     ref: contentRef,
     className: "adou-select-option-content ".concat(isShow ? "adou-select-option-content-open" : "", " ").concat(closing ? "aduo-select-option-content-closing" : "")
