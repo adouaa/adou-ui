@@ -254,6 +254,12 @@ const Select = React.forwardRef((props: SelectProps, ref) => {
     const rect = selectRef.current.getBoundingClientRect();
     const distanceToBottom = viewportHeight - rect.bottom;
     // 如果 距离底部小于内容高度，则向上弹出
+    console.log("distanceToBottom: ", distanceToBottom);
+    console.log("contentRef: ", contentRef);
+    console.log(
+      "contentRef.current?.clientHeight: ",
+      contentRef.current?.clientHeight
+    );
     if (distanceToBottom < contentRef.current?.clientHeight) {
       position.y =
         position.y - contentRef.current?.clientHeight - position.height;
@@ -274,7 +280,7 @@ const Select = React.forwardRef((props: SelectProps, ref) => {
     }
     if (disabled) {
       return; // 如果是禁用状态，则不执行下面的逻辑
-    } else if (!showSearch) {
+    } else if (!showSearch && mode !== "liveSearch") {
       // 如果是普通的单选模式，那要直接打开--新增如果是 tags 模式，则不打开下拉框来选择(因为会把输入框输入的值也添加到数组里面去)
       // 这边要加个定时器，因为上面计算位置是放在定时器里面的，不然会出现闪烁
       setTimeout(() => {
@@ -590,6 +596,7 @@ const Select = React.forwardRef((props: SelectProps, ref) => {
     );
   };
 
+  // LiveSearch模式 进入这个方法
   const handleInputFocus = (e: any) => {
     // 如果是 带输入框(过滤) 并且不是多选 逻辑
     if (showSearch && inputRef.current && !multiple) {
@@ -613,11 +620,13 @@ const Select = React.forwardRef((props: SelectProps, ref) => {
       setIsInputFocusing(true);
     } else if (mode === "liveSearch") {
       setIsInputFocusing(true);
+      setIsShow(true);
       if (selectValue && !isEmptyO(selectValue)) {
         inputRef.current.value = selectValue?.[labelKey] || selectValue;
       }
       // inputRef.current?.focus();
     }
+    // 必须给个延迟，让 contentRef.current 的元素出现（有值）才能计算到正确的高度
     setTimeout(() => {
       calcContentPosition();
     }, 10);
@@ -1108,7 +1117,7 @@ const Select = React.forwardRef((props: SelectProps, ref) => {
                 }
               : {}),
             ...(closing ? { opacity: 0, transform: "scaleY(0)" } : {}),
-            ...optionContentStyle
+            ...optionContentStyle,
           }}
           ref={contentRef}
           className={`adou-select-option-content ${
@@ -1140,7 +1149,7 @@ const Select = React.forwardRef((props: SelectProps, ref) => {
                   </div>
                 ))
               ) : (
-                <div className="none-match ps-2">No content</div>
+                <div className="none-match px-2">No content</div>
               )}
             </div>
           )}
