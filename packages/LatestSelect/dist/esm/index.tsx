@@ -254,12 +254,6 @@ const Select = React.forwardRef((props: SelectProps, ref) => {
     const rect = selectRef.current.getBoundingClientRect();
     const distanceToBottom = viewportHeight - rect.bottom;
     // 如果 距离底部小于内容高度，则向上弹出
-    console.log("distanceToBottom: ", distanceToBottom);
-    console.log("contentRef: ", contentRef);
-    console.log(
-      "contentRef.current?.clientHeight: ",
-      contentRef.current?.clientHeight
-    );
     if (distanceToBottom < contentRef.current?.clientHeight) {
       position.y =
         position.y - contentRef.current?.clientHeight - position.height;
@@ -1046,28 +1040,28 @@ const Select = React.forwardRef((props: SelectProps, ref) => {
                 onClick={handleClearIconClick}
               ></i>
             </div>
-          ) : (
+          ) : commonSuffixContent ? (
             <div
               className="adou-select-common-sufiix-content text-secondary"
               style={{ textAlign: "right", whiteSpace: "nowrap" }}
             >
               {commonSuffixContent}
             </div>
-          )}
-          {commonSuffixIcon && (
+          ) : null}
+          {commonSuffixIcon ? (
             <i
               onClick={handleClickCommonSuffixIcon}
               className={`${commonSuffixIcon} adou-select-common-suffix-icon`}
             ></i>
-          )}
-          <div
-            className={`adou-select-icon-box ms-2 ${
-              !showSearch && !selectValue?.[valueKey] && !commonSuffixContent
-                ? "text-end" // 去掉 flex-fill
-                : ""
-            }`}
-          >
-            {showIcon && (
+          ) : null}
+          {showIcon ? (
+            <div
+              className={`adou-select-icon-box ms-2 ${
+                !showSearch && !selectValue?.[valueKey] && !commonSuffixContent
+                  ? "text-end" // 去掉 flex-fill
+                  : ""
+              }`}
+            >
               <i
                 onClick={handleIconClick}
                 style={{ color: labelColor, right: isAddon ? "0px" : "14px" }}
@@ -1075,17 +1069,18 @@ const Select = React.forwardRef((props: SelectProps, ref) => {
                   isShow ? "rotate-up" : "rotate-down"
                 }`}
               ></i>
-            )}
-          </div>
+            </div>
+          ) : null}
           {/* 加这个输入框是为了 普通选择框 也能够用 键盘来快速选择 */}
           {mode === "common" && !showSearch && (
             <input
               type="text"
               style={{
-                width: "1px",
+                width: "0px",
                 height: "1px",
                 opacity: 0,
                 border: "none",
+                padding: 0,
               }}
             />
           )}
@@ -1159,7 +1154,6 @@ const Select = React.forwardRef((props: SelectProps, ref) => {
     </div>
   );
 });
-
 
 Select.displayName = "Select";
 

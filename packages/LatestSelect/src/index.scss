@@ -1,6 +1,8 @@
 .adou-select-wrapper {
 
     .adou-select-form-content {
+        height: 100%;
+
         .adou-select {
             height: 100%;
             border: 1px solid #ced4da;
@@ -8,7 +10,7 @@
             // box-shadow: 0 1px 1px rgba(0, 0, 0, 0.075); 加上这个在 borderless 情况下底部会有条线
             transition: background-color 0.5s ease, border-color 0.5s ease, box-shadow 0.5s ease;
             cursor: pointer;
-            padding: 0 12px;
+            // padding: 0 12px;
 
             i {
                 transition: transform 0.3s ease;
@@ -109,7 +111,9 @@
         }
 
         &.focused {
-            background-color: #e0e0e0;
+            background-color: #e0e0e0 !important;
+            color: #000 !important;
+            font-weight: normal !important;
             /* 高亮当前聚焦的选项 */
         }
     }
@@ -140,18 +144,12 @@
     }
 
     &::-webkit-scrollbar-thumb {
-        background-color: #ccc;
+        background-color: #c0c0c0;
         border-radius: 2px;
     }
 
     &::-webkit-scrollbar-track {
         background-color: #f1f1f1;
         border-radius: 2px;
-    }
-
-    /* 滚动条滑块在悬停时的样式 */
-    &::-webkit-scrollbar-thumb:hover {
-        background: #555;
-        /* 滚动条滑块悬停时的颜色 */
     }
 }
