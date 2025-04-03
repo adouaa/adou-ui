@@ -5,7 +5,7 @@ import Select from 'components/adou-new-form-item/adou-select';
 import Select1 from 'components/adou-new-form/adou-select';
 import AdouInput from 'components/adou-new-form-item/adou-Input';
 import LiveSearch from 'components/adou-new-form-item/adou-live-search';
-import TestSelect from 'components/adou-new-form-item/adou-select/test-select';
+import TestSelect from 'components/adou-new-form-item/adou-select';
 import RetrievrSelect from 'components/adou-new-form-item/adou-retrieve-select';
 import Form from 'components/adou-new-form-item';
 import useForm from 'components/adou-new-form-item/useForm';

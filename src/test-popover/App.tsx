@@ -3,6 +3,7 @@ import { useParams } from 'react-router-dom';
 import React from 'react';
 import Popover from 'components/adou-popover';
 import Button from 'components/adou-button';
+import AdouTable, { TableCell } from 'components/adou-table';
 
 interface AppProps {}
 
@@ -11,6 +12,7 @@ const App = ({}: AppProps) => {
 
     return (
         <div className="app-wrapper" style={{ padding: '150px' }}>
+            <Button type="warning">123</Button>
             <Popover
                 onShowChange={(show: boolean) => setShow(show)}
                 trigger="hover"
@@ -31,6 +33,10 @@ const App = ({}: AppProps) => {
                     click me
                 </Button>
             </Popover>
+
+            <AdouTable columns={[]} data={[{}]}>
+                <TableCell></TableCell>
+            </AdouTable>
         </div>
     );
 };

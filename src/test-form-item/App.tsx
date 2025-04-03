@@ -4,7 +4,7 @@ import React from 'react';
 import FormItem from 'components/adou-new-form-item/adou-form-item';
 import AdouInput from 'components/adou-new-form-item/adou-Input';
 import Form from 'components/adou-new-form-item';
-import Select from 'components/adou-new-form-item/adou-select/test-select';
+import Select from 'components/adou-new-form-item/adou-select';
 import Button from 'components/adou-button';
 import RetrievrSelect from 'components/adou-new-form-item/adou-retrieve-select';
 import LiveSearch from 'components/adou-new-form-item/adou-live-search';
