@@ -245,7 +245,7 @@ const Input: React.ForwardRefRenderFunction<InputRef, InputProps> = (
                         borderTopRightRadius: 0,
                         borderBottomRightRadius: 0,
                     }),
-                    height: size === 'lg' ? '48px' : size === 'sm' ? '32px' : '40px',
+                    height: size === 'lg' ? '48px' : size === 'sm' ? '32px' : '38px',
                     backgroundColor: judgeBgColor(),
                     cursor: disabled ? 'not-allowed' : 'auto',
                     borderRadius: '0.375rem', // 和父组件的 borderRadius 保持一致

@@ -89,6 +89,15 @@ const App = ({}: AppProps) => {
 
     return (
         <div className="app-wrapper">
+            <ResizableSidebar initialWidth={'310px'}>
+                <button onClick={() => fyRef.current?.shuffle()}>打乱</button>
+                <RandomArrange actRef={fyRef} showButton={false}>
+                    <Card>1</Card>
+                    <Card>3</Card>
+                    <Card>4</Card>
+                    <Card>5</Card>
+                </RandomArrange>
+            </ResizableSidebar>
             {/* <Button onClickOK={handleShuffle}>随机排序</Button>
             <div ref={itemListRef} className="item-list">
                 {[...Array(5)].map((_, index) => (
@@ -103,13 +112,6 @@ const App = ({}: AppProps) => {
                     </div>
                 ))}
             </div> */}
-            <button onClick={() => fyRef.current?.shuffle()}>打乱</button>
-            <RandomArrange actRef={fyRef} showButton={false}>
-                <Card>1</Card>
-                <Card>3</Card>
-                <Card>4</Card>
-                <Card>5</Card>
-            </RandomArrange>
         </div>
     );
 };

@@ -1,8 +1,8 @@
 import React, { useEffect, useImperativeHandle, useRef, useState } from 'react';
+import { withTranslation } from 'react-i18next';
 import './index.scss';
 
 interface TabsProps {
-    showContent?: boolean;
     commonTabItemHeaderExternalCls?: string;
     tabRef?: any;
     extraContentCls?: string;
@@ -22,21 +22,20 @@ interface TabsProps {
 
 const Tabs = (props: TabsProps) => {
     const {
-        showContent = true,
         commonTabItemHeaderExternalCls,
         tabRef,
         commonExtraContent,
         extraContentCls,
         contentHeight,
         showExtraContent,
-        lineaGradient = '',
+        lineaGradient = '#dafbff, #fff',
         children,
+        onLabelClick,
         activeIndex = 0,
         activeLabelColor = '#409eff',
         tabStyle = 'bootstrap',
         contentPadding,
         clearOnChange = true,
-        onLabelClick,
     } = props;
 
     const [updateKey, setupdateKey] = useState<number>(0);
@@ -53,6 +52,7 @@ const Tabs = (props: TabsProps) => {
     const renderHeader = () => {
         const tabItems: any = [];
         React.Children.map(children, (child: any) => {
+            if (!child) return;
             tabItems.push(child);
         });
         return (
@@ -85,11 +85,11 @@ const Tabs = (props: TabsProps) => {
                     </div>
                 ) : (
                     <div className="header-wrapper">
-                        <div className="bootstrap-tabs-header d-flex align-items-center">
+                        <div className="bootstrap-tabs-header d-flex">
                             <ul className="nav nav-tabs mb-2" style={{ flex: 1 }}>
                                 {tabItems.map((child: any, index: number) => {
                                     return (
-                                        <li key={index} className="nav-item d-flex mt-0" onClick={() => handleLabelClickFn(index, child)}>
+                                        <li key={index} className="nav-item d-flex" onClick={() => handleLabelClickFn(index, child)}>
                                             <a
                                                 style={{
                                                     // marginLeft: index === 0 ? "10px" : "", // 展示头部小尾巴
@@ -131,7 +131,9 @@ const Tabs = (props: TabsProps) => {
 
     const renderContent = () => {
         const renderChildren: any = [];
-        React.Children.map(children, (child: any, index) => {
+        const warpperdChildren = React.Children.toArray(children);
+        const validChildren = warpperdChildren.filter(Boolean);
+        React.Children.map(validChildren, (child: any, index) => {
             if (child) {
                 if (index === currentIndex) {
                     content.current = child.props.extraContent;
@@ -156,9 +158,16 @@ const Tabs = (props: TabsProps) => {
         setCurrentIndex(index);
     };
 
+    const getCurrentLabel = () => {
+        const childrenArr = React.Children.toArray(children);
+        const validChildren = childrenArr.filter(Boolean);
+        return (validChildren[currentIndex] as any)?.props?.label;
+    };
+
     useImperativeHandle(tabRef, () => ({
         goTo,
         getCurrentIndex: () => currentIndex,
+        getCurrentLabel,
     }));
 
     return (
@@ -167,10 +176,10 @@ const Tabs = (props: TabsProps) => {
                 {/* 先渲染头部 */}
                 {renderHeader()}
                 {/* 再渲染内容 */}
-                {showContent && renderContent()}
+                {renderContent()}
             </div>
         </>
     );
 };
 
-export default Tabs;
+export default withTranslation()(Tabs);

@@ -34,7 +34,7 @@ const App = ({}: AppProps) => {
                 </Button>
             </Popover>
 
-            <AdouTable columns={[]} data={[{}]}>
+            <AdouTable columns={[]} data={[]}>
                 <TableCell></TableCell>
             </AdouTable>
         </div>

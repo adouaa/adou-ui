@@ -74,6 +74,7 @@ export interface SelectProps {
     optionRender?: (option: any, labelKey?: any, valueKey?: any) => void; // 自定义渲染选项
     onInputChange?: (value: string) => void;
     filterOption?: (input: string, option: any, labelKey?: any, valueKey?: any) => any | boolean;
+    onTagsDelete?: (value: any) => void;
 }
 
 const Select = React.forwardRef((props: SelectProps, ref) => {
@@ -123,7 +124,7 @@ const Select = React.forwardRef((props: SelectProps, ref) => {
         label,
         labelPosition = 'center',
         inputGroup = false,
-        labelColor,
+        labelColor = '#8d9095',
         required = false,
         showEmpty = true,
         name,
@@ -142,6 +143,7 @@ const Select = React.forwardRef((props: SelectProps, ref) => {
         optionRender,
         onInputChange,
         filterOption,
+        onTagsDelete,
     } = props;
 
     const [isShow, setIsShow] = useState<boolean>(false);
@@ -294,7 +296,7 @@ const Select = React.forwardRef((props: SelectProps, ref) => {
             ) {
                 return;
             } else {
-                tempSelectValueList.push(value);
+                tempSelectValueList.push({ [labelKey]: value });
                 // tempSelectValueList.push(value);
                 setSelectValueList(tempSelectValueList);
                 inputRef.current.value = '';
@@ -302,6 +304,7 @@ const Select = React.forwardRef((props: SelectProps, ref) => {
         }
         handleValidate(tempSelectValueList);
         onFieldChange && onFieldChange(name!, tempSelectValueList);
+        onChange && onChange(tempSelectValueList);
         tagInputTemValueRef.current = '';
     };
 
@@ -358,8 +361,8 @@ const Select = React.forwardRef((props: SelectProps, ref) => {
     const getValue = () => {
         // 不能加这个逻辑，这样会导致手动选择另外的选项，返回的还是 defaultValue
         /* if (showDefaultValue) {
-              return defaultValue;
-            } */
+                return defaultValue;
+              } */
 
         if (selectValue?.[valueKey] || selectValue?.[valueKey] === 0 || selectValue?.[valueKey] === false) {
             // 感觉可有可无
@@ -441,14 +444,26 @@ const Select = React.forwardRef((props: SelectProps, ref) => {
     // 多选的情况下，删除选项
     const handleRemoveSelectValueListItem = (e: React.MouseEvent<HTMLDivElement>, item: any, index: number) => {
         e.stopPropagation();
-        const newSelectValueList = [...selectValueList];
+        let newSelectValueList = [...selectValueList];
         newSelectValueList.splice(index, 1);
         /* if (selectValueList.length === 1) {
-            handleValidate([]); // 清除最后一项的时候，也要触发校验
-        } */
+              handleValidate([]); // 清除最后一项的时候，也要触发校验
+          } */
         handleFieldChange(newSelectValueList);
         handleValidate(newSelectValueList);
         setSelectValueList(newSelectValueList);
+
+        if (multiple || mode === 'tags') {
+            const index = selectValueList.findIndex((option: any) => option[valueKey] === item[valueKey]);
+            if (index > -1) {
+                newSelectValueList = newSelectValueList.filter((option: any) => option[valueKey] !== item[valueKey]);
+                setSelectValueList(newSelectValueList);
+            } else {
+                newSelectValueList.push(item);
+                setSelectValueList(newSelectValueList);
+            }
+        }
+        onChange && onChange(newSelectValueList);
     };
 
     // 手动聚焦
@@ -523,8 +538,10 @@ const Select = React.forwardRef((props: SelectProps, ref) => {
         // if (name === "room") debugger;
         if (!selectWidth) return;
         const cliearIconBoxWidth = document.querySelector('.adou-select-clear-icon-box')?.clientWidth;
-        const adouSelectIconBoxWidth = document.querySelector('.adou-select-icon-box')?.clientWidth;
-
+        const adouSelectIconBoxWidth = showIcon ? document.querySelector('.adou-select-icon-box')?.clientWidth : 0;
+        // if (name === "consultDept") {
+        //    debugger
+        // };
         // 这里多减去 8px 防止凸出来
         setSelectValueMaxWidth(selectWidth - (cliearIconBoxWidth || 0) - (adouSelectIconBoxWidth || 0) - 8 + 'px');
     };
@@ -603,10 +620,10 @@ const Select = React.forwardRef((props: SelectProps, ref) => {
 
     useEffect(() => {
         /* if (name === "freq") {
-      console.log("defaultValue: ", name, defaultValue);
-      console.log("---------------------------------: ", options);
-      debugger;
-    } */
+        console.log("defaultValue: ", name, defaultValue);
+        console.log("---------------------------------: ", options);
+        debugger;
+      } */
         // 新增：如果使用过 defaultValue，就不再执行下面的逻辑
         // if (hasUseDefaultValue) return;
         if (defaultValue || defaultValue === 0 || defaultValue === false) {
@@ -686,9 +703,9 @@ const Select = React.forwardRef((props: SelectProps, ref) => {
                         }
                     } else {
                         /* if (name === "pharmacy_id") {
-                console.log("defaultValue: ", name, defaultValue);
-                // debugger;
-              } */
+                  console.log("defaultValue: ", name, defaultValue);
+                  // debugger;
+                } */
                         if (defaultValue || defaultValue === 0 || defaultValue === false) {
                             const selectOption = options.find((option) => option[valueKey] == defaultValue);
                             setSelectValue(selectOption);
@@ -738,9 +755,9 @@ const Select = React.forwardRef((props: SelectProps, ref) => {
     // 因为现在只有在 第一次 的时候展示 select-value的div，后面都是展示 input，所以这边做了赋值处理，保证 input的值能够实时更新
     useEffect(() => {
         /* if (valueKey === "item_id") {
-        debugger;
-        console.log("selectValue: ", selectValue);
-      } */
+          debugger;
+          console.log("selectValue: ", selectValue);
+        } */
         if (typeof selectValue === 'object' ? !isEmptyO(selectValue) : selectValue) {
             handleValidate(selectValue);
         }
@@ -795,13 +812,13 @@ const Select = React.forwardRef((props: SelectProps, ref) => {
                         background: disabled ? '#eee' : transparent ? 'transparent' : backgroundColor ? backgroundColor : varient === 'filled' ? '#f0f0f0' : '',
                         flex: 1,
                         /* ...(suffixContentType === 'button'
-                            ? {
-                                  borderTopRightRadius: 0,
-                                  borderBottomRightRadius: 0,
-                                  // borderRight: "none",
-                              }
-                            : {}), */
-                        minHeight: size === 'lg' ? '48px' : size === 'sm' ? '33.6px' : '41.6px',
+                              ? {
+                                    borderTopRightRadius: 0,
+                                    borderBottomRightRadius: 0,
+                                    // borderRight: "none",
+                                }
+                              : {}), */
+                        minHeight: size === 'lg' ? '48px' : size === 'sm' ? '33.6px' : '38px',
                         border: varient === 'borderless' ? 'none' : '',
                         cursor: disabled ? 'not-allowed' : 'pointer',
                         ...formStyle,
@@ -934,7 +951,7 @@ const Select = React.forwardRef((props: SelectProps, ref) => {
                             <i
                                 onClick={handleIconClick}
                                 style={{ color: labelColor, right: isAddon ? '0px' : '14px' }}
-                                className={`adou-select-icon fa-solid fa-caret-right ${isShow ? 'rotate-up' : 'rotate-down'}`}
+                                className={`adou-select-icon fa-solid fa-angle-down ${isShow ? 'rotate-up' : 'rotate-down'}`}
                             ></i>
                         </div>
                     ) : null}

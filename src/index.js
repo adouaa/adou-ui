@@ -78,9 +78,9 @@ import ReactDOM from 'react-dom/client';
 
 // import App from './test-list-group/App.tsx';
 
-import App from './test-popover/App.tsx';
+// import App from './test-popover/App.tsx';
 
-// import App from './test-resizeable-sliderbar/App.tsx';
+import App from './test-resizeable-sliderbar/App.tsx';
 
 // import App from './App-file-
 // upload.tsx';
