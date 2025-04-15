@@ -79,6 +79,7 @@ export interface SelectProps {
     labelKey?: any,
     valueKey?: any
   ) => any | boolean;
+  onTagsDelete?: (value: any) => void;
 }
 
 const Select = React.forwardRef((props: SelectProps, ref) => {
@@ -128,7 +129,7 @@ const Select = React.forwardRef((props: SelectProps, ref) => {
     label,
     labelPosition = "center",
     inputGroup = false,
-    labelColor,
+    labelColor = "#8d9095",
     required = false,
     showEmpty = true,
     name,
@@ -147,6 +148,7 @@ const Select = React.forwardRef((props: SelectProps, ref) => {
     optionRender,
     onInputChange,
     filterOption,
+    onTagsDelete,
   } = props;
 
   const [isShow, setIsShow] = useState<boolean>(false);
@@ -307,7 +309,7 @@ const Select = React.forwardRef((props: SelectProps, ref) => {
       ) {
         return;
       } else {
-        tempSelectValueList.push(value);
+        tempSelectValueList.push({ [labelKey]: value });
         // tempSelectValueList.push(value);
         setSelectValueList(tempSelectValueList);
         inputRef.current.value = "";
@@ -315,6 +317,7 @@ const Select = React.forwardRef((props: SelectProps, ref) => {
     }
     handleValidate(tempSelectValueList);
     onFieldChange && onFieldChange(name!, tempSelectValueList);
+    onChange && onChange(tempSelectValueList);
     tagInputTemValueRef.current = "";
   };
 
@@ -486,7 +489,7 @@ const Select = React.forwardRef((props: SelectProps, ref) => {
     index: number
   ) => {
     e.stopPropagation();
-    const newSelectValueList = [...selectValueList];
+    let newSelectValueList = [...selectValueList];
     newSelectValueList.splice(index, 1);
     /* if (selectValueList.length === 1) {
             handleValidate([]); // 清除最后一项的时候，也要触发校验
@@ -494,6 +497,22 @@ const Select = React.forwardRef((props: SelectProps, ref) => {
     handleFieldChange(newSelectValueList);
     handleValidate(newSelectValueList);
     setSelectValueList(newSelectValueList);
+
+    if (multiple || mode === "tags") {
+      const index = selectValueList.findIndex(
+        (option: any) => option[valueKey] === item[valueKey]
+      );
+      if (index > -1) {
+        newSelectValueList = newSelectValueList.filter(
+          (option: any) => option[valueKey] !== item[valueKey]
+        );
+        setSelectValueList(newSelectValueList);
+      } else {
+        newSelectValueList.push(item);
+        setSelectValueList(newSelectValueList);
+      }
+    }
+    onChange && onChange(newSelectValueList);
   };
 
   // 手动聚焦
@@ -576,10 +595,12 @@ const Select = React.forwardRef((props: SelectProps, ref) => {
     const cliearIconBoxWidth = document.querySelector(
       ".adou-select-clear-icon-box"
     )?.clientWidth;
-    const adouSelectIconBoxWidth = document.querySelector(
-      ".adou-select-icon-box"
-    )?.clientWidth;
-
+    const adouSelectIconBoxWidth = showIcon
+      ? document.querySelector(".adou-select-icon-box")?.clientWidth
+      : 0;
+    // if (name === "consultDept") {
+    //    debugger
+    // };
     // 这里多减去 8px 防止凸出来
     setSelectValueMaxWidth(
       selectWidth -
@@ -888,7 +909,7 @@ const Select = React.forwardRef((props: SelectProps, ref) => {
                               }
                             : {}), */
             minHeight:
-              size === "lg" ? "48px" : size === "sm" ? "33.6px" : "41.6px",
+              size === "lg" ? "48px" : size === "sm" ? "33.6px" : "38px",
             border: varient === "borderless" ? "none" : "",
             cursor: disabled ? "not-allowed" : "pointer",
             ...formStyle,
@@ -1065,7 +1086,7 @@ const Select = React.forwardRef((props: SelectProps, ref) => {
               <i
                 onClick={handleIconClick}
                 style={{ color: labelColor, right: isAddon ? "0px" : "14px" }}
-                className={`adou-select-icon fa-solid fa-caret-right ${
+                className={`adou-select-icon fa-solid fa-angle-down ${
                   isShow ? "rotate-up" : "rotate-down"
                 }`}
               ></i>

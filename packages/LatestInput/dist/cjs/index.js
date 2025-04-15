@@ -749,7 +749,7 @@ const Input = (_ref, ref) => {
         borderTopRightRadius: 0,
         borderBottomRightRadius: 0
       }),
-      height: size === "lg" ? "48px" : size === "sm" ? "32px" : "40px",
+      height: size === "lg" ? "48px" : size === "sm" ? "32px" : "38px",
       backgroundColor: judgeBgColor(),
       cursor: disabled ? "not-allowed" : "auto",
       borderRadius: "0.375rem",

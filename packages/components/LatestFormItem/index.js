@@ -7042,6 +7042,9 @@ var update = injectStylesIntoStyleTag_default()(cjs_ruleSet_1_rules_1_use_2_src/
 
 const FormItem = _ref => {
   let {
+    fromContentMarginRight,
+    formContentStyle,
+    formContentClassName,
     addonBeforeStyle,
     addonBeforeClssName,
     addonAfterClssName,
@@ -7087,7 +7090,7 @@ const FormItem = _ref => {
     } else if (layout === "vertical") {
       return "adou-form-item-content-vertical flex-column";
     } else if (layout === "inline" && !suffix) {
-      return "adou-form-item-content-inline d-flex align-items-center me-3";
+      return "adou-form-item-content-inline d-flex align-items-center ".concat(fromContentMarginRight || "me-3");
     }
   };
 
@@ -7227,7 +7230,10 @@ const FormItem = _ref => {
       })
     }
   }, /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("div", {
-    className: "adou-form-item-content flex-fill ".concat(judgeFormItemContentCls(), " ").concat(isError ? "border-danger" : "", " ").concat(isError && layout !== "horizontal-top" ? " align-items-baseline" : "")
+    className: "adou-form-item-content flex-fill ".concat(judgeFormItemContentCls(), " ").concat(isError ? "border-danger" : "", " ").concat(isError && layout !== "horizontal-top" ? " align-items-baseline" : "", " ").concat(formContentClassName ? formContentClassName : ""),
+    style: {
+      ...formContentStyle
+    }
   }, label && /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("div", {
     className: "adou-form-item-label-box text-end pe-3 position-relative ".concat(rules && rules.length && rules.some(item => item.required) ? "required" : "", " ").concat(layout === "vertical" ? "mb-1" : layout === "horizontal" ? "text-end pe-3" : ""),
     style: {
@@ -7258,7 +7264,7 @@ const FormItem = _ref => {
       flexWrap: contentWrap ? "wrap" : "nowrap"
     }
   }, /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("span", {
-    className: "input-group-text py-0 ".concat(addonBeforeClssName),
+    className: "input-group-text py-0 ".concat(addonBeforeClssName ? addonBeforeClssName : ""),
     style: {
       fontSize: "14px",
       ...(isError && errorType === "label" ? {
@@ -7275,7 +7281,7 @@ const FormItem = _ref => {
       flex: 1
     }
   }, enhancedChildren), processedAddonAfter && /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("span", {
-    className: "input-group-text py-0 ".concat(addonAfterClssName),
+    className: "input-group-text py-0 ".concat(addonAfterClssName ? addonAfterClssName : ""),
     style: {
       fontSize: "14px",
       ...addonAfterStyle

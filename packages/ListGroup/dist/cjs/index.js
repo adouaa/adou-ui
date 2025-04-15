@@ -582,9 +582,9 @@ const ListGroup = _ref => {
     defaultFirst = false,
     data,
     activeList: selectList,
-    labelKey = 'label',
-    valueKey = 'value',
-    type = 'primary',
+    labelKey = "label",
+    valueKey = "value",
+    type = "primary",
     render,
     onItemClick,
     onItemDoubleClick
@@ -613,7 +613,7 @@ const ListGroup = _ref => {
     onItemDoubleClick && onItemDoubleClick(item);
   };
   const judgeIsActive = item => {
-    if (!activeOnClick) return '';
+    if (!activeOnClick) return "";
     let flag = false;
     if (multiple && Array.isArray(activeList)) {
       if (activeList.map(item => item[valueKey]).includes(item[valueKey])) flag = true;
@@ -623,7 +623,7 @@ const ListGroup = _ref => {
     if (flag) {
       return "active bg-".concat(type, " border-").concat(type);
     } else {
-      return '';
+      return "";
     }
   };
   (0,external_root_React_commonjs2_react_commonjs_react_amd_react_.useEffect)(() => {
@@ -638,7 +638,6 @@ const ListGroup = _ref => {
         setParentMaxHeight(parentElement.clientHeight);
       }
     }
-    console.log('selectList: ', selectList);
   }, [selectList, data, columnMaxHeight, listGroupRef.current]);
   (0,external_root_React_commonjs2_react_commonjs_react_amd_react_.useEffect)(() => {
     // 如果需要换行，则根据 判断 filesPerColunm 是否有值，有值则直接分割，没有值则根据 parentMaxHeight 和 itemHeight 计算每列的文件数量
@@ -671,7 +670,7 @@ const ListGroup = _ref => {
     }
   }, [data, lineBreak, columnMaxHeight, maxHeight, parentMaxHeight]);
   return /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("div", {
-    className: "list-group-wrapper ".concat(externalClassName || ''),
+    className: "list-group-wrapper ".concat(externalClassName || ""),
     ref: listGroupRef
   }, lineBreak && (columnMaxHeight || maxHeight || parentMaxHeight) ? /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("div", {
     className: "row g-0"
@@ -679,16 +678,16 @@ const ListGroup = _ref => {
     className: "col",
     key: columnIndex
   }, /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("ul", {
-    className: "list-group me-2",
+    className: "list-group ".concat(columnIndex === list.length - 1 ? "" : "me-2"),
     style: {
       height,
       // maxHeight:
       //   maxHeight || height || lineBreak ? parentMaxHeight : "",
       maxHeight: columnMaxHeight || maxHeight || height || parentMaxHeight,
-      overflowY: 'auto',
-      border: '1px solid #ccc',
-      borderRadius: '5px',
-      boxSizing: 'border-box'
+      overflowY: "auto",
+      border: "1px solid #ccc",
+      borderRadius: "5px",
+      boxSizing: "border-box"
     }
   }, Array.isArray(columnItems) && (columnItems === null || columnItems === void 0 ? void 0 : columnItems.map((item, itemIndex) => /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("div", {
     className: "list-group-item-wrapper",
@@ -716,16 +715,16 @@ const ListGroup = _ref => {
     style: {
       height,
       maxHeight: maxHeight || height,
-      overflowY: 'auto',
-      border: list.length ? '1px solid #ccc' : 'none'
+      overflowY: "auto",
+      border: list.length ? "1px solid #ccc" : "none"
     }
   }, list === null || list === void 0 ? void 0 : list.map((item, index) => /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("div", {
     className: "list-group-item-wrapper d-flex align-items-center",
     key: item[valueKey]
   }, /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("button", {
     style: {
-      whiteSpace: noWrap ? 'nowrap' : 'normal',
-      border: 'none'
+      whiteSpace: noWrap ? "nowrap" : "normal",
+      border: "none"
     },
     onClick: () => handleItemClick(item),
     onDoubleClick: e => handleItemDoubleClick(e, item),

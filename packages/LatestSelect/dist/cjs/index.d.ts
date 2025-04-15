@@ -68,6 +68,7 @@ export interface SelectProps {
     optionRender?: (option: any, labelKey?: any, valueKey?: any) => void;
     onInputChange?: (value: string) => void;
     filterOption?: (input: string, option: any, labelKey?: any, valueKey?: any) => any | boolean;
+    onTagsDelete?: (value: any) => void;
 }
 declare const Select: React.ForwardRefExoticComponent<SelectProps & React.RefAttributes<unknown>>;
 export default Select;

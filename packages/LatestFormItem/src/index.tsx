@@ -11,6 +11,9 @@ import "./index.scss";
 import { isEmptyO } from "adou-ui/Utils";
 
 interface FormItemProps {
+  fromContentMarginRight?: string;
+  formContentStyle?: React.CSSProperties;
+  formContentClassName?: string;
   addonBeforeStyle?: React.CSSProperties;
   addonBeforeClssName?: string;
   addonAfterClssName?: string;
@@ -45,6 +48,9 @@ interface FormItemProps {
 }
 
 const FormItem = ({
+  fromContentMarginRight,
+  formContentStyle,
+  formContentClassName,
   addonBeforeStyle,
   addonBeforeClssName,
   addonAfterClssName,
@@ -92,7 +98,9 @@ const FormItem = ({
     } else if (layout === "vertical") {
       return "adou-form-item-content-vertical flex-column";
     } else if (layout === "inline" && !suffix) {
-      return "adou-form-item-content-inline d-flex align-items-center me-3";
+      return `adou-form-item-content-inline d-flex align-items-center ${
+        fromContentMarginRight || "me-3"
+      }`;
     }
   };
 
@@ -258,7 +266,8 @@ const FormItem = ({
           isError ? "border-danger" : ""
         } ${
           isError && layout !== "horizontal-top" ? " align-items-baseline" : ""
-        }`}
+        } ${formContentClassName ? formContentClassName : ""}`}
+        style={{ ...formContentStyle }}
       >
         {label && (
           <div
@@ -302,7 +311,9 @@ const FormItem = ({
                 style={{ flexWrap: contentWrap ? "wrap" : "nowrap" }}
               >
                 <span
-                  className={`input-group-text py-0 ${addonBeforeClssName}`}
+                  className={`input-group-text py-0 ${
+                    addonBeforeClssName ? addonBeforeClssName : ""
+                  }`}
                   style={{
                     fontSize: "14px",
                     ...(isError && errorType === "label"
@@ -324,7 +335,9 @@ const FormItem = ({
                 </div>
                 {processedAddonAfter && (
                   <span
-                    className={`input-group-text py-0 ${addonAfterClssName}`}
+                    className={`input-group-text py-0 ${
+                      addonAfterClssName ? addonAfterClssName : ""
+                    }`}
                     style={{ fontSize: "14px", ...addonAfterStyle }}
                   >
                     {processedAddonAfter && processedAddonAfter}
