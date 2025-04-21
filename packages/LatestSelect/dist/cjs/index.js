@@ -7665,6 +7665,7 @@ const Select = /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_a
   const getMaxSelectValueWidth = () => {
     var _document$querySelect, _document$querySelect2;
     if (selectValueMaxWidth) return; // 如果有值，则直接返回，就计算一次，不然宽度会一直变大
+    if (!selectRef.current) return; // 如果元素还没出现，则直接返回
     const selectWidth = src_getContentWidth(selectRef.current);
     // if (name === "room") debugger;
     if (!selectWidth) return;
@@ -7853,6 +7854,11 @@ const Select = /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_a
       getMaxSelectValueWidth();
     }, 500);
   }, [defaultValue, options]);
+  (0,external_root_React_commonjs2_react_commonjs_react_amd_react_.useEffect)(() => {
+    if (selectRef.current) {
+      getMaxSelectValueWidth();
+    }
+  }, [selectRef.current]);
   (0,external_root_React_commonjs2_react_commonjs_react_amd_react_.useEffect)(() => {
     if (showEmpty) {
       if (options) {

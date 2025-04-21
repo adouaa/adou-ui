@@ -589,6 +589,7 @@ const Select = React.forwardRef((props: SelectProps, ref) => {
   // 计算所取到的值能展示的最大宽度
   const getMaxSelectValueWidth = () => {
     if (selectValueMaxWidth) return; // 如果有值，则直接返回，就计算一次，不然宽度会一直变大
+    if (!selectRef.current) return; // 如果元素还没出现，则直接返回
     const selectWidth = getContentWidth(selectRef.current);
     // if (name === "room") debugger;
     if (!selectWidth) return;
@@ -798,6 +799,12 @@ const Select = React.forwardRef((props: SelectProps, ref) => {
       getMaxSelectValueWidth();
     }, 500);
   }, [defaultValue, options]);
+
+  useEffect(() => {
+    if (selectRef.current) {
+      getMaxSelectValueWidth();
+    }
+  }, [selectRef.current]);
 
   useEffect(() => {
     if (showEmpty) {
