@@ -5,10 +5,12 @@ import React, {
   forwardRef,
   ForwardRefRenderFunction,
   useImperativeHandle,
+  useId,
 } from "react";
 import "./index.scss";
 
 interface CheckboxProps {
+  labelNoWrap?: boolean;
   width?: any;
   valueKey?: string;
   labelKey?: string;
@@ -28,7 +30,7 @@ interface CheckboxProps {
   required?: boolean;
   defaultValue?: string | string[] | { label: string; value: string }[];
   externalClassName?: string;
-  options?: { label: string; value: string }[];
+  options?: { label: any; value: string }[];
   inline?: boolean;
   wrap?: boolean;
   onChange?: (item: { label: string; value: string }[]) => void;
@@ -37,6 +39,7 @@ interface CheckboxProps {
 
 const Checkbox: ForwardRefRenderFunction<any, CheckboxProps> = (
   {
+    labelNoWrap = true,
     width,
     valueKey = "value",
     labelKey = "label",
@@ -65,6 +68,8 @@ const Checkbox: ForwardRefRenderFunction<any, CheckboxProps> = (
   },
   ref
 ) => {
+  const _useId = useId();
+
   // Function to check if an option should be checked
   const isChecked = (
     value: string,
@@ -98,7 +103,11 @@ const Checkbox: ForwardRefRenderFunction<any, CheckboxProps> = (
     "form-check-input": true,
   });
 
-  const handleChange = (item: { label: string; value: string }) => {
+  const handleChange = (
+    e: React.ChangeEvent<HTMLInputElement>,
+    item: { label: string; value: string }
+  ) => {
+    e.stopPropagation();
     const updatedOptions = optionsList.map((option) => {
       if (option.value === item.value) {
         option.checked = !option.checked;
@@ -168,6 +177,7 @@ const Checkbox: ForwardRefRenderFunction<any, CheckboxProps> = (
   });
 
   useEffect(() => {
+    // console.log("defalValue: ", defaultValue);
     // Update optionsList when defaultValue changes
     const updatedOptions = options.map((option) => ({
       ...option,
@@ -203,7 +213,7 @@ const Checkbox: ForwardRefRenderFunction<any, CheckboxProps> = (
               }`}
               style={{
                 textAlign: "left",
-                marginRight: "20px",
+                marginLeft: index !== 0 ? "1rem" : 0,
                 marginBottom: 0,
               }}
             >
@@ -214,13 +224,20 @@ const Checkbox: ForwardRefRenderFunction<any, CheckboxProps> = (
                 className={cls}
                 type="checkbox"
                 name={name}
-                id={item.value}
+                id={item.value + _useId}
                 checked={item.checked}
-                onChange={() => handleChange(item)}
+                onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+                  handleChange(e, item)
+                }
+                onClick={(e: React.MouseEvent) => e.stopPropagation()}
                 value={item.value}
-                readOnly={readOnly}
+                disabled={readOnly}
               />
-              <label className="form-check-label" htmlFor={item.value}>
+              <label
+                className="form-check-label"
+                htmlFor={item.value + _useId}
+                // style={{ whiteSpace: labelNoWrap ? "nowrap" : "" }}
+              >
                 {item.label || "Default Checkbox"}
               </label>
             </div>

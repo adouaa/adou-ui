@@ -603,7 +603,7 @@ const Form = /*#__PURE__*/(0,external_root_React_commonjs2_react_commonjs_react_
     layout,
     oneLine = false,
     labelPosition,
-    labelColor = "rgb(63 109 184)",
+    labelColor = "#8d9095",
     inline,
     required,
     children,

@@ -1,6 +1,7 @@
 import React from "react";
 import "./index.scss";
 interface CheckboxProps {
+    labelNoWrap?: boolean;
     width?: any;
     valueKey?: string;
     labelKey?: string;
@@ -24,7 +25,7 @@ interface CheckboxProps {
     }[];
     externalClassName?: string;
     options?: {
-        label: string;
+        label: any;
         value: string;
     }[];
     inline?: boolean;

@@ -660,6 +660,7 @@ var update = injectStylesIntoStyleTag_default()(cjs_ruleSet_1_rules_1_use_2_src/
 
 const Checkbox = (_ref, ref) => {
   let {
+    labelNoWrap = true,
     width,
     valueKey = "value",
     labelKey = "label",
@@ -686,6 +687,8 @@ const Checkbox = (_ref, ref) => {
     onChange,
     onFormDataChange
   } = _ref;
+  const _useId = (0,external_root_React_commonjs2_react_commonjs_react_amd_react_.useId)();
+
   // Function to check if an option should be checked
   const isChecked = (value, defaultValue) => {
     if (typeof defaultValue === "string") {
@@ -711,7 +714,8 @@ const Checkbox = (_ref, ref) => {
   const cls = classnames_default()({
     "form-check-input": true
   });
-  const handleChange = item => {
+  const handleChange = (e, item) => {
+    e.stopPropagation();
     const updatedOptions = optionsList.map(option => {
       if (option.value === item.value) {
         option.checked = !option.checked;
@@ -770,6 +774,7 @@ const Checkbox = (_ref, ref) => {
     [externalClassName]: externalClassName
   });
   (0,external_root_React_commonjs2_react_commonjs_react_amd_react_.useEffect)(() => {
+    // console.log("defalValue: ", defaultValue);
     // Update optionsList when defaultValue changes
     const updatedOptions = options.map(option => ({
       ...option,
@@ -800,7 +805,7 @@ const Checkbox = (_ref, ref) => {
     className: "form-check ".concat(index !== optionsList.length - 1 ? "me-2" : ""),
     style: {
       textAlign: "left",
-      marginRight: "20px",
+      marginLeft: index !== 0 ? "1rem" : 0,
       marginBottom: 0
     }
   }, /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("input", {
@@ -811,14 +816,16 @@ const Checkbox = (_ref, ref) => {
     className: cls,
     type: "checkbox",
     name: name,
-    id: item.value,
+    id: item.value + _useId,
     checked: item.checked,
-    onChange: () => handleChange(item),
+    onChange: e => handleChange(e, item),
+    onClick: e => e.stopPropagation(),
     value: item.value,
-    readOnly: readOnly
+    disabled: readOnly
   }), /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("label", {
     className: "form-check-label",
-    htmlFor: item.value
+    htmlFor: item.value + _useId
+    // style={{ whiteSpace: labelNoWrap ? "nowrap" : "" }}
   }, item.label || "Default Checkbox"))), suffixContent && /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("div", {
     className: "".concat(suffixContentType === "button" ? "suffix-content-btn-wrapper px-2" : "ms-2")
   }, suffixContent)), commonSuffixIcon && /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("i", {
