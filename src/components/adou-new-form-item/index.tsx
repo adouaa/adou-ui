@@ -61,7 +61,7 @@ const Form = forwardRef(
             layout,
             oneLine = false,
             labelPosition,
-            labelColor = 'rgb(63 109 184)',
+            labelColor = '#8d9095',
             inline,
             required,
             children,
