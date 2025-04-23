@@ -14,6 +14,6 @@ import useDrag from "./hooks/useDrag";
 import useThrottle from "./hooks/useThrottle";
 import useForm from "./hooks/useForm";
 import useNotification from "./hooks/useNotification";
-import useLoading from "./hooks/useLoading";
+import { useLoading } from "./hooks/useLoading";
 import useToast from "./hooks/useToast";
 export { getAbsolutePosition, convertToTag, timeFormatter, isEmptyO, convertArrayKeysToCamelCase, convertArrayKeysToSnakeCase, convertListToTree, flattenDataWithoutNesting, splitFilesIntoColumns, getContentWidth, useNavigateTo, useClickOutside, useDrag, useThrottle, useForm, useLoading, useNotification, useToast, };

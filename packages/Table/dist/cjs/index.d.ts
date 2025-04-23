@@ -38,7 +38,7 @@ declare const _default: React.ComponentType<Omit<{
     collection?: boolean | undefined;
     expandAll?: boolean | undefined;
     size?: "lg" | "sm" | undefined;
-    columns?: any;
+    columns: any[];
     propsData?: any;
     tableHover?: boolean | undefined;
     tableStriped?: boolean | undefined;

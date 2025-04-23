@@ -9522,6 +9522,7 @@ const Table = props => {
 
   // 唯一 id 加上 uniqId 防止多个表格的相同复选框冲突
   const uniqId = (0,external_root_React_commonjs2_react_commonjs_react_amd_react_.useId)();
+  const tableWrapperRef = (0,external_root_React_commonjs2_react_commonjs_react_amd_react_.useRef)(null);
 
   // 折叠的逻辑
   const handleCollapseClick = row => {
@@ -10428,23 +10429,23 @@ const Table = props => {
   const handleScrollToEnd = () => {
     // 表格滚动到底部
     setTimeout(() => {
-      const table = document.querySelector(".table-wrapper");
       const tableBody = document.querySelector(".table-body");
-      if (tableBody && table) {
-        table.scrollTo({
+      if (tableWrapperRef.current && tableBody) {
+        // 这边必须通过调用 div(ref=tableWrapperRef) 的 scrollTo方法，不能调用 table 的 scrollTo方法，不然无法滚动
+        tableWrapperRef.current.scrollTo({
           top: tableBody.clientHeight,
+          // 这边必须是 tableBody 的高度，不然高度不对
           behavior: "smooth"
         });
       }
     }, 100);
   };
 
-  // 滚到底部
+  // 滚到头部
   const handleScrollToTop = () => {
-    // 表格滚动到底部
-    const table = document.querySelector(".table-wrapper");
-    if (table) {
-      table.scrollTo({
+    // 表格滚动到顶部
+    if (tableWrapperRef.current) {
+      tableWrapperRef.current.scrollTo({
         top: 0,
         behavior: "smooth"
       });
@@ -10696,6 +10697,7 @@ const Table = props => {
     })));
   };
   return /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement((external_root_React_commonjs2_react_commonjs_react_amd_react_default()).Fragment, null, /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("div", {
+    ref: tableWrapperRef,
     style: {
       minHeight: minHeight,
       maxHeight: maxHeight,

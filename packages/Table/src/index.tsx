@@ -4,6 +4,7 @@ import React, {
   useEffect,
   useId,
   useImperativeHandle,
+  useRef,
   useState,
 } from "react";
 import { withTranslation } from "react-i18next";
@@ -63,7 +64,7 @@ interface TableProps {
   eidtable?: boolean;
   size?: "lg" | "sm";
   data: any;
-  columns?: any;
+  columns: any[]; // 不能为空
   propsData?: any;
   tableHover?: boolean;
   tableStriped?: boolean;
@@ -158,6 +159,8 @@ const Table = (props: TableProps) => {
 
   // 唯一 id 加上 uniqId 防止多个表格的相同复选框冲突
   const uniqId = useId();
+
+  const tableWrapperRef = useRef<any>(null);
 
   // 折叠的逻辑
   const handleCollapseClick = (row: any) => {
@@ -1307,23 +1310,22 @@ const Table = (props: TableProps) => {
   const handleScrollToEnd = () => {
     // 表格滚动到底部
     setTimeout(() => {
-      const table = document.querySelector(".table-wrapper");
       const tableBody = document.querySelector(".table-body");
-      if (tableBody && table) {
-        table.scrollTo({
-          top: tableBody.clientHeight,
+      if (tableWrapperRef.current && tableBody) {
+        // 这边必须通过调用 div(ref=tableWrapperRef) 的 scrollTo方法，不能调用 table 的 scrollTo方法，不然无法滚动
+        tableWrapperRef.current.scrollTo({
+          top: tableBody.clientHeight, // 这边必须是 tableBody 的高度，不然高度不对
           behavior: "smooth",
         });
       }
     }, 100);
   };
 
-  // 滚到底部
+  // 滚到头部
   const handleScrollToTop = () => {
-    // 表格滚动到底部
-    const table = document.querySelector(".table-wrapper");
-    if (table) {
-      table.scrollTo({
+    // 表格滚动到顶部
+    if (tableWrapperRef.current) {
+      tableWrapperRef.current.scrollTo({
         top: 0,
         behavior: "smooth",
       });
@@ -1576,6 +1578,7 @@ const Table = (props: TableProps) => {
   return (
     <>
       <div
+        ref={tableWrapperRef}
         style={{
           minHeight: minHeight,
           maxHeight: maxHeight,
