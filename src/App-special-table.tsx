@@ -93,7 +93,7 @@ const App = ({ counter }: AppProps) => {
             <button onClick={() => handleSubNumbers(5)}>-5</button>
             <hr />
             <hr />
-            <Table collection expandAll={false} collapse data={testData} tableStriped>
+            <Table columns={[]} collection expandAll={false} collapse data={testData} tableStriped>
                 {headerLabels.map((label) => (
                     <TableCell key={label.prop} prop={label.prop} label={label.label} />
                 ))}

@@ -58,7 +58,7 @@ import ReactDOM from 'react-dom/client';
 
 // import App from './test-slider/App.tsx';
 
-// import App from './test-table/App.tsx';
+import App from './test-table/App.tsx';
 
 // import App from './test-rate/App.tsx';
 
@@ -80,7 +80,7 @@ import ReactDOM from 'react-dom/client';
 
 // import App from './test-popover/App.tsx';
 
-import App from './test-resizeable-sliderbar/App.tsx';
+// import App from './test-resizeable-sliderbar/App.tsx';
 
 // import App from './App-file-
 // upload.tsx';
