@@ -1,6 +1,8 @@
 import React, { useEffect, useImperativeHandle, useRef, useState } from 'react';
 import { withTranslation } from 'react-i18next';
+import TabItem from './tab-item';
 import './index.scss';
+export { TabItem };
 
 interface TabsProps {
     commonTabItemHeaderExternalCls?: string;
