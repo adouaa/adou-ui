@@ -470,6 +470,7 @@ const Table = (props: TableProps) => {
                       align: judgeChildCellAlign(data, colProps, colIndex),
                       maxWidth: colProps.maxWidth || maxWidth,
                       showTip: colProps.showTip || showTip,
+                      render: colProps.render,
                     };
                     return (
                       <td
@@ -924,6 +925,7 @@ const Table = (props: TableProps) => {
                             width: widthObject[colProps.prop],
                             maxWidth: colProps.maxWidth || maxWidth,
                             showTip: colProps.showTip || showTip,
+                            render: colProps.render,
                           };
                           return (
                             <td

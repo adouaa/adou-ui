@@ -1639,7 +1639,7 @@ module.exports = {
         useClickOutside: () => ( /* reexport */hooks_useClickOutside),
         useDrag: () => ( /* reexport */hooks_useDrag),
         useForm: () => ( /* reexport */hooks_useForm),
-        useLoading: () => ( /* reexport */hooks_useLoading),
+        useLoading: () => ( /* reexport */useLoading),
         useNavigateTo: () => ( /* reexport */hooks_useNavigateTo),
         useNotification: () => ( /* reexport */hooks_useNotification),
         useThrottle: () => ( /* reexport */hooks_useThrottle),
@@ -5598,8 +5598,8 @@ module.exports = {
       // dispatch for CommonJS interop named imports.
 
       const {
-        useState: dist_useState,
-        useEffect: dist_useEffect,
+        useState,
+        useEffect,
         useLayoutEffect,
         useDebugValue
       } = external_root_React_commonjs2_react_commonjs_react_amd_react_;
@@ -5644,7 +5644,7 @@ module.exports = {
 
         const [{
           inst
-        }, forceUpdate] = dist_useState({
+        }, forceUpdate] = useState({
           inst: {
             value,
             getSnapshot
@@ -5667,7 +5667,7 @@ module.exports = {
             });
           } // eslint-disable-next-line react-hooks/exhaustive-deps
         }, [subscribe, value, getSnapshot]);
-        dist_useEffect(() => {
+        useEffect(() => {
           // Check for changes right before subscribing. Subsequent changes will be
           // detected in the subscription handler.
           if (checkIfSnapshotChanged(inst)) {
@@ -7272,12 +7272,12 @@ module.exports = {
         document.body.appendChild(container);
 
         // 创建 root
-        useLoading_root = createRoot(container);
+        useLoading_root = (0, client /* createRoot */.H)(container);
 
         // 渲染组件
         const render = visible => {
           var _root;
-          (_root = useLoading_root) === null || _root === void 0 || _root.render(visible ? /*#__PURE__*/React.createElement(Loading, {
+          (_root = useLoading_root) === null || _root === void 0 || _root.render(visible ? /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement(Loading, {
             maskStyle: maskStyle,
             loadingStyle: loadingStyle
           }) : null);
@@ -7299,10 +7299,10 @@ module.exports = {
           width: "40px",
           height: "40px"
         };
-        const [isLoading, setIsLoading] = useState(false);
-        const maskStypeRef = useRef();
-        const loadingStyleRef = useRef();
-        useEffect(() => {
+        const [isLoading, setIsLoading] = (0, external_root_React_commonjs2_react_commonjs_react_amd_react_.useState)(false);
+        const maskStypeRef = (0, external_root_React_commonjs2_react_commonjs_react_amd_react_.useRef)();
+        const loadingStyleRef = (0, external_root_React_commonjs2_react_commonjs_react_amd_react_.useRef)();
+        (0, external_root_React_commonjs2_react_commonjs_react_amd_react_.useEffect)(() => {
           console.log("useLoading--maskStyle:", maskStyle);
           console.log("useLoading--loadingStyle:", loadingStyle);
           maskStypeRef.current = maskStyle;
@@ -7334,7 +7334,7 @@ module.exports = {
         };
       };
       /* harmony default export */
-      const hooks_useLoading = Loading;
+      const hooks_useLoading = /* unused pure expression or super */null && 0;
       // EXTERNAL MODULE: ../../node_modules/css-loader/dist/cjs.js??ruleSet[1].rules[1].use[1]!../../node_modules/sass-loader/dist/cjs.js??ruleSet[1].rules[1].use[2]!./src/hooks/toast.scss
       var toast = __nested_webpack_require_27689__(323);
       ; // CONCATENATED MODULE: ./src/hooks/toast.scss
@@ -9774,7 +9774,8 @@ const Table = props => {
           colIndex: colIndex,
           align: judgeChildCellAlign(data, colProps, colIndex),
           maxWidth: colProps.maxWidth || maxWidth,
-          showTip: colProps.showTip || showTip
+          showTip: colProps.showTip || showTip,
+          render: colProps.render
         };
         return /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("td", {
           // 这边也不用在子级的第一列在最左侧了
@@ -10119,7 +10120,8 @@ const Table = props => {
             align: !colIndex && collapse && data.children ? "start" : colProps.align || align,
             width: widthObject[colProps.prop],
             maxWidth: colProps.maxWidth || maxWidth,
-            showTip: colProps.showTip || showTip
+            showTip: colProps.showTip || showTip,
+            render: colProps.render
           };
           return /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("td", {
             // 父级第一列不需要在 最左侧了
