@@ -172,6 +172,7 @@ const Textarea: React.FC<TextreaProps> = React.forwardRef(
                     // borderRight: "none",
                   }
                 : {}),
+              border: "0px",
               ...formStyle,
             }}
             rows={rows}

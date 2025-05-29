@@ -142,27 +142,26 @@ var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBP
 // Module
 ___CSS_LOADER_EXPORT___.push([module.id, `@charset "UTF-8";
 .adou-popover-wrapper {
-  width: fit-content;
   position: relative;
 }
+
 .adou-popover {
   min-width: 150px;
   position: absolute;
   background-color: white;
-  color: rgba(0, 0, 0, 0.88);
+  color: #606266;
   padding: 5px 10px;
   border-radius: 4px;
   font-size: 14px;
   white-space: nowrap;
   opacity: 0;
-  transition: all 0.2s ease-in-out;
-  box-shadow: 0 6px 16px 0 rgba(0, 0, 0, 0.08), 0 3px 6px -4px rgba(0, 0, 0, 0.12), 0 9px 28px 8px rgba(0, 0, 0, 0.05);
+  transition: opacity 0.2s ease-in-out;
+  box-shadow: 0px 0px 12px rgba(0, 0, 0, 0.12);
+  border: 1px solid #e4e7ed;
   z-index: 1;
-  transform: translate(-54%, 0px);
   /* 防止鼠标事件穿透到 Tooltip 后面的元素 */
 }
-.adou-popover.show-popover {
-  transform: scale(1.2) translate(-43%, -20px);
+.adou-popover.show-tool-tip {
   opacity: 1;
   pointer-events: auto;
   /* 启用鼠标事件 */
@@ -170,7 +169,7 @@ ___CSS_LOADER_EXPORT___.push([module.id, `@charset "UTF-8";
 .adou-popover.adou-popover-top {
   bottom: 100%;
   left: 50%;
-  transform: sclae(1.2) translate(-43%, -20px);
+  transform: translate(-50%, -20px);
 }
 .adou-popover.adou-popover-bottom {
   top: 100%;
@@ -197,31 +196,31 @@ ___CSS_LOADER_EXPORT___.push([module.id, `@charset "UTF-8";
 .adou-popover-arrow.adou-popover-arrow-top {
   border-width: 8px 8px 0 8px;
   border-color: #fff transparent transparent transparent;
-  bottom: -7px;
+  bottom: -8px;
   left: 50%;
   transform: translateX(-50%);
 }
 .adou-popover-arrow.adou-popover-arrow-bottom {
   border-width: 0 8px 8px 8px;
   border-color: transparent transparent #fff transparent;
-  top: -7px;
+  top: -8px;
   left: 50%;
   transform: translateX(-50%);
 }
 .adou-popover-arrow.adou-popover-arrow-left {
   border-width: 8px 0 8px 8px;
   border-color: transparent transparent transparent #fff;
-  right: -7px;
+  right: -8px;
   top: 50%;
   transform: translateY(-50%);
 }
 .adou-popover-arrow.adou-popover-arrow-right {
   border-width: 8px 8px 8px 0;
   border-color: transparent #fff transparent transparent;
-  left: -7px;
+  left: -8px;
   top: 50%;
   transform: translateY(-50%);
-}`, "",{"version":3,"sources":["webpack://./src/index.scss"],"names":[],"mappings":"AAAA,gBAAgB;AAAhB;EACE,kBAAA;EACA,kBAAA;AAEF;AAGA;EACE,gBAAA;EACA,kBAAA;EACA,uBAAA;EACA,0BAAA;EACA,iBAAA;EACA,kBAAA;EACA,eAAA;EACA,mBAAA;EACA,UAAA;EACA,gCAAA;EACA,oHAAA;EAIA,UAAA;EACA,+BAAA;EAEA,4BAAA;AALF;AAOE;EACE,4CAAA;EACA,UAAA;EACA,oBAAA;EACA,WAAA;AALJ;AAQE;EACE,YAAA;EACA,SAAA;EACA,4CAAA;AANJ;AASE;EACE,SAAA;EACA,SAAA;EACA,gCAAA;AAPJ;AAUE;EACE,WAAA;EACA,QAAA;EACA,iCAAA;AARJ;AAWE;EACE,UAAA;EACA,QAAA;EACA,gCAAA;AATJ;;AAaA;EACE,kBAAA;EACA,QAAA;EACA,SAAA;EACA,mBAAA;AAVF;AAYE;EACE,2BAAA;EACA,sDAAA;EACA,YAAA;EACA,SAAA;EACA,2BAAA;AAVJ;AAaE;EACE,2BAAA;EACA,sDAAA;EACA,SAAA;EACA,SAAA;EACA,2BAAA;AAXJ;AAcE;EACE,2BAAA;EACA,sDAAA;EACA,WAAA;EACA,QAAA;EACA,2BAAA;AAZJ;AAeE;EACE,2BAAA;EACA,sDAAA;EACA,UAAA;EACA,QAAA;EACA,2BAAA;AAbJ","sourcesContent":[".adou-popover-wrapper {\r\n  width: fit-content;\r\n  position: relative;\r\n\r\n  .trigger-content {}\r\n}\r\n\r\n.adou-popover {\r\n  min-width: 150px;\r\n  position: absolute;\r\n  background-color: white;\r\n  color: rgba(0, 0, 0, 0.88);\r\n  padding: 5px 10px;\r\n  border-radius: 4px;\r\n  font-size: 14px;\r\n  white-space: nowrap;\r\n  opacity: 0;\r\n  transition: all .2s ease-in-out;\r\n  box-shadow: 0 6px 16px 0 rgba(0, 0, 0, 0.08),\r\n    0 3px 6px -4px rgba(0, 0, 0, 0.12),\r\n    0 9px 28px 8px rgba(0, 0, 0, 0.05);\r\n  // border: 1px solid #e4e7ed;\r\n  z-index: 1;\r\n  transform: translate(-54%, 0px);\r\n  // pointer-events: none;\r\n  /* 防止鼠标事件穿透到 Tooltip 后面的元素 */\r\n\r\n  &.show-popover {\r\n    transform: scale(1.2) translate(-43%, -20px);\r\n    opacity: 1;\r\n    pointer-events: auto;\r\n    /* 启用鼠标事件 */\r\n  }\r\n\r\n  &.adou-popover-top {\r\n    bottom: 100%;\r\n    left: 50%;\r\n    transform: sclae(1.2) translate(-43%, -20px);\r\n  }\r\n\r\n  &.adou-popover-bottom {\r\n    top: 100%;\r\n    left: 50%;\r\n    transform: translate(-50%, 10px);\r\n  }\r\n\r\n  &.adou-popover-left {\r\n    right: 100%;\r\n    top: 50%;\r\n    transform: translate(-10px, -50%);\r\n  }\r\n\r\n  &.adou-popover-right {\r\n    left: 100%;\r\n    top: 50%;\r\n    transform: translate(10px, -50%);\r\n  }\r\n}\r\n\r\n.adou-popover-arrow {\r\n  position: absolute;\r\n  width: 0;\r\n  height: 0;\r\n  border-style: solid;\r\n\r\n  &.adou-popover-arrow-top {\r\n    border-width: 8px 8px 0 8px;\r\n    border-color: #fff transparent transparent transparent;\r\n    bottom: -7px;\r\n    left: 50%;\r\n    transform: translateX(-50%);\r\n  }\r\n\r\n  &.adou-popover-arrow-bottom {\r\n    border-width: 0 8px 8px 8px;\r\n    border-color: transparent transparent #fff transparent;\r\n    top: -7px;\r\n    left: 50%;\r\n    transform: translateX(-50%);\r\n  }\r\n\r\n  &.adou-popover-arrow-left {\r\n    border-width: 8px 0 8px 8px;\r\n    border-color: transparent transparent transparent #fff;\r\n    right: -7px;\r\n    top: 50%;\r\n    transform: translateY(-50%);\r\n  }\r\n\r\n  &.adou-popover-arrow-right {\r\n    border-width: 8px 8px 8px 0;\r\n    border-color: transparent #fff transparent transparent;\r\n    left: -7px;\r\n    top: 50%;\r\n    transform: translateY(-50%);\r\n  }\r\n}"],"sourceRoot":""}]);
+}`, "",{"version":3,"sources":["webpack://./src/index.scss"],"names":[],"mappings":"AAAA,gBAAgB;AAAhB;EACE,kBAAA;AAEF;;AACA;EACE,gBAAA;EACA,kBAAA;EACA,uBAAA;EACA,cAAA;EACA,iBAAA;EACA,kBAAA;EACA,eAAA;EACA,mBAAA;EACA,UAAA;EACA,oCAAA;EACA,4CAAA;EACA,yBAAA;EACA,UAAA;EAEA,4BAAA;AACF;AACE;EACE,UAAA;EACA,oBAAA;EACA,WAAA;AACJ;AAEE;EACE,YAAA;EACA,SAAA;EACA,iCAAA;AAAJ;AAGE;EACE,SAAA;EACA,SAAA;EACA,gCAAA;AADJ;AAIE;EACE,WAAA;EACA,QAAA;EACA,iCAAA;AAFJ;AAKE;EACE,UAAA;EACA,QAAA;EACA,gCAAA;AAHJ;;AAOA;EACE,kBAAA;EACA,QAAA;EACA,SAAA;EACA,mBAAA;AAJF;AAME;EACE,2BAAA;EACA,sDAAA;EACA,YAAA;EACA,SAAA;EACA,2BAAA;AAJJ;AAOE;EACE,2BAAA;EACA,sDAAA;EACA,SAAA;EACA,SAAA;EACA,2BAAA;AALJ;AAQE;EACE,2BAAA;EACA,sDAAA;EACA,WAAA;EACA,QAAA;EACA,2BAAA;AANJ;AASE;EACE,2BAAA;EACA,sDAAA;EACA,UAAA;EACA,QAAA;EACA,2BAAA;AAPJ","sourcesContent":[".adou-popover-wrapper {\r\n  position: relative;\r\n}\r\n\r\n.adou-popover {\r\n  min-width: 150px;\r\n  position: absolute;\r\n  background-color: white;\r\n  color: #606266;\r\n  padding: 5px 10px;\r\n  border-radius: 4px;\r\n  font-size: 14px;\r\n  white-space: nowrap;\r\n  opacity: 0;\r\n  transition: opacity 0.2s ease-in-out;\r\n  box-shadow: 0px 0px 12px rgba(0, 0, 0, .12);\r\n  border: 1px solid #e4e7ed;\r\n  z-index: 1;\r\n  // pointer-events: none;\r\n  /* 防止鼠标事件穿透到 Tooltip 后面的元素 */\r\n\r\n  &.show-tool-tip {\r\n    opacity: 1;\r\n    pointer-events: auto;\r\n    /* 启用鼠标事件 */\r\n  }\r\n\r\n  &.adou-popover-top {\r\n    bottom: 100%;\r\n    left: 50%;\r\n    transform: translate(-50%, -20px);\r\n  }\r\n\r\n  &.adou-popover-bottom {\r\n    top: 100%;\r\n    left: 50%;\r\n    transform: translate(-50%, 10px);\r\n  }\r\n\r\n  &.adou-popover-left {\r\n    right: 100%;\r\n    top: 50%;\r\n    transform: translate(-10px, -50%);\r\n  }\r\n\r\n  &.adou-popover-right {\r\n    left: 100%;\r\n    top: 50%;\r\n    transform: translate(10px, -50%);\r\n  }\r\n}\r\n\r\n.adou-popover-arrow {\r\n  position: absolute;\r\n  width: 0;\r\n  height: 0;\r\n  border-style: solid;\r\n\r\n  &.adou-popover-arrow-top {\r\n    border-width: 8px 8px 0 8px;\r\n    border-color: #fff transparent transparent transparent;\r\n    bottom: -8px;\r\n    left: 50%;\r\n    transform: translateX(-50%);\r\n  }\r\n\r\n  &.adou-popover-arrow-bottom {\r\n    border-width: 0 8px 8px 8px;\r\n    border-color: transparent transparent #fff transparent;\r\n    top: -8px;\r\n    left: 50%;\r\n    transform: translateX(-50%);\r\n  }\r\n\r\n  &.adou-popover-arrow-left {\r\n    border-width: 8px 0 8px 8px;\r\n    border-color: transparent transparent transparent #fff;\r\n    right: -8px;\r\n    top: 50%;\r\n    transform: translateY(-50%);\r\n  }\r\n\r\n  &.adou-popover-arrow-right {\r\n    border-width: 8px 8px 8px 0;\r\n    border-color: transparent #fff transparent transparent;\r\n    left: -8px;\r\n    top: 50%;\r\n    transform: translateY(-50%);\r\n  }\r\n}"],"sourceRoot":""}]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 
@@ -650,8 +649,6 @@ const useClickOutside = function (refs, callback) {
 
 const Popover = /*#__PURE__*/(0,external_root_React_commonjs2_react_commonjs_react_amd_react_.forwardRef)((_ref, ref) => {
   let {
-    title,
-    trigger = "click",
     show = true,
     content,
     position = "top",
@@ -660,8 +657,7 @@ const Popover = /*#__PURE__*/(0,external_root_React_commonjs2_react_commonjs_rea
     color,
     borderColor,
     wrapperClassname,
-    onClose,
-    onShowChange
+    onClose
   } = _ref;
   const [isShow, setIsShow] = (0,external_root_React_commonjs2_react_commonjs_react_amd_react_.useState)(false);
 
@@ -669,69 +665,55 @@ const Popover = /*#__PURE__*/(0,external_root_React_commonjs2_react_commonjs_rea
   //  不能用 isShow是因为 isShow是异步的。。
   const isShowRef = (0,external_root_React_commonjs2_react_commonjs_react_amd_react_.useRef)(show);
   const [isVisible, setIsVisible] = (0,external_root_React_commonjs2_react_commonjs_react_amd_react_.useState)(false); // 用来实现当鼠标进入提示区域可以让提示存在的效果
-
-  const isEnterContentRef = (0,external_root_React_commonjs2_react_commonjs_react_amd_react_.useRef)(false);
   const popoverRef = (0,external_root_React_commonjs2_react_commonjs_react_amd_react_.useRef)(null);
-  const triggerRef = (0,external_root_React_commonjs2_react_commonjs_react_amd_react_.useRef)(null);
   // ！！！用来记录鼠标是否进入提示区域
   //       当鼠标离开内容区域的时候，去判断是否进入了提示区域，如果进入，则不隐藏提示文字
   const isEnterPopoverRef = (0,external_root_React_commonjs2_react_commonjs_react_amd_react_.useRef)(false);
   const enterTimeoutRef = (0,external_root_React_commonjs2_react_commonjs_react_amd_react_.useRef)(null);
-  const handleClick = e => {
-    e.stopPropagation(); // 阻止事件的冒泡
-  };
   const handleContentClick = () => {
-    setTimeout(() => {
-      if (trigger === "hover") return;
-      if (isVisible) {
-        setTimeout(() => {
-          setIsVisible(false);
-        }, 100);
-        setTimeout(() => {
-          setIsShow(false);
-          onClose && onClose();
-        }, 200);
-        return;
-      } // 防止此时Popover已经展示，再点击关闭后会立马又展示
-      // 进入的时候，如果存在定时器，也清除掉
-      if (enterTimeoutRef.current) {
-        clearTimeout(enterTimeoutRef.current);
-      }
+    if (isVisible) return; // 防止此时Popover已经展示，再点击关闭后会立马又展示
+    // 进入的时候，如果存在定时器，也清除掉
+    if (enterTimeoutRef.current) {
+      clearTimeout(enterTimeoutRef.current);
+    }
+    enterTimeoutRef.current = setTimeout(() => {
       if (!isShowRef.current) return; // 如果外边的不想展示，则在这里return，不继续执行展示逻辑
       setIsShow(true);
       setTimeout(() => {
         setIsVisible(true);
       }, 50);
-    }, 0); // 这边加个时间为 0 的定时器，是为了 在父组件点击 trigger(children) 的时候，先执行父组件的点击事件，再执行这里的事件 --> 保证传进来的 show 是正确的(true)
+    }, 200); // 延迟100毫秒
   };
   const handleMouseLeave = () => {
     if (enterTimeoutRef.current) {
       clearTimeout(enterTimeoutRef.current);
     }
     setTimeout(() => {
-      if (isEnterContentRef.current) return;
-      setTimeout(() => {
-        handleClosePopover(); // 离开后 再手动执行一下关闭的逻辑
-      }, 100); // 给个定时器，防止移入后立马移出，导致提示区域展示出来一点点就消失
-    }, 100);
+      if (!isEnterPopoverRef.current) {
+        setIsVisible(false);
+      }
+    }, 200);
+    setTimeout(() => {
+      if (!isEnterPopoverRef.current) {
+        setIsShow(false);
+      }
+    }, 300);
+  };
+  const handleClick = e => {
+    e.stopPropagation(); // 阻止事件的冒泡
   };
 
   /**
    * 用来实现当鼠标进入提示区域可以让提示存在的效果
    */
   const handleMouseEnterPopover = () => {
-    if (trigger === "click") return;
-    enterTimeoutRef.current = setTimeout(() => {
-      isEnterPopoverRef.current = true;
-      // 如果当前是显示状态才能设置isVisible为true，不然鼠标移到提示区域也会展示
+    isEnterPopoverRef.current = true;
+    // 如果当前是显示状态才能设置isVisible为true，不然鼠标移到提示区域也会展示
+    setIsVisible(true);
+    setTimeout(() => {
       setIsShow(true);
-      setTimeout(() => {
-        setIsVisible(true);
-      }, 50);
-    }, 200); // 给个 100ms 的定时器，防止鼠标 快速移入移出
+    }, 400);
   };
-
-  // 关闭 Popover
   const handleClosePopover = () => {
     isEnterPopoverRef.current = false;
     setTimeout(() => {
@@ -742,69 +724,42 @@ const Popover = /*#__PURE__*/(0,external_root_React_commonjs2_react_commonjs_rea
       onClose && onClose();
     }, 300);
   };
-
-  // 进入 popover 内容区域的时候，不隐藏提示文字
-  const handleEnterContent = () => {
-    isEnterContentRef.current = true;
-  };
-  const handleLeaveContent = () => {
-    if (trigger === "click") return; // 如果是点击触发，则不需要离开 content 的时候关闭 Popover
-    isEnterContentRef.current = false;
-    // 离开后 再手动执行一下关闭的逻辑
-    handleClosePopover();
-  };
-
-  // 点击 触发内容 的时候也不执行这个钩子
-  utils_useClickOutside([popoverRef, triggerRef], handleClosePopover, isVisible && isShow && Boolean(popoverRef.current));
+  utils_useClickOutside([popoverRef], handleClosePopover, isVisible && isShow && Boolean(popoverRef.current), {
+    isVisible,
+    isShow,
+    show,
+    ref: Boolean(popoverRef.current)
+  });
   (0,external_root_React_commonjs2_react_commonjs_react_amd_react_.useImperativeHandle)(ref, () => ({
     handleClose: handleClosePopover
   }));
   (0,external_root_React_commonjs2_react_commonjs_react_amd_react_.useEffect)(() => {
     isShowRef.current = show;
-    if (!show) {
-      // 为了实现 在浮层内关闭的动画不会太丑，所以要给个 100ms 的定时器，让动画只展示 100ms
-      setIsVisible(false);
-      setTimeout(() => {
-        setIsShow(false);
-      }, 100); // 要把 isVisible 置为 false，不能置 isShow 为 false，不然就没有动画
-    }
   }, [show]);
-
-  // 当 isShow 变化的时候，通知父组件
-  (0,external_root_React_commonjs2_react_commonjs_react_amd_react_.useEffect)(() => {
-    onShowChange && onShowChange(isShow);
-  }, [isShow]);
   return /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("div", {
     className: "adou-popover-wrapper ".concat(wrapperClassname || "")
   }, /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("div", {
-    ref: triggerRef,
-    className: "trigger-content",
-    onMouseEnter: handleMouseEnterPopover,
-    onClick: handleContentClick,
-    onMouseLeave: handleMouseLeave
+    className: "content",
+    onClick: handleContentClick
+    // onMouseLeave={handleMouseLeave}
   }, children), content && isShow && /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("div", {
     ref: popoverRef,
-    onMouseEnter: handleEnterContent,
-    onMouseLeave: handleLeaveContent,
-    onClick: handleClick
-    // onMouseEnter={handleMouseEnterPopover}
+    onClick: handleClick,
+    onMouseEnter: handleMouseEnterPopover
     // onMouseLeave={handleClosePopover}
     ,
-    className: "adou-popover p-2 ".concat(isVisible ? "show-popover" : "", " adou-popover-").concat(position),
+    className: "adou-popover ".concat(isVisible ? "show-tool-tip" : "", " adou-popover-").concat(position),
     style: {
       backgroundColor: bgc,
-      color: color
+      color: color,
+      borderColor: borderColor
     }
   }, /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("div", {
     style: {
-      borderColor: "transparent transparent ".concat(borderColor, " transparent")
+      borderColor: "".concat(borderColor, " transparent transparent transparent")
     },
     className: "adou-popover-arrow adou-popover-arrow-".concat(position)
-  }), /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("div", {
-    className: "popover-title mb-2"
-  }, title), /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("div", {
-    className: "popover-content"
-  }, content)));
+  }), content));
 });
 /* harmony default export */ const src_0 = (Popover);
 })();

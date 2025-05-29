@@ -887,13 +887,13 @@ const Select = React.forwardRef((props: SelectProps, ref) => {
       }}
     >
       {/* aaa = {name === "usage" && JSON.stringify(defaultValue)} */}
-      <div className="adou-select-form-content input-group">
+      <div className={`adou-select-form-content`}>
         <div
           ref={selectRef}
           onMouseEnter={handleMouseEnter}
           onMouseLeave={handleMouseLeave}
           onClick={handleFormContentClick}
-          className={`adou-select d-flex align-items-center px-2 ${
+          className={`adou-select d-flex align-items-center ps-0 pe-2 ${
             selectContentExternalCls || ""
           } ${isFocus ? "adou-form-control-focus" : ""}`}
           style={{
@@ -963,7 +963,7 @@ const Select = React.forwardRef((props: SelectProps, ref) => {
                     // onClick={handleInputClick}
                     disabled={disabled}
                     type="text"
-                    className="adou-select-input"
+                    className="adou-select-input form-control px-2"
                     aria-label="Username"
                     aria-describedby="basic-addon1"
                     style={{
@@ -990,7 +990,7 @@ const Select = React.forwardRef((props: SelectProps, ref) => {
                   title={
                     selectValue.title || selectValue[labelKey] || selectValue
                   }
-                  className={`adou-select-value ${
+                  className={`adou-select-value px-2 ${
                     contentWrap ? "ellipsis-1" : ""
                   }`} // ellipsis-1 加上这个，选择框会自动变大或者变小
                   style={{
@@ -1006,7 +1006,7 @@ const Select = React.forwardRef((props: SelectProps, ref) => {
             ) : (
               // 情况四：如果 不是多选，并且 ellipsis 为 false，则不需要超出省略
               <div
-                className={`adou-select-value  ${
+                className={`adou-select-value px-2 ${
                   contentWrap ? "ellipsis-1" : ""
                 }`}
                 style={{ ...(!showSearch && !filterOption ? { flex: 1 } : {}) }}
@@ -1019,7 +1019,7 @@ const Select = React.forwardRef((props: SelectProps, ref) => {
             mode !== "liveSearch" &&
             !showSearch &&
             !filterOption && (
-              <div className="select-value-empty-placeholder flex-fill text-secondary">
+              <div className="select-value-empty-placeholder flex-fill text-secondary px-2">
                 {placeholder}
               </div>
             )
@@ -1043,7 +1043,7 @@ const Select = React.forwardRef((props: SelectProps, ref) => {
                   // onClick={handleInputClick}
                   disabled={disabled}
                   type="text"
-                  className="adou-select-input ellipsis-1"
+                  className="adou-select-input ellipsis-1 form-control px-2"
                   aria-label="Username"
                   aria-describedby="basic-addon1"
                   style={{
@@ -1182,7 +1182,6 @@ const Select = React.forwardRef((props: SelectProps, ref) => {
     </div>
   );
 });
-
 Select.displayName = "Select";
 
 export default Select;

@@ -1,104 +1,107 @@
 // useLoading.ts
-import { useState, useEffect, useRef } from "react";
+import { useState, useRef, forwardRef, useImperativeHandle } from "react";
 import React from "react";
 import { createRoot, Root } from "react-dom/client";
 import "./loading.scss";
 
-interface LoadingProps {
-  maskStyle?: any;
-  loadingStyle?: any;
+export interface LoadingProps {
+  maskStyle?: React.CSSProperties;
+  loadingStyle?: React.CSSProperties;
+  textStyle?: React.CSSProperties;
 }
 
-const Loading = ({ maskStyle, loadingStyle }: LoadingProps) => {
-  console.log("Loading-maskStyle:", maskStyle);
-  console.log("Loading-loadingStyle:", loadingStyle);
-  const enhancedMaskStyle =
-    Object.keys(maskStyle || {}).length > 0
-      ? maskStyle
-      : { backgroundColor: "rgba(255, 255, 255, 0.8)" };
-  const enhancedLoadingStyle =
-    Object.keys(loadingStyle || {}).length > 0
-      ? loadingStyle
-      : { width: "40px", height: "40px" };
-  return (
-    <div className="loading-overlay" style={{ ...enhancedMaskStyle }}>
-      <div
-        className="loading-spinner me-2"
-        style={{ ...enhancedLoadingStyle }}
-      ></div>
-      <span>Loading...</span>
-    </div>
-  );
-};
-
-interface LoadingInstance {
+export interface LoadingHandle {
   show: () => void;
   hide: () => void;
+  setText: (newText: string) => void;
 }
 
-let loadingCount = 0;
-let loadingInstance: LoadingInstance | null = null;
-let root: Root | null = null;
+const LoadingContainer = forwardRef<LoadingHandle, LoadingProps>(
+  ({ maskStyle, loadingStyle, textStyle }, ref) => {
+    const [visible, setVisible] = useState(false);
+    const [text, setText] = useState("Loading...");
 
-const createLoadingInstance = (
-  maskStyle: any = {},
-  loadingStyle: any = {}
-): LoadingInstance => {
-  // 创建容器
+    useImperativeHandle(ref, () => ({
+      show: () => setVisible(true),
+      hide: () => setVisible(false),
+      setText,
+    }));
+
+    if (!visible) return null;
+
+    return (
+      <div className="loading-overlay" style={{ ...maskStyle }}>
+        <div className="loading-spinner me-2" style={{ ...loadingStyle }}></div>
+        <span style={{ ...textStyle }}>{text}</span>
+      </div>
+    );
+  }
+);
+
+let loadingCount = 0;
+let root: Root | null = null;
+let loadingRef: React.RefObject<LoadingHandle> | null = null;
+let initialized = false;
+
+const createLoadingRoot = (props: {
+  maskStyle?: React.CSSProperties;
+  loadingStyle?: React.CSSProperties;
+  textStyle?: React.CSSProperties;
+}) => {
   const container = document.createElement("div");
-  container.className = "loading-wrapper";
+  container.className = "loading-root-container";
   document.body.appendChild(container);
 
-  // 创建 root
   root = createRoot(container);
+  loadingRef = React.createRef<LoadingHandle>();
 
-  // 渲染组件
-  const render = (visible: boolean) => {
-    root?.render(
-      visible ? (
-        <Loading maskStyle={maskStyle} loadingStyle={loadingStyle} />
-      ) : null
-    );
-  };
+  root.render(
+    <LoadingContainer
+      ref={loadingRef}
+      maskStyle={props.maskStyle}
+      loadingStyle={props.loadingStyle}
+      textStyle={props.textStyle}
+    />
+  );
 
-  return {
-    show: () => {
-      render(true);
-    },
-    hide: () => {
-      render(false);
-    },
-  };
+  initialized = true;
 };
 
-export const useLoading = (
-  maskStyle: any = {
-    backgroundColor: "rgba(255, 255, 255, 0.8)",
-  },
-  loadingStyle: any = { width: "40px", height: "40px" }
-) => {
+export const useLoading = () => {
   const [isLoading, setIsLoading] = useState(false);
-  const maskStypeRef = useRef<any>();
-  const loadingStyleRef = useRef<any>();
 
-  useEffect(() => {
-    console.log("useLoading--maskStyle:", maskStyle);
-    console.log("useLoading--loadingStyle:", loadingStyle);
-    maskStypeRef.current = maskStyle;
-    loadingStyleRef.current = loadingStyle;
-  }, [maskStyle, loadingStyle]);
-
-  const showLoading = () => {
-    // 确保只创建一个实例
-    if (!loadingInstance) {
-      loadingInstance = createLoadingInstance(
-        maskStypeRef.current || {},
-        loadingStyleRef.current || {}
-      );
+  const ensureInit = (
+    text: string,
+    maskStyle?: React.CSSProperties,
+    loadingStyle?: React.CSSProperties,
+    textStyle?: React.CSSProperties
+  ) => {
+    if (!initialized || !root || !loadingRef?.current) {
+      createLoadingRoot({ maskStyle, loadingStyle, textStyle });
     }
+  };
+
+  const showLoading = (
+    text: string = "Loading...",
+    maskStyle: React.CSSProperties = { background: "transparent" },
+    loadingStyle: React.CSSProperties = { width: "50px", height: "50px" },
+    textStyle?: React.CSSProperties
+  ) => {
+    ensureInit(text, maskStyle, loadingStyle, textStyle);
+
     loadingCount++;
     setIsLoading(true);
-    loadingInstance?.show();
+
+    // 等待 DOM 渲染完成再执行 show 和 setText（确保 ref 不为空）
+    requestAnimationFrame(() => {
+      loadingRef?.current?.setText(text);
+      loadingRef?.current?.show();
+    });
+  };
+
+  const updateLoadingText = (newText: string) => {
+    console.log("updateLoadingText:", newText);
+    loadingRef?.current?.setText(newText);
   };
 
   const hideLoading = () => {
@@ -106,7 +109,7 @@ export const useLoading = (
     if (loadingCount <= 0) {
       loadingCount = 0;
       setIsLoading(false);
-      loadingInstance?.hide();
+      loadingRef?.current?.hide();
     }
   };
 
@@ -114,7 +117,6 @@ export const useLoading = (
     loading: isLoading,
     showLoading,
     hideLoading,
+    updateLoadingText,
   };
 };
-
-export default Loading;

@@ -30,6 +30,7 @@ export const recursiveGenerateTableHeaderRows = (
 };
 
 interface TableProps {
+  headerAlign?: "center" | "start" | "end" | "justify";
   wrapperStyle?: React.CSSProperties;
   clickHighlight?: boolean;
   checkedWhenDbClick?: boolean;
@@ -57,7 +58,7 @@ interface TableProps {
   multiple?: boolean;
   id?: string;
   trPointer?: boolean;
-  align?: "center" | "start" | "end" | "justify";
+  contentAlign?: "center" | "start" | "end" | "justify";
   collection?: boolean;
   collapse?: boolean;
   expandAll?: boolean;
@@ -89,6 +90,7 @@ interface TableProps {
 
 const Table = (props: TableProps) => {
   const {
+    headerAlign,
     wrapperStyle,
     clickHighlight,
     checkedWhenDbClick = true,
@@ -115,7 +117,7 @@ const Table = (props: TableProps) => {
     multiple = false,
     id = "id",
     trPointer = false,
-    align,
+    contentAlign,
     collection,
     collapse = true,
     expandAll = false,
@@ -145,7 +147,6 @@ const Table = (props: TableProps) => {
   } = props;
 
   const [tableData, setTableData] = useState<any[]>([]);
-  const [originalTableData, setOriginalTableData] = useState<any[]>([]);
   const [tableHeaders, setTableHeaders] = useState<any[]>([]);
   const [updateKey, setUpdateKey] = useState<number>(0);
   const [theadRows, setTheadRows] = useState<any[]>([]);
@@ -208,7 +209,7 @@ const Table = (props: TableProps) => {
 
   // 判断每一列的 对齐方式
   const judgeTdAlign = (data: any) => {
-    switch (data.align || align) {
+    switch (data.contentAlign || contentAlign) {
       case "start":
         return "justify-content-start";
 
@@ -229,7 +230,7 @@ const Table = (props: TableProps) => {
   const judgeChildCellAlign = (data: any, colProps: any, colIndex: number) => {
     return !colIndex && data.children?.length
       ? "start" // 父级存在子级时，第一列左对齐
-      : colProps.align || align;
+      : colProps.contentAlign || contentAlign;
   };
 
   // 排序的逻辑--坑：一定要使用 [...preArr].sort，不能直接preArr.sort，这样会影响原来的数据，有Bug！！！
@@ -313,7 +314,7 @@ const Table = (props: TableProps) => {
    * @param rowIndex 行索引
    * @param verticalAlignObject 垂直对齐方式对象
    * @param widthObject 宽度对象
-   * @param textPositionObject 文字位置对象
+   * @param contentTextPositionObject 文字位置对象
    * @param level 层级
    * @returns
    */
@@ -324,7 +325,7 @@ const Table = (props: TableProps) => {
     rowIndex: number,
     verticalAlignObject: any,
     widthObject: any,
-    textPositionObject: any,
+    contentTextPositionObject: any,
     level: number = 0
   ) => {
     level++;
@@ -417,7 +418,7 @@ const Table = (props: TableProps) => {
                       <td
                         // 这边也不用在子级的第一列在最左侧了
                         // colIndex === 0 ? 'text-start' :
-                        className={`text-${colProps.align} py-1 ${
+                        className={`text-${colProps.contentAlign} py-1 ${
                           compact ? "py-0 px-1" : tdPadding
                         }`}
                         style={{
@@ -476,7 +477,7 @@ const Table = (props: TableProps) => {
                       <td
                         // 这边也不用在子级的第一列在最左侧了
                         // colIndex === 0 ? 'text-start' :
-                        className={`text-${colProps.align} py-1 ${
+                        className={`text-${colProps.contentAlign} py-1 ${
                           compact ? "py-0 px-1" : tdPadding
                         }`}
                         style={{
@@ -520,7 +521,7 @@ const Table = (props: TableProps) => {
                 rowIndex,
                 verticalAlignObject,
                 widthObject,
-                textPositionObject,
+                contentTextPositionObject,
                 level
               )
             : null}
@@ -568,17 +569,22 @@ const Table = (props: TableProps) => {
     });
   }
   let widthObject: any = {};
-  const textPositionObject: any = {}; // 优先使用 每一列的 align，table 的 align 次之，都没的话默认居中
+  const contentTextPositionObject: any = {}; // 优先使用 每一列的 align，table 的 contentAlign 次之，都没的话默认居中
+  const headerTextPositionObject: any = {}; // 优先使用 每一列的 align，table 的 contentAlign 次之，都没的话默认居中
   const verticalAlignObject: any = {};
   array.forEach((item: any) => {
     if (item?.props) {
       widthObject[item.props.prop] = item.props.width;
-      // 优先使用 每一列的 align，table 的 align 次之，都没的话默认居中(align默认等于 center)
-      textPositionObject[item.props.prop] = item.props.align || align;
+      // 优先使用 每一列的 align，table 的 contentAlign 次之，都没的话默认居中(align默认等于 center)
+      contentTextPositionObject[item.props.prop] =
+        item.props.contentAlign || contentAlign;
+      headerTextPositionObject[item.props.prop] =
+        item.props.headerAlign || headerAlign;
       verticalAlignObject[item.props.prop] =
         item.props.verticalAlign || "middle";
     }
   });
+
   if (
     !isEmptyO(widthObject) &&
     Object.values(widthObject).every((item: any) => !item)
@@ -716,8 +722,8 @@ const Table = (props: TableProps) => {
                         fontWeight: headerFontWeight,
                       }}
                       className={`${
-                        textPositionObject[item.prop]
-                          ? "text-" + textPositionObject[item.prop]
+                        contentTextPositionObject[item.prop]
+                          ? "text-" + contentTextPositionObject[item.prop]
                           : ""
                       } ${compact ? "p-0" : ""} align-middle`}
                       scope="col"
@@ -730,7 +736,9 @@ const Table = (props: TableProps) => {
                           alignItems: "center",
                           justifyContent:
                             item.headerAlign ||
-                            generateHeaderStyle(textPositionObject[item.prop]),
+                            generateHeaderStyle(
+                              headerTextPositionObject[item.prop]
+                            ),
                         }}
                       >
                         {/* header-text 去掉 me-2 属性 */}
@@ -813,6 +821,7 @@ const Table = (props: TableProps) => {
                         id={data[id] + uniqId}
                         checked={data.checked === true}
                         onChange={(e) => handleCheckboxChange(data, e)}
+                        onClick={(e: any) => e.stopPropagation()}
                         type={!multiple ? "radio" : "checkbox"}
                       />
                     </td>
@@ -857,7 +866,7 @@ const Table = (props: TableProps) => {
                             align:
                               !colIndex && collapse && data.children
                                 ? "start"
-                                : colProps.align || align,
+                                : colProps.contentAlign || contentAlign,
                             width: widthObject[colProps.prop],
                             maxWidth: colProps.maxWidth || maxWidth,
                             showTip: colProps.showTip || showTip,
@@ -865,9 +874,9 @@ const Table = (props: TableProps) => {
                           return (
                             <td
                               // 父级第一列不需要在 最左侧了
-                              // !colIndex && collapse && data.children ? 'text-start' : `text-${textPositionObject[prop]}`
+                              // !colIndex && collapse && data.children ? 'text-start' : `text-${contentTextPositionObject[prop]}`
                               className={`text-${
-                                colProps.align || align
+                                colProps.contentAlign || contentAlign
                               } py-1 ${compact ? "py-0 px-1" : tdPadding}`}
                               style={{
                                 verticalAlign: verticalAlignObject[prop],
@@ -921,7 +930,7 @@ const Table = (props: TableProps) => {
                             align:
                               !colIndex && collapse && data.children
                                 ? "start"
-                                : colProps.align || align,
+                                : colProps.contentAlign || contentAlign,
                             width: widthObject[colProps.prop],
                             maxWidth: colProps.maxWidth || maxWidth,
                             showTip: colProps.showTip || showTip,
@@ -930,9 +939,9 @@ const Table = (props: TableProps) => {
                           return (
                             <td
                               // 父级第一列不需要在 最左侧了
-                              // !colIndex && collapse && data.children ? 'text-start' : `text-${textPositionObject[prop]}`
+                              // !colIndex && collapse && data.children ? 'text-start' : `text-${contentTextPositionObject[prop]}`
                               className={`text-${
-                                colProps.align || align
+                                colProps.contentAlign || contentAlign
                               } py-1 ${compact ? "py-0 px-1" : tdPadding}`}
                               style={{
                                 verticalAlign: verticalAlignObject[prop],
@@ -975,7 +984,7 @@ const Table = (props: TableProps) => {
                   rowIndex,
                   verticalAlignObject,
                   widthObject,
-                  textPositionObject
+                  contentTextPositionObject
                 )}
               </Fragment>
             );
@@ -1374,11 +1383,9 @@ const Table = (props: TableProps) => {
       setTimeout(() => {
         const tableData = recursiveExpandTable(tempData);
         setTableData(tableData);
-        setOriginalTableData(tableData);
       }, 10);
     } else {
       setTableData(tempData);
-      setOriginalTableData(tempData);
     }
 
     if (tempData.length) {

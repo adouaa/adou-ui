@@ -1,6 +1,6 @@
 import { useEffect } from "react";
 
-const useClickOutside = (refs, callback, enabled = true, params) => {
+const useClickOutside = (refs, callback, enabled = true) => {
   useEffect(() => {
     const judge = (event) => {
       return refs.some((ref) => ref.current?.contains(event.target));

@@ -246,7 +246,7 @@ const Input: React.ForwardRefRenderFunction<InputRef, InputProps> = (
   const commonElement = (
     <>
       <input
-        className={`input border-0 flex-fill ${
+        className={`input border-0 flex-fill form-control ${
           textEnd || type === "number" ? "text-end" : ""
         } ${
           suffixContent && suffixContentType === "button"
@@ -374,14 +374,10 @@ const Input: React.ForwardRefRenderFunction<InputRef, InputProps> = (
               tabIndex={1}
               className={`adou-input-form-content d-flex flex-fill align-items-center ${
                 isFocus ? "adou-form-control-focus" : ""
-              } ${type !== "number" ? "px-2" : ""}`}
+              }`}
             >
               {prefix && <div className="prefix-box">{prefix}</div>}
-              <div
-                className={`input-box flex-fill d-flex  align-items-center ${
-                  type !== "number" ? "px-2" : ""
-                }`}
-              >
+              <div className={`input-box flex-fill d-flex  align-items-center`}>
                 {commonElement}
               </div>
             </div>
@@ -417,21 +413,17 @@ const Input: React.ForwardRefRenderFunction<InputRef, InputProps> = (
                 backgroundColor: "#f0f0f0",
                 border: "none",
               }),
-              border: varient === "outlined" ? "1px solid #ced4da" : "",
+              border: varient === "outlined" ? "" : "",
               backgroundColor: judgeBgColor(),
               ...formStyle,
             }}
             ref={inputFormContentRef}
             className={`adou-input-form-content flex-fill d-flex align-items-center ${
               isFocus ? "adou-form-control-focus" : ""
-            } ${judgeBorder()} ${type !== "number" ? "" : ""}`}
+            } ${judgeBorder()}`}
           >
             {prefix && <div className="prefix-box">{prefix}</div>}
-            <div
-              className={`input-box flex-fill d-flex align-items-center ${
-                type !== "number" ? "px-2" : ""
-              }`}
-            >
+            <div className={`input-box flex-fill d-flex align-items-center`}>
               {commonElement}
             </div>
           </div>
@@ -440,6 +432,7 @@ const Input: React.ForwardRefRenderFunction<InputRef, InputProps> = (
     </div>
   );
 };
+
 // 对于使用 forwardRef 包装的组件，displayName 需要在 forwardRef 调用之后设置
 // 上述代码中，Input 组件是通过 forwardRef 包装的，因此需要在 forwardRef 调用之后设置 displayName
 

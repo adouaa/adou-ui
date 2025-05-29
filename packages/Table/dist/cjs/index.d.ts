@@ -7,9 +7,9 @@ declare const _default: React.ComponentType<Omit<{
     collapse?: boolean | undefined;
     maxWidth?: any;
     eidtable?: boolean | undefined;
-    align?: "center" | "start" | "end" | "justify" | undefined;
     children?: any;
     data: any;
+    headerAlign?: "center" | "start" | "end" | "justify" | undefined;
     wrapperStyle?: React.CSSProperties | undefined;
     clickHighlight?: boolean | undefined;
     checkedWhenDbClick?: boolean | undefined;
@@ -35,6 +35,7 @@ declare const _default: React.ComponentType<Omit<{
     multiple?: boolean | undefined;
     id?: string | undefined;
     trPointer?: boolean | undefined;
+    contentAlign?: "center" | "start" | "end" | "justify" | undefined;
     collection?: boolean | undefined;
     expandAll?: boolean | undefined;
     size?: "lg" | "sm" | undefined;

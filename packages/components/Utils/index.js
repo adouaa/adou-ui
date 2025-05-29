@@ -161,11 +161,12 @@ ___CSS_LOADER_EXPORT___.push([module.id, `/* Loading.css */
   left: 0;
   width: 100%;
   height: 100%;
-  background-color: rgba(255, 255, 255, 0.8);
   display: flex;
   align-items: center;
   justify-content: center;
   z-index: 9999;
+  background: transparent;
+  pointer-events: "auto";
 }
 
 .loading-spinner {
@@ -174,8 +175,8 @@ ___CSS_LOADER_EXPORT___.push([module.id, `/* Loading.css */
   border-top: 8px solid #3498db;
   /* Blue */
   border-radius: 50%;
-  width: 60px;
-  height: 60px;
+  width: 50px;
+  height: 50px;
   animation: spin 2s linear infinite;
 }
 
@@ -186,7 +187,7 @@ ___CSS_LOADER_EXPORT___.push([module.id, `/* Loading.css */
   100% {
     transform: rotate(360deg);
   }
-}`, "",{"version":3,"sources":["webpack://./src/hooks/loading.scss"],"names":[],"mappings":"AAAA,gBAAA;AACA;EACI,eAAA;EACA,MAAA;EACA,OAAA;EACA,WAAA;EACA,YAAA;EACA,0CAAA;EACA,aAAA;EACA,mBAAA;EACA,uBAAA;EACA,aAAA;AACJ;;AAEA;EACI,yBAAA;EACA,eAAA;EACA,6BAAA;EACA,SAAA;EACA,kBAAA;EACA,WAAA;EACA,YAAA;EACA,kCAAA;AACJ;;AAEA;EACI;IACI,uBAAA;EACN;EAEE;IACI,yBAAA;EAAN;AACF","sourcesContent":["/* Loading.css */\r\n.loading-overlay {\r\n    position: fixed;\r\n    top: 0;\r\n    left: 0;\r\n    width: 100%;\r\n    height: 100%;\r\n    background-color: rgba(255, 255, 255, 0.8);\r\n    display: flex;\r\n    align-items: center;\r\n    justify-content: center;\r\n    z-index: 9999;\r\n}\r\n\r\n.loading-spinner {\r\n    border: 8px solid #f3f3f3;\r\n    /* Light grey */\r\n    border-top: 8px solid #3498db;\r\n    /* Blue */\r\n    border-radius: 50%;\r\n    width: 60px;\r\n    height: 60px;\r\n    animation: spin 2s linear infinite;\r\n}\r\n\r\n@keyframes spin {\r\n    0% {\r\n        transform: rotate(0deg);\r\n    }\r\n\r\n    100% {\r\n        transform: rotate(360deg);\r\n    }\r\n}"],"sourceRoot":""}]);
+}`, "",{"version":3,"sources":["webpack://./src/hooks/loading.scss"],"names":[],"mappings":"AAAA,gBAAA;AACA;EACI,eAAA;EACA,MAAA;EACA,OAAA;EACA,WAAA;EACA,YAAA;EACA,aAAA;EACA,mBAAA;EACA,uBAAA;EACA,aAAA;EACA,uBAAA;EACA,sBAAA;AACJ;;AAEA;EACI,yBAAA;EACA,eAAA;EACA,6BAAA;EACA,SAAA;EACA,kBAAA;EACA,WAAA;EACA,YAAA;EACA,kCAAA;AACJ;;AAEA;EACI;IACI,uBAAA;EACN;EAEE;IACI,yBAAA;EAAN;AACF","sourcesContent":["/* Loading.css */\r\n.loading-overlay {\r\n    position: fixed;\r\n    top: 0;\r\n    left: 0;\r\n    width: 100%;\r\n    height: 100%;\r\n    display: flex;\r\n    align-items: center;\r\n    justify-content: center;\r\n    z-index: 9999;\r\n    background: transparent;\r\n    pointer-events: \"auto\";\r\n}\r\n\r\n.loading-spinner {\r\n    border: 8px solid #f3f3f3;\r\n    /* Light grey */\r\n    border-top: 8px solid #3498db;\r\n    /* Blue */\r\n    border-radius: 50%;\r\n    width: 50px;\r\n    height: 50px;\r\n    animation: spin 2s linear infinite;\r\n}\r\n\r\n@keyframes spin {\r\n    0% {\r\n        transform: rotate(0deg);\r\n    }\r\n\r\n    100% {\r\n        transform: rotate(360deg);\r\n    }\r\n}"],"sourceRoot":""}]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 
@@ -6338,106 +6339,108 @@ var loading_update = injectStylesIntoStyleTag_default()(loading/* default */.A, 
 
 
 
-const Loading = _ref => {
+const LoadingContainer = /*#__PURE__*/(0,external_root_React_commonjs2_react_commonjs_react_amd_react_.forwardRef)((_ref, ref) => {
   let {
     maskStyle,
-    loadingStyle
+    loadingStyle,
+    textStyle
   } = _ref;
-  console.log("Loading-maskStyle:", maskStyle);
-  console.log("Loading-loadingStyle:", loadingStyle);
-  const enhancedMaskStyle = Object.keys(maskStyle || {}).length > 0 ? maskStyle : {
-    backgroundColor: "rgba(255, 255, 255, 0.8)"
-  };
-  const enhancedLoadingStyle = Object.keys(loadingStyle || {}).length > 0 ? loadingStyle : {
-    width: "40px",
-    height: "40px"
-  };
+  const [visible, setVisible] = (0,external_root_React_commonjs2_react_commonjs_react_amd_react_.useState)(false);
+  const [text, setText] = (0,external_root_React_commonjs2_react_commonjs_react_amd_react_.useState)("Loading...");
+  (0,external_root_React_commonjs2_react_commonjs_react_amd_react_.useImperativeHandle)(ref, () => ({
+    show: () => setVisible(true),
+    hide: () => setVisible(false),
+    setText
+  }));
+  if (!visible) return null;
   return /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("div", {
     className: "loading-overlay",
     style: {
-      ...enhancedMaskStyle
+      ...maskStyle
     }
   }, /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("div", {
     className: "loading-spinner me-2",
     style: {
-      ...enhancedLoadingStyle
+      ...loadingStyle
     }
-  }), /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("span", null, "Loading..."));
-};
+  }), /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("span", {
+    style: {
+      ...textStyle
+    }
+  }, text));
+});
 let loadingCount = 0;
-let loadingInstance = null;
 let useLoading_root = null;
-const createLoadingInstance = function () {
-  let maskStyle = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
-  let loadingStyle = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {};
-  // 创建容器
+let loadingRef = null;
+let initialized = false;
+const createLoadingRoot = props => {
   const container = document.createElement("div");
-  container.className = "loading-wrapper";
+  container.className = "loading-root-container";
   document.body.appendChild(container);
-
-  // 创建 root
   useLoading_root = (0,client/* createRoot */.H)(container);
-
-  // 渲染组件
-  const render = visible => {
-    var _root;
-    (_root = useLoading_root) === null || _root === void 0 || _root.render(visible ? /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement(Loading, {
-      maskStyle: maskStyle,
-      loadingStyle: loadingStyle
-    }) : null);
-  };
-  return {
-    show: () => {
-      render(true);
-    },
-    hide: () => {
-      render(false);
-    }
-  };
+  loadingRef = /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createRef();
+  useLoading_root.render( /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement(LoadingContainer, {
+    ref: loadingRef,
+    maskStyle: props.maskStyle,
+    loadingStyle: props.loadingStyle,
+    textStyle: props.textStyle
+  }));
+  initialized = true;
 };
-const useLoading = function () {
-  let maskStyle = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {
-    backgroundColor: "rgba(255, 255, 255, 0.8)"
-  };
-  let loadingStyle = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {
-    width: "40px",
-    height: "40px"
-  };
+const useLoading = () => {
   const [isLoading, setIsLoading] = (0,external_root_React_commonjs2_react_commonjs_react_amd_react_.useState)(false);
-  const maskStypeRef = (0,external_root_React_commonjs2_react_commonjs_react_amd_react_.useRef)();
-  const loadingStyleRef = (0,external_root_React_commonjs2_react_commonjs_react_amd_react_.useRef)();
-  (0,external_root_React_commonjs2_react_commonjs_react_amd_react_.useEffect)(() => {
-    console.log("useLoading--maskStyle:", maskStyle);
-    console.log("useLoading--loadingStyle:", loadingStyle);
-    maskStypeRef.current = maskStyle;
-    loadingStyleRef.current = loadingStyle;
-  }, [maskStyle, loadingStyle]);
-  const showLoading = () => {
-    var _loadingInstance;
-    // 确保只创建一个实例
-    if (!loadingInstance) {
-      loadingInstance = createLoadingInstance(maskStypeRef.current || {}, loadingStyleRef.current || {});
+  const ensureInit = (text, maskStyle, loadingStyle, textStyle) => {
+    var _loadingRef;
+    if (!initialized || !useLoading_root || !((_loadingRef = loadingRef) !== null && _loadingRef !== void 0 && _loadingRef.current)) {
+      createLoadingRoot({
+        maskStyle,
+        loadingStyle,
+        textStyle
+      });
     }
+  };
+  const showLoading = function () {
+    let text = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : "Loading...";
+    let maskStyle = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {
+      background: "transparent"
+    };
+    let loadingStyle = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : {
+      width: "50px",
+      height: "50px"
+    };
+    let textStyle = arguments.length > 3 ? arguments[3] : undefined;
+    ensureInit(text, maskStyle, loadingStyle, textStyle);
     loadingCount++;
     setIsLoading(true);
-    (_loadingInstance = loadingInstance) === null || _loadingInstance === void 0 || _loadingInstance.show();
+
+    // 等待 DOM 渲染完成再执行 show 和 setText（确保 ref 不为空）
+    requestAnimationFrame(() => {
+      var _loadingRef2, _loadingRef3;
+      (_loadingRef2 = loadingRef) === null || _loadingRef2 === void 0 || (_loadingRef2 = _loadingRef2.current) === null || _loadingRef2 === void 0 || _loadingRef2.setText(text);
+      (_loadingRef3 = loadingRef) === null || _loadingRef3 === void 0 || (_loadingRef3 = _loadingRef3.current) === null || _loadingRef3 === void 0 || _loadingRef3.show();
+    });
+  };
+  const updateLoadingText = newText => {
+    var _loadingRef4;
+    console.log("updateLoadingText:", newText);
+    (_loadingRef4 = loadingRef) === null || _loadingRef4 === void 0 || (_loadingRef4 = _loadingRef4.current) === null || _loadingRef4 === void 0 || _loadingRef4.setText(newText);
   };
   const hideLoading = () => {
     loadingCount--;
     if (loadingCount <= 0) {
-      var _loadingInstance2;
+      var _loadingRef5;
       loadingCount = 0;
       setIsLoading(false);
-      (_loadingInstance2 = loadingInstance) === null || _loadingInstance2 === void 0 || _loadingInstance2.hide();
+      (_loadingRef5 = loadingRef) === null || _loadingRef5 === void 0 || (_loadingRef5 = _loadingRef5.current) === null || _loadingRef5 === void 0 || _loadingRef5.hide();
     }
   };
   return {
     loading: isLoading,
     showLoading,
-    hideLoading
+    hideLoading,
+    updateLoadingText
   };
 };
-/* harmony default export */ const hooks_useLoading = ((/* unused pure expression or super */ null && (Loading)));
 // EXTERNAL MODULE: ../../node_modules/css-loader/dist/cjs.js??ruleSet[1].rules[1].use[1]!../../node_modules/sass-loader/dist/cjs.js??ruleSet[1].rules[1].use[2]!./src/hooks/toast.scss
 var toast = __webpack_require__(323);
 ;// CONCATENATED MODULE: ./src/hooks/toast.scss

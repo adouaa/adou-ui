@@ -713,7 +713,7 @@ module.exports = function (item) {
         useClickOutside: () => ( /* reexport */hooks_useClickOutside),
         useDrag: () => ( /* reexport */hooks_useDrag),
         useForm: () => ( /* reexport */hooks_useForm),
-        useLoading: () => ( /* reexport */hooks_useLoading),
+        useLoading: () => ( /* reexport */useLoading),
         useNavigateTo: () => ( /* reexport */hooks_useNavigateTo),
         useNotification: () => ( /* reexport */hooks_useNotification),
         useThrottle: () => ( /* reexport */hooks_useThrottle),
@@ -4672,8 +4672,8 @@ module.exports = function (item) {
       // dispatch for CommonJS interop named imports.
 
       const {
-        useState: dist_useState,
-        useEffect: dist_useEffect,
+        useState,
+        useEffect,
         useLayoutEffect,
         useDebugValue
       } = external_root_React_commonjs2_react_commonjs_react_amd_react_;
@@ -4718,7 +4718,7 @@ module.exports = function (item) {
 
         const [{
           inst
-        }, forceUpdate] = dist_useState({
+        }, forceUpdate] = useState({
           inst: {
             value,
             getSnapshot
@@ -4741,7 +4741,7 @@ module.exports = function (item) {
             });
           } // eslint-disable-next-line react-hooks/exhaustive-deps
         }, [subscribe, value, getSnapshot]);
-        dist_useEffect(() => {
+        useEffect(() => {
           // Check for changes right before subscribing. Subsequent changes will be
           // detected in the subscription handler.
           if (checkIfSnapshotChanged(inst)) {
@@ -6346,12 +6346,12 @@ module.exports = function (item) {
         document.body.appendChild(container);
 
         // 创建 root
-        useLoading_root = createRoot(container);
+        useLoading_root = (0, client /* createRoot */.H)(container);
 
         // 渲染组件
         const render = visible => {
           var _root;
-          (_root = useLoading_root) === null || _root === void 0 || _root.render(visible ? /*#__PURE__*/React.createElement(Loading, {
+          (_root = useLoading_root) === null || _root === void 0 || _root.render(visible ? /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement(Loading, {
             maskStyle: maskStyle,
             loadingStyle: loadingStyle
           }) : null);
@@ -6373,10 +6373,10 @@ module.exports = function (item) {
           width: "40px",
           height: "40px"
         };
-        const [isLoading, setIsLoading] = useState(false);
-        const maskStypeRef = useRef();
-        const loadingStyleRef = useRef();
-        useEffect(() => {
+        const [isLoading, setIsLoading] = (0, external_root_React_commonjs2_react_commonjs_react_amd_react_.useState)(false);
+        const maskStypeRef = (0, external_root_React_commonjs2_react_commonjs_react_amd_react_.useRef)();
+        const loadingStyleRef = (0, external_root_React_commonjs2_react_commonjs_react_amd_react_.useRef)();
+        (0, external_root_React_commonjs2_react_commonjs_react_amd_react_.useEffect)(() => {
           console.log("useLoading--maskStyle:", maskStyle);
           console.log("useLoading--loadingStyle:", loadingStyle);
           maskStypeRef.current = maskStyle;
@@ -6408,7 +6408,7 @@ module.exports = function (item) {
         };
       };
       /* harmony default export */
-      const hooks_useLoading = Loading;
+      const hooks_useLoading = /* unused pure expression or super */null && 0;
       // EXTERNAL MODULE: ../../node_modules/css-loader/dist/cjs.js??ruleSet[1].rules[1].use[1]!../../node_modules/sass-loader/dist/cjs.js??ruleSet[1].rules[1].use[2]!./src/hooks/toast.scss
       var toast = __nested_webpack_require_27689__(323);
       ; // CONCATENATED MODULE: ./src/hooks/toast.scss
@@ -6603,11 +6603,15 @@ ___CSS_LOADER_EXPORT___.push([module.id, `@charset "UTF-8";
 .adou-select-wrapper .adou-select-form-content {
   height: 100%;
 }
+.adou-select-wrapper .adou-select-form-content.border-left-radius-none {
+  border-top-left-radius: 0 !important;
+  border-bottom-left-radius: 0 !important;
+}
 .adou-select-wrapper .adou-select-form-content .adou-select {
   height: 100%;
-  border: 1px solid #ced4da;
+  border: 1px solid transparent !important;
   border-radius: 0.475rem;
-  transition: background-color 0.5s ease, border-color 0.5s ease, box-shadow 0.5s ease;
+  transition: border-color 0.5s ease, box-shadow 0.5s ease;
   cursor: pointer;
 }
 .adou-select-wrapper .adou-select-form-content .adou-select i {
@@ -6647,7 +6651,6 @@ ___CSS_LOADER_EXPORT___.push([module.id, `@charset "UTF-8";
 .adou-select-option-content {
   min-width: 200px;
   text-align-last: left;
-  background-color: #fff;
   overflow: hidden;
   /* 隐藏溢出内容 */
   position: absolute;
@@ -6708,7 +6711,7 @@ ___CSS_LOADER_EXPORT___.push([module.id, `@charset "UTF-8";
 .adou-select-option-content::-webkit-scrollbar-track {
   background-color: #f1f1f1;
   border-radius: 2px;
-}`, "",{"version":3,"sources":["webpack://./src/index.scss"],"names":[],"mappings":"AAAA,gBAAgB;AAEZ;EACI,YAAA;AAAR;AAEQ;EACI,YAAA;EACA,yBAAA;EACA,uBAAA;EAEA,oFAAA;EACA,eAAA;AADZ;AAIY;EACI,+BAAA;EACA,WAAA;AAFhB;AAKY;EACI,0BAAA;AAHhB;AAKgB;EACI,kCAAA;AAHpB;AAMgB;EACI,mCAAA;AAJpB;AAOgB;EACI,oCAAA;AALpB;AAYY;EAEI,eAAA;EACA,oBAAA;EACA,cAAA;AAXhB;AAagB;EACI,qBAAA;EACA,qBAAA;AAXpB;AAmBY;EAEI,WAAA;EACA,aAAA;EACA,YAAA;AAlBhB;AAsBgB;EACI,SAAA;AApBpB;;AAgCA;EACI,gBAAA;EACA,qBAAA;EACA,sBAAA;EACA,gBAAA;EACA,WAAA;EACA,kBAAA;EACA,iBAAA;EACA,kBAAA;EACA,4CAAA;EACA,wEAAA;EACA,kBAAA;EACA,oBAAA;EACA,qBAAA;AA7BJ;AA+BI;EACI,UAAA;EACA,mBAAA;EACA,oBAAA;AA7BR;AAgCI;EACI,iBAAA;AA9BR;AAgCQ;EACI,yBAAA;EACA,eAAA;AA9BZ;AAiCQ;EACI,WAAA;EACA,yBAAA;AA/BZ;AAkCQ;EACI,oCAAA;EACA,sBAAA;EACA,8BAAA;EACA,cAAA;AAhCZ;AAoCI;EACI,iBAAA;AAlCR;AAqCI;EACI,UAAA;EACA,mBAAA;EACA,oBAAA;EACA,gBAAA;EACA,WAAA;AAnCR;AAsCI;EACI,eAAA;EACA,aAAA;EACA,kBAAA;EACA,cAAA;AApCR;AAwCI;EACI,UAAA;EACA,WAAA;AAtCR;AAyCI;EACI,yBAAA;EACA,kBAAA;AAvCR;AA0CI;EACI,yBAAA;EACA,kBAAA;AAxCR","sourcesContent":[".adou-select-wrapper {\r\n\r\n    .adou-select-form-content {\r\n        height: 100%;\r\n\r\n        .adou-select {\r\n            height: 100%;\r\n            border: 1px solid #ced4da;\r\n            border-radius: 0.475rem;\r\n            // box-shadow: 0 1px 1px rgba(0, 0, 0, 0.075); 加上这个在 borderless 情况下底部会有条线\r\n            transition: background-color 0.5s ease, border-color 0.5s ease, box-shadow 0.5s ease;\r\n            cursor: pointer;\r\n            // padding: 0 12px;\r\n\r\n            i {\r\n                transition: transform 0.3s ease;\r\n                /* 添加过渡效果 */\r\n            }\r\n\r\n            &-icon {\r\n                transition: transform 0.2s;\r\n\r\n                &.rotate-down:hover {\r\n                    transform: scale(1.3) rotate(0deg);\r\n                }\r\n\r\n                &.rotate-up:hover {\r\n                    transform: scale(1.3) rotate(90deg);\r\n                }\r\n\r\n                &.rotate-up {\r\n                    transform: rotate(180deg) !important;\r\n                }\r\n\r\n                .rotate-down {}\r\n            }\r\n\r\n\r\n            &-clear-icon {\r\n\r\n                cursor: pointer;\r\n                transition: all 0.3s;\r\n                color: #c6c6cd;\r\n\r\n                &:hover {\r\n                    transform: scale(1.2);\r\n                    color: red !important;\r\n                }\r\n            }\r\n\r\n            &-input-box {\r\n                // background-color: red;\r\n            }\r\n\r\n            &-input {\r\n                // min-width: 120px;\r\n                width: 100%;\r\n                outline: none;\r\n                border: none;\r\n            }\r\n\r\n            .adou-select-value-list-item-close {\r\n                svg {\r\n                    fill: red;\r\n                }\r\n            }\r\n        }\r\n    }\r\n\r\n\r\n\r\n\r\n\r\n}\r\n\r\n.adou-select-option-content {\r\n    min-width: 200px;\r\n    text-align-last: left;\r\n    background-color: #fff;\r\n    overflow: hidden;\r\n    /* 隐藏溢出内容 */\r\n    position: absolute;\r\n    z-index: 66666666;\r\n    border-radius: 4px;\r\n    box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;\r\n    transition: opacity 0.3s ease, visibility 0.3s ease, transform 0.3s ease;\r\n    visibility: hidden;\r\n    transform: scaleY(0);\r\n    transform-origin: top;\r\n\r\n    &-open {\r\n        opacity: 1;\r\n        visibility: visible;\r\n        transform: scaleY(1);\r\n    }\r\n\r\n    .adou-select-option {\r\n        padding: 5px 10px;\r\n\r\n        &:hover {\r\n            background-color: #f6f6f6;\r\n            cursor: pointer;\r\n        }\r\n\r\n        &:active {\r\n            color: #fff;\r\n            background-color: #2783d8;\r\n        }\r\n\r\n        &.focused {\r\n            background-color: #e0e0e0 !important;\r\n            color: #000 !important;\r\n            font-weight: normal !important;\r\n            /* 高亮当前聚焦的选项 */\r\n        }\r\n    }\r\n\r\n    .adou-select-option-active {\r\n        font-weight: bold;\r\n    }\r\n\r\n    &-open {\r\n        opacity: 1;\r\n        visibility: visible;\r\n        transform: scaleY(1);\r\n        overflow-y: auto;\r\n        /* 允许垂直滚动 */\r\n    }\r\n\r\n    .none-match {\r\n        padding: 10px 0;\r\n        height: 100px;\r\n        font-style: italic;\r\n        color: #a4a3a3;\r\n    }\r\n\r\n    // 滚动条变细\r\n    &::-webkit-scrollbar {\r\n        width: 4px;\r\n        height: 4px;\r\n    }\r\n\r\n    &::-webkit-scrollbar-thumb {\r\n        background-color: #c0c0c0;\r\n        border-radius: 2px;\r\n    }\r\n\r\n    &::-webkit-scrollbar-track {\r\n        background-color: #f1f1f1;\r\n        border-radius: 2px;\r\n    }\r\n}"],"sourceRoot":""}]);
+}`, "",{"version":3,"sources":["webpack://./src/index.scss"],"names":[],"mappings":"AAAA,gBAAgB;AAEZ;EACI,YAAA;AAAR;AAEQ;EACI,oCAAA;EACA,uCAAA;AAAZ;AAIQ;EACI,YAAA;EACA,wCAAA;EACA,uBAAA;EAEA,wDAAA;EACA,eAAA;AAHZ;AAMY;EACI,+BAAA;EACA,WAAA;AAJhB;AAOY;EACI,0BAAA;AALhB;AAOgB;EACI,kCAAA;AALpB;AAQgB;EACI,mCAAA;AANpB;AASgB;EACI,oCAAA;AAPpB;AAcY;EAEI,eAAA;EACA,oBAAA;EACA,cAAA;AAbhB;AAegB;EACI,qBAAA;EACA,qBAAA;AAbpB;AAqBY;EAEI,WAAA;EACA,aAAA;EACA,YAAA;AApBhB;AAwBgB;EACI,SAAA;AAtBpB;;AAkCA;EACI,gBAAA;EACA,qBAAA;EACA,gBAAA;EACA,WAAA;EACA,kBAAA;EACA,iBAAA;EACA,kBAAA;EACA,4CAAA;EACA,wEAAA;EACA,kBAAA;EACA,oBAAA;EACA,qBAAA;AA/BJ;AAiCI;EACI,UAAA;EACA,mBAAA;EACA,oBAAA;AA/BR;AAmCI;EACI,iBAAA;AAjCR;AAmCQ;EACI,yBAAA;EACA,eAAA;AAjCZ;AAoCQ;EACI,WAAA;EACA,yBAAA;AAlCZ;AAqCQ;EACI,oCAAA;EACA,sBAAA;EACA,8BAAA;EACA,cAAA;AAnCZ;AAuCI;EACI,iBAAA;AArCR;AAwCI;EACI,UAAA;EACA,mBAAA;EACA,oBAAA;EACA,gBAAA;EACA,WAAA;AAtCR;AAyCI;EACI,eAAA;EACA,aAAA;EACA,kBAAA;EACA,cAAA;AAvCR;AA2CI;EACI,UAAA;EACA,WAAA;AAzCR;AA4CI;EACI,yBAAA;EACA,kBAAA;AA1CR;AA6CI;EACI,yBAAA;EACA,kBAAA;AA3CR","sourcesContent":[".adou-select-wrapper {\r\n\r\n    .adou-select-form-content {\r\n        height: 100%;\r\n\r\n        &.border-left-radius-none {\r\n            border-top-left-radius: 0 !important;\r\n            border-bottom-left-radius: 0 !important;\r\n\r\n        }\r\n\r\n        .adou-select {\r\n            height: 100%;\r\n            border: 1px solid transparent !important;\r\n            border-radius: 0.475rem;\r\n            // box-shadow: 0 1px 1px rgba(0, 0, 0, 0.075); 加上这个在 borderless 情况下底部会有条线\r\n            transition: border-color 0.5s ease, box-shadow 0.5s ease;\r\n            cursor: pointer;\r\n            // padding: 0 12px;\r\n\r\n            i {\r\n                transition: transform 0.3s ease;\r\n                /* 添加过渡效果 */\r\n            }\r\n\r\n            &-icon {\r\n                transition: transform 0.2s;\r\n\r\n                &.rotate-down:hover {\r\n                    transform: scale(1.3) rotate(0deg);\r\n                }\r\n\r\n                &.rotate-up:hover {\r\n                    transform: scale(1.3) rotate(90deg);\r\n                }\r\n\r\n                &.rotate-up {\r\n                    transform: rotate(180deg) !important;\r\n                }\r\n\r\n                .rotate-down {}\r\n            }\r\n\r\n\r\n            &-clear-icon {\r\n\r\n                cursor: pointer;\r\n                transition: all 0.3s;\r\n                color: #c6c6cd;\r\n\r\n                &:hover {\r\n                    transform: scale(1.2);\r\n                    color: red !important;\r\n                }\r\n            }\r\n\r\n            &-input-box {\r\n                // background-color: red;\r\n            }\r\n\r\n            &-input {\r\n                // min-width: 120px;\r\n                width: 100%;\r\n                outline: none;\r\n                border: none;\r\n            }\r\n\r\n            .adou-select-value-list-item-close {\r\n                svg {\r\n                    fill: red;\r\n                }\r\n            }\r\n        }\r\n    }\r\n\r\n\r\n\r\n\r\n\r\n}\r\n\r\n.adou-select-option-content {\r\n    min-width: 200px;\r\n    text-align-last: left;\r\n    overflow: hidden;\r\n    /* 隐藏溢出内容 */\r\n    position: absolute;\r\n    z-index: 66666666;\r\n    border-radius: 4px;\r\n    box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;\r\n    transition: opacity 0.3s ease, visibility 0.3s ease, transform 0.3s ease;\r\n    visibility: hidden;\r\n    transform: scaleY(0);\r\n    transform-origin: top;\r\n\r\n    &-open {\r\n        opacity: 1;\r\n        visibility: visible;\r\n        transform: scaleY(1);\r\n    }\r\n\r\n\r\n    .adou-select-option {\r\n        padding: 5px 10px;\r\n\r\n        &:hover {\r\n            background-color: #f6f6f6;\r\n            cursor: pointer;\r\n        }\r\n\r\n        &:active {\r\n            color: #fff;\r\n            background-color: #2783d8;\r\n        }\r\n\r\n        &.focused {\r\n            background-color: #e0e0e0 !important;\r\n            color: #000 !important;\r\n            font-weight: normal !important;\r\n            /* 高亮当前聚焦的选项 */\r\n        }\r\n    }\r\n\r\n    .adou-select-option-active {\r\n        font-weight: bold;\r\n    }\r\n\r\n    &-open {\r\n        opacity: 1;\r\n        visibility: visible;\r\n        transform: scaleY(1);\r\n        overflow-y: auto;\r\n        /* 允许垂直滚动 */\r\n    }\r\n\r\n    .none-match {\r\n        padding: 10px 0;\r\n        height: 100px;\r\n        font-style: italic;\r\n        color: #a4a3a3;\r\n    }\r\n\r\n    // 滚动条变细\r\n    &::-webkit-scrollbar {\r\n        width: 4px;\r\n        height: 4px;\r\n    }\r\n\r\n    &::-webkit-scrollbar-thumb {\r\n        background-color: #c0c0c0;\r\n        border-radius: 2px;\r\n    }\r\n\r\n    &::-webkit-scrollbar-track {\r\n        background-color: #f1f1f1;\r\n        border-radius: 2px;\r\n    }\r\n}"],"sourceRoot":""}]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 
@@ -7930,13 +7933,13 @@ const Select = /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_a
       })
     }
   }, /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("div", {
-    className: "adou-select-form-content input-group"
+    className: "adou-select-form-content"
   }, /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("div", {
     ref: selectRef,
     onMouseEnter: handleMouseEnter,
     onMouseLeave: handleMouseLeave,
     onClick: handleFormContentClick,
-    className: "adou-select d-flex align-items-center px-2 ".concat(selectContentExternalCls || "", " ").concat(isFocus ? "adou-form-control-focus" : ""),
+    className: "adou-select d-flex align-items-center ps-0 pe-2 ".concat(selectContentExternalCls || "", " ").concat(isFocus ? "adou-form-control-focus" : ""),
     style: {
       textAlign: "left",
       background: disabled ? "#eee" : transparent ? "transparent" : backgroundColor ? backgroundColor : varient === "filled" ? "#f0f0f0" : "",
@@ -7984,7 +7987,7 @@ const Select = /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_a
     ,
     disabled: disabled,
     type: "text",
-    className: "adou-select-input",
+    className: "adou-select-input form-control px-2",
     "aria-label": "Username",
     "aria-describedby": "basic-addon1",
     style: {
@@ -8002,7 +8005,7 @@ const Select = /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_a
   // 如果 ellipsis 为 true，则需要超出省略
   (!isInputFocusing || multiple) && !showSearch && mode !== "liveSearch" ? /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("div", {
     title: selectValue.title || selectValue[labelKey] || selectValue,
-    className: "adou-select-value ".concat(contentWrap ? "ellipsis-1" : "") // ellipsis-1 加上这个，选择框会自动变大或者变小
+    className: "adou-select-value px-2 ".concat(contentWrap ? "ellipsis-1" : "") // ellipsis-1 加上这个，选择框会自动变大或者变小
     ,
     style: {
       maxWidth: selectValueMaxWidth,
@@ -8015,7 +8018,7 @@ const Select = /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_a
   /*#__PURE__*/
   // 情况四：如果 不是多选，并且 ellipsis 为 false，则不需要超出省略
   external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("div", {
-    className: "adou-select-value  ".concat(contentWrap ? "ellipsis-1" : ""),
+    className: "adou-select-value px-2 ".concat(contentWrap ? "ellipsis-1" : ""),
     style: {
       ...(!showSearch && !filterOption ? {
         flex: 1
@@ -8024,7 +8027,7 @@ const Select = /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_a
   }, selectValue[labelKey]) :
   // 情况五：如果 不是多选，并且 selectValue 没有值，则展示 empty-placeholder(因为没有 input)
   mode !== "liveSearch" && !showSearch && !filterOption && /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("div", {
-    className: "select-value-empty-placeholder flex-fill text-secondary"
+    className: "select-value-empty-placeholder flex-fill text-secondary px-2"
   }, placeholder), (showSearch || filterOption || mode === "liveSearch") && !multiple && mode !== "tags" && /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("div", {
     className: "adou-select-input-box flex-fill",
     title: selectValue.title || (selectValue === null || selectValue === void 0 ? void 0 : selectValue[labelKey]) || selectValue
@@ -8040,7 +8043,7 @@ const Select = /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_a
     ,
     disabled: disabled,
     type: "text",
-    className: "adou-select-input ellipsis-1",
+    className: "adou-select-input ellipsis-1 form-control px-2",
     "aria-label": "Username",
     "aria-describedby": "basic-addon1",
     style: {

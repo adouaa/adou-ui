@@ -330,7 +330,7 @@ const FormItem = ({
                     </span>
                   )}
                 </span>
-                <div className="adou-form d-flex" style={{ flex: 1 }}>
+                <div className="adou-form form-control d-flex flex-fill p-0">
                   {enhancedChildren}
                 </div>
                 {processedAddonAfter && (
@@ -346,7 +346,7 @@ const FormItem = ({
               </div>
             ) : processedAddonAfter ? (
               <div className="input-group">
-                <div className="adou-form d-flex" style={{ flex: 1 }}>
+                <div className="adou-form d-flex flex-fill">
                   {enhancedChildren}
                 </div>
                 <span
@@ -357,7 +357,7 @@ const FormItem = ({
                 </span>
               </div>
             ) : (
-              <div className="adou-form d-flex" style={{ flex: 1 }}>
+              <div className="adou-form form-control d-flex flex-fill p-0">
                 {enhancedChildren}
               </div>
             )}

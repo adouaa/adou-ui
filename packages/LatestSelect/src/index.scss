@@ -3,12 +3,18 @@
     .adou-select-form-content {
         height: 100%;
 
+        &.border-left-radius-none {
+            border-top-left-radius: 0 !important;
+            border-bottom-left-radius: 0 !important;
+
+        }
+
         .adou-select {
             height: 100%;
-            border: 1px solid #ced4da;
+            border: 1px solid transparent !important;
             border-radius: 0.475rem;
             // box-shadow: 0 1px 1px rgba(0, 0, 0, 0.075); 加上这个在 borderless 情况下底部会有条线
-            transition: background-color 0.5s ease, border-color 0.5s ease, box-shadow 0.5s ease;
+            transition: border-color 0.5s ease, box-shadow 0.5s ease;
             cursor: pointer;
             // padding: 0 12px;
 
@@ -76,7 +82,6 @@
 .adou-select-option-content {
     min-width: 200px;
     text-align-last: left;
-    background-color: #fff;
     overflow: hidden;
     /* 隐藏溢出内容 */
     position: absolute;
@@ -93,6 +98,7 @@
         visibility: visible;
         transform: scaleY(1);
     }
+
 
     .adou-select-option {
         padding: 5px 10px;

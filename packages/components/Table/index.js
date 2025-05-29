@@ -1639,7 +1639,7 @@ module.exports = {
         useClickOutside: () => ( /* reexport */hooks_useClickOutside),
         useDrag: () => ( /* reexport */hooks_useDrag),
         useForm: () => ( /* reexport */hooks_useForm),
-        useLoading: () => ( /* reexport */hooks_useLoading),
+        useLoading: () => ( /* reexport */useLoading),
         useNavigateTo: () => ( /* reexport */hooks_useNavigateTo),
         useNotification: () => ( /* reexport */hooks_useNotification),
         useThrottle: () => ( /* reexport */hooks_useThrottle),
@@ -5598,8 +5598,8 @@ module.exports = {
       // dispatch for CommonJS interop named imports.
 
       const {
-        useState: dist_useState,
-        useEffect: dist_useEffect,
+        useState,
+        useEffect,
         useLayoutEffect,
         useDebugValue
       } = external_root_React_commonjs2_react_commonjs_react_amd_react_;
@@ -5644,7 +5644,7 @@ module.exports = {
 
         const [{
           inst
-        }, forceUpdate] = dist_useState({
+        }, forceUpdate] = useState({
           inst: {
             value,
             getSnapshot
@@ -5667,7 +5667,7 @@ module.exports = {
             });
           } // eslint-disable-next-line react-hooks/exhaustive-deps
         }, [subscribe, value, getSnapshot]);
-        dist_useEffect(() => {
+        useEffect(() => {
           // Check for changes right before subscribing. Subsequent changes will be
           // detected in the subscription handler.
           if (checkIfSnapshotChanged(inst)) {
@@ -7272,12 +7272,12 @@ module.exports = {
         document.body.appendChild(container);
 
         // 创建 root
-        useLoading_root = createRoot(container);
+        useLoading_root = (0, client /* createRoot */.H)(container);
 
         // 渲染组件
         const render = visible => {
           var _root;
-          (_root = useLoading_root) === null || _root === void 0 || _root.render(visible ? /*#__PURE__*/React.createElement(Loading, {
+          (_root = useLoading_root) === null || _root === void 0 || _root.render(visible ? /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement(Loading, {
             maskStyle: maskStyle,
             loadingStyle: loadingStyle
           }) : null);
@@ -7299,10 +7299,10 @@ module.exports = {
           width: "40px",
           height: "40px"
         };
-        const [isLoading, setIsLoading] = useState(false);
-        const maskStypeRef = useRef();
-        const loadingStyleRef = useRef();
-        useEffect(() => {
+        const [isLoading, setIsLoading] = (0, external_root_React_commonjs2_react_commonjs_react_amd_react_.useState)(false);
+        const maskStypeRef = (0, external_root_React_commonjs2_react_commonjs_react_amd_react_.useRef)();
+        const loadingStyleRef = (0, external_root_React_commonjs2_react_commonjs_react_amd_react_.useRef)();
+        (0, external_root_React_commonjs2_react_commonjs_react_amd_react_.useEffect)(() => {
           console.log("useLoading--maskStyle:", maskStyle);
           console.log("useLoading--loadingStyle:", loadingStyle);
           maskStypeRef.current = maskStyle;
@@ -7334,7 +7334,7 @@ module.exports = {
         };
       };
       /* harmony default export */
-      const hooks_useLoading = Loading;
+      const hooks_useLoading = /* unused pure expression or super */null && 0;
       // EXTERNAL MODULE: ../../node_modules/css-loader/dist/cjs.js??ruleSet[1].rules[1].use[1]!../../node_modules/sass-loader/dist/cjs.js??ruleSet[1].rules[1].use[2]!./src/hooks/toast.scss
       var toast = __nested_webpack_require_27689__(323);
       ; // CONCATENATED MODULE: ./src/hooks/toast.scss
@@ -9452,6 +9452,7 @@ const recursiveGenerateTableHeaderRows = function (columns) {
 };
 const Table = props => {
   const {
+    headerAlign,
     wrapperStyle,
     clickHighlight,
     checkedWhenDbClick = true,
@@ -9479,7 +9480,7 @@ const Table = props => {
     multiple = false,
     id = "id",
     trPointer = false,
-    align,
+    contentAlign,
     collection,
     collapse = true,
     expandAll = false,
@@ -9508,7 +9509,6 @@ const Table = props => {
     onPageSizeChange
   } = props;
   const [tableData, setTableData] = (0,external_root_React_commonjs2_react_commonjs_react_amd_react_.useState)([]);
-  const [originalTableData, setOriginalTableData] = (0,external_root_React_commonjs2_react_commonjs_react_amd_react_.useState)([]);
   const [tableHeaders, setTableHeaders] = (0,external_root_React_commonjs2_react_commonjs_react_amd_react_.useState)([]);
   const [updateKey, setUpdateKey] = (0,external_root_React_commonjs2_react_commonjs_react_amd_react_.useState)(0);
   const [theadRows, setTheadRows] = (0,external_root_React_commonjs2_react_commonjs_react_amd_react_.useState)([]);
@@ -9566,7 +9566,7 @@ const Table = props => {
 
   // 判断每一列的 对齐方式
   const judgeTdAlign = data => {
-    switch (data.align || align) {
+    switch (data.contentAlign || contentAlign) {
       case "start":
         return "justify-content-start";
       case "end":
@@ -9586,7 +9586,7 @@ const Table = props => {
   const judgeChildCellAlign = (data, colProps, colIndex) => {
     var _data$children;
     return !colIndex && (_data$children = data.children) !== null && _data$children !== void 0 && _data$children.length ? "start" // 父级存在子级时，第一列左对齐
-    : colProps.align || align;
+    : colProps.contentAlign || contentAlign;
   };
 
   // 排序的逻辑--坑：一定要使用 [...preArr].sort，不能直接preArr.sort，这样会影响原来的数据，有Bug！！！
@@ -9655,12 +9655,12 @@ const Table = props => {
    * @param rowIndex 行索引
    * @param verticalAlignObject 垂直对齐方式对象
    * @param widthObject 宽度对象
-   * @param textPositionObject 文字位置对象
+   * @param contentTextPositionObject 文字位置对象
    * @param level 层级
    * @returns
    */
 
-  const renderChildren = function (array, data, rowIndex, verticalAlignObject, widthObject, textPositionObject) {
+  const renderChildren = function (array, data, rowIndex, verticalAlignObject, widthObject, contentTextPositionObject) {
     let level = arguments.length > 6 && arguments[6] !== undefined ? arguments[6] : 0;
     level++;
     return data.collapse &&
@@ -9736,7 +9736,7 @@ const Table = props => {
           return /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("td", {
             // 这边也不用在子级的第一列在最左侧了
             // colIndex === 0 ? 'text-start' :
-            className: "text-".concat(colProps.align, " py-1 ").concat(compact ? "py-0 px-1" : tdPadding),
+            className: "text-".concat(colProps.contentAlign, " py-1 ").concat(compact ? "py-0 px-1" : tdPadding),
             style: {
               verticalAlign: verticalAlignObject[prop],
               width: widthObject[prop],
@@ -9774,12 +9774,13 @@ const Table = props => {
           colIndex: colIndex,
           align: judgeChildCellAlign(data, colProps, colIndex),
           maxWidth: colProps.maxWidth || maxWidth,
-          showTip: colProps.showTip || showTip
+          showTip: colProps.showTip || showTip,
+          render: colProps.render
         };
         return /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("td", {
           // 这边也不用在子级的第一列在最左侧了
           // colIndex === 0 ? 'text-start' :
-          className: "text-".concat(colProps.align, " py-1 ").concat(compact ? "py-0 px-1" : tdPadding),
+          className: "text-".concat(colProps.contentAlign, " py-1 ").concat(compact ? "py-0 px-1" : tdPadding),
           style: {
             verticalAlign: verticalAlignObject[prop],
             width: widthObject[colProps.prop],
@@ -9799,7 +9800,7 @@ const Table = props => {
           position: "right",
           text: childData[prop]
         }, /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement(src_TableCell_0, childTableCellProps)) : /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement(src_TableCell_0, childTableCellProps)));
-      })), ((_childData$children = childData.children) === null || _childData$children === void 0 ? void 0 : _childData$children.length) > 0 ? renderChildren(array, childData, rowIndex, verticalAlignObject, widthObject, textPositionObject, level) : null);
+      })), ((_childData$children = childData.children) === null || _childData$children === void 0 ? void 0 : _childData$children.length) > 0 ? renderChildren(array, childData, rowIndex, verticalAlignObject, widthObject, contentTextPositionObject, level) : null);
     });
   };
 
@@ -9840,13 +9841,15 @@ const Table = props => {
     });
   }
   let widthObject = {};
-  const textPositionObject = {}; // 优先使用 每一列的 align，table 的 align 次之，都没的话默认居中
+  const contentTextPositionObject = {}; // 优先使用 每一列的 align，table 的 contentAlign 次之，都没的话默认居中
+  const headerTextPositionObject = {}; // 优先使用 每一列的 align，table 的 contentAlign 次之，都没的话默认居中
   const verticalAlignObject = {};
   array.forEach(item => {
     if (item !== null && item !== void 0 && item.props) {
       widthObject[item.props.prop] = item.props.width;
-      // 优先使用 每一列的 align，table 的 align 次之，都没的话默认居中(align默认等于 center)
-      textPositionObject[item.props.prop] = item.props.align || align;
+      // 优先使用 每一列的 align，table 的 contentAlign 次之，都没的话默认居中(align默认等于 center)
+      contentTextPositionObject[item.props.prop] = item.props.contentAlign || contentAlign;
+      headerTextPositionObject[item.props.prop] = item.props.headerAlign || headerAlign;
       verticalAlignObject[item.props.prop] = item.props.verticalAlign || "middle";
     }
   });
@@ -9966,7 +9969,7 @@ const Table = props => {
               width: widthObject[item.prop],
               fontWeight: headerFontWeight
             },
-            className: "".concat(textPositionObject[item.prop] ? "text-" + textPositionObject[item.prop] : "", " ").concat(compact ? "p-0" : "", " align-middle"),
+            className: "".concat(contentTextPositionObject[item.prop] ? "text-" + contentTextPositionObject[item.prop] : "", " ").concat(compact ? "p-0" : "", " align-middle"),
             scope: "col",
             key: item.title
           }, /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("div", {
@@ -9974,7 +9977,7 @@ const Table = props => {
             style: {
               display: "flex",
               alignItems: "center",
-              justifyContent: item.headerAlign || generateHeaderStyle(textPositionObject[item.prop])
+              justifyContent: item.headerAlign || generateHeaderStyle(headerTextPositionObject[item.prop])
             }
           }, /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("span", {
             className: "header-text"
@@ -10042,6 +10045,7 @@ const Table = props => {
           id: data[id] + uniqId,
           checked: data.checked === true,
           onChange: e => handleCheckboxChange(data, e),
+          onClick: e => e.stopPropagation(),
           type: !multiple ? "radio" : "checkbox"
         })), showIndex &&
         /*#__PURE__*/
@@ -10073,15 +10077,15 @@ const Table = props => {
               canCollapse: data.children,
               collapse: data.collapse,
               // 防止 Table 的 align 不生效的bug
-              align: !colIndex && collapse && data.children ? "start" : colProps.align || align,
+              align: !colIndex && collapse && data.children ? "start" : colProps.contentAlign || contentAlign,
               width: widthObject[colProps.prop],
               maxWidth: colProps.maxWidth || maxWidth,
               showTip: colProps.showTip || showTip
             });
             return /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("td", {
               // 父级第一列不需要在 最左侧了
-              // !colIndex && collapse && data.children ? 'text-start' : `text-${textPositionObject[prop]}`
-              className: "text-".concat(colProps.align || align, " py-1 ").concat(compact ? "py-0 px-1" : tdPadding),
+              // !colIndex && collapse && data.children ? 'text-start' : `text-${contentTextPositionObject[prop]}`
+              className: "text-".concat(colProps.contentAlign || contentAlign, " py-1 ").concat(compact ? "py-0 px-1" : tdPadding),
               style: {
                 verticalAlign: verticalAlignObject[prop],
                 width: widthObject[colProps.prop],
@@ -10116,15 +10120,16 @@ const Table = props => {
             canCollapse: data.children,
             collapse: data.collapse,
             // 防止 Table 的 align 不生效的bug
-            align: !colIndex && collapse && data.children ? "start" : colProps.align || align,
+            align: !colIndex && collapse && data.children ? "start" : colProps.contentAlign || contentAlign,
             width: widthObject[colProps.prop],
             maxWidth: colProps.maxWidth || maxWidth,
-            showTip: colProps.showTip || showTip
+            showTip: colProps.showTip || showTip,
+            render: colProps.render
           };
           return /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("td", {
             // 父级第一列不需要在 最左侧了
-            // !colIndex && collapse && data.children ? 'text-start' : `text-${textPositionObject[prop]}`
-            className: "text-".concat(colProps.align || align, " py-1 ").concat(compact ? "py-0 px-1" : tdPadding),
+            // !colIndex && collapse && data.children ? 'text-start' : `text-${contentTextPositionObject[prop]}`
+            className: "text-".concat(colProps.contentAlign || contentAlign, " py-1 ").concat(compact ? "py-0 px-1" : tdPadding),
             style: {
               verticalAlign: verticalAlignObject[prop],
               width: widthObject[colProps.prop],
@@ -10143,7 +10148,7 @@ const Table = props => {
           }, colProps.showTip ? /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement((Tooltip_default()), {
             text: data[prop]
           }, /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement(src_TableCell_0, tableCellProps)) : /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement(src_TableCell_0, tableCellProps)));
-        })), renderChildren(array, data, rowIndex, verticalAlignObject, widthObject, textPositionObject))
+        })), renderChildren(array, data, rowIndex, verticalAlignObject, widthObject, contentTextPositionObject))
       );
     }));
   };
@@ -10489,11 +10494,9 @@ const Table = props => {
       setTimeout(() => {
         const tableData = recursiveExpandTable(tempData);
         setTableData(tableData);
-        setOriginalTableData(tableData);
       }, 10);
     } else {
       setTableData(tempData);
-      setOriginalTableData(tempData);
     }
     if (tempData.length) {
       // 必须给个 10ms 的延迟，不然默认选中会出现问题

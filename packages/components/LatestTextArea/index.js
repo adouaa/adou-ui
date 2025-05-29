@@ -689,6 +689,7 @@ const Textarea = /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react
         borderBottomRightRadius: 0
         // borderRight: "none",
       } : {}),
+      border: "0px",
       ...formStyle
     },
     rows: rows,
