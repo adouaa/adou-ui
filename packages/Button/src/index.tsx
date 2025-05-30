@@ -39,7 +39,7 @@ const Button: React.FC<buttonProps> = (props: buttonProps) => {
     suffixIcon,
     prefixIcon,
     children,
-    type = "primary",
+    type = "",
     size = "md",
     externalClassName,
     round,

@@ -107,7 +107,7 @@ const Button = props => {
     suffixIcon,
     prefixIcon,
     children,
-    type = "primary",
+    type = "",
     size = "md",
     externalClassName,
     round,

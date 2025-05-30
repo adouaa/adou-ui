@@ -367,7 +367,7 @@ const Input: React.ForwardRefRenderFunction<InputRef, InputProps> = (
                   border: addonBefore || addonAfter ? "" : "none",
                 }),
                 ...formStyle,
-                backgroundColor: judgeBgColor(),
+                // backgroundColor: judgeBgColor(),
                 border: varient === "outlined" ? "1px solid #ced4da" : "",
               }}
               ref={inputFormContentRef}
@@ -414,7 +414,7 @@ const Input: React.ForwardRefRenderFunction<InputRef, InputProps> = (
                 border: "none",
               }),
               border: varient === "outlined" ? "" : "",
-              backgroundColor: judgeBgColor(),
+              // backgroundColor: judgeBgColor(),
               ...formStyle,
             }}
             ref={inputFormContentRef}

@@ -49,7 +49,7 @@ const Form = forwardRef(
       commonForItemClsssName,
       commonDisabled,
       showNotFormItem,
-      commonContentBackgroundColor = "white",
+      commonContentBackgroundColor,
       wrpa = true,
       externalWrapperClassName,
       externalWrapperStyle,

@@ -588,7 +588,7 @@ const Form = /*#__PURE__*/(0,external_root_React_commonjs2_react_commonjs_react_
     commonForItemClsssName,
     commonDisabled,
     showNotFormItem,
-    commonContentBackgroundColor = "white",
+    commonContentBackgroundColor,
     wrpa = true,
     externalWrapperClassName,
     externalWrapperStyle,
