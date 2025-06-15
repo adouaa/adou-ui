@@ -89,6 +89,7 @@ const FormItem = ({
   const adouFormRef = useRef<any>(null);
   const [customSelectContentPosition, setCustomSelectContentPosition] =
     useState<any>({});
+  const isChildrenArrayRef = useRef<boolean>(false); // 不能用 state，会死循环
 
   const judgeFormItemContentCls = () => {
     if (layout === "horizontal") {
@@ -171,7 +172,12 @@ const FormItem = ({
         ? children.filter(Boolean)
         : children;
       const props = child.props;
+      if (props.name === "tcm_freq_quantity") {
+        // debugger;
+      }
       const isChildrenArray = Array.isArray(validChildren);
+      // 如果是多个子组件，则父组件这边的边框要置空(adou-form form-control)
+      isChildrenArrayRef.current = isChildrenArray;
       const { formStyle: originalFormStyle } = props; // 获取原组件的 formStyle 属性
       const mergedFormStyle = {
         ...(processedAddonBefore && {
@@ -193,6 +199,15 @@ const FormItem = ({
           index !== 0 && { borderTopLeftRadius: 0, borderBottomLeftRadius: 0 }),
         ...originalFormStyle, // 合并原组件的 formStyle 属性
       };
+      const addonAfterStyle = {
+        // 多个子组件时，addonAfter 的样式处理，非最后一个要把 右边框和右圆角置为0
+        ...(isChildrenArray &&
+          index !== validChildren.length - 1 && {
+            borderTopRightRadius: 0,
+            borderBottomRightRadius: 0,
+            borderRight: 0,
+          }),
+      };
       // 将 rules 放到数组中，以供 validate使用
       return React.cloneElement(child, {
         name,
@@ -204,6 +219,8 @@ const FormItem = ({
         backgroundColor: contentBackgroundColor, // 传递背景色
         labelColor,
         disabled,
+        addonAfterStyle,
+        isFormItem: isChildrenArray ? false : true,
         onFieldChange: handleFieldChange,
         onValidateField: validateField,
         ...props,
@@ -219,11 +236,11 @@ const FormItem = ({
 
   const generateWrapperCls = () => {
     if (layout === "horizontal" && !isError) {
-      return "mb-3";
+      return "mb-2";
     } else if (layout === "inline" && oneLine) {
       return "mb-0";
     } else {
-      return "mb-3";
+      return "mb-2";
     }
   };
 
@@ -259,7 +276,7 @@ const FormItem = ({
       }}
     >
       {/*  ${
-            layout === "vertical" ? "mb-1" : !isError ? "mb-3" : "mb-1"
+            layout === "vertical" ? "mb-1" : !isError ? "mb-2" : "mb-1"
           } */}
       <div
         className={`adou-form-item-content flex-fill ${judgeFormItemContentCls()} ${
@@ -330,7 +347,11 @@ const FormItem = ({
                     </span>
                   )}
                 </span>
-                <div className="adou-form form-control d-flex flex-fill p-0">
+                <div
+                  className={`adou-form form-control d-flex flex-fill p-0 ${
+                    isChildrenArrayRef.current ? "border-0" : ""
+                  }`}
+                >
                   {enhancedChildren}
                 </div>
                 {processedAddonAfter && (
@@ -357,7 +378,11 @@ const FormItem = ({
                 </span>
               </div>
             ) : (
-              <div className="adou-form form-control d-flex flex-fill p-0">
+              <div
+                className={`adou-form form-control d-flex flex-fill p-0 ${
+                  isChildrenArrayRef.current ? "border-0" : ""
+                }`}
+              >
                 {enhancedChildren}
               </div>
             )}

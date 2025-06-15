@@ -249,7 +249,7 @@ ___CSS_LOADER_EXPORT___.push([module.id, `/* index.scss */
 }
 .tabs-box .header-wrapper .extra-content {
   cursor: pointer;
-}`, "",{"version":3,"sources":["webpack://./src/index.scss"],"names":[],"mappings":"AAAA,eAAA;AACA;EACI;IACI,4BAAA;IACA,UAAA;EACN;EAEE;IACI,wBAAA;IACA,UAAA;EAAN;AACF;AAGA;EACI;IACI,wBAAA;IACA,UAAA;EADN;EAIE;IACI,2BAAA;IACA,UAAA;EAFN;AACF;AAKA;EACI,wCAAA;AAHJ;;AAMA;EACI,wCAAA;AAHJ;;AAMA,eAAA;AACA;EACI;IACI,UAAA;EAHN;EAME;IACI,UAAA;EAJN;AACF;AAOA;EACI;IACI,UAAA;EALN;EAQE;IACI,UAAA;EANN;AACF;AASA;EACI,+BAAA;AAPJ;;AAUA;EACI,gCAAA;AAPJ;;AAmBI;EACI,aAAA;EACA,gCAAA;AAhBR;AAkBQ;EACI,eAAA;AAhBZ;AAkBY;EACI,cAAA;EACA,mBAAA;EACA,eAAA;EACA,eAAA;AAhBhB;AAoBQ;EACI,iBAAA;AAlBZ;AAqBQ;EACI,gCAAA;EACA,cAAA;EACA,sBAAA;AAnBZ;AA0BI;EACI,kBAAA;AAxBR;AA0BQ;EAEI,eAAA;AAzBZ","sourcesContent":["/* index.scss */\n@keyframes slideInFromLeft {\n    from {\n        transform: translateX(-100%);\n        opacity: 0;\n    }\n\n    to {\n        transform: translateX(0);\n        opacity: 1;\n    }\n}\n\n@keyframes slideOutToRight {\n    from {\n        transform: translateX(0);\n        opacity: 1;\n    }\n\n    to {\n        transform: translateX(100%);\n        opacity: 0;\n    }\n}\n\n.slide-enter {\n    animation: slideInFromLeft 0.5s forwards;\n}\n\n.slide-exit {\n    animation: slideOutToRight 0.5s forwards;\n}\n\n/* styles.css */\n@keyframes fadeIn {\n    from {\n        opacity: 0;\n    }\n\n    to {\n        opacity: 1;\n    }\n}\n\n@keyframes fadeOut {\n    from {\n        opacity: 1;\n    }\n\n    to {\n        opacity: 0;\n    }\n}\n\n.fade-enter {\n    animation: fadeIn 0.5s forwards;\n}\n\n.fade-exit {\n    animation: fadeOut 0.5s forwards;\n}\n\n\n.tabs-box {\n    .nav {\n        .nav-link {\n        }\n\n        .nav-link.active {}\n    }\n\n    .tabs-header {\n        display: flex;\n        border-bottom: 1px solid #dcdfe6;\n\n        .tabs-header-item-box {\n            padding: 0 15px;\n\n            .tabs-header-item {\n                padding: 9px 0;\n                margin-bottom: -1px;\n                font-size: 14px;\n                cursor: pointer;\n            }\n        }\n\n        .tabs-header-item-box.first {\n            padding-left: 0px;\n        }\n\n        .tabs-header-item.active {\n            border-bottom: 1px solid #409eff;\n            color: #409eff;\n            box-sizing: border-box;\n\n        }\n\n\n    }\n\n    .header-wrapper {\n        position: relative;\n\n        .extra-content {\n\n            cursor: pointer;\n        }\n    }\n}"],"sourceRoot":""}]);
+}`, "",{"version":3,"sources":["webpack://./src/index.scss"],"names":[],"mappings":"AAAA,eAAA;AACA;EACI;IACI,4BAAA;IACA,UAAA;EACN;EAEE;IACI,wBAAA;IACA,UAAA;EAAN;AACF;AAGA;EACI;IACI,wBAAA;IACA,UAAA;EADN;EAIE;IACI,2BAAA;IACA,UAAA;EAFN;AACF;AAKA;EACI,wCAAA;AAHJ;;AAMA;EACI,wCAAA;AAHJ;;AAMA,eAAA;AACA;EACI;IACI,UAAA;EAHN;EAME;IACI,UAAA;EAJN;AACF;AAOA;EACI;IACI,UAAA;EALN;EAQE;IACI,UAAA;EANN;AACF;AASA;EACI,+BAAA;AAPJ;;AAUA;EACI,gCAAA;AAPJ;;AAkBI;EACI,aAAA;EACA,gCAAA;AAfR;AAiBQ;EACI,eAAA;AAfZ;AAiBY;EACI,cAAA;EACA,mBAAA;EACA,eAAA;EACA,eAAA;AAfhB;AAmBQ;EACI,iBAAA;AAjBZ;AAoBQ;EACI,gCAAA;EACA,cAAA;EACA,sBAAA;AAlBZ;AAyBI;EACI,kBAAA;AAvBR;AAyBQ;EAEI,eAAA;AAxBZ","sourcesContent":["/* index.scss */\n@keyframes slideInFromLeft {\n    from {\n        transform: translateX(-100%);\n        opacity: 0;\n    }\n\n    to {\n        transform: translateX(0);\n        opacity: 1;\n    }\n}\n\n@keyframes slideOutToRight {\n    from {\n        transform: translateX(0);\n        opacity: 1;\n    }\n\n    to {\n        transform: translateX(100%);\n        opacity: 0;\n    }\n}\n\n.slide-enter {\n    animation: slideInFromLeft 0.5s forwards;\n}\n\n.slide-exit {\n    animation: slideOutToRight 0.5s forwards;\n}\n\n/* styles.css */\n@keyframes fadeIn {\n    from {\n        opacity: 0;\n    }\n\n    to {\n        opacity: 1;\n    }\n}\n\n@keyframes fadeOut {\n    from {\n        opacity: 1;\n    }\n\n    to {\n        opacity: 0;\n    }\n}\n\n.fade-enter {\n    animation: fadeIn 0.5s forwards;\n}\n\n.fade-exit {\n    animation: fadeOut 0.5s forwards;\n}\n\n\n.tabs-box {\n    .nav {\n        .nav-link {}\n\n        .nav-link.active {}\n    }\n\n    .tabs-header {\n        display: flex;\n        border-bottom: 1px solid #dcdfe6;\n\n        .tabs-header-item-box {\n            padding: 0 15px;\n\n            .tabs-header-item {\n                padding: 9px 0;\n                margin-bottom: -1px;\n                font-size: 14px;\n                cursor: pointer;\n            }\n        }\n\n        .tabs-header-item-box.first {\n            padding-left: 0px;\n        }\n\n        .tabs-header-item.active {\n            border-bottom: 1px solid #409eff;\n            color: #409eff;\n            box-sizing: border-box;\n\n        }\n\n\n    }\n\n    .header-wrapper {\n        position: relative;\n\n        .extra-content {\n\n            cursor: pointer;\n        }\n    }\n}"],"sourceRoot":""}]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 
@@ -601,7 +601,6 @@ __webpack_require__.r(__webpack_exports__);
 
 // EXPORTS
 __webpack_require__.d(__webpack_exports__, {
-  TabItem: () => (/* reexport */ src_TabItem),
   "default": () => (/* binding */ src_0)
 });
 
@@ -1806,46 +1805,6 @@ var plural = function plural() {
 var selectOrdinal = function selectOrdinal() {
   return '';
 };
-;// CONCATENATED MODULE: ./src/TabItem/index.tsx
-
-
-const TabItem = props => {
-  const {
-    exsternalClsaaName,
-    prefixIcon,
-    headerIcon,
-    extraContent,
-    label,
-    url,
-    children,
-    active,
-    contentPadding = "0px",
-    clearOnChange
-  } = props;
-  return /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("div", {
-    className: "tab-item-wrapper"
-    // 当 active为 true 时，设置高度为 100%，否则为 0，避免父组件设置了 contentHeight 时，影响到 隐藏的 tabItem 的高度
-    ,
-    style: {
-      height: active ? "100%" : "0"
-    }
-  }, clearOnChange ? active && /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("div", {
-    className: "tab-item-content",
-    style: {
-      padding: contentPadding || "0px 10px",
-      height: "100%"
-    }
-  }, children) :
-  /*#__PURE__*/
-  // clearOnChange为true，不进行组件的销毁和重建，直接使用 d-none来进行切换
-  external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("div", {
-    className: "".concat(active ? "" : "d-none"),
-    style: {
-      padding: contentPadding || "0px 10px"
-    }
-  }, children));
-};
-/* harmony default export */ const src_TabItem = (withTranslation()(TabItem));
 // EXTERNAL MODULE: ../../node_modules/style-loader/dist/runtime/injectStylesIntoStyleTag.js
 var injectStylesIntoStyleTag = __webpack_require__(591);
 var injectStylesIntoStyleTag_default = /*#__PURE__*/__webpack_require__.n(injectStylesIntoStyleTag);
@@ -1899,10 +1858,10 @@ var update = injectStylesIntoStyleTag_default()(cjs_ruleSet_1_rules_1_use_2_src/
 
 
 
-
-
 const Tabs = props => {
   const {
+    tabsHeaderStyle,
+    tabsHeaderCls,
     commonTabItemHeaderExternalCls,
     tabRef,
     commonExtraContent,
@@ -1921,6 +1880,7 @@ const Tabs = props => {
   const [updateKey, setupdateKey] = (0,external_root_React_commonjs2_react_commonjs_react_amd_react_.useState)(0);
   const [currentIndex, setCurrentIndex] = (0,external_root_React_commonjs2_react_commonjs_react_amd_react_.useState)(activeIndex);
   const content = (0,external_root_React_commonjs2_react_commonjs_react_amd_react_.useRef)();
+  const headerRef = (0,external_root_React_commonjs2_react_commonjs_react_amd_react_.useRef)();
   const handleLabelClickFn = (index, itemInfo) => {
     setCurrentIndex(index);
     onLabelClick && onLabelClick(index, itemInfo);
@@ -1931,10 +1891,12 @@ const Tabs = props => {
       if (!child) return;
       tabItems.push(child);
     });
-    return /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement((external_root_React_commonjs2_react_commonjs_react_amd_react_default()).Fragment, null, tabStyle === "common" ? /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("div", {
-      className: "header-wrapper"
+    return tabStyle === "common" ? /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("div", {
+      className: "header-wrapper",
+      ref: headerRef
     }, /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("div", {
-      className: "tabs-header mb-2  d-flex align-items-center"
+      className: "tabs-header mb-2  d-flex align-items-center ".concat(tabsHeaderCls),
+      style: tabsHeaderStyle
     }, /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("div", {
       className: "tabs-header-content d-flex",
       style: {
@@ -1960,11 +1922,13 @@ const Tabs = props => {
     }, commonExtraContent), content.current && /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("div", {
       className: "extra-content"
     }, content.current))) : /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("div", {
-      className: "header-wrapper"
+      className: "header-wrapper mb-2",
+      ref: headerRef
     }, /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("div", {
-      className: "bootstrap-tabs-header d-flex"
+      className: "bootstrap-tabs-header d-flex ".concat(tabsHeaderCls),
+      style: tabsHeaderStyle
     }, /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("ul", {
-      className: "nav nav-tabs mb-2",
+      className: "nav nav-tabs",
       style: {
         flex: 1
       }
@@ -1996,7 +1960,7 @@ const Tabs = props => {
       className: "common-extra-content"
     }, commonExtraContent), content.current && /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("div", {
       className: "extra-content"
-    }, content.current))));
+    }, content.current)));
   };
   (0,external_root_React_commonjs2_react_commonjs_react_amd_react_.useEffect)(() => {
     // 因为extraContent是用ref保存的，
@@ -2042,8 +2006,12 @@ const Tabs = props => {
   (0,external_root_React_commonjs2_react_commonjs_react_amd_react_.useImperativeHandle)(tabRef, () => ({
     goTo,
     getCurrentIndex: () => currentIndex,
-    getCurrentLabel
-  }));
+    getCurrentLabel,
+    getHeaderHeight: () => {
+      var _headerRef$current;
+      return (_headerRef$current = headerRef.current) === null || _headerRef$current === void 0 ? void 0 : _headerRef$current.clientHeight;
+    }
+  }), [currentIndex, headerRef.current]);
   return /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement((external_root_React_commonjs2_react_commonjs_react_amd_react_default()).Fragment, null, /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("div", {
     className: "tabs-box" /*  style={{ height: "100%" }} */
   }, renderHeader(), renderContent()));

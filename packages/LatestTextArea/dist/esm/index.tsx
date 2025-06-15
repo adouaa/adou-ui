@@ -146,9 +146,7 @@ const Textarea: React.FC<TextreaProps> = React.forwardRef(
 
     return (
       <div
-        className={`adou-textarea-warpper ${externalClassName} ${
-          !error && isFormItem && "mb-3"
-        }`}
+        className={`adou-textarea-warpper ${externalClassName}`}
         style={{
           ...wrapperStyle,
           ...(wrapperWidth ? { width: wrapperWidth } : { flex: 1 }),

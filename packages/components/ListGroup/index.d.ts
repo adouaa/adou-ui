@@ -1,6 +1,7 @@
 import React from "react";
 import "./index.scss";
 interface ListGroupProps {
+    buttonWidth?: any;
     canCancel?: boolean;
     multiple?: boolean;
     itemHeight?: number;
@@ -20,7 +21,7 @@ interface ListGroupProps {
     type?: string;
     onItemClick?: (item?: any) => void;
     onItemDoubleClick?: (item?: any) => void;
-    render?: (item: any, labelKey: string, valueKey: string) => void;
+    render?: (item: any, labelKey: string, valueKey: string) => any;
 }
-declare const ListGroup: ({ canCancel, multiple, itemHeight, columnMaxHeight, lineBreak, listPerColumn, height, maxHeight, activeOnClick, externalClassName, noWrap, defaultFirst, data, activeList: selectList, labelKey, valueKey, type, render, onItemClick, onItemDoubleClick, }: ListGroupProps) => React.JSX.Element;
+declare const ListGroup: ({ buttonWidth, canCancel, multiple, itemHeight, columnMaxHeight, lineBreak, listPerColumn, height, maxHeight, activeOnClick, externalClassName, noWrap, defaultFirst, data, activeList: selectList, labelKey, valueKey, type, render, onItemClick, onItemDoubleClick, }: ListGroupProps) => React.JSX.Element;
 export default ListGroup;

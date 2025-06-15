@@ -908,16 +908,15 @@ const Select = React.forwardRef((props: SelectProps, ref) => {
               ? "#f0f0f0"
               : "",
             flex: 1,
-            /* ...(suffixContentType === 'button'
-                            ? {
-                                  borderTopRightRadius: 0,
-                                  borderBottomRightRadius: 0,
-                                  // borderRight: "none",
-                              }
-                            : {}), */
             minHeight:
               size === "lg" ? "48px" : size === "sm" ? "33.6px" : "38px",
-            border: varient === "borderless" ? "none" : "",
+            // 如果 varient 是 boderless，则边框为空，否则，如果不是 formItem，则边框为 1px solid #ced4da，否则为边框为 空
+            border:
+              varient === "borderless"
+                ? "none"
+                : !isFormItem
+                ? "1px solid #ced4da"
+                : "",
             cursor: disabled ? "not-allowed" : "pointer",
             ...formStyle,
           }}
@@ -1182,6 +1181,7 @@ const Select = React.forwardRef((props: SelectProps, ref) => {
     </div>
   );
 });
+
 Select.displayName = "Select";
 
 export default Select;

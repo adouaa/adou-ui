@@ -592,6 +592,8 @@ var update = injectStylesIntoStyleTag_default()(cjs_ruleSet_1_rules_1_use_2_src/
 
 const Input = (_ref, ref) => {
   let {
+    isFormItem,
+    addonAfterStyle,
     title,
     wrap,
     wrapperClassName,
@@ -752,7 +754,7 @@ const Input = (_ref, ref) => {
         borderTopRightRadius: 0,
         borderBottomRightRadius: 0
       }),
-      height: size === "lg" ? "48px" : size === "sm" ? "32px" : "38px",
+      height: size === "lg" ? "48px" : size === "sm" ? "33.6px" : "38px",
       backgroundColor: judgeBgColor(),
       cursor: disabled ? "not-allowed" : "auto",
       borderRadius: "0.375rem",
@@ -825,12 +827,13 @@ const Input = (_ref, ref) => {
     className: "input-group",
     style: {
       flexWrap: wrap ? "wrap" : "nowrap"
-      // height: size === 'lg' ? '48px' : size === 'sm' ? '32px' : '40px',
+      // height: size === 'lg' ? '48px' : size === 'sm' ? '33.6px' : '40px',
     }
   }, addonBefore && /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("span", {
     className: "input-group-text py-0",
     style: {
-      fontSize: "14px"
+      fontSize: "14px",
+      ...addonAfterStyle
     }
   }, addonBefore), /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("div", {
     style: {
@@ -851,11 +854,13 @@ const Input = (_ref, ref) => {
   }, commonElement)), addonAfter && /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("span", {
     className: "input-group-text py-0",
     style: {
-      fontSize: "14px"
+      fontSize: "14px",
+      ...addonAfterStyle
     }
   }, addonAfter && addonAfter))) :
   /*#__PURE__*/
   // 只有在是 label 的情况下才去对 生成对应的类名
+  // 没有 addonBefore 和 addonAfter 才展示下面的代码
   external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("div", {
     className: "adou-input flex-fill ".concat(generateClsWhenHasLabel()),
     style: {
@@ -871,10 +876,11 @@ const Input = (_ref, ref) => {
     style: {
       width: "100%",
       ...(varient === "filled" && {
-        backgroundColor: "#f0f0f0",
-        border: "none"
+        backgroundColor: "#f0f0f0"
+        // border: "none",
       }),
-      border: varient === "outlined" ? "" : "",
+      // 如果不是 FormItem 下的，并且没有 addonBefore 和 addonAfter，则需要手动给个边框
+      border: !isFormItem ? "1px solid #ced4da" : "",
       // backgroundColor: judgeBgColor(),
       ...formStyle
     },

@@ -664,7 +664,7 @@ const Textarea = /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react
     }
   }, [defaultValue]);
   return /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("div", {
-    className: "adou-textarea-warpper ".concat(externalClassName, " ").concat(!error && isFormItem && "mb-3"),
+    className: "adou-textarea-warpper ".concat(externalClassName),
     style: {
       ...wrapperStyle,
       ...(wrapperWidth ? {

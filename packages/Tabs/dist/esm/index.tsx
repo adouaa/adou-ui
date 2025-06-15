@@ -1,10 +1,10 @@
 import React, { useEffect, useImperativeHandle, useRef, useState } from "react";
 import { withTranslation } from "react-i18next";
-import TabItem from "./TabItem";
 import "./index.scss";
-export { TabItem };
 
 interface TabsProps {
+  tabsHeaderStyle?: React.CSSProperties;
+  tabsHeaderCls?: string;
   commonTabItemHeaderExternalCls?: string;
   tabRef?: any;
   extraContentCls?: string;
@@ -24,6 +24,8 @@ interface TabsProps {
 
 const Tabs = (props: TabsProps) => {
   const {
+    tabsHeaderStyle,
+    tabsHeaderCls,
     commonTabItemHeaderExternalCls,
     tabRef,
     commonExtraContent,
@@ -46,6 +48,8 @@ const Tabs = (props: TabsProps) => {
 
   const content = useRef<any>();
 
+  const headerRef = useRef<any>();
+
   const handleLabelClickFn = (index: number, itemInfo: any) => {
     setCurrentIndex(index);
     onLabelClick && onLabelClick(index, itemInfo);
@@ -57,102 +61,102 @@ const Tabs = (props: TabsProps) => {
       if (!child) return;
       tabItems.push(child);
     });
-    return (
-      <>
-        {tabStyle === "common" ? (
-          <div className="header-wrapper">
-            <div className="tabs-header mb-2  d-flex align-items-center">
-              <div className="tabs-header-content d-flex" style={{ flex: 1 }}>
-                {tabItems.map((child: any, index: number) => {
-                  if (!child) return;
+    return tabStyle === "common" ? (
+      <div className="header-wrapper" ref={headerRef}>
+        <div
+          className={`tabs-header mb-2  d-flex align-items-center ${tabsHeaderCls}`}
+          style={tabsHeaderStyle}
+        >
+          <div className="tabs-header-content d-flex" style={{ flex: 1 }}>
+            {tabItems.map((child: any, index: number) => {
+              if (!child) return;
 
-                  return (
-                    <div key={index}>
-                      <div
-                        className={`tabs-header-item-box ${
-                          child.propps?.exsternalClsaaName ||
-                          commonTabItemHeaderExternalCls
-                        } ${index === 0 && "first"}`}
-                      >
-                        <div
-                          onClick={() => handleLabelClickFn(index, child)}
-                          className={`tabs-header-item d-flex align-items-center  ${
-                            currentIndex === index && "active"
-                          }`}
-                        >
-                          <div className={`label-icon me-1`}>
-                            {child?.props?.headerIcon}
-                          </div>
-                          <div className="label-text">
-                            {child?.props?.label}
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                  );
-                })}
-              </div>
-              {commonExtraContent && (
-                <div className="common-extra-content">{commonExtraContent}</div>
-              )}
-              {content.current && (
-                <div className="extra-content">{content.current}</div>
-              )}
-            </div>
-          </div>
-        ) : (
-          <div className="header-wrapper">
-            <div className="bootstrap-tabs-header d-flex">
-              <ul className="nav nav-tabs mb-2" style={{ flex: 1 }}>
-                {tabItems.map((child: any, index: number) => {
-                  return (
-                    <li
-                      key={index}
-                      className="nav-item d-flex"
+              return (
+                <div key={index}>
+                  <div
+                    className={`tabs-header-item-box ${
+                      child.propps?.exsternalClsaaName ||
+                      commonTabItemHeaderExternalCls
+                    } ${index === 0 && "first"}`}
+                  >
+                    <div
                       onClick={() => handleLabelClickFn(index, child)}
+                      className={`tabs-header-item d-flex align-items-center  ${
+                        currentIndex === index && "active"
+                      }`}
                     >
-                      <a
-                        style={{
-                          // marginLeft: index === 0 ? "10px" : "", // 展示头部小尾巴
-                          color:
-                            index === currentIndex
-                              ? child.props.activeLabelColor || activeLabelColor
-                              : "",
-                          cursor: "pointer",
-                          ...(index === currentIndex
-                            ? {
-                                background: `linear-gradient(${lineaGradient})`,
-                              }
-                            : {}),
-                        }}
-                        className={`${index === currentIndex ? "active" : ""} ${
-                          child.propps?.exsternalClsaaName ||
-                          commonTabItemHeaderExternalCls
-                        } nav-link d-flex align-items-center`}
-                        aria-current="page"
-                      >
-                        {child.props.prefixIcon && (
-                          <i className={child.props.prefixIcon + " me-1"}></i>
-                        )}
-                        <div className={`label-icon me-1`}>
-                          {child?.props?.headerIcon}
-                        </div>
-                        <div className="label-text">{child?.props?.label}</div>
-                      </a>
-                    </li>
-                  );
-                })}
-              </ul>
-              {commonExtraContent && (
-                <div className="common-extra-content">{commonExtraContent}</div>
-              )}
-              {content.current && (
-                <div className="extra-content">{content.current}</div>
-              )}
-            </div>
+                      <div className={`label-icon me-1`}>
+                        {child?.props?.headerIcon}
+                      </div>
+                      <div className="label-text">{child?.props?.label}</div>
+                    </div>
+                  </div>
+                </div>
+              );
+            })}
           </div>
-        )}
-      </>
+          {commonExtraContent && (
+            <div className="common-extra-content">{commonExtraContent}</div>
+          )}
+          {content.current && (
+            <div className="extra-content">{content.current}</div>
+          )}
+        </div>
+      </div>
+    ) : (
+      <div className="header-wrapper mb-2" ref={headerRef}>
+        <div
+          className={`bootstrap-tabs-header d-flex ${tabsHeaderCls}`}
+          style={tabsHeaderStyle}
+        >
+          <ul className="nav nav-tabs" style={{ flex: 1 }}>
+            {tabItems.map((child: any, index: number) => {
+              return (
+                <li
+                  key={index}
+                  className="nav-item d-flex"
+                  onClick={() => handleLabelClickFn(index, child)}
+                >
+                  <a
+                    style={{
+                      // marginLeft: index === 0 ? "10px" : "", // 展示头部小尾巴
+                      color:
+                        index === currentIndex
+                          ? child.props.activeLabelColor || activeLabelColor
+                          : "",
+                      cursor: "pointer",
+                      ...(index === currentIndex
+                        ? {
+                            background: `linear-gradient(${lineaGradient})`,
+                          }
+                        : {}),
+                    }}
+                    className={`${index === currentIndex ? "active" : ""} ${
+                      child.propps?.exsternalClsaaName ||
+                      commonTabItemHeaderExternalCls
+                    } nav-link d-flex align-items-center`}
+                    aria-current="page"
+                  >
+                    {child.props.prefixIcon && (
+                      <i className={child.props.prefixIcon + " me-1"}></i>
+                    )}
+                    <div className={`label-icon me-1`}>
+                      {child?.props?.headerIcon}
+                    </div>
+                    <div className="label-text">{child?.props?.label}</div>
+                  </a>
+                </li>
+              );
+            })}
+          </ul>
+          {commonExtraContent && (
+            <div className="common-extra-content">{commonExtraContent}</div>
+          )}
+          {content.current && (
+            <div className="extra-content">{content.current}</div>
+          )}
+        </div>
+      </div>
     );
   };
 
@@ -200,11 +204,18 @@ const Tabs = (props: TabsProps) => {
     return (validChildren[currentIndex] as any)?.props?.label;
   };
 
-  useImperativeHandle(tabRef, () => ({
-    goTo,
-    getCurrentIndex: () => currentIndex,
-    getCurrentLabel,
-  }));
+  useImperativeHandle(
+    tabRef,
+    () => ({
+      goTo,
+      getCurrentIndex: () => currentIndex,
+      getCurrentLabel,
+      getHeaderHeight: () => {
+        return headerRef.current?.clientHeight;
+      },
+    }),
+    [currentIndex, headerRef.current]
+  );
 
   return (
     <>

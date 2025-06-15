@@ -140,14 +140,20 @@ module.exports = function (item) {
 
 var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_1___default()((_node_modules_css_loader_dist_runtime_sourceMaps_js__WEBPACK_IMPORTED_MODULE_0___default()));
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, `.list-group-wrapper ::-webkit-scrollbar {
-  width: 4px;
-  height: 4px;
-}
-.list-group-wrapper ::-webkit-scrollbar-thumb {
-  border-radius: 10px;
-  background: #bfbfbf;
-}`, "",{"version":3,"sources":["webpack://./src/index.scss"],"names":[],"mappings":"AAGI;EACI,UAAA;EACA,WAAA;AAFR;AAMI;EACI,mBAAA;EACA,mBAAA;AAJR","sourcesContent":[".list-group-wrapper {\r\n\r\n    // 滚动条变细\r\n    ::-webkit-scrollbar {\r\n        width: 4px;\r\n        height: 4px;\r\n    }\r\n\r\n    // 滚动条滑块\r\n    ::-webkit-scrollbar-thumb {\r\n        border-radius: 10px;\r\n        background: #bfbfbf;\r\n    }\r\n}"],"sourceRoot":""}]);
+___CSS_LOADER_EXPORT___.push([module.id, `@charset "UTF-8";
+.list-group-wrapper {
+  /* // 滚动条变细
+  ::-webkit-scrollbar {
+      width: 4px;
+      height: 4px;
+  }
+
+  // 滚动条滑块
+  ::-webkit-scrollbar-thumb {
+      border-radius: 10px;
+      background: #bfbfbf;
+  } */
+}`, "",{"version":3,"sources":["webpack://./src/index.scss"],"names":[],"mappings":"AAAA,gBAAgB;AAAhB;EAEI;;;;;;;;;;KAAA;AAWJ","sourcesContent":[".list-group-wrapper {\r\n\r\n    /* // 滚动条变细\r\n    ::-webkit-scrollbar {\r\n        width: 4px;\r\n        height: 4px;\r\n    }\r\n\r\n    // 滚动条滑块\r\n    ::-webkit-scrollbar-thumb {\r\n        border-radius: 10px;\r\n        background: #bfbfbf;\r\n    } */\r\n}"],"sourceRoot":""}]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 
@@ -568,9 +574,10 @@ var update = injectStylesIntoStyleTag_default()(cjs_ruleSet_1_rules_1_use_2_src/
 
 const ListGroup = _ref => {
   let {
+    buttonWidth,
     canCancel,
     multiple,
-    itemHeight = 40,
+    itemHeight = 38,
     columnMaxHeight,
     lineBreak = false,
     listPerColumn,
@@ -592,6 +599,7 @@ const ListGroup = _ref => {
   const [list, setList] = (0,external_root_React_commonjs2_react_commonjs_react_amd_react_.useState)([]);
   const [activeList, setActiveList] = (0,external_root_React_commonjs2_react_commonjs_react_amd_react_.useState)(selectList || {});
   const [parentMaxHeight, setParentMaxHeight] = (0,external_root_React_commonjs2_react_commonjs_react_amd_react_.useState)(columnMaxHeight);
+  const [buttonMaxWidth, setButtonMaxWidth] = (0,external_root_React_commonjs2_react_commonjs_react_amd_react_.useState)(null);
   const listGroupRef = (0,external_root_React_commonjs2_react_commonjs_react_amd_react_.useRef)(null);
   const handleItemClick = item => {
     let data;
@@ -669,13 +677,36 @@ const ListGroup = _ref => {
       setList(data || []);
     }
   }, [data, lineBreak, columnMaxHeight, maxHeight, parentMaxHeight]);
+
+  // 循环病历每项的 label-text，获取最大宽度，赋值给 button
+  (0,external_root_React_commonjs2_react_commonjs_react_amd_react_.useEffect)(() => {
+    if (buttonWidth) {
+      setButtonMaxWidth(buttonWidth);
+      return;
+    }
+    if (!listGroupRef.current) return;
+    // 不能直接 querySelector，因为可能存在多个 list-group，要确定父元素
+    const wrapper = listGroupRef.current;
+
+    // 只查找当前组件下的 label-text
+    const labelElements = wrapper.querySelectorAll(".label-text");
+    if (!labelElements || labelElements.length === 0) return;
+    let maxWidth = 0;
+    labelElements.forEach(el => {
+      const width = el.scrollWidth || el.offsetWidth; // 或 el.offsetWidth，但 scrollWidth 更稳妥
+      if (width > maxWidth) maxWidth = width;
+    });
+
+    // 设置一个缓冲值，例如加上 padding 等
+    setButtonMaxWidth(maxWidth + 32 + "px"); // 加上 padding 和额外空间
+  }, [list, buttonWidth]);
   return /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("div", {
     className: "list-group-wrapper ".concat(externalClassName || ""),
     ref: listGroupRef
   }, lineBreak && (columnMaxHeight || maxHeight || parentMaxHeight) ? /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("div", {
     className: "row g-0"
   }, list.map((columnItems, columnIndex) => /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("div", {
-    className: "col",
+    className: "col ".concat(noWrap ? "overflow-auto" : ""),
     key: columnIndex
   }, /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("ul", {
     className: "list-group ".concat(columnIndex === list.length - 1 ? "" : "me-2"),
@@ -697,8 +728,16 @@ const ListGroup = _ref => {
     onDoubleClick: e => handleItemDoubleClick(e, item),
     key: itemIndex,
     type: "button",
-    className: "list-group-item list-group-item-action border-0 ".concat(judgeIsActive(item))
-  }, item.render ? item.render(item, labelKey, valueKey) : render ? render(item, labelKey, valueKey) : multiple ? /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("div", {
+    className: "list-group-item list-group-item-action px-2 border-0 ".concat(judgeIsActive(item)),
+    style: {
+      whiteSpace: noWrap ? "nowrap" : "normal",
+      height: itemHeight + "px"
+      // 不能用 maxWidth，因为如果是短的 label 就不起作用了
+      // minWidth: buttonMaxWidth,
+    }
+  }, item.render ? item.render(item, labelKey, valueKey) : render ? /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("div", {
+    className: "label-text"
+  }, render(item, labelKey, valueKey)) : multiple ? /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("div", {
     className: "list-group-item-wrapper d-flex align-items-center"
   }, /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("div", {
     className: "item-check d-flex align-items-center me-1"
@@ -725,13 +764,17 @@ const ListGroup = _ref => {
     style: {
       whiteSpace: noWrap ? "nowrap" : "normal",
       border: "none"
+      // 不能用 maxWidth，因为如果是短的 label 就不起作用了
+      // minWidth: buttonMaxWidth,
     },
     onClick: () => handleItemClick(item),
     onDoubleClick: e => handleItemDoubleClick(e, item),
     key: item[valueKey],
     type: "button",
-    className: "list-group-item list-group-item-action ".concat(judgeIsActive(item))
-  }, item.render ? item.render(item, labelKey, valueKey) : render ? render(item, labelKey, valueKey) : multiple ? /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("div", {
+    className: "list-group-item list-group-item-action px-2 ".concat(judgeIsActive(item))
+  }, item.render ? item.render(item, labelKey, valueKey) : render ? /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("div", {
+    className: "label-text"
+  }, render(item, labelKey, valueKey)) : multiple ? /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("div", {
     className: "list-group-item-wrapper d-flex align-items-center"
   }, /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("div", {
     className: "item-check d-flex align-items-center me-1"
@@ -740,7 +783,9 @@ const ListGroup = _ref => {
     type: "checkbox"
   })), /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("div", {
     className: "text"
-  }, item[labelKey])) : item[labelKey])))));
+  }, item[labelKey])) : /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("div", {
+    className: "label-text"
+  }, item[labelKey]))))));
 };
 /* harmony default export */ const src_0 = (ListGroup);
 })();

@@ -1,6 +1,7 @@
 import React, { ReactNode } from "react";
 import "./index.scss";
 export interface InputProps {
+    addonAfterStyle?: React.CSSProperties;
     title?: string;
     wrap?: boolean;
     wrapperClassName?: string;
