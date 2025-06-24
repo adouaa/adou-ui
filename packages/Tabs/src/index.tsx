@@ -1,6 +1,8 @@
 import React, { useEffect, useImperativeHandle, useRef, useState } from "react";
 import { withTranslation } from "react-i18next";
 import "./index.scss";
+import TabItem from "./TabItem";
+export { TabItem };
 
 interface TabsProps {
   tabsHeaderStyle?: React.CSSProperties;

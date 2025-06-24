@@ -4,6 +4,9 @@ import splitListIntoColumns from "./splitListIntoColumns";
 import "./index.scss";
 
 interface ListGroupProps {
+  activeId?: string | number;
+  showBorderRadius?: boolean;
+  showBorder?: boolean;
   buttonWidth?: any;
   canCancel?: boolean;
   multiple?: boolean;
@@ -17,7 +20,7 @@ interface ListGroupProps {
   activeOnClick?: boolean;
   externalClassName?: string;
   noWrap?: boolean;
-  defaultFirst?: boolean;
+  defaultSelectFirst?: boolean; // 默认选中第一个
   data?: any[];
   activeList?: any;
   labelKey?: string;
@@ -29,6 +32,9 @@ interface ListGroupProps {
 }
 
 const ListGroup = ({
+  activeId,
+  showBorderRadius = true,
+  showBorder = true,
   buttonWidth,
   canCancel,
   multiple,
@@ -41,7 +47,7 @@ const ListGroup = ({
   activeOnClick = true,
   externalClassName,
   noWrap,
-  defaultFirst = false,
+  defaultSelectFirst = false,
   data,
   activeList: selectList,
   labelKey = "label",
@@ -71,7 +77,7 @@ const ListGroup = ({
         : [...activeList, item];
       setActiveList(data);
       onItemClick && onItemClick(item);
-    } else {
+    } else if (activeList) {
       const hasSelected = activeList[valueKey] === item[valueKey];
       data = hasSelected && canCancel ? {} : item;
       setActiveList(data);
@@ -106,8 +112,12 @@ const ListGroup = ({
   useEffect(() => {
     if (selectList) {
       setActiveList(selectList || {});
-    } else if (defaultFirst) {
+    } else if (defaultSelectFirst) {
       setActiveList(data?.[0]);
+    } else if (activeId) {
+      setActiveList(
+        data?.find((item: any) => item[valueKey!] === activeId) || {}
+      ); // setActiveList 要设置个 空对象兜底
     }
     if (listGroupRef.current) {
       const parentElement = listGroupRef.current.parentElement;
@@ -115,7 +125,7 @@ const ListGroup = ({
         setParentMaxHeight(parentElement.clientHeight);
       }
     }
-  }, [selectList, data, columnMaxHeight, listGroupRef.current]);
+  }, [selectList, activeId, data, columnMaxHeight, listGroupRef.current]);
 
   useEffect(() => {
     // 如果需要换行，则根据 判断 filesPerColunm 是否有值，有值则直接分割，没有值则根据 parentMaxHeight 和 itemHeight 计算每列的文件数量
@@ -202,8 +212,8 @@ const ListGroup = ({
                   maxHeight:
                     columnMaxHeight || maxHeight || height || parentMaxHeight,
                   overflowY: "auto",
-                  border: "1px solid #ccc",
-                  borderRadius: "5px",
+                  border: showBorder ? "1px solid #ccc" : "none",
+                  borderRadius: showBorderRadius ? "5px" : "0",
                   boxSizing: "border-box",
                 }}
               >
@@ -265,7 +275,8 @@ const ListGroup = ({
             height,
             maxHeight: maxHeight || height,
             overflowY: "auto",
-            border: list.length ? "1px solid #ccc" : "none",
+            border: showBorder && list.length ? "1px solid #ccc" : "none",
+            borderRadius: !showBorderRadius ? "0px" : "5px",
           }}
         >
           {list!?.map((item: any, index: number) => (

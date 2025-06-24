@@ -7223,7 +7223,8 @@ const FormItem = _ref => {
     }
   };
   (0,external_root_React_commonjs2_react_commonjs_react_amd_react_.useImperativeHandle)(formItemRef, () => ({
-    validateField
+    validateField,
+    getLabel: () => addonBefore || label
   }));
   (0,external_root_React_commonjs2_react_commonjs_react_amd_react_.useEffect)(() => {
     getAbsolutePositionFn();
@@ -7304,7 +7305,7 @@ const FormItem = _ref => {
   }, processedAddonAfter && processedAddonAfter)) : processedAddonAfter ? /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("div", {
     className: "input-group"
   }, /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("div", {
-    className: "adou-form d-flex flex-fill"
+    className: "adou-form form-control d-flex flex-fill p-0"
   }, enhancedChildren), /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("span", {
     className: "input-group-text py-0",
     style: {

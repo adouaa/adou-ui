@@ -172,6 +172,9 @@ const Select = React.forwardRef((props: SelectProps, ref) => {
   const [selectValueMaxWidth, setSelectValueMaxWidth] = useState<any>("");
   const [isFocus, setIsFocus] = useState<boolean>(false);
 
+  // 选择框的宽度
+  const [optionContentWidth, setOptionContentWidth] = useState<any>(0);
+
   const selectWrapperRef = useRef<any>(null);
   const selectRef = useRef<any>();
   const contentRef = useRef<any>();
@@ -866,6 +869,13 @@ const Select = React.forwardRef((props: SelectProps, ref) => {
     }
   }, [selectValue]);
 
+  useEffect(() => {
+    if (contentRef.current) {
+      const wrapperWidth = selectWrapperRef.current.offsetWidth;
+      setOptionContentWidth(wrapperWidth);
+    }
+  }, [selectWrapperRef.current]);
+
   // 为了做 聚焦高亮，只能把第三个参数写为 true，本来是 contentRef.current && isShow
   useClickOutside(
     [selectRef, contentRef, inputRef],
@@ -956,10 +966,7 @@ const Select = React.forwardRef((props: SelectProps, ref) => {
                     placeholder={selectValue?.[valueKey] ? "" : placeholder}
                     onFocus={handleInputFocus}
                     ref={inputRef}
-                    // placeholder={isInputFocusing || !selectedOptions.length ? placeholder : ''}
-                    // onFocus={handleInputFocus}
                     onChange={handleInputChange}
-                    // onClick={handleInputClick}
                     disabled={disabled}
                     type="text"
                     className="adou-select-input form-control px-2"
@@ -1036,10 +1043,7 @@ const Select = React.forwardRef((props: SelectProps, ref) => {
                   placeholder={selectValue?.[valueKey] ? "" : placeholder}
                   onFocus={handleInputFocus}
                   ref={inputRef}
-                  // placeholder={isInputFocusing || !selectedOptions.length ? placeholder : ''}
-                  // onFocus={handleInputFocus}
                   onChange={handleInputChange}
-                  // onClick={handleInputClick}
                   disabled={disabled}
                   type="text"
                   className="adou-select-input ellipsis-1 form-control px-2"
@@ -1139,6 +1143,7 @@ const Select = React.forwardRef((props: SelectProps, ref) => {
                 }
               : {}),
             ...(closing ? { opacity: 0, transform: "scaleY(0)" } : {}),
+            width: optionContentWidth + "px",
             ...optionContentStyle,
           }}
           ref={contentRef}

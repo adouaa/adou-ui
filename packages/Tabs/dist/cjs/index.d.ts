@@ -1,6 +1,11 @@
 import React from "react";
 import "./index.scss";
+import TabItem from "./TabItem";
+export { TabItem };
 declare const _default: React.ComponentType<Omit<{
+    children?: any;
+    contentPadding?: string | undefined;
+    clearOnChange?: boolean | undefined;
     tabsHeaderStyle?: React.CSSProperties | undefined;
     tabsHeaderCls?: string | undefined;
     commonTabItemHeaderExternalCls?: string | undefined;
@@ -10,12 +15,9 @@ declare const _default: React.ComponentType<Omit<{
     extraData?: any;
     showExtraContent?: boolean | undefined;
     commonExtraContent?: any;
-    children?: any;
     activeIndex?: number | undefined;
     activeLabelColor?: string | undefined;
     tabStyle?: "common" | "bootstrap" | undefined;
-    contentPadding?: string | undefined;
-    clearOnChange?: boolean | undefined;
     lineaGradient?: string | undefined;
     onLabelClick?: ((index: number, itemInfo: any) => void) | undefined;
 }, keyof import("react-i18next").WithTranslation<N, undefined>> & import("react-i18next").WithTranslationProps>;

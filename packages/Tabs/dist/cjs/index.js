@@ -601,6 +601,7 @@ __webpack_require__.r(__webpack_exports__);
 
 // EXPORTS
 __webpack_require__.d(__webpack_exports__, {
+  TabItem: () => (/* reexport */ src_TabItem),
   "default": () => (/* binding */ src_0)
 });
 
@@ -1854,7 +1855,49 @@ var update = injectStylesIntoStyleTag_default()(cjs_ruleSet_1_rules_1_use_2_src/
 
        /* harmony default export */ const src = (cjs_ruleSet_1_rules_1_use_2_src/* default */.A && cjs_ruleSet_1_rules_1_use_2_src/* default */.A.locals ? cjs_ruleSet_1_rules_1_use_2_src/* default */.A.locals : undefined);
 
+;// CONCATENATED MODULE: ./src/TabItem/index.tsx
+
+
+const TabItem = props => {
+  const {
+    exsternalClsaaName,
+    prefixIcon,
+    headerIcon,
+    extraContent,
+    label,
+    url,
+    children,
+    active,
+    contentPadding = "0px",
+    clearOnChange
+  } = props;
+  return /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("div", {
+    className: "tab-item-wrapper"
+    // 当 active为 true 时，设置高度为 100%，否则为 0，避免父组件设置了 contentHeight 时，影响到 隐藏的 tabItem 的高度
+    ,
+    style: {
+      height: active ? "100%" : "0"
+    }
+  }, clearOnChange ? active && /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("div", {
+    className: "tab-item-content",
+    style: {
+      padding: contentPadding || "0px 10px",
+      height: "100%"
+    }
+  }, children) :
+  /*#__PURE__*/
+  // clearOnChange为true，不进行组件的销毁和重建，直接使用 d-none来进行切换
+  external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("div", {
+    className: "".concat(active ? "" : "d-none"),
+    style: {
+      padding: contentPadding || "0px 10px"
+    }
+  }, children));
+};
+/* harmony default export */ const src_TabItem = (withTranslation()(TabItem));
 ;// CONCATENATED MODULE: ./src/index.tsx
+
+
 
 
 

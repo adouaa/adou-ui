@@ -81,18 +81,30 @@ const Form = forwardRef(
       {}
     );
 
-    const validateForm = () => {
+    // 存放 校验失败的表单的 label
+    const errorLabels: string[] = [];
+
+    const validateForm = (detail?: boolean) => {
       let isValid = true;
       for (const key in formItemRefs.current) {
         const formItemRef = formItemRefs.current[key];
         if (formItemRef.current) {
           const result = formItemRef.current.validateField("", "", true);
           if (!result) {
+            const label = formItemRef.current.getLabel();
+            errorLabels.push(label);
             isValid = false;
           }
         }
       }
-      return isValid;
+      if (detail) {
+        return {
+          isValid,
+          errorLabels,
+        };
+      } else {
+        return isValid;
+      }
     };
 
     let maxLengthLabelWidth: number = 0;

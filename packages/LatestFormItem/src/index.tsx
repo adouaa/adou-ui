@@ -246,6 +246,7 @@ const FormItem = ({
 
   useImperativeHandle(formItemRef, () => ({
     validateField,
+    getLabel: () => addonBefore || label,
   }));
 
   useEffect(() => {
@@ -367,7 +368,7 @@ const FormItem = ({
               </div>
             ) : processedAddonAfter ? (
               <div className="input-group">
-                <div className="adou-form d-flex flex-fill">
+                <div className="adou-form form-control d-flex flex-fill p-0">
                   {enhancedChildren}
                 </div>
                 <span
