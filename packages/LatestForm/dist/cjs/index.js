@@ -584,6 +584,7 @@ var update = injectStylesIntoStyleTag_default()(cjs_ruleSet_1_rules_1_use_2_src/
 
 const Form = /*#__PURE__*/(0,external_root_React_commonjs2_react_commonjs_react_amd_react_.forwardRef)((_ref, AdouFormRef) => {
   let {
+    commonFormContenClassName,
     commonErrorType = "label",
     commonForItemClsssName,
     commonDisabled,
@@ -706,6 +707,7 @@ const Form = /*#__PURE__*/(0,external_root_React_commonjs2_react_commonjs_react_
         wrapperMinWidth: commonFormItemWrapperMinWidth,
         wrapperClassName: commonForItemClsssName,
         contentBackgroundColor: commonContentBackgroundColor,
+        formContentClassName: commonFormContenClassName,
         rules: commonRules ? commonRules : required ? [{
           required: true
         }] : [],

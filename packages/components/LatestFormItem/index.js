@@ -7043,7 +7043,6 @@ var update = injectStylesIntoStyleTag_default()(cjs_ruleSet_1_rules_1_use_2_src/
 
 const FormItem = _ref => {
   let {
-    fromContentMarginRight,
     formContentStyle,
     formContentClassName,
     addonBeforeStyle,
@@ -7086,6 +7085,7 @@ const FormItem = _ref => {
   const isChildrenArrayRef = (0,external_root_React_commonjs2_react_commonjs_react_amd_react_.useRef)(false); // 不能用 state，会死循环
 
   const judgeFormItemContentCls = () => {
+    console.log("layout: ", layout);
     if (layout === "horizontal") {
       return "adou-form-item-content-horizontal d-flex align-items-center";
     } else if (layout === "horizontal-top") {
@@ -7093,7 +7093,7 @@ const FormItem = _ref => {
     } else if (layout === "vertical") {
       return "adou-form-item-content-vertical flex-column";
     } else if (layout === "inline" && !suffix) {
-      return "adou-form-item-content-inline d-flex align-items-center ".concat(fromContentMarginRight || "me-3");
+      return "adou-form-item-content-inline d-flex align-items-center ".concat(formContentClassName || "me-3");
     }
   };
 

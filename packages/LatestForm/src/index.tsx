@@ -3,6 +3,7 @@ import React from "react";
 import "./index.scss";
 
 interface FormProps {
+  commonFormContenClassName?: string;
   commonErrorType?: "label" | "message";
   commonForItemClsssName?: string;
   commonDisabled?: boolean;
@@ -45,6 +46,7 @@ interface ExtendedForm
 const Form = forwardRef(
   (
     {
+      commonFormContenClassName,
       commonErrorType = "label",
       commonForItemClsssName,
       commonDisabled,
@@ -163,6 +165,7 @@ const Form = forwardRef(
           wrapperMinWidth: commonFormItemWrapperMinWidth,
           wrapperClassName: commonForItemClsssName,
           contentBackgroundColor: commonContentBackgroundColor,
+          formContentClassName: commonFormContenClassName,
           rules: commonRules
             ? commonRules
             : required

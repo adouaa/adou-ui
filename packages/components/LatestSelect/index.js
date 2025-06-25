@@ -8002,7 +8002,7 @@ const Select = /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_a
   // 如果 ellipsis 为 true，则需要超出省略
   (!isInputFocusing || multiple) && !showSearch && mode !== "liveSearch" ? /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("div", {
     title: selectValue.title || selectValue[labelKey] || selectValue,
-    className: "adou-select-value px-2 ".concat(contentWrap ? "ellipsis-1" : "") // ellipsis-1 加上这个，选择框会自动变大或者变小
+    className: "adou-select-value ps-2 ".concat(contentWrap ? "ellipsis-1" : "") // ellipsis-1 加上这个，选择框会自动变大或者变小
     ,
     style: {
       maxWidth: selectValueMaxWidth,
@@ -8015,7 +8015,7 @@ const Select = /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_a
   /*#__PURE__*/
   // 情况四：如果 不是多选，并且 ellipsis 为 false，则不需要超出省略
   external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("div", {
-    className: "adou-select-value px-2 ".concat(contentWrap ? "ellipsis-1" : ""),
+    className: "adou-select-value ps-2 ".concat(contentWrap ? "ellipsis-1" : ""),
     style: {
       ...(!showSearch && !filterOption ? {
         flex: 1

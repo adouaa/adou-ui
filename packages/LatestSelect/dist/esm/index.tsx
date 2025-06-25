@@ -996,7 +996,7 @@ const Select = React.forwardRef((props: SelectProps, ref) => {
                   title={
                     selectValue.title || selectValue[labelKey] || selectValue
                   }
-                  className={`adou-select-value px-2 ${
+                  className={`adou-select-value ps-2 ${
                     contentWrap ? "ellipsis-1" : ""
                   }`} // ellipsis-1 加上这个，选择框会自动变大或者变小
                   style={{
@@ -1012,7 +1012,7 @@ const Select = React.forwardRef((props: SelectProps, ref) => {
             ) : (
               // 情况四：如果 不是多选，并且 ellipsis 为 false，则不需要超出省略
               <div
-                className={`adou-select-value px-2 ${
+                className={`adou-select-value ps-2 ${
                   contentWrap ? "ellipsis-1" : ""
                 }`}
                 style={{ ...(!showSearch && !filterOption ? { flex: 1 } : {}) }}

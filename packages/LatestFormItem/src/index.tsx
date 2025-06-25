@@ -11,7 +11,6 @@ import "./index.scss";
 import { isEmptyO } from "adou-ui/Utils";
 
 interface FormItemProps {
-  fromContentMarginRight?: string;
   formContentStyle?: React.CSSProperties;
   formContentClassName?: string;
   addonBeforeStyle?: React.CSSProperties;
@@ -48,7 +47,6 @@ interface FormItemProps {
 }
 
 const FormItem = ({
-  fromContentMarginRight,
   formContentStyle,
   formContentClassName,
   addonBeforeStyle,
@@ -92,6 +90,7 @@ const FormItem = ({
   const isChildrenArrayRef = useRef<boolean>(false); // 不能用 state，会死循环
 
   const judgeFormItemContentCls = () => {
+    console.log("layout: ", layout);
     if (layout === "horizontal") {
       return "adou-form-item-content-horizontal d-flex align-items-center";
     } else if (layout === "horizontal-top") {
@@ -100,7 +99,7 @@ const FormItem = ({
       return "adou-form-item-content-vertical flex-column";
     } else if (layout === "inline" && !suffix) {
       return `adou-form-item-content-inline d-flex align-items-center ${
-        fromContentMarginRight || "me-3"
+        formContentClassName || "me-3"
       }`;
     }
   };
@@ -407,6 +406,7 @@ const FormItem = ({
     </div>
   );
 };
+
 
 FormItem.displayName = "FormItem";
 
