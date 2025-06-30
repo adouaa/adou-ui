@@ -1197,12 +1197,12 @@ module.exports = {
 
         var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_1___default()(_node_modules_css_loader_dist_runtime_sourceMaps_js__WEBPACK_IMPORTED_MODULE_0___default());
         // Module
-        ___CSS_LOADER_EXPORT___.push([module.id, "/* Loading.css */\n.loading-overlay {\n  position: fixed;\n  top: 0;\n  left: 0;\n  width: 100%;\n  height: 100%;\n  background-color: rgba(255, 255, 255, 0.8);\n  display: flex;\n  align-items: center;\n  justify-content: center;\n  z-index: 9999;\n}\n\n.loading-spinner {\n  border: 8px solid #f3f3f3;\n  /* Light grey */\n  border-top: 8px solid #3498db;\n  /* Blue */\n  border-radius: 50%;\n  width: 60px;\n  height: 60px;\n  animation: spin 2s linear infinite;\n}\n\n@keyframes spin {\n  0% {\n    transform: rotate(0deg);\n  }\n  100% {\n    transform: rotate(360deg);\n  }\n}", "", {
+        ___CSS_LOADER_EXPORT___.push([module.id, "/* Loading.css */\n.loading-overlay {\n  position: fixed;\n  top: 0;\n  left: 0;\n  width: 100%;\n  height: 100%;\n  display: flex;\n  align-items: center;\n  justify-content: center;\n  z-index: 9999;\n  background: transparent;\n  pointer-events: \"auto\";\n}\n\n.loading-spinner {\n  border: 8px solid #f3f3f3;\n  /* Light grey */\n  border-top: 8px solid #3498db;\n  /* Blue */\n  border-radius: 50%;\n  width: 50px;\n  height: 50px;\n  animation: spin 2s linear infinite;\n}\n\n@keyframes spin {\n  0% {\n    transform: rotate(0deg);\n  }\n  100% {\n    transform: rotate(360deg);\n  }\n}", "", {
           "version": 3,
           "sources": ["webpack://./src/hooks/loading.scss"],
           "names": [],
-          "mappings": "AAAA,gBAAA;AACA;EACI,eAAA;EACA,MAAA;EACA,OAAA;EACA,WAAA;EACA,YAAA;EACA,0CAAA;EACA,aAAA;EACA,mBAAA;EACA,uBAAA;EACA,aAAA;AACJ;;AAEA;EACI,yBAAA;EACA,eAAA;EACA,6BAAA;EACA,SAAA;EACA,kBAAA;EACA,WAAA;EACA,YAAA;EACA,kCAAA;AACJ;;AAEA;EACI;IACI,uBAAA;EACN;EAEE;IACI,yBAAA;EAAN;AACF",
-          "sourcesContent": ["/* Loading.css */\r\n.loading-overlay {\r\n    position: fixed;\r\n    top: 0;\r\n    left: 0;\r\n    width: 100%;\r\n    height: 100%;\r\n    background-color: rgba(255, 255, 255, 0.8);\r\n    display: flex;\r\n    align-items: center;\r\n    justify-content: center;\r\n    z-index: 9999;\r\n}\r\n\r\n.loading-spinner {\r\n    border: 8px solid #f3f3f3;\r\n    /* Light grey */\r\n    border-top: 8px solid #3498db;\r\n    /* Blue */\r\n    border-radius: 50%;\r\n    width: 60px;\r\n    height: 60px;\r\n    animation: spin 2s linear infinite;\r\n}\r\n\r\n@keyframes spin {\r\n    0% {\r\n        transform: rotate(0deg);\r\n    }\r\n\r\n    100% {\r\n        transform: rotate(360deg);\r\n    }\r\n}"],
+          "mappings": "AAAA,gBAAA;AACA;EACI,eAAA;EACA,MAAA;EACA,OAAA;EACA,WAAA;EACA,YAAA;EACA,aAAA;EACA,mBAAA;EACA,uBAAA;EACA,aAAA;EACA,uBAAA;EACA,sBAAA;AACJ;;AAEA;EACI,yBAAA;EACA,eAAA;EACA,6BAAA;EACA,SAAA;EACA,kBAAA;EACA,WAAA;EACA,YAAA;EACA,kCAAA;AACJ;;AAEA;EACI;IACI,uBAAA;EACN;EAEE;IACI,yBAAA;EAAN;AACF",
+          "sourcesContent": ["/* Loading.css */\r\n.loading-overlay {\r\n    position: fixed;\r\n    top: 0;\r\n    left: 0;\r\n    width: 100%;\r\n    height: 100%;\r\n    display: flex;\r\n    align-items: center;\r\n    justify-content: center;\r\n    z-index: 9999;\r\n    background: transparent;\r\n    pointer-events: \"auto\";\r\n}\r\n\r\n.loading-spinner {\r\n    border: 8px solid #f3f3f3;\r\n    /* Light grey */\r\n    border-top: 8px solid #3498db;\r\n    /* Blue */\r\n    border-radius: 50%;\r\n    width: 50px;\r\n    height: 50px;\r\n    animation: spin 2s linear infinite;\r\n}\r\n\r\n@keyframes spin {\r\n    0% {\r\n        transform: rotate(0deg);\r\n    }\r\n\r\n    100% {\r\n        transform: rotate(360deg);\r\n    }\r\n}"],
           "sourceRoot": ""
         }]);
         // Exports
@@ -1211,19 +1211,19 @@ module.exports = {
 
         /***/
       }),
-      /***/151: ( /***/(module, __nested_webpack_exports__, __nested_webpack_require_7973__) => {
-        /* harmony export */__nested_webpack_require_7973__.d(__nested_webpack_exports__, {
+      /***/151: ( /***/(module, __nested_webpack_exports__, __nested_webpack_require_8008__) => {
+        /* harmony export */__nested_webpack_require_8008__.d(__nested_webpack_exports__, {
           /* harmony export */A: () => __WEBPACK_DEFAULT_EXPORT__
           /* harmony export */
         });
         /* harmony import */
-        var _node_modules_css_loader_dist_runtime_sourceMaps_js__WEBPACK_IMPORTED_MODULE_0__ = __nested_webpack_require_7973__(73);
+        var _node_modules_css_loader_dist_runtime_sourceMaps_js__WEBPACK_IMPORTED_MODULE_0__ = __nested_webpack_require_8008__(73);
         /* harmony import */
-        var _node_modules_css_loader_dist_runtime_sourceMaps_js__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__nested_webpack_require_7973__.n(_node_modules_css_loader_dist_runtime_sourceMaps_js__WEBPACK_IMPORTED_MODULE_0__);
+        var _node_modules_css_loader_dist_runtime_sourceMaps_js__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__nested_webpack_require_8008__.n(_node_modules_css_loader_dist_runtime_sourceMaps_js__WEBPACK_IMPORTED_MODULE_0__);
         /* harmony import */
-        var _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_1__ = __nested_webpack_require_7973__(191);
+        var _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_1__ = __nested_webpack_require_8008__(191);
         /* harmony import */
-        var _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__nested_webpack_require_7973__.n(_node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_1__);
+        var _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__nested_webpack_require_8008__.n(_node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_1__);
         // Imports
 
         var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_1___default()(_node_modules_css_loader_dist_runtime_sourceMaps_js__WEBPACK_IMPORTED_MODULE_0___default());
@@ -1242,19 +1242,19 @@ module.exports = {
 
         /***/
       }),
-      /***/323: ( /***/(module, __nested_webpack_exports__, __nested_webpack_require_13567__) => {
-        /* harmony export */__nested_webpack_require_13567__.d(__nested_webpack_exports__, {
+      /***/323: ( /***/(module, __nested_webpack_exports__, __nested_webpack_require_13602__) => {
+        /* harmony export */__nested_webpack_require_13602__.d(__nested_webpack_exports__, {
           /* harmony export */A: () => __WEBPACK_DEFAULT_EXPORT__
           /* harmony export */
         });
         /* harmony import */
-        var _node_modules_css_loader_dist_runtime_sourceMaps_js__WEBPACK_IMPORTED_MODULE_0__ = __nested_webpack_require_13567__(73);
+        var _node_modules_css_loader_dist_runtime_sourceMaps_js__WEBPACK_IMPORTED_MODULE_0__ = __nested_webpack_require_13602__(73);
         /* harmony import */
-        var _node_modules_css_loader_dist_runtime_sourceMaps_js__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__nested_webpack_require_13567__.n(_node_modules_css_loader_dist_runtime_sourceMaps_js__WEBPACK_IMPORTED_MODULE_0__);
+        var _node_modules_css_loader_dist_runtime_sourceMaps_js__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__nested_webpack_require_13602__.n(_node_modules_css_loader_dist_runtime_sourceMaps_js__WEBPACK_IMPORTED_MODULE_0__);
         /* harmony import */
-        var _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_1__ = __nested_webpack_require_13567__(191);
+        var _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_1__ = __nested_webpack_require_13602__(191);
         /* harmony import */
-        var _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__nested_webpack_require_13567__.n(_node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_1__);
+        var _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__nested_webpack_require_13602__.n(_node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_1__);
         // Imports
 
         var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_1___default()(_node_modules_css_loader_dist_runtime_sourceMaps_js__WEBPACK_IMPORTED_MODULE_0___default());
@@ -1407,10 +1407,10 @@ module.exports = {
 
         /***/
       }),
-      /***/855: ( /***/(module, __unused_webpack_exports, __nested_webpack_require_24279__) => {
+      /***/855: ( /***/(module, __unused_webpack_exports, __nested_webpack_require_24314__) => {
         /* istanbul ignore next  */
         function setAttributesWithoutAttributes(styleElement) {
-          var nonce =  true ? __nested_webpack_require_24279__.nc : 0;
+          var nonce =  true ? __nested_webpack_require_24314__.nc : 0;
           if (nonce) {
             styleElement.setAttribute("nonce", nonce);
           }
@@ -1518,7 +1518,7 @@ module.exports = {
     /******/
     /******/ // The require function
     /******/
-    function __nested_webpack_require_27689__(moduleId) {
+    function __nested_webpack_require_27724__(moduleId) {
       /******/ // Check if module is in cache
       /******/var cachedModule = __webpack_module_cache__[moduleId];
       /******/
@@ -1537,7 +1537,7 @@ module.exports = {
       /******/
       /******/ // Execute the module function
       /******/
-      __webpack_modules__[moduleId](module, module.exports, __nested_webpack_require_27689__);
+      __webpack_modules__[moduleId](module, module.exports, __nested_webpack_require_27724__);
       /******/
       /******/ // Return the exports of the module
       /******/
@@ -1550,10 +1550,10 @@ module.exports = {
     /******/
     (() => {
       /******/ // getDefaultExport function for compatibility with non-harmony modules
-      /******/__nested_webpack_require_27689__.n = module => {
+      /******/__nested_webpack_require_27724__.n = module => {
         /******/var getter = module && module.__esModule ? /******/() => module['default'] : /******/() => module;
         /******/
-        __nested_webpack_require_27689__.d(getter, {
+        __nested_webpack_require_27724__.d(getter, {
           a: getter
         });
         /******/
@@ -1567,9 +1567,9 @@ module.exports = {
     /******/
     (() => {
       /******/ // define getter functions for harmony exports
-      /******/__nested_webpack_require_27689__.d = (exports, definition) => {
+      /******/__nested_webpack_require_27724__.d = (exports, definition) => {
         /******/for (var key in definition) {
-          /******/if (__nested_webpack_require_27689__.o(definition, key) && !__nested_webpack_require_27689__.o(exports, key)) {
+          /******/if (__nested_webpack_require_27724__.o(definition, key) && !__nested_webpack_require_27724__.o(exports, key)) {
             /******/Object.defineProperty(exports, key, {
               enumerable: true,
               get: definition[key]
@@ -1586,7 +1586,7 @@ module.exports = {
     /******/ /* webpack/runtime/hasOwnProperty shorthand */
     /******/
     (() => {
-      /******/__nested_webpack_require_27689__.o = (obj, prop) => Object.prototype.hasOwnProperty.call(obj, prop);
+      /******/__nested_webpack_require_27724__.o = (obj, prop) => Object.prototype.hasOwnProperty.call(obj, prop);
       /******/
     })();
     /******/
@@ -1594,7 +1594,7 @@ module.exports = {
     /******/
     (() => {
       /******/ // define __esModule on exports
-      /******/__nested_webpack_require_27689__.r = exports => {
+      /******/__nested_webpack_require_27724__.r = exports => {
         /******/if (typeof Symbol !== 'undefined' && Symbol.toStringTag) {
           /******/Object.defineProperty(exports, Symbol.toStringTag, {
             value: 'Module'
@@ -1613,7 +1613,7 @@ module.exports = {
     /******/ /* webpack/runtime/nonce */
     /******/
     (() => {
-      /******/__nested_webpack_require_27689__.nc = undefined;
+      /******/__nested_webpack_require_27724__.nc = undefined;
       /******/
     })();
     /******/
@@ -1622,10 +1622,10 @@ module.exports = {
     // This entry need to be wrapped in an IIFE because it need to be isolated against other modules in the chunk.
     (() => {
       // ESM COMPAT FLAG
-      __nested_webpack_require_27689__.r(__nested_webpack_exports__);
+      __nested_webpack_require_27724__.r(__nested_webpack_exports__);
 
       // EXPORTS
-      __nested_webpack_require_27689__.d(__nested_webpack_exports__, {
+      __nested_webpack_require_27724__.d(__nested_webpack_exports__, {
         convertArrayKeysToCamelCase: () => ( /* reexport */libs_convertArrayKeysToCamelCase),
         convertArrayKeysToSnakeCase: () => ( /* reexport */libs_convertArrayKeysToSnakeCase),
         convertListToTree: () => ( /* reexport */libs_convertListToTree),
@@ -1648,8 +1648,8 @@ module.exports = {
 
       // NAMESPACE OBJECT: ./src/libs/time-formatter.js
       var time_formatter_namespaceObject = {};
-      __nested_webpack_require_27689__.r(time_formatter_namespaceObject);
-      __nested_webpack_require_27689__.d(time_formatter_namespaceObject, {
+      __nested_webpack_require_27724__.r(time_formatter_namespaceObject);
+      __nested_webpack_require_27724__.d(time_formatter_namespaceObject, {
         "default": () => time_formatter
       });
       ; // CONCATENATED MODULE: ./src/libs/getAbsolutePositionOfStage.js
@@ -5565,8 +5565,8 @@ module.exports = {
       } //#endregion
 
       // EXTERNAL MODULE: external {"root":"React","commonjs2":"react","commonjs":"react","amd":"react"}
-      var external_root_React_commonjs2_react_commonjs_react_amd_react_ = __nested_webpack_require_27689__(442);
-      var external_root_React_commonjs2_react_commonjs_react_amd_react_default = /*#__PURE__*/__nested_webpack_require_27689__.n(external_root_React_commonjs2_react_commonjs_react_amd_react_);
+      var external_root_React_commonjs2_react_commonjs_react_amd_react_ = __nested_webpack_require_27724__(442);
+      var external_root_React_commonjs2_react_commonjs_react_amd_react_default = /*#__PURE__*/__nested_webpack_require_27724__.n(external_root_React_commonjs2_react_commonjs_react_amd_react_);
       ; // CONCATENATED MODULE: ../../node_modules/react-router/dist/index.js
       /**
        * React Router v6.10.0
@@ -6994,27 +6994,27 @@ module.exports = {
       /* harmony default export */
       const hooks_useForm = useForm;
       // EXTERNAL MODULE: ../../node_modules/react-dom/client.js
-      var client = __nested_webpack_require_27689__(137);
+      var client = __nested_webpack_require_27724__(137);
       // EXTERNAL MODULE: ../../node_modules/style-loader/dist/runtime/injectStylesIntoStyleTag.js
-      var injectStylesIntoStyleTag = __nested_webpack_require_27689__(591);
-      var injectStylesIntoStyleTag_default = /*#__PURE__*/__nested_webpack_require_27689__.n(injectStylesIntoStyleTag);
+      var injectStylesIntoStyleTag = __nested_webpack_require_27724__(591);
+      var injectStylesIntoStyleTag_default = /*#__PURE__*/__nested_webpack_require_27724__.n(injectStylesIntoStyleTag);
       // EXTERNAL MODULE: ../../node_modules/style-loader/dist/runtime/styleDomAPI.js
-      var styleDomAPI = __nested_webpack_require_27689__(740);
-      var styleDomAPI_default = /*#__PURE__*/__nested_webpack_require_27689__.n(styleDomAPI);
+      var styleDomAPI = __nested_webpack_require_27724__(740);
+      var styleDomAPI_default = /*#__PURE__*/__nested_webpack_require_27724__.n(styleDomAPI);
       // EXTERNAL MODULE: ../../node_modules/style-loader/dist/runtime/insertBySelector.js
-      var insertBySelector = __nested_webpack_require_27689__(128);
-      var insertBySelector_default = /*#__PURE__*/__nested_webpack_require_27689__.n(insertBySelector);
+      var insertBySelector = __nested_webpack_require_27724__(128);
+      var insertBySelector_default = /*#__PURE__*/__nested_webpack_require_27724__.n(insertBySelector);
       // EXTERNAL MODULE: ../../node_modules/style-loader/dist/runtime/setAttributesWithoutAttributes.js
-      var setAttributesWithoutAttributes = __nested_webpack_require_27689__(855);
-      var setAttributesWithoutAttributes_default = /*#__PURE__*/__nested_webpack_require_27689__.n(setAttributesWithoutAttributes);
+      var setAttributesWithoutAttributes = __nested_webpack_require_27724__(855);
+      var setAttributesWithoutAttributes_default = /*#__PURE__*/__nested_webpack_require_27724__.n(setAttributesWithoutAttributes);
       // EXTERNAL MODULE: ../../node_modules/style-loader/dist/runtime/insertStyleElement.js
-      var insertStyleElement = __nested_webpack_require_27689__(51);
-      var insertStyleElement_default = /*#__PURE__*/__nested_webpack_require_27689__.n(insertStyleElement);
+      var insertStyleElement = __nested_webpack_require_27724__(51);
+      var insertStyleElement_default = /*#__PURE__*/__nested_webpack_require_27724__.n(insertStyleElement);
       // EXTERNAL MODULE: ../../node_modules/style-loader/dist/runtime/styleTagTransform.js
-      var styleTagTransform = __nested_webpack_require_27689__(656);
-      var styleTagTransform_default = /*#__PURE__*/__nested_webpack_require_27689__.n(styleTagTransform);
+      var styleTagTransform = __nested_webpack_require_27724__(656);
+      var styleTagTransform_default = /*#__PURE__*/__nested_webpack_require_27724__.n(styleTagTransform);
       // EXTERNAL MODULE: ../../node_modules/css-loader/dist/cjs.js??ruleSet[1].rules[1].use[1]!../../node_modules/sass-loader/dist/cjs.js??ruleSet[1].rules[1].use[2]!./src/hooks/notification.scss
-      var notification = __nested_webpack_require_27689__(151);
+      var notification = __nested_webpack_require_27724__(151);
       ; // CONCATENATED MODULE: ./src/hooks/notification.scss
 
       var options = {};
@@ -7218,7 +7218,7 @@ module.exports = {
       /* harmony default export */
       const hooks_useNotification = useNotification;
       // EXTERNAL MODULE: ../../node_modules/css-loader/dist/cjs.js??ruleSet[1].rules[1].use[1]!../../node_modules/sass-loader/dist/cjs.js??ruleSet[1].rules[1].use[2]!./src/hooks/loading.scss
-      var loading = __nested_webpack_require_27689__(736);
+      var loading = __nested_webpack_require_27724__(736);
       ; // CONCATENATED MODULE: ./src/hooks/loading.scss
 
       var loading_options = {};
@@ -7234,109 +7234,110 @@ module.exports = {
       ; // CONCATENATED MODULE: ./src/hooks/useLoading.tsx
       // useLoading.ts
 
-      const Loading = _ref => {
+      const LoadingContainer = /*#__PURE__*/(0, external_root_React_commonjs2_react_commonjs_react_amd_react_.forwardRef)((_ref, ref) => {
         let {
           maskStyle,
-          loadingStyle
+          loadingStyle,
+          textStyle
         } = _ref;
-        console.log("Loading-maskStyle:", maskStyle);
-        console.log("Loading-loadingStyle:", loadingStyle);
-        const enhancedMaskStyle = Object.keys(maskStyle || {}).length > 0 ? maskStyle : {
-          backgroundColor: "rgba(255, 255, 255, 0.8)"
-        };
-        const enhancedLoadingStyle = Object.keys(loadingStyle || {}).length > 0 ? loadingStyle : {
-          width: "40px",
-          height: "40px"
-        };
+        const [visible, setVisible] = (0, external_root_React_commonjs2_react_commonjs_react_amd_react_.useState)(false);
+        const [text, setText] = (0, external_root_React_commonjs2_react_commonjs_react_amd_react_.useState)("Loading...");
+        (0, external_root_React_commonjs2_react_commonjs_react_amd_react_.useImperativeHandle)(ref, () => ({
+          show: () => setVisible(true),
+          hide: () => setVisible(false),
+          setText
+        }));
+        if (!visible) return null;
         return /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("div", {
           className: "loading-overlay",
           style: {
-            ...enhancedMaskStyle
+            ...maskStyle
           }
         }, /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("div", {
           className: "loading-spinner me-2",
           style: {
-            ...enhancedLoadingStyle
+            ...loadingStyle
           }
-        }), /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("span", null, "Loading..."));
-      };
+        }), /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("span", {
+          style: {
+            ...textStyle
+          }
+        }, text));
+      });
       let loadingCount = 0;
-      let loadingInstance = null;
       let useLoading_root = null;
-      const createLoadingInstance = function () {
-        let maskStyle = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
-        let loadingStyle = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {};
-        // 创建容器
+      let loadingRef = null;
+      let initialized = false;
+      const createLoadingRoot = props => {
         const container = document.createElement("div");
-        container.className = "loading-wrapper";
+        container.className = "loading-root-container";
         document.body.appendChild(container);
-
-        // 创建 root
         useLoading_root = (0, client /* createRoot */.H)(container);
-
-        // 渲染组件
-        const render = visible => {
-          var _root;
-          (_root = useLoading_root) === null || _root === void 0 || _root.render(visible ? /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement(Loading, {
-            maskStyle: maskStyle,
-            loadingStyle: loadingStyle
-          }) : null);
-        };
-        return {
-          show: () => {
-            render(true);
-          },
-          hide: () => {
-            render(false);
-          }
-        };
+        loadingRef = /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createRef();
+        useLoading_root.render( /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement(LoadingContainer, {
+          ref: loadingRef,
+          maskStyle: props.maskStyle,
+          loadingStyle: props.loadingStyle,
+          textStyle: props.textStyle
+        }));
+        initialized = true;
       };
-      const useLoading = function () {
-        let maskStyle = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {
-          backgroundColor: "rgba(255, 255, 255, 0.8)"
-        };
-        let loadingStyle = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {
-          width: "40px",
-          height: "40px"
-        };
+      const useLoading = () => {
         const [isLoading, setIsLoading] = (0, external_root_React_commonjs2_react_commonjs_react_amd_react_.useState)(false);
-        const maskStypeRef = (0, external_root_React_commonjs2_react_commonjs_react_amd_react_.useRef)();
-        const loadingStyleRef = (0, external_root_React_commonjs2_react_commonjs_react_amd_react_.useRef)();
-        (0, external_root_React_commonjs2_react_commonjs_react_amd_react_.useEffect)(() => {
-          console.log("useLoading--maskStyle:", maskStyle);
-          console.log("useLoading--loadingStyle:", loadingStyle);
-          maskStypeRef.current = maskStyle;
-          loadingStyleRef.current = loadingStyle;
-        }, [maskStyle, loadingStyle]);
-        const showLoading = () => {
-          var _loadingInstance;
-          // 确保只创建一个实例
-          if (!loadingInstance) {
-            loadingInstance = createLoadingInstance(maskStypeRef.current || {}, loadingStyleRef.current || {});
+        const ensureInit = (text, maskStyle, loadingStyle, textStyle) => {
+          var _loadingRef;
+          if (!initialized || !useLoading_root || !((_loadingRef = loadingRef) !== null && _loadingRef !== void 0 && _loadingRef.current)) {
+            createLoadingRoot({
+              maskStyle,
+              loadingStyle,
+              textStyle
+            });
           }
+        };
+        const showLoading = function () {
+          let text = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : "Loading...";
+          let maskStyle = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {
+            background: "transparent"
+          };
+          let loadingStyle = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : {
+            width: "50px",
+            height: "50px"
+          };
+          let textStyle = arguments.length > 3 ? arguments[3] : undefined;
+          ensureInit(text, maskStyle, loadingStyle, textStyle);
           loadingCount++;
           setIsLoading(true);
-          (_loadingInstance = loadingInstance) === null || _loadingInstance === void 0 || _loadingInstance.show();
+
+          // 等待 DOM 渲染完成再执行 show 和 setText（确保 ref 不为空）
+          requestAnimationFrame(() => {
+            var _loadingRef2, _loadingRef3;
+            (_loadingRef2 = loadingRef) === null || _loadingRef2 === void 0 || (_loadingRef2 = _loadingRef2.current) === null || _loadingRef2 === void 0 || _loadingRef2.setText(text);
+            (_loadingRef3 = loadingRef) === null || _loadingRef3 === void 0 || (_loadingRef3 = _loadingRef3.current) === null || _loadingRef3 === void 0 || _loadingRef3.show();
+          });
+        };
+        const updateLoadingText = newText => {
+          var _loadingRef4;
+          console.log("updateLoadingText:", newText);
+          (_loadingRef4 = loadingRef) === null || _loadingRef4 === void 0 || (_loadingRef4 = _loadingRef4.current) === null || _loadingRef4 === void 0 || _loadingRef4.setText(newText);
         };
         const hideLoading = () => {
           loadingCount--;
           if (loadingCount <= 0) {
-            var _loadingInstance2;
+            var _loadingRef5;
             loadingCount = 0;
             setIsLoading(false);
-            (_loadingInstance2 = loadingInstance) === null || _loadingInstance2 === void 0 || _loadingInstance2.hide();
+            (_loadingRef5 = loadingRef) === null || _loadingRef5 === void 0 || (_loadingRef5 = _loadingRef5.current) === null || _loadingRef5 === void 0 || _loadingRef5.hide();
           }
         };
         return {
           loading: isLoading,
           showLoading,
-          hideLoading
+          hideLoading,
+          updateLoadingText
         };
       };
-      /* harmony default export */
-      const hooks_useLoading = /* unused pure expression or super */null && 0;
       // EXTERNAL MODULE: ../../node_modules/css-loader/dist/cjs.js??ruleSet[1].rules[1].use[1]!../../node_modules/sass-loader/dist/cjs.js??ruleSet[1].rules[1].use[2]!./src/hooks/toast.scss
-      var toast = __nested_webpack_require_27689__(323);
+      var toast = __nested_webpack_require_27724__(323);
       ; // CONCATENATED MODULE: ./src/hooks/toast.scss
 
       var toast_options = {};
@@ -9806,7 +9807,6 @@ const Table = props => {
 
   // 计算每一列的宽度
   const calculateHeaderWidth = columns => {
-    console.log("calculateHeaderWidth-------------: ");
     const titleLengthObj = {};
     const newHeaderLabels = columns.map(item => {
       return {
@@ -10219,27 +10219,11 @@ const Table = props => {
    * 双击选中这条tr
    */
   const handleRowDoubleClick = (row, e) => {
-    e.stopPropagation(); // 阻止事件传播，防止双击时触发单击
+    // 阻止事件传播，防止双击时触发单击
+    e.stopPropagation();
 
-    checkedWhenDbClick && setTableData(preArr => {
-      return preArr.map(item => {
-        if (item[id] === row[id]) {
-          item.checked = !item.checked;
-        } else {
-          if (!multiple) {
-            item.checked = false;
-          }
-        }
-        return item;
-      });
-    });
-
-    // 一开始是判断 是否已经选中，如果已经选中 再双击的话，则回调函数的参数是 空，现在不需要了，直接返回参数
-    /* if (finalChecked) {
-      onRowDoubleClick && onRowDoubleClick(row);
-    } else {
-      onRowDoubleClick && onRowDoubleClick({});
-    } */
+    // 如果双击要触发选中的话，统一调用选中的函数
+    checkedWhenDbClick && handleCheckboxChange(row, e);
     onRowDoubleClick && onRowDoubleClick(row);
 
     // 清除延时触发的单击事件，防止双击后单击事件被执行

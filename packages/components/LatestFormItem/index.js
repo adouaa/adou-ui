@@ -6600,25 +6600,14 @@ module.exports = function (item) {
 
 var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_1___default()((_node_modules_css_loader_dist_runtime_sourceMaps_js__WEBPACK_IMPORTED_MODULE_0___default()));
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, `.adou-form-item-wrapper .adou-form-item-content .adou-form-item-label-box {
-  /* &.required::before {
-      display: inline-block;
-      margin-inline-end: 4px;
-      color: #ff4d4f;
-      font-size: 14px;
-      font-family: SimSun, sans-serif;
-      line-height: 1;
-      content: "*";
-  } */
-}
-.adou-form-item-wrapper .adou-form-item-content .adou-form-item-label-box .form-item-label-text-required {
+___CSS_LOADER_EXPORT___.push([module.id, `.adou-form-item-wrapper .adou-form-item-content .adou-form-item-label-box .form-item-label-text-required {
   position: absolute;
   left: -10px;
   top: 0;
   color: #ff4d4f;
   font-size: 14px;
   font-family: SimSun, sans-serif;
-}`, "",{"version":3,"sources":["webpack://./src/index.scss"],"names":[],"mappings":"AAEQ;EAEI;;;;;;;;KAAA;AAMZ;AAGY;EACI,kBAAA;EACA,WAAA;EACA,MAAA;EACA,cAAA;EACA,eAAA;EACA,+BAAA;AADhB","sourcesContent":[".adou-form-item-wrapper {\r\n    .adou-form-item-content {\r\n        .adou-form-item-label-box {\r\n\r\n            /* &.required::before {\r\n                display: inline-block;\r\n                margin-inline-end: 4px;\r\n                color: #ff4d4f;\r\n                font-size: 14px;\r\n                font-family: SimSun, sans-serif;\r\n                line-height: 1;\r\n                content: \"*\";\r\n            } */\r\n            .form-item-label-text-required {\r\n                position: absolute;\r\n                left: -10px;\r\n                top: 0;\r\n                color: #ff4d4f;\r\n                font-size: 14px;\r\n                font-family: SimSun, sans-serif;\r\n            }\r\n        }\r\n    }\r\n}"],"sourceRoot":""}]);
+}`, "",{"version":3,"sources":["webpack://./src/index.scss"],"names":[],"mappings":"AAGY;EACI,kBAAA;EACA,WAAA;EACA,MAAA;EACA,cAAA;EACA,eAAA;EACA,+BAAA;AAFhB","sourcesContent":[".adou-form-item-wrapper {\r\n    .adou-form-item-content {\r\n        .adou-form-item-label-box {\r\n            .form-item-label-text-required {\r\n                position: absolute;\r\n                left: -10px;\r\n                top: 0;\r\n                color: #ff4d4f;\r\n                font-size: 14px;\r\n                font-family: SimSun, sans-serif;\r\n            }\r\n        }\r\n    }\r\n}"],"sourceRoot":""}]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 
@@ -7043,6 +7032,7 @@ var update = injectStylesIntoStyleTag_default()(cjs_ruleSet_1_rules_1_use_2_src/
 
 const FormItem = _ref => {
   let {
+    formControlWidth,
     formContentStyle,
     formContentClassName,
     addonBeforeStyle,
@@ -7085,7 +7075,6 @@ const FormItem = _ref => {
   const isChildrenArrayRef = (0,external_root_React_commonjs2_react_commonjs_react_amd_react_.useRef)(false); // 不能用 state，会死循环
 
   const judgeFormItemContentCls = () => {
-    console.log("layout: ", layout);
     if (layout === "horizontal") {
       return "adou-form-item-content-horizontal d-flex align-items-center";
     } else if (layout === "horizontal-top") {
@@ -7093,7 +7082,7 @@ const FormItem = _ref => {
     } else if (layout === "vertical") {
       return "adou-form-item-content-vertical flex-column";
     } else if (layout === "inline" && !suffix) {
-      return "adou-form-item-content-inline d-flex align-items-center ".concat(formContentClassName || "me-3");
+      return "adou-form-item-content-inline d-flex align-items-center ".concat(formContentClassName || "me-2");
     }
   };
 
@@ -7273,7 +7262,8 @@ const FormItem = _ref => {
     ref: adouFormRef,
     className: "adou-form-box",
     style: {
-      flex: 1
+      flex: 1,
+      width: "100%"
     }
   }, /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("div", {
     className: "adou-form-content"
@@ -7295,6 +7285,9 @@ const FormItem = _ref => {
   }, processedAddonBefore, isError && errorType === "label" && /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("span", {
     className: "form-item-label-text-required ms-1"
   }, "*")), /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("div", {
+    style: {
+      width: formControlWidth
+    },
     className: "adou-form form-control d-flex flex-fill p-0 ".concat(isChildrenArrayRef.current ? "border-0" : "")
   }, enhancedChildren), processedAddonAfter && /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("span", {
     className: "input-group-text py-0 ".concat(addonAfterClssName ? addonAfterClssName : ""),
@@ -7305,6 +7298,9 @@ const FormItem = _ref => {
   }, processedAddonAfter && processedAddonAfter)) : processedAddonAfter ? /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("div", {
     className: "input-group"
   }, /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("div", {
+    style: {
+      width: formControlWidth
+    },
     className: "adou-form form-control d-flex flex-fill p-0"
   }, enhancedChildren), /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("span", {
     className: "input-group-text py-0",
@@ -7313,6 +7309,9 @@ const FormItem = _ref => {
       ...addonAfterStyle
     }
   }, processedAddonAfter && processedAddonAfter)) : /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("div", {
+    style: {
+      width: formControlWidth
+    },
     className: "adou-form form-control d-flex flex-fill p-0 ".concat(isChildrenArrayRef.current ? "border-0" : "")
   }, enhancedChildren)), /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("div", {
     className: "suffix-content"

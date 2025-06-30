@@ -7130,15 +7130,6 @@ var Utils = __webpack_require__(36);
 // EXTERNAL MODULE: external {"root":"ReactDOM","commonjs2":"react-dom","commonjs":"react-dom","amd":"react-dom"}
 var external_root_ReactDOM_commonjs2_react_dom_commonjs_react_dom_amd_react_dom_ = __webpack_require__(3);
 var external_root_ReactDOM_commonjs2_react_dom_commonjs_react_dom_amd_react_dom_default = /*#__PURE__*/__webpack_require__.n(external_root_ReactDOM_commonjs2_react_dom_commonjs_react_dom_amd_react_dom_);
-;// CONCATENATED MODULE: ./src/getContentWidth.ts
-function getContentWidth(element) {
-  const computedStyle = window.getComputedStyle(element);
-  const offsetWidth = element.offsetWidth;
-  const borderWidthLeftRight = parseInt(computedStyle.borderLeftWidth) + parseInt(computedStyle.borderRightWidth);
-  const paddingWidthLeftRight = parseInt(computedStyle.paddingLeft) + parseInt(computedStyle.paddingRight);
-  return offsetWidth - borderWidthLeftRight - paddingWidthLeftRight;
-}
-/* harmony default export */ const src_getContentWidth = (getContentWidth);
 ;// CONCATENATED MODULE: ./src/useThrottle.ts
 
 const useThrottle = function (fn, delay) {
@@ -7218,7 +7209,6 @@ const IconClose = /*#__PURE__*/(0,external_root_React_commonjs2_react_commonjs_r
 });
 /* harmony default export */ const icon_close = (IconClose);
 ;// CONCATENATED MODULE: ./src/index.tsx
-
 
 
 
@@ -7315,7 +7305,6 @@ const Select = /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_a
   const [calcMaxHeight, setCalcMaxHeight] = (0,external_root_React_commonjs2_react_commonjs_react_amd_react_.useState)(0);
   const [focusedIndex, setFocusedIndex] = (0,external_root_React_commonjs2_react_commonjs_react_amd_react_.useState)(-1); // 新增状态，用于跟踪当前聚焦的选项
 
-  const [selectValueMaxWidth, setSelectValueMaxWidth] = (0,external_root_React_commonjs2_react_commonjs_react_amd_react_.useState)("");
   const [isFocus, setIsFocus] = (0,external_root_React_commonjs2_react_commonjs_react_amd_react_.useState)(false);
 
   // 选择框的宽度
@@ -7616,8 +7605,7 @@ const Select = /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_a
     validate,
     clear,
     getValue,
-    focus,
-    getMaxSelectValueWidth
+    focus
   }));
   const wrapperClassName = "adou-select-wrapper ".concat(externalClassName || "").trim();
 
@@ -7664,23 +7652,6 @@ const Select = /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_a
   };
   const handleMouseLeave = () => {
     setIsEnter(false);
-  };
-
-  // 计算所取到的值能展示的最大宽度
-  const getMaxSelectValueWidth = () => {
-    var _document$querySelect, _document$querySelect2;
-    if (selectValueMaxWidth) return; // 如果有值，则直接返回，就计算一次，不然宽度会一直变大
-    if (!selectRef.current) return; // 如果元素还没出现，则直接返回
-    const selectWidth = src_getContentWidth(selectRef.current);
-    // if (name === "room") debugger;
-    if (!selectWidth) return;
-    const cliearIconBoxWidth = (_document$querySelect = document.querySelector(".adou-select-clear-icon-box")) === null || _document$querySelect === void 0 ? void 0 : _document$querySelect.clientWidth;
-    const adouSelectIconBoxWidth = showIcon ? (_document$querySelect2 = document.querySelector(".adou-select-icon-box")) === null || _document$querySelect2 === void 0 ? void 0 : _document$querySelect2.clientWidth : 0;
-    // if (name === "consultDept") {
-    //    debugger
-    // };
-    // 这里多减去 8px 防止凸出来
-    setSelectValueMaxWidth(selectWidth - (cliearIconBoxWidth || 0) - (adouSelectIconBoxWidth || 0) - 8 + "px");
   };
 
   // LiveSearch模式 进入这个方法
@@ -7855,15 +7826,7 @@ const Select = /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_a
       setTempSelectValue("");
       setSelectValueList([]);
     }
-    setTimeout(() => {
-      getMaxSelectValueWidth();
-    }, 500);
   }, [defaultValue, options]);
-  (0,external_root_React_commonjs2_react_commonjs_react_amd_react_.useEffect)(() => {
-    if (selectRef.current) {
-      getMaxSelectValueWidth();
-    }
-  }, [selectRef.current]);
   (0,external_root_React_commonjs2_react_commonjs_react_amd_react_.useEffect)(() => {
     if (showEmpty) {
       if (options) {
@@ -7886,6 +7849,10 @@ const Select = /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_a
   (0,external_root_React_commonjs2_react_commonjs_react_amd_react_.useEffect)(() => {
     if (!isShow) {
       setFocusedIndex(-1); // 重置聚焦索引
+    } else {
+      // 在 打开下拉列表的时候，去计算 wapper 的宽度，赋值给 下拉列表
+      const wrapperWidth = selectWrapperRef.current.offsetWidth;
+      setOptionContentWidth(wrapperWidth);
     }
   }, [isShow]);
 
@@ -7916,12 +7883,6 @@ const Select = /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_a
       inputRef.current.value = selectValue;
     }
   }, [selectValue]);
-  (0,external_root_React_commonjs2_react_commonjs_react_amd_react_.useEffect)(() => {
-    if (contentRef.current) {
-      const wrapperWidth = selectWrapperRef.current.offsetWidth;
-      setOptionContentWidth(wrapperWidth);
-    }
-  }, [selectWrapperRef.current]);
 
   // 为了做 聚焦高亮，只能把第三个参数写为 true，本来是 contentRef.current && isShow
   (0,Utils.useClickOutside)([selectRef, contentRef, inputRef], handleClose, contentRef.current && selectRef.current && isShow);
@@ -7937,6 +7898,7 @@ const Select = /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_a
       ...(wrapperWidth ? {
         width: wrapperWidth
       } : {
+        width: "100%",
         flex: 1
       })
     }
@@ -8005,7 +7967,7 @@ const Select = /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_a
     className: "adou-select-value ps-2 ".concat(contentWrap ? "ellipsis-1" : "") // ellipsis-1 加上这个，选择框会自动变大或者变小
     ,
     style: {
-      maxWidth: selectValueMaxWidth,
+      maxWidth: "100%",
       // 设置最大宽度来支持 ellipsis
       ...(!showSearch && !filterOption ? {
         flex: 1

@@ -11,6 +11,7 @@ import "./index.scss";
 import { isEmptyO } from "adou-ui/Utils";
 
 interface FormItemProps {
+  formControlWidth?: string;
   formContentStyle?: React.CSSProperties;
   formContentClassName?: string;
   addonBeforeStyle?: React.CSSProperties;
@@ -47,6 +48,7 @@ interface FormItemProps {
 }
 
 const FormItem = ({
+  formControlWidth,
   formContentStyle,
   formContentClassName,
   addonBeforeStyle,
@@ -90,7 +92,6 @@ const FormItem = ({
   const isChildrenArrayRef = useRef<boolean>(false); // 不能用 state，会死循环
 
   const judgeFormItemContentCls = () => {
-    console.log("layout: ", layout);
     if (layout === "horizontal") {
       return "adou-form-item-content-horizontal d-flex align-items-center";
     } else if (layout === "horizontal-top") {
@@ -99,7 +100,7 @@ const FormItem = ({
       return "adou-form-item-content-vertical flex-column";
     } else if (layout === "inline" && !suffix) {
       return `adou-form-item-content-inline d-flex align-items-center ${
-        formContentClassName || "me-3"
+        formContentClassName || "me-2"
       }`;
     }
   };
@@ -320,7 +321,11 @@ const FormItem = ({
               : ""}
           </div>
         )}
-        <div ref={adouFormRef} className="adou-form-box" style={{ flex: 1 }}>
+        <div
+          ref={adouFormRef}
+          className="adou-form-box"
+          style={{ flex: 1, width: "100%" }}
+        >
           <div className="adou-form-content">
             {processedAddonBefore ? (
               <div
@@ -348,6 +353,7 @@ const FormItem = ({
                   )}
                 </span>
                 <div
+                  style={{ width: formControlWidth }}
                   className={`adou-form form-control d-flex flex-fill p-0 ${
                     isChildrenArrayRef.current ? "border-0" : ""
                   }`}
@@ -367,7 +373,10 @@ const FormItem = ({
               </div>
             ) : processedAddonAfter ? (
               <div className="input-group">
-                <div className="adou-form form-control d-flex flex-fill p-0">
+                <div
+                  style={{ width: formControlWidth }}
+                  className="adou-form form-control d-flex flex-fill p-0"
+                >
                   {enhancedChildren}
                 </div>
                 <span
@@ -379,6 +388,7 @@ const FormItem = ({
               </div>
             ) : (
               <div
+                style={{ width: formControlWidth }}
                 className={`adou-form form-control d-flex flex-fill p-0 ${
                   isChildrenArrayRef.current ? "border-0" : ""
                 }`}
@@ -406,7 +416,6 @@ const FormItem = ({
     </div>
   );
 };
-
 
 FormItem.displayName = "FormItem";
 

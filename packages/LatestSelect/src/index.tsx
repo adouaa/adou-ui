@@ -169,7 +169,6 @@ const Select = React.forwardRef((props: SelectProps, ref) => {
   const [calcMaxHeight, setCalcMaxHeight] = useState<number>(0);
   const [focusedIndex, setFocusedIndex] = useState<number>(-1); // 新增状态，用于跟踪当前聚焦的选项
 
-  const [selectValueMaxWidth, setSelectValueMaxWidth] = useState<any>("");
   const [isFocus, setIsFocus] = useState<boolean>(false);
 
   // 选择框的宽度
@@ -530,7 +529,6 @@ const Select = React.forwardRef((props: SelectProps, ref) => {
     clear,
     getValue,
     focus,
-    getMaxSelectValueWidth,
   }));
 
   const wrapperClassName = `adou-select-wrapper ${
@@ -587,32 +585,6 @@ const Select = React.forwardRef((props: SelectProps, ref) => {
 
   const handleMouseLeave = () => {
     setIsEnter(false);
-  };
-
-  // 计算所取到的值能展示的最大宽度
-  const getMaxSelectValueWidth = () => {
-    if (selectValueMaxWidth) return; // 如果有值，则直接返回，就计算一次，不然宽度会一直变大
-    if (!selectRef.current) return; // 如果元素还没出现，则直接返回
-    const selectWidth = getContentWidth(selectRef.current);
-    // if (name === "room") debugger;
-    if (!selectWidth) return;
-    const cliearIconBoxWidth = document.querySelector(
-      ".adou-select-clear-icon-box"
-    )?.clientWidth;
-    const adouSelectIconBoxWidth = showIcon
-      ? document.querySelector(".adou-select-icon-box")?.clientWidth
-      : 0;
-    // if (name === "consultDept") {
-    //    debugger
-    // };
-    // 这里多减去 8px 防止凸出来
-    setSelectValueMaxWidth(
-      selectWidth -
-        (cliearIconBoxWidth || 0) -
-        (adouSelectIconBoxWidth || 0) -
-        8 +
-        "px"
-    );
   };
 
   // LiveSearch模式 进入这个方法
@@ -798,16 +770,7 @@ const Select = React.forwardRef((props: SelectProps, ref) => {
       setTempSelectValue("");
       setSelectValueList([]);
     }
-    setTimeout(() => {
-      getMaxSelectValueWidth();
-    }, 500);
   }, [defaultValue, options]);
-
-  useEffect(() => {
-    if (selectRef.current) {
-      getMaxSelectValueWidth();
-    }
-  }, [selectRef.current]);
 
   useEffect(() => {
     if (showEmpty) {
@@ -833,6 +796,10 @@ const Select = React.forwardRef((props: SelectProps, ref) => {
   useEffect(() => {
     if (!isShow) {
       setFocusedIndex(-1); // 重置聚焦索引
+    } else {
+      // 在 打开下拉列表的时候，去计算 wapper 的宽度，赋值给 下拉列表
+      const wrapperWidth = selectWrapperRef.current.offsetWidth;
+      setOptionContentWidth(wrapperWidth);
     }
   }, [isShow]);
 
@@ -869,13 +836,6 @@ const Select = React.forwardRef((props: SelectProps, ref) => {
     }
   }, [selectValue]);
 
-  useEffect(() => {
-    if (contentRef.current) {
-      const wrapperWidth = selectWrapperRef.current.offsetWidth;
-      setOptionContentWidth(wrapperWidth);
-    }
-  }, [selectWrapperRef.current]);
-
   // 为了做 聚焦高亮，只能把第三个参数写为 true，本来是 contentRef.current && isShow
   useClickOutside(
     [selectRef, contentRef, inputRef],
@@ -893,7 +853,9 @@ const Select = React.forwardRef((props: SelectProps, ref) => {
       className={`${wrapperClassName} `}
       style={{
         ...wrapperStyle,
-        ...(wrapperWidth ? { width: wrapperWidth } : { flex: 1 }),
+        ...(wrapperWidth
+          ? { width: wrapperWidth }
+          : { width: "100%", flex: 1 }),
       }}
     >
       {/* aaa = {name === "usage" && JSON.stringify(defaultValue)} */}
@@ -1000,7 +962,7 @@ const Select = React.forwardRef((props: SelectProps, ref) => {
                     contentWrap ? "ellipsis-1" : ""
                   }`} // ellipsis-1 加上这个，选择框会自动变大或者变小
                   style={{
-                    maxWidth: selectValueMaxWidth, // 设置最大宽度来支持 ellipsis
+                    maxWidth: "100%", // 设置最大宽度来支持 ellipsis
                     ...(!showSearch && !filterOption ? { flex: 1 } : {}),
                   }}
                 >

@@ -532,7 +532,6 @@ const Table = (props: TableProps) => {
 
   // 计算每一列的宽度
   const calculateHeaderWidth = (columns: any[]) => {
-    console.log("calculateHeaderWidth-------------: ");
     const titleLengthObj: any = {};
     const newHeaderLabels = columns.map((item: any) => {
       return {
@@ -1070,28 +1069,11 @@ const Table = (props: TableProps) => {
    * 双击选中这条tr
    */
   const handleRowDoubleClick = (row: any, e: any) => {
-    e.stopPropagation(); // 阻止事件传播，防止双击时触发单击
+    // 阻止事件传播，防止双击时触发单击
+    e.stopPropagation();
 
-    checkedWhenDbClick &&
-      setTableData((preArr: any) => {
-        return preArr.map((item: any) => {
-          if (item[id] === row[id]) {
-            item.checked = !item.checked;
-          } else {
-            if (!multiple) {
-              item.checked = false;
-            }
-          }
-          return item;
-        });
-      });
-
-    // 一开始是判断 是否已经选中，如果已经选中 再双击的话，则回调函数的参数是 空，现在不需要了，直接返回参数
-    /* if (finalChecked) {
-      onRowDoubleClick && onRowDoubleClick(row);
-    } else {
-      onRowDoubleClick && onRowDoubleClick({});
-    } */
+    // 如果双击要触发选中的话，统一调用选中的函数
+    checkedWhenDbClick && handleCheckboxChange(row, e);
     onRowDoubleClick && onRowDoubleClick(row);
 
     // 清除延时触发的单击事件，防止双击后单击事件被执行
