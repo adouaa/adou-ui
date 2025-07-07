@@ -22,10 +22,20 @@ export const ListNodeWrapper = styled.div<ListNodeWrapperProps>`
         /* 添加相对定位--好像没用 */
         min-width: 120px;
         cursor: pointer;
-
+        border-radius: 6px;
         /*  &:hover {
           background-color: #f6f6f6;
         } */
+
+        /* 高亮事件从 item-name 转给 node-item-content 了 */
+        &.active {
+          color: ${(props) => props.$activeFontColor};
+          background-color: ${(props) =>
+            props.$activeBgc ?? "var(--bs-primary)"} !important;
+        }
+        &:hover {
+          background-color: #cce1fc;
+        }
 
         .tag1 {
           font-size: 12px;
@@ -50,13 +60,13 @@ export const ListNodeWrapper = styled.div<ListNodeWrapperProps>`
           padding: 2px 8px;
           border-radius: 6px;
           word-break: break-all; // 树节点 的名字太长让它换行
-          &:hover {
-            background-color: #cce1fc;
-          }
-          &.active {
+          /* &.active {
             color: ${(props) => props.$activeFontColor};
             background-color: ${(props) => props.$activeBgc} !important;
           }
+          &:hover {
+            background-color: #cce1fc;
+          } */
         }
 
         .right-content {

@@ -270,7 +270,7 @@ module.exports = function (item) {
           suffixIcon,
           prefixIcon,
           children,
-          type = "primary",
+          type = "",
           size = "md",
           externalClassName,
           round,

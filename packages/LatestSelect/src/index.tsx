@@ -897,7 +897,7 @@ const Select = React.forwardRef((props: SelectProps, ref) => {
           {prefix && <div className="prefix me-2">{prefix}</div>}
           {/* 情况一：多选 或者是 tags模式 */}
           {multiple || mode === "tags" ? (
-            <div className="adou-select-value-list d-flex flex-wrap align-items-center flex-fill">
+            <div className="adou-select-value-list ps-2 d-flex flex-wrap align-items-center flex-fill">
               {selectValueList?.map((item: any, index: number) => (
                 <div
                   style={{ backgroundColor: "rgb(0 0 0 / 6%)" }}

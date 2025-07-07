@@ -90,6 +90,7 @@
     visibility: hidden;
     transform: scaleY(0);
     transform-origin: top;
+    background-color: var(--bs-body-bg);
 
     &-open {
         opacity: 1;
