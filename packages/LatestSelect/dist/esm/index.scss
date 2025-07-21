@@ -23,18 +23,20 @@
             }
 
             &-icon {
-                transition: transform 0.2s;
+                svg {
+                    transition: transform 0.2s;
 
-                &.rotate-down:hover {
-                    transform: scale(1.3) rotate(0deg);
-                }
+                    &.rotate-down:hover {
+                        transform: scale(1.3) rotate(0deg);
+                    }
 
-                &.rotate-up:hover {
-                    transform: scale(1.3) rotate(90deg);
-                }
+                    &.rotate-up:hover {
+                        transform: scale(1.3) rotate(90deg);
+                    }
 
-                &.rotate-up {
-                    transform: rotate(180deg) !important;
+                    &.rotate-up {
+                        transform: rotate(180deg) !important;
+                    }
                 }
 
                 .rotate-down {}

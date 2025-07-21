@@ -9,6 +9,7 @@ import React, {
 import "./index.scss";
 
 interface CheckboxProps {
+  uniqId?: string | number;
   height?: string;
   optionClassName?: string;
   width?: any;
@@ -39,6 +40,7 @@ interface CheckboxProps {
 
 const Checkbox: ForwardRefRenderFunction<any, CheckboxProps> = (
   {
+    uniqId,
     height = "39.6px",
     optionClassName,
     width,
@@ -167,7 +169,8 @@ const Checkbox: ForwardRefRenderFunction<any, CheckboxProps> = (
 
   const checkboxClasses = classNames({
     "mb-2": !error && isFormItem,
-    "adou-checkbox-wrapper": true,
+    "checkbox-wrapper": true,
+    "d-flex": true,
     [externalClassName as string]: externalClassName,
   });
 
@@ -217,13 +220,16 @@ const Checkbox: ForwardRefRenderFunction<any, CheckboxProps> = (
                 className={cls}
                 type="checkbox"
                 name={name}
-                id={item[valueKey]}
+                id={item[valueKey] + uniqId}
                 checked={item.checked}
                 onChange={() => handleChange(item)}
                 value={item[valueKey]}
                 readOnly={readOnly}
               />
-              <label className="form-check-label" htmlFor={item[valueKey]}>
+              <label
+                className="form-check-label"
+                htmlFor={item[valueKey] + uniqId}
+              >
                 {item[labelKey] || "Default Checkbox"}
               </label>
             </div>

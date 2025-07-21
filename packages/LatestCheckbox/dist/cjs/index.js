@@ -142,41 +142,41 @@ module.exports = function (item) {
 
 var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_1___default()((_node_modules_css_loader_dist_runtime_sourceMaps_js__WEBPACK_IMPORTED_MODULE_0___default()));
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, `.adou-checkbox-wrapper .inputGroup {
+___CSS_LOADER_EXPORT___.push([module.id, `.checkbox-wrapper .inputGroup {
   display: flex;
   align-items: center;
 }
-.adou-checkbox-wrapper .label-box {
+.checkbox-wrapper .label-box {
   font-size: 14px;
   min-width: 50px;
   max-width: 120px !important;
   flex-wrap: wrap;
 }
-.adou-checkbox-wrapper .option-box {
+.checkbox-wrapper .option-box {
   width: 100%;
   flex: 1;
 }
-.adou-checkbox-wrapper .checkbox-form-content {
+.checkbox-wrapper .checkbox-form-content {
   display: flex;
   align-items: center;
 }
-.adou-checkbox-wrapper .label-in-center {
+.checkbox-wrapper .label-in-center {
   display: flex;
 }
-.adou-checkbox-wrapper .label-in-left-top {
+.checkbox-wrapper .label-in-left-top {
   display: flex;
 }
-.adou-checkbox-wrapper .label-in-left-top .label-box {
+.checkbox-wrapper .label-in-left-top .label-box {
   display: flex;
   align-items: start;
 }
-.adou-checkbox-wrapper .label-in-top {
+.checkbox-wrapper .label-in-top {
   display: flex;
   flex-direction: column;
 }
-.adou-checkbox-wrapper .label-in-top .label-box {
+.checkbox-wrapper .label-in-top .label-box {
   text-align-last: left;
-}`, "",{"version":3,"sources":["webpack://./src/index.scss"],"names":[],"mappings":"AAGI;EACI,aAAA;EACA,mBAAA;AAFR;AAKI;EACI,eAAA;EACA,eAAA;EACA,2BAAA;EACA,eAAA;AAHR;AAMI;EACI,WAAA;EACA,OAAA;AAJR;AAOI;EACI,aAAA;EACA,mBAAA;AALR;AAQI;EACI,aAAA;AANR;AASI;EACI,aAAA;AAPR;AASQ;EACI,aAAA;EACA,kBAAA;AAPZ;AAYI;EACI,aAAA;EACA,sBAAA;AAVR;AAYQ;EACI,qBAAA;AAVZ","sourcesContent":[".adou-checkbox-wrapper {\r\n    .content-box {}\r\n\r\n    .inputGroup {\r\n        display: flex;\r\n        align-items: center;\r\n    }\r\n\r\n    .label-box {\r\n        font-size: 14px;\r\n        min-width: 50px;\r\n        max-width: 120px !important;\r\n        flex-wrap: wrap;\r\n    }\r\n\r\n    .option-box {\r\n        width: 100%;\r\n        flex: 1;\r\n    }\r\n\r\n    .checkbox-form-content {\r\n        display: flex;\r\n        align-items: center;\r\n    }\r\n\r\n    .label-in-center {\r\n        display: flex;\r\n    }\r\n\r\n    .label-in-left-top {\r\n        display: flex;\r\n\r\n        .label-box {\r\n            display: flex;\r\n            align-items: start;\r\n\r\n        }\r\n    }\r\n\r\n    .label-in-top {\r\n        display: flex;\r\n        flex-direction: column;\r\n\r\n        .label-box {\r\n            text-align-last: left;\r\n        }\r\n    }\r\n}"],"sourceRoot":""}]);
+}`, "",{"version":3,"sources":["webpack://./src/index.scss"],"names":[],"mappings":"AAGI;EACI,aAAA;EACA,mBAAA;AAFR;AAKI;EACI,eAAA;EACA,eAAA;EACA,2BAAA;EACA,eAAA;AAHR;AAMI;EACI,WAAA;EACA,OAAA;AAJR;AAOI;EACI,aAAA;EACA,mBAAA;AALR;AAQI;EACI,aAAA;AANR;AASI;EACI,aAAA;AAPR;AASQ;EACI,aAAA;EACA,kBAAA;AAPZ;AAYI;EACI,aAAA;EACA,sBAAA;AAVR;AAYQ;EACI,qBAAA;AAVZ","sourcesContent":[".checkbox-wrapper {\r\n    .content-box {}\r\n\r\n    .inputGroup {\r\n        display: flex;\r\n        align-items: center;\r\n    }\r\n\r\n    .label-box {\r\n        font-size: 14px;\r\n        min-width: 50px;\r\n        max-width: 120px !important;\r\n        flex-wrap: wrap;\r\n    }\r\n\r\n    .option-box {\r\n        width: 100%;\r\n        flex: 1;\r\n    }\r\n\r\n    .checkbox-form-content {\r\n        display: flex;\r\n        align-items: center;\r\n    }\r\n\r\n    .label-in-center {\r\n        display: flex;\r\n    }\r\n\r\n    .label-in-left-top {\r\n        display: flex;\r\n\r\n        .label-box {\r\n            display: flex;\r\n            align-items: start;\r\n\r\n        }\r\n    }\r\n\r\n    .label-in-top {\r\n        display: flex;\r\n        flex-direction: column;\r\n\r\n        .label-box {\r\n            text-align-last: left;\r\n        }\r\n    }\r\n}"],"sourceRoot":""}]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 
@@ -660,6 +660,7 @@ var update = injectStylesIntoStyleTag_default()(cjs_ruleSet_1_rules_1_use_2_src/
 
 const Checkbox = (_ref, ref) => {
   let {
+    uniqId,
     height = "39.6px",
     optionClassName,
     width,
@@ -768,7 +769,8 @@ const Checkbox = (_ref, ref) => {
   }));
   const checkboxClasses = classnames_default()({
     "mb-2": !error && isFormItem,
-    "adou-checkbox-wrapper": true,
+    "checkbox-wrapper": true,
+    "d-flex": true,
     [externalClassName]: externalClassName
   });
   (0,external_root_React_commonjs2_react_commonjs_react_amd_react_.useEffect)(() => {
@@ -813,14 +815,14 @@ const Checkbox = (_ref, ref) => {
     className: cls,
     type: "checkbox",
     name: name,
-    id: item[valueKey],
+    id: item[valueKey] + uniqId,
     checked: item.checked,
     onChange: () => handleChange(item),
     value: item[valueKey],
     readOnly: readOnly
   }), /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("label", {
     className: "form-check-label",
-    htmlFor: item[valueKey]
+    htmlFor: item[valueKey] + uniqId
   }, item[labelKey] || "Default Checkbox"))), suffixContent && /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("div", {
     className: "".concat(suffixContentType === "button" ? "suffix-content-btn-wrapper px-2" : "ms-2")
   }, suffixContent)), commonSuffixIcon && /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("i", {

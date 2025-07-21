@@ -4,9 +4,11 @@ import React, {
   useEffect,
   useImperativeHandle,
   forwardRef,
+  Fragment,
 } from "react";
 import "./index.scss"; // 引入样式文件
-import useClickOutside from "./utils/useClickOutside";
+import { getAbsolutePosition, useClickOutside } from "adou-ui/Utils";
+import ReactDOM from "react-dom";
 
 interface PopoverProps {
   ref?: any;
@@ -37,6 +39,12 @@ const Popover: React.FC<PopoverProps> = forwardRef(
     ref
   ) => {
     const [isShow, setIsShow] = useState<boolean>(false);
+    const [customSelectContentPosition, setCustomSelectContentPosition] =
+      useState<any>({});
+    const [containerHeight, setContainerHeight] = useState<string>("");
+
+    const childrenRef = useRef<any>(null);
+    const contentRef = useRef<any>(null);
 
     // 用来实现外部传来的show参与到控制是否展示的逻辑中来(偏业务逻辑了)
     //  不能用 isShow是因为 isShow是异步的。。
@@ -49,7 +57,7 @@ const Popover: React.FC<PopoverProps> = forwardRef(
     const isEnterPopoverRef = useRef<boolean>(false);
     const enterTimeoutRef = useRef<NodeJS.Timeout | null>(null);
 
-    const handleContentClick = () => {
+    const handleTriggerClick = () => {
       if (isVisible) return; // 防止此时Popover已经展示，再点击关闭后会立马又展示
       // 进入的时候，如果存在定时器，也清除掉
       if (enterTimeoutRef.current) {
@@ -107,10 +115,22 @@ const Popover: React.FC<PopoverProps> = forwardRef(
       }, 300);
     };
 
+    const calcContentPosition = () => {
+      if (!childrenRef.current) return;
+      const position = getAbsolutePosition(childrenRef.current, 0, 0);
+      // 只有当 popoverRef.current 存在的时候，才减去 popover 的高度。
+      // 不然 position.y 会是 NaN，会突然出现到底部，然后再回到正确的位置，导致滚动条闪烁
+      if (popoverRef.current) {
+        position.y = position.y - popoverRef.current?.clientHeight! - 12;
+      }
+      console.log("position: ", position);
+      setCustomSelectContentPosition(position);
+    };
+
     useClickOutside(
       [popoverRef],
       handleClosePopover,
-      isVisible && isShow && Boolean(popoverRef.current),
+      isVisible && isShow && Boolean(popoverRef.current)
       /* {
         isVisible,
         isShow,
@@ -125,42 +145,59 @@ const Popover: React.FC<PopoverProps> = forwardRef(
 
     useEffect(() => {
       isShowRef.current = show;
-    }, [show]);
+      if (show) {
+        calcContentPosition();
+        setTimeout(() => {
+          setContainerHeight(`${contentRef.current?.clientHeight + 22}px`);
+        }, 10);
+      }
+    }, [show, contentRef.current, childrenRef.current, popoverRef.current]);
 
     return (
-      <div className={`adou-popover-wrapper ${wrapperClassname || ""}`}>
+      <Fragment>
         <div
-          className="content"
-          onClick={handleContentClick}
-          // onMouseLeave={handleMouseLeave}
+          ref={childrenRef}
+          className={`adou-popover-trigger`}
+          onClick={handleTriggerClick}
         >
           {children}
         </div>
-        {content && isShow && (
-          <div
-            ref={popoverRef}
-            onClick={handleClick}
-            onMouseEnter={handleMouseEnterPopover}
-            // onMouseLeave={handleClosePopover}
-            className={`adou-popover ${
-              isVisible ? "show-tool-tip" : ""
-            } adou-popover-${position}`}
-            style={{
-              backgroundColor: bgc,
-              color: color,
-              borderColor: borderColor,
-            }}
-          >
+
+        {content &&
+          isShow &&
+          ReactDOM.createPortal(
             <div
+              ref={popoverRef}
+              onClick={handleClick}
+              onMouseEnter={handleMouseEnterPopover}
+              className={`adou-popover ${
+                isVisible ? "show-tool-tip" : ""
+              } adou-popover-${position} ${wrapperClassname || ""}`}
               style={{
-                borderColor: `${borderColor} transparent transparent transparent`,
+                position: "absolute",
+                top: customSelectContentPosition.y + "px",
+                left: customSelectContentPosition.x + "px",
+                backgroundColor: bgc,
+                color: color,
+                borderColor: borderColor,
+                padding: "8px", // 给点内边距
+                zIndex: 2,
+                height: containerHeight,
               }}
-              className={`adou-popover-arrow adou-popover-arrow-${position}`}
-            ></div>
-            {content}
-          </div>
-        )}
-      </div>
+            >
+              <div
+                style={{
+                  borderColor: `${borderColor} transparent transparent transparent`,
+                }}
+                className={`adou-popover-arrow adou-popover-arrow-${position}`}
+              ></div>
+              <div className="adou-popover-content" ref={contentRef}>
+                {content}
+              </div>
+            </div>,
+            document.body
+          )}
+      </Fragment>
     );
   }
 );

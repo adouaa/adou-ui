@@ -8,12 +8,12 @@ export interface SelectProps {
     showIcon?: boolean;
     title?: string;
     backgroundColor?: string;
-    mode?: "common" | "liveSearch" | "tags";
+    mode?: 'common' | 'liveSearch' | 'tags';
     multiple?: boolean;
     showSearch?: boolean;
     prefix?: any;
     suffix?: any;
-    varient?: "outlined" | "filled" | "borderless";
+    varient?: 'outlined' | 'filled' | 'borderless';
     contentWrap?: boolean;
     ellipsis?: boolean;
     compact?: boolean;
@@ -33,7 +33,7 @@ export interface SelectProps {
         font: string;
         bgc: string;
     };
-    returnType?: "str" | "obj";
+    returnType?: 'str' | 'obj';
     showEmpty?: boolean;
     showDefaultValue?: boolean;
     labelKey?: string;
@@ -49,14 +49,14 @@ export interface SelectProps {
     commonSuffixIcon?: string;
     width?: any;
     label?: any;
-    labelPosition?: "left-top" | "center" | "top";
+    labelPosition?: 'left-top' | 'center' | 'top';
     inputGroup?: boolean;
     labelColor?: string;
     required?: boolean;
     defaultValue?: any;
     options: any[];
     placeholder?: string;
-    size?: "sm" | "lg" | "default";
+    size?: 'sm' | 'lg' | 'default';
     externalClassName?: string;
     disabled?: boolean;
     transparent?: boolean;
@@ -69,6 +69,7 @@ export interface SelectProps {
     onInputChange?: (value: string) => void;
     filterOption?: (input: string, option: any, labelKey?: any, valueKey?: any) => any | boolean;
     onTagsDelete?: (value: any) => void;
+    onWrapperClick?: (e: any) => void;
 }
 declare const Select: React.ForwardRefExoticComponent<SelectProps & React.RefAttributes<unknown>>;
 export default Select;

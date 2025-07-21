@@ -1,6 +1,7 @@
 import React from "react";
 import "./index.scss";
 interface CheckboxProps {
+    uniqId?: string | number;
     height?: string;
     optionClassName?: string;
     width?: any;

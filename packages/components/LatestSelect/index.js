@@ -6618,16 +6618,16 @@ ___CSS_LOADER_EXPORT___.push([module.id, `@charset "UTF-8";
   transition: transform 0.3s ease;
   /* 添加过渡效果 */
 }
-.adou-select-wrapper .adou-select-form-content .adou-select-icon {
+.adou-select-wrapper .adou-select-form-content .adou-select-icon svg {
   transition: transform 0.2s;
 }
-.adou-select-wrapper .adou-select-form-content .adou-select-icon.rotate-down:hover {
+.adou-select-wrapper .adou-select-form-content .adou-select-icon svg.rotate-down:hover {
   transform: scale(1.3) rotate(0deg);
 }
-.adou-select-wrapper .adou-select-form-content .adou-select-icon.rotate-up:hover {
+.adou-select-wrapper .adou-select-form-content .adou-select-icon svg.rotate-up:hover {
   transform: scale(1.3) rotate(90deg);
 }
-.adou-select-wrapper .adou-select-form-content .adou-select-icon.rotate-up {
+.adou-select-wrapper .adou-select-form-content .adou-select-icon svg.rotate-up {
   transform: rotate(180deg) !important;
 }
 .adou-select-wrapper .adou-select-form-content .adou-select-clear-icon {
@@ -6711,7 +6711,7 @@ ___CSS_LOADER_EXPORT___.push([module.id, `@charset "UTF-8";
 .adou-select-option-content::-webkit-scrollbar-track {
   background-color: #f1f1f1;
   border-radius: 2px;
-}`, "",{"version":3,"sources":["webpack://./src/index.scss"],"names":[],"mappings":"AAAA,gBAAgB;AAEZ;EACI,YAAA;AAAR;AAEQ;EACI,oCAAA;EACA,uCAAA;AAAZ;AAIQ;EACI,YAAA;EACA,uBAAA;EAEA,wDAAA;EACA,eAAA;AAHZ;AAMY;EACI,+BAAA;EACA,WAAA;AAJhB;AAOY;EACI,0BAAA;AALhB;AAOgB;EACI,kCAAA;AALpB;AAQgB;EACI,mCAAA;AANpB;AASgB;EACI,oCAAA;AAPpB;AAcY;EAEI,eAAA;EACA,oBAAA;EACA,cAAA;AAbhB;AAegB;EACI,qBAAA;EACA,qBAAA;AAbpB;AAqBY;EAEI,WAAA;EACA,aAAA;EACA,YAAA;AApBhB;AAwBgB;EACI,SAAA;AAtBpB;;AAkCA;EACI,qBAAA;EACA,gBAAA;EACA,WAAA;EACA,kBAAA;EACA,iBAAA;EACA,kBAAA;EACA,4CAAA;EACA,wEAAA;EACA,kBAAA;EACA,oBAAA;EACA,qBAAA;EACA,mCAAA;AA/BJ;AAiCI;EACI,UAAA;EACA,mBAAA;EACA,oBAAA;AA/BR;AAmCI;EACI,iBAAA;AAjCR;AAmCQ;EACI,yBAAA;EACA,eAAA;AAjCZ;AAoCQ;EACI,WAAA;EACA,yBAAA;AAlCZ;AAqCQ;EACI,oCAAA;EACA,sBAAA;EACA,8BAAA;EACA,cAAA;AAnCZ;AAuCI;EACI,iBAAA;AArCR;AAwCI;EACI,UAAA;EACA,mBAAA;EACA,oBAAA;EACA,gBAAA;EACA,WAAA;AAtCR;AAyCI;EACI,eAAA;EACA,aAAA;EACA,kBAAA;EACA,cAAA;AAvCR;AA2CI;EACI,UAAA;EACA,WAAA;AAzCR;AA4CI;EACI,yBAAA;EACA,kBAAA;AA1CR;AA6CI;EACI,yBAAA;EACA,kBAAA;AA3CR","sourcesContent":[".adou-select-wrapper {\r\n\r\n    .adou-select-form-content {\r\n        height: 100%;\r\n\r\n        &.border-left-radius-none {\r\n            border-top-left-radius: 0 !important;\r\n            border-bottom-left-radius: 0 !important;\r\n\r\n        }\r\n\r\n        .adou-select {\r\n            height: 100%;\r\n            border-radius: 0.475rem;\r\n            // box-shadow: 0 1px 1px rgba(0, 0, 0, 0.075); 加上这个在 borderless 情况下底部会有条线\r\n            transition: border-color 0.5s ease, box-shadow 0.5s ease;\r\n            cursor: pointer;\r\n            // padding: 0 12px;\r\n\r\n            i {\r\n                transition: transform 0.3s ease;\r\n                /* 添加过渡效果 */\r\n            }\r\n\r\n            &-icon {\r\n                transition: transform 0.2s;\r\n\r\n                &.rotate-down:hover {\r\n                    transform: scale(1.3) rotate(0deg);\r\n                }\r\n\r\n                &.rotate-up:hover {\r\n                    transform: scale(1.3) rotate(90deg);\r\n                }\r\n\r\n                &.rotate-up {\r\n                    transform: rotate(180deg) !important;\r\n                }\r\n\r\n                .rotate-down {}\r\n            }\r\n\r\n\r\n            &-clear-icon {\r\n\r\n                cursor: pointer;\r\n                transition: all 0.3s;\r\n                color: #c6c6cd;\r\n\r\n                &:hover {\r\n                    transform: scale(1.2);\r\n                    color: red !important;\r\n                }\r\n            }\r\n\r\n            &-input-box {\r\n                // background-color: red;\r\n            }\r\n\r\n            &-input {\r\n                // min-width: 120px;\r\n                width: 100%;\r\n                outline: none;\r\n                border: none;\r\n            }\r\n\r\n            .adou-select-value-list-item-close {\r\n                svg {\r\n                    fill: red;\r\n                }\r\n            }\r\n        }\r\n    }\r\n\r\n\r\n\r\n\r\n\r\n}\r\n\r\n.adou-select-option-content {\r\n    text-align-last: left;\r\n    overflow: hidden;\r\n    /* 隐藏溢出内容 */\r\n    position: absolute;\r\n    z-index: 66666666;\r\n    border-radius: 4px;\r\n    box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;\r\n    transition: opacity 0.3s ease, visibility 0.3s ease, transform 0.3s ease;\r\n    visibility: hidden;\r\n    transform: scaleY(0);\r\n    transform-origin: top;\r\n    background-color: var(--bs-body-bg);\r\n\r\n    &-open {\r\n        opacity: 1;\r\n        visibility: visible;\r\n        transform: scaleY(1);\r\n    }\r\n\r\n\r\n    .adou-select-option {\r\n        padding: 5px 10px;\r\n\r\n        &:hover {\r\n            background-color: #f6f6f6;\r\n            cursor: pointer;\r\n        }\r\n\r\n        &:active {\r\n            color: #fff;\r\n            background-color: #2783d8;\r\n        }\r\n\r\n        &.focused {\r\n            background-color: #e0e0e0 !important;\r\n            color: #000 !important;\r\n            font-weight: normal !important;\r\n            /* 高亮当前聚焦的选项 */\r\n        }\r\n    }\r\n\r\n    .adou-select-option-active {\r\n        font-weight: bold;\r\n    }\r\n\r\n    &-open {\r\n        opacity: 1;\r\n        visibility: visible;\r\n        transform: scaleY(1);\r\n        overflow-y: auto;\r\n        /* 允许垂直滚动 */\r\n    }\r\n\r\n    .none-match {\r\n        padding: 10px 0;\r\n        height: 100px;\r\n        font-style: italic;\r\n        color: #a4a3a3;\r\n    }\r\n\r\n    // 滚动条变细\r\n    &::-webkit-scrollbar {\r\n        width: 4px;\r\n        height: 4px;\r\n    }\r\n\r\n    &::-webkit-scrollbar-thumb {\r\n        background-color: #c0c0c0;\r\n        border-radius: 2px;\r\n    }\r\n\r\n    &::-webkit-scrollbar-track {\r\n        background-color: #f1f1f1;\r\n        border-radius: 2px;\r\n    }\r\n}"],"sourceRoot":""}]);
+}`, "",{"version":3,"sources":["webpack://./src/index.scss"],"names":[],"mappings":"AAAA,gBAAgB;AAEZ;EACI,YAAA;AAAR;AAEQ;EACI,oCAAA;EACA,uCAAA;AAAZ;AAIQ;EACI,YAAA;EACA,uBAAA;EAEA,wDAAA;EACA,eAAA;AAHZ;AAMY;EACI,+BAAA;EACA,WAAA;AAJhB;AAQgB;EACI,0BAAA;AANpB;AAQoB;EACI,kCAAA;AANxB;AASoB;EACI,mCAAA;AAPxB;AAUoB;EACI,oCAAA;AARxB;AAgBY;EAEI,eAAA;EACA,oBAAA;EACA,cAAA;AAfhB;AAiBgB;EACI,qBAAA;EACA,qBAAA;AAfpB;AAuBY;EAEI,WAAA;EACA,aAAA;EACA,YAAA;AAtBhB;AA0BgB;EACI,SAAA;AAxBpB;;AAoCA;EACI,qBAAA;EACA,gBAAA;EACA,WAAA;EACA,kBAAA;EACA,iBAAA;EACA,kBAAA;EACA,4CAAA;EACA,wEAAA;EACA,kBAAA;EACA,oBAAA;EACA,qBAAA;EACA,mCAAA;AAjCJ;AAmCI;EACI,UAAA;EACA,mBAAA;EACA,oBAAA;AAjCR;AAqCI;EACI,iBAAA;AAnCR;AAqCQ;EACI,yBAAA;EACA,eAAA;AAnCZ;AAsCQ;EACI,WAAA;EACA,yBAAA;AApCZ;AAuCQ;EACI,oCAAA;EACA,sBAAA;EACA,8BAAA;EACA,cAAA;AArCZ;AAyCI;EACI,iBAAA;AAvCR;AA0CI;EACI,UAAA;EACA,mBAAA;EACA,oBAAA;EACA,gBAAA;EACA,WAAA;AAxCR;AA2CI;EACI,eAAA;EACA,aAAA;EACA,kBAAA;EACA,cAAA;AAzCR;AA6CI;EACI,UAAA;EACA,WAAA;AA3CR;AA8CI;EACI,yBAAA;EACA,kBAAA;AA5CR;AA+CI;EACI,yBAAA;EACA,kBAAA;AA7CR","sourcesContent":[".adou-select-wrapper {\r\n\r\n    .adou-select-form-content {\r\n        height: 100%;\r\n\r\n        &.border-left-radius-none {\r\n            border-top-left-radius: 0 !important;\r\n            border-bottom-left-radius: 0 !important;\r\n\r\n        }\r\n\r\n        .adou-select {\r\n            height: 100%;\r\n            border-radius: 0.475rem;\r\n            // box-shadow: 0 1px 1px rgba(0, 0, 0, 0.075); 加上这个在 borderless 情况下底部会有条线\r\n            transition: border-color 0.5s ease, box-shadow 0.5s ease;\r\n            cursor: pointer;\r\n            // padding: 0 12px;\r\n\r\n            i {\r\n                transition: transform 0.3s ease;\r\n                /* 添加过渡效果 */\r\n            }\r\n\r\n            &-icon {\r\n                svg {\r\n                    transition: transform 0.2s;\r\n\r\n                    &.rotate-down:hover {\r\n                        transform: scale(1.3) rotate(0deg);\r\n                    }\r\n\r\n                    &.rotate-up:hover {\r\n                        transform: scale(1.3) rotate(90deg);\r\n                    }\r\n\r\n                    &.rotate-up {\r\n                        transform: rotate(180deg) !important;\r\n                    }\r\n                }\r\n\r\n                .rotate-down {}\r\n            }\r\n\r\n\r\n            &-clear-icon {\r\n\r\n                cursor: pointer;\r\n                transition: all 0.3s;\r\n                color: #c6c6cd;\r\n\r\n                &:hover {\r\n                    transform: scale(1.2);\r\n                    color: red !important;\r\n                }\r\n            }\r\n\r\n            &-input-box {\r\n                // background-color: red;\r\n            }\r\n\r\n            &-input {\r\n                // min-width: 120px;\r\n                width: 100%;\r\n                outline: none;\r\n                border: none;\r\n            }\r\n\r\n            .adou-select-value-list-item-close {\r\n                svg {\r\n                    fill: red;\r\n                }\r\n            }\r\n        }\r\n    }\r\n\r\n\r\n\r\n\r\n\r\n}\r\n\r\n.adou-select-option-content {\r\n    text-align-last: left;\r\n    overflow: hidden;\r\n    /* 隐藏溢出内容 */\r\n    position: absolute;\r\n    z-index: 66666666;\r\n    border-radius: 4px;\r\n    box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;\r\n    transition: opacity 0.3s ease, visibility 0.3s ease, transform 0.3s ease;\r\n    visibility: hidden;\r\n    transform: scaleY(0);\r\n    transform-origin: top;\r\n    background-color: var(--bs-body-bg);\r\n\r\n    &-open {\r\n        opacity: 1;\r\n        visibility: visible;\r\n        transform: scaleY(1);\r\n    }\r\n\r\n\r\n    .adou-select-option {\r\n        padding: 5px 10px;\r\n\r\n        &:hover {\r\n            background-color: #f6f6f6;\r\n            cursor: pointer;\r\n        }\r\n\r\n        &:active {\r\n            color: #fff;\r\n            background-color: #2783d8;\r\n        }\r\n\r\n        &.focused {\r\n            background-color: #e0e0e0 !important;\r\n            color: #000 !important;\r\n            font-weight: normal !important;\r\n            /* 高亮当前聚焦的选项 */\r\n        }\r\n    }\r\n\r\n    .adou-select-option-active {\r\n        font-weight: bold;\r\n    }\r\n\r\n    &-open {\r\n        opacity: 1;\r\n        visibility: visible;\r\n        transform: scaleY(1);\r\n        overflow-y: auto;\r\n        /* 允许垂直滚动 */\r\n    }\r\n\r\n    .none-match {\r\n        padding: 10px 0;\r\n        height: 100px;\r\n        font-style: italic;\r\n        color: #a4a3a3;\r\n    }\r\n\r\n    // 滚动条变细\r\n    &::-webkit-scrollbar {\r\n        width: 4px;\r\n        height: 4px;\r\n    }\r\n\r\n    &::-webkit-scrollbar-thumb {\r\n        background-color: #c0c0c0;\r\n        border-radius: 2px;\r\n    }\r\n\r\n    &::-webkit-scrollbar-track {\r\n        background-color: #f1f1f1;\r\n        border-radius: 2px;\r\n    }\r\n}"],"sourceRoot":""}]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 
@@ -7228,12 +7228,12 @@ const Select = /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_a
     showIcon = true,
     title,
     backgroundColor,
-    mode = "common",
+    mode = 'common',
     multiple,
     showSearch,
     prefix,
     suffix,
-    varient = "outlined",
+    varient = 'outlined',
     contentWrap = true,
     ellipsis = true,
     compact,
@@ -7251,13 +7251,13 @@ const Select = /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_a
     noWrap = true,
     shouldFocus = false,
     activeColor = {
-      font: "#fff",
-      bgc: "#2783d8"
+      font: '#fff',
+      bgc: 'var(--bs-primary)'
     },
-    returnType = "obj",
+    returnType = 'obj',
     showDefaultValue = false,
-    labelKey = "label",
-    valueKey = "value",
+    labelKey = 'label',
+    valueKey = 'value',
     suffixContent,
     showLabel = true,
     suffixContentType,
@@ -7267,20 +7267,20 @@ const Select = /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_a
     errMsg,
     labelWidth,
     label,
-    labelPosition = "center",
+    labelPosition = 'center',
     inputGroup = false,
-    labelColor = "#8d9095",
+    labelColor = '#8d9095',
     required = false,
     showEmpty = true,
     name,
     width,
     defaultValue,
     options,
-    placeholder = mode === "tags" ? "空格添加" : "",
+    placeholder = mode === 'tags' ? '空格添加' : '',
     externalClassName,
     disabled,
     transparent,
-    optionContentMaxHeight = "200px",
+    optionContentMaxHeight = '200px',
     onChange,
     onFormDataChange,
     onFieldChange,
@@ -7288,7 +7288,8 @@ const Select = /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_a
     optionRender,
     onInputChange,
     filterOption,
-    onTagsDelete
+    onTagsDelete,
+    onWrapperClick
   } = props;
   const [isShow, setIsShow] = (0,external_root_React_commonjs2_react_commonjs_react_amd_react_.useState)(false);
   const [closing, setClosing] = (0,external_root_React_commonjs2_react_commonjs_react_amd_react_.useState)(false);
@@ -7318,42 +7319,42 @@ const Select = /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_a
   // RetrieveSelect 逻辑
   const [isInputFocusing, setIsInputFocusing] = (0,external_root_React_commonjs2_react_commonjs_react_amd_react_.useState)(false);
   const inputRef = (0,external_root_React_commonjs2_react_commonjs_react_amd_react_.useRef)();
-  const tagInputTemValueRef = (0,external_root_React_commonjs2_react_commonjs_react_amd_react_.useRef)("");
+  const tagInputTemValueRef = (0,external_root_React_commonjs2_react_commonjs_react_amd_react_.useRef)('');
   const handleClose = () => {
     if (disabled) return;
     // RetrieveSelect 新增逻辑 失焦后，展示 select-value
-    if (mode !== "liveSearch" && !showSearch) {
+    if (mode !== 'liveSearch' && !showSearch) {
       setIsInputFocusing(false);
     }
-    if (mode === "common" && inputRef.current) {
+    if (mode === 'common' && inputRef.current) {
       if (showSearch) {
         // 如果是 需要搜索框，则 input 的值不变，仍然是 选中的值
-        inputRef.current.value = (selectValue === null || selectValue === void 0 ? void 0 : selectValue[labelKey]) || "";
+        inputRef.current.value = (selectValue === null || selectValue === void 0 ? void 0 : selectValue[labelKey]) || '';
       } else {
-        inputRef.current.value = "";
+        inputRef.current.value = '';
       }
-    } else if (mode === "liveSearch") {
+    } else if (mode === 'liveSearch') {
       var _inputRef$current;
       const inputValue = (_inputRef$current = inputRef.current) === null || _inputRef$current === void 0 ? void 0 : _inputRef$current.value;
-      setSelectValue(typeof selectValue === "string" ? inputValue : {
+      setSelectValue(typeof selectValue === 'string' ? inputValue : {
         [labelKey]: inputValue,
         [valueKey]: inputValue
       }); // 搜索框失去焦点时，将输入框的值赋给 selectValue
-    } else if (mode === "tags") {
+    } else if (mode === 'tags') {
       var _inputRef$current2;
       handleTagsChange((_inputRef$current2 = inputRef.current) === null || _inputRef$current2 === void 0 ? void 0 : _inputRef$current2.value);
     }
-    if (varient === "filled" && selectRef.current) {
-      selectRef.current.style.backgroundColor = "#f0f0f0";
+    if (varient === 'filled' && selectRef.current) {
+      selectRef.current.style.backgroundColor = '#f0f0f0';
     }
     if (isShow) {
       // 打开后的关闭再去校验有没有值
       if (multiple) {
         handleValidate(selectValueList);
       } else {
-        if (mode === "common") {
+        if (mode === 'common') {
           handleValidate((selectValue === null || selectValue === void 0 ? void 0 : selectValue[valueKey]) || (selectValue === null || selectValue === void 0 ? void 0 : selectValue[labelKey]));
-        } else if (mode === "liveSearch") {
+        } else if (mode === 'liveSearch') {
           handleValidate((selectValue === null || selectValue === void 0 ? void 0 : selectValue[valueKey]) || (selectValue === null || selectValue === void 0 ? void 0 : selectValue[labelKey]) || inputRef.current.value);
         }
       }
@@ -7396,27 +7397,32 @@ const Select = /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_a
       setNewOptions(originalOptions);
     }
     e.stopPropagation();
-    if (!showSearch && mode !== "liveSearch") {
+    if (!showSearch && mode !== 'liveSearch') {
       setTimeout(() => {
         calcContentPosition(); // 不在这里计算，否则会出现抖动，在 列表变化 或者 focus 的时候计算
       }, 10);
     }
     if (disabled) {
       return; // 如果是禁用状态，则不执行下面的逻辑
-    } else if (!showSearch && mode !== "liveSearch") {
+    } else if (!showSearch && mode !== 'liveSearch') {
       // 如果是普通的单选模式，那要直接打开--新增如果是 tags 模式，则不打开下拉框来选择(因为会把输入框输入的值也添加到数组里面去)
       // 这边要加个定时器，因为上面计算位置是放在定时器里面的，不然会出现闪烁
       setTimeout(() => {
         setIsShow(true);
       }, 10);
     }
-    if (mode === "tags") {
+    if (mode === 'tags') {
       var _inputRef$current3;
       (_inputRef$current3 = inputRef.current) === null || _inputRef$current3 === void 0 || _inputRef$current3.focus();
     }
+    if (onWrapperClick) {
+      // 如果有 wrapperClick 事件，则也要打开 列表
+      setIsShow(true);
+      onWrapperClick && onWrapperClick(e);
+    }
   };
   const handleSelectBlur = () => {
-    if (mode === "tags") {}
+    if (mode === 'tags') {}
   };
 
   // 标签变化
@@ -7425,7 +7431,7 @@ const Select = /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_a
     const tempSelectValueList = [...(selectValueList || [])];
     if (value) {
       if (tempSelectValueList.find(item => {
-        if (typeof item === "string") {
+        if (typeof item === 'string') {
           return item === value;
         } else {
           return item[valueKey] === value;
@@ -7438,20 +7444,20 @@ const Select = /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_a
         });
         // tempSelectValueList.push(value);
         setSelectValueList(tempSelectValueList);
-        inputRef.current.value = "";
+        inputRef.current.value = '';
       }
     }
     handleValidate(tempSelectValueList);
     onFieldChange && onFieldChange(name, tempSelectValueList);
     onChange && onChange(tempSelectValueList);
-    tagInputTemValueRef.current = "";
+    tagInputTemValueRef.current = '';
   };
 
   // 标签输入框变化
   const handleTagsInputKeyDown = e => {
     // e.stopPropagation();
     const value = e.currentTarget.value;
-    if (e.key === "Enter" || e.key === " ") {
+    if (e.key === 'Enter' || e.key === ' ') {
       e.stopPropagation();
       if (value) {
         handleTagsChange(value);
@@ -7463,7 +7469,7 @@ const Select = /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_a
     e === null || e === void 0 || e.stopPropagation();
     // 要做个中间量，不然给 form 的的数据会慢一拍
     let newSelectValueList = [...selectValueList];
-    if (multiple || mode === "tags") {
+    if (multiple || mode === 'tags') {
       const index = selectValueList.findIndex(option => option[valueKey] === item[valueKey]);
       if (index > -1) {
         newSelectValueList = newSelectValueList.filter(option => option[valueKey] !== item[valueKey]);
@@ -7474,18 +7480,18 @@ const Select = /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_a
       }
       // 选择完之后，将 input 的值清空
       if (inputRef.current) {
-        inputRef.current.value = "";
+        inputRef.current.value = '';
       }
     } else {
       setSelectValue(item);
       setTempSelectValue(item);
-      if (mode === "liveSearch") {
+      if (mode === 'liveSearch') {
         inputRef.current.value = item[labelKey];
       }
       handleClose();
     }
     // 多选和单选，返回的结果要分开
-    const returnValue = multiple || mode === "tags" ? newSelectValueList : returnType === "obj" || showDefaultValue ? item : item[valueKey];
+    const returnValue = multiple || mode === 'tags' ? newSelectValueList : returnType === 'obj' || showDefaultValue ? item : item[valueKey];
     onChange && onChange(returnValue);
     setError(false);
     // 新增onFormDataChange来修改外部传入的数据
@@ -7502,7 +7508,7 @@ const Select = /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_a
 
     if (selectValue !== null && selectValue !== void 0 && selectValue[valueKey] || (selectValue === null || selectValue === void 0 ? void 0 : selectValue[valueKey]) === 0 || (selectValue === null || selectValue === void 0 ? void 0 : selectValue[valueKey]) === false) {
       // 感觉可有可无
-      if (returnType === "obj") {
+      if (returnType === 'obj') {
         onFormDataChange && onFormDataChange(name, selectValue);
         handleFieldChange && handleFieldChange(selectValue);
       } else {
@@ -7529,14 +7535,15 @@ const Select = /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_a
     if (multiple) {
       setSelectValueList([]);
     } else {
-      setSelectValue("");
-      setTempSelectValue("");
+      setSelectValue('');
+      setTempSelectValue('');
     }
   };
   const handleClickCommonSuffixIcon = () => {};
 
   // 点击展开按钮，显示 / 隐藏 下拉框--这里也要计算位置，然后再打开选项框
-  const handleIconClick = () => {
+  const handleIconClick = e => {
+    e.stopPropagation();
     setTimeout(() => {
       calcContentPosition(); // 不在这里计算，否则会出现抖动，在 列表变化 或者 focus 的时候计算
       setIsShow(prev => !prev);
@@ -7546,29 +7553,29 @@ const Select = /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_a
     e.stopPropagation();
     clear();
     setError(true);
-    handleFieldChange === null || handleFieldChange === void 0 || handleFieldChange(multiple ? [] : returnType === "str" ? "" : {});
-    handleValidate("");
+    handleFieldChange === null || handleFieldChange === void 0 || handleFieldChange(multiple ? [] : returnType === 'str' ? '' : {});
+    handleValidate('');
   };
 
   // 判断 input 的背景色
   const judgeInputBgColor = () => {
     if (disabled) {
-      return "#eee";
-    } else if (varient === "filled" || transparent) {
-      return "transparent";
+      return '#eee';
+    } else if (varient === 'filled' || transparent) {
+      return 'transparent';
     } else if (backgroundColor) {
       return backgroundColor;
     } else {
-      return "transparent";
+      return 'transparent';
     }
   };
 
   // 判断是否是选中状态来决定选项的字体颜色
   const judgeColor = (item, type) => {
-    if (multiple || mode === "tags") {
-      return selectValueList !== null && selectValueList !== void 0 && selectValueList.find(option => option[valueKey] == item[valueKey]) ? activeColor === null || activeColor === void 0 ? void 0 : activeColor[type] : type === "font" ? "#000" : "";
+    if (multiple || mode === 'tags') {
+      return selectValueList !== null && selectValueList !== void 0 && selectValueList.find(option => option[valueKey] == item[valueKey]) ? activeColor === null || activeColor === void 0 ? void 0 : activeColor[type] : type === 'font' ? '#000' : '';
     } else {
-      return (selectValue === null || selectValue === void 0 ? void 0 : selectValue[valueKey]) == item[valueKey] ? activeColor === null || activeColor === void 0 ? void 0 : activeColor[type] : type === "font" ? "#000" : "";
+      return (selectValue === null || selectValue === void 0 ? void 0 : selectValue[valueKey]) == item[valueKey] ? activeColor === null || activeColor === void 0 ? void 0 : activeColor[type] : type === 'font' ? '#000' : '';
     }
   };
 
@@ -7583,7 +7590,7 @@ const Select = /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_a
     handleFieldChange(newSelectValueList);
     handleValidate(newSelectValueList);
     setSelectValueList(newSelectValueList);
-    if (multiple || mode === "tags") {
+    if (multiple || mode === 'tags') {
       const index = selectValueList.findIndex(option => option[valueKey] === item[valueKey]);
       if (index > -1) {
         newSelectValueList = newSelectValueList.filter(option => option[valueKey] !== item[valueKey]);
@@ -7608,11 +7615,11 @@ const Select = /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_a
     getValue,
     focus
   }));
-  const wrapperClassName = "adou-select-wrapper ".concat(externalClassName || "").trim();
+  const wrapperClassName = "adou-select-wrapper ".concat(externalClassName || '').trim();
 
   // 全部都 通过 KeyDown来关闭下拉列表项
   const handleKeyDown = event => {
-    if (event.key === "Tab") {
+    if (event.key === 'Tab') {
       // 当下拉项展开的时候进入这个回调，来关闭下拉项
       if (isShow) {
         handleClose();
@@ -7621,13 +7628,13 @@ const Select = /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_a
       }
       return; // 让焦点移动到下一个表单元素
     } else if (isShow) {
-      if (event.key === "ArrowUp") {
+      if (event.key === 'ArrowUp') {
         event.preventDefault();
         setFocusedIndex(prevIndex => prevIndex <= 0 ? newOptions.length - 1 : prevIndex - 1);
-      } else if (event.key === "ArrowDown") {
+      } else if (event.key === 'ArrowDown') {
         event.preventDefault();
         setFocusedIndex(prevIndex => prevIndex >= newOptions.length - 1 ? 0 : prevIndex + 1);
-      } else if (event.key === "Enter") {
+      } else if (event.key === 'Enter') {
         handleClose();
         if (focusedIndex == -1) return;
         event.preventDefault();
@@ -7640,8 +7647,8 @@ const Select = /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_a
   const handleFocus = e => {
     if (disabled) return;
     e.stopPropagation();
-    if (varient === "filled" && selectRef.current && !disabled) {
-      selectRef.current.style.backgroundColor = "";
+    if (varient === 'filled' && selectRef.current && !disabled) {
+      selectRef.current.style.backgroundColor = '';
     }
     setIsFocus(true);
     if (!shouldFocus) return;
@@ -7665,8 +7672,8 @@ const Select = /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_a
       // 如果有值
       if (!(0,Utils.isEmptyO)(selectValue)) {
         var _inputRef$current5;
-        if (mode === "common") {
-          if (typeof selectValue === "object") {
+        if (mode === 'common') {
+          if (typeof selectValue === 'object') {
             inputRef.current.value = selectValue[labelKey];
           } else {
             inputRef.current.value = selectValue;
@@ -7677,9 +7684,9 @@ const Select = /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_a
         // 没值，则展示下拉列表
         setIsShow(true);
       }
-    } else if (multiple || mode === "tags") {
+    } else if (multiple || mode === 'tags') {
       setIsInputFocusing(true);
-    } else if (mode === "liveSearch") {
+    } else if (mode === 'liveSearch') {
       setIsInputFocusing(true);
       setIsShow(true);
       if (selectValue && !(0,Utils.isEmptyO)(selectValue)) {
@@ -7704,11 +7711,11 @@ const Select = /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_a
     // debugger;
     e.stopPropagation();
     const value = e.target.value;
-    if (mode !== "tags") {
+    if (mode !== 'tags') {
       // 由于无法做到 点击选项导致的失焦后 不将输入框的值添加到数组中，所以这里做判断
       setIsShow(true);
     }
-    if (mode === "liveSearch") {
+    if (mode === 'liveSearch') {
       handleFieldChange(value);
     }
     if (!onInputChange) {
@@ -7721,7 +7728,7 @@ const Select = /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_a
       // _onInputChange(value); // 不知道为什么使用节流会导致 form 的数据被清空。。。
       onInputChange && onInputChange(value);
     }
-    if (mode === "tags") {
+    if (mode === 'tags') {
       tagInputTemValueRef.current = value;
     }
   };
@@ -7741,12 +7748,12 @@ const Select = /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_a
       // 如果是必须展示默认值，不通过列表匹配的话，进入这个判断
       // 如果是 LiveSearch 的话，也要把传进来的 defaultValue 赋值给 selectValue
       // 为了防止 showSearch 的时候 input框 的值被清空，这边要加上 showSearch 的判断
-      if (showDefaultValue || showSearch || mode === "liveSearch") {
+      if (showDefaultValue || showSearch || mode === 'liveSearch') {
         if (multiple) {
           setSelectValueList(defaultValue);
         } else {
           // 如果是字符串，则通过 options 匹配
-          if (typeof defaultValue !== "object") {
+          if (typeof defaultValue !== 'object') {
             // 为了兼容 showSearch 的逻辑，这里需要单独处理，如果找到 selectOption，则赋值给 selectValue
             let selectOption = options === null || options === void 0 ? void 0 : options.find(option => (option === null || option === void 0 ? void 0 : option[valueKey]) === defaultValue);
             if (!selectOption) {
@@ -7758,7 +7765,7 @@ const Select = /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_a
             }
             setSelectValue(selectOption);
             setTempSelectValue(selectOption);
-          } else if (typeof defaultValue === "object") {
+          } else if (typeof defaultValue === 'object') {
             // console.log("-------------------------------: ", defaultValue);
             setSelectValue(defaultValue);
             setTempSelectValue(defaultValue);
@@ -7769,7 +7776,7 @@ const Select = /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_a
           const selectOption = options.filter(option => {
             if (Array.isArray(defaultValue)) {
               return defaultValue.some(value => {
-                const matchValue = typeof value === "object" ? value[valueKey] : value;
+                const matchValue = typeof value === 'object' ? value[valueKey] : value;
                 return option[valueKey] === matchValue;
               });
             } else {
@@ -7777,11 +7784,11 @@ const Select = /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_a
             }
           });
           setSelectValueList(selectOption);
-        } else if (mode === "tags") {
+        } else if (mode === 'tags') {
           // 如果是 tags 模式，单独处理
           if (defaultValue) {
             setSelectValueList(Array.isArray(defaultValue) ? defaultValue.map(item => {
-              if (typeof item === "object") {
+              if (typeof item === 'object') {
                 return item;
               } else {
                 return {
@@ -7789,7 +7796,7 @@ const Select = /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_a
                   [labelKey]: item
                 };
               }
-            }) : typeof defaultValue === "object" ? [defaultValue] : [{
+            }) : typeof defaultValue === 'object' ? [defaultValue] : [{
               [valueKey]: defaultValue,
               [labelKey]: defaultValue
             }]);
@@ -7797,7 +7804,7 @@ const Select = /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_a
             setSelectValueList([]);
           }
         } else {
-          if (typeof defaultValue === "object") {
+          if (typeof defaultValue === 'object') {
             const selectOption = options.find(option => (option === null || option === void 0 ? void 0 : option[valueKey]) === (defaultValue === null || defaultValue === void 0 ? void 0 : defaultValue[valueKey]));
             // 如果找到匹配项，则设置选中项
             if (selectOption) {
@@ -7823,8 +7830,8 @@ const Select = /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_a
         }
       }
     } else {
-      setSelectValue("");
-      setTempSelectValue("");
+      setSelectValue('');
+      setTempSelectValue('');
       setSelectValueList([]);
     }
   }, [defaultValue, options]);
@@ -7863,20 +7870,20 @@ const Select = /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_a
         debugger;
         console.log("selectValue: ", selectValue);
       } */
-    if (typeof selectValue === "object" ? !(0,Utils.isEmptyO)(selectValue) : selectValue) {
+    if (typeof selectValue === 'object' ? !(0,Utils.isEmptyO)(selectValue) : selectValue) {
       handleValidate(selectValue);
     }
     if (
     // 下面这些情况不用在意 input 的值
-    !inputRef.current || !isInputFocusing && !showSearch && mode !== "liveSearch" || !selectValue) {
+    !inputRef.current || !isInputFocusing && !showSearch && mode !== 'liveSearch' || !selectValue) {
       if (inputRef.current) {
-        inputRef.current.value = ""; // 如果 selectValue 没值，则 有input 的话， input 的值也要清空
+        inputRef.current.value = ''; // 如果 selectValue 没值，则 有input 的话， input 的值也要清空
       }
       return;
     }
-    if (typeof selectValue === "object") {
+    if (typeof selectValue === 'object') {
       if (!(selectValue !== null && selectValue !== void 0 && selectValue[valueKey])) {
-        inputRef.current.value = "";
+        inputRef.current.value = '';
       } else {
         inputRef.current.value = selectValue[labelKey];
       }
@@ -7899,7 +7906,7 @@ const Select = /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_a
       ...(wrapperWidth ? {
         width: wrapperWidth
       } : {
-        width: "100%",
+        width: '100%',
         flex: 1
       })
     }
@@ -7910,38 +7917,38 @@ const Select = /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_a
     onMouseEnter: handleMouseEnter,
     onMouseLeave: handleMouseLeave,
     onClick: handleFormContentClick,
-    className: "adou-select d-flex align-items-center ps-0 pe-2 ".concat(selectContentExternalCls || "", " ").concat(isFocus ? "adou-form-control-focus" : ""),
+    className: "adou-select d-flex align-items-center ps-0 pe-2 ".concat(selectContentExternalCls || '', " ").concat(isFocus ? 'adou-form-control-focus' : ''),
     style: {
-      textAlign: "left",
-      background: disabled ? "#eee" : transparent ? "transparent" : backgroundColor ? backgroundColor : varient === "filled" ? "#f0f0f0" : "",
+      textAlign: 'left',
+      background: disabled ? '#eee' : transparent ? 'transparent' : backgroundColor ? backgroundColor : varient === 'filled' ? '#f0f0f0' : '',
       flex: 1,
-      minHeight: size === "lg" ? "48px" : size === "sm" ? "33.6px" : "38px",
+      minHeight: size === 'lg' ? '48px' : size === 'sm' ? '33.6px' : '38px',
       // 如果 varient 是 boderless，则边框为空，否则，如果不是 formItem，则边框为 1px solid #ced4da，否则为边框为 空
-      border: varient === "borderless" ? "none" : !isFormItem ? "1px solid #ced4da" : "",
-      cursor: disabled ? "not-allowed" : "pointer",
+      border: varient === 'borderless' ? 'none' : !isFormItem ? '1px solid #ced4da' : '',
+      cursor: disabled ? 'not-allowed' : 'pointer',
       ...formStyle
     }
   }, prefix && /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("div", {
     className: "prefix me-2"
-  }, prefix), multiple || mode === "tags" ? /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("div", {
+  }, prefix), multiple || mode === 'tags' ? /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("div", {
     className: "adou-select-value-list ps-2 d-flex flex-wrap align-items-center flex-fill"
   }, selectValueList === null || selectValueList === void 0 ? void 0 : selectValueList.map((item, index) => /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("div", {
     style: {
-      backgroundColor: "rgb(0 0 0 / 6%)"
+      backgroundColor: 'rgb(0 0 0 / 6%)'
     },
     className: "adou-select-value-list-item d-flex px-2 my-1 rounded-1 me-1",
     key: index
   }, /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("span", {
     className: "adou-select-value-list-item-text me-1"
-  }, typeof item === "object" ? item[labelKey] : item), !disabled && /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("span", {
+  }, typeof item === 'object' ? item[labelKey] : item), !disabled && /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("span", {
     className: "adou-select-value-list-item-close",
     onClick: e => handleRemoveSelectValueListItem(e, item, index)
-  }, /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement(icon_close, null)))), (showSearch || filterOption || mode === "tags") && /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("div", {
+  }, /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement(icon_close, null)))), (showSearch || filterOption || mode === 'tags') && /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("div", {
     className: "adou-select-input-box flex-fill"
   }, /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("input", {
     onKeyDown: handleTagsInputKeyDown,
     onBlur: handleTagsInputBlur,
-    placeholder: selectValue !== null && selectValue !== void 0 && selectValue[valueKey] ? "" : placeholder,
+    placeholder: selectValue !== null && selectValue !== void 0 && selectValue[valueKey] ? '' : placeholder,
     onFocus: handleInputFocus,
     ref: inputRef,
     onChange: handleInputChange,
@@ -7953,9 +7960,9 @@ const Select = /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_a
     style: {
       backgroundColor: judgeInputBgColor(),
       // width: "100%",
-      cursor: disabled ? "not-allowed" : "",
-      ...(mode === "tags" && {
-        maxWidth: "80px" // tags下最大宽度
+      cursor: disabled ? 'not-allowed' : '',
+      ...(mode === 'tags' && {
+        maxWidth: '80px' // tags下最大宽度
       }),
       ...inputStyle
     }
@@ -7963,22 +7970,22 @@ const Select = /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_a
   // 情况三：如果 不是多选，并且 selectValue 有值，则展示 selectValue
   (selectValue === null || selectValue === void 0 ? void 0 : selectValue[valueKey]) === 0 || (selectValue === null || selectValue === void 0 ? void 0 : selectValue[valueKey]) === false ? ellipsis ?
   // 如果 ellipsis 为 true，则需要超出省略
-  (!isInputFocusing || multiple) && !showSearch && mode !== "liveSearch" ? /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("div", {
+  (!isInputFocusing || multiple) && !showSearch && mode !== 'liveSearch' ? /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("div", {
     title: selectValue.title || selectValue[labelKey] || selectValue,
-    className: "adou-select-value ps-2 ".concat(contentWrap ? "ellipsis-1" : "") // ellipsis-1 加上这个，选择框会自动变大或者变小
+    className: "adou-select-value ps-2 ".concat(contentWrap ? 'ellipsis-1' : '') // ellipsis-1 加上这个，选择框会自动变大或者变小
     ,
     style: {
-      maxWidth: "100%",
+      maxWidth: '100%',
       // 设置最大宽度来支持 ellipsis
       ...(!showSearch && !filterOption ? {
         flex: 1
       } : {})
     }
-  }, selectValue[labelKey]) : "" :
+  }, selectValue[labelKey]) : '' :
   /*#__PURE__*/
   // 情况四：如果 不是多选，并且 ellipsis 为 false，则不需要超出省略
   external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("div", {
-    className: "adou-select-value ps-2 ".concat(contentWrap ? "ellipsis-1" : ""),
+    className: "adou-select-value ps-2 ".concat(contentWrap ? 'ellipsis-1' : ''),
     style: {
       ...(!showSearch && !filterOption ? {
         flex: 1
@@ -7986,13 +7993,13 @@ const Select = /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_a
     }
   }, selectValue[labelKey]) :
   // 情况五：如果 不是多选，并且 selectValue 没有值，则展示 empty-placeholder(因为没有 input)
-  mode !== "liveSearch" && !showSearch && !filterOption && /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("div", {
+  mode !== 'liveSearch' && !showSearch && !filterOption && /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("div", {
     className: "select-value-empty-placeholder flex-fill text-secondary px-2"
-  }, placeholder), (showSearch || filterOption || mode === "liveSearch") && !multiple && mode !== "tags" && /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("div", {
+  }, placeholder), (showSearch || filterOption || mode === 'liveSearch') && !multiple && mode !== 'tags' && /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("div", {
     className: "adou-select-input-box flex-fill",
     title: selectValue.title || (selectValue === null || selectValue === void 0 ? void 0 : selectValue[labelKey]) || selectValue
   }, /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("input", {
-    placeholder: selectValue !== null && selectValue !== void 0 && selectValue[valueKey] ? "" : placeholder,
+    placeholder: selectValue !== null && selectValue !== void 0 && selectValue[valueKey] ? '' : placeholder,
     onFocus: handleInputFocus,
     ref: inputRef,
     onChange: handleInputChange,
@@ -8003,8 +8010,8 @@ const Select = /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_a
     "aria-describedby": "basic-addon1",
     style: {
       backgroundColor: judgeInputBgColor(),
-      width: "100%",
-      cursor: disabled ? "not-allowed" : "",
+      width: '100%',
+      cursor: disabled ? 'not-allowed' : '',
       ...inputStyle
     }
   })), suffix && /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("div", {
@@ -8014,36 +8021,53 @@ const Select = /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_a
   }, /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("i", {
     className: "adou-select-clear-icon fa-regular fa-circle-xmark text-secondary",
     style: {
-      fontSize: "12px",
-      cursor: "pointer"
+      fontSize: '12px',
+      cursor: 'pointer'
     },
     onClick: handleClearIconClick
   })) : commonSuffixContent ? /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("div", {
     className: "adou-select-common-sufiix-content text-secondary",
     style: {
-      textAlign: "right",
-      whiteSpace: "nowrap"
+      textAlign: 'right',
+      whiteSpace: 'nowrap'
     }
   }, commonSuffixContent) : null, commonSuffixIcon ? /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("i", {
     onClick: handleClickCommonSuffixIcon,
     className: "".concat(commonSuffixIcon, " adou-select-common-suffix-icon")
   }) : null, showIcon ? /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("div", {
-    className: "adou-select-icon-box ms-2 ".concat(!showSearch && !(selectValue !== null && selectValue !== void 0 && selectValue[valueKey]) && !commonSuffixContent ? "text-end" // 去掉 flex-fill
-    : "")
+    className: "adou-select-icon-box ms-2 ".concat(!showSearch && !(selectValue !== null && selectValue !== void 0 && selectValue[valueKey]) && !commonSuffixContent ? 'text-end' // 去掉 flex-fill
+    : '')
   }, /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("i", {
     onClick: handleIconClick,
     style: {
       color: labelColor,
-      right: isAddon ? "0px" : "14px"
+      right: isAddon ? '0px' : '14px'
     },
-    className: "adou-select-icon fa-solid fa-angle-down ".concat(isShow ? "rotate-up" : "rotate-down")
-  })) : null, mode === "common" && !showSearch && /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("input", {
+    className: "adou-select-icon ".concat(isShow ? 'rotate-up' : 'rotate-down')
+  }, /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("svg", {
+    className: "".concat(isShow ? 'rotate-up' : 'rotate-down'),
+    width: "10px",
+    height: "10px",
+    viewBox: "0 -4.5 20 20"
+  }, /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("g", {
+    stroke: "none",
+    "stroke-width": "1",
+    fill: "none"
+  }, /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("g", {
+    transform: "translate(-180.000000, -6684.000000)",
+    className: "arrow-fill-g",
+    fill: "#a5a5a5"
+  }, /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("g", {
+    transform: "translate(56.000000, 160.000000)"
+  }, /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("path", {
+    d: "M144,6525.39 L142.594,6524 L133.987,6532.261 L133.069,6531.38 L133.074,6531.385 L125.427,6524.045 L124,6525.414 C126.113,6527.443 132.014,6533.107 133.987,6535 C135.453,6533.594 134.024,6534.965 144,6525.39"
+  }))))))) : null, mode === 'common' && !showSearch && /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("input", {
     type: "text",
     style: {
-      width: "0px",
-      height: "1px",
+      width: '0px',
+      height: '1px',
       opacity: 0,
-      border: "none",
+      border: 'none',
       padding: 0
     }
   })), addonAfter && /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("div", {
@@ -8053,30 +8077,30 @@ const Select = /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_a
     }
   }, addonAfter)), /*#__PURE__*/external_root_ReactDOM_commonjs2_react_dom_commonjs_react_dom_amd_react_dom_default().createPortal( /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("div", {
     style: {
-      position: "absolute",
-      top: customSelectContentPosition.y + customSelectContentPosition.height + "px",
-      left: customSelectContentPosition.x + "px",
+      position: 'absolute',
+      top: customSelectContentPosition.y + customSelectContentPosition.height + 'px',
+      left: customSelectContentPosition.x + 'px',
       ...(isShow ? {
-        maxHeight: calcMaxHeight > parseInt(optionContentMaxHeight) ? optionContentMaxHeight : calcMaxHeight + "px"
+        maxHeight: calcMaxHeight > parseInt(optionContentMaxHeight) ? optionContentMaxHeight : calcMaxHeight + 'px'
       } : {}),
       ...(closing ? {
         opacity: 0,
-        transform: "scaleY(0)"
+        transform: 'scaleY(0)'
       } : {}),
-      width: optionContentWidth + "px",
+      width: optionContentWidth + 'px',
       ...optionContentStyle
     },
     ref: contentRef,
-    className: "adou-select-option-content ".concat(isShow ? "adou-select-option-content-open" : "", " ").concat(closing ? "aduo-select-option-content-closing" : "")
+    className: "adou-select-option-content ".concat(isShow ? 'adou-select-option-content-open' : '', " ").concat(closing ? 'aduo-select-option-content-closing' : '')
   }, isShow && /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("div", {
     className: "adou-select-option-box"
   }, newOptions.length > 0 ? newOptions.map((item, index) => /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("div", {
     onClick: e => handleSelect(item, e),
     style: {
-      color: judgeColor(item, "font"),
-      backgroundColor: judgeColor(item, "bgc")
+      color: judgeColor(item, 'font'),
+      backgroundColor: judgeColor(item, 'bgc')
     },
-    className: "adou-select-option ".concat((selectValue === null || selectValue === void 0 ? void 0 : selectValue[valueKey]) == item[valueKey] ? "adou-select-option-active" : "", " ").concat(focusedIndex === index ? "focused" : ""),
+    className: "adou-select-option ".concat((selectValue === null || selectValue === void 0 ? void 0 : selectValue[valueKey]) == item[valueKey] ? 'adou-select-option-active' : '', " ").concat(focusedIndex === index ? 'focused' : ''),
     key: item[valueKey]
   }, optionRender ? optionRender(item, labelKey, valueKey) : item.render ? item.render(item, labelKey, valueKey) : item[labelKey])) : /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("div", {
     className: "none-match px-2"
