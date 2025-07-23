@@ -6611,7 +6611,7 @@ ___CSS_LOADER_EXPORT___.push([module.id, `@charset "UTF-8";
   font-size: 14px;
   white-space: nowrap;
   opacity: 0;
-  transition: opacity 0.2s ease-in-out;
+  transition: opacity 0.25s cubic-bezier(0.51, 0.92, 0.24, 1.15), transform 0.25s cubic-bezier(0.51, 0.92, 0.24, 1.15);
   box-shadow: 0px 0px 12px rgba(0, 0, 0, 0.12);
   border: 1px solid #e4e7ed;
   z-index: 1;
@@ -6640,9 +6640,26 @@ ___CSS_LOADER_EXPORT___.push([module.id, `@charset "UTF-8";
     transform: translate(10px, -50%);
   } */
 }
+.adou-popover.adou-popover-top {
+  transform-origin: bottom center;
+  transform: scale(0.95) translateY(10px);
+}
+.adou-popover.adou-popover-bottom {
+  transform-origin: top center;
+  transform: scale(0.95) translateY(-10px);
+}
+.adou-popover.adou-popover-left {
+  transform-origin: right center;
+  transform: scale(0.95) translateX(10px);
+}
+.adou-popover.adou-popover-right {
+  transform-origin: left center;
+  transform: scale(0.95) translateX(-10px);
+}
 .adou-popover.show-tool-tip {
   opacity: 1;
   pointer-events: auto;
+  transform: scale(1) translate(0, 0);
   /* 启用鼠标事件 */
 }
 
@@ -6679,7 +6696,7 @@ ___CSS_LOADER_EXPORT___.push([module.id, `@charset "UTF-8";
   left: -8px;
   top: 50%;
   transform: translateY(-50%);
-}`, "",{"version":3,"sources":["webpack://./src/index.scss"],"names":[],"mappings":"AAAA,gBAAgB;AAIhB;EACE,gBAAA;EACA,kBAAA;EACA,uBAAA;EACA,cAAA;EACA,iBAAA;EACA,kBAAA;EACA,eAAA;EACA,mBAAA;EACA,UAAA;EACA,oCAAA;EACA,4CAAA;EACA,yBAAA;EACA,UAAA;EAEA,4BAAA;EAQA;;;;;;;;;;;;;;;;;;;;;;KAAA;AAYF;AAlBE;EACE,UAAA;EACA,oBAAA;EACA,WAAA;AAoBJ;;AAQA;EACE,kBAAA;EACA,QAAA;EACA,SAAA;EACA,mBAAA;AALF;AAOE;EACE,2BAAA;EACA,sDAAA;EACA,YAAA;EACA,SAAA;EACA,2BAAA;AALJ;AAQE;EACE,2BAAA;EACA,sDAAA;EACA,SAAA;EACA,SAAA;EACA,2BAAA;AANJ;AASE;EACE,2BAAA;EACA,sDAAA;EACA,WAAA;EACA,QAAA;EACA,2BAAA;AAPJ;AAUE;EACE,2BAAA;EACA,sDAAA;EACA,UAAA;EACA,QAAA;EACA,2BAAA;AARJ","sourcesContent":[".adou-popover-wrapper {\r\n  // position: relative;\r\n}\r\n\r\n.adou-popover {\r\n  min-width: 150px;\r\n  position: absolute;\r\n  background-color: white;\r\n  color: #606266;\r\n  padding: 5px 10px;\r\n  border-radius: 4px;\r\n  font-size: 14px;\r\n  white-space: nowrap;\r\n  opacity: 0;\r\n  transition: opacity 0.2s ease-in-out;\r\n  box-shadow: 0px 0px 12px rgba(0, 0, 0, .12);\r\n  border: 1px solid #e4e7ed;\r\n  z-index: 1;\r\n  // pointer-events: none;\r\n  /* 防止鼠标事件穿透到 Tooltip 后面的元素 */\r\n\r\n  &.show-tool-tip {\r\n    opacity: 1;\r\n    pointer-events: auto;\r\n    /* 启用鼠标事件 */\r\n  }\r\n\r\n  /*  &.adou-popover-top {\r\n    bottom: 100%;\r\n    left: 50%;\r\n    transform: translate(-50%, -20px);\r\n  }\r\n\r\n  &.adou-popover-bottom {\r\n    top: 100%;\r\n    left: 50%;\r\n    transform: translate(-50%, 10px);\r\n  }\r\n\r\n  &.adou-popover-left {\r\n    right: 100%;\r\n    top: 50%;\r\n    transform: translate(-10px, -50%);\r\n  }\r\n\r\n  &.adou-popover-right {\r\n    left: 100%;\r\n    top: 50%;\r\n    transform: translate(10px, -50%);\r\n  } */\r\n}\r\n\r\n.adou-popover-arrow {\r\n  position: absolute;\r\n  width: 0;\r\n  height: 0;\r\n  border-style: solid;\r\n\r\n  &.adou-popover-arrow-top {\r\n    border-width: 8px 8px 0 8px;\r\n    border-color: #fff transparent transparent transparent;\r\n    bottom: -8px;\r\n    left: 50%;\r\n    transform: translateX(-50%);\r\n  }\r\n\r\n  &.adou-popover-arrow-bottom {\r\n    border-width: 0 8px 8px 8px;\r\n    border-color: transparent transparent #fff transparent;\r\n    top: -8px;\r\n    left: 50%;\r\n    transform: translateX(-50%);\r\n  }\r\n\r\n  &.adou-popover-arrow-left {\r\n    border-width: 8px 0 8px 8px;\r\n    border-color: transparent transparent transparent #fff;\r\n    right: -8px;\r\n    top: 50%;\r\n    transform: translateY(-50%);\r\n  }\r\n\r\n  &.adou-popover-arrow-right {\r\n    border-width: 8px 8px 8px 0;\r\n    border-color: transparent #fff transparent transparent;\r\n    left: -8px;\r\n    top: 50%;\r\n    transform: translateY(-50%);\r\n  }\r\n}"],"sourceRoot":""}]);
+}`, "",{"version":3,"sources":["webpack://./src/index.scss"],"names":[],"mappings":"AAAA,gBAAgB;AAIhB;EACE,gBAAA;EACA,kBAAA;EACA,uBAAA;EACA,cAAA;EACA,iBAAA;EACA,kBAAA;EACA,eAAA;EACA,mBAAA;EACA,UAAA;EACA,oHAAA;EAEA,4CAAA;EACA,yBAAA;EACA,UAAA;EAEA,4BAAA;EA6BA;;;;;;;;;;;;;;;;;;;;;;KAAA;AAVF;AAjBE;EACE,+BAAA;EACA,uCAAA;AAmBJ;AAhBE;EACE,4BAAA;EACA,wCAAA;AAkBJ;AAfE;EACE,8BAAA;EACA,uCAAA;AAiBJ;AAdE;EACE,6BAAA;EACA,wCAAA;AAgBJ;AAbE;EACE,UAAA;EACA,oBAAA;EACA,mCAAA;EACA,WAAA;AAeJ;;AAaA;EACE,kBAAA;EACA,QAAA;EACA,SAAA;EACA,mBAAA;AAVF;AAYE;EACE,2BAAA;EACA,sDAAA;EACA,YAAA;EACA,SAAA;EACA,2BAAA;AAVJ;AAaE;EACE,2BAAA;EACA,sDAAA;EACA,SAAA;EACA,SAAA;EACA,2BAAA;AAXJ;AAcE;EACE,2BAAA;EACA,sDAAA;EACA,WAAA;EACA,QAAA;EACA,2BAAA;AAZJ;AAeE;EACE,2BAAA;EACA,sDAAA;EACA,UAAA;EACA,QAAA;EACA,2BAAA;AAbJ","sourcesContent":[".adou-popover-wrapper {\r\n  // position: relative;\r\n}\r\n\r\n.adou-popover {\r\n  min-width: 150px;\r\n  position: absolute;\r\n  background-color: white;\r\n  color: #606266;\r\n  padding: 5px 10px;\r\n  border-radius: 4px;\r\n  font-size: 14px;\r\n  white-space: nowrap;\r\n  opacity: 0;\r\n  transition: opacity 0.25s cubic-bezier(0.51, 0.92, 0.24, 1.15),\r\n    transform 0.25s cubic-bezier(0.51, 0.92, 0.24, 1.15);\r\n  box-shadow: 0px 0px 12px rgba(0, 0, 0, 0.12);\r\n  border: 1px solid #e4e7ed;\r\n  z-index: 1;\r\n  // pointer-events: none;\r\n  /* 防止鼠标事件穿透到 Tooltip 后面的元素 */\r\n\r\n  &.adou-popover-top {\r\n    transform-origin: bottom center;\r\n    transform: scale(0.95) translateY(10px);\r\n  }\r\n\r\n  &.adou-popover-bottom {\r\n    transform-origin: top center;\r\n    transform: scale(0.95) translateY(-10px);\r\n  }\r\n\r\n  &.adou-popover-left {\r\n    transform-origin: right center;\r\n    transform: scale(0.95) translateX(10px);\r\n  }\r\n\r\n  &.adou-popover-right {\r\n    transform-origin: left center;\r\n    transform: scale(0.95) translateX(-10px);\r\n  }\r\n\r\n  &.show-tool-tip {\r\n    opacity: 1;\r\n    pointer-events: auto;\r\n    transform: scale(1) translate(0, 0);\r\n    /* 启用鼠标事件 */\r\n  }\r\n\r\n  /*  &.adou-popover-top {\r\n    bottom: 100%;\r\n    left: 50%;\r\n    transform: translate(-50%, -20px);\r\n  }\r\n\r\n  &.adou-popover-bottom {\r\n    top: 100%;\r\n    left: 50%;\r\n    transform: translate(-50%, 10px);\r\n  }\r\n\r\n  &.adou-popover-left {\r\n    right: 100%;\r\n    top: 50%;\r\n    transform: translate(-10px, -50%);\r\n  }\r\n\r\n  &.adou-popover-right {\r\n    left: 100%;\r\n    top: 50%;\r\n    transform: translate(10px, -50%);\r\n  } */\r\n}\r\n\r\n.adou-popover-arrow {\r\n  position: absolute;\r\n  width: 0;\r\n  height: 0;\r\n  border-style: solid;\r\n\r\n  &.adou-popover-arrow-top {\r\n    border-width: 8px 8px 0 8px;\r\n    border-color: #fff transparent transparent transparent;\r\n    bottom: -8px;\r\n    left: 50%;\r\n    transform: translateX(-50%);\r\n  }\r\n\r\n  &.adou-popover-arrow-bottom {\r\n    border-width: 0 8px 8px 8px;\r\n    border-color: transparent transparent #fff transparent;\r\n    top: -8px;\r\n    left: 50%;\r\n    transform: translateX(-50%);\r\n  }\r\n\r\n  &.adou-popover-arrow-left {\r\n    border-width: 8px 0 8px 8px;\r\n    border-color: transparent transparent transparent #fff;\r\n    right: -8px;\r\n    top: 50%;\r\n    transform: translateY(-50%);\r\n  }\r\n\r\n  &.adou-popover-arrow-right {\r\n    border-width: 8px 8px 8px 0;\r\n    border-color: transparent #fff transparent transparent;\r\n    left: -8px;\r\n    top: 50%;\r\n    transform: translateY(-50%);\r\n  }\r\n}"],"sourceRoot":""}]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 
@@ -7121,102 +7138,88 @@ const Popover = /*#__PURE__*/(0,external_root_React_commonjs2_react_commonjs_rea
   const [containerHeight, setContainerHeight] = (0,external_root_React_commonjs2_react_commonjs_react_amd_react_.useState)("");
   const childrenRef = (0,external_root_React_commonjs2_react_commonjs_react_amd_react_.useRef)(null);
   const contentRef = (0,external_root_React_commonjs2_react_commonjs_react_amd_react_.useRef)(null);
-
-  // 用来实现外部传来的show参与到控制是否展示的逻辑中来(偏业务逻辑了)
-  //  不能用 isShow是因为 isShow是异步的。。
-  const isShowRef = (0,external_root_React_commonjs2_react_commonjs_react_amd_react_.useRef)(show);
-  const [isVisible, setIsVisible] = (0,external_root_React_commonjs2_react_commonjs_react_amd_react_.useState)(false); // 用来实现当鼠标进入提示区域可以让提示存在的效果
+  const isShowAllowedByProp = (0,external_root_React_commonjs2_react_commonjs_react_amd_react_.useRef)(show);
+  isShowAllowedByProp.current = show;
+  const [isVisible, setIsVisible] = (0,external_root_React_commonjs2_react_commonjs_react_amd_react_.useState)(false);
   const popoverRef = (0,external_root_React_commonjs2_react_commonjs_react_amd_react_.useRef)(null);
-  // ！！！用来记录鼠标是否进入提示区域
-  //       当鼠标离开内容区域的时候，去判断是否进入了提示区域，如果进入，则不隐藏提示文字
   const isEnterPopoverRef = (0,external_root_React_commonjs2_react_commonjs_react_amd_react_.useRef)(false);
   const enterTimeoutRef = (0,external_root_React_commonjs2_react_commonjs_react_amd_react_.useRef)(null);
+  const calcContentPosition = () => {
+    if (!childrenRef.current) return;
+    const position = (0,Utils.getAbsolutePosition)(childrenRef.current, 0, 0);
+    if (popoverRef.current) {
+      position.y = position.y - popoverRef.current.clientHeight - 12;
+    }
+    setCustomSelectContentPosition(position);
+  };
   const handleTriggerClick = () => {
-    if (isVisible) return; // 防止此时Popover已经展示，再点击关闭后会立马又展示
-    // 进入的时候，如果存在定时器，也清除掉
+    if (isVisible) return;
     if (enterTimeoutRef.current) {
       clearTimeout(enterTimeoutRef.current);
     }
+    calcContentPosition(); // Calculate position on each click
+
     enterTimeoutRef.current = setTimeout(() => {
-      if (!isShowRef.current) return; // 如果外边的不想展示，则在这里return，不继续执行展示逻辑
+      if (!isShowAllowedByProp.current) return;
       setIsShow(true);
       setTimeout(() => {
         setIsVisible(true);
       }, 50);
-    }, 200); // 延迟100毫秒
+    }, 200);
   };
-  const handleMouseLeave = () => {
+  const handleClosePopover = () => {
+    // CRITICAL FIX: Clear any pending "show" action.
     if (enterTimeoutRef.current) {
       clearTimeout(enterTimeoutRef.current);
     }
+    isEnterPopoverRef.current = false;
+
+    // 这边加个定时器，让 动画消失的慢一点--注意：要比下面的 setIsShow 定时器的时间少一点
     setTimeout(() => {
-      if (!isEnterPopoverRef.current) {
-        setIsVisible(false);
-      }
-    }, 200);
+      setIsVisible(false);
+    }, 100);
     setTimeout(() => {
-      if (!isEnterPopoverRef.current) {
-        setIsShow(false);
+      setIsShow(false);
+      if (onClose) {
+        onClose();
       }
-    }, 300);
+      console.log("关闭: ");
+    }, 300); // Wait for transition to finish
   };
   const handleClick = e => {
-    e.stopPropagation(); // 阻止事件的冒泡
+    e.stopPropagation();
   };
-
-  /**
-   * 用来实现当鼠标进入提示区域可以让提示存在的效果
-   */
   const handleMouseEnterPopover = () => {
     isEnterPopoverRef.current = true;
-    // 如果当前是显示状态才能设置isVisible为true，不然鼠标移到提示区域也会展示
     setIsVisible(true);
     setTimeout(() => {
       setIsShow(true);
     }, 400);
   };
-  const handleClosePopover = () => {
-    isEnterPopoverRef.current = false;
-    setTimeout(() => {
-      setIsVisible(false);
-    }, 200);
-    setTimeout(() => {
-      setIsShow(false);
-      onClose && onClose();
-    }, 300);
-  };
-  const calcContentPosition = () => {
-    if (!childrenRef.current) return;
-    const position = (0,Utils.getAbsolutePosition)(childrenRef.current, 0, 0);
-    // 只有当 popoverRef.current 存在的时候，才减去 popover 的高度。
-    // 不然 position.y 会是 NaN，会突然出现到底部，然后再回到正确的位置，导致滚动条闪烁
-    if (popoverRef.current) {
-      var _popoverRef$current;
-      position.y = position.y - ((_popoverRef$current = popoverRef.current) === null || _popoverRef$current === void 0 ? void 0 : _popoverRef$current.clientHeight) - 12;
-    }
-    console.log("position: ", position);
-    setCustomSelectContentPosition(position);
-  };
-  (0,Utils.useClickOutside)([popoverRef], handleClosePopover, isVisible && isShow && Boolean(popoverRef.current)
-  /* {
-    isVisible,
-    isShow,
-    show,
-    ref: Boolean(popoverRef.current),
-  } */);
+  (0,Utils.useClickOutside)([childrenRef, popoverRef], handleClosePopover, isShow);
   (0,external_root_React_commonjs2_react_commonjs_react_amd_react_.useImperativeHandle)(ref, () => ({
     handleClose: handleClosePopover
   }));
   (0,external_root_React_commonjs2_react_commonjs_react_amd_react_.useEffect)(() => {
-    isShowRef.current = show;
-    if (show) {
+    isShowAllowedByProp.current = show;
+    if (!show && isShow) {
+      handleClosePopover();
+    }
+  }, [show, isShow]);
+  (0,external_root_React_commonjs2_react_commonjs_react_amd_react_.useEffect)(() => {
+    if (isShow) {
+      // Recalculate position and height once it's rendered.
       calcContentPosition();
       setTimeout(() => {
-        var _contentRef$current;
-        setContainerHeight("".concat(((_contentRef$current = contentRef.current) === null || _contentRef$current === void 0 ? void 0 : _contentRef$current.clientHeight) + 22, "px"));
+        if (contentRef.current) {
+          setContainerHeight("".concat(contentRef.current.clientHeight + 22, "px"));
+        }
       }, 10);
     }
-  }, [show, contentRef.current, childrenRef.current, popoverRef.current]);
+  }, [isShow, content]);
+  (0,external_root_React_commonjs2_react_commonjs_react_amd_react_.useEffect)(() => {
+    console.log("isShow: ", isShow);
+  }, [isShow]);
   return /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement(external_root_React_commonjs2_react_commonjs_react_amd_react_.Fragment, null, /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("div", {
     ref: childrenRef,
     className: "adou-popover-trigger",
@@ -7234,7 +7237,6 @@ const Popover = /*#__PURE__*/(0,external_root_React_commonjs2_react_commonjs_rea
       color: color,
       borderColor: borderColor,
       padding: "8px",
-      // 给点内边距
       zIndex: 2,
       height: containerHeight
     }

@@ -660,8 +660,10 @@ var update = injectStylesIntoStyleTag_default()(cjs_ruleSet_1_rules_1_use_2_src/
 
 const Checkbox = (_ref, ref) => {
   let {
+    contentClassName = "align-items-start",
+    labelClassName,
     uniqId,
-    height = "39.6px",
+    height,
     optionClassName,
     width,
     valueKey = "value",
@@ -796,7 +798,7 @@ const Checkbox = (_ref, ref) => {
     },
     className: "".concat(inputGroup ? "input-group-text" : "", " label-box")
   }, label), /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("div", {
-    className: "checkbox-form-content option-box",
+    className: "checkbox-form-content option-box ".concat(contentClassName),
     style: {
       display: inline ? "flex" : ""
     }
@@ -821,7 +823,7 @@ const Checkbox = (_ref, ref) => {
     value: item[valueKey],
     readOnly: readOnly
   }), /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("label", {
-    className: "form-check-label",
+    className: "".concat(labelClassName, " form-check-label"),
     htmlFor: item[valueKey] + uniqId
   }, item[labelKey] || "Default Checkbox"))), suffixContent && /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("div", {
     className: "".concat(suffixContentType === "button" ? "suffix-content-btn-wrapper px-2" : "ms-2")

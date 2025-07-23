@@ -42,7 +42,7 @@ const ListGroup = ({
   columnMaxHeight,
   lineBreak = false,
   listPerColumn,
-  height,
+  height = "100%",
   maxHeight,
   activeOnClick = true,
   externalClassName,
@@ -191,7 +191,7 @@ const ListGroup = ({
 
   return (
     <div
-      className={`list-group-wrapper ${externalClassName || ""}`}
+      className={`list-group-wrapper h-100 ${externalClassName || ""}`}
       ref={listGroupRef}
     >
       {lineBreak && (columnMaxHeight || maxHeight || parentMaxHeight) ? (

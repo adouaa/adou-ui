@@ -9,6 +9,8 @@ import React, {
 import "./index.scss";
 
 interface CheckboxProps {
+  contentClassName?: string;
+  labelClassName?: string;
   uniqId?: string | number;
   height?: string;
   optionClassName?: string;
@@ -40,8 +42,10 @@ interface CheckboxProps {
 
 const Checkbox: ForwardRefRenderFunction<any, CheckboxProps> = (
   {
+    contentClassName = "align-items-start",
+    labelClassName,
     uniqId,
-    height = "39.6px",
+    height,
     optionClassName,
     width,
     valueKey = "value",
@@ -199,7 +203,7 @@ const Checkbox: ForwardRefRenderFunction<any, CheckboxProps> = (
           </span>
         )}
         <div
-          className="checkbox-form-content option-box"
+          className={`checkbox-form-content option-box ${contentClassName}`}
           style={{ display: inline ? "flex" : "" }}
         >
           {optionsList.map((item: any, index: number) => (
@@ -227,7 +231,7 @@ const Checkbox: ForwardRefRenderFunction<any, CheckboxProps> = (
                 readOnly={readOnly}
               />
               <label
-                className="form-check-label"
+                className={`${labelClassName} form-check-label`}
                 htmlFor={item[valueKey] + uniqId}
               >
                 {item[labelKey] || "Default Checkbox"}

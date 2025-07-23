@@ -584,7 +584,7 @@ const ListGroup = _ref => {
     columnMaxHeight,
     lineBreak = false,
     listPerColumn,
-    height,
+    height = "100%",
     maxHeight,
     activeOnClick = true,
     externalClassName,
@@ -706,7 +706,7 @@ const ListGroup = _ref => {
     setButtonMaxWidth(maxWidth + 32 + "px"); // 加上 padding 和额外空间
   }, [list, buttonWidth]);
   return /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("div", {
-    className: "list-group-wrapper ".concat(externalClassName || ""),
+    className: "list-group-wrapper h-100 ".concat(externalClassName || ""),
     ref: listGroupRef
   }, lineBreak && (columnMaxHeight || maxHeight || parentMaxHeight) ? /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("div", {
     className: "row g-0"

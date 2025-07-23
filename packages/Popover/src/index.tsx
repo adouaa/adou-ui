@@ -46,112 +46,101 @@ const Popover: React.FC<PopoverProps> = forwardRef(
     const childrenRef = useRef<any>(null);
     const contentRef = useRef<any>(null);
 
-    // 用来实现外部传来的show参与到控制是否展示的逻辑中来(偏业务逻辑了)
-    //  不能用 isShow是因为 isShow是异步的。。
-    const isShowRef = useRef<boolean>(show);
+    const isShowAllowedByProp = useRef<boolean>(show);
+    isShowAllowedByProp.current = show;
 
-    const [isVisible, setIsVisible] = useState(false); // 用来实现当鼠标进入提示区域可以让提示存在的效果
+    const [isVisible, setIsVisible] = useState(false);
     const popoverRef = useRef<HTMLDivElement>(null);
-    // ！！！用来记录鼠标是否进入提示区域
-    //       当鼠标离开内容区域的时候，去判断是否进入了提示区域，如果进入，则不隐藏提示文字
     const isEnterPopoverRef = useRef<boolean>(false);
     const enterTimeoutRef = useRef<NodeJS.Timeout | null>(null);
 
+    const calcContentPosition = () => {
+      if (!childrenRef.current) return;
+      const position = getAbsolutePosition(childrenRef.current, 0, 0);
+      if (popoverRef.current) {
+        position.y = position.y - popoverRef.current.clientHeight - 12;
+      }
+      setCustomSelectContentPosition(position);
+    };
+
     const handleTriggerClick = () => {
-      if (isVisible) return; // 防止此时Popover已经展示，再点击关闭后会立马又展示
-      // 进入的时候，如果存在定时器，也清除掉
+      if (isVisible) return;
       if (enterTimeoutRef.current) {
         clearTimeout(enterTimeoutRef.current);
       }
+
+      calcContentPosition(); // Calculate position on each click
+
       enterTimeoutRef.current = setTimeout(() => {
-        if (!isShowRef.current) return; // 如果外边的不想展示，则在这里return，不继续执行展示逻辑
+        if (!isShowAllowedByProp.current) return;
         setIsShow(true);
         setTimeout(() => {
           setIsVisible(true);
         }, 50);
-      }, 200); // 延迟100毫秒
+      }, 200);
     };
 
-    const handleMouseLeave = () => {
+    const handleClosePopover = () => {
+      // CRITICAL FIX: Clear any pending "show" action.
       if (enterTimeoutRef.current) {
         clearTimeout(enterTimeoutRef.current);
       }
+      isEnterPopoverRef.current = false;
+
+      // 这边加个定时器，让 动画消失的慢一点--注意：要比下面的 setIsShow 定时器的时间少一点
       setTimeout(() => {
-        if (!isEnterPopoverRef.current) {
-          setIsVisible(false);
-        }
-      }, 200);
+        setIsVisible(false);
+      }, 100);
+
       setTimeout(() => {
-        if (!isEnterPopoverRef.current) {
-          setIsShow(false);
+        setIsShow(false);
+        if (onClose) {
+          onClose();
         }
-      }, 300);
+        console.log("关闭: ");
+      }, 300); // Wait for transition to finish
     };
 
     const handleClick = (e: React.MouseEvent) => {
-      e.stopPropagation(); // 阻止事件的冒泡
+      e.stopPropagation();
     };
 
-    /**
-     * 用来实现当鼠标进入提示区域可以让提示存在的效果
-     */
     const handleMouseEnterPopover = () => {
       isEnterPopoverRef.current = true;
-      // 如果当前是显示状态才能设置isVisible为true，不然鼠标移到提示区域也会展示
       setIsVisible(true);
       setTimeout(() => {
         setIsShow(true);
       }, 400);
     };
 
-    const handleClosePopover = () => {
-      isEnterPopoverRef.current = false;
-      setTimeout(() => {
-        setIsVisible(false);
-      }, 200);
-      setTimeout(() => {
-        setIsShow(false);
-        onClose && onClose();
-      }, 300);
-    };
-
-    const calcContentPosition = () => {
-      if (!childrenRef.current) return;
-      const position = getAbsolutePosition(childrenRef.current, 0, 0);
-      // 只有当 popoverRef.current 存在的时候，才减去 popover 的高度。
-      // 不然 position.y 会是 NaN，会突然出现到底部，然后再回到正确的位置，导致滚动条闪烁
-      if (popoverRef.current) {
-        position.y = position.y - popoverRef.current?.clientHeight! - 12;
-      }
-      console.log("position: ", position);
-      setCustomSelectContentPosition(position);
-    };
-
-    useClickOutside(
-      [popoverRef],
-      handleClosePopover,
-      isVisible && isShow && Boolean(popoverRef.current)
-      /* {
-        isVisible,
-        isShow,
-        show,
-        ref: Boolean(popoverRef.current),
-      } */
-    );
+    useClickOutside([childrenRef, popoverRef], handleClosePopover, isShow);
 
     useImperativeHandle(ref, () => ({
       handleClose: handleClosePopover,
     }));
 
     useEffect(() => {
-      isShowRef.current = show;
-      if (show) {
+      isShowAllowedByProp.current = show;
+      if (!show && isShow) {
+        handleClosePopover();
+      }
+    }, [show, isShow]);
+
+    useEffect(() => {
+      if (isShow) {
+        // Recalculate position and height once it's rendered.
         calcContentPosition();
         setTimeout(() => {
-          setContainerHeight(`${contentRef.current?.clientHeight + 22}px`);
+          if (contentRef.current) {
+            setContainerHeight(`${contentRef.current.clientHeight + 22}px`);
+          }
         }, 10);
       }
-    }, [show, contentRef.current, childrenRef.current, popoverRef.current]);
+    }, [isShow, content]);
+
+    useEffect(() => {
+      console.log("isShow: ", isShow);
+    }, [isShow]);
 
     return (
       <Fragment>
@@ -162,7 +151,6 @@ const Popover: React.FC<PopoverProps> = forwardRef(
         >
           {children}
         </div>
-
         {content &&
           isShow &&
           ReactDOM.createPortal(
@@ -180,7 +168,7 @@ const Popover: React.FC<PopoverProps> = forwardRef(
                 backgroundColor: bgc,
                 color: color,
                 borderColor: borderColor,
-                padding: "8px", // 给点内边距
+                padding: "8px",
                 zIndex: 2,
                 height: containerHeight,
               }}
