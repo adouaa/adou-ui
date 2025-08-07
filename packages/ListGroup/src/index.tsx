@@ -4,6 +4,7 @@ import splitListIntoColumns from "./splitListIntoColumns";
 import "./index.scss";
 
 interface ListGroupProps {
+  buttonClassName?: string;
   activeId?: string | number;
   showBorderRadius?: boolean;
   showBorder?: boolean;
@@ -32,6 +33,7 @@ interface ListGroupProps {
 }
 
 const ListGroup = ({
+  buttonClassName,
   activeId,
   showBorderRadius = true,
   showBorder = true,
@@ -186,12 +188,12 @@ const ListGroup = ({
     });
 
     // 设置一个缓冲值，例如加上 padding 等
-    setButtonMaxWidth(maxWidth + 32 + "px"); // 加上 padding 和额外空间
+    setButtonMaxWidth(maxWidth + 8 + "px"); // 8 是 button 的 padding
   }, [list, buttonWidth]);
 
   return (
     <div
-      className={`list-group-wrapper h-100 ${externalClassName || ""}`}
+      className={`list-group-wrapper ${externalClassName || ""}`}
       ref={listGroupRef}
     >
       {lineBreak && (columnMaxHeight || maxHeight || parentMaxHeight) ? (
@@ -211,7 +213,6 @@ const ListGroup = ({
                   //   maxHeight || height || lineBreak ? parentMaxHeight : "",
                   maxHeight:
                     columnMaxHeight || maxHeight || height || parentMaxHeight,
-                  overflowY: "auto",
                   border: showBorder ? "1px solid #ccc" : "none",
                   borderRadius: showBorderRadius ? "5px" : "0",
                   boxSizing: "border-box",
@@ -225,14 +226,14 @@ const ListGroup = ({
                         onDoubleClick={(e) => handleItemDoubleClick(e, item)}
                         key={itemIndex}
                         type="button"
-                        className={`list-group-item list-group-item-action px-2 border-0 ${judgeIsActive(
-                          item
-                        )}`}
+                        className={`list-group-item list-group-item-action px-2 border-0 ${
+                          buttonClassName ? buttonClassName : ""
+                        } ${judgeIsActive(item)}`}
                         style={{
                           whiteSpace: noWrap ? "nowrap" : "normal",
                           height: itemHeight + "px",
                           // 不能用 maxWidth，因为如果是短的 label 就不起作用了
-                          // minWidth: buttonMaxWidth,
+                          minWidth: buttonMaxWidth,
                         }}
                       >
                         {item.render ? (
@@ -289,15 +290,15 @@ const ListGroup = ({
                   whiteSpace: noWrap ? "nowrap" : "normal",
                   border: "none",
                   // 不能用 maxWidth，因为如果是短的 label 就不起作用了
-                  // minWidth: buttonMaxWidth,
+                  minWidth: buttonMaxWidth,
                 }}
                 onClick={() => handleItemClick(item)}
                 onDoubleClick={(e) => handleItemDoubleClick(e, item)}
                 key={item[valueKey!]}
                 type="button"
-                className={`list-group-item list-group-item-action px-2 ${judgeIsActive(
-                  item
-                )}`}
+                className={`list-group-item list-group-item-action px-2 ${
+                  buttonClassName ? buttonClassName : ""
+                } ${judgeIsActive(item)}`}
               >
                 {item.render ? (
                   item.render(item, labelKey, valueKey)
@@ -329,5 +330,6 @@ const ListGroup = ({
     </div>
   );
 };
+
 
 export default ListGroup;

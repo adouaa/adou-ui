@@ -5,6 +5,7 @@ import React, {
   forwardRef,
   ForwardRefRenderFunction,
   useImperativeHandle,
+  useId,
 } from "react";
 import "./index.scss";
 
@@ -75,6 +76,8 @@ const Checkbox: ForwardRefRenderFunction<any, CheckboxProps> = (
   },
   ref
 ) => {
+  const _uniqueId = useId();
+
   // Function to check if an option should be checked
   const isChecked = (
     value: string,
@@ -224,7 +227,7 @@ const Checkbox: ForwardRefRenderFunction<any, CheckboxProps> = (
                 className={cls}
                 type="checkbox"
                 name={name}
-                id={item[valueKey] + uniqId}
+                id={item[valueKey] + (uniqId || _uniqueId)}
                 checked={item.checked}
                 onChange={() => handleChange(item)}
                 value={item[valueKey]}
@@ -232,7 +235,7 @@ const Checkbox: ForwardRefRenderFunction<any, CheckboxProps> = (
               />
               <label
                 className={`${labelClassName} form-check-label`}
-                htmlFor={item[valueKey] + uniqId}
+                htmlFor={item[valueKey] + (uniqId || _uniqueId)}
               >
                 {item[labelKey] || "Default Checkbox"}
               </label>

@@ -1,6 +1,7 @@
 import React from "react";
 import "./index.scss";
 interface ListGroupProps {
+    buttonClassName?: string;
     activeId?: string | number;
     showBorderRadius?: boolean;
     showBorder?: boolean;
@@ -26,5 +27,5 @@ interface ListGroupProps {
     onItemDoubleClick?: (item?: any) => void;
     render?: (item: any, labelKey: string, valueKey: string) => any;
 }
-declare const ListGroup: ({ activeId, showBorderRadius, showBorder, buttonWidth, canCancel, multiple, itemHeight, columnMaxHeight, lineBreak, listPerColumn, height, maxHeight, activeOnClick, externalClassName, noWrap, defaultSelectFirst, data, activeList: selectList, labelKey, valueKey, type, render, onItemClick, onItemDoubleClick, }: ListGroupProps) => React.JSX.Element;
+declare const ListGroup: ({ buttonClassName, activeId, showBorderRadius, showBorder, buttonWidth, canCancel, multiple, itemHeight, columnMaxHeight, lineBreak, listPerColumn, height, maxHeight, activeOnClick, externalClassName, noWrap, defaultSelectFirst, data, activeList: selectList, labelKey, valueKey, type, render, onItemClick, onItemDoubleClick, }: ListGroupProps) => React.JSX.Element;
 export default ListGroup;

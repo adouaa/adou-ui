@@ -574,6 +574,7 @@ var update = injectStylesIntoStyleTag_default()(cjs_ruleSet_1_rules_1_use_2_src/
 
 const ListGroup = _ref => {
   let {
+    buttonClassName,
     activeId,
     showBorderRadius = true,
     showBorder = true,
@@ -703,10 +704,10 @@ const ListGroup = _ref => {
     });
 
     // 设置一个缓冲值，例如加上 padding 等
-    setButtonMaxWidth(maxWidth + 32 + "px"); // 加上 padding 和额外空间
+    setButtonMaxWidth(maxWidth + 8 + "px"); // 8 是 button 的 padding
   }, [list, buttonWidth]);
   return /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("div", {
-    className: "list-group-wrapper h-100 ".concat(externalClassName || ""),
+    className: "list-group-wrapper ".concat(externalClassName || ""),
     ref: listGroupRef
   }, lineBreak && (columnMaxHeight || maxHeight || parentMaxHeight) ? /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("div", {
     className: "row g-0"
@@ -720,7 +721,6 @@ const ListGroup = _ref => {
       // maxHeight:
       //   maxHeight || height || lineBreak ? parentMaxHeight : "",
       maxHeight: columnMaxHeight || maxHeight || height || parentMaxHeight,
-      overflowY: "auto",
       border: showBorder ? "1px solid #ccc" : "none",
       borderRadius: showBorderRadius ? "5px" : "0",
       boxSizing: "border-box"
@@ -733,12 +733,12 @@ const ListGroup = _ref => {
     onDoubleClick: e => handleItemDoubleClick(e, item),
     key: itemIndex,
     type: "button",
-    className: "list-group-item list-group-item-action px-2 border-0 ".concat(judgeIsActive(item)),
+    className: "list-group-item list-group-item-action px-2 border-0 ".concat(buttonClassName ? buttonClassName : "", " ").concat(judgeIsActive(item)),
     style: {
       whiteSpace: noWrap ? "nowrap" : "normal",
-      height: itemHeight + "px"
+      height: itemHeight + "px",
       // 不能用 maxWidth，因为如果是短的 label 就不起作用了
-      // minWidth: buttonMaxWidth,
+      minWidth: buttonMaxWidth
     }
   }, item.render ? item.render(item, labelKey, valueKey) : render ? /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("div", {
     className: "label-text"
@@ -769,15 +769,15 @@ const ListGroup = _ref => {
   }, /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("button", {
     style: {
       whiteSpace: noWrap ? "nowrap" : "normal",
-      border: "none"
+      border: "none",
       // 不能用 maxWidth，因为如果是短的 label 就不起作用了
-      // minWidth: buttonMaxWidth,
+      minWidth: buttonMaxWidth
     },
     onClick: () => handleItemClick(item),
     onDoubleClick: e => handleItemDoubleClick(e, item),
     key: item[valueKey],
     type: "button",
-    className: "list-group-item list-group-item-action px-2 ".concat(judgeIsActive(item))
+    className: "list-group-item list-group-item-action px-2 ".concat(buttonClassName ? buttonClassName : "", " ").concat(judgeIsActive(item))
   }, item.render ? item.render(item, labelKey, valueKey) : render ? /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("div", {
     className: "label-text"
   }, render(item, labelKey, valueKey)) : multiple ? /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("div", {

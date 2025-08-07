@@ -7637,10 +7637,8 @@ ___CSS_LOADER_EXPORT___.push([module.id, `@charset "UTF-8";
   transform: scaleY(1);
   /* 还原到原始高度 */
 }
+.table-wrapper .tr-checked,
 .table-wrapper .tr-highlight {
-  background-color: #cfcdcd !important;
-}
-.table-wrapper .tr-checked {
   background-color: #e6f4ff !important;
 }
 .table-wrapper .tr-content {
@@ -7682,7 +7680,7 @@ ___CSS_LOADER_EXPORT___.push([module.id, `@charset "UTF-8";
   /* 隐藏超出部分 */
   text-overflow: ellipsis;
   /* 使用省略号表示超出部分 */
-}`, "",{"version":3,"sources":["webpack://./src/index.scss"],"names":[],"mappings":"AAAA,gBAAgB;AAAhB;EAEI,qBAAA;EACA,6BAAA;EAkFA,iBAAA;EAWA,YAAA;AA1FJ;AADI;EAEI,eAAA;EACA,gBAAA;AAER;AADQ;EACI,oBAAA;EACA,sBAAA;EACA,mBAAA;EACA,uBAAA;EACA,WAAA;EACA,UAAA;AAGZ;AADY;EACI,QAAA;EACA,UAAA;EACA,SAAA;EACA,UAAA;EACA,eAAA;EACA,WAAA;EACA,kCAAA;EACA,UAAA;EACA,mCAAA;EACA,UAAA;EACA,eAAA;EACA,yBAAA;EACA,WAAA;EACA,kBAAA;AAGhB;AAOgB;EAEI,qBAAA;AANpB;AAeI;EACI,UAAA;EACA,WAAA;AAbR;AAgBI;EACI,mBAAA;AAdR;AAiBI;EACI,gBAAA;EACA,kBAAA;AAfR;AAkBI;EACI,gBAAA;AAhBR;AA8BI;EACI,uCAAA;AA5BR;AAgCI;EACI,kDAAA;EACA,UAAA;EACA,oBAAA;EACA,kBAAA;EACA,qBAAA;EACA,aAAA;EACA,gBAAA;AA9BR;AAkCI;EACI,UAAA;EACA,oBAAA;EACA,YAAA;AAhCR;AAmCI;EACI,oCAAA;AAjCR;AAqCI;EACI,oCAAA;AAnCR;AAuCI;EACI,sCAAA;AArCR;AAuCQ;EACI,yBAAA;AArCZ;AA2CQ;;EAEI,iBAAA;EACA,yBAAA;EACA,eAAA;AAzCZ;AA2CY;;EACI,oCAAA;EACA,WAAA;AAxChB;AA4CQ;;EAEI,sBAAA;AA1CZ;AA4CY;;EACI,wCAAA;EACA,mBAAA;AAzChB;AA8CY;EACI,oCAAA;EACA,yBAAA;EACA,WAAA;AA5ChB;;AAkDA;EACI,mBAAA;EACA,QAAA;EACA,gBAAA;EACA,WAAA;EACA,uBAAA;EACA,gBAAA;AA/CJ","sourcesContent":[".table-wrapper {\r\n    // Firefox 滚动条样式\r\n    scrollbar-width: thin; // 设置滚动条宽度为 thin\r\n    scrollbar-color: #ccc #f5f5f5; // 设置滚动条颜色\r\n\r\n    .header-content {\r\n\r\n        /* styles.css */\r\n        /* styles.scss */\r\n        .header-icon {\r\n            display: inline-flex;\r\n            flex-direction: column;\r\n            align-items: center;\r\n            justify-content: center;\r\n            width: auto;\r\n            /* 宽度自适应 */\r\n\r\n            .icon {\r\n                width: 0;\r\n                /* 箭头的宽度 */\r\n                height: 0;\r\n                /* 箭头的高度 */\r\n                margin: 1.6px 0;\r\n                /* 调整上下间距 */\r\n                border-left: 6px solid transparent;\r\n                /* 箭头的左边 */\r\n                border-right: 6px solid transparent;\r\n                /* 箭头的右边 */\r\n                cursor: pointer;\r\n                transition: all 0.3s ease;\r\n                /* 添加过渡效果 */\r\n                border-radius: 3px;\r\n\r\n                &.sort-up {\r\n                    // border-bottom: 7px solid #000; /* 向上的箭头 */\r\n                }\r\n\r\n                &.sort-down {\r\n                    // border-top: 7px solid #000; /* 向下的箭头 */\r\n                }\r\n\r\n                &.sort-up:hover,\r\n                &.sort-down:hover {\r\n                    transform: scale(1.2);\r\n                }\r\n            }\r\n        }\r\n\r\n\r\n    }\r\n\r\n    // Webkit 滚动条样式\r\n    &::-webkit-scrollbar {\r\n        width: 8px; // 设置垂直滚动条宽度\r\n        height: 8px; // 设置水平滚动条宽度\r\n    }\r\n\r\n    &::-webkit-scrollbar-track {\r\n        background: #f5f5f5; // 设置滚动条轨道颜色\r\n    }\r\n\r\n    &::-webkit-scrollbar-thumb {\r\n        background: #ccc; // 设置滚动条滑块颜色\r\n        border-radius: 4px; // 设置滚动条滑块圆角\r\n    }\r\n\r\n    &::-webkit-scrollbar-thumb:hover {\r\n        background: #aaa; // 设置滚动条滑块悬停颜色\r\n    }\r\n\r\n\r\n\r\n    .collapse-table-td {\r\n        // display: inline-block; // 不控制，不然会影响上下居中\r\n        // display: flex;\r\n        // justify-content: center;\r\n        // align-items: center;\r\n        // line-height: 0.8;\r\n    }\r\n\r\n    // 添加展开的动画\r\n    tbody>tr {\r\n        transition: max-height 0.3s ease-in-out;\r\n    }\r\n\r\n    /* 默认情况下，表格行被隐藏 */\r\n    .collapse-tr {\r\n        transition: opacity 0.5s ease, transform 0.5s ease;\r\n        opacity: 0;\r\n        transform: scaleY(0);\r\n        /* 使用 scaleY 来隐藏 */\r\n        transform-origin: top;\r\n        /* 让缩放从顶部开始 */\r\n        overflow: hidden;\r\n    }\r\n\r\n    /* 当表格行显示时 */\r\n    .collapse-tr.show {\r\n        opacity: 1;\r\n        transform: scaleY(1);\r\n        /* 还原到原始高度 */\r\n    }\r\n\r\n    .tr-highlight {\r\n        background-color: #cfcdcd !important;\r\n    }\r\n\r\n\r\n    .tr-checked {\r\n        background-color: #e6f4ff !important;\r\n    }\r\n\r\n\r\n    .tr-content {\r\n        transition: background-color 0.3s ease;\r\n\r\n        &:hover {\r\n            background-color: #e7ebee;\r\n        }\r\n    }\r\n\r\n    .pagination {\r\n\r\n        .prev-arrow,\r\n        .next-arrow {\r\n            padding: 8px 12px;\r\n            transition: all 0.3s ease;\r\n            cursor: pointer;\r\n\r\n            &:hover {\r\n                background-color: #f0f0f0 !important;\r\n                color: #333;\r\n            }\r\n        }\r\n\r\n        .prev-arrow.disabled,\r\n        .next-arrow.disabled {\r\n            color: #ccc !important;\r\n\r\n            &:hover {\r\n                background-color: transparent !important;\r\n                cursor: not-allowed;\r\n            }\r\n        }\r\n\r\n        .page-numbers {\r\n            .page-number-item:hover {\r\n                background-color: #f0f0f0 !important;\r\n                border: 1px solid #f0f0f0;\r\n                color: #333;\r\n            }\r\n        }\r\n    }\r\n}\r\n\r\n.ellipsis-1 {\r\n    white-space: nowrap;\r\n    /* 不换行 */\r\n    overflow: hidden;\r\n    /* 隐藏超出部分 */\r\n    text-overflow: ellipsis;\r\n    /* 使用省略号表示超出部分 */\r\n}"],"sourceRoot":""}]);
+}`, "",{"version":3,"sources":["webpack://./src/index.scss"],"names":[],"mappings":"AAAA,gBAAgB;AAAhB;EAEI,qBAAA;EACA,6BAAA;EAkFA,iBAAA;EAWA,YAAA;AA1FJ;AADI;EAEI,eAAA;EACA,gBAAA;AAER;AADQ;EACI,oBAAA;EACA,sBAAA;EACA,mBAAA;EACA,uBAAA;EACA,WAAA;EACA,UAAA;AAGZ;AADY;EACI,QAAA;EACA,UAAA;EACA,SAAA;EACA,UAAA;EACA,eAAA;EACA,WAAA;EACA,kCAAA;EACA,UAAA;EACA,mCAAA;EACA,UAAA;EACA,eAAA;EACA,yBAAA;EACA,WAAA;EACA,kBAAA;AAGhB;AAOgB;EAEI,qBAAA;AANpB;AAeI;EACI,UAAA;EACA,WAAA;AAbR;AAgBI;EACI,mBAAA;AAdR;AAiBI;EACI,gBAAA;EACA,kBAAA;AAfR;AAkBI;EACI,gBAAA;AAhBR;AA8BI;EACI,uCAAA;AA5BR;AAgCI;EACI,kDAAA;EACA,UAAA;EACA,oBAAA;EACA,kBAAA;EACA,qBAAA;EACA,aAAA;EACA,gBAAA;AA9BR;AAkCI;EACI,UAAA;EACA,oBAAA;EACA,YAAA;AAhCR;AAmCI;;EAEI,oCAAA;AAjCR;AAqCI;EACI,sCAAA;AAnCR;AAqCQ;EACI,yBAAA;AAnCZ;AAyCQ;;EAEI,iBAAA;EACA,yBAAA;EACA,eAAA;AAvCZ;AAyCY;;EACI,oCAAA;EACA,WAAA;AAtChB;AA0CQ;;EAEI,sBAAA;AAxCZ;AA0CY;;EACI,wCAAA;EACA,mBAAA;AAvChB;AA4CY;EACI,oCAAA;EACA,yBAAA;EACA,WAAA;AA1ChB;;AAgDA;EACI,mBAAA;EACA,QAAA;EACA,gBAAA;EACA,WAAA;EACA,uBAAA;EACA,gBAAA;AA7CJ","sourcesContent":[".table-wrapper {\r\n    // Firefox 滚动条样式\r\n    scrollbar-width: thin; // 设置滚动条宽度为 thin\r\n    scrollbar-color: #ccc #f5f5f5; // 设置滚动条颜色\r\n\r\n    .header-content {\r\n\r\n        /* styles.css */\r\n        /* styles.scss */\r\n        .header-icon {\r\n            display: inline-flex;\r\n            flex-direction: column;\r\n            align-items: center;\r\n            justify-content: center;\r\n            width: auto;\r\n            /* 宽度自适应 */\r\n\r\n            .icon {\r\n                width: 0;\r\n                /* 箭头的宽度 */\r\n                height: 0;\r\n                /* 箭头的高度 */\r\n                margin: 1.6px 0;\r\n                /* 调整上下间距 */\r\n                border-left: 6px solid transparent;\r\n                /* 箭头的左边 */\r\n                border-right: 6px solid transparent;\r\n                /* 箭头的右边 */\r\n                cursor: pointer;\r\n                transition: all 0.3s ease;\r\n                /* 添加过渡效果 */\r\n                border-radius: 3px;\r\n\r\n                &.sort-up {\r\n                    // border-bottom: 7px solid #000; /* 向上的箭头 */\r\n                }\r\n\r\n                &.sort-down {\r\n                    // border-top: 7px solid #000; /* 向下的箭头 */\r\n                }\r\n\r\n                &.sort-up:hover,\r\n                &.sort-down:hover {\r\n                    transform: scale(1.2);\r\n                }\r\n            }\r\n        }\r\n\r\n\r\n    }\r\n\r\n    // Webkit 滚动条样式\r\n    &::-webkit-scrollbar {\r\n        width: 8px; // 设置垂直滚动条宽度\r\n        height: 8px; // 设置水平滚动条宽度\r\n    }\r\n\r\n    &::-webkit-scrollbar-track {\r\n        background: #f5f5f5; // 设置滚动条轨道颜色\r\n    }\r\n\r\n    &::-webkit-scrollbar-thumb {\r\n        background: #ccc; // 设置滚动条滑块颜色\r\n        border-radius: 4px; // 设置滚动条滑块圆角\r\n    }\r\n\r\n    &::-webkit-scrollbar-thumb:hover {\r\n        background: #aaa; // 设置滚动条滑块悬停颜色\r\n    }\r\n\r\n\r\n\r\n    .collapse-table-td {\r\n        // display: inline-block; // 不控制，不然会影响上下居中\r\n        // display: flex;\r\n        // justify-content: center;\r\n        // align-items: center;\r\n        // line-height: 0.8;\r\n    }\r\n\r\n    // 添加展开的动画\r\n    tbody>tr {\r\n        transition: max-height 0.3s ease-in-out;\r\n    }\r\n\r\n    /* 默认情况下，表格行被隐藏 */\r\n    .collapse-tr {\r\n        transition: opacity 0.5s ease, transform 0.5s ease;\r\n        opacity: 0;\r\n        transform: scaleY(0);\r\n        /* 使用 scaleY 来隐藏 */\r\n        transform-origin: top;\r\n        /* 让缩放从顶部开始 */\r\n        overflow: hidden;\r\n    }\r\n\r\n    /* 当表格行显示时 */\r\n    .collapse-tr.show {\r\n        opacity: 1;\r\n        transform: scaleY(1);\r\n        /* 还原到原始高度 */\r\n    }\r\n\r\n    .tr-checked,\r\n    .tr-highlight {\r\n        background-color: #e6f4ff !important;\r\n    }\r\n\r\n\r\n    .tr-content {\r\n        transition: background-color 0.3s ease;\r\n\r\n        &:hover {\r\n            background-color: #e7ebee;\r\n        }\r\n    }\r\n\r\n    .pagination {\r\n\r\n        .prev-arrow,\r\n        .next-arrow {\r\n            padding: 8px 12px;\r\n            transition: all 0.3s ease;\r\n            cursor: pointer;\r\n\r\n            &:hover {\r\n                background-color: #f0f0f0 !important;\r\n                color: #333;\r\n            }\r\n        }\r\n\r\n        .prev-arrow.disabled,\r\n        .next-arrow.disabled {\r\n            color: #ccc !important;\r\n\r\n            &:hover {\r\n                background-color: transparent !important;\r\n                cursor: not-allowed;\r\n            }\r\n        }\r\n\r\n        .page-numbers {\r\n            .page-number-item:hover {\r\n                background-color: #f0f0f0 !important;\r\n                border: 1px solid #f0f0f0;\r\n                color: #333;\r\n            }\r\n        }\r\n    }\r\n}\r\n\r\n.ellipsis-1 {\r\n    white-space: nowrap;\r\n    /* 不换行 */\r\n    overflow: hidden;\r\n    /* 隐藏超出部分 */\r\n    text-overflow: ellipsis;\r\n    /* 使用省略号表示超出部分 */\r\n}"],"sourceRoot":""}]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 
@@ -9302,6 +9300,9 @@ var update = injectStylesIntoStyleTag_default()(TableCell/* default */.A, option
 
 const TableCell_TableCell = props => {
   const {
+    textWrapperClassName,
+    tableCellClassName = "d-flex flex-fill",
+    wrap,
     parentId,
     tooltip,
     sortable,
@@ -9362,11 +9363,13 @@ const TableCell_TableCell = props => {
     setEditedValue(value);
   }, [value]);
   return /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("div", {
-    className: "table-cell d-flex ".concat(judgeTdAlign()),
+    // 直接在最外层加 title，这样不管是 render 或者是 默认展示，都可以看到 title 提示
+    title: editedValue,
+    className: "table-cell ".concat(tableCellClassName, " ").concat(judgeTdAlign()),
     style: {
-      width: "100%"
+      width
     }
-  }, render ? render(editedValue, rowData, rowIndex, prop, colIndex) : /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("div", {
+  }, typeof render === "function" ? /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement((external_root_React_commonjs2_react_commonjs_react_amd_react_default()).Fragment, null, render(editedValue, rowData, rowIndex, prop, colIndex)) : /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("div", {
     className: "table-cell-wrapper",
     style: {
       display: "inline-block",
@@ -9390,9 +9393,10 @@ const TableCell_TableCell = props => {
     className: "ps-3"
   }) : null, /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("div", {
     style: {
+      width,
       maxWidth
     },
-    className: "ellipsis-1 "
+    className: "text-wrapper ".concat(textWrapperClassName ? textWrapperClassName : "", " ").concat(wrap ? "text-wrap" : "ellipsis-1")
   }, editedValue)))));
 };
 /* harmony default export */ const src_TableCell_0 = (TableCell_TableCell);
@@ -9453,6 +9457,7 @@ const recursiveGenerateTableHeaderRows = function (columns) {
 };
 const Table = props => {
   const {
+    wrap = false,
     headerAlign,
     wrapperStyle,
     clickHighlight,
@@ -9675,7 +9680,7 @@ const Table = props => {
         onDoubleClick: e => handleRowDoubleClick(data, e),
         className: "tr-content tr-content ".concat(childData.checked === true ? "tr-checked" : "", " ").concat(childData.highlight === true ? "tr-highlight" : "", " collapse-table-tr animate__animated animate__fadeIn"),
         style: {
-          ...(clickChecked || trPointer ? {
+          ...(clickChecked || trPointer || clickHighlight ? {
             cursor: "pointer"
           } : ""),
           ...(!tableBorderd ? {
@@ -9776,7 +9781,8 @@ const Table = props => {
           align: judgeChildCellAlign(data, colProps, colIndex),
           maxWidth: colProps.maxWidth || maxWidth,
           showTip: colProps.showTip || showTip,
-          render: colProps.render
+          render: colProps.render,
+          wrap: colProps.wrap || wrap
         };
         return /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("td", {
           // 这边也不用在子级的第一列在最左侧了
@@ -9965,7 +9971,7 @@ const Table = props => {
             rowSpan: item.rowSpan,
             colSpan: item.colSpan,
             style: {
-              whiteSpace: "nowrap",
+              whiteSpace: wrap ? "normal" : "nowrap",
               width: widthObject[item.prop],
               fontWeight: headerFontWeight
             },
@@ -10019,7 +10025,7 @@ const Table = props => {
           key: rowIndex,
           className: "tr-content ".concat(data.checked === true ? "tr-checked" : "", " ").concat(data.highlight === true ? "tr-highlight" : ""),
           style: {
-            ...(clickChecked || trPointer ? {
+            ...(clickChecked || trPointer || clickHighlight ? {
               cursor: "pointer"
             } : ""),
             ...(!tableBorderd ? {
@@ -10066,6 +10072,7 @@ const Table = props => {
           let prop = colProps.prop;
           if ( /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().isValidElement(col)) {
             const enhancedChild = /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().cloneElement(col, {
+              ...colProps,
               onExpand: () => handleCollapseClick(data),
               isParent: !colIndex && collapse && data.children,
               value: data["".concat(prop)],
@@ -10078,9 +10085,10 @@ const Table = props => {
               collapse: data.collapse,
               // 防止 Table 的 align 不生效的bug
               align: !colIndex && collapse && data.children ? "start" : colProps.contentAlign || contentAlign,
-              width: widthObject[colProps.prop],
+              // width: widthObject[colProps.prop], // 不传 width 到 TableCell
               maxWidth: colProps.maxWidth || maxWidth,
-              showTip: colProps.showTip || showTip
+              showTip: colProps.showTip || showTip,
+              wrap: colProps.wrap || wrap
             });
             return /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("td", {
               // 父级第一列不需要在 最左侧了
@@ -10095,7 +10103,7 @@ const Table = props => {
                 wordBreak: "break-word",
                 // 如果要默认展示一行，并且x轴太长可以滚动的话，则设置为nowrap
                 // 注意：此时，外部设置的 width就没作用了，表格会自己根据内容来设置宽度
-                whiteSpace: "nowrap"
+                whiteSpace: wrap ? "normal" : "wrap"
                 /*  [`${!colIndex && data.children ? 'paddingLeft' : ''}`]: '35px', */
               },
               key: colIndex
@@ -10105,10 +10113,13 @@ const Table = props => {
               text: data[prop]
             }, enhancedChild) : enhancedChild));
           }
-        }) : recursiveGenerateTableHeaderRows(columns).map((col, colIndex) => {
+        }) :
+        // 如果在 <Table></Table>里面没有 chilren 的话，就会在这里去组织 chilren(TableCell)
+        recursiveGenerateTableHeaderRows(columns).map((col, colIndex) => {
           const colProps = col.props ? col.props : col; // 有 children 就肯定有 props，没有 children 的话，props 就是 col 本身
           let prop = colProps.prop;
           const tableCellProps = {
+            ...colProps,
             onExpand: () => handleCollapseClick(data),
             isParent: !colIndex && collapse && data.children,
             value: data["".concat(prop)],
@@ -10121,10 +10132,11 @@ const Table = props => {
             collapse: data.collapse,
             // 防止 Table 的 align 不生效的bug
             align: !colIndex && collapse && data.children ? "start" : colProps.contentAlign || contentAlign,
-            width: widthObject[colProps.prop],
+            // width: widthObject[colProps.prop], // 不传 width 到 TableCell
             maxWidth: colProps.maxWidth || maxWidth,
             showTip: colProps.showTip || showTip,
-            render: colProps.render
+            render: colProps.render,
+            wrap: colProps.wrap || wrap
           };
           return /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("td", {
             // 父级第一列不需要在 最左侧了
@@ -10139,7 +10151,7 @@ const Table = props => {
               wordBreak: "break-word",
               // 如果要默认展示一行，并且x轴太长可以滚动的话，则设置为nowrap
               // 注意：此时，外部设置的 width就没作用了，表格会自己根据内容来设置宽度
-              whiteSpace: "nowrap"
+              whiteSpace: wrap ? "normal" : "nowrap"
               /*  [`${!colIndex && data.children ? 'paddingLeft' : ''}`]: '35px', */
             },
             key: colIndex
@@ -10310,7 +10322,11 @@ const Table = props => {
             newItem.children = directlyUpdateChildrenCheckState(newItem.children, newItem[key] === true ? true : false);
           }
         } else if ((_newItem$children2 = newItem.children) !== null && _newItem$children2 !== void 0 && _newItem$children2.length) {
-          newItem.children = recursiveUpdateTableDataCheckState(newItem.children); // 递归更新子节点
+          // 递归更新子节点
+          newItem.children = recursiveUpdateTableDataCheckState(newItem.children);
+        } else if (!multiple) {
+          // 如果 不是多选，则要把其他节点的 check 状态都置为 false
+          newItem[key] = false;
         }
         return newItem; // 返回更新后的对象
       });

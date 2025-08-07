@@ -691,6 +691,8 @@ const Checkbox = (_ref, ref) => {
     onChange,
     onFormDataChange
   } = _ref;
+  const _uniqueId = (0,external_root_React_commonjs2_react_commonjs_react_amd_react_.useId)();
+
   // Function to check if an option should be checked
   const isChecked = (value, defaultValue) => {
     if (typeof defaultValue === "string") {
@@ -817,14 +819,14 @@ const Checkbox = (_ref, ref) => {
     className: cls,
     type: "checkbox",
     name: name,
-    id: item[valueKey] + uniqId,
+    id: item[valueKey] + (uniqId || _uniqueId),
     checked: item.checked,
     onChange: () => handleChange(item),
     value: item[valueKey],
     readOnly: readOnly
   }), /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("label", {
     className: "".concat(labelClassName, " form-check-label"),
-    htmlFor: item[valueKey] + uniqId
+    htmlFor: item[valueKey] + (uniqId || _uniqueId)
   }, item[labelKey] || "Default Checkbox"))), suffixContent && /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("div", {
     className: "".concat(suffixContentType === "button" ? "suffix-content-btn-wrapper px-2" : "ms-2")
   }, suffixContent)), commonSuffixIcon && /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("i", {

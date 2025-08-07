@@ -30,6 +30,7 @@ export const recursiveGenerateTableHeaderRows = (
 };
 
 interface TableProps {
+  wrap?: boolean;
   headerAlign?: "center" | "start" | "end" | "justify";
   wrapperStyle?: React.CSSProperties;
   clickHighlight?: boolean;
@@ -90,6 +91,7 @@ interface TableProps {
 
 const Table = (props: TableProps) => {
   const {
+    wrap = false,
     headerAlign,
     wrapperStyle,
     clickHighlight,
@@ -343,7 +345,9 @@ const Table = (props: TableProps) => {
               childData.highlight === true ? "tr-highlight" : ""
             } collapse-table-tr animate__animated animate__fadeIn`}
             style={{
-              ...(clickChecked || trPointer ? { cursor: "pointer" } : ""),
+              ...(clickChecked || trPointer || clickHighlight
+                ? { cursor: "pointer" }
+                : ""),
               ...(!tableBorderd ? { borderBottom: "1px solid #f0f0f0" } : {}),
             }}
             key={childData[id]}
@@ -472,6 +476,7 @@ const Table = (props: TableProps) => {
                       maxWidth: colProps.maxWidth || maxWidth,
                       showTip: colProps.showTip || showTip,
                       render: colProps.render,
+                      wrap: colProps.wrap || wrap,
                     };
                     return (
                       <td
@@ -716,7 +721,7 @@ const Table = (props: TableProps) => {
                       rowSpan={item.rowSpan}
                       colSpan={item.colSpan}
                       style={{
-                        whiteSpace: "nowrap",
+                        whiteSpace: wrap ? "normal" : "nowrap",
                         width: widthObject[item.prop],
                         fontWeight: headerFontWeight,
                       }}
@@ -794,7 +799,9 @@ const Table = (props: TableProps) => {
                     data.checked === true ? "tr-checked" : ""
                   } ${data.highlight === true ? "tr-highlight" : ""}`}
                   style={{
-                    ...(clickChecked || trPointer ? { cursor: "pointer" } : ""),
+                    ...(clickChecked || trPointer || clickHighlight
+                      ? { cursor: "pointer" }
+                      : ""),
                     ...(!tableBorderd
                       ? { borderBottom: "1px solid #f0f0f0" }
                       : {}),
@@ -851,6 +858,7 @@ const Table = (props: TableProps) => {
 
                         if (React.isValidElement(col)) {
                           const enhancedChild = React.cloneElement(col, {
+                            ...colProps,
                             onExpand: () => handleCollapseClick(data),
                             isParent: !colIndex && collapse && data.children,
                             value: data[`${prop}`],
@@ -866,9 +874,10 @@ const Table = (props: TableProps) => {
                               !colIndex && collapse && data.children
                                 ? "start"
                                 : colProps.contentAlign || contentAlign,
-                            width: widthObject[colProps.prop],
+                            // width: widthObject[colProps.prop], // 不传 width 到 TableCell
                             maxWidth: colProps.maxWidth || maxWidth,
                             showTip: colProps.showTip || showTip,
+                            wrap: colProps.wrap || wrap,
                           } as React.Attributes);
                           return (
                             <td
@@ -886,7 +895,7 @@ const Table = (props: TableProps) => {
                                 wordBreak: "break-word",
                                 // 如果要默认展示一行，并且x轴太长可以滚动的话，则设置为nowrap
                                 // 注意：此时，外部设置的 width就没作用了，表格会自己根据内容来设置宽度
-                                whiteSpace: "nowrap",
+                                whiteSpace: wrap ? "normal" : "wrap",
                                 /*  [`${!colIndex && data.children ? 'paddingLeft' : ''}`]: '35px', */
                               }}
                               key={colIndex}
@@ -910,11 +919,13 @@ const Table = (props: TableProps) => {
                           );
                         }
                       })
-                    : recursiveGenerateTableHeaderRows(columns).map(
+                    : // 如果在 <Table></Table>里面没有 chilren 的话，就会在这里去组织 chilren(TableCell)
+                      recursiveGenerateTableHeaderRows(columns).map(
                         (col: any, colIndex: number) => {
                           const colProps = col.props ? col.props : col; // 有 children 就肯定有 props，没有 children 的话，props 就是 col 本身
                           let prop = colProps.prop;
                           const tableCellProps = {
+                            ...colProps,
                             onExpand: () => handleCollapseClick(data),
                             isParent: !colIndex && collapse && data.children,
                             value: data[`${prop}`],
@@ -930,10 +941,11 @@ const Table = (props: TableProps) => {
                               !colIndex && collapse && data.children
                                 ? "start"
                                 : colProps.contentAlign || contentAlign,
-                            width: widthObject[colProps.prop],
+                            // width: widthObject[colProps.prop], // 不传 width 到 TableCell
                             maxWidth: colProps.maxWidth || maxWidth,
                             showTip: colProps.showTip || showTip,
                             render: colProps.render,
+                            wrap: colProps.wrap || wrap,
                           };
                           return (
                             <td
@@ -951,7 +963,7 @@ const Table = (props: TableProps) => {
                                 wordBreak: "break-word",
                                 // 如果要默认展示一行，并且x轴太长可以滚动的话，则设置为nowrap
                                 // 注意：此时，外部设置的 width就没作用了，表格会自己根据内容来设置宽度
-                                whiteSpace: "nowrap",
+                                whiteSpace: wrap ? "normal" : "nowrap",
                                 /*  [`${!colIndex && data.children ? 'paddingLeft' : ''}`]: '35px', */
                               }}
                               key={colIndex}
@@ -1172,9 +1184,13 @@ const Table = (props: TableProps) => {
             );
           }
         } else if (newItem.children?.length) {
+          // 递归更新子节点
           newItem.children = recursiveUpdateTableDataCheckState(
             newItem.children
-          ); // 递归更新子节点
+          );
+        } else if (!multiple) {
+          // 如果 不是多选，则要把其他节点的 check 状态都置为 false
+          newItem[key] = false;
         }
         return newItem; // 返回更新后的对象
       });
