@@ -153,7 +153,11 @@ ___CSS_LOADER_EXPORT___.push([module.id, `@charset "UTF-8";
       border-radius: 10px;
       background: #bfbfbf;
   } */
-}`, "",{"version":3,"sources":["webpack://./src/index.scss"],"names":[],"mappings":"AAAA,gBAAgB;AAAhB;EAEI;;;;;;;;;;KAAA;AAWJ","sourcesContent":[".list-group-wrapper {\r\n\r\n    /* // 滚动条变细\r\n    ::-webkit-scrollbar {\r\n        width: 4px;\r\n        height: 4px;\r\n    }\r\n\r\n    // 滚动条滑块\r\n    ::-webkit-scrollbar-thumb {\r\n        border-radius: 10px;\r\n        background: #bfbfbf;\r\n    } */\r\n}"],"sourceRoot":""}]);
+}
+.list-group-wrapper .list-group-item-action:focus {
+  outline: none;
+  background-color: transparent;
+}`, "",{"version":3,"sources":["webpack://./src/index.scss"],"names":[],"mappings":"AAAA,gBAAgB;AAAhB;EAMI;;;;;;;;;;KAAA;AAOJ;AAZI;EACI,aAAA;EACA,6BAAA;AAcR","sourcesContent":[".list-group-wrapper {\r\n    .list-group-item-action:focus {\r\n        outline: none;\r\n        background-color: transparent;\r\n    }\r\n\r\n    /* // 滚动条变细\r\n    ::-webkit-scrollbar {\r\n        width: 4px;\r\n        height: 4px;\r\n    }\r\n\r\n    // 滚动条滑块\r\n    ::-webkit-scrollbar-thumb {\r\n        border-radius: 10px;\r\n        background: #bfbfbf;\r\n    } */\r\n}"],"sourceRoot":""}]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 
@@ -574,6 +578,8 @@ var update = injectStylesIntoStyleTag_default()(cjs_ruleSet_1_rules_1_use_2_src/
 
 const ListGroup = _ref => {
   let {
+    focusedIndex,
+    actRef,
     buttonClassName,
     activeId,
     showBorderRadius = true,
@@ -590,7 +596,6 @@ const ListGroup = _ref => {
     activeOnClick = true,
     externalClassName,
     noWrap,
-    defaultSelectFirst = false,
     data,
     activeList: selectList,
     labelKey = "label",
@@ -598,31 +603,52 @@ const ListGroup = _ref => {
     type = "primary",
     render,
     onItemClick,
-    onItemDoubleClick
+    onItemDoubleClick,
+    onEnter
   } = _ref;
   const [list, setList] = (0,external_root_React_commonjs2_react_commonjs_react_amd_react_.useState)([]);
-  const [activeList, setActiveList] = (0,external_root_React_commonjs2_react_commonjs_react_amd_react_.useState)(selectList || {});
+  const [activeList, setActiveList] = (0,external_root_React_commonjs2_react_commonjs_react_amd_react_.useState)(selectList || multiple ? [] : {}); // 判断如果是多选，则要赋值为空数组
   const [parentMaxHeight, setParentMaxHeight] = (0,external_root_React_commonjs2_react_commonjs_react_amd_react_.useState)(columnMaxHeight);
   const [buttonMaxWidth, setButtonMaxWidth] = (0,external_root_React_commonjs2_react_commonjs_react_amd_react_.useState)(null);
+  const [_focusedIndex, _setFocusedIndex] = (0,external_root_React_commonjs2_react_commonjs_react_amd_react_.useState)(0);
   const listGroupRef = (0,external_root_React_commonjs2_react_commonjs_react_amd_react_.useRef)(null);
-  const handleItemClick = item => {
+  const itemRefs = (0,external_root_React_commonjs2_react_commonjs_react_amd_react_.useRef)([]); // 存储所有项的引用
+
+  // 注册项引用
+  const registerRef = (index, ref) => {
+    if (ref && !itemRefs.current[index]) {
+      itemRefs.current[index] = ref;
+    }
+  };
+  const getFlatIndex = (columnIndex, itemIndex) => {
+    let flatIndex = 0;
+    // 累加前面所有列的长度，得到当前项的全局索引
+    for (let i = 0; i < columnIndex; i++) {
+      var _list$i;
+      flatIndex += ((_list$i = list[i]) === null || _list$i === void 0 ? void 0 : _list$i.length) || 0;
+    }
+    return flatIndex + itemIndex;
+  };
+  const handleItemClick = (item, index) => {
     let data;
     if (multiple && Array.isArray(activeList)) {
       const hasSelected = activeList.some(selectedItem => selectedItem[valueKey] === item[valueKey]);
       data = hasSelected ? activeList.filter(selectedItem => selectedItem[valueKey] !== item[valueKey]) : [...activeList, item];
       setActiveList(data);
-      onItemClick && onItemClick(item);
+      onItemClick && onItemClick(item, index);
     } else if (activeList) {
       const hasSelected = activeList[valueKey] === item[valueKey];
       data = hasSelected && canCancel ? {} : item;
       setActiveList(data);
-      onItemClick && onItemClick(data);
+      console.log("内部传递的index: ", index);
+      onItemClick && onItemClick(data, index);
     }
+    _setFocusedIndex(index);
   };
-  const handleItemDoubleClick = (e, item) => {
+  const handleItemDoubleClick = (e, item, index) => {
     e.preventDefault(); // 阻止可能触发的默认点击行为
     e.stopPropagation();
-    onItemDoubleClick && onItemDoubleClick(item);
+    onItemDoubleClick && onItemDoubleClick(item, index);
   };
   const judgeIsActive = item => {
     if (!activeOnClick) return "";
@@ -638,21 +664,89 @@ const ListGroup = _ref => {
       return "";
     }
   };
-  (0,external_root_React_commonjs2_react_commonjs_react_amd_react_.useEffect)(() => {
-    if (selectList) {
-      setActiveList(selectList || {});
-    } else if (defaultSelectFirst) {
-      setActiveList(data === null || data === void 0 ? void 0 : data[0]);
-    } else if (activeId) {
-      setActiveList((data === null || data === void 0 ? void 0 : data.find(item => item[valueKey] === activeId)) || {}); // setActiveList 要设置个 空对象兜底
+
+  // 滚动到指定项使其可见
+  const scrollToItem = index => {
+    const item = itemRefs.current[index];
+    if (item) {
+      // 平滑滚动到元素
+      item.scrollIntoView({
+        behavior: "smooth",
+        block: "nearest"
+      });
     }
-    if (listGroupRef.current) {
-      const parentElement = listGroupRef.current.parentElement;
-      if (parentElement && parentElement.clientHeight > 0) {
-        setParentMaxHeight(parentElement.clientHeight);
+  };
+
+  // 处理键盘事件（逻辑不变，但依赖“全局索引”）
+  const handleKeyDown = e => {
+    // 阻止箭头键默认滚动行为
+    if (["ArrowUp", "ArrowDown"].includes(e.key)) {
+      e.preventDefault();
+    }
+    let newIndex = _focusedIndex;
+    switch (e.key) {
+      case "ArrowDown":
+        {
+          newIndex = _focusedIndex === list.length - 1 ? 0 : _focusedIndex + 1;
+          break;
+        }
+      case "ArrowUp":
+        {
+          newIndex = _focusedIndex <= 0 ? list.length - 1 : _focusedIndex - 1;
+          break;
+        }
+      case "Enter":
+        {
+          if (_focusedIndex >= 0 && _focusedIndex < list.length) {
+            if (onEnter) {
+              handleItemClick(list[_focusedIndex], _focusedIndex);
+              setTimeout(() => {
+                onEnter(activeList, _focusedIndex);
+              }, 500);
+            }
+          }
+          break;
+        }
+    }
+    // 如果是上下箭头，赋值完最新的 index 后，在最后统一处理
+    if (["ArrowUp", "ArrowDown"].includes(e.key)) {
+      if (list && list.length) {
+        scrollToItem(newIndex);
+        handleItemClick(list[newIndex], newIndex);
+        if (!multiple) {
+          setActiveList(list[newIndex]);
+        }
       }
     }
-  }, [selectList, activeId, data, columnMaxHeight, listGroupRef.current]);
+  };
+  (0,external_root_React_commonjs2_react_commonjs_react_amd_react_.useEffect)(() => {
+    if (listGroupRef.current) {
+      listGroupRef.current.addEventListener("keydown", handleKeyDown);
+    }
+    return () => {
+      if (listGroupRef.current) {
+        listGroupRef.current.removeEventListener("keydown", handleKeyDown);
+      }
+    };
+  }, [list, _focusedIndex, listGroupRef.current]);
+  (0,external_root_React_commonjs2_react_commonjs_react_amd_react_.useEffect)(() => {
+    // 要加个定时器，不然下方 setActiveList([]) 会清空选中项，导致选中项为空
+    setTimeout(() => {
+      if (selectList) {
+        setActiveList(selectList);
+      } else if (activeId) {
+        setActiveList((data === null || data === void 0 ? void 0 : data.find(item => item[valueKey] === activeId)) || (multiple ? [] : {})); // setActiveList 要设置个 空对象 || 空数组 兜底
+      } else if (data && data.length && focusedIndex !== undefined) {
+        setActiveList(data[focusedIndex]);
+      }
+      if (listGroupRef.current) {
+        const parentElement = listGroupRef.current.parentElement;
+        if (parentElement && parentElement.clientHeight > 0) {
+          setParentMaxHeight(parentElement.clientHeight);
+        }
+      }
+    }, 0);
+  }, [selectList, activeId, data, columnMaxHeight, listGroupRef.current, multiple, focusedIndex]);
   (0,external_root_React_commonjs2_react_commonjs_react_amd_react_.useEffect)(() => {
     // 如果需要换行，则根据 判断 filesPerColunm 是否有值，有值则直接分割，没有值则根据 parentMaxHeight 和 itemHeight 计算每列的文件数量
     if (lineBreak && (columnMaxHeight || maxHeight || parentMaxHeight)) {
@@ -706,9 +800,35 @@ const ListGroup = _ref => {
     // 设置一个缓冲值，例如加上 padding 等
     setButtonMaxWidth(maxWidth + 8 + "px"); // 8 是 button 的 padding
   }, [list, buttonWidth]);
+  (0,external_root_React_commonjs2_react_commonjs_react_amd_react_.useEffect)(() => {
+    // 在数据变化后，要清空 已选中的数据 activeList
+    setActiveList([]);
+    // 重置项引用
+    itemRefs.current = [];
+  }, [data]);
+  (0,external_root_React_commonjs2_react_commonjs_react_amd_react_.useEffect)(() => {
+    if (focusedIndex !== undefined) {
+      if (data && data.length) {
+        scrollToItem(focusedIndex);
+        _setFocusedIndex(focusedIndex);
+      }
+    }
+  }, [data, focusedIndex]);
+  (0,external_root_React_commonjs2_react_commonjs_react_amd_react_.useImperativeHandle)(actRef, () => ({
+    getSelectedList: () => activeList,
+    scrollToItem,
+    focus: () => {
+      var _listGroupRef$current;
+      (_listGroupRef$current = listGroupRef.current) === null || _listGroupRef$current === void 0 || _listGroupRef$current.focus();
+    }
+  }));
   return /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("div", {
     className: "list-group-wrapper ".concat(externalClassName || ""),
-    ref: listGroupRef
+    ref: listGroupRef,
+    tabIndex: 1,
+    style: {
+      outline: "none"
+    }
   }, lineBreak && (columnMaxHeight || maxHeight || parentMaxHeight) ? /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("div", {
     className: "row g-0"
   }, list.map((columnItems, columnIndex) => /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("div", {
@@ -725,33 +845,37 @@ const ListGroup = _ref => {
       borderRadius: showBorderRadius ? "5px" : "0",
       boxSizing: "border-box"
     }
-  }, Array.isArray(columnItems) && (columnItems === null || columnItems === void 0 ? void 0 : columnItems.map((item, itemIndex) => /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("div", {
-    className: "list-group-item-wrapper",
-    key: itemIndex
-  }, /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("button", {
-    onClick: () => handleItemClick(item),
-    onDoubleClick: e => handleItemDoubleClick(e, item),
-    key: itemIndex,
-    type: "button",
-    className: "list-group-item list-group-item-action px-2 border-0 ".concat(buttonClassName ? buttonClassName : "", " ").concat(judgeIsActive(item)),
-    style: {
-      whiteSpace: noWrap ? "nowrap" : "normal",
-      height: itemHeight + "px",
-      // 不能用 maxWidth，因为如果是短的 label 就不起作用了
-      minWidth: buttonMaxWidth
-    }
-  }, item.render ? item.render(item, labelKey, valueKey) : render ? /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("div", {
-    className: "label-text"
-  }, render(item, labelKey, valueKey)) : multiple ? /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("div", {
-    className: "list-group-item-wrapper d-flex align-items-center"
-  }, /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("div", {
-    className: "item-check d-flex align-items-center me-1"
-  }, /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("input", {
-    checked: activeList.map(item => item[valueKey] && item[valueKey]).includes(item[valueKey]),
-    type: "checkbox"
-  })), /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("div", {
-    className: "text"
-  }, item[labelKey])) : item[labelKey])))))))) :
+  }, Array.isArray(columnItems) && (columnItems === null || columnItems === void 0 ? void 0 : columnItems.map((item, itemIndex) => {
+    const flatIndex = getFlatIndex(columnIndex, itemIndex);
+    return /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("div", {
+      className: "list-group-item-wrapper",
+      key: itemIndex
+    }, /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("div", {
+      ref: ref => registerRef(flatIndex, ref),
+      onClick: () => handleItemClick(item, itemIndex),
+      onDoubleClick: e => handleItemDoubleClick(e, item, itemIndex),
+      key: itemIndex,
+      className: "list-group-item list-group-item-action px-2 border-0 ".concat(buttonClassName ? buttonClassName : "", " ").concat(judgeIsActive(item)),
+      style: {
+        whiteSpace: noWrap ? "nowrap" : "normal",
+        height: itemHeight + "px",
+        // 不能用 maxWidth，因为如果是短的 label 就不起作用了
+        minWidth: buttonMaxWidth,
+        cursor: "pointer"
+      }
+    }, item.render ? item.render(item, labelKey, valueKey) : render ? /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("div", {
+      className: "label-text"
+    }, render(item, labelKey, valueKey)) : multiple ? /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("div", {
+      className: "list-group-item-wrapper d-flex align-items-center"
+    }, /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("div", {
+      className: "item-check d-flex align-items-center me-1"
+    }, /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("input", {
+      checked: activeList.map(item => item[valueKey] && item[valueKey]).includes(item[valueKey]),
+      type: "checkbox"
+    })), /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("div", {
+      className: "text"
+    }, item[labelKey])) : item[labelKey]));
+  })))))) :
   /*#__PURE__*/
   // 好像不会执行这边的渲染
   external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("div", {
@@ -766,17 +890,18 @@ const ListGroup = _ref => {
   }, list === null || list === void 0 ? void 0 : list.map((item, index) => /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("div", {
     className: "list-group-item-wrapper d-flex align-items-center",
     key: item[valueKey]
-  }, /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("button", {
+  }, /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("div", {
+    ref: ref => registerRef(index, ref),
     style: {
       whiteSpace: noWrap ? "nowrap" : "normal",
       border: "none",
       // 不能用 maxWidth，因为如果是短的 label 就不起作用了
-      minWidth: buttonMaxWidth
+      minWidth: buttonMaxWidth,
+      cursor: "pointer"
     },
-    onClick: () => handleItemClick(item),
-    onDoubleClick: e => handleItemDoubleClick(e, item),
+    onClick: () => handleItemClick(item, index),
+    onDoubleClick: e => handleItemDoubleClick(e, item, index),
     key: item[valueKey],
-    type: "button",
     className: "list-group-item list-group-item-action px-2 ".concat(buttonClassName ? buttonClassName : "", " ").concat(judgeIsActive(item))
   }, item.render ? item.render(item, labelKey, valueKey) : render ? /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("div", {
     className: "label-text"

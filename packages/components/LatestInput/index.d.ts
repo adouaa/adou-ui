@@ -1,6 +1,7 @@
 import React, { ReactNode } from "react";
 import "./index.scss";
 export interface InputProps {
+    actRef?: any;
     addonAfterStyle?: React.CSSProperties;
     title?: string;
     wrap?: boolean;
@@ -34,7 +35,7 @@ export interface InputProps {
     inputGroup?: boolean;
     labelColor?: string;
     required?: boolean;
-    type?: "text" | "datetime-local" | "date" | "time" | "number";
+    type?: "text" | "datetime-local" | "date" | "time" | "number" | "tag";
     defaultValue?: any;
     size?: "lg" | "default" | "sm";
     externalClassName?: string;
@@ -54,9 +55,69 @@ export interface InputProps {
     onFormDataChange?: (key: string, value: any) => void;
     onFieldChange?: (name: string, value: any) => void;
     onValidateField?: (name: string, value?: any) => void;
+    onKeyDown?: (e: React.KeyboardEvent<HTMLInputElement>) => void;
 }
 export interface InputRef {
     validate: () => void;
+    clear: () => void;
 }
-declare const ForwardedInput: React.ForwardRefExoticComponent<InputProps & React.RefAttributes<InputRef>>;
-export default ForwardedInput;
+declare const _default: React.ComponentType<Omit<{
+    inline?: boolean | undefined;
+    actRef?: any;
+    isFormItem?: boolean | undefined;
+    addonAfterStyle?: React.CSSProperties | undefined;
+    title?: string | undefined;
+    wrap?: boolean | undefined;
+    wrapperClassName?: string | undefined;
+    backgroundColor?: string | undefined;
+    inputStyle?: React.CSSProperties | undefined;
+    prefix?: any;
+    suffix?: any;
+    addonBefore?: React.ReactNode;
+    addonAfter?: React.ReactNode;
+    varient?: "outlined" | "filled" | "borderless" | undefined;
+    valueKey?: string | undefined;
+    labelKey?: string | undefined;
+    wrapperWidth?: any;
+    wrapperStyle?: React.CSSProperties | undefined;
+    clearable?: boolean | undefined;
+    commonSuffixContent?: string | undefined;
+    formStyle?: React.CSSProperties | undefined;
+    suffixContentExternalClassName?: string | undefined;
+    inputExternalClassName?: string | undefined;
+    textEnd?: boolean | undefined;
+    name?: string | undefined;
+    errMsg?: string | undefined;
+    labelWidth?: any;
+    commonSuffixIcon?: string | undefined;
+    width?: any;
+    label?: string | undefined;
+    layout?: "horizontal" | "horizontal-top" | "vertical" | "inline" | undefined;
+    labelColor?: string | undefined;
+    required?: boolean | undefined;
+    type?: "number" | "text" | "datetime-local" | "date" | "time" | "tag" | undefined;
+    defaultValue?: any;
+    size?: "lg" | "default" | "sm" | undefined;
+    externalClassName?: string | undefined;
+    prefixContent?: any;
+    suffixContent?: any;
+    suffixContentType?: string | undefined;
+    placeholder?: string | undefined;
+    style?: React.CSSProperties | undefined;
+    disabled?: boolean | undefined;
+    transparent?: boolean | undefined;
+    children?: any;
+    onClick?: ((e: React.MouseEvent<HTMLInputElement, MouseEvent>) => void) | undefined;
+    onFocus?: ((e: React.FocusEvent<HTMLInputElement, Element>) => void) | undefined;
+    onBlur?: ((e: React.FocusEvent<HTMLInputElement, Element>) => void) | undefined;
+    onChange?: ((value: any) => void) | undefined;
+    onIconClick?: ((value: string) => void) | undefined;
+    onFormDataChange?: ((key: string, value: any) => void) | undefined;
+    onFieldChange?: ((name: string, value: any) => void) | undefined;
+    onValidateField?: ((name: string, value?: any) => void) | undefined;
+    onKeyDown?: ((e: React.KeyboardEvent<HTMLInputElement>) => void) | undefined;
+    ref?: React.LegacyRef<InputRef> | undefined;
+    inputGroup?: boolean | undefined;
+    key?: React.Key | null | undefined;
+}, keyof import("react-i18next").WithTranslation<N, undefined>> & import("react-i18next").WithTranslationProps>;
+export default _default;

@@ -70,6 +70,8 @@ export interface SelectProps {
     filterOption?: (input: string, option: any, labelKey?: any, valueKey?: any) => any | boolean;
     onTagsDelete?: (value: any) => void;
     onWrapperClick?: (e: any) => void;
+    onEnter?: (item: any, index: number) => void;
+    onKeyDown?: (e: React.KeyboardEvent<HTMLDivElement>) => void;
 }
 declare const Select: React.ForwardRefExoticComponent<SelectProps & React.RefAttributes<unknown>>;
 export default Select;

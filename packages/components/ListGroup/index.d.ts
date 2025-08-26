@@ -1,6 +1,8 @@
 import React from "react";
 import "./index.scss";
 interface ListGroupProps {
+    focusedIndex?: any;
+    actRef?: any;
     buttonClassName?: string;
     activeId?: string | number;
     showBorderRadius?: boolean;
@@ -17,15 +19,15 @@ interface ListGroupProps {
     activeOnClick?: boolean;
     externalClassName?: string;
     noWrap?: boolean;
-    defaultSelectFirst?: boolean;
     data?: any[];
     activeList?: any;
     labelKey?: string;
     valueKey?: string;
     type?: string;
-    onItemClick?: (item?: any) => void;
-    onItemDoubleClick?: (item?: any) => void;
+    onItemClick?: (item: any, index: number) => void;
+    onItemDoubleClick?: (item: any, index: number) => void;
     render?: (item: any, labelKey: string, valueKey: string) => any;
+    onEnter?: (item: any, index: number) => void;
 }
-declare const ListGroup: ({ buttonClassName, activeId, showBorderRadius, showBorder, buttonWidth, canCancel, multiple, itemHeight, columnMaxHeight, lineBreak, listPerColumn, height, maxHeight, activeOnClick, externalClassName, noWrap, defaultSelectFirst, data, activeList: selectList, labelKey, valueKey, type, render, onItemClick, onItemDoubleClick, }: ListGroupProps) => React.JSX.Element;
+declare const ListGroup: ({ focusedIndex, actRef, buttonClassName, activeId, showBorderRadius, showBorder, buttonWidth, canCancel, multiple, itemHeight, columnMaxHeight, lineBreak, listPerColumn, height, maxHeight, activeOnClick, externalClassName, noWrap, data, activeList: selectList, labelKey, valueKey, type, render, onItemClick, onItemDoubleClick, onEnter, }: ListGroupProps) => React.JSX.Element;
 export default ListGroup;

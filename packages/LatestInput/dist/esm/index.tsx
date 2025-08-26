@@ -5,10 +5,13 @@ import React, {
   useState,
   useImperativeHandle,
   ReactNode,
+  Fragment,
 } from "react";
 import "./index.scss";
+import { withTranslation } from "react-i18next";
 
 export interface InputProps {
+  actRef?: any;
   addonAfterStyle?: React.CSSProperties;
   title?: string;
   wrap?: boolean;
@@ -42,7 +45,8 @@ export interface InputProps {
   inputGroup?: boolean;
   labelColor?: string;
   required?: boolean;
-  type?: "text" | "datetime-local" | "date" | "time" | "number";
+  // 新增 'tag' 类型
+  type?: "text" | "datetime-local" | "date" | "time" | "number" | "tag";
   defaultValue?: any;
   size?: "lg" | "default" | "sm";
   externalClassName?: string;
@@ -62,14 +66,17 @@ export interface InputProps {
   onFormDataChange?: (key: string, value: any) => void;
   onFieldChange?: (name: string, value: any) => void;
   onValidateField?: (name: string, value?: any) => void;
+  onKeyDown?: (e: React.KeyboardEvent<HTMLInputElement>) => void;
 }
 
 export interface InputRef {
   validate: () => void;
+  clear: () => void;
 }
 
 const Input: React.ForwardRefRenderFunction<InputRef, InputProps> = (
   {
+    actRef,
     isFormItem,
     addonAfterStyle,
     title,
@@ -108,7 +115,7 @@ const Input: React.ForwardRefRenderFunction<InputRef, InputProps> = (
     prefixContent,
     suffixContent,
     suffixContentType = "button",
-    placeholder,
+    placeholder = type === "tag" ? "空格或回车分割" : "",
     style,
     disabled,
     transparent,
@@ -121,16 +128,46 @@ const Input: React.ForwardRefRenderFunction<InputRef, InputProps> = (
     onFormDataChange,
     onFieldChange,
     onValidateField,
+    onKeyDown,
   },
   ref
 ) => {
-  const [value, setValue] = useState(defaultValue ?? "");
+  // 统一状态管理（标签类型用数组，其他用原始值）
+  const [value, setValue] = useState<any>(
+    type === "tag"
+      ? Array.isArray(defaultValue)
+        ? defaultValue
+        : []
+      : defaultValue ?? ""
+  );
   const [isEnter, setIsEnter] = useState<boolean>(false);
   const [isFocus, setIsFocus] = useState<boolean>(false);
+
+  // 标签输入框特有状态
+  const [inputValue, setInputValue] = useState(""); // 标签输入框的临时输入值
+  const [isHighlighted, setIsHighlighted] = useState(false);
 
   const inputRef = useRef<HTMLInputElement>(null);
   const inputFormContentRef = useRef<any>(null);
 
+  // 初始化标签数据（仅处理tag类型）
+  useEffect(() => {
+    if (type === "tag") {
+      // 确保标签初始值是数组
+      const initialValue = Array.isArray(defaultValue) ? defaultValue : [];
+      setValue(initialValue);
+    } else {
+      // 其他类型沿用原逻辑
+      if (defaultValue || defaultValue === 0 || defaultValue === false) {
+        setValue(defaultValue);
+        handleValidate(defaultValue);
+      } else {
+        setValue("");
+      }
+    }
+  }, [defaultValue, type]);
+
+  // 处理普通输入框点击
   const handleClick = (
     e: React.MouseEvent<HTMLInputElement, MouseEvent>,
     ...args: any
@@ -139,60 +176,135 @@ const Input: React.ForwardRefRenderFunction<InputRef, InputProps> = (
     onClick && onClick(e);
   };
 
-  const handleFocus = (
-    e: React.FocusEvent<HTMLInputElement, Element>,
-    ...args: any
-  ) => {
+  // 处理聚焦
+  const handleFocus = (e: React.FocusEvent<HTMLInputElement, Element>) => {
     e.stopPropagation();
     if (varient === "filled" && inputFormContentRef.current && !disabled) {
       inputFormContentRef.current.style.backgroundColor = "";
       setIsFocus(true);
     }
+    // 标签类型的聚焦高亮
+    if (type === "tag") {
+      setIsHighlighted(true);
+    }
     onFocus && onFocus(e);
   };
 
+  // 处理失焦
   const handleBlur = (
     e: React.FocusEvent<HTMLInputElement, Element>,
     ...args: any
   ) => {
     onBlur && onBlur(e);
-    handleValidate(value);
+    handleValidate(value); // 统一用value做校验
     if (varient === "filled" && inputFormContentRef.current) {
       inputFormContentRef.current.style.backgroundColor = "#f0f0f0";
     }
     setIsFocus(false);
+
+    // 标签类型失焦时同步值
+    if (type === "tag") {
+      setIsHighlighted(false);
+    }
   };
 
+  // 处理普通输入框变化
   const handleChange = (
     e: React.ChangeEvent<HTMLInputElement>,
     ...args: any
   ) => {
-    const value = e.target.value;
-    const returnValue = type === "number" ? Number(value) : value;
-    setValue(value);
+    const inputValue = e.target.value;
+    const returnValue = type === "number" ? Number(inputValue) : inputValue;
+    setValue(inputValue);
+    // 触发所有回调（沿用原Input逻辑）
     onChange && onChange(returnValue);
     onFormDataChange && onFormDataChange(name!, returnValue);
-    handleFieldChange && handleFieldChange(returnValue);
-    handleValidate(value);
+    onFieldChange && onFieldChange(name!, returnValue);
+    handleValidate(inputValue);
+  };
+
+  // 标签输入框特有方法 - 添加标签
+  const addInput = () => {
+    if (!inputValue.trim() || disabled) return;
+
+    // 检查重复标签
+    const isDuplicate = value.some((item: any) => item === inputValue.trim());
+    if (!isDuplicate) {
+      const newList = [...value, inputValue.trim()];
+      setValue(newList);
+      // 同步到父组件（完全参照原Input的回调逻辑）
+      onChange && onChange(newList);
+      onFormDataChange && onFormDataChange(name!, newList);
+      onFieldChange && onFieldChange(name!, newList);
+      handleValidate(newList);
+    }
+    setInputValue("");
+  };
+
+  // 标签输入框 - 输入变化
+  const handleTagInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setInputValue(e.target.value);
+  };
+
+  // 标签输入框 - 按键处理
+  const handleTagKeyDown = (event: any) => {
+    const val = event.target.value.trim();
+    if (!val) return;
+
+    // 空格或回车添加标签（阻止默认行为避免表单提交）
+    if ((event.keyCode === 32 || event.keyCode === 13) && !disabled) {
+      event.preventDefault();
+      addInput();
+    }
+  };
+
+  // 标签输入框 - 删除标签
+  const handleDeleteItem = (item: any) => {
+    if (disabled) return;
+
+    const newList = value.filter((value: any) => value !== item);
+    setValue(newList);
+    // 同步到父组件（参照原Input回调）
+    onChange && onChange(newList);
+    onFormDataChange && onFormDataChange(name!, newList);
+    onFieldChange && onFieldChange(name!, newList);
+    handleValidate(newList);
   };
 
   const handleIconClick = () => {
-    onIconClick && onIconClick(value);
+    onIconClick && onIconClick(value as string);
   };
 
-  const [error, setError] = useState<boolean>(false);
-
-  const handleFieldChange = (value: any) => {
-    onFieldChange && onFieldChange(name!, value);
+  const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
+    onKeyDown && onKeyDown(e);
   };
 
   const handleValidate = (data: any) => {
     onValidateField && onValidateField(name!, data);
   };
 
-  const validate = () => {};
+  // 暴露的验证方法
+  const validate = () => {
+    // 可根据需要实现验证逻辑
+  };
+
+  // 清除输入值（统一方法，适配所有类型）
   const clear = () => {
-    setValue("");
+    if (type === "tag") {
+      const emptyList: any[] = [];
+      setValue(emptyList);
+      setInputValue("");
+      onChange && onChange(emptyList);
+      onFormDataChange && onFormDataChange(name!, emptyList);
+      onFieldChange && onFieldChange(name!, emptyList);
+      handleValidate(emptyList);
+    } else {
+      setValue("");
+      onChange && onChange("");
+      onFormDataChange && onFormDataChange(name!, "");
+      onFieldChange && onFieldChange(name!, "");
+      handleValidate("");
+    }
   };
 
   const handleMouseEnter = () => {
@@ -205,22 +317,18 @@ const Input: React.ForwardRefRenderFunction<InputRef, InputProps> = (
 
   const handleClearIconClick = () => {
     clear();
-    handleFieldChange("");
-    handleFieldChange("");
-    console.log("5: ", 5);
-    handleValidate("");
   };
 
   const generateClsWhenHasLabel = () => {
     switch (layout) {
       case "horizontal":
         return "adou-input-label-horizontal";
-
       case "horizontal-top":
         return "adou-input-label-horizontal-top";
-
       case "vertical":
         return "adou-input-label-vertical";
+      default:
+        return "";
     }
   };
 
@@ -246,9 +354,11 @@ const Input: React.ForwardRefRenderFunction<InputRef, InputProps> = (
     }
   };
 
-  const commonElement = (
-    <>
+  // 渲染普通输入框内容
+  const renderCommonInput = () => (
+    <Fragment>
       <input
+        onKeyDown={handleKeyDown}
         className={`input border-0 flex-fill form-control ${
           textEnd || type === "number" ? "text-end" : ""
         } ${
@@ -274,7 +384,7 @@ const Input: React.ForwardRefRenderFunction<InputRef, InputProps> = (
           height: size === "lg" ? "48px" : size === "sm" ? "33.6px" : "38px",
           backgroundColor: judgeBgColor(),
           cursor: disabled ? "not-allowed" : "auto",
-          borderRadius: "0.375rem", // 和父组件的 borderRadius 保持一致
+          borderRadius: "0.375rem",
           ...inputStyle,
         }}
         step={1}
@@ -283,14 +393,15 @@ const Input: React.ForwardRefRenderFunction<InputRef, InputProps> = (
         readOnly={disabled}
         placeholder={placeholder}
         onChange={handleChange}
-        onBlur={(e) => handleBlur(e)}
-        onFocus={(e) => handleFocus(e)}
-        onClick={(e) => handleClick(e)}
+        onBlur={handleBlur}
+        onFocus={handleFocus}
+        onClick={handleClick}
         type={type}
+        disabled={disabled}
       />
       {suffix && <div className="suffix-box">{suffix}</div>}
 
-      {clearable && true && value ? (
+      {clearable && !disabled && value ? (
         <span
           className="adou-input-clear-icon-box fade-enter me-1"
           style={{
@@ -314,24 +425,77 @@ const Input: React.ForwardRefRenderFunction<InputRef, InputProps> = (
           {commonSuffixContent}
         </div>
       )}
-    </>
+    </Fragment>
   );
 
-  // Expose validate method via ref
-  useImperativeHandle(ref, () => ({
+  // 渲染标签输入框内容
+  const renderTagInput = () => (
+    <div
+      className={`tag-input-wrapper form-control ${
+        isHighlighted ? "focus" : ""
+      }`}
+      style={{
+        minHeight: size === "lg" ? "48px" : size === "sm" ? "33.6px" : "38px",
+        padding: "4px 8px",
+        width: "100%",
+        backgroundColor: judgeBgColor(),
+        ...inputStyle,
+      }}
+    >
+      <div className="tag-input-content">
+        <ul className="tag-input-list">
+          {value.map((item: any) => (
+            <li className="list-item" key={item}>
+              {item}
+              <span
+                onClick={() => handleDeleteItem(item)}
+                className="item-icon"
+                style={{ cursor: disabled ? "not-allowed" : "pointer" }}
+              >
+                x
+              </span>
+            </li>
+          ))}
+        </ul>
+        {!disabled && (
+          <div className="tag-input-control">
+            <input
+              value={inputValue}
+              autoComplete="off"
+              onFocus={handleFocus}
+              onBlur={handleBlur}
+              onChange={handleTagInputChange}
+              onKeyDown={handleTagKeyDown}
+              placeholder={placeholder}
+              type="text"
+              className="input"
+              style={{
+                border: "none",
+                outline: "none",
+                flex: 1,
+                minWidth: "60px",
+                padding: "2px 0",
+              }}
+            />
+          </div>
+        )}
+      </div>
+    </div>
+  );
+
+  // 根据类型渲染不同的输入内容
+  const renderInputContent = () => {
+    return type === "tag" ? renderTagInput() : renderCommonInput();
+  };
+
+  // 暴露方法给ref
+  useImperativeHandle(actRef, () => ({
     validate,
     clear,
+    onFocus: () => {
+      inputRef.current?.focus();
+    },
   }));
-
-  useEffect(() => {
-    if (defaultValue || defaultValue === 0 || defaultValue === false) {
-      setValue(defaultValue);
-      handleValidate(defaultValue);
-      setError(false);
-    } else {
-      setValue("");
-    }
-  }, [defaultValue]);
 
   return (
     <div
@@ -353,7 +517,6 @@ const Input: React.ForwardRefRenderFunction<InputRef, InputProps> = (
             className="input-group"
             style={{
               flexWrap: wrap ? "wrap" : "nowrap",
-              // height: size === 'lg' ? '48px' : size === 'sm' ? '33.6px' : '40px',
             }}
           >
             {addonBefore && (
@@ -370,8 +533,8 @@ const Input: React.ForwardRefRenderFunction<InputRef, InputProps> = (
                   border: addonBefore || addonAfter ? "" : "none",
                 }),
                 ...formStyle,
-                // backgroundColor: judgeBgColor(),
                 border: varient === "outlined" ? "1px solid #ced4da" : "",
+                backgroundColor: judgeBgColor(),
               }}
               ref={inputFormContentRef}
               tabIndex={1}
@@ -381,7 +544,7 @@ const Input: React.ForwardRefRenderFunction<InputRef, InputProps> = (
             >
               {prefix && <div className="prefix-box">{prefix}</div>}
               <div className={`input-box flex-fill d-flex  align-items-center`}>
-                {commonElement}
+                {renderInputContent()}
               </div>
             </div>
             {addonAfter && (
@@ -389,14 +552,12 @@ const Input: React.ForwardRefRenderFunction<InputRef, InputProps> = (
                 className="input-group-text py-0"
                 style={{ fontSize: "14px", ...addonAfterStyle }}
               >
-                {addonAfter && addonAfter}
+                {addonAfter}
               </span>
             )}
           </div>
         </div>
       ) : (
-        // 只有在是 label 的情况下才去对 生成对应的类名
-        // 没有 addonBefore 和 addonAfter 才展示下面的代码
         <div
           className={`adou-input flex-fill ${generateClsWhenHasLabel()}`}
           style={{ height: "100%" }}
@@ -415,11 +576,10 @@ const Input: React.ForwardRefRenderFunction<InputRef, InputProps> = (
               width: "100%",
               ...(varient === "filled" && {
                 backgroundColor: "#f0f0f0",
-                // border: "none",
               }),
               // 如果不是 FormItem 下的，并且没有 addonBefore 和 addonAfter，则需要手动给个边框
               border: !isFormItem ? "1px solid #ced4da" : "",
-              // backgroundColor: judgeBgColor(),
+              backgroundColor: judgeBgColor(),
               ...formStyle,
             }}
             ref={inputFormContentRef}
@@ -429,7 +589,7 @@ const Input: React.ForwardRefRenderFunction<InputRef, InputProps> = (
           >
             {prefix && <div className="prefix-box">{prefix}</div>}
             <div className={`input-box flex-fill d-flex align-items-center`}>
-              {commonElement}
+              {renderInputContent()}
             </div>
           </div>
         </div>
@@ -444,4 +604,4 @@ const Input: React.ForwardRefRenderFunction<InputRef, InputProps> = (
 const ForwardedInput = forwardRef(Input);
 ForwardedInput.displayName = "Input";
 
-export default ForwardedInput;
+export default withTranslation()(ForwardedInput);

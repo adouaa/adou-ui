@@ -111,14 +111,7 @@
 
         &:active {
             color: #fff;
-            background-color: #2783d8;
-        }
-
-        &.focused {
-            background-color: #e0e0e0 !important;
-            color: #000 !important;
-            font-weight: normal !important;
-            /* 高亮当前聚焦的选项 */
+            background-color: var(--bs-primary);
         }
     }
 

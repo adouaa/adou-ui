@@ -1003,6 +1003,7 @@ var update = injectStylesIntoStyleTag_default()(cjs_ruleSet_1_rules_1_use_2_src/
 
 const Dialog = _ref => {
   let {
+    confirmWhenEnter = true,
     draggble,
     confirmBtnLoading,
     needDestroy = false,
@@ -1045,6 +1046,9 @@ const Dialog = _ref => {
     handleMouseDown
   } = hooks_useDrag(triggerRef, dialogRef, draggble && !max, false);
   const handleKeyDown = event => {
+    if (!confirmWhenEnter) {
+      return;
+    }
     if (event.key === "Enter") {
       onConfirm && onConfirm();
     } else if (event.key === "Escape") {

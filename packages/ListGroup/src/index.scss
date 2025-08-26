@@ -1,4 +1,8 @@
 .list-group-wrapper {
+    .list-group-item-action:focus {
+        outline: none;
+        background-color: transparent;
+    }
 
     /* // 滚动条变细
     ::-webkit-scrollbar {

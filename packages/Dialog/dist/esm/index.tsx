@@ -6,6 +6,7 @@ import Button from "adou-ui/Button";
 import "./index.scss";
 
 interface DialogProps {
+  confirmWhenEnter?: boolean;
   draggble?: boolean; // 是否可拖拽
   confirmBtnLoading?: boolean; // 确定按钮loading
   needDestroy?: boolean; // 是否需要销毁
@@ -34,6 +35,7 @@ interface DialogProps {
   onConfirm?: () => void;
 }
 const Dialog: React.FC<DialogProps> = ({
+  confirmWhenEnter = true,
   draggble,
   confirmBtnLoading,
   needDestroy = false,
@@ -77,6 +79,9 @@ const Dialog: React.FC<DialogProps> = ({
   );
 
   const handleKeyDown = (event: React.KeyboardEvent) => {
+    if (!confirmWhenEnter) {
+      return;
+    }
     if (event.key === "Enter") {
       onConfirm && onConfirm();
     } else if (event.key === "Escape") {

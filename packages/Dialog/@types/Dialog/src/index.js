@@ -32,7 +32,7 @@ const useDrag_1 = __importDefault(require("../../Utils/src/hooks/useDrag"));
 const useClickOutside_1 = __importDefault(require("../../Utils/src/hooks/useClickOutside"));
 const Button_1 = __importDefault(require("adou-ui/Button"));
 require("./index.scss");
-const Dialog = ({ draggble, confirmBtnLoading, needDestroy = false, maxY, maxX, max, showConfirm = true, showCancel = true, showClose = true, canConfirm = true, clickOutside = false, confirmText = "确定", cancelText = "取消", confirmBtnClass = "primary", cancelBtnClass = "secondary", show: isOpen = false, title = "提示", children = null, type = "", maxHeight = "400px", width = "600px", height, maxWidth, onCancel, onClose = () => { }, onConfirm = () => { }, }) => {
+const Dialog = ({ confirmWhenEnter = true, draggble, confirmBtnLoading, needDestroy = false, maxY, maxX, max, showConfirm = true, showCancel = true, showClose = true, canConfirm = true, clickOutside = false, confirmText = "确定", cancelText = "取消", confirmBtnClass = "primary", cancelBtnClass = "secondary", show: isOpen = false, title = "提示", children = null, type = "", maxHeight = "400px", width = "600px", height, maxWidth, onCancel, onClose = () => { }, onConfirm = () => { }, }) => {
     const dialogRef = (0, react_1.useRef)(null);
     const triggerRef = (0, react_1.useRef)(null);
     const [show, setShow] = (0, react_1.useState)(false);
@@ -42,6 +42,9 @@ const Dialog = ({ draggble, confirmBtnLoading, needDestroy = false, maxY, maxX, 
     const [firstOpen, setFirstOpen] = (0, react_1.useState)(false);
     const { position, handleMouseDown } = (0, useDrag_1.default)(triggerRef, dialogRef, draggble && !max, false);
     const handleKeyDown = (event) => {
+        if (!confirmWhenEnter) {
+            return;
+        }
         if (event.key === "Enter") {
             onConfirm && onConfirm();
         }

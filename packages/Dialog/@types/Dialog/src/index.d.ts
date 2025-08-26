@@ -1,6 +1,7 @@
 import React from "react";
 import "./index.scss";
 interface DialogProps {
+    confirmWhenEnter?: boolean;
     draggble?: boolean;
     confirmBtnLoading?: boolean;
     needDestroy?: boolean;

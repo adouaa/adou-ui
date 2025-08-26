@@ -80,6 +80,8 @@ export interface SelectProps {
   ) => any | boolean;
   onTagsDelete?: (value: any) => void;
   onWrapperClick?: (e: any) => void;
+  onEnter?: (item: any, index: number) => void;
+  onKeyDown?: (e: React.KeyboardEvent<HTMLDivElement>) => void;
 }
 
 const Select = React.forwardRef((props: SelectProps, ref) => {
@@ -150,6 +152,8 @@ const Select = React.forwardRef((props: SelectProps, ref) => {
     filterOption,
     onTagsDelete,
     onWrapperClick,
+    onEnter,
+    onKeyDown,
   } = props;
 
   const [isShow, setIsShow] = useState<boolean>(false);
@@ -185,6 +189,31 @@ const Select = React.forwardRef((props: SelectProps, ref) => {
   const [isInputFocusing, setIsInputFocusing] = useState<boolean>(false);
   const inputRef = useRef<any>();
   const tagInputTemValueRef = useRef<string>("");
+
+  // 选项引用
+  const optionRefs = useRef<(HTMLButtonElement | HTMLDivElement | null)[]>([]); // 存储所有项的引用
+
+  // 注册项引用
+  const registerRef = (
+    index: number,
+    ref: HTMLButtonElement | HTMLDivElement | null
+  ) => {
+    if (ref && !optionRefs.current[index]) {
+      optionRefs.current[index] = ref;
+    }
+  };
+
+  // 滚动到指定项使其可见
+  const scrollToItem = (index: number) => {
+    const item = optionRefs.current[index];
+    if (item) {
+      item.scrollIntoView({
+        behavior: "smooth",
+        block: "nearest",
+        inline: "nearest",
+      });
+    }
+  };
 
   const handleClose = () => {
     if (disabled) return;
@@ -476,18 +505,12 @@ const Select = React.forwardRef((props: SelectProps, ref) => {
     }
   };
 
-  // 判断是否是选中状态来决定选项的字体颜色
+  // 判断是否是选中状态来决定选项的字体颜色 -- 用于多选
   const judgeColor = (item: any, type: "font" | "bgc") => {
     if (multiple || mode === "tags") {
       return selectValueList?.find(
         (option: any) => option[valueKey] == item[valueKey]
       )
-        ? activeColor?.[type]
-        : type === "font"
-        ? "#000"
-        : "";
-    } else {
-      return selectValue?.[valueKey] == item[valueKey]
         ? activeColor?.[type]
         : type === "font"
         ? "#000"
@@ -557,22 +580,31 @@ const Select = React.forwardRef((props: SelectProps, ref) => {
       }
       return; // 让焦点移动到下一个表单元素
     } else if (isShow) {
+      let _focusedIndex = -1;
       if (event.key === "ArrowUp") {
         event.preventDefault();
-        setFocusedIndex((prevIndex) =>
-          prevIndex <= 0 ? newOptions.length - 1 : prevIndex - 1
-        );
+        _focusedIndex =
+          focusedIndex <= 0 ? newOptions.length - 1 : focusedIndex - 1;
       } else if (event.key === "ArrowDown") {
         event.preventDefault();
-        setFocusedIndex((prevIndex) =>
-          prevIndex >= newOptions.length - 1 ? 0 : prevIndex + 1
-        );
+        _focusedIndex =
+          focusedIndex >= newOptions.length - 1 ? 0 : focusedIndex + 1;
       } else if (event.key === "Enter") {
         handleClose();
         if (focusedIndex == -1) return;
         event.preventDefault();
         handleSelect(newOptions[focusedIndex]);
+        onEnter && onEnter(newOptions[focusedIndex], focusedIndex);
       }
+
+      // 如果是上下箭头，赋值完最新的 index 后，在最后统一处理
+      if (["ArrowUp", "ArrowDown"].includes(event.key)) {
+        if (newOptions && newOptions.length) {
+          setFocusedIndex(_focusedIndex);
+          scrollToItem(_focusedIndex);
+        }
+      }
+      onKeyDown && onKeyDown(event);
     }
   };
 
@@ -802,17 +834,30 @@ const Select = React.forwardRef((props: SelectProps, ref) => {
     setTimeout(() => {
       calcContentPosition();
     }, 0);
+    // 【注意】：在列表变化的时候，要记得把 选项引用 清空！！！不然不会滚动
+    optionRefs.current = [];
   }, [newOptions]);
 
   useEffect(() => {
     if (!isShow) {
-      setFocusedIndex(-1); // 重置聚焦索引
+      // 暂无逻辑
     } else {
+      const findIndex = newOptions.findIndex(
+        (item: any) => item[valueKey] === selectValue[valueKey]
+      );
+      // 存下聚焦索引
+      setFocusedIndex(findIndex);
       // 在 打开下拉列表的时候，去计算 wapper 的宽度，赋值给 下拉列表
       const wrapperWidth = selectWrapperRef.current.offsetWidth;
       setOptionContentWidth(wrapperWidth);
+      if (newOptions?.length > 0) {
+        // 如果列表有值，则作滚动，需要给个定时器，这样效果更好看
+        setTimeout(() => {
+          scrollToItem(findIndex);
+        }, 150);
+      }
     }
-  }, [isShow]);
+  }, [isShow, newOptions]);
 
   // 因为现在只有在 第一次 的时候展示 select-value的div，后面都是展示 input，所以这边做了赋值处理，保证 input的值能够实时更新
   useEffect(() => {
@@ -1079,7 +1124,7 @@ const Select = React.forwardRef((props: SelectProps, ref) => {
                   height="10px"
                   viewBox="0 -4.5 20 20"
                 >
-                  <g stroke="none" stroke-width="1" fill="none">
+                  <g stroke="none" fill="none">
                     <g
                       transform="translate(-180.000000, -6684.000000)"
                       className="arrow-fill-g"
@@ -1148,16 +1193,15 @@ const Select = React.forwardRef((props: SelectProps, ref) => {
               {newOptions.length > 0 ? (
                 newOptions.map((item, index) => (
                   <div
+                    ref={(ref) => registerRef(index, ref)}
                     onClick={(e) => handleSelect(item, e)}
                     style={{
                       color: judgeColor(item, "font"),
                       backgroundColor: judgeColor(item, "bgc"),
                     }}
                     className={`adou-select-option ${
-                      selectValue?.[valueKey] == item[valueKey]
-                        ? "adou-select-option-active"
-                        : ""
-                    } ${focusedIndex === index ? "focused" : ""}`}
+                      focusedIndex === index ? "adou-select-option-active" : ""
+                    }`}
                     key={item[valueKey]}
                   >
                     {optionRender
