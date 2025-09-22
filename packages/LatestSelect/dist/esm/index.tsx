@@ -9,6 +9,8 @@ import useThrottle from "./useThrottle";
 import IconClose from "./icon_close";
 
 export interface SelectProps {
+  autoFillter?: boolean;
+  actRef?: any;
   optionContentStyle?: React.CSSProperties;
   addonAfterStyle?: React.CSSProperties;
   addonAfter?: any;
@@ -86,6 +88,8 @@ export interface SelectProps {
 
 const Select = React.forwardRef((props: SelectProps, ref) => {
   const {
+    autoFillter = true,
+    actRef,
     optionContentStyle,
     addonAfterStyle,
     addonAfter,
@@ -558,11 +562,16 @@ const Select = React.forwardRef((props: SelectProps, ref) => {
     }
   };
 
-  useImperativeHandle(ref, () => ({
+  useImperativeHandle(actRef, () => ({
     validate,
     clear,
     getValue,
     focus,
+    inputFocus: () => {
+      if (inputRef.current) {
+        inputRef.current.focus();
+      }
+    },
   }));
 
   const wrapperClassName = `adou-select-wrapper ${
@@ -687,7 +696,8 @@ const Select = React.forwardRef((props: SelectProps, ref) => {
     if (mode === "liveSearch") {
       handleFieldChange(value);
     }
-    if (!onInputChange) {
+    // 新增参数 autoFiter，如果为 true，代表内部简单过滤
+    if (autoFillter) {
       // 如果不需要检索，则直接做过滤
       const filteredOptions = originalOptions.filter((item: any) => {
         return filterOption
@@ -695,13 +705,12 @@ const Select = React.forwardRef((props: SelectProps, ref) => {
           : String(item[labelKey]).toLowerCase().includes(value.toLowerCase());
       });
       setNewOptions(filteredOptions);
-    } else {
-      // _onInputChange(value); // 不知道为什么使用节流会导致 form 的数据被清空。。。
-      onInputChange && onInputChange(value);
     }
     if (mode === "tags") {
       tagInputTemValueRef.current = value;
     }
+    // 最终都要调用 onInputChange 事件
+    onInputChange && onInputChange(value);
   };
 
   useEffect(() => {
@@ -842,8 +851,9 @@ const Select = React.forwardRef((props: SelectProps, ref) => {
     if (!isShow) {
       // 暂无逻辑
     } else {
+      // 防止 selectValue 没值，要加上 ?.
       const findIndex = newOptions.findIndex(
-        (item: any) => item[valueKey] === selectValue[valueKey]
+        (item: any) => item[valueKey] === selectValue?.[valueKey]
       );
       // 存下聚焦索引
       setFocusedIndex(findIndex);
@@ -1222,7 +1232,6 @@ const Select = React.forwardRef((props: SelectProps, ref) => {
     </div>
   );
 });
-
 Select.displayName = "Select";
 
 export default Select;

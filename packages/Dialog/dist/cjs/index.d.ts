@@ -1,6 +1,8 @@
 import React from "react";
 import "./index.scss";
 interface DialogProps {
+    footerStyle?: React.CSSProperties;
+    footerLeftContent?: React.ReactNode;
     confirmWhenEnter?: boolean;
     draggble?: boolean;
     confirmBtnLoading?: boolean;

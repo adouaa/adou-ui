@@ -6693,19 +6693,7 @@ ___CSS_LOADER_EXPORT___.push([module.id, `@charset "UTF-8";
   height: 100px;
   font-style: italic;
   color: #a4a3a3;
-}
-.adou-select-option-content::-webkit-scrollbar {
-  width: 4px;
-  height: 4px;
-}
-.adou-select-option-content::-webkit-scrollbar-thumb {
-  background-color: #c0c0c0;
-  border-radius: 2px;
-}
-.adou-select-option-content::-webkit-scrollbar-track {
-  background-color: #f1f1f1;
-  border-radius: 2px;
-}`, "",{"version":3,"sources":["webpack://./src/index.scss"],"names":[],"mappings":"AAAA,gBAAgB;AAEZ;EACI,YAAA;AAAR;AAEQ;EACI,oCAAA;EACA,uCAAA;AAAZ;AAIQ;EACI,YAAA;EACA,uBAAA;EAEA,wDAAA;EACA,eAAA;AAHZ;AAMY;EACI,+BAAA;EACA,WAAA;AAJhB;AAQgB;EACI,0BAAA;AANpB;AAQoB;EACI,kCAAA;AANxB;AASoB;EACI,mCAAA;AAPxB;AAUoB;EACI,oCAAA;AARxB;AAgBY;EAEI,eAAA;EACA,oBAAA;EACA,cAAA;AAfhB;AAiBgB;EACI,qBAAA;EACA,qBAAA;AAfpB;AAuBY;EAEI,WAAA;EACA,aAAA;EACA,YAAA;AAtBhB;AA0BgB;EACI,SAAA;AAxBpB;;AAoCA;EACI,qBAAA;EACA,gBAAA;EACA,WAAA;EACA,kBAAA;EACA,iBAAA;EACA,kBAAA;EACA,4CAAA;EACA,wEAAA;EACA,kBAAA;EACA,oBAAA;EACA,qBAAA;EACA,mCAAA;AAjCJ;AAmCI;EACI,UAAA;EACA,mBAAA;EACA,oBAAA;AAjCR;AAqCI;EACI,iBAAA;AAnCR;AAqCQ;EACI,yBAAA;EACA,eAAA;AAnCZ;AAsCQ;EACI,WAAA;EACA,mCAAA;AApCZ;AAwCI;EACI,iBAAA;AAtCR;AAyCI;EACI,UAAA;EACA,mBAAA;EACA,oBAAA;EACA,gBAAA;EACA,WAAA;AAvCR;AA0CI;EACI,eAAA;EACA,aAAA;EACA,kBAAA;EACA,cAAA;AAxCR;AA4CI;EACI,UAAA;EACA,WAAA;AA1CR;AA6CI;EACI,yBAAA;EACA,kBAAA;AA3CR;AA8CI;EACI,yBAAA;EACA,kBAAA;AA5CR","sourcesContent":[".adou-select-wrapper {\r\n\r\n    .adou-select-form-content {\r\n        height: 100%;\r\n\r\n        &.border-left-radius-none {\r\n            border-top-left-radius: 0 !important;\r\n            border-bottom-left-radius: 0 !important;\r\n\r\n        }\r\n\r\n        .adou-select {\r\n            height: 100%;\r\n            border-radius: 0.475rem;\r\n            // box-shadow: 0 1px 1px rgba(0, 0, 0, 0.075); 加上这个在 borderless 情况下底部会有条线\r\n            transition: border-color 0.5s ease, box-shadow 0.5s ease;\r\n            cursor: pointer;\r\n            // padding: 0 12px;\r\n\r\n            i {\r\n                transition: transform 0.3s ease;\r\n                /* 添加过渡效果 */\r\n            }\r\n\r\n            &-icon {\r\n                svg {\r\n                    transition: transform 0.2s;\r\n\r\n                    &.rotate-down:hover {\r\n                        transform: scale(1.3) rotate(0deg);\r\n                    }\r\n\r\n                    &.rotate-up:hover {\r\n                        transform: scale(1.3) rotate(90deg);\r\n                    }\r\n\r\n                    &.rotate-up {\r\n                        transform: rotate(180deg) !important;\r\n                    }\r\n                }\r\n\r\n                .rotate-down {}\r\n            }\r\n\r\n\r\n            &-clear-icon {\r\n\r\n                cursor: pointer;\r\n                transition: all 0.3s;\r\n                color: #c6c6cd;\r\n\r\n                &:hover {\r\n                    transform: scale(1.2);\r\n                    color: red !important;\r\n                }\r\n            }\r\n\r\n            &-input-box {\r\n                // background-color: red;\r\n            }\r\n\r\n            &-input {\r\n                // min-width: 120px;\r\n                width: 100%;\r\n                outline: none;\r\n                border: none;\r\n            }\r\n\r\n            .adou-select-value-list-item-close {\r\n                svg {\r\n                    fill: red;\r\n                }\r\n            }\r\n        }\r\n    }\r\n\r\n\r\n\r\n\r\n\r\n}\r\n\r\n.adou-select-option-content {\r\n    text-align-last: left;\r\n    overflow: hidden;\r\n    /* 隐藏溢出内容 */\r\n    position: absolute;\r\n    z-index: 66666666;\r\n    border-radius: 4px;\r\n    box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;\r\n    transition: opacity 0.3s ease, visibility 0.3s ease, transform 0.3s ease;\r\n    visibility: hidden;\r\n    transform: scaleY(0);\r\n    transform-origin: top;\r\n    background-color: var(--bs-body-bg);\r\n\r\n    &-open {\r\n        opacity: 1;\r\n        visibility: visible;\r\n        transform: scaleY(1);\r\n    }\r\n\r\n\r\n    .adou-select-option {\r\n        padding: 5px 10px;\r\n\r\n        &:hover {\r\n            background-color: #f6f6f6;\r\n            cursor: pointer;\r\n        }\r\n\r\n        &:active {\r\n            color: #fff;\r\n            background-color: var(--bs-primary);\r\n        }\r\n    }\r\n\r\n    .adou-select-option-active {\r\n        font-weight: bold;\r\n    }\r\n\r\n    &-open {\r\n        opacity: 1;\r\n        visibility: visible;\r\n        transform: scaleY(1);\r\n        overflow-y: auto;\r\n        /* 允许垂直滚动 */\r\n    }\r\n\r\n    .none-match {\r\n        padding: 10px 0;\r\n        height: 100px;\r\n        font-style: italic;\r\n        color: #a4a3a3;\r\n    }\r\n\r\n    // 滚动条变细\r\n    &::-webkit-scrollbar {\r\n        width: 4px;\r\n        height: 4px;\r\n    }\r\n\r\n    &::-webkit-scrollbar-thumb {\r\n        background-color: #c0c0c0;\r\n        border-radius: 2px;\r\n    }\r\n\r\n    &::-webkit-scrollbar-track {\r\n        background-color: #f1f1f1;\r\n        border-radius: 2px;\r\n    }\r\n}"],"sourceRoot":""}]);
+}`, "",{"version":3,"sources":["webpack://./src/index.scss"],"names":[],"mappings":"AAAA,gBAAgB;AAEZ;EACI,YAAA;AAAR;AAEQ;EACI,oCAAA;EACA,uCAAA;AAAZ;AAIQ;EACI,YAAA;EACA,uBAAA;EAEA,wDAAA;EACA,eAAA;AAHZ;AAMY;EACI,+BAAA;EACA,WAAA;AAJhB;AAQgB;EACI,0BAAA;AANpB;AAQoB;EACI,kCAAA;AANxB;AASoB;EACI,mCAAA;AAPxB;AAUoB;EACI,oCAAA;AARxB;AAgBY;EAEI,eAAA;EACA,oBAAA;EACA,cAAA;AAfhB;AAiBgB;EACI,qBAAA;EACA,qBAAA;AAfpB;AAuBY;EAEI,WAAA;EACA,aAAA;EACA,YAAA;AAtBhB;AA0BgB;EACI,SAAA;AAxBpB;;AAoCA;EACI,qBAAA;EACA,gBAAA;EACA,WAAA;EACA,kBAAA;EACA,iBAAA;EACA,kBAAA;EACA,4CAAA;EACA,wEAAA;EACA,kBAAA;EACA,oBAAA;EACA,qBAAA;EACA,mCAAA;AAjCJ;AAmCI;EACI,UAAA;EACA,mBAAA;EACA,oBAAA;AAjCR;AAqCI;EACI,iBAAA;AAnCR;AAqCQ;EACI,yBAAA;EACA,eAAA;AAnCZ;AAsCQ;EACI,WAAA;EACA,mCAAA;AApCZ;AAwCI;EACI,iBAAA;AAtCR;AAyCI;EACI,UAAA;EACA,mBAAA;EACA,oBAAA;EACA,gBAAA;EACA,WAAA;AAvCR;AA0CI;EACI,eAAA;EACA,aAAA;EACA,kBAAA;EACA,cAAA;AAxCR","sourcesContent":[".adou-select-wrapper {\r\n\r\n    .adou-select-form-content {\r\n        height: 100%;\r\n\r\n        &.border-left-radius-none {\r\n            border-top-left-radius: 0 !important;\r\n            border-bottom-left-radius: 0 !important;\r\n\r\n        }\r\n\r\n        .adou-select {\r\n            height: 100%;\r\n            border-radius: 0.475rem;\r\n            // box-shadow: 0 1px 1px rgba(0, 0, 0, 0.075); 加上这个在 borderless 情况下底部会有条线\r\n            transition: border-color 0.5s ease, box-shadow 0.5s ease;\r\n            cursor: pointer;\r\n            // padding: 0 12px;\r\n\r\n            i {\r\n                transition: transform 0.3s ease;\r\n                /* 添加过渡效果 */\r\n            }\r\n\r\n            &-icon {\r\n                svg {\r\n                    transition: transform 0.2s;\r\n\r\n                    &.rotate-down:hover {\r\n                        transform: scale(1.3) rotate(0deg);\r\n                    }\r\n\r\n                    &.rotate-up:hover {\r\n                        transform: scale(1.3) rotate(90deg);\r\n                    }\r\n\r\n                    &.rotate-up {\r\n                        transform: rotate(180deg) !important;\r\n                    }\r\n                }\r\n\r\n                .rotate-down {}\r\n            }\r\n\r\n\r\n            &-clear-icon {\r\n\r\n                cursor: pointer;\r\n                transition: all 0.3s;\r\n                color: #c6c6cd;\r\n\r\n                &:hover {\r\n                    transform: scale(1.2);\r\n                    color: red !important;\r\n                }\r\n            }\r\n\r\n            &-input-box {\r\n                // background-color: red;\r\n            }\r\n\r\n            &-input {\r\n                // min-width: 120px;\r\n                width: 100%;\r\n                outline: none;\r\n                border: none;\r\n            }\r\n\r\n            .adou-select-value-list-item-close {\r\n                svg {\r\n                    fill: red;\r\n                }\r\n            }\r\n        }\r\n    }\r\n\r\n\r\n\r\n\r\n\r\n}\r\n\r\n.adou-select-option-content {\r\n    text-align-last: left;\r\n    overflow: hidden;\r\n    /* 隐藏溢出内容 */\r\n    position: absolute;\r\n    z-index: 66666666;\r\n    border-radius: 4px;\r\n    box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;\r\n    transition: opacity 0.3s ease, visibility 0.3s ease, transform 0.3s ease;\r\n    visibility: hidden;\r\n    transform: scaleY(0);\r\n    transform-origin: top;\r\n    background-color: var(--bs-body-bg);\r\n\r\n    &-open {\r\n        opacity: 1;\r\n        visibility: visible;\r\n        transform: scaleY(1);\r\n    }\r\n\r\n\r\n    .adou-select-option {\r\n        padding: 5px 10px;\r\n\r\n        &:hover {\r\n            background-color: #f6f6f6;\r\n            cursor: pointer;\r\n        }\r\n\r\n        &:active {\r\n            color: #fff;\r\n            background-color: var(--bs-primary) ;\r\n        }\r\n    }\r\n\r\n    .adou-select-option-active {\r\n        font-weight: bold;\r\n    }\r\n\r\n    &-open {\r\n        opacity: 1;\r\n        visibility: visible;\r\n        transform: scaleY(1);\r\n        overflow-y: auto;\r\n        /* 允许垂直滚动 */\r\n    }\r\n\r\n    .none-match {\r\n        padding: 10px 0;\r\n        height: 100px;\r\n        font-style: italic;\r\n        color: #a4a3a3;\r\n    }\r\n}"],"sourceRoot":""}]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 
@@ -7215,6 +7203,8 @@ const IconClose = /*#__PURE__*/(0,external_root_React_commonjs2_react_commonjs_r
 
 const Select = /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().forwardRef((props, ref) => {
   const {
+    autoFillter = true,
+    actRef,
     optionContentStyle,
     addonAfterStyle,
     addonAfter,
@@ -7628,11 +7618,16 @@ const Select = /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_a
       selectWrapperRef.current.focus();
     }
   };
-  (0,external_root_React_commonjs2_react_commonjs_react_amd_react_.useImperativeHandle)(ref, () => ({
+  (0,external_root_React_commonjs2_react_commonjs_react_amd_react_.useImperativeHandle)(actRef, () => ({
     validate,
     clear,
     getValue,
-    focus
+    focus,
+    inputFocus: () => {
+      if (inputRef.current) {
+        inputRef.current.focus();
+      }
+    }
   }));
   const wrapperClassName = "adou-select-wrapper ".concat(externalClassName || "").trim();
 
@@ -7748,19 +7743,19 @@ const Select = /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_a
     if (mode === "liveSearch") {
       handleFieldChange(value);
     }
-    if (!onInputChange) {
+    // 新增参数 autoFiter，如果为 true，代表内部简单过滤
+    if (autoFillter) {
       // 如果不需要检索，则直接做过滤
       const filteredOptions = originalOptions.filter(item => {
         return filterOption ? filterOption(value, item, labelKey, valueKey) : String(item[labelKey]).toLowerCase().includes(value.toLowerCase());
       });
       setNewOptions(filteredOptions);
-    } else {
-      // _onInputChange(value); // 不知道为什么使用节流会导致 form 的数据被清空。。。
-      onInputChange && onInputChange(value);
     }
     if (mode === "tags") {
       tagInputTemValueRef.current = value;
     }
+    // 最终都要调用 onInputChange 事件
+    onInputChange && onInputChange(value);
   };
   (0,external_root_React_commonjs2_react_commonjs_react_amd_react_.useEffect)(() => {
     /* if (name === "freq") {
@@ -7890,7 +7885,8 @@ const Select = /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_a
     if (!isShow) {
       // 暂无逻辑
     } else {
-      const findIndex = newOptions.findIndex(item => item[valueKey] === selectValue[valueKey]);
+      // 防止 selectValue 没值，要加上 ?.
+      const findIndex = newOptions.findIndex(item => item[valueKey] === (selectValue === null || selectValue === void 0 ? void 0 : selectValue[valueKey]));
       // 存下聚焦索引
       setFocusedIndex(findIndex);
       // 在 打开下拉列表的时候，去计算 wapper 的宽度，赋值给 下拉列表

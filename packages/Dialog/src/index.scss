@@ -20,7 +20,7 @@
 }
 
 .dialog {
-    background-color: white;
+    background-color: var(--bs-body-bg);
     border-radius: 4px;
     box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
     width: 400px;

@@ -9300,6 +9300,8 @@ var update = injectStylesIntoStyleTag_default()(TableCell/* default */.A, option
 
 const TableCell_TableCell = props => {
   const {
+    showTitle,
+    title,
     textWrapperClassName,
     tableCellClassName = "d-flex flex-fill",
     wrap,
@@ -9364,7 +9366,7 @@ const TableCell_TableCell = props => {
   }, [value]);
   return /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("div", {
     // 直接在最外层加 title，这样不管是 render 或者是 默认展示，都可以看到 title 提示
-    title: editedValue,
+    title: showTitle ? title || editedValue : "",
     className: "table-cell ".concat(tableCellClassName, " ").concat(judgeTdAlign()),
     style: {
       width
@@ -9392,10 +9394,7 @@ const TableCell_TableCell = props => {
   }) : parentId && colIndex === 0 ? /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("span", {
     className: "ps-3"
   }) : null, /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("div", {
-    style: {
-      width,
-      maxWidth
-    },
+    // style={{ width, maxWidth }} // 在父元素 td 上已经做了 width 和 maxWidth，这边直接充满即可
     className: "text-wrapper ".concat(textWrapperClassName ? textWrapperClassName : "", " ").concat(wrap ? "text-wrap" : "ellipsis-1")
   }, editedValue)))));
 };
@@ -9457,6 +9456,7 @@ const recursiveGenerateTableHeaderRows = function (columns) {
 };
 const Table = props => {
   const {
+    showTitle = false,
     wrap = false,
     headerAlign,
     wrapperStyle,
@@ -9676,6 +9676,7 @@ const Table = props => {
       return /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement(external_root_React_commonjs2_react_commonjs_react_amd_react_.Fragment, {
         key: childData[id]
       }, /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("tr", {
+        "data-id": childData[id],
         onClick: e => handleRowClick(childData, e),
         onDoubleClick: e => handleRowDoubleClick(data, e),
         className: "tr-content tr-content ".concat(childData.checked === true ? "tr-checked" : "", " ").concat(childData.highlight === true ? "tr-highlight" : "", " collapse-table-tr animate__animated animate__fadeIn"),
@@ -9723,6 +9724,8 @@ const Table = props => {
         let prop = colProps.prop;
         if ( /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().isValidElement(col)) {
           const enhancedChild = /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().cloneElement(col, {
+            title: colProps.title,
+            showTitle,
             parentId: childData.parentId,
             // 父级id
             collapse: childData.collapse,
@@ -9767,6 +9770,8 @@ const Table = props => {
         let colProps = col.props ? col.props : col; // 有 children 就肯定有 props，没有 children 就没有 props，直接取 col
         let prop = colProps.prop;
         const childTableCellProps = {
+          title: colProps.title,
+          showTitle,
           parentId: childData.parentId,
           // 父级id
           collapse: childData.collapse,
@@ -10018,6 +10023,7 @@ const Table = props => {
         external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement(external_root_React_commonjs2_react_commonjs_react_amd_react_.Fragment, {
           key: data[id] + uniqId
         }, /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("tr", {
+          "data-id": data[id],
           onClick: e => handleRowClick(data, e),
           onDoubleClick: e => handleRowDoubleClick(data, e)
           // onDoubleClick={() => handleRowDoubleClick(data)}
@@ -10138,6 +10144,11 @@ const Table = props => {
             render: colProps.render,
             wrap: colProps.wrap || wrap
           };
+          // 统一判断 td 是否需要换行
+          let tdWhiteSpace = "nowrap";
+          if (colProps.wrap === true || wrap === true) {
+            tdWhiteSpace = "normal";
+          }
           return /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("td", {
             // 父级第一列不需要在 最左侧了
             // !colIndex && collapse && data.children ? 'text-start' : `text-${contentTextPositionObject[prop]}`
@@ -10151,7 +10162,7 @@ const Table = props => {
               wordBreak: "break-word",
               // 如果要默认展示一行，并且x轴太长可以滚动的话，则设置为nowrap
               // 注意：此时，外部设置的 width就没作用了，表格会自己根据内容来设置宽度
-              whiteSpace: wrap ? "normal" : "nowrap"
+              whiteSpace: tdWhiteSpace
               /*  [`${!colIndex && data.children ? 'paddingLeft' : ''}`]: '35px', */
             },
             key: colIndex
@@ -10313,7 +10324,6 @@ const Table = props => {
         const newItem = {
           ...item
         };
-
         // 如果刚好点击的是第一级的节点，则进入到这个if，选中它的所有子节点
         if (newItem[id] === row[id]) {
           var _newItem$children;
@@ -10353,7 +10363,7 @@ const Table = props => {
       // 2. 如果是单选，则在选择完一个节点后，要把其他节点的 check 状态都置为 false
       if (!multiple) {
         recursiveUpdateOtherTableDataCheck(tempTableData, row);
-      } else if (clickHighlight) {
+      } else if (clickHighlight && !multiple) {
         // 3. 如果是点击高亮，则在高亮完一个节点后，要把其他节点的 highlight 状态都置为 false
         recursiveUpdateOtherTableDataCheck(tempTableData, row, "highlight");
       }
@@ -10402,6 +10412,7 @@ const Table = props => {
   const handleClearChecked = () => {
     // 递归调用清空选中
     directlyUpdateChildrenCheckState(tableData, false);
+    setCheckedAll(false);
   };
 
   // 递归获取所有选中项
@@ -10457,6 +10468,45 @@ const Table = props => {
     }
   };
 
+  // 滚动到指定id对应的行
+  const handleScrollToCustomRow = targetId => {
+    // 查找目标id在数据中的位置--这里就不用 tableData 或者 data 来找数据，不然不知道第一次为什么没数据
+    // 直接加个定时器延迟执行然后通过 dom 来找
+    setTimeout(() => {
+      const tableWrapper = tableWrapperRef.current;
+      const tableBody = document.querySelector(".table-body");
+      if (!tableWrapper || !tableBody) return;
+
+      // 获取所有行元素，假设每行有data-id属性存储id值
+      const rows = tableBody.querySelectorAll(".tr-content");
+      if (!rows.length) return;
+
+      // 查找与目标id匹配的行
+      let targetRow = null;
+      // 通过 dom 来找
+      rows.forEach(row => {
+        // 元素上有 data-id 属性存储 id 值
+        if (Number(row.getAttribute("data-id")) === targetId) {
+          targetRow = row;
+        }
+      });
+      if (!targetRow) return;
+
+      // 计算滚动位置 - 使目标行居中显示
+      const wrapperRect = tableWrapper.getBoundingClientRect();
+      const rowRect = targetRow.getBoundingClientRect();
+
+      // 目标位置 = 行顶部相对于容器的位置 - 容器高度的一半 + 行高度的一半（实现居中）
+      const scrollTop = rowRect.top - wrapperRect.top + tableWrapper.scrollTop - wrapperRect.height / 2 + rowRect.height / 2;
+
+      // 执行滚动
+      tableWrapper.scrollTo({
+        top: scrollTop,
+        behavior: "smooth"
+      });
+    }, 100);
+  };
+
   // 递归设置 pid
   const recursiveSetParentId = (data, parentId) => {
     return data.map(item => {
@@ -10487,21 +10537,32 @@ const Table = props => {
       return;
     }
     let tempData = JSON.parse(JSON.stringify(data));
-    tempData = recursiveSetParentId(tempData, 0);
-    const checkedAll = areAllChecked(tempData);
+    // 如果新数据中存在与旧数据相同的数据，则要把旧数据中的高亮等状态带过去
+    let _tempData = tempData.map(item => {
+      tableData.forEach(tableItem => {
+        if (item[id] === tableItem[id]) {
+          item.checked = tableItem.checked;
+          item.highlight = tableItem.highlight;
+          item.collapse = tableItem.collapse;
+        }
+      });
+      return item;
+    });
+    _tempData = recursiveSetParentId(_tempData, 0);
+    const checkedAll = areAllChecked(_tempData);
     setCheckedAll(checkedAll);
     if (collapse) {
       setTimeout(() => {
-        const tableData = recursiveExpandTable(tempData);
+        const tableData = recursiveExpandTable(_tempData);
         setTableData(tableData);
       }, 10);
     } else {
-      setTableData(tempData);
+      setTableData(_tempData);
     }
-    if (tempData.length) {
+    if (_tempData.length) {
       // 必须给个 10ms 的延迟，不然默认选中会出现问题
       setTimeout(() => {
-        handleDefaultChecked(tempData);
+        handleDefaultChecked(_tempData);
       }, 10);
     }
   }, [data]);
@@ -10519,12 +10580,31 @@ const Table = props => {
   (0,external_root_React_commonjs2_react_commonjs_react_amd_react_.useEffect)(() => {
     if (activeId) {
       const tempData = JSON.parse(JSON.stringify(data));
-      const newTableData = tempData.map(item => {
+      // 如果新数据中存在与旧数据相同的数据，则要把旧数据中的高亮等状态带过去
+      let _tempData = tempData.map(item => {
+        tableData.forEach(tableItem => {
+          if (item[id] === tableItem[id]) {
+            item.checked = tableItem.checked;
+            item.highlight = tableItem.highlight;
+            item.collapse = tableItem.collapse;
+          }
+        });
+        return item;
+      });
+      const newTableData = _tempData.map(item => {
         // 判断 id 是否存在，如果 id 不存在，并且 activeId 也不存在，那也是相等的，得排除
         if (item[id] && item[id] === activeId) {
-          item.checked = true;
+          item.highlight = true;
+          // 如果想要点击就选中，则要加上这个
+          if (clickChecked) {
+            item.checked = true;
+          }
         } else {
-          item.checked = false;
+          item.highlight = false;
+          // 记得清除
+          if (clickChecked) {
+            item.checked = false;
+          }
         }
         return item;
       });
@@ -10547,7 +10627,8 @@ const Table = props => {
     expandAll: handleExpandAll,
     foldAll: handleFoldAll,
     scrollToEnd: handleScrollToEnd,
-    scrollToTop: handleScrollToTop
+    scrollToTop: handleScrollToTop,
+    scrollToCustomRow: handleScrollToCustomRow
   }));
 
   // 计算分页数据

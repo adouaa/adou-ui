@@ -1,6 +1,8 @@
 import "./index.scss";
 import React from "react";
 export interface SelectProps {
+    autoFillter?: boolean;
+    actRef?: any;
     optionContentStyle?: React.CSSProperties;
     addonAfterStyle?: React.CSSProperties;
     addonAfter?: any;

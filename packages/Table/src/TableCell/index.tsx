@@ -2,6 +2,8 @@ import React, { useEffect, useRef, useState } from "react";
 import "./index.scss";
 
 interface TableCellProps {
+  showTitle?: boolean;
+  title?: string;
   textWrapperClassName?: string; // 文本内容样式
   tableCellClassName?: string; // 最外层的 table-cell div 的类名
   wrap?: boolean;
@@ -31,6 +33,8 @@ interface TableCellProps {
 
 const TableCell = (props: TableCellProps) => {
   const {
+    showTitle,
+    title,
     textWrapperClassName,
     tableCellClassName = "d-flex flex-fill",
     wrap,
@@ -101,7 +105,7 @@ const TableCell = (props: TableCellProps) => {
   return (
     <div
       // 直接在最外层加 title，这样不管是 render 或者是 默认展示，都可以看到 title 提示
-      title={editedValue}
+      title={showTitle ? title || editedValue : ""}
       className={`table-cell ${tableCellClassName} ${judgeTdAlign()}`}
       style={{ width }}
     >
@@ -140,7 +144,7 @@ const TableCell = (props: TableCellProps) => {
                   <span className="ps-3"></span>
                 ) : null}
                 <div
-                  style={{ width, maxWidth }}
+                  // style={{ width, maxWidth }} // 在父元素 td 上已经做了 width 和 maxWidth，这边直接充满即可
                   className={`text-wrapper ${
                     textWrapperClassName ? textWrapperClassName : ""
                   } ${wrap ? "text-wrap" : "ellipsis-1"}`}

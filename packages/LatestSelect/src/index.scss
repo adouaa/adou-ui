@@ -111,7 +111,7 @@
 
         &:active {
             color: #fff;
-            background-color: var(--bs-primary);
+            background-color: var(--bs-primary) ;
         }
     }
 
@@ -132,21 +132,5 @@
         height: 100px;
         font-style: italic;
         color: #a4a3a3;
-    }
-
-    // 滚动条变细
-    &::-webkit-scrollbar {
-        width: 4px;
-        height: 4px;
-    }
-
-    &::-webkit-scrollbar-thumb {
-        background-color: #c0c0c0;
-        border-radius: 2px;
-    }
-
-    &::-webkit-scrollbar-track {
-        background-color: #f1f1f1;
-        border-radius: 2px;
     }
 }
