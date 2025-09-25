@@ -6,6 +6,7 @@ declare const _default: React.ComponentType<Omit<{
     children?: any;
     contentPadding?: string | undefined;
     clearOnChange?: boolean | undefined;
+    showContent?: boolean | undefined;
     tabsHeaderStyle?: React.CSSProperties | undefined;
     tabsHeaderCls?: string | undefined;
     commonTabItemHeaderExternalCls?: string | undefined;

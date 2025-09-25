@@ -119,3 +119,9 @@
         } */
     }
 }
+
+[data-bs-theme="dark"] .adou-input-wrapper {
+    .adou-input-form-content {
+        border-color: var(--bs-dark-border-subtle) !important;
+    }
+}

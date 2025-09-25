@@ -11,6 +11,7 @@ import "./index.scss";
 import { withTranslation } from "react-i18next";
 
 export interface InputProps {
+  autoFocus?: boolean;
   actRef?: any;
   addonAfterStyle?: React.CSSProperties;
   title?: string;
@@ -76,6 +77,7 @@ export interface InputRef {
 
 const Input: React.ForwardRefRenderFunction<InputRef, InputProps> = (
   {
+    autoFocus,
     actRef,
     isFormItem,
     addonAfterStyle,
@@ -334,7 +336,7 @@ const Input: React.ForwardRefRenderFunction<InputRef, InputProps> = (
 
   const judgeBgColor = () => {
     if (disabled) {
-      return "#eee";
+      return "var(--bs-secondary)";
     } else if (varient === "filled") {
       return "#f0f0f0";
     } else if (backgroundColor) {
@@ -358,6 +360,7 @@ const Input: React.ForwardRefRenderFunction<InputRef, InputProps> = (
   const renderCommonInput = () => (
     <Fragment>
       <input
+        autoFocus={autoFocus}
         onKeyDown={handleKeyDown}
         className={`input border-0 flex-fill form-control ${
           textEnd || type === "number" ? "text-end" : ""

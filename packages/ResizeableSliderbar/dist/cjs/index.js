@@ -147,10 +147,6 @@ ___CSS_LOADER_EXPORT___.push([module.id, `@charset "UTF-8";
   transition: width 0.25s ease;
   box-sizing: border-box;
   border-bottom: 1px solid #eee;
-  /* 整体滚动条样式 */
-  /* 滚动条轨道 */
-  /* 滚动条滑块 */
-  /* 滚动条滑块在悬停时的样式 */
 }
 .resizable-sidebar .toggle-btn {
   position: absolute;
@@ -171,26 +167,6 @@ ___CSS_LOADER_EXPORT___.push([module.id, `@charset "UTF-8";
 }
 .resizable-sidebar .content {
   height: 100%;
-}
-.resizable-sidebar ::-webkit-scrollbar {
-  height: 4px;
-  width: 4px;
-  /* 设置滚动条的高度 */
-}
-.resizable-sidebar ::-webkit-scrollbar-track {
-  background: #f1f1f1;
-  border-radius: 2px;
-  /* 滚动条轨道的背景 */
-}
-.resizable-sidebar ::-webkit-scrollbar-thumb {
-  background: #ccc;
-  /* 滚动条滑块的颜色 */
-  border-radius: 2px;
-  /* 滚动条滑块的圆角 */
-}
-.resizable-sidebar ::-webkit-scrollbar-thumb:hover {
-  background: #555;
-  /* 滚动条滑块悬停时的颜色 */
 }
 
 .resizable-sidebar:hover {
@@ -218,7 +194,7 @@ ___CSS_LOADER_EXPORT___.push([module.id, `@charset "UTF-8";
 
 .resize-handle-bar:hover {
   opacity: 1;
-}`, "",{"version":3,"sources":["webpack://./src/index.scss"],"names":[],"mappings":"AAAA,gBAAgB;AAAhB;EACE,kBAAA;EAEA,+BAAA;EACA,4BAAA;EACA,sBAAA;EACA,6BAAA;EA4BA,YAAA;EAOA,UAAA;EAOA,UAAA;EAQA,iBAAA;AA7CF;AAHE;EACE,kBAAA;EACA,mBAAA;EACA,0CAAA;EACA,kDAAA;EACA,mBAAA;EACA,YAAA;EACA,WAAA;EACA,UAAA;EACA,YAAA;EACA,YAAA;EACA,WAAA;EAEA,6BAAA;EACA,iBAAA;EACA,kBAAA;EAEA,eAAA;AAGJ;AAAE;EACE,YAAA;AAEJ;AAIE;EACE,WAAA;EACA,UAAA;EACA,aAAA;AAFJ;AAME;EACE,mBAAA;EACA,kBAAA;EACA,aAAA;AAJJ;AAQE;EACE,gBAAA;EACA,aAAA;EACA,kBAAA;EACA,aAAA;AANJ;AAUE;EACE,gBAAA;EACA,gBAAA;AARJ;;AAYA;EACE,wCAAA;EACA,aAAA;AATF;;AAYA;EACE,+BAAA;AATF;;AAYA;EACE,kBAAA;EACA,UAAA;EACA,QAAA;EACA,MAAA;EACA,SAAA;EACA,UAAA;EACA,iBAAA;EACA,yBAAA;EACA,kBAAA;EACA,6BAAA;EACA,aAAA;AATF;;AAYA;EACE,UAAA;AATF","sourcesContent":[".resizable-sidebar {\r\n  position: relative;\r\n  // background-color: #f8f9fa;\r\n  border-right: 2px solid #dee2e6;\r\n  transition: width .25s ease;\r\n  box-sizing: border-box;\r\n  border-bottom: 1px solid #eee;\r\n\r\n  .toggle-btn {\r\n    position: absolute;\r\n    background: skyblue;\r\n    backdrop-filter: saturate(180%) blur(10px);\r\n    -webkit-backdrop-filter: saturate(180%) blur(10px);\r\n    border-radius: 100%;\r\n    height: 30px;\r\n    width: 30px;\r\n    z-index: 1;\r\n    bottom: 1rem;\r\n    right: -15px;\r\n    bottom: 50%;\r\n    // transform: translateY(50%);\r\n    box-shadow: var(--app-shadow);\r\n    line-height: 30px;\r\n    text-align: center;\r\n    // transition: all 1s ease-in;\r\n    cursor: pointer;\r\n  }\r\n\r\n  .content {\r\n    height: 100%;\r\n\r\n\r\n  }\r\n\r\n  /* 整体滚动条样式 */\r\n  ::-webkit-scrollbar {\r\n    height: 4px;\r\n    width: 4px;\r\n    /* 设置滚动条的高度 */\r\n  }\r\n\r\n  /* 滚动条轨道 */\r\n  ::-webkit-scrollbar-track {\r\n    background: #f1f1f1;\r\n    border-radius: 2px;\r\n    /* 滚动条轨道的背景 */\r\n  }\r\n\r\n  /* 滚动条滑块 */\r\n  ::-webkit-scrollbar-thumb {\r\n    background: #ccc;\r\n    /* 滚动条滑块的颜色 */\r\n    border-radius: 2px;\r\n    /* 滚动条滑块的圆角 */\r\n  }\r\n\r\n  /* 滚动条滑块在悬停时的样式 */\r\n  ::-webkit-scrollbar-thumb:hover {\r\n    background: #555;\r\n    /* 滚动条滑块悬停时的颜色 */\r\n  }\r\n}\r\n\r\n.resizable-sidebar:hover {\r\n  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);\r\n  /* 在悬停时添加阴影 */\r\n}\r\n\r\n.draging {\r\n  border-right: 5px solid #007bff;\r\n}\r\n\r\n.resize-handle-bar {\r\n  position: absolute;\r\n  z-index: 0;\r\n  right: 0;\r\n  top: 0;\r\n  bottom: 0;\r\n  width: 5px;\r\n  cursor: ew-resize;\r\n  background-color: #dee2e6;\r\n  cursor: col-resize;\r\n  transition: opacity 0.3s ease;\r\n  /* 添加悬停动画效果 */\r\n}\r\n\r\n.resize-handle-bar:hover {\r\n  opacity: 1;\r\n}"],"sourceRoot":""}]);
+}`, "",{"version":3,"sources":["webpack://./src/index.scss"],"names":[],"mappings":"AAAA,gBAAgB;AAAhB;EACE,kBAAA;EAEA,+BAAA;EACA,4BAAA;EACA,sBAAA;EACA,6BAAA;AACF;AACE;EACE,kBAAA;EACA,mBAAA;EACA,0CAAA;EACA,kDAAA;EACA,mBAAA;EACA,YAAA;EACA,WAAA;EACA,UAAA;EACA,YAAA;EACA,YAAA;EACA,WAAA;EACA,6BAAA;EACA,iBAAA;EACA,kBAAA;EAEA,eAAA;AAAJ;AAGE;EACE,YAAA;AADJ;;AAOA;EACE,wCAAA;EACA,aAAA;AAJF;;AAOA;EACE,+BAAA;AAJF;;AAOA;EACE,kBAAA;EACA,UAAA;EACA,QAAA;EACA,MAAA;EACA,SAAA;EACA,UAAA;EACA,iBAAA;EACA,yBAAA;EACA,kBAAA;EACA,6BAAA;EACA,aAAA;AAJF;;AAOA;EACE,UAAA;AAJF","sourcesContent":[".resizable-sidebar {\r\n  position: relative;\r\n  // background-color: #f8f9fa;\r\n  border-right: 2px solid #dee2e6;\r\n  transition: width .25s ease;\r\n  box-sizing: border-box;\r\n  border-bottom: 1px solid #eee;\r\n\r\n  .toggle-btn {\r\n    position: absolute;\r\n    background: skyblue;\r\n    backdrop-filter: saturate(180%) blur(10px);\r\n    -webkit-backdrop-filter: saturate(180%) blur(10px);\r\n    border-radius: 100%;\r\n    height: 30px;\r\n    width: 30px;\r\n    z-index: 1;\r\n    bottom: 1rem;\r\n    right: -15px;\r\n    bottom: 50%;\r\n    box-shadow: var(--app-shadow);\r\n    line-height: 30px;\r\n    text-align: center;\r\n    // transition: all 1s ease-in;\r\n    cursor: pointer;\r\n  }\r\n\r\n  .content {\r\n    height: 100%;\r\n\r\n\r\n  }\r\n}\r\n\r\n.resizable-sidebar:hover {\r\n  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);\r\n  /* 在悬停时添加阴影 */\r\n}\r\n\r\n.draging {\r\n  border-right: 5px solid #007bff;\r\n}\r\n\r\n.resize-handle-bar {\r\n  position: absolute;\r\n  z-index: 0;\r\n  right: 0;\r\n  top: 0;\r\n  bottom: 0;\r\n  width: 5px;\r\n  cursor: ew-resize;\r\n  background-color: #dee2e6;\r\n  cursor: col-resize;\r\n  transition: opacity 0.3s ease;\r\n  /* 添加悬停动画效果 */\r\n}\r\n\r\n.resize-handle-bar:hover {\r\n  opacity: 1;\r\n}"],"sourceRoot":""}]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 

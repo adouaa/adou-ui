@@ -1903,6 +1903,7 @@ const TabItem = props => {
 
 const Tabs = props => {
   const {
+    showContent = true,
     tabsHeaderStyle,
     tabsHeaderCls,
     commonTabItemHeaderExternalCls,
@@ -2057,7 +2058,7 @@ const Tabs = props => {
   }), [currentIndex, headerRef.current]);
   return /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement((external_root_React_commonjs2_react_commonjs_react_amd_react_default()).Fragment, null, /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("div", {
     className: "tabs-box" /*  style={{ height: "100%" }} */
-  }, renderHeader(), renderContent()));
+  }, renderHeader(), showContent && renderContent()));
 };
 /* harmony default export */ const src_0 = (withTranslation()(Tabs));
 })();

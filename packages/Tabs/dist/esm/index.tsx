@@ -5,6 +5,7 @@ import TabItem from "./TabItem";
 export { TabItem };
 
 interface TabsProps {
+  showContent?: boolean;
   tabsHeaderStyle?: React.CSSProperties;
   tabsHeaderCls?: string;
   commonTabItemHeaderExternalCls?: string;
@@ -26,6 +27,7 @@ interface TabsProps {
 
 const Tabs = (props: TabsProps) => {
   const {
+    showContent = true,
     tabsHeaderStyle,
     tabsHeaderCls,
     commonTabItemHeaderExternalCls,
@@ -225,7 +227,7 @@ const Tabs = (props: TabsProps) => {
         {/* 先渲染头部 */}
         {renderHeader()}
         {/* 再渲染内容 */}
-        {renderContent()}
+        {showContent && renderContent()}
       </div>
     </>
   );
