@@ -334,14 +334,13 @@ const ListGroup = ({
               <ul
                 className={`list-group ${
                   columnIndex === list.length - 1 ? "" : "me-2"
-                }`}
+                } ${showBorder ? "border" : ""}`}
                 style={{
                   height,
                   // maxHeight:
                   //   maxHeight || height || lineBreak ? parentMaxHeight : "",
                   maxHeight:
                     columnMaxHeight || maxHeight || height || parentMaxHeight,
-                  border: showBorder ? "1px solid #ccc" : "none",
                   borderRadius: showBorderRadius ? "5px" : "0",
                   boxSizing: "border-box",
                 }}
@@ -405,12 +404,11 @@ const ListGroup = ({
       ) : (
         // 好像不会执行这边的渲染
         <div
-          className="list-group"
+          className={`list-group ${showBorder && list.length ? "border" : ""}`}
           style={{
             height,
             maxHeight: maxHeight || height,
             overflowY: "auto",
-            border: showBorder && list.length ? "1px solid #ccc" : "none",
             borderRadius: !showBorderRadius ? "0px" : "5px",
           }}
         >

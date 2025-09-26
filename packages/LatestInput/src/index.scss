@@ -2,6 +2,15 @@
     height: 100%;
     border: none;
 
+    &.disabled {
+
+        .input,
+        .tag-input-wrapper,
+        .adou-input-form-content {
+            background: var(--bs-secondary-bg);
+        }
+    }
+
     .tag-input-content {
         display: flex;
         flex-wrap: wrap;
@@ -120,8 +129,16 @@
     }
 }
 
-[data-bs-theme="dark"] .adou-input-wrapper {
+.dark-mode .adou-input-wrapper {
     .adou-input-form-content {
         border-color: var(--bs-dark-border-subtle) !important;
+    }
+
+    &.disabled {
+
+        .input,
+        .adou-input-form-content {
+            background-color: var(--bs-secondary-bg) !important;
+        }
     }
 }

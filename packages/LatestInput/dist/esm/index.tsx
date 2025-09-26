@@ -336,7 +336,7 @@ const Input: React.ForwardRefRenderFunction<InputRef, InputProps> = (
 
   const judgeBgColor = () => {
     if (disabled) {
-      return "var(--bs-secondary)";
+      return "#eee";
     } else if (varient === "filled") {
       return "#f0f0f0";
     } else if (backgroundColor) {
@@ -507,7 +507,7 @@ const Input: React.ForwardRefRenderFunction<InputRef, InputProps> = (
       onMouseLeave={handleMouseLeave}
       className={`adou-input-wrapper position-relative ${
         wrapperClassName ? wrapperClassName : ""
-      }`}
+      } ${disabled ? "disabled" : ""}`}
       style={{
         ...wrapperStyle,
         ...(wrapperWidth ? { width: wrapperWidth } : { flex: 1 }),

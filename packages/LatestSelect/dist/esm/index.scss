@@ -134,3 +134,9 @@
         color: #a4a3a3;
     }
 }
+
+.dark-mode .adou-select-wrapper {
+    .adou-select {
+        border-color: var(--bs-dark-border-subtle) !important;
+    }
+}

@@ -76,13 +76,6 @@
         /* 还原到原始高度 */
     }
 
-    .tr-checked,
-    .tr-highlight {
-        background-color: var(--bs-primary);
-        color: var(--bs-dark-text);
-    }
-
-
     .tr-content {
         transition: background-color 0.3s ease;
 

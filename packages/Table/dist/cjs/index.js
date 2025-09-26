@@ -7570,8 +7570,6 @@ var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBP
 // Module
 ___CSS_LOADER_EXPORT___.push([module.id, `@charset "UTF-8";
 .table-wrapper {
-  scrollbar-width: thin;
-  scrollbar-color: #ccc #f5f5f5;
   /* 默认情况下，表格行被隐藏 */
   /* 当表格行显示时 */
 }
@@ -7606,20 +7604,6 @@ ___CSS_LOADER_EXPORT___.push([module.id, `@charset "UTF-8";
 .table-wrapper .header-content .header-icon .icon.sort-up:hover, .table-wrapper .header-content .header-icon .icon.sort-down:hover {
   transform: scale(1.2);
 }
-.table-wrapper::-webkit-scrollbar {
-  width: 8px;
-  height: 8px;
-}
-.table-wrapper::-webkit-scrollbar-track {
-  background: #f5f5f5;
-}
-.table-wrapper::-webkit-scrollbar-thumb {
-  background: #ccc;
-  border-radius: 4px;
-}
-.table-wrapper::-webkit-scrollbar-thumb:hover {
-  background: #aaa;
-}
 .table-wrapper tbody > tr {
   transition: max-height 0.3s ease-in-out;
 }
@@ -7637,15 +7621,11 @@ ___CSS_LOADER_EXPORT___.push([module.id, `@charset "UTF-8";
   transform: scaleY(1);
   /* 还原到原始高度 */
 }
-.table-wrapper .tr-checked,
-.table-wrapper .tr-highlight {
-  background-color: #e6f4ff !important;
-}
 .table-wrapper .tr-content {
   transition: background-color 0.3s ease;
 }
 .table-wrapper .tr-content:hover {
-  background-color: #e7ebee;
+  background-color: var(--bs-tertiary-bg);
 }
 .table-wrapper .pagination .prev-arrow,
 .table-wrapper .pagination .next-arrow {
@@ -7680,7 +7660,7 @@ ___CSS_LOADER_EXPORT___.push([module.id, `@charset "UTF-8";
   /* 隐藏超出部分 */
   text-overflow: ellipsis;
   /* 使用省略号表示超出部分 */
-}`, "",{"version":3,"sources":["webpack://./src/index.scss"],"names":[],"mappings":"AAAA,gBAAgB;AAAhB;EAEI,qBAAA;EACA,6BAAA;EAkFA,iBAAA;EAWA,YAAA;AA1FJ;AADI;EAEI,eAAA;EACA,gBAAA;AAER;AADQ;EACI,oBAAA;EACA,sBAAA;EACA,mBAAA;EACA,uBAAA;EACA,WAAA;EACA,UAAA;AAGZ;AADY;EACI,QAAA;EACA,UAAA;EACA,SAAA;EACA,UAAA;EACA,eAAA;EACA,WAAA;EACA,kCAAA;EACA,UAAA;EACA,mCAAA;EACA,UAAA;EACA,eAAA;EACA,yBAAA;EACA,WAAA;EACA,kBAAA;AAGhB;AAOgB;EAEI,qBAAA;AANpB;AAeI;EACI,UAAA;EACA,WAAA;AAbR;AAgBI;EACI,mBAAA;AAdR;AAiBI;EACI,gBAAA;EACA,kBAAA;AAfR;AAkBI;EACI,gBAAA;AAhBR;AA8BI;EACI,uCAAA;AA5BR;AAgCI;EACI,kDAAA;EACA,UAAA;EACA,oBAAA;EACA,kBAAA;EACA,qBAAA;EACA,aAAA;EACA,gBAAA;AA9BR;AAkCI;EACI,UAAA;EACA,oBAAA;EACA,YAAA;AAhCR;AAmCI;;EAEI,oCAAA;AAjCR;AAqCI;EACI,sCAAA;AAnCR;AAqCQ;EACI,yBAAA;AAnCZ;AAyCQ;;EAEI,iBAAA;EACA,yBAAA;EACA,eAAA;AAvCZ;AAyCY;;EACI,oCAAA;EACA,WAAA;AAtChB;AA0CQ;;EAEI,sBAAA;AAxCZ;AA0CY;;EACI,wCAAA;EACA,mBAAA;AAvChB;AA4CY;EACI,oCAAA;EACA,yBAAA;EACA,WAAA;AA1ChB;;AAgDA;EACI,mBAAA;EACA,QAAA;EACA,gBAAA;EACA,WAAA;EACA,uBAAA;EACA,gBAAA;AA7CJ","sourcesContent":[".table-wrapper {\r\n    // Firefox 滚动条样式\r\n    scrollbar-width: thin; // 设置滚动条宽度为 thin\r\n    scrollbar-color: #ccc #f5f5f5; // 设置滚动条颜色\r\n\r\n    .header-content {\r\n\r\n        /* styles.css */\r\n        /* styles.scss */\r\n        .header-icon {\r\n            display: inline-flex;\r\n            flex-direction: column;\r\n            align-items: center;\r\n            justify-content: center;\r\n            width: auto;\r\n            /* 宽度自适应 */\r\n\r\n            .icon {\r\n                width: 0;\r\n                /* 箭头的宽度 */\r\n                height: 0;\r\n                /* 箭头的高度 */\r\n                margin: 1.6px 0;\r\n                /* 调整上下间距 */\r\n                border-left: 6px solid transparent;\r\n                /* 箭头的左边 */\r\n                border-right: 6px solid transparent;\r\n                /* 箭头的右边 */\r\n                cursor: pointer;\r\n                transition: all 0.3s ease;\r\n                /* 添加过渡效果 */\r\n                border-radius: 3px;\r\n\r\n                &.sort-up {\r\n                    // border-bottom: 7px solid #000; /* 向上的箭头 */\r\n                }\r\n\r\n                &.sort-down {\r\n                    // border-top: 7px solid #000; /* 向下的箭头 */\r\n                }\r\n\r\n                &.sort-up:hover,\r\n                &.sort-down:hover {\r\n                    transform: scale(1.2);\r\n                }\r\n            }\r\n        }\r\n\r\n\r\n    }\r\n\r\n    // Webkit 滚动条样式\r\n    &::-webkit-scrollbar {\r\n        width: 8px; // 设置垂直滚动条宽度\r\n        height: 8px; // 设置水平滚动条宽度\r\n    }\r\n\r\n    &::-webkit-scrollbar-track {\r\n        background: #f5f5f5; // 设置滚动条轨道颜色\r\n    }\r\n\r\n    &::-webkit-scrollbar-thumb {\r\n        background: #ccc; // 设置滚动条滑块颜色\r\n        border-radius: 4px; // 设置滚动条滑块圆角\r\n    }\r\n\r\n    &::-webkit-scrollbar-thumb:hover {\r\n        background: #aaa; // 设置滚动条滑块悬停颜色\r\n    }\r\n\r\n\r\n\r\n    .collapse-table-td {\r\n        // display: inline-block; // 不控制，不然会影响上下居中\r\n        // display: flex;\r\n        // justify-content: center;\r\n        // align-items: center;\r\n        // line-height: 0.8;\r\n    }\r\n\r\n    // 添加展开的动画\r\n    tbody>tr {\r\n        transition: max-height 0.3s ease-in-out;\r\n    }\r\n\r\n    /* 默认情况下，表格行被隐藏 */\r\n    .collapse-tr {\r\n        transition: opacity 0.5s ease, transform 0.5s ease;\r\n        opacity: 0;\r\n        transform: scaleY(0);\r\n        /* 使用 scaleY 来隐藏 */\r\n        transform-origin: top;\r\n        /* 让缩放从顶部开始 */\r\n        overflow: hidden;\r\n    }\r\n\r\n    /* 当表格行显示时 */\r\n    .collapse-tr.show {\r\n        opacity: 1;\r\n        transform: scaleY(1);\r\n        /* 还原到原始高度 */\r\n    }\r\n\r\n    .tr-checked,\r\n    .tr-highlight {\r\n        background-color: #e6f4ff !important;\r\n    }\r\n\r\n\r\n    .tr-content {\r\n        transition: background-color 0.3s ease;\r\n\r\n        &:hover {\r\n            background-color: #e7ebee;\r\n        }\r\n    }\r\n\r\n    .pagination {\r\n\r\n        .prev-arrow,\r\n        .next-arrow {\r\n            padding: 8px 12px;\r\n            transition: all 0.3s ease;\r\n            cursor: pointer;\r\n\r\n            &:hover {\r\n                background-color: #f0f0f0 !important;\r\n                color: #333;\r\n            }\r\n        }\r\n\r\n        .prev-arrow.disabled,\r\n        .next-arrow.disabled {\r\n            color: #ccc !important;\r\n\r\n            &:hover {\r\n                background-color: transparent !important;\r\n                cursor: not-allowed;\r\n            }\r\n        }\r\n\r\n        .page-numbers {\r\n            .page-number-item:hover {\r\n                background-color: #f0f0f0 !important;\r\n                border: 1px solid #f0f0f0;\r\n                color: #333;\r\n            }\r\n        }\r\n    }\r\n}\r\n\r\n.ellipsis-1 {\r\n    white-space: nowrap;\r\n    /* 不换行 */\r\n    overflow: hidden;\r\n    /* 隐藏超出部分 */\r\n    text-overflow: ellipsis;\r\n    /* 使用省略号表示超出部分 */\r\n}"],"sourceRoot":""}]);
+}`, "",{"version":3,"sources":["webpack://./src/index.scss"],"names":[],"mappings":"AAAA,gBAAgB;AAAhB;EA4DI,iBAAA;EAWA,YAAA;AAnEJ;AAHI;EAEI,eAAA;EACA,gBAAA;AAIR;AAHQ;EACI,oBAAA;EACA,sBAAA;EACA,mBAAA;EACA,uBAAA;EACA,WAAA;EACA,UAAA;AAKZ;AAHY;EACI,QAAA;EACA,UAAA;EACA,SAAA;EACA,UAAA;EACA,eAAA;EACA,WAAA;EACA,kCAAA;EACA,UAAA;EACA,mCAAA;EACA,UAAA;EACA,eAAA;EACA,yBAAA;EACA,WAAA;EACA,kBAAA;AAKhB;AAKgB;EAEI,qBAAA;AAJpB;AAqBI;EACI,uCAAA;AAnBR;AAuBI;EACI,kDAAA;EACA,UAAA;EACA,oBAAA;EACA,kBAAA;EACA,qBAAA;EACA,aAAA;EACA,gBAAA;AArBR;AAyBI;EACI,UAAA;EACA,oBAAA;EACA,YAAA;AAvBR;AA0BI;EACI,sCAAA;AAxBR;AA0BQ;EACI,uCAAA;AAxBZ;AA8BQ;;EAEI,iBAAA;EACA,yBAAA;EACA,eAAA;AA5BZ;AA8BY;;EACI,oCAAA;EACA,WAAA;AA3BhB;AA+BQ;;EAEI,sBAAA;AA7BZ;AA+BY;;EACI,wCAAA;EACA,mBAAA;AA5BhB;AAiCY;EACI,oCAAA;EACA,yBAAA;EACA,WAAA;AA/BhB;;AAqCA;EACI,mBAAA;EACA,QAAA;EACA,gBAAA;EACA,WAAA;EACA,uBAAA;EACA,gBAAA;AAlCJ","sourcesContent":[".table-wrapper {\r\n    .header-content {\r\n\r\n        /* styles.css */\r\n        /* styles.scss */\r\n        .header-icon {\r\n            display: inline-flex;\r\n            flex-direction: column;\r\n            align-items: center;\r\n            justify-content: center;\r\n            width: auto;\r\n            /* 宽度自适应 */\r\n\r\n            .icon {\r\n                width: 0;\r\n                /* 箭头的宽度 */\r\n                height: 0;\r\n                /* 箭头的高度 */\r\n                margin: 1.6px 0;\r\n                /* 调整上下间距 */\r\n                border-left: 6px solid transparent;\r\n                /* 箭头的左边 */\r\n                border-right: 6px solid transparent;\r\n                /* 箭头的右边 */\r\n                cursor: pointer;\r\n                transition: all 0.3s ease;\r\n                /* 添加过渡效果 */\r\n                border-radius: 3px;\r\n\r\n                &.sort-up {\r\n                    // border-bottom: 7px solid #000; /* 向上的箭头 */\r\n                }\r\n\r\n                &.sort-down {\r\n                    // border-top: 7px solid #000; /* 向下的箭头 */\r\n                }\r\n\r\n                &.sort-up:hover,\r\n                &.sort-down:hover {\r\n                    transform: scale(1.2);\r\n                }\r\n            }\r\n        }\r\n\r\n\r\n    }\r\n\r\n    .collapse-table-td {\r\n        // display: inline-block; // 不控制，不然会影响上下居中\r\n        // display: flex;\r\n        // justify-content: center;\r\n        // align-items: center;\r\n        // line-height: 0.8;\r\n    }\r\n\r\n    // 添加展开的动画\r\n    tbody>tr {\r\n        transition: max-height 0.3s ease-in-out;\r\n    }\r\n\r\n    /* 默认情况下，表格行被隐藏 */\r\n    .collapse-tr {\r\n        transition: opacity 0.5s ease, transform 0.5s ease;\r\n        opacity: 0;\r\n        transform: scaleY(0);\r\n        /* 使用 scaleY 来隐藏 */\r\n        transform-origin: top;\r\n        /* 让缩放从顶部开始 */\r\n        overflow: hidden;\r\n    }\r\n\r\n    /* 当表格行显示时 */\r\n    .collapse-tr.show {\r\n        opacity: 1;\r\n        transform: scaleY(1);\r\n        /* 还原到原始高度 */\r\n    }\r\n\r\n    .tr-content {\r\n        transition: background-color 0.3s ease;\r\n\r\n        &:hover {\r\n            background-color: var(--bs-tertiary-bg);\r\n        }\r\n    }\r\n\r\n    .pagination {\r\n\r\n        .prev-arrow,\r\n        .next-arrow {\r\n            padding: 8px 12px;\r\n            transition: all 0.3s ease;\r\n            cursor: pointer;\r\n\r\n            &:hover {\r\n                background-color: #f0f0f0 !important;\r\n                color: #333;\r\n            }\r\n        }\r\n\r\n        .prev-arrow.disabled,\r\n        .next-arrow.disabled {\r\n            color: #ccc !important;\r\n\r\n            &:hover {\r\n                background-color: transparent !important;\r\n                cursor: not-allowed;\r\n            }\r\n        }\r\n\r\n        .page-numbers {\r\n            .page-number-item:hover {\r\n                background-color: #f0f0f0 !important;\r\n                border: 1px solid #f0f0f0;\r\n                color: #333;\r\n            }\r\n        }\r\n    }\r\n}\r\n\r\n.ellipsis-1 {\r\n    white-space: nowrap;\r\n    /* 不换行 */\r\n    overflow: hidden;\r\n    /* 隐藏超出部分 */\r\n    text-overflow: ellipsis;\r\n    /* 使用省略号表示超出部分 */\r\n}"],"sourceRoot":""}]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 
@@ -9504,7 +9484,7 @@ const Table = props => {
     tableResponsive = "xxl",
     eidtable = false,
     headSticky = true,
-    headTextColor = "black",
+    headTextColor,
     headBGC = "",
     divider,
     maxHeight,
@@ -9679,7 +9659,7 @@ const Table = props => {
         "data-id": childData[id],
         onClick: e => handleRowClick(childData, e),
         onDoubleClick: e => handleRowDoubleClick(data, e),
-        className: "tr-content tr-content ".concat(childData.checked === true ? "tr-checked" : "", " ").concat(childData.highlight === true ? "tr-highlight" : "", " collapse-table-tr animate__animated animate__fadeIn"),
+        className: "tr-content tr-content ".concat(childData.checked === true ? "tr-checked bg-primary" : "", " ").concat(childData.highlight === true ? "tr-highlight bg-primary" : "", " collapse-table-tr animate__animated animate__fadeIn"),
         style: {
           ...(clickChecked || trPointer || clickHighlight ? {
             cursor: "pointer"
@@ -9943,7 +9923,7 @@ const Table = props => {
         backgroundColor: "".concat(headBGC),
         zIndex: 999
       },
-      className: "text-".concat(headTextColor)
+      className: "".concat(headTextColor ? "text-".concat(headTextColor) : "", " ")
     }, theadRows.map((child, index) => {
       if (child !== null && child !== void 0 && child.length) {
         return /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("tr", {
@@ -10029,7 +10009,7 @@ const Table = props => {
           // onDoubleClick={() => handleRowDoubleClick(data)}
           ,
           key: rowIndex,
-          className: "tr-content ".concat(data.checked === true ? "tr-checked" : "", " ").concat(data.highlight === true ? "tr-highlight" : ""),
+          className: "tr-content ".concat(data.checked === true ? "tr-checked bg-primary" : "", " ").concat(data.highlight === true ? "tr-highlight bg-primary" : ""),
           style: {
             ...(clickChecked || trPointer || clickHighlight ? {
               cursor: "pointer"

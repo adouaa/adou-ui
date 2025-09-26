@@ -1,8 +1,4 @@
 .table-wrapper {
-    // Firefox 滚动条样式
-    scrollbar-width: thin; // 设置滚动条宽度为 thin
-    scrollbar-color: #ccc #f5f5f5; // 设置滚动条颜色
-
     .header-content {
 
         /* styles.css */
@@ -49,27 +45,6 @@
 
     }
 
-    // Webkit 滚动条样式
-    &::-webkit-scrollbar {
-        width: 8px; // 设置垂直滚动条宽度
-        height: 8px; // 设置水平滚动条宽度
-    }
-
-    &::-webkit-scrollbar-track {
-        background: #f5f5f5; // 设置滚动条轨道颜色
-    }
-
-    &::-webkit-scrollbar-thumb {
-        background: #ccc; // 设置滚动条滑块颜色
-        border-radius: 4px; // 设置滚动条滑块圆角
-    }
-
-    &::-webkit-scrollbar-thumb:hover {
-        background: #aaa; // 设置滚动条滑块悬停颜色
-    }
-
-
-
     .collapse-table-td {
         // display: inline-block; // 不控制，不然会影响上下居中
         // display: flex;
@@ -101,17 +76,11 @@
         /* 还原到原始高度 */
     }
 
-    .tr-checked,
-    .tr-highlight {
-        background-color: #e6f4ff !important;
-    }
-
-
     .tr-content {
         transition: background-color 0.3s ease;
 
         &:hover {
-            background-color: #e7ebee;
+            background-color: var(--bs-tertiary-bg);
         }
     }
 

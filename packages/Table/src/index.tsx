@@ -139,7 +139,7 @@ const Table = (props: TableProps) => {
     tableResponsive = "xxl",
     eidtable = false,
     headSticky = true,
-    headTextColor = "black",
+    headTextColor,
     headBGC = "",
     divider,
     maxHeight,
@@ -343,9 +343,9 @@ const Table = (props: TableProps) => {
             onClick={(e: any) => handleRowClick(childData, e)}
             onDoubleClick={(e: any) => handleRowDoubleClick(data, e)}
             className={`tr-content tr-content ${
-              childData.checked === true ? "tr-checked" : ""
+              childData.checked === true ? "tr-checked bg-primary" : ""
             } ${
-              childData.highlight === true ? "tr-highlight" : ""
+              childData.highlight === true ? "tr-highlight bg-primary" : ""
             } collapse-table-tr animate__animated animate__fadeIn`}
             style={{
               ...(clickChecked || trPointer || clickHighlight
@@ -681,7 +681,7 @@ const Table = (props: TableProps) => {
           backgroundColor: `${headBGC}`,
           zIndex: 999,
         }}
-        className={`text-${headTextColor}`}
+        className={`${headTextColor ? `text-${headTextColor}` : ""} `}
       >
         {/* 选择框 */}
         {theadRows.map((child: any, index: number) => {
@@ -798,15 +798,16 @@ const Table = (props: TableProps) => {
               // 加上 uniqId 防止多个表格的相同复选框冲突
               <Fragment key={data[id] + uniqId}>
                 <tr
-            data-id={data[id]}
-
+                  data-id={data[id]}
                   onClick={(e: any) => handleRowClick(data, e)}
                   onDoubleClick={(e: any) => handleRowDoubleClick(data, e)}
                   // onDoubleClick={() => handleRowDoubleClick(data)}
                   key={rowIndex}
                   className={`tr-content ${
-                    data.checked === true ? "tr-checked" : ""
-                  } ${data.highlight === true ? "tr-highlight" : ""}`}
+                    data.checked === true ? "tr-checked bg-primary" : ""
+                  } ${
+                    data.highlight === true ? "tr-highlight bg-primary" : ""
+                  }`}
                   style={{
                     ...(clickChecked || trPointer || clickHighlight
                       ? { cursor: "pointer" }
@@ -957,9 +958,9 @@ const Table = (props: TableProps) => {
                             wrap: colProps.wrap || wrap,
                           };
                           // 统一判断 td 是否需要换行
-                          let tdWhiteSpace = "nowrap"
+                          let tdWhiteSpace = "nowrap";
                           if (colProps.wrap === true || wrap === true) {
-                            tdWhiteSpace = "normal"
+                            tdWhiteSpace = "normal";
                           }
                           return (
                             <td

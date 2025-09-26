@@ -835,13 +835,12 @@ const ListGroup = _ref => {
     className: "col ".concat(noWrap ? "overflow-auto" : ""),
     key: columnIndex
   }, /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("ul", {
-    className: "list-group ".concat(columnIndex === list.length - 1 ? "" : "me-2"),
+    className: "list-group ".concat(columnIndex === list.length - 1 ? "" : "me-2", " ").concat(showBorder ? "border" : ""),
     style: {
       height,
       // maxHeight:
       //   maxHeight || height || lineBreak ? parentMaxHeight : "",
       maxHeight: columnMaxHeight || maxHeight || height || parentMaxHeight,
-      border: showBorder ? "1px solid #ccc" : "none",
       borderRadius: showBorderRadius ? "5px" : "0",
       boxSizing: "border-box"
     }
@@ -879,12 +878,11 @@ const ListGroup = _ref => {
   /*#__PURE__*/
   // 好像不会执行这边的渲染
   external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("div", {
-    className: "list-group",
+    className: "list-group ".concat(showBorder && list.length ? "border" : ""),
     style: {
       height,
       maxHeight: maxHeight || height,
       overflowY: "auto",
-      border: showBorder && list.length ? "1px solid #ccc" : "none",
       borderRadius: !showBorderRadius ? "0px" : "5px"
     }
   }, list === null || list === void 0 ? void 0 : list.map((item, index) => /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("div", {

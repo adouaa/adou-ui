@@ -499,7 +499,7 @@ const Select = React.forwardRef((props: SelectProps, ref) => {
   // 判断 input 的背景色
   const judgeInputBgColor = () => {
     if (disabled) {
-      return "#eee";
+      return "var(--bs-secondary-bg)";
     } else if (varient === "filled" || transparent) {
       return "transparent";
     } else if (backgroundColor) {
@@ -937,7 +937,7 @@ const Select = React.forwardRef((props: SelectProps, ref) => {
           style={{
             textAlign: "left",
             background: disabled
-              ? "#eee"
+              ? "var(--bs-secondary-bg)"
               : transparent
               ? "transparent"
               : backgroundColor
@@ -953,7 +953,7 @@ const Select = React.forwardRef((props: SelectProps, ref) => {
               varient === "borderless"
                 ? "none"
                 : !isFormItem
-                ? "1px solid #ced4da"
+                ? "1px solid var(--bs-border-color)"
                 : "",
             cursor: disabled ? "not-allowed" : "pointer",
             ...formStyle,
