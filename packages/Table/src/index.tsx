@@ -30,6 +30,8 @@ export const recursiveGenerateTableHeaderRows = (
 };
 
 interface TableProps {
+  highlightStyle?: React.CSSProperties;
+  highlightCls?: string;
   showTitle?: boolean;
   wrap?: boolean;
   headerAlign?: "center" | "start" | "end" | "justify";
@@ -92,6 +94,8 @@ interface TableProps {
 
 const Table = (props: TableProps) => {
   const {
+    highlightStyle,
+    highlightCls,
     showTitle = false,
     wrap = false,
     headerAlign,
@@ -343,15 +347,18 @@ const Table = (props: TableProps) => {
             onClick={(e: any) => handleRowClick(childData, e)}
             onDoubleClick={(e: any) => handleRowDoubleClick(data, e)}
             className={`tr-content tr-content ${
-              childData.checked === true ? "tr-checked bg-primary" : ""
-            } ${
-              childData.highlight === true ? "tr-highlight bg-primary" : ""
+              childData.checked === true || childData.highlight === true
+                ? `tr-checked ${highlightCls}`
+                : ""
             } collapse-table-tr animate__animated animate__fadeIn`}
             style={{
               ...(clickChecked || trPointer || clickHighlight
                 ? { cursor: "pointer" }
-                : ""),
+                : {}),
               ...(!tableBorderd ? { borderBottom: "1px solid #f0f0f0" } : {}),
+              ...(childData.checked === true || childData.highlight === true
+                ? { ...highlightStyle }
+                : {}),
             }}
             key={childData[id]}
             /* style={{
@@ -804,9 +811,9 @@ const Table = (props: TableProps) => {
                   // onDoubleClick={() => handleRowDoubleClick(data)}
                   key={rowIndex}
                   className={`tr-content ${
-                    data.checked === true ? "tr-checked bg-primary" : ""
-                  } ${
-                    data.highlight === true ? "tr-highlight bg-primary" : ""
+                    data.checked === true || data.highlight === true
+                      ? `tr-checked ${highlightCls}`
+                      : ""
                   }`}
                   style={{
                     ...(clickChecked || trPointer || clickHighlight
@@ -814,6 +821,9 @@ const Table = (props: TableProps) => {
                       : ""),
                     ...(!tableBorderd
                       ? { borderBottom: "1px solid #f0f0f0" }
+                      : {}),
+                    ...(data.checked === true || data.highlight === true
+                      ? { ...highlightStyle }
                       : {}),
                   }}
                 >

@@ -11,6 +11,8 @@ declare const _default: React.ComponentType<Omit<{
     eidtable?: boolean | undefined;
     children?: any;
     data: any;
+    highlightStyle?: React.CSSProperties | undefined;
+    highlightCls?: string | undefined;
     headerAlign?: "center" | "start" | "end" | "justify" | undefined;
     wrapperStyle?: React.CSSProperties | undefined;
     clickHighlight?: boolean | undefined;

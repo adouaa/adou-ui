@@ -9436,6 +9436,8 @@ const recursiveGenerateTableHeaderRows = function (columns) {
 };
 const Table = props => {
   const {
+    highlightStyle,
+    highlightCls,
     showTitle = false,
     wrap = false,
     headerAlign,
@@ -9659,13 +9661,16 @@ const Table = props => {
         "data-id": childData[id],
         onClick: e => handleRowClick(childData, e),
         onDoubleClick: e => handleRowDoubleClick(data, e),
-        className: "tr-content tr-content ".concat(childData.checked === true ? "tr-checked bg-primary" : "", " ").concat(childData.highlight === true ? "tr-highlight bg-primary" : "", " collapse-table-tr animate__animated animate__fadeIn"),
+        className: "tr-content tr-content ".concat(childData.checked === true || childData.highlight === true ? "tr-checked ".concat(highlightCls) : "", " collapse-table-tr animate__animated animate__fadeIn"),
         style: {
           ...(clickChecked || trPointer || clickHighlight ? {
             cursor: "pointer"
-          } : ""),
+          } : {}),
           ...(!tableBorderd ? {
             borderBottom: "1px solid #f0f0f0"
+          } : {}),
+          ...(childData.checked === true || childData.highlight === true ? {
+            ...highlightStyle
           } : {})
         },
         key: childData[id]
@@ -10009,13 +10014,16 @@ const Table = props => {
           // onDoubleClick={() => handleRowDoubleClick(data)}
           ,
           key: rowIndex,
-          className: "tr-content ".concat(data.checked === true ? "tr-checked bg-primary" : "", " ").concat(data.highlight === true ? "tr-highlight bg-primary" : ""),
+          className: "tr-content ".concat(data.checked === true || data.highlight === true ? "tr-checked ".concat(highlightCls) : ""),
           style: {
             ...(clickChecked || trPointer || clickHighlight ? {
               cursor: "pointer"
             } : ""),
             ...(!tableBorderd ? {
               borderBottom: "1px solid #f0f0f0"
+            } : {}),
+            ...(data.checked === true || data.highlight === true ? {
+              ...highlightStyle
             } : {})
           }
         }, collection &&
