@@ -4,9 +4,12 @@ import splitListIntoColumns from "./splitListIntoColumns";
 import "./index.scss";
 
 interface ListGroupProps {
+  lisgGroupStyle?: React.CSSProperties;
+  listGroupClassName?: string;
   focusedIndex?: any;
   actRef?: any;
   buttonClassName?: string;
+  buttonStyle?: React.CSSProperties;
   activeId?: string | number;
   showBorderRadius?: boolean;
   showBorder?: boolean;
@@ -35,9 +38,12 @@ interface ListGroupProps {
 }
 
 const ListGroup = ({
+  lisgGroupStyle,
+  listGroupClassName,
   focusedIndex,
   actRef,
   buttonClassName,
+  buttonStyle,
   activeId,
   showBorderRadius = true,
   showBorder = true,
@@ -270,6 +276,7 @@ const ListGroup = ({
 
   // 循环病历每项的 label-text，获取最大宽度，赋值给 button
   useEffect(() => {
+    setButtonMaxWidth("0px");
     if (buttonWidth) {
       setButtonMaxWidth(buttonWidth);
       return;
@@ -282,15 +289,17 @@ const ListGroup = ({
     const labelElements = wrapper.querySelectorAll(".label-text");
 
     if (!labelElements || labelElements.length === 0) return;
+
     let maxWidth = 0;
-
-    labelElements.forEach((el: any) => {
-      const width = el.scrollWidth || el.offsetWidth; // 或 el.offsetWidth，但 scrollWidth 更稳妥
-      if (width > maxWidth) maxWidth = width;
-    });
-
-    // 设置一个缓冲值，例如加上 padding 等
-    setButtonMaxWidth(maxWidth + 8 + "px"); // 8 是 button 的 padding
+    // 给个定时器，不然数据更新之后，获取到的宽度不对，会获取到上一次的宽度
+    setTimeout(() => {
+      labelElements.forEach((el: any) => {
+        const width = el.scrollWidth || el.offsetWidth; // 或 el.offsetWidth，但 scrollWidth 更稳妥
+        if (width > maxWidth) maxWidth = width;
+      });
+      // 设置一个缓冲值，例如加上 padding 等
+      setButtonMaxWidth(maxWidth + 8 + "px"); // 8 是 list-group-item 的 padding
+    }, 10);
   }, [list, buttonWidth]);
 
   useEffect(() => {
@@ -334,7 +343,7 @@ const ListGroup = ({
               <ul
                 className={`list-group ${
                   columnIndex === list.length - 1 ? "" : "me-2"
-                } ${showBorder ? "border" : ""}`}
+                } ${showBorder ? "border" : ""} ${listGroupClassName ? listGroupClassName : ""}`}
                 style={{
                   height,
                   // maxHeight:
@@ -343,6 +352,7 @@ const ListGroup = ({
                     columnMaxHeight || maxHeight || height || parentMaxHeight,
                   borderRadius: showBorderRadius ? "5px" : "0",
                   boxSizing: "border-box",
+                  ...lisgGroupStyle
                 }}
               >
                 {Array.isArray(columnItems) &&
@@ -366,6 +376,7 @@ const ListGroup = ({
                             // 不能用 maxWidth，因为如果是短的 label 就不起作用了
                             minWidth: buttonMaxWidth,
                             cursor: "pointer",
+                            ...buttonStyle,
                           }}
                         >
                           {item.render ? (
@@ -404,12 +415,13 @@ const ListGroup = ({
       ) : (
         // 好像不会执行这边的渲染
         <div
-          className={`list-group ${showBorder && list.length ? "border" : ""}`}
+          className={`list-group ${showBorder && list.length ? "border" : ""} ${listGroupClassName? listGroupClassName : ""}`}
           style={{
             height,
             maxHeight: maxHeight || height,
             overflowY: "auto",
             borderRadius: !showBorderRadius ? "0px" : "5px",
+            ...lisgGroupStyle
           }}
         >
           {list!?.map((item: any, index: number) => (
@@ -425,6 +437,7 @@ const ListGroup = ({
                   // 不能用 maxWidth，因为如果是短的 label 就不起作用了
                   minWidth: buttonMaxWidth,
                   cursor: "pointer",
+                  ...buttonStyle
                 }}
                 onClick={() => handleItemClick(item, index)}
                 onDoubleClick={(e) => handleItemDoubleClick(e, item, index)}

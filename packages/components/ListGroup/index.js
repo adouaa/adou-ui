@@ -578,9 +578,12 @@ var update = injectStylesIntoStyleTag_default()(cjs_ruleSet_1_rules_1_use_2_src/
 
 const ListGroup = _ref => {
   let {
+    lisgGroupStyle,
+    listGroupClassName,
     focusedIndex,
     actRef,
     buttonClassName,
+    buttonStyle,
     activeId,
     showBorderRadius = true,
     showBorder = true,
@@ -780,6 +783,7 @@ const ListGroup = _ref => {
 
   // 循环病历每项的 label-text，获取最大宽度，赋值给 button
   (0,external_root_React_commonjs2_react_commonjs_react_amd_react_.useEffect)(() => {
+    setButtonMaxWidth("0px");
     if (buttonWidth) {
       setButtonMaxWidth(buttonWidth);
       return;
@@ -792,13 +796,15 @@ const ListGroup = _ref => {
     const labelElements = wrapper.querySelectorAll(".label-text");
     if (!labelElements || labelElements.length === 0) return;
     let maxWidth = 0;
-    labelElements.forEach(el => {
-      const width = el.scrollWidth || el.offsetWidth; // 或 el.offsetWidth，但 scrollWidth 更稳妥
-      if (width > maxWidth) maxWidth = width;
-    });
-
-    // 设置一个缓冲值，例如加上 padding 等
-    setButtonMaxWidth(maxWidth + 8 + "px"); // 8 是 button 的 padding
+    // 给个定时器，不然数据更新之后，获取到的宽度不对，会获取到上一次的宽度
+    setTimeout(() => {
+      labelElements.forEach(el => {
+        const width = el.scrollWidth || el.offsetWidth; // 或 el.offsetWidth，但 scrollWidth 更稳妥
+        if (width > maxWidth) maxWidth = width;
+      });
+      // 设置一个缓冲值，例如加上 padding 等
+      setButtonMaxWidth(maxWidth + 8 + "px"); // 8 是 list-group-item 的 padding
+    }, 10);
   }, [list, buttonWidth]);
   (0,external_root_React_commonjs2_react_commonjs_react_amd_react_.useEffect)(() => {
     // 在数据变化后，要清空 已选中的数据 activeList
@@ -835,14 +841,15 @@ const ListGroup = _ref => {
     className: "col ".concat(noWrap ? "overflow-auto" : ""),
     key: columnIndex
   }, /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("ul", {
-    className: "list-group ".concat(columnIndex === list.length - 1 ? "" : "me-2", " ").concat(showBorder ? "border" : ""),
+    className: "list-group ".concat(columnIndex === list.length - 1 ? "" : "me-2", " ").concat(showBorder ? "border" : "", " ").concat(listGroupClassName ? listGroupClassName : ""),
     style: {
       height,
       // maxHeight:
       //   maxHeight || height || lineBreak ? parentMaxHeight : "",
       maxHeight: columnMaxHeight || maxHeight || height || parentMaxHeight,
       borderRadius: showBorderRadius ? "5px" : "0",
-      boxSizing: "border-box"
+      boxSizing: "border-box",
+      ...lisgGroupStyle
     }
   }, Array.isArray(columnItems) && (columnItems === null || columnItems === void 0 ? void 0 : columnItems.map((item, itemIndex) => {
     const flatIndex = getFlatIndex(columnIndex, itemIndex);
@@ -860,7 +867,8 @@ const ListGroup = _ref => {
         height: itemHeight + "px",
         // 不能用 maxWidth，因为如果是短的 label 就不起作用了
         minWidth: buttonMaxWidth,
-        cursor: "pointer"
+        cursor: "pointer",
+        ...buttonStyle
       }
     }, item.render ? item.render(item, labelKey, valueKey) : render ? /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("div", {
       className: "label-text"
@@ -878,12 +886,13 @@ const ListGroup = _ref => {
   /*#__PURE__*/
   // 好像不会执行这边的渲染
   external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("div", {
-    className: "list-group ".concat(showBorder && list.length ? "border" : ""),
+    className: "list-group ".concat(showBorder && list.length ? "border" : "", " ").concat(listGroupClassName ? listGroupClassName : ""),
     style: {
       height,
       maxHeight: maxHeight || height,
       overflowY: "auto",
-      borderRadius: !showBorderRadius ? "0px" : "5px"
+      borderRadius: !showBorderRadius ? "0px" : "5px",
+      ...lisgGroupStyle
     }
   }, list === null || list === void 0 ? void 0 : list.map((item, index) => /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("div", {
     className: "list-group-item-wrapper d-flex align-items-center",
@@ -895,7 +904,8 @@ const ListGroup = _ref => {
       border: "none",
       // 不能用 maxWidth，因为如果是短的 label 就不起作用了
       minWidth: buttonMaxWidth,
-      cursor: "pointer"
+      cursor: "pointer",
+      ...buttonStyle
     },
     onClick: () => handleItemClick(item, index),
     onDoubleClick: e => handleItemDoubleClick(e, item, index),

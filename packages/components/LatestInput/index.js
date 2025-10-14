@@ -1900,7 +1900,7 @@ const Input = (_ref, ref) => {
     title,
     wrap,
     wrapperClassName,
-    backgroundColor,
+    backgroundColor = "#FFF",
     inputStyle,
     prefix,
     suffix,
@@ -2130,7 +2130,7 @@ const Input = (_ref, ref) => {
       return "#f0f0f0";
     } else if (backgroundColor) {
       return backgroundColor;
-    } else {
+    } else if (transparent) {
       return "transparent";
     }
   };

@@ -84,7 +84,7 @@ const Input: React.ForwardRefRenderFunction<InputRef, InputProps> = (
     title,
     wrap,
     wrapperClassName,
-    backgroundColor,
+    backgroundColor = "#FFF",
     inputStyle,
     prefix,
     suffix,
@@ -341,7 +341,7 @@ const Input: React.ForwardRefRenderFunction<InputRef, InputProps> = (
       return "#f0f0f0";
     } else if (backgroundColor) {
       return backgroundColor;
-    } else {
+    } else if (transparent) {
       return "transparent";
     }
   };

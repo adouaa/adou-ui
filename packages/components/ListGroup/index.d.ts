@@ -1,9 +1,12 @@
 import React from "react";
 import "./index.scss";
 interface ListGroupProps {
+    lisgGroupStyle?: React.CSSProperties;
+    listGroupClassName?: string;
     focusedIndex?: any;
     actRef?: any;
     buttonClassName?: string;
+    buttonStyle?: React.CSSProperties;
     activeId?: string | number;
     showBorderRadius?: boolean;
     showBorder?: boolean;
@@ -29,5 +32,5 @@ interface ListGroupProps {
     render?: (item: any, labelKey: string, valueKey: string) => any;
     onEnter?: (item: any, index: number) => void;
 }
-declare const ListGroup: ({ focusedIndex, actRef, buttonClassName, activeId, showBorderRadius, showBorder, buttonWidth, canCancel, multiple, itemHeight, columnMaxHeight, lineBreak, listPerColumn, height, maxHeight, activeOnClick, externalClassName, noWrap, data, activeList: selectList, labelKey, valueKey, type, render, onItemClick, onItemDoubleClick, onEnter, }: ListGroupProps) => React.JSX.Element;
+declare const ListGroup: ({ lisgGroupStyle, listGroupClassName, focusedIndex, actRef, buttonClassName, buttonStyle, activeId, showBorderRadius, showBorder, buttonWidth, canCancel, multiple, itemHeight, columnMaxHeight, lineBreak, listPerColumn, height, maxHeight, activeOnClick, externalClassName, noWrap, data, activeList: selectList, labelKey, valueKey, type, render, onItemClick, onItemDoubleClick, onEnter, }: ListGroupProps) => React.JSX.Element;
 export default ListGroup;
