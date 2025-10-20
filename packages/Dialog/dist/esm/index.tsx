@@ -5,6 +5,8 @@ import Button from "adou-ui/Button";
 import "./index.scss";
 
 interface DialogProps {
+  showFooter?: boolean;
+  externalContentCls?: string;
   footerStyle?: React.CSSProperties;
   footerLeftContent?: React.ReactNode;
   confirmWhenEnter?: boolean;
@@ -36,6 +38,8 @@ interface DialogProps {
   onConfirm?: () => void;
 }
 const Dialog: React.FC<DialogProps> = ({
+  showFooter = true,
+  externalContentCls,
   footerStyle,
   footerLeftContent,
   confirmWhenEnter = true,
@@ -187,7 +191,7 @@ const Dialog: React.FC<DialogProps> = ({
                   )}
                 </div>
                 <div
-                  className="dialog-content"
+                  className={`dialog-content p-2 ${externalContentCls || ""}`}
                   style={{
                     maxHeight:
                       max || maxY ? "calc(100vh - 8rem)" : height || maxHeight,
@@ -196,36 +200,40 @@ const Dialog: React.FC<DialogProps> = ({
                 >
                   {children}
                 </div>
-                <div
-                  className="dialog-footer d-flex justify-content-between p-3"
-                  style={footerStyle}
-                >
-                  <div className="footer-left">
-                    {footerLeftContent && footerLeftContent}
+                {showFooter && (
+                  <div
+                    className="dialog-footer d-flex justify-content-between p-3"
+                    style={footerStyle}
+                  >
+                    <div className="footer-left">
+                      {footerLeftContent && footerLeftContent}
+                    </div>
+                    <div className="footer-right">
+                      {showCancel && (
+                        <Button
+                          externalClassName={`${
+                            showConfirm ? "me-2" : ""
+                          } btn-${cancelBtnClass}`}
+                          size="md"
+                          onClickOK={onCancel ?? onClose}
+                        >
+                          {cancelText}
+                        </Button>
+                      )}
+                      {showConfirm && (
+                        <Button
+                          loading={confirmBtnLoading}
+                          disabled={!canConfirm}
+                          externalClassName={`btn-${confirmBtnClass}`}
+                          size="md"
+                          onClickOK={onConfirm}
+                        >
+                          {confirmText}
+                        </Button>
+                      )}
+                    </div>
                   </div>
-                  <div className="footer-right">
-                    {showCancel && (
-                      <Button
-                        externalClassName={`${showConfirm ? "me-2" : ""} btn-${cancelBtnClass}`}
-                        size="md"
-                        onClickOK={onCancel ?? onClose}
-                      >
-                        {cancelText}
-                      </Button>
-                    )}
-                    {showConfirm && (
-                      <Button
-                        loading={confirmBtnLoading}
-                        disabled={!canConfirm}
-                        externalClassName={`btn-${confirmBtnClass}`}
-                        size="md"
-                        onClickOK={onConfirm}
-                      >
-                        {confirmText}
-                      </Button>
-                    )}
-                  </div>
-                </div>
+                )}
               </div>
             )}
           </div>,

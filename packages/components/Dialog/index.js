@@ -6898,7 +6898,6 @@ ___CSS_LOADER_EXPORT___.push([module.id, `.dialog-overlay {
 }
 
 .dialog-content {
-  padding: 16px;
   overflow: auto;
 }
 
@@ -6912,7 +6911,7 @@ ___CSS_LOADER_EXPORT___.push([module.id, `.dialog-overlay {
 .hover-scale:hover {
   color: red;
   transform: scale(1.2);
-}`, "",{"version":3,"sources":["webpack://./src/index.scss"],"names":[],"mappings":"AAAA;EACI,eAAA;EACA,aAAA;EACA,MAAA;EACA,OAAA;EACA,WAAA;EACA,YAAA;EACA,oCAAA;EACA,aAAA;EACA,uBAAA;EACA,mBAAA;EACA,UAAA;EACA,kBAAA;EACA,iEAAA;AACJ;AACI;EACI,UAAA;EACA,mBAAA;AACR;;AAGA;EACI,mCAAA;EACA,kBAAA;EACA,yCAAA;EACA,YAAA;EACA,cAAA;EACA,kBAAA;EAEA,qBAAA;EACA,UAAA;EACA,gEAAA;AADJ;AAGI;EACI,mBAAA;EACA,UAAA;AADR;AAII;EACI,aAAA;AAFR;;AAMA;EACI,+CAAA;EACA,aAAA;EACA,8BAAA;EACA,mBAAA;AAHJ;;AAOA;EACI,cAAA;EACA,gBAAA;EACA,YAAA;EACA,eAAA;EACA,eAAA;EACA,aAAA;AAJJ;;AAOA;EACI,aAAA;EACA,cAAA;AAJJ;;AAQA;EACI,4CAAA;AALJ;;AAQA;EACI,yBAAA;AALJ;AAOI;EACI,UAAA;EACA,qBAAA;AALR","sourcesContent":[".dialog-overlay {\r\n    position: fixed;\r\n    z-index: 1002; // z-index应该加在最外层的父级才有作用\r\n    top: 0;\r\n    left: 0;\r\n    width: 100%;\r\n    height: 100%;\r\n    background-color: rgba(0, 0, 0, 0.5);\r\n    display: flex;\r\n    justify-content: center;\r\n    align-items: center;\r\n    opacity: 0;\r\n    visibility: hidden;\r\n    transition: opacity 0.3s ease-in-out, visibility 0.3s ease-in-out;\r\n\r\n    &.open {\r\n        opacity: 1;\r\n        visibility: visible;\r\n    }\r\n}\r\n\r\n.dialog {\r\n    background-color: var(--bs-body-bg);\r\n    border-radius: 4px;\r\n    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);\r\n    width: 400px;\r\n    max-width: 90%;\r\n    position: absolute;\r\n    // z-index: 999;\r\n    transform: scale(0.9);\r\n    opacity: 0;\r\n    transition: transform 0.3s ease-in-out, opacity 0.3s ease-in-out;\r\n\r\n    &.open {\r\n        transform: scale(1);\r\n        opacity: 1;\r\n    }\r\n\r\n    &:focus {\r\n        outline: none;\r\n    }\r\n}\r\n\r\n.dialog-header {\r\n    border-bottom: 1px solid var(--bs-border-color);\r\n    display: flex;\r\n    justify-content: space-between;\r\n    align-items: center;\r\n\r\n}\r\n\r\n.dialog-close {\r\n    color: #b0aaaa;\r\n    background: none;\r\n    border: none;\r\n    font-size: 36px;\r\n    cursor: pointer;\r\n    outline: none;\r\n}\r\n\r\n.dialog-content {\r\n    padding: 16px;\r\n    overflow: auto;\r\n\r\n}\r\n\r\n.dialog-footer {\r\n    border-top: 1px solid var(--bs-border-color);\r\n}\r\n\r\n.hover-scale {\r\n    transition: all 0.3s ease;\r\n\r\n    &:hover {\r\n        color: red;\r\n        transform: scale(1.2);\r\n    }\r\n}"],"sourceRoot":""}]);
+}`, "",{"version":3,"sources":["webpack://./src/index.scss"],"names":[],"mappings":"AAAA;EACI,eAAA;EACA,aAAA;EACA,MAAA;EACA,OAAA;EACA,WAAA;EACA,YAAA;EACA,oCAAA;EACA,aAAA;EACA,uBAAA;EACA,mBAAA;EACA,UAAA;EACA,kBAAA;EACA,iEAAA;AACJ;AACI;EACI,UAAA;EACA,mBAAA;AACR;;AAGA;EACI,mCAAA;EACA,kBAAA;EACA,yCAAA;EACA,YAAA;EACA,cAAA;EACA,kBAAA;EAEA,qBAAA;EACA,UAAA;EACA,gEAAA;AADJ;AAGI;EACI,mBAAA;EACA,UAAA;AADR;AAII;EACI,aAAA;AAFR;;AAMA;EACI,+CAAA;EACA,aAAA;EACA,8BAAA;EACA,mBAAA;AAHJ;;AAOA;EACI,cAAA;EACA,gBAAA;EACA,YAAA;EACA,eAAA;EACA,eAAA;EACA,aAAA;AAJJ;;AAOA;EACI,cAAA;AAJJ;;AAQA;EACI,4CAAA;AALJ;;AAQA;EACI,yBAAA;AALJ;AAOI;EACI,UAAA;EACA,qBAAA;AALR","sourcesContent":[".dialog-overlay {\r\n    position: fixed;\r\n    z-index: 1002; // z-index应该加在最外层的父级才有作用\r\n    top: 0;\r\n    left: 0;\r\n    width: 100%;\r\n    height: 100%;\r\n    background-color: rgba(0, 0, 0, 0.5);\r\n    display: flex;\r\n    justify-content: center;\r\n    align-items: center;\r\n    opacity: 0;\r\n    visibility: hidden;\r\n    transition: opacity 0.3s ease-in-out, visibility 0.3s ease-in-out;\r\n\r\n    &.open {\r\n        opacity: 1;\r\n        visibility: visible;\r\n    }\r\n}\r\n\r\n.dialog {\r\n    background-color: var(--bs-body-bg);\r\n    border-radius: 4px;\r\n    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);\r\n    width: 400px;\r\n    max-width: 90%;\r\n    position: absolute;\r\n    // z-index: 999;\r\n    transform: scale(0.9);\r\n    opacity: 0;\r\n    transition: transform 0.3s ease-in-out, opacity 0.3s ease-in-out;\r\n\r\n    &.open {\r\n        transform: scale(1);\r\n        opacity: 1;\r\n    }\r\n\r\n    &:focus {\r\n        outline: none;\r\n    }\r\n}\r\n\r\n.dialog-header {\r\n    border-bottom: 1px solid var(--bs-border-color);\r\n    display: flex;\r\n    justify-content: space-between;\r\n    align-items: center;\r\n\r\n}\r\n\r\n.dialog-close {\r\n    color: #b0aaaa;\r\n    background: none;\r\n    border: none;\r\n    font-size: 36px;\r\n    cursor: pointer;\r\n    outline: none;\r\n}\r\n\r\n.dialog-content {\r\n    overflow: auto;\r\n\r\n}\r\n\r\n.dialog-footer {\r\n    border-top: 1px solid var(--bs-border-color);\r\n}\r\n\r\n.hover-scale {\r\n    transition: all 0.3s ease;\r\n\r\n    &:hover {\r\n        color: red;\r\n        transform: scale(1.2);\r\n    }\r\n}"],"sourceRoot":""}]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 
@@ -7343,6 +7342,8 @@ var update = injectStylesIntoStyleTag_default()(cjs_ruleSet_1_rules_1_use_2_src/
 
 const Dialog = _ref => {
   let {
+    showFooter = true,
+    externalContentCls,
     footerStyle,
     footerLeftContent,
     confirmWhenEnter = true,
@@ -7477,12 +7478,12 @@ const Dialog = _ref => {
     className: "dialog-close hover-scale",
     onClick: onClose
   }, "\xD7")), /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("div", {
-    className: "dialog-content",
+    className: "dialog-content p-2 ".concat(externalContentCls || ""),
     style: {
       maxHeight: max || maxY ? "calc(100vh - 8rem)" : height || maxHeight,
       height: max || maxY ? "calc(100vh - 8rem)" : height
     }
-  }, children), /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("div", {
+  }, children), showFooter && /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("div", {
     className: "dialog-footer d-flex justify-content-between p-3",
     style: footerStyle
   }, /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("div", {

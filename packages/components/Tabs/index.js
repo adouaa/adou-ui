@@ -1860,6 +1860,7 @@ var update = injectStylesIntoStyleTag_default()(cjs_ruleSet_1_rules_1_use_2_src/
 
 const TabItem = props => {
   const {
+    notShow = true,
     exsternalClsaaName,
     prefixIcon,
     headerIcon,
@@ -1912,7 +1913,7 @@ const Tabs = props => {
     extraContentCls,
     contentHeight,
     showExtraContent,
-    lineaGradient = "#dafbff, #fff",
+    lineaGradient = "",
     children,
     onLabelClick,
     activeIndex = 0,
@@ -1932,7 +1933,8 @@ const Tabs = props => {
   const renderHeader = () => {
     const tabItems = [];
     external_root_React_commonjs2_react_commonjs_react_amd_react_default().Children.map(children, child => {
-      if (!child) return;
+      // 如果 child 不存在 或者 child.props.notShow 值为 true，代表不渲染，不 push 到数组里
+      if (!child || child.props.notShow) return;
       tabItems.push(child);
     });
     return tabStyle === "common" ? /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("div", {
@@ -1948,7 +1950,8 @@ const Tabs = props => {
       }
     }, tabItems.map((child, index) => {
       var _child$propps, _child$props, _child$props2;
-      if (!child) return;
+      // 如果 child 不存在 或者 child.props.notShow 值为 true，代表不渲染，头部不显示
+      if (!child || child.props.notShow) return;
       return /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("div", {
         key: index
       }, /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("div", {
@@ -2014,7 +2017,9 @@ const Tabs = props => {
   const renderContent = () => {
     const renderChildren = [];
     const warpperdChildren = external_root_React_commonjs2_react_commonjs_react_amd_react_default().Children.toArray(children);
-    const validChildren = warpperdChildren.filter(Boolean);
+    const validChildren = warpperdChildren.filter(
+    // 如果 child 不存在 或者 child.props.notShow 值为 true，代表不渲染，不在下面做循环判断是否展示
+    item => item && !item.props.notShow);
     external_root_React_commonjs2_react_commonjs_react_amd_react_default().Children.map(validChildren, (child, index) => {
       if (child) {
         if (index === currentIndex) {

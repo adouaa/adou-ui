@@ -36,7 +36,7 @@ const Tabs = (props: TabsProps) => {
     extraContentCls,
     contentHeight,
     showExtraContent,
-    lineaGradient = "#dafbff, #fff",
+    lineaGradient = "",
     children,
     onLabelClick,
     activeIndex = 0,
@@ -62,7 +62,8 @@ const Tabs = (props: TabsProps) => {
   const renderHeader = () => {
     const tabItems: any = [];
     React.Children.map(children, (child: any) => {
-      if (!child) return;
+      // 如果 child 不存在 或者 child.props.notShow 值为 true，代表不渲染，不 push 到数组里
+      if (!child || child.props.notShow) return;
       tabItems.push(child);
     });
     return tabStyle === "common" ? (
@@ -73,7 +74,8 @@ const Tabs = (props: TabsProps) => {
         >
           <div className="tabs-header-content d-flex" style={{ flex: 1 }}>
             {tabItems.map((child: any, index: number) => {
-              if (!child) return;
+              // 如果 child 不存在 或者 child.props.notShow 值为 true，代表不渲染，头部不显示
+              if (!child || child.props.notShow) return;
 
               return (
                 <div key={index}>
@@ -173,7 +175,11 @@ const Tabs = (props: TabsProps) => {
   const renderContent = () => {
     const renderChildren: any = [];
     const warpperdChildren = React.Children.toArray(children);
-    const validChildren = warpperdChildren.filter(Boolean);
+    const validChildren = warpperdChildren.filter(
+      // 如果 child 不存在 或者 child.props.notShow 值为 true，代表不渲染，不在下面做循环判断是否展示
+      (item: any) => item && !item.props.notShow
+    );
+
     React.Children.map(validChildren, (child: any, index) => {
       if (child) {
         if (index === currentIndex) {
