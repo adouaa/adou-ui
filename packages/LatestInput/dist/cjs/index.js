@@ -1893,6 +1893,8 @@ var selectOrdinal = function selectOrdinal() {
 
 const Input = (_ref, ref) => {
   let {
+    min,
+    max,
     autoFocus,
     actRef,
     isFormItem,
@@ -2182,7 +2184,9 @@ const Input = (_ref, ref) => {
     onFocus: handleFocus,
     onClick: handleClick,
     type: type,
-    disabled: disabled
+    disabled: disabled,
+    min: min,
+    max: max
   }), suffix && /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("div", {
     className: "suffix-box"
   }, suffix), clearable && !disabled && value ? /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("span", {

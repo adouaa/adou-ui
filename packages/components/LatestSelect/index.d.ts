@@ -1,6 +1,8 @@
 import "./index.scss";
 import React from "react";
 export interface SelectProps {
+    showOptionTitle?: boolean;
+    optionContentEllipsis?: boolean;
     autoFillter?: boolean;
     actRef?: any;
     optionContentStyle?: React.CSSProperties;
@@ -74,6 +76,7 @@ export interface SelectProps {
     onWrapperClick?: (e: any) => void;
     onEnter?: (item: any, index: number) => void;
     onKeyDown?: (e: React.KeyboardEvent<HTMLDivElement>) => void;
+    optionTitleRender?: (item: any) => string;
 }
 declare const Select: React.ForwardRefExoticComponent<SelectProps & React.RefAttributes<unknown>>;
 export default Select;

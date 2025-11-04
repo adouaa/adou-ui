@@ -140,3 +140,12 @@
         border-color: var(--bs-dark-border-subtle) !important;
     }
 }
+
+.ellipsis-1 {
+    white-space: nowrap;
+    /* 不换行 */
+    overflow: hidden;
+    /* 隐藏超出部分 */
+    text-overflow: ellipsis;
+    /* 使用省略号表示超出部分 */
+}

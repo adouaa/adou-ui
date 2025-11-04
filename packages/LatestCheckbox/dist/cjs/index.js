@@ -812,6 +812,7 @@ const Checkbox = (_ref, ref) => {
       marginBottom: 0
     }
   }, /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("input", {
+    disabled: item.disabled,
     ref: ref // 将 ref 绑定到 input 元素
     ,
     required: required,

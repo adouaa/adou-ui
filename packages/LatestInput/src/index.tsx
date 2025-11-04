@@ -11,6 +11,8 @@ import "./index.scss";
 import { withTranslation } from "react-i18next";
 
 export interface InputProps {
+  min?: number;
+  max?: number;
   autoFocus?: boolean;
   actRef?: any;
   addonAfterStyle?: React.CSSProperties;
@@ -77,6 +79,8 @@ export interface InputRef {
 
 const Input: React.ForwardRefRenderFunction<InputRef, InputProps> = (
   {
+    min,
+    max,
     autoFocus,
     actRef,
     isFormItem,
@@ -401,6 +405,8 @@ const Input: React.ForwardRefRenderFunction<InputRef, InputProps> = (
         onClick={handleClick}
         type={type}
         disabled={disabled}
+        min={min}
+        max={max}
       />
       {suffix && <div className="suffix-box">{suffix}</div>}
 

@@ -9,6 +9,8 @@ import useThrottle from "./useThrottle";
 import IconClose from "./icon_close";
 
 export interface SelectProps {
+  showOptionTitle?: boolean;
+  optionContentEllipsis?: boolean;
   autoFillter?: boolean;
   actRef?: any;
   optionContentStyle?: React.CSSProperties;
@@ -84,10 +86,13 @@ export interface SelectProps {
   onWrapperClick?: (e: any) => void;
   onEnter?: (item: any, index: number) => void;
   onKeyDown?: (e: React.KeyboardEvent<HTMLDivElement>) => void;
+  optionTitleRender?: (item: any) => string; // 自定义渲染 title
 }
 
 const Select = React.forwardRef((props: SelectProps, ref) => {
   const {
+    showOptionTitle = true,
+    optionContentEllipsis = true,
     autoFillter = true,
     actRef,
     optionContentStyle,
@@ -158,6 +163,7 @@ const Select = React.forwardRef((props: SelectProps, ref) => {
     onWrapperClick,
     onEnter,
     onKeyDown,
+    optionTitleRender,
   } = props;
 
   const [isShow, setIsShow] = useState<boolean>(false);
@@ -1203,6 +1209,9 @@ const Select = React.forwardRef((props: SelectProps, ref) => {
               {newOptions.length > 0 ? (
                 newOptions.map((item, index) => (
                   <div
+                    title={
+                      showOptionTitle ? (optionTitleRender ? optionTitleRender(item) : item[labelKey]) : ""
+                    }
                     ref={(ref) => registerRef(index, ref)}
                     onClick={(e) => handleSelect(item, e)}
                     style={{
@@ -1211,7 +1220,7 @@ const Select = React.forwardRef((props: SelectProps, ref) => {
                     }}
                     className={`adou-select-option ${
                       focusedIndex === index ? "adou-select-option-active" : ""
-                    }`}
+                    } ${optionContentEllipsis ? "ellipsis-1" : ""}`}
                     key={item[valueKey]}
                   >
                     {optionRender

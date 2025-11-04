@@ -221,6 +221,7 @@ const Checkbox: ForwardRefRenderFunction<any, CheckboxProps> = (
               }}
             >
               <input
+                disabled={item.disabled}
                 ref={ref} // 将 ref 绑定到 input 元素
                 required={required}
                 onBlur={handleBlur}
