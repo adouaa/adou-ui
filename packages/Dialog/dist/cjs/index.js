@@ -7342,6 +7342,7 @@ var update = injectStylesIntoStyleTag_default()(cjs_ruleSet_1_rules_1_use_2_src/
 
 const Dialog = _ref => {
   let {
+    canCancel = true,
     showFooter = true,
     externalContentCls,
     footerStyle,
@@ -7491,6 +7492,7 @@ const Dialog = _ref => {
   }, footerLeftContent && footerLeftContent), /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("div", {
     className: "footer-right"
   }, showCancel && /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement((Button_default()), {
+    disabled: !canCancel,
     externalClassName: "".concat(showConfirm ? "me-2" : "", " btn-").concat(cancelBtnClass),
     size: "md",
     onClickOK: onCancel !== null && onCancel !== void 0 ? onCancel : onClose

@@ -5,6 +5,7 @@ import Button from "adou-ui/Button";
 import "./index.scss";
 
 interface DialogProps {
+  canCancel?: boolean;
   showFooter?: boolean;
   externalContentCls?: string;
   footerStyle?: React.CSSProperties;
@@ -38,6 +39,7 @@ interface DialogProps {
   onConfirm?: () => void;
 }
 const Dialog: React.FC<DialogProps> = ({
+  canCancel = true,
   showFooter = true,
   externalContentCls,
   footerStyle,
@@ -211,6 +213,7 @@ const Dialog: React.FC<DialogProps> = ({
                     <div className="footer-right">
                       {showCancel && (
                         <Button
+                          disabled={!canCancel}
                           externalClassName={`${
                             showConfirm ? "me-2" : ""
                           } btn-${cancelBtnClass}`}
