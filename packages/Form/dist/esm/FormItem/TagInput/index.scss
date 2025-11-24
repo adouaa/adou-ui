@@ -43,9 +43,11 @@
             border: none;
         }
     }
-}
 
-.focus {
+    .focus {
     border-color: #80bdff; /* 设置输入框获得焦点时的边框颜色 */
     box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.313); /* 设置输入框获得焦点时的阴影效果 */
 }
+
+}
+

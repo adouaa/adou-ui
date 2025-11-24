@@ -11,6 +11,8 @@ import "./index.scss";
 import { isEmptyO } from "adou-ui/Utils";
 
 interface FormItemProps {
+  formControlStyle?: React.CSSProperties;
+  formControlClassName?: string;
   formControlWidth?: string;
   formContentStyle?: React.CSSProperties;
   formContentClassName?: string;
@@ -48,6 +50,8 @@ interface FormItemProps {
 }
 
 const FormItem = ({
+  formControlStyle,
+  formControlClassName,
   formControlWidth,
   formContentStyle,
   formContentClassName,
@@ -353,10 +357,10 @@ const FormItem = ({
                   )}
                 </span>
                 <div
-                  style={{ width: formControlWidth }}
+                  style={{ ...formControlStyle, width: formControlWidth }}
                   className={`adou-form form-control d-flex flex-fill p-0 ${
                     isChildrenArrayRef.current ? "border-0" : ""
-                  }`}
+                  } ${formControlClassName ? formControlClassName : ""}`}
                 >
                   {enhancedChildren}
                 </div>
@@ -374,8 +378,8 @@ const FormItem = ({
             ) : processedAddonAfter ? (
               <div className="input-group">
                 <div
-                  style={{ width: formControlWidth }}
-                  className="adou-form form-control d-flex flex-fill p-0"
+                  style={{ ...formControlStyle, width: formControlWidth }}
+                  className={`adou-form form-control d-flex flex-fill p-0 ${formControlClassName ? formControlClassName : ""}`}
                 >
                   {enhancedChildren}
                 </div>
@@ -388,10 +392,10 @@ const FormItem = ({
               </div>
             ) : (
               <div
-                style={{ width: formControlWidth }}
+                style={{ ...formControlStyle, width: formControlWidth }}
                 className={`adou-form form-control d-flex flex-fill p-0 ${
                   isChildrenArrayRef.current ? "border-0" : ""
-                }`}
+                } ${formControlClassName ? formControlClassName : ""}`}
               >
                 {enhancedChildren}
               </div>

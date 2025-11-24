@@ -7032,6 +7032,8 @@ var update = injectStylesIntoStyleTag_default()(cjs_ruleSet_1_rules_1_use_2_src/
 
 const FormItem = _ref => {
   let {
+    formControlStyle,
+    formControlClassName,
     formControlWidth,
     formContentStyle,
     formContentClassName,
@@ -7286,9 +7288,10 @@ const FormItem = _ref => {
     className: "form-item-label-text-required ms-1"
   }, "*")), /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("div", {
     style: {
+      ...formControlStyle,
       width: formControlWidth
     },
-    className: "adou-form form-control d-flex flex-fill p-0 ".concat(isChildrenArrayRef.current ? "border-0" : "")
+    className: "adou-form form-control d-flex flex-fill p-0 ".concat(isChildrenArrayRef.current ? "border-0" : "", " ").concat(formControlClassName ? formControlClassName : "")
   }, enhancedChildren), processedAddonAfter && /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("span", {
     className: "input-group-text py-0 ".concat(addonAfterClssName ? addonAfterClssName : ""),
     style: {
@@ -7299,9 +7302,10 @@ const FormItem = _ref => {
     className: "input-group"
   }, /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("div", {
     style: {
+      ...formControlStyle,
       width: formControlWidth
     },
-    className: "adou-form form-control d-flex flex-fill p-0"
+    className: "adou-form form-control d-flex flex-fill p-0 ".concat(formControlClassName ? formControlClassName : "")
   }, enhancedChildren), /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("span", {
     className: "input-group-text py-0",
     style: {
@@ -7310,9 +7314,10 @@ const FormItem = _ref => {
     }
   }, processedAddonAfter && processedAddonAfter)) : /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("div", {
     style: {
+      ...formControlStyle,
       width: formControlWidth
     },
-    className: "adou-form form-control d-flex flex-fill p-0 ".concat(isChildrenArrayRef.current ? "border-0" : "")
+    className: "adou-form form-control d-flex flex-fill p-0 ".concat(isChildrenArrayRef.current ? "border-0" : "", " ").concat(formControlClassName ? formControlClassName : "")
   }, enhancedChildren)), /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("div", {
     className: "suffix-content"
   }), isError && errorType === "message" && /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("div", {
