@@ -183,10 +183,12 @@ const Checkbox: ForwardRefRenderFunction<any, CheckboxProps> = (
 
   useEffect(() => {
     // Update optionsList when defaultValue changes
-    const updatedOptions = options.map((option: any) => ({
-      ...option,
-      checked: isChecked(option[valueKey], defaultValue),
-    }));
+    const updatedOptions = options
+      .filter((option: any) => !option.hidden === true) // 过滤掉 hidden 属性的项目
+      .map((option: any) => ({
+        ...option,
+        checked: isChecked(option[valueKey], defaultValue),
+      }));
     setOptionsList(updatedOptions);
   }, [defaultValue, options]);
 

@@ -117,6 +117,8 @@
 
     .adou-select-option-active {
         font-weight: bold;
+        background-color: var(--bs-primary) !important;
+        color: #fff !important;
     }
 
     &-open {

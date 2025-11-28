@@ -779,7 +779,8 @@ const Checkbox = (_ref, ref) => {
   });
   (0,external_root_React_commonjs2_react_commonjs_react_amd_react_.useEffect)(() => {
     // Update optionsList when defaultValue changes
-    const updatedOptions = options.map(option => ({
+    const updatedOptions = options.filter(option => !option.hidden === true) // 过滤掉 hidden 属性的项目
+    .map(option => ({
       ...option,
       checked: isChecked(option[valueKey], defaultValue)
     }));

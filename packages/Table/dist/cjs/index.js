@@ -9436,7 +9436,9 @@ const recursiveGenerateTableHeaderRows = function (columns) {
 };
 const Table = props => {
   const {
-    highlightStyle,
+    highlightStyle = {
+      backgroundColor: "var(--bs-primary-bg-subtle)"
+    },
     highlightCls,
     showTitle = false,
     wrap = false,

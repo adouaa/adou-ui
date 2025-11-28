@@ -94,7 +94,7 @@ interface TableProps {
 
 const Table = (props: TableProps) => {
   const {
-    highlightStyle,
+    highlightStyle = { backgroundColor: "var(--bs-primary-bg-subtle)" },
     highlightCls,
     showTitle = false,
     wrap = false,
