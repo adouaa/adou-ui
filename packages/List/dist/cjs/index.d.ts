@@ -6,6 +6,7 @@ export type NodeType = {
     children: NodeType[];
 };
 interface ListProps {
+    hasChildrenFn?: (node: any) => boolean;
     nodeItemExternalCls?: string;
     height?: any;
     defaltExpandNodes?: any[];

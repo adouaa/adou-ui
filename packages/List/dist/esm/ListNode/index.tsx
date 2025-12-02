@@ -3,6 +3,7 @@ import "./index.scss";
 import { ListNodeWrapper } from "./style";
 
 interface ListNodeProps {
+  hasChildrenFn?: (node: any) => boolean; // 供外侧动态判断是否有子级
   nodeItemExternalCls?: string;
   defaltExpandNodes?: any[];
   showLine?: boolean;
@@ -34,6 +35,7 @@ interface ListNodeProps {
 }
 
 const ListNode = ({
+  hasChildrenFn,
   nodeItemExternalCls,
   defaltExpandNodes,
   showLine,
@@ -303,6 +305,21 @@ const ListNode = ({
     }));
   };
 
+  // 判断是否展示 折叠图标
+  const judgeIsShowToggleIcon = (node: any) => {
+    if (!isTree) {
+      return false;
+    } else if (hasChildrenFn) {
+      return hasChildrenFn(node);
+    } else {
+      return (
+        ((!node.hasLoaded && lazy) ||
+          (node.children && node.children.length > 0)) &&
+        node.level !== maxLevel! - 1
+      );
+    }
+  };
+
   useEffect(() => {
     if (defaltExpandNodes?.includes(data.id)) {
       // 因为子节点展开与否会影响父节点的样式，所以需要延迟执行，等子节点的样式计算完成后，再执行父节点的样式计算，但是为什么是 level === 1的呢？
@@ -353,27 +370,32 @@ const ListNode = ({
           >
             {/* <span className="none d-none">{String(node.loading)}</span> */}
             {/* 有子节点的话，展示折叠按钮 */}
-            {isTree &&
-              ((!node.hasLoaded && lazy) ||
-                (node.children && node.children.length > 0)) &&
-              node.level !== maxLevel! - 1 && (
-                <i
-                  ref={toggleIconRef}
-                  onMouseEnter={handleMouseEnterExpandIcon}
-                  onMouseLeave={handleMouseLeaveExpandIcon}
-                  style={{
-                    fontSize: "16px",
-                    width: "10px",
-                    ...(node.isEnter
-                      ? { transform: "scale(1.4)", color: "#334155" }
-                      : ""),
-                  }}
-                  onClick={(e) => handleToggleIconClick(node, e)}
-                  className={`toggle-icon fa fa-caret-${
-                    isExpanded ? "down" : "right"
-                  }`}
-                ></i>
-              )}
+            {judgeIsShowToggleIcon(node) ? (
+              <i
+                ref={toggleIconRef}
+                onMouseEnter={handleMouseEnterExpandIcon}
+                onMouseLeave={handleMouseLeaveExpandIcon}
+                style={{
+                  fontSize: "1rem",
+                  width: "10px",
+                  ...(node.isEnter
+                    ? { transform: "scale(1.4)", color: "#334155" }
+                    : ""),
+                }}
+                onClick={(e) => handleToggleIconClick(node, e)}
+                className={`toggle-icon fa fa-caret-${
+                  isExpanded ? "down" : "right"
+                }`}
+              ></i>
+            ) : (
+              // 否则，要展示一个占位符，宽度一致。不然会导致左侧没有对齐
+              <i
+                style={{
+                  fontSize: "1rem",
+                  width: "10px",
+                }}
+              ></i>
+            )}
             {node.loading && (
               <div
                 style={{ width: "18px", height: "18px" }}
@@ -461,6 +483,7 @@ const ListNode = ({
                 // 注意！！！如果传递的是回调的话，直接将 父组件List 传递给 子组件ListNode 的回调再次传递给子组件ListNode(children) 的props，这样子组件ListNode(children) 才能正确调用这个回调，包括调用回调时候数据是否正确、函数是否正确【eg：onLoadNode={onLoadNode}】
 
                 <ListNode
+                  hasChildrenFn={hasChildrenFn} // 子级也不要忘记得传入，动态判断是否有子级
                   defaltExpandNodes={defaltExpandNodes}
                   showLine={showLine}
                   maxLevel={maxLevel}

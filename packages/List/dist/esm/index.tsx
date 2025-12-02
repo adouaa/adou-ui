@@ -16,6 +16,7 @@ export type NodeType = {
 };
 
 interface ListProps {
+  hasChildrenFn?: (node: any) => boolean;
   nodeItemExternalCls?: string;
   height?: any;
   defaltExpandNodes?: any[];
@@ -50,6 +51,7 @@ interface ListProps {
 const List = forwardRef(
   (
     {
+      hasChildrenFn, // 供外侧动态判断是否有子级
       nodeItemExternalCls,
       height,
       defaltExpandNodes,
@@ -272,6 +274,7 @@ const List = forwardRef(
           {treeData &&
             treeData.map((item: any) => (
               <ListNode
+                hasChildrenFn={hasChildrenFn} // 供外侧动态判断是否有子级
                 nodeItemExternalCls={nodeItemExternalCls}
                 defaltExpandNodes={defaltExpandNodes}
                 showLine={showLine}

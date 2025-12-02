@@ -2921,6 +2921,7 @@ const ListNodeWrapper = dt.div(_templateObject || (_templateObject = _taggedTemp
 
 const ListNode_ListNode = _ref => {
   let {
+    hasChildrenFn,
     nodeItemExternalCls,
     defaltExpandNodes,
     showLine,
@@ -3170,6 +3171,17 @@ const ListNode_ListNode = _ref => {
       isEnter: false
     }));
   };
+
+  // 判断是否展示 折叠图标
+  const judgeIsShowToggleIcon = node => {
+    if (!isTree) {
+      return false;
+    } else if (hasChildrenFn) {
+      return hasChildrenFn(node);
+    } else {
+      return (!node.hasLoaded && lazy || node.children && node.children.length > 0) && node.level !== maxLevel - 1;
+    }
+  };
   (0,external_root_React_commonjs2_react_commonjs_react_amd_react_.useEffect)(() => {
     if (defaltExpandNodes !== null && defaltExpandNodes !== void 0 && defaltExpandNodes.includes(data.id)) {
       // 因为子节点展开与否会影响父节点的样式，所以需要延迟执行，等子节点的样式计算完成后，再执行父节点的样式计算，但是为什么是 level === 1的呢？
@@ -3210,12 +3222,12 @@ const ListNode_ListNode = _ref => {
         }) // 让树节点的层级有缩进，并且是充满一整行的样式
       },
       className: "node-item-content pe-1 ".concat(!node.level ? "ps-2" : "", " ").concat(String(activeId) === String(node.id) ? "active" : "", " ").concat(nodeItemExternalCls ? nodeItemExternalCls : "")
-    }, isTree && (!node.hasLoaded && lazy || node.children && node.children.length > 0) && node.level !== maxLevel - 1 && /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("i", {
+    }, judgeIsShowToggleIcon(node) ? /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("i", {
       ref: toggleIconRef,
       onMouseEnter: handleMouseEnterExpandIcon,
       onMouseLeave: handleMouseLeaveExpandIcon,
       style: {
-        fontSize: "16px",
+        fontSize: "1rem",
         width: "10px",
         ...(node.isEnter ? {
           transform: "scale(1.4)",
@@ -3224,6 +3236,14 @@ const ListNode_ListNode = _ref => {
       },
       onClick: e => handleToggleIconClick(node, e),
       className: "toggle-icon fa fa-caret-".concat(isExpanded ? "down" : "right")
+    }) :
+    /*#__PURE__*/
+    // 否则，要展示一个占位符，宽度一致。不然会导致左侧没有对齐
+    external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("i", {
+      style: {
+        fontSize: "1rem",
+        width: "10px"
+      }
     }), node.loading && /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("div", {
       style: {
         width: "18px",
@@ -3280,6 +3300,8 @@ const ListNode_ListNode = _ref => {
     // 如果是传递的属性的话，是需要写的,像父组件那样子写，用的参数是父组件传递过来的，类似父组件那样再写一遍
     // 注意！！！如果传递的是回调的话，直接将 父组件List 传递给 子组件ListNode 的回调再次传递给子组件ListNode(children) 的props，这样子组件ListNode(children) 才能正确调用这个回调，包括调用回调时候数据是否正确、函数是否正确【eg：onLoadNode={onLoadNode}】
     external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement(ListNode_ListNode, {
+      hasChildrenFn: hasChildrenFn // 子级也不要忘记得传入，动态判断是否有子级
+      ,
       defaltExpandNodes: defaltExpandNodes,
       showLine: showLine,
       maxLevel: maxLevel,
@@ -3312,6 +3334,8 @@ const ListNode_ListNode = _ref => {
 
 const List = /*#__PURE__*/(0,external_root_React_commonjs2_react_commonjs_react_amd_react_.forwardRef)((_ref, ref) => {
   let {
+    hasChildrenFn,
+    // 供外侧动态判断是否有子级
     nodeItemExternalCls,
     height,
     defaltExpandNodes,
@@ -3505,6 +3529,8 @@ const List = /*#__PURE__*/(0,external_root_React_commonjs2_react_commonjs_react_
       overflowY: "auto"
     }
   }, treeData && treeData.map(item => /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement(src_ListNode_0, {
+    hasChildrenFn: hasChildrenFn // 供外侧动态判断是否有子级
+    ,
     nodeItemExternalCls: nodeItemExternalCls,
     defaltExpandNodes: defaltExpandNodes,
     showLine: showLine,
