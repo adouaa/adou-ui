@@ -70,6 +70,21 @@
     top: 50%;
     transform: translate(10px, -50%);
   } */
+  .close-icon {
+    position: absolute;
+    right: 6px;
+    top: 6px;
+    cursor: pointer;
+  }
+
+  .hover-scale {
+    transition: all 0.3s ease;
+
+    &:hover {
+      color: unset;
+      transform: scale(1.2);
+    }
+  }
 }
 
 .adou-popover-arrow {

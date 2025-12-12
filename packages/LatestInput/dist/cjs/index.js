@@ -1892,6 +1892,7 @@ var selectOrdinal = function selectOrdinal() {
 
 const Input = (_ref, ref) => {
   let {
+    readonly,
     min,
     max,
     autoFocus,
@@ -2176,7 +2177,7 @@ const Input = (_ref, ref) => {
     step: 1,
     name: name,
     value: value,
-    readOnly: disabled,
+    readOnly: readonly,
     placeholder: placeholder,
     onChange: handleChange,
     onBlur: handleBlur,

@@ -11,6 +11,7 @@ import "./index.scss";
 import { withTranslation } from "react-i18next";
 
 export interface InputProps {
+  readonly?: boolean;
   min?: number;
   max?: number;
   autoFocus?: boolean;
@@ -79,6 +80,7 @@ export interface InputRef {
 
 const Input: React.ForwardRefRenderFunction<InputRef, InputProps> = (
   {
+    readonly,
     min,
     max,
     autoFocus,
@@ -397,7 +399,7 @@ const Input: React.ForwardRefRenderFunction<InputRef, InputProps> = (
         step={1}
         name={name}
         value={value}
-        readOnly={disabled}
+        readOnly={readonly}
         placeholder={placeholder}
         onChange={handleChange}
         onBlur={handleBlur}

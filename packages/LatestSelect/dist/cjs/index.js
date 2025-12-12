@@ -7325,26 +7325,25 @@ const Select = /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_a
   const inputRef = (0,external_root_React_commonjs2_react_commonjs_react_amd_react_.useRef)();
   const tagInputTemValueRef = (0,external_root_React_commonjs2_react_commonjs_react_amd_react_.useRef)("");
 
-  // 选项引用
-  const optionRefs = (0,external_root_React_commonjs2_react_commonjs_react_amd_react_.useRef)([]); // 存储所有项的引用
-
-  // 注册项引用
-  const registerRef = (index, ref) => {
-    if (ref && !optionRefs.current[index]) {
-      optionRefs.current[index] = ref;
-    }
-  };
-
   // 滚动到指定项使其可见
-  const scrollToItem = index => {
-    const item = optionRefs.current[index];
-    if (item) {
-      item.scrollIntoView({
-        behavior: "smooth",
-        block: "nearest",
-        inline: "nearest"
-      });
-    }
+  const scrollToItem = () => {
+    // 由于 DOM 更新有延迟，所以这边统一加个 0ms 的定时器，就不需要在调用的地方 加定时器了
+    setTimeout(() => {
+      // 使用 DOM 来做，不用 ref 来做
+      const optionContainer = document.querySelector(".adou-select-option-box");
+      // 确保 DOM 已经渲染完成
+      if (optionContainer) {
+        const activeOption = optionContainer.querySelector(".adou-select-option-active");
+        console.log("activeOption: ", activeOption);
+        if (activeOption) {
+          activeOption.scrollIntoView({
+            behavior: "smooth",
+            // 可选：平滑滚动
+            block: "nearest" // 可选：对齐方式（start、center、end、nearest）
+          });
+        }
+      }
+    }, 0);
   };
   const handleClose = () => {
     if (disabled) return;
@@ -7679,7 +7678,7 @@ const Select = /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_a
       if (["ArrowUp", "ArrowDown"].includes(event.key)) {
         if (newOptions && newOptions.length) {
           setFocusedIndex(_focusedIndex);
-          scrollToItem(_focusedIndex);
+          scrollToItem();
         }
       }
       onKeyDown && onKeyDown(event);
@@ -7896,8 +7895,6 @@ const Select = /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_a
     setTimeout(() => {
       calcContentPosition();
     }, 0);
-    // 【注意】：在列表变化的时候，要记得把 选项引用 清空！！！不然不会滚动
-    optionRefs.current = [];
   }, [newOptions]);
   (0,external_root_React_commonjs2_react_commonjs_react_amd_react_.useEffect)(() => {
     if (!isShow) {
@@ -7912,9 +7909,7 @@ const Select = /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_a
       setOptionContentWidth(wrapperWidth);
       if ((newOptions === null || newOptions === void 0 ? void 0 : newOptions.length) > 0) {
         // 如果列表有值，则作滚动，需要给个定时器，这样效果更好看
-        setTimeout(() => {
-          scrollToItem(findIndex);
-        }, 150);
+        scrollToItem();
       }
     }
   }, [isShow, newOptions]);
@@ -8150,7 +8145,6 @@ const Select = /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_a
     className: "adou-select-option-box"
   }, newOptions.length > 0 ? newOptions.map((item, index) => /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("div", {
     title: showOptionTitle ? optionTitleRender ? optionTitleRender(item) : item[labelKey] : "",
-    ref: ref => registerRef(index, ref),
     onClick: e => handleSelect(item, e),
     style: {
       color: judgeColor(item, "font"),

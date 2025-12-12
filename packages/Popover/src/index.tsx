@@ -182,6 +182,7 @@ const Popover: React.FC<PopoverProps> = forwardRef(
               <div className="adou-popover-content" ref={contentRef}>
                 {content}
               </div>
+              <i onClick={handleClosePopover} className="close-icon fa-regular fa-circle-xmark hover-scale"></i>
             </div>,
             document.body
           )}

@@ -1,6 +1,7 @@
 import React, { ReactNode } from "react";
 import "./index.scss";
 export interface InputProps {
+    readonly?: boolean;
     min?: number;
     max?: number;
     autoFocus?: boolean;
@@ -66,6 +67,7 @@ export interface InputRef {
 }
 declare const _default: React.ComponentType<Omit<{
     inline?: boolean | undefined;
+    readonly?: boolean | undefined;
     min?: number | undefined;
     max?: number | undefined;
     autoFocus?: boolean | undefined;
