@@ -190,7 +190,7 @@ const Button = props => {
     className: "btn  btn-".concat(size, " ").concat(round ? "rounded-pill" : "", " ").concat(textColor ? "text-".concat(textColor) : "", " ").concat(outlineColor ? "btn-outline-".concat(outlineColor) : "btn-".concat(type), " ").concat(disabled ? "disabled" : "", " ").concat(externalClassName),
     disabled: loading
   }, loading ? /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", {
-    className: "loading-btn"
+    className: "loading-btn text-nowrap"
   }, renderLoadingIcon(), renderLabel()) : /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement((react__WEBPACK_IMPORTED_MODULE_0___default().Fragment), null, prefixIcon && renderPrefixIcon(), renderLabel(), suffixIcon && rendersuffixIcon())));
 };
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (Button);

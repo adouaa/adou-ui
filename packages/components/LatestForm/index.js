@@ -616,10 +616,9 @@ const Form = /*#__PURE__*/(0,external_root_React_commonjs2_react_commonjs_react_
 
   // 存放 FormItem 的 refs
   const formItemRefs = (0,external_root_React_commonjs2_react_commonjs_react_amd_react_.useRef)({});
-
-  // 存放 校验失败的表单的 label
-  const errorLabels = [];
   const validateForm = detail => {
+    // 存放 校验失败的表单的 label
+    const errorLabels = [];
     let isValid = true;
     for (const key in formItemRefs.current) {
       const formItemRef = formItemRefs.current[key];

@@ -83,10 +83,9 @@ const Form = forwardRef(
       {}
     );
 
-    // 存放 校验失败的表单的 label
-    const errorLabels: string[] = [];
-
     const validateForm = (detail?: boolean) => {
+      // 存放 校验失败的表单的 label
+      const errorLabels: string[] = [];
       let isValid = true;
       for (const key in formItemRefs.current) {
         const formItemRef = formItemRefs.current[key];

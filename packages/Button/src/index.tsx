@@ -127,7 +127,7 @@ const Button: React.FC<buttonProps> = (props: buttonProps) => {
         disabled={loading}
       >
         {loading ? (
-          <div className="loading-btn">
+          <div className="loading-btn text-nowrap">
             {renderLoadingIcon()}
             {renderLabel()}
           </div>
