@@ -63,5 +63,6 @@ declare const _default: React.ComponentType<Omit<{
     onRowClick?: ((row: any) => void) | undefined;
     onPageChange?: ((page: number) => void) | undefined;
     onPageSizeChange?: ((size: number) => void) | undefined;
+    onCheckedChange?: ((row: any, data: any[]) => void) | undefined;
 }, keyof import("react-i18next").WithTranslation<N, undefined>> & import("react-i18next").WithTranslationProps>;
 export default _default;

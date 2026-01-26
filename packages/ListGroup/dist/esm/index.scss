@@ -4,6 +4,10 @@
         background-color: transparent;
     }
 
+    .list-group-item-disabled {
+        cursor: not-allowed;
+    }
+
     /* // 滚动条变细
     ::-webkit-scrollbar {
         width: 4px;

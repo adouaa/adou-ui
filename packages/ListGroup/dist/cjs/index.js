@@ -157,7 +157,10 @@ ___CSS_LOADER_EXPORT___.push([module.id, `@charset "UTF-8";
 .list-group-wrapper .list-group-item-action:focus {
   outline: none;
   background-color: transparent;
-}`, "",{"version":3,"sources":["webpack://./src/index.scss"],"names":[],"mappings":"AAAA,gBAAgB;AAAhB;EAMI;;;;;;;;;;KAAA;AAOJ;AAZI;EACI,aAAA;EACA,6BAAA;AAcR","sourcesContent":[".list-group-wrapper {\r\n    .list-group-item-action:focus {\r\n        outline: none;\r\n        background-color: transparent;\r\n    }\r\n\r\n    /* // 滚动条变细\r\n    ::-webkit-scrollbar {\r\n        width: 4px;\r\n        height: 4px;\r\n    }\r\n\r\n    // 滚动条滑块\r\n    ::-webkit-scrollbar-thumb {\r\n        border-radius: 10px;\r\n        background: #bfbfbf;\r\n    } */\r\n}"],"sourceRoot":""}]);
+}
+.list-group-wrapper .list-group-item-disabled {
+  cursor: not-allowed;
+}`, "",{"version":3,"sources":["webpack://./src/index.scss"],"names":[],"mappings":"AAAA,gBAAgB;AAAhB;EAUI;;;;;;;;;;KAAA;AAGJ;AAZI;EACI,aAAA;EACA,6BAAA;AAcR;AAXI;EACI,mBAAA;AAaR","sourcesContent":[".list-group-wrapper {\r\n    .list-group-item-action:focus {\r\n        outline: none;\r\n        background-color: transparent;\r\n    }\r\n\r\n    .list-group-item-disabled {\r\n        cursor: not-allowed;\r\n    }\r\n\r\n    /* // 滚动条变细\r\n    ::-webkit-scrollbar {\r\n        width: 4px;\r\n        height: 4px;\r\n    }\r\n\r\n    // 滚动条滑块\r\n    ::-webkit-scrollbar-thumb {\r\n        border-radius: 10px;\r\n        background: #bfbfbf;\r\n    } */\r\n}"],"sourceRoot":""}]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 
@@ -633,6 +636,9 @@ const ListGroup = _ref => {
     return flatIndex + itemIndex;
   };
   const handleItemClick = (item, index) => {
+    if (item.disabled) {
+      return;
+    }
     let data;
     if (multiple && Array.isArray(activeList)) {
       const hasSelected = activeList.some(selectedItem => selectedItem[valueKey] === item[valueKey]);
@@ -910,7 +916,7 @@ const ListGroup = _ref => {
     onClick: () => handleItemClick(item, index),
     onDoubleClick: e => handleItemDoubleClick(e, item, index),
     key: item[valueKey],
-    className: "list-group-item list-group-item-action px-2 ".concat(buttonClassName ? buttonClassName : "", " ").concat(judgeIsActive(item))
+    className: "list-group-item list-group-item-action px-2 ".concat(buttonClassName ? buttonClassName : "", " ").concat(judgeIsActive(item), "  ").concat(item.disabled ? "list-group-item-disabled bg-light" : "")
   }, item.render ? item.render(item, labelKey, valueKey) : render ? /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("div", {
     className: "label-text"
   }, render(item, labelKey, valueKey)) : multiple ? /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("div", {

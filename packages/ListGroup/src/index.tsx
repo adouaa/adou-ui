@@ -100,6 +100,9 @@ const ListGroup = ({
   };
 
   const handleItemClick = (item: any, index: number) => {
+    if (item.disabled) {
+      return;
+    }
     let data: any;
     if (multiple && Array.isArray(activeList)) {
       const hasSelected = activeList.some(
@@ -343,7 +346,9 @@ const ListGroup = ({
               <ul
                 className={`list-group ${
                   columnIndex === list.length - 1 ? "" : "me-2"
-                } ${showBorder ? "border" : ""} ${listGroupClassName ? listGroupClassName : ""}`}
+                } ${showBorder ? "border" : ""} ${
+                  listGroupClassName ? listGroupClassName : ""
+                }`}
                 style={{
                   height,
                   // maxHeight:
@@ -352,7 +357,7 @@ const ListGroup = ({
                     columnMaxHeight || maxHeight || height || parentMaxHeight,
                   borderRadius: showBorderRadius ? "5px" : "0",
                   boxSizing: "border-box",
-                  ...lisgGroupStyle
+                  ...lisgGroupStyle,
                 }}
               >
                 {Array.isArray(columnItems) &&
@@ -415,18 +420,20 @@ const ListGroup = ({
       ) : (
         // 好像不会执行这边的渲染
         <div
-          className={`list-group ${showBorder && list.length ? "border" : ""} ${listGroupClassName? listGroupClassName : ""}`}
+          className={`list-group ${showBorder && list.length ? "border" : ""} ${
+            listGroupClassName ? listGroupClassName : ""
+          }`}
           style={{
             height,
             maxHeight: maxHeight || height,
             overflowY: "auto",
             borderRadius: !showBorderRadius ? "0px" : "5px",
-            ...lisgGroupStyle
+            ...lisgGroupStyle,
           }}
         >
           {list!?.map((item: any, index: number) => (
             <div
-              className="list-group-item-wrapper d-flex align-items-center"
+              className={`list-group-item-wrapper d-flex align-items-center`}
               key={item[valueKey!]}
             >
               <div
@@ -437,14 +444,16 @@ const ListGroup = ({
                   // 不能用 maxWidth，因为如果是短的 label 就不起作用了
                   minWidth: buttonMaxWidth,
                   cursor: "pointer",
-                  ...buttonStyle
+                  ...buttonStyle,
                 }}
                 onClick={() => handleItemClick(item, index)}
                 onDoubleClick={(e) => handleItemDoubleClick(e, item, index)}
                 key={item[valueKey!]}
                 className={`list-group-item list-group-item-action px-2 ${
                   buttonClassName ? buttonClassName : ""
-                } ${judgeIsActive(item)}`}
+                } ${judgeIsActive(item)}  ${
+                  item.disabled ? "list-group-item-disabled bg-light" : ""
+                }`}
               >
                 {item.render ? (
                   item.render(item, labelKey, valueKey)

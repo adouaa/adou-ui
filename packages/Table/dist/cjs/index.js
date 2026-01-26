@@ -9496,7 +9496,8 @@ const Table = props => {
     onRowDoubleClick,
     onRowClick,
     onPageChange,
-    onPageSizeChange
+    onPageSizeChange,
+    onCheckedChange
   } = props;
   const [tableData, setTableData] = (0,external_root_React_commonjs2_react_commonjs_react_amd_react_.useState)([]);
   const [tableHeaders, setTableHeaders] = (0,external_root_React_commonjs2_react_commonjs_react_amd_react_.useState)([]);
@@ -9509,6 +9510,7 @@ const Table = props => {
   const [pageSizeState, setPageSizeState] = (0,external_root_React_commonjs2_react_commonjs_react_amd_react_.useState)(pageSize);
   const [totalPages, setTotalPages] = (0,external_root_React_commonjs2_react_commonjs_react_amd_react_.useState)(0);
   const [paginatedData, setPaginatedData] = (0,external_root_React_commonjs2_react_commonjs_react_amd_react_.useState)([]);
+  const [dataLoaded, setDataLoaded] = (0,external_root_React_commonjs2_react_commonjs_react_amd_react_.useState)(false);
 
   // 唯一 id 加上 uniqId 防止多个表格的相同复选框冲突
   const uniqId = (0,external_root_React_commonjs2_react_commonjs_react_amd_react_.useId)();
@@ -10364,6 +10366,7 @@ const Table = props => {
     }
     // 4. 判断是不是全选
     setCheckedAll(areAllChecked(tempTableData));
+    onCheckedChange && onCheckedChange(row, tempTableData);
   };
   function areAllChecked(data) {
     // 遍历数组中的每个对象
@@ -10395,6 +10398,7 @@ const Table = props => {
         return item;
       });
     };
+    onCheckedChange && onCheckedChange(null, updateCheckedState(tableData));
     setTableData(updateCheckedState(tableData));
   };
 
@@ -10524,6 +10528,7 @@ const Table = props => {
     if (!data.length) {
       setTableData([]);
       setCheckedAll(false); // 数据为空的时候，也要把 表头全选置空
+      setDataLoaded(true); // 👈 添加这行
       return;
     }
     let tempData = JSON.parse(JSON.stringify(data));
@@ -10545,9 +10550,11 @@ const Table = props => {
       setTimeout(() => {
         const tableData = recursiveExpandTable(_tempData);
         setTableData(tableData);
+        setDataLoaded(true); // 👈 添加这行
       }, 10);
     } else {
       setTableData(_tempData);
+      setDataLoaded(true); // 👈 添加这行
     }
     if (_tempData.length) {
       // 必须给个 10ms 的延迟，不然默认选中会出现问题
@@ -10786,7 +10793,7 @@ const Table = props => {
       width: tableWidth
     },
     className: "table ".concat(tableStriped ? "table-striped" : "", " ").concat(tableBorderd ? "table-bordered" : "table-borderless", " table-").concat(size, " ").concat(headColor ? "table-".concat(headColor) : "", " overflow-auto ").concat(paginatedData.length === 0 ? "mb-0" : "")
-  }, showHeader && renderTableHeader(), renderTableBody()), paginatedData.length === 0 && /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("div", {
+  }, showHeader && renderTableHeader(), renderTableBody()), dataLoaded && paginatedData.length === 0 && /*#__PURE__*/external_root_React_commonjs2_react_commonjs_react_amd_react_default().createElement("div", {
     className: "text-center p-1"
   }, "\u6682\u65E0\u6570\u636E~"), renderPagination()));
 };

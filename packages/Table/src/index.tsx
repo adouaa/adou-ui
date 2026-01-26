@@ -90,6 +90,7 @@ interface TableProps {
   onRowClick?: (row: any) => void;
   onPageChange?: (page: number) => void; // 页码改变的回调
   onPageSizeChange?: (size: number) => void; // 每页条数改变的回调
+  onCheckedChange?: (row: any, data: any[]) => void;
 }
 
 const Table = (props: TableProps) => {
@@ -152,6 +153,7 @@ const Table = (props: TableProps) => {
     onRowClick,
     onPageChange,
     onPageSizeChange,
+    onCheckedChange
   } = props;
 
   const [tableData, setTableData] = useState<any[]>([]);
@@ -165,6 +167,8 @@ const Table = (props: TableProps) => {
   const [pageSizeState, setPageSizeState] = useState<number>(pageSize);
   const [totalPages, setTotalPages] = useState<number>(0);
   const [paginatedData, setPaginatedData] = useState<any[]>([]);
+
+  const [dataLoaded, setDataLoaded] = useState(false);
 
   // 唯一 id 加上 uniqId 防止多个表格的相同复选框冲突
   const uniqId = useId();
@@ -1258,6 +1262,7 @@ const Table = (props: TableProps) => {
     }
     // 4. 判断是不是全选
     setCheckedAll(areAllChecked(tempTableData));
+    onCheckedChange && onCheckedChange(row, tempTableData)
   };
 
   function areAllChecked(data: any[]): any {
@@ -1292,7 +1297,7 @@ const Table = (props: TableProps) => {
         return item;
       });
     };
-
+    onCheckedChange && onCheckedChange(null, updateCheckedState(tableData));
     setTableData(updateCheckedState(tableData) as any);
   };
 
@@ -1442,6 +1447,7 @@ const Table = (props: TableProps) => {
     if (!data.length) {
       setTableData([]);
       setCheckedAll(false); // 数据为空的时候，也要把 表头全选置空
+      setDataLoaded(true); // 👈 添加这行
       return;
     }
     let tempData = JSON.parse(JSON.stringify(data));
@@ -1463,9 +1469,11 @@ const Table = (props: TableProps) => {
       setTimeout(() => {
         const tableData = recursiveExpandTable(_tempData);
         setTableData(tableData);
+        setDataLoaded(true); // 👈 添加这行
       }, 10);
     } else {
       setTableData(_tempData);
+      setDataLoaded(true); // 👈 添加这行
     }
 
     if (_tempData.length) {
@@ -1710,7 +1718,7 @@ const Table = (props: TableProps) => {
           {showHeader && renderTableHeader()}
           {renderTableBody()}
         </table>
-        {paginatedData.length === 0 && (
+        {dataLoaded && paginatedData.length === 0 && (
           <div className="text-center p-1">暂无数据~</div>
         )}
         {renderPagination()}
